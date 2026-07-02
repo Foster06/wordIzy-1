@@ -7,7 +7,7 @@ export type Translation = {
   nav: {
     unscrambler: string; scramble: string; wordle: string; quordle: string;
     anagram: string; random: string; wordfeud: string; dictionary: string;
-    scrabble: string; wordlists: string; about: string; contact: string;
+    scrabble: string; wordlists: string; wordstarts: string; wordends: string; about: string; contact: string;
     privacy: string; sitemap: string; tools: string; more: string;
   };
   brand: { name: string; tagline: string };
@@ -51,7 +51,7 @@ const en: Translation = {
     unscrambler: "Unscrambler", scramble: "Scramble Solver", wordle: "Wordle Solver",
     quordle: "Quordle Solver", anagram: "Anagram Solver", random: "Random Word",
     wordfeud: "Wordfeud Helper", dictionary: "Check Dictionary", scrabble: "Scrabble Duplicate",
-    wordlists: "Word Lists", about: "About", contact: "Contact", privacy: "Privacy",
+    wordlists: "Word Lists", wordstarts: "Starts By", wordends: "Ends By", about: "About", contact: "Contact", privacy: "Privacy",
     sitemap: "Sitemap", tools: "Tools", more: "More",
   },
   brand: { name: "WordIzy", tagline: "Unscramble. Solve. Win." },
@@ -130,7 +130,7 @@ const fr: Translation = {
     unscrambler: "Anagrammeur", scramble: "Solveur de Mélange", wordle: "Solveur Wordle",
     quordle: "Solveur Quordle", anagram: "Solveur d'Anagrammes", random: "Mot Aléatoire",
     wordfeud: "Aide Wordfeud", dictionary: "Vérifier le Dico", scrabble: "Scrabble Duplicate",
-    wordlists: "Listes de Mots", about: "À propos", contact: "Contact", privacy: "Confidentialité",
+    wordlists: "Listes de Mots", wordstarts: "Commence Par", wordends: "Finit Par", about: "À propos", contact: "Contact", privacy: "Confidentialité",
     sitemap: "Plan du site", tools: "Outils", more: "Plus",
   },
   brand: { name: "WordIzy", tagline: "Anagrammez. Résolvez. Gagnez." },
@@ -206,7 +206,7 @@ const es: Translation = {
     unscrambler: "Desordenador", scramble: "Sol. Mezcla", wordle: "Sol. Wordle",
     quordle: "Sol. Quordle", anagram: "Sol. Anagramas", random: "Palabra Aleatoria",
     wordfeud: "Ayuda Wordfeud", dictionary: "Ver Diccionario", scrabble: "Scrabble Duplicate",
-    wordlists: "Listas de Palabras", about: "Acerca de", contact: "Contacto", privacy: "Privacidad",
+    wordlists: "Listas de Palabras", wordstarts: "Empieza Por", wordends: "Termina En", about: "Acerca de", contact: "Contacto", privacy: "Privacidad",
     sitemap: "Mapa del sitio", tools: "Herramientas", more: "Más",
   },
   brand: { name: "WordIzy", tagline: "Desordena. Resuelve. Gana." },
@@ -255,7 +255,7 @@ const de: Translation = {
     unscrambler: "Entwirker", scramble: "Misch-Löser", wordle: "Wordle-Löser",
     quordle: "Quordle-Löser", anagram: "Anagramm-Löser", random: "Zufallswort",
     wordfeud: "Wordfeud-Hilfe", dictionary: "Wörterbuch", scrabble: "Scrabble Duplicate",
-    wordlists: "Wortlisten", about: "Über", contact: "Kontakt", privacy: "Datenschutz",
+    wordlists: "Wortlisten", wordstarts: "Beginnt Mit", wordends: "Endet Mit", about: "Über", contact: "Kontakt", privacy: "Datenschutz",
     sitemap: "Sitemap", tools: "Werkzeuge", more: "Mehr",
   },
   brand: { name: "WordIzy", tagline: "Entwirren. Lösen. Gewinnen." },
@@ -304,7 +304,7 @@ const it: Translation = {
     unscrambler: "Anagrammatore", scramble: "Ris. Mischia", wordle: "Ris. Wordle",
     quordle: "Ris. Quordle", anagram: "Ris. Anagrammi", random: "Parola Casuale",
     wordfeud: "Aiuto Wordfeud", dictionary: "Verifica Diz.", scrabble: "Scrabble Duplicate",
-    wordlists: "Liste Parole", about: "Info", contact: "Contatti", privacy: "Privacy",
+    wordlists: "Liste Parole", wordstarts: "Inizia Per", wordends: "Finisce Per", about: "Info", contact: "Contatti", privacy: "Privacy",
     sitemap: "Mappa", tools: "Strumenti", more: "Altro",
   },
   brand: { name: "WordIzy", tagline: "Riordina. Risolvi. Vinci." },
@@ -353,7 +353,7 @@ const pt: Translation = {
     unscrambler: "Descodificador", scramble: "Sol. Mistura", wordle: "Sol. Wordle",
     quordle: "Sol. Quordle", anagram: "Sol. Anagramas", random: "Palavra Aleatória",
     wordfeud: "Ajuda Wordfeud", dictionary: "Verificar Dicio.", scrabble: "Scrabble Duplicate",
-    wordlists: "Listas de Palavras", about: "Sobre", contact: "Contato", privacy: "Privacidade",
+    wordlists: "Listas de Palavras", wordstarts: "Começa Por", wordends: "Termina Em", about: "Sobre", contact: "Contato", privacy: "Privacidade",
     sitemap: "Mapa do site", tools: "Ferramentas", more: "Mais",
   },
   brand: { name: "WordIzy", tagline: "Descodifica. Resolve. Vence." },
@@ -402,7 +402,7 @@ const nl: Translation = {
     unscrambler: "Woordontwarer", scramble: "Mengoplosser", wordle: "Wordle-oplosser",
     quordle: "Quordle-oplosser", anagram: "Anagram-oplosser", random: "Willekeurig Woord",
     wordfeud: "Wordfeud-hulp", dictionary: "Woordenboek", scrabble: "Scrabble Duplicate",
-    wordlists: "Woordlijsten", about: "Over", contact: "Contact", privacy: "Privacy",
+    wordlists: "Woordlijsten", wordstarts: "Begint Met", wordends: "Eindigt Op", about: "Over", contact: "Contact", privacy: "Privacy",
     sitemap: "Sitemap", tools: "Hulpmiddelen", more: "Meer",
   },
   brand: { name: "WordIzy", tagline: "Ontwar. Los op. Win." },
@@ -452,7 +452,7 @@ const ja: Translation = {
     unscrambler: "アナグラム", scramble: "ミックス解決", wordle: "Wordle解決",
     quordle: "Quordle解決", anagram: "アナグラム解決", random: "ランダム単語",
     wordfeud: "Wordfeudヘルプ", dictionary: "辞書チェック", scrabble: "スクラブル複製",
-    wordlists: "単語リスト", about: "概要", contact: "お問い合わせ", privacy: "プライバシー",
+    wordlists: "単語リスト", wordstarts: "始まる", wordends: "終わる", about: "概要", contact: "お問い合わせ", privacy: "プライバシー",
     sitemap: "サイトマップ", tools: "ツール", more: "その他",
   },
   brand: { name: "WordIzy", tagline: "解き、勝つ。" },
@@ -504,7 +504,7 @@ const zh: Translation = {
     unscrambler: "字母重组", scramble: "乱序求解", wordle: "Wordle求解",
     quordle: "Quordle求解", anagram: "易位词", random: "随机单词",
     wordfeud: "Wordfeud助手", dictionary: "查词典", scrabble: "Scrabble复刻",
-    wordlists: "单词表", about: "关于", contact: "联系", privacy: "隐私",
+    wordlists: "单词表", wordstarts: "开头", wordends: "结尾", about: "关于", contact: "联系", privacy: "隐私",
     sitemap: "网站地图", tools: "工具", more: "更多",
   },
   brand: { name: "WordIzy", tagline: "重组。求解。获胜。" },

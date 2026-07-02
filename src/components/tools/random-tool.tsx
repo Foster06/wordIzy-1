@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Loader2, Dices } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -11,7 +10,7 @@ import {
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
 import { WordGroups } from "@/components/site/word-groups";
-import { DictionarySelect } from "@/components/site/dictionary-select";
+import { ActionButtons } from "@/components/site/action-buttons";
 import { TipsSection } from "@/components/site/tips-section";
 import { PageHeader } from "@/components/site/page-header";
 import { useApi } from "@/components/site/use-api";
@@ -65,10 +64,7 @@ export function RandomTool() {
       <PageHeader badge={t.nav.random} title={t.random.title} subtitle={t.random.subtitle} icon={<Dices className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
         <GlassCard strong className="p-5 sm:p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-brand">{t.random.title}</h2>
-            <DictionarySelect className="w-[180px] h-9" />
-          </div>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-brand mb-4">{t.random.title}</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="space-y-1.5">
               <Label className="text-xs text-muted-foreground">{t.random.length}</Label>
@@ -99,10 +95,16 @@ export function RandomTool() {
               <Input type="number" min={1} max={200} value={count} onChange={(e) => setCount(e.target.value)} className="h-9 glass-soft border-white/10" />
             </div>
           </div>
-          <Button onClick={generate} disabled={loading} className="mt-5 gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold hover:opacity-90 rounded-lg px-6">
-            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Dices className="h-4 w-4" />}
-            {t.random.btn}
-          </Button>
+          <div className="mt-5">
+            <ActionButtons
+              actionLabel={t.random.btn}
+              actionIcon={Dices}
+              onAction={generate}
+              onClear={() => { setLength("any"); setStartsWith(""); setEndsWith(""); setContains(""); setCount("12"); setGroups(null); }}
+              loading={loading}
+              t={t}
+            />
+          </div>
         </GlassCard>
 
         <AdSlot format="horizontal" />

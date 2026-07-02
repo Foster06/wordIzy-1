@@ -7,7 +7,7 @@ import type { Translation } from "@/components/i18n/translations";
 export type RouteId =
   | "home" | "scramble" | "wordle" | "quordle" | "anagram"
   | "random" | "wordfeud" | "dictionary" | "scrabble"
-  | "wordlists" | "about" | "contact" | "privacy" | "sitemap";
+  | "wordlists" | "wordstarts" | "wordends" | "about" | "contact" | "privacy" | "sitemap";
 
 export interface RouteDef {
   id: RouteId;
@@ -28,6 +28,8 @@ export const ROUTES: RouteDef[] = [
   { id: "dictionary", hash: "/dictionary", icon: "BookOpen", labelKey: "dictionary", group: "tools" },
   { id: "scrabble", hash: "/scrabble", icon: "Trophy", labelKey: "scrabble", group: "tools" },
   { id: "wordlists", hash: "/wordlists", icon: "List", labelKey: "wordlists", group: "lists" },
+  { id: "wordstarts", hash: "/wordstarts", icon: "ArrowDownToLine", labelKey: "wordstarts", group: "lists" },
+  { id: "wordends", hash: "/wordends", icon: "ArrowUpFromLine", labelKey: "wordends", group: "lists" },
   { id: "about", hash: "/about", icon: "Info", labelKey: "about", group: "info" },
   { id: "contact", hash: "/contact", icon: "Mail", labelKey: "contact", group: "info" },
   { id: "privacy", hash: "/privacy", icon: "Shield", labelKey: "privacy", group: "info" },

@@ -19,6 +19,8 @@ import { WordfeudTool } from "@/components/tools/wordfeud-tool";
 import { DictionaryTool } from "@/components/tools/dictionary-tool";
 import { ScrabbleTool } from "@/components/tools/scrabble-tool";
 import { WordlistsTool } from "@/components/tools/wordlists-tool";
+import { WordStartsTool } from "@/components/tools/word-starts-tool";
+import { WordEndsTool } from "@/components/tools/word-ends-tool";
 import { AboutView, ContactView, PrivacyView, SitemapView } from "@/components/tools/info-views";
 
 function HomeHero() {
@@ -63,6 +65,8 @@ export default function Home() {
       case "dictionary": return <DictionaryTool />;
       case "scrabble": return <ScrabbleTool />;
       case "wordlists": return <WordlistsTool />;
+      case "wordstarts": return <WordStartsTool />;
+      case "wordends": return <WordEndsTool />;
       case "about": return <AboutView />;
       case "contact": return <ContactView />;
       case "privacy": return <PrivacyView />;

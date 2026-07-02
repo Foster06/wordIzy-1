@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Lora } from "next/font/google";
 import "./globals.css";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { LanguageProvider } from "@/components/i18n/language-provider";
+import { ThemeProvider } from "@/components/site/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,11 +52,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}
       >
-        <LanguageProvider>{children}</LanguageProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
         <SonnerToaster position="top-center" richColors />
       </body>
     </html>

@@ -46,9 +46,60 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* ---------- LIGHT THEME (default :root) ---------- */
 :root {
   --radius: 0.875rem;
-  /* WordIzy dark frosted-glass palette (dark is the default & only theme) */
+  --background: #f7f4ec;
+  --foreground: #1a1814;
+  --card: #ffffff;
+  --card-foreground: #1a1814;
+  --popover: #ffffff;
+  --popover-foreground: #1a1814;
+  --primary: #e8960f;
+  --primary-foreground: #ffffff;
+  --secondary: #ede8db;
+  --secondary-foreground: #1a1814;
+  --muted: #ece7d8;
+  --muted-foreground: #6b6453;
+  --accent: #f5a623;
+  --accent-foreground: #1a1814;
+  --destructive: #dc2626;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: rgba(0, 0, 0, 0.06);
+  --ring: #e8960f;
+  --brand: #e8960f;
+  --brand-soft: #d97706;
+  --chart-1: #e8960f;
+  --chart-2: #d97706;
+  --chart-3: #c2410c;
+  --chart-4: #92400e;
+  --chart-5: #78350f;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a1814;
+  --sidebar-primary: #e8960f;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ede8db;
+  --sidebar-accent-foreground: #1a1814;
+  --sidebar-border: rgba(0, 0, 0, 0.1);
+  --sidebar-ring: #e8960f;
+  --tile-cream: #e8d5a3;
+  --tile-cream-dark: #c9b783;
+  /* glass variables (light) */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-strong-bg: rgba(255, 255, 255, 0.75);
+  --glass-strong-border: rgba(0, 0, 0, 0.1);
+  --glass-soft-bg: rgba(255, 255, 255, 0.45);
+  --glass-soft-border: rgba(0, 0, 0, 0.06);
+  --glass-hover-bg: rgba(255, 255, 255, 0.8);
+  --body-glow-1: rgba(245, 166, 35, 0.12);
+  --body-glow-2: rgba(232, 150, 15, 0.10);
+  --body-glow-3: rgba(245, 166, 35, 0.06);
+  --tile-shadow: rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- DARK THEME ---------- */
+.dark {
   --background: #0d0d0f;
   --foreground: #f5f1e8;
   --card: #15151a;
@@ -84,6 +135,18 @@
   --sidebar-ring: #f5a623;
   --tile-cream: #e8d5a3;
   --tile-cream-dark: #c9b783;
+  /* glass variables (dark) */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-strong-bg: rgba(255, 255, 255, 0.09);
+  --glass-strong-border: rgba(255, 255, 255, 0.12);
+  --glass-soft-bg: rgba(255, 255, 255, 0.04);
+  --glass-soft-border: rgba(255, 255, 255, 0.07);
+  --glass-hover-bg: rgba(255, 255, 255, 0.1);
+  --body-glow-1: rgba(245, 166, 35, 0.10);
+  --body-glow-2: rgba(232, 150, 15, 0.08);
+  --body-glow-3: rgba(245, 166, 35, 0.05);
+  --tile-shadow: rgba(0, 0, 0, 0.5);
 }
 
 @layer base {
@@ -93,13 +156,16 @@
   html {
     color-scheme: dark;
   }
+  html:not(.dark) {
+    color-scheme: light;
+  }
   body {
     @apply bg-background text-foreground;
     background-color: var(--background);
     background-image:
-      radial-gradient(900px 500px at 12% -8%, rgba(245, 166, 35, 0.10), transparent 60%),
-      radial-gradient(800px 500px at 100% 0%, rgba(232, 150, 15, 0.08), transparent 55%),
-      radial-gradient(700px 700px at 50% 120%, rgba(245, 166, 35, 0.05), transparent 60%);
+      radial-gradient(900px 500px at 12% -8%, var(--body-glow-1), transparent 60%),
+      radial-gradient(800px 500px at 100% 0%, var(--body-glow-2), transparent 55%),
+      radial-gradient(700px 700px at 50% 120%, var(--body-glow-3), transparent 60%);
     background-attachment: fixed;
   }
 }
@@ -107,28 +173,28 @@
 /* ---------- Frosted glass utilities ---------- */
 @layer components {
   .glass {
-    background-color: rgba(255, 255, 255, 0.06);
+    background-color: var(--glass-bg);
     backdrop-filter: blur(20px) saturate(120%);
     -webkit-backdrop-filter: blur(20px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
   }
   .glass-strong {
-    background-color: rgba(255, 255, 255, 0.09);
+    background-color: var(--glass-strong-bg);
     backdrop-filter: blur(24px) saturate(130%);
     -webkit-backdrop-filter: blur(24px) saturate(130%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--glass-strong-border);
   }
   .glass-soft {
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: var(--glass-soft-bg);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--glass-soft-border);
   }
   .glass-hover {
     transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, transform 0.2s ease;
   }
   .glass-hover:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--glass-hover-bg);
     border-color: rgba(245, 166, 35, 0.45);
     box-shadow: 0 0 0 1px rgba(245, 166, 35, 0.25), 0 12px 40px -12px rgba(245, 166, 35, 0.35);
   }
@@ -153,16 +219,17 @@
     background: linear-gradient(160deg, #f0deb0 0%, #e8d5a3 45%, #d8c490 100%);
     color: #2a2118;
     border: 1px solid rgba(0, 0, 0, 0.18);
-    border-radius: 0.5rem;
+    border-radius: 0.25rem;
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.5) inset,
       0 -2px 4px rgba(0, 0, 0, 0.18) inset,
-      0 6px 14px -6px rgba(0, 0, 0, 0.5);
+      0 6px 14px -6px var(--tile-shadow);
     font-family: var(--font-serif), Georgia, "Times New Roman", serif;
     font-weight: 700;
     line-height: 1;
     user-select: none;
     transition: transform 0.18s ease, box-shadow 0.18s ease;
+    aspect-ratio: 1 / 1;
   }
   .scrab-tile::after {
     content: attr(data-value);
@@ -180,7 +247,7 @@
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.5) inset,
       0 -2px 4px rgba(0, 0, 0, 0.18) inset,
-      0 12px 22px -8px rgba(0, 0, 0, 0.6);
+      0 12px 22px -8px var(--tile-shadow);
   }
   .scrab-tile-blank {
     background: linear-gradient(160deg, #efe6cf 0%, #ddd0b0 100%);
@@ -194,7 +261,7 @@
     border-radius: 0.5rem;
     background: rgba(245, 166, 35, 0.08);
     border: 1px solid rgba(245, 166, 35, 0.22);
-    color: #f5f1e8;
+    color: var(--foreground);
     font-family: var(--font-geist-sans), system-ui, sans-serif;
     font-weight: 600;
     transition: all 0.18s ease;
@@ -207,7 +274,7 @@
   }
   .word-chip .pts {
     font-size: 0.7em;
-    color: #f5a623;
+    color: var(--brand);
     font-weight: 700;
   }
 }

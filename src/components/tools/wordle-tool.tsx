@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import { Loader2, Grid3x3 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
 import { WordList } from "@/components/site/word-list";
-import { DictionarySelect } from "@/components/site/dictionary-select";
+import { ActionButtons } from "@/components/site/action-buttons";
 import { TipsSection } from "@/components/site/tips-section";
 import { PageHeader } from "@/components/site/page-header";
 import { useApi } from "@/components/site/use-api";
@@ -48,10 +47,7 @@ export function WordleTool() {
       <div className="mt-6 space-y-6">
         <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
           <GlassCard strong className="p-5 sm:p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-brand">{t.wordle.title}</h2>
-              <DictionarySelect className="w-[180px] h-9" />
-            </div>
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-brand mb-4">{t.wordle.title}</h2>
 
             <div className="space-y-4">
               <div className="space-y-1.5">
@@ -86,10 +82,15 @@ export function WordleTool() {
                 </div>
               </div>
 
-              <Button onClick={solve} disabled={loading} className="w-full gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold hover:opacity-90 rounded-lg">
-                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Grid3x3 className="h-4 w-4" />}
-                {t.wordle.btn}
-              </Button>
+              <ActionButtons
+                actionLabel={t.wordle.btn}
+                actionIcon={Grid3x3}
+                onAction={solve}
+                onClear={() => { setPattern(""); setValid(""); setExcluded(""); setWords(null); }}
+                loading={loading}
+                t={t}
+                fullWidth
+              />
             </div>
           </GlassCard>
 

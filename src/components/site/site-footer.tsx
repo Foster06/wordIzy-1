@@ -10,7 +10,7 @@ export function SiteFooter() {
   const { navigate } = useHashRoute();
   const { t } = useLanguage();
   const toolRoutes = ROUTES.filter((r) => r.group === "tools");
-  const infoRoutes = ROUTES.filter((r) => r.group === "info" || r.id === "wordlists");
+  const infoRoutes = ROUTES.filter((r) => r.group === "info" || r.group === "lists");
 
   return (
     <footer className="mt-auto border-t border-white/5 bg-background/60 backdrop-blur-xl">

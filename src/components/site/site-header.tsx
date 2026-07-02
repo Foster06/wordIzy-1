@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2,
   BookOpen, Trophy, List, Info, Mail, Shield, Map, Menu, ChevronDown, Sparkles,
+  ArrowDownToLine, ArrowUpFromLine,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,11 +17,12 @@ import { ROUTES, type RouteDef } from "./routes";
 import { useHashRoute } from "./use-hash-route";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LanguageSelector } from "./language-selector";
+import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2,
-  BookOpen, Trophy, List, Info, Mail, Shield, Map,
+  BookOpen, Trophy, List, Info, Mail, Shield, Map, ArrowDownToLine, ArrowUpFromLine,
 };
 
 function NavIcon({ name, className }: { name: string; className?: string }) {
@@ -33,7 +35,8 @@ export function SiteHeader() {
   const { t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const toolsRoutes = ROUTES.filter((r) => r.group === "tools" || r.id === "wordlists");
+  const toolsRoutes = ROUTES.filter((r) => r.group === "tools");
+  const listsRoutes = ROUTES.filter((r) => r.group === "lists");
   const infoRoutes = ROUTES.filter((r) => r.group === "info");
 
   const go = (hash: string) => {
@@ -88,16 +91,32 @@ export function SiteHeader() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Link
-              href="#/wordlists"
-              onClick={(e) => { e.preventDefault(); go("/wordlists"); }}
-              className={cn(
-                "px-3 py-1.5 text-sm rounded-md transition-colors",
-                isActive(ROUTES.find((r) => r.id === "wordlists")!) ? "text-brand" : "text-foreground/80 hover:text-brand"
-              )}
-            >
-              {t.nav.wordlists}
-            </Link>
+            {/* Lists dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="gap-1 text-foreground/80 hover:text-brand">
+                  {t.nav.wordlists}
+                  <ChevronDown className="h-3.5 w-3.5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-56 glass-strong border-white/10">
+                <DropdownMenuLabel className="text-xs text-muted-foreground uppercase tracking-wider">
+                  {t.nav.wordlists}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-white/10" />
+                {listsRoutes.map((r) => (
+                  <DropdownMenuItem
+                    key={r.id}
+                    onClick={() => go(r.hash)}
+                    className="gap-3 cursor-pointer focus:bg-white/10"
+                  >
+                    <NavIcon name={r.icon} className="h-4 w-4 text-brand" />
+                    <span className="text-sm">{t.nav[r.labelKey]}</span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <Link
               href="#/about"
               onClick={(e) => { e.preventDefault(); go("/about"); }}
@@ -120,8 +139,9 @@ export function SiteHeader() {
             </Link>
           </nav>
 
-          {/* Right: language + mobile */}
+          {/* Right: theme toggle + language + mobile */}
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <LanguageSelector />
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
@@ -138,6 +158,10 @@ export function SiteHeader() {
                 <div className="px-3 py-4 space-y-1 overflow-y-auto nice-scroll h-[calc(100vh-5rem)]">
                   <p className="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wider text-muted-foreground">{t.nav.tools}</p>
                   {toolsRoutes.map((r) => (
+                    <MobileItem key={r.id} r={r} active={isActive(r)} onClick={() => go(r.hash)} t={t} />
+                  ))}
+                  <p className="px-3 pt-4 pb-1 text-[11px] uppercase tracking-wider text-muted-foreground">{t.nav.wordlists}</p>
+                  {listsRoutes.map((r) => (
                     <MobileItem key={r.id} r={r} active={isActive(r)} onClick={() => go(r.hash)} t={t} />
                   ))}
                   <p className="px-3 pt-4 pb-1 text-[11px] uppercase tracking-wider text-muted-foreground">{t.nav.more}</p>

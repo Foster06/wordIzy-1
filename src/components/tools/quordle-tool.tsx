@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Loader2, LayoutGrid, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,9 +8,9 @@ import { Label } from "@/components/ui/label";
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
 import { WordList } from "@/components/site/word-list";
-import { DictionarySelect } from "@/components/site/dictionary-select";
 import { TipsSection } from "@/components/site/tips-section";
 import { PageHeader } from "@/components/site/page-header";
+import { ActionButtons } from "@/components/site/action-buttons";
 import { useApi } from "@/components/site/use-api";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
@@ -33,6 +33,27 @@ export function QuordleTool() {
   ]);
   const [results, setResults] = useState<SolvedWord[][] | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // Scroll-aware buttons: show top buttons when scrolled up, bottom buttons when scrolled down.
+  const topButtonsRef = useRef<HTMLDivElement>(null);
+  const [showBottomButtons, setShowBottomButtons] = useState(false);
+
+  useEffect(() => {
+    const check = () => {
+      const el = topButtonsRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      // If the top buttons are scrolled out of view (above viewport), show bottom buttons.
+      setShowBottomButtons(rect.bottom < 80);
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+  }, []);
 
   const updateBoard = (id: number, patch: Partial<Board>) => {
     setBoards((bs) => bs.map((b) => (b.id === id ? { ...b, ...patch } : b)));
@@ -59,6 +80,14 @@ export function QuordleTool() {
     }
   };
 
+  const clear = () => {
+    setBoards([
+      { id: 1, length: 5, pattern: "", validLetters: "", excludedLetters: "" },
+      { id: 2, length: 5, pattern: "", validLetters: "", excludedLetters: "" },
+    ]);
+    setResults(null);
+  };
+
   return (
     <>
       <PageHeader badge={t.nav.quordle} title={t.quordle.title} subtitle={t.quordle.subtitle} icon={<LayoutGrid className="h-6 w-6" />} />
@@ -66,12 +95,9 @@ export function QuordleTool() {
         <GlassCard strong className="p-5 sm:p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-brand">{t.quordle.title}</h2>
-            <div className="flex items-center gap-3">
-              <DictionarySelect className="w-[160px] h-9" />
-              <Button onClick={addBoard} disabled={boards.length >= 4} variant="ghost" size="sm" className="gap-1.5 glass-soft rounded-lg">
-                <Plus className="h-4 w-4" /> {t.quordle.addBoard}
-              </Button>
-            </div>
+            <Button onClick={addBoard} disabled={boards.length >= 4} variant="ghost" size="sm" className="gap-1.5 glass-soft rounded-lg">
+              <Plus className="h-4 w-4" /> {t.quordle.addBoard}
+            </Button>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
@@ -105,10 +131,23 @@ export function QuordleTool() {
             ))}
           </div>
 
-          <Button onClick={solve} disabled={loading} className="mt-5 w-full gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold hover:opacity-90 rounded-lg">
-            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <LayoutGrid className="h-4 w-4" />}
-            {t.common.solve}
-          </Button>
+          {/* TOP buttons — visible when scrolled up (hidden when scrolled down) */}
+          <div
+            ref={topButtonsRef}
+            style={{ display: showBottomButtons ? "none" : undefined }}
+          >
+            <div className="mt-5">
+              <ActionButtons
+                actionLabel={t.common.solve}
+                actionIcon={LayoutGrid}
+                onAction={solve}
+                onClear={clear}
+                loading={loading}
+                t={t}
+                fullWidth
+              />
+            </div>
+          </div>
         </GlassCard>
 
         <AdSlot format="horizontal" />
@@ -123,6 +162,21 @@ export function QuordleTool() {
               </div>
             ))}
           </section>
+        )}
+
+        {/* BOTTOM buttons — visible when scrolled down (after boards/results), hidden when scrolled up */}
+        {showBottomButtons && (
+          <GlassCard strong className="p-4 sticky bottom-4 z-40 glow-accent">
+            <ActionButtons
+              actionLabel={t.common.solve}
+              actionIcon={LayoutGrid}
+              onAction={solve}
+              onClear={clear}
+              loading={loading}
+              t={t}
+              fullWidth
+            />
+          </GlassCard>
         )}
 
         <TipsSection title={t.common.tipsTitle} items={[

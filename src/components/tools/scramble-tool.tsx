@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, RotateCw, Trash2, Shuffle } from "lucide-react";
+import { Loader2, RotateCw, Shuffle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LetterInput } from "@/components/site/letter-input";
 import { TileValuesPanel } from "@/components/site/tile-values-panel";
-import { DictionarySelect } from "@/components/site/dictionary-select";
+import { ActionButtons } from "@/components/site/action-buttons";
 import { WordGroups } from "@/components/site/word-groups";
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
@@ -65,21 +65,19 @@ export function ScrambleTool() {
       <div className="mt-6 space-y-6">
         <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           <GlassCard strong className="p-5 sm:p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-brand">{t.scramble.inputLabel}</h2>
-              <DictionarySelect className="w-[180px] h-9" />
-            </div>
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-brand mb-4">{t.scramble.inputLabel}</h2>
             <LetterInput value={scrambled} onChange={setScrambled} onKeyDown={(e) => { if (e.key === "Enter") descramble(); }} placeholder={t.scramble.inputLabel} />
             <p className="mt-3 text-xs text-muted-foreground">{t.scramble.hint}</p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Button onClick={descramble} disabled={loading || !scrambled.trim()} className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold hover:opacity-90 rounded-lg px-6">
-                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RotateCw className="h-4 w-4" />}
-                {t.scramble.btn}
-              </Button>
-              <Button onClick={() => { setScrambled(""); setResult(null); }} variant="ghost" className="gap-2 rounded-lg glass-soft hover:bg-white/10">
-                <Trash2 className="h-4 w-4" />
-                {t.common.clear}
-              </Button>
+            <div className="mt-5">
+              <ActionButtons
+                actionLabel={t.scramble.btn}
+                actionIcon={RotateCw}
+                onAction={descramble}
+                onClear={() => { setScrambled(""); setResult(null); }}
+                loading={loading}
+                disabled={!scrambled.trim()}
+                t={t}
+              />
             </div>
           </GlassCard>
           <TileValuesPanel lang={lang as LanguageCode} />

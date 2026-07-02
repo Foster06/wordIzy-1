@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { Loader2, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import { LetterInput } from "@/components/site/letter-input";
 import { TileValuesPanel } from "@/components/site/tile-values-panel";
-import { DictionarySelect } from "@/components/site/dictionary-select";
+import { ActionButtons } from "@/components/site/action-buttons";
 import { WordGroups } from "@/components/site/word-groups";
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
@@ -52,26 +51,19 @@ export function LettersSolver({ endpoint, buttonLabel, hint, tipsTitle, tips, ex
     <div className="space-y-6">
       <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
         <GlassCard strong className="p-5 sm:p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-brand">{t.common.yourLetters}</h2>
-            <DictionarySelect className="w-[180px] h-9" />
-          </div>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-brand mb-4">{t.common.yourLetters}</h2>
           <LetterInput value={letters} onChange={setLetters} onKeyDown={(e) => { if (e.key === "Enter") solve(); }} />
           <p className="mt-3 text-xs text-muted-foreground">{hint}</p>
           {extraControls}
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Button
-              onClick={solve}
-              disabled={loading || !letters.trim()}
-              className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold hover:opacity-90 rounded-lg px-6"
-            >
-              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-              {buttonLabel}
-            </Button>
-            <Button onClick={clear} variant="ghost" className="gap-2 rounded-lg glass-soft hover:bg-white/10">
-              <Trash2 className="h-4 w-4" />
-              {t.common.clear}
-            </Button>
+          <div className="mt-5">
+            <ActionButtons
+              actionLabel={buttonLabel}
+              onAction={solve}
+              onClear={clear}
+              loading={loading}
+              disabled={!letters.trim()}
+              t={t}
+            />
           </div>
         </GlassCard>
         <TileValuesPanel lang={lang as LanguageCode} />

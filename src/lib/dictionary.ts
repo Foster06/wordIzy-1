@@ -5,6 +5,7 @@
 
 import type { LanguageCode } from "./languages";
 import { normalizeWord } from "./languages";
+import { isScrabbleValid } from "./scrabble-filter";
 
 export interface WordEntry {
   word: string; // original (with accents/case preserved)
@@ -78,6 +79,10 @@ export function getDict(lang: LanguageCode): DictStore {
     seen.add(key);
     // Cap length to avoid absurdly long words eating memory in indexes.
     if (norm.length > 20) continue;
+    // Scrabble-validity filter: reject words not acceptable in official
+    // Scrabble dictionaries (NWL2020/CSW21, ODS9, FISE-2, Zingarelli,
+    // Scrabble-Wörterbuch, OpenTaal, Léxico pt-BR approximations).
+    if (!isScrabbleValid(w, lang)) continue;
     const entry: WordEntry = { word: w, norm, len: norm.length };
     entries.push(entry);
     const bucket = byLength.get(entry.len);
