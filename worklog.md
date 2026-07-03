@@ -471,3 +471,19 @@ Conclusion: NO words are missing. All official Scrabble dictionary words (ODS9, 
 
 Stage Summary:
 - All languages verified: 0 missing words across all word lengths (2-15). Every word from the official Scrabble dictionaries is included in the website.
+
+---
+Task ID: 70
+Agent: main
+Task: Fix Word Lists missing letters — switch from ending to starting letter mode
+
+Work Log:
+- Root cause: Word Lists page used `mode="ends"` which groups words by their ENDING letter. In French (ODS9), many letters have NO 2-letter words ending with them (B, G, J, K, P, Q, V, W, Z = 0 words). This is correct per the official dictionary — there simply are no 2-letter French words ending in those letters.
+- Fix: Changed Word Lists page from `mode="ends"` to `mode="starts"` — grouping words by their STARTING letter. Every letter A-Z (except Y, Z in French) has at least 1 word starting with it, so buckets are populated.
+- Verified: English 2L starting-letter counts: A=16, B=5, C=1, D=4, E=13, F=3, G=3, H=5, I=6, J=2, K=4, L=3, M=7, N=5, O=17, P=4, Q=1, R=1, S=4, T=4, U=8, V=0, W=2, X=2, Y=4, Z=3. All letters with words show their count.
+- French 2L starting-letter: V=4 (va, ve, vs, vu), Y=0, Z=0 — correct per ODS9.
+- The 81 total 2-letter French words are all present and correctly distributed. No words are missing.
+- bun run lint clean.
+
+Stage Summary:
+- Word Lists now uses starting-letter buckets (A..., B..., C...) instead of ending-letter (…A, …B, …C). This ensures every letter that has words shows them. All 81 French 2-letter words are present and correctly sorted alphabetically within each letter bucket.

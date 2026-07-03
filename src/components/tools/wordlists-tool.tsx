@@ -92,11 +92,18 @@ export function WordlistsTool() {
                   {t.wordlists.allWords} — {letter === "all" ? "A–Z" : letter}
                 </span>
               </div>
-              <div className={cn("grid gap-4", letter === "all" ? "md:grid-cols-2 lg:grid-cols-3" : "lg:grid-cols-1")}>
-                {visibleLetters.map((lt) => (
-                  <WordBucket key={lt} lang={lang as LanguageCode} mode="ends" length={l} letter={lt} title={`…${lt}`} breeStyle />
-                ))}
-              </div>
+              {/* Starting-letter buckets — every letter gets its words */}
+              {letter === "all" ? (
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {visibleLetters.map((lt) => (
+                    <WordBucket key={`s-${lt}`} lang={lang as LanguageCode} mode="starts" length={l} letter={lt} title={`${lt}…`} breeStyle />
+                  ))}
+                </div>
+              ) : (
+                <div className="grid gap-4 lg:grid-cols-1">
+                  <WordBucket key={`s-${letter}`} lang={lang as LanguageCode} mode="starts" length={l} letter={letter} title={`${letter}…`} breeStyle />
+                </div>
+              )}
             </section>
           ))}
         </div>
