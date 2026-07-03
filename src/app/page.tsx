@@ -25,14 +25,14 @@ import { AboutView, ContactView, PrivacyView, SitemapView } from "@/components/t
 function HomeHero() {
   const { t } = useLanguage();
   return (
-    <GlassCard strong className="relative overflow-hidden p-6 sm:p-8 mb-6">
+    <GlassCard strong className="relative overflow-hidden p-6 sm:p-8 mb-6 text-center">
       <div className="absolute -top-20 -right-10 h-56 w-56 rounded-full bg-brand/15 blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 -left-10 h-56 w-56 rounded-full bg-brand-soft/10 blur-3xl pointer-events-none" />
-      <div className="relative">
-        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight leading-tight">
+      <div className="relative flex flex-col items-center">
+        <h1 className="page-title tracking-tight">
           {t.home.title.split(" ")[0]} <span className="text-gradient-brand">{t.home.title.split(" ").slice(1).join(" ")}</span>
         </h1>
-        <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-3xl">{t.home.subtitle}</p>
+        <p className="page-subtitle mt-3 text-muted-foreground max-w-3xl">{t.home.subtitle}</p>
       </div>
     </GlassCard>
   );

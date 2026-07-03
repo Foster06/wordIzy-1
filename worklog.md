@@ -134,3 +134,21 @@ Work Log:
 
 Stage Summary:
 - Typography updated (section-label 17px, alpha-button 18px, count-text 20px). Desktop navbar restructured with inline solver links + Tools/Word Lab hover dropdowns. Fixed class→className error. Mobile drawer unchanged. All browser-verified.
+
+---
+Task ID: 50
+Agent: main
+Task: Centered headings + pagination verification + A-Z row under length on word lists pages
+
+Work Log:
+- PageHeader: rewrote to center all content (text-center, flex-col items-center). Title splits first word (plain) + rest (brand gradient), uses .page-title class (Bree Serif 72px/400/1.1). Subtitle uses .page-subtitle (Inter 22px/400). Icon centered above title. Badge centered above title.
+- HomeHero: also centered (text-center, flex-col items-center) with .page-title and .page-subtitle classes.
+- Verified: home heading "Word Unscrambler" uses Bree Serif ✓; starts-by heading "Starts by A–Z" uses Bree Serif, centered ✓.
+- Pagination: confirmed all result components use 50 words/page with prev/next buttons (WordGroups PAGE_SIZE=50, WordList pageSize=50, WordBucket PAGE_SIZE=50). Verified 10 Show less/Show more buttons on starts-by S page (5 length sections × 2 buttons each).
+- Word Lists page: rewrote to remove old tabs (all/starts/ends). Now has length row (2-7 + All) on TOP, A-Z letter row BELOW. Shows all words grouped by length (2→7) and ending letter (A-Z). Uses num-button and alpha-button typography classes.
+- Starts-by and Ends-by pages: already had length row above A-Z (verified numTop:503 above alphaTop:595).
+- Verified: wordlists page has both num-button and alpha-button rows ✓.
+- bun run lint clean.
+
+Stage Summary:
+- All page headings are centered in Bree Serif (matching "Word Unscrambler" style). Pagination at 50 words confirmed on all result pages. A-Z letter sort row is under the length row on Word Lists, Starts-by, and Ends-by pages.
