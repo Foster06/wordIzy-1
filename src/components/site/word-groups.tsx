@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Copy, Check } from "lucide-react";
 import type { LengthGroup } from "@/lib/unscramble";
 import type { LanguageDef } from "@/lib/languages";
 import type { Translation } from "@/components/i18n/translations";
@@ -40,9 +40,18 @@ export function WordGroups({ groups, t, lang, emptyMessage }: WordGroupsProps) {
 
 function LengthGroupCard({ group, t }: { group: LengthGroup; t: Translation }) {
   const [page, setPage] = useState(0);
+  const [copied, setCopied] = useState(false);
   const totalPages = Math.max(1, Math.ceil(group.words.length / PAGE_SIZE));
   const start = page * PAGE_SIZE;
   const visible = group.words.slice(start, start + PAGE_SIZE);
+
+  const copyAll = () => {
+    const text = group.words.map((w) => `${w.word.toUpperCase()} (${w.score})`).join("\n");
+    navigator.clipboard?.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   return (
     <GlassCard className="p-4 sm:p-5 result-card">
@@ -55,6 +64,9 @@ function LengthGroupCard({ group, t }: { group: LengthGroup; t: Translation }) {
           {group.words.length} {t.common.wordsCount}
           {totalPages > 1 && <span className="ml-2 tabular-nums">{page + 1}/{totalPages}</span>}
         </span>
+        <button onClick={copyAll} className="ml-auto text-muted-foreground hover:text-brand transition-colors" title={t.common.copy} aria-label={t.common.copy}>
+          {copied ? <Check className="h-3.5 w-3.5 text-brand" /> : <Copy className="h-3.5 w-3.5" />}
+        </button>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5 justify-items-center text-center">
         {visible.map((w) => (

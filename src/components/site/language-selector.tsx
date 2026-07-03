@@ -10,11 +10,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LANGUAGE_LIST } from "@/lib/languages";
+import { LANGUAGE_LIST, type LanguageCode } from "@/lib/languages";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { cn } from "@/lib/utils";
 
-// 2-letter codes for display
 const LANG_CODES: Record<string, string> = {
   en: "EN", fr: "FR", es: "ES", it: "IT", pt: "PT",
   de: "DE", nl: "NL", ja: "JA", zh: "ZH",
@@ -24,6 +23,11 @@ export function LanguageSelector({ compact = false, className }: { compact?: boo
   const { lang, setLang, t } = useLanguage();
   const current = LANGUAGE_LIST.find((l) => l.code === lang) ?? LANGUAGE_LIST[0];
   const code = LANG_CODES[current.code] ?? current.code.toUpperCase();
+
+  const handleSelect = (e: Event, code: LanguageCode) => {
+    e.preventDefault();
+    setLang(code);
+  };
 
   return (
     <DropdownMenu>
@@ -51,7 +55,7 @@ export function LanguageSelector({ compact = false, className }: { compact?: boo
         {LANGUAGE_LIST.map((l) => (
           <DropdownMenuItem
             key={l.code}
-            onClick={() => setLang(l.code)}
+            onSelect={(e) => handleSelect(e, l.code)}
             className="gap-3 cursor-pointer focus:bg-white/10"
           >
             <span className="text-lg leading-none">{l.flag}</span>
@@ -64,3 +68,4 @@ export function LanguageSelector({ compact = false, className }: { compact?: boo
     </DropdownMenu>
   );
 }
+

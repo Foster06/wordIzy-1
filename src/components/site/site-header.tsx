@@ -60,9 +60,9 @@ export function SiteHeader() {
               >
                 <Menu className="h-5 w-5" />
               </Button>
-              <button onClick={() => go("/")} className="flex items-center gap-2.5 shrink-0" aria-label="WordIzy home">
+              <button onClick={() => go("/")} className="flex items-center gap-2 shrink-0" aria-label="WordIzy home">
                 <Logo size="md" />
-                <span className="text-lg sm:text-xl tracking-tight font-roboto-slab">
+                <span className="text-base sm:text-xl tracking-tight font-roboto-slab">
                   Word<span className="text-gradient-brand">Izy</span>
                 </span>
               </button>
@@ -74,6 +74,7 @@ export function SiteHeader() {
                 <button
                   key={r.id}
                   onClick={() => go(r.hash)}
+                  aria-current={isActive(r) ? "page" : undefined}
                   className={cn(
                     "nav-item !text-[14px] px-3 py-2 rounded-md transition-colors whitespace-nowrap",
                     isActive(r) ? "text-brand" : "text-foreground/80 hover:text-brand"
@@ -131,6 +132,7 @@ export function SiteHeader() {
                     <button
                       key={r.id}
                       onClick={() => go(r.hash)}
+                      aria-current={isActive(r) ? "page" : undefined}
                       className={cn(
                         "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-200 font-bree",
                         isActive(r)

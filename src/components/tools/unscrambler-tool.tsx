@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Shuffle, SlidersHorizontal, Loader2 } from "lucide-react";
+import { Shuffle, SlidersHorizontal, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,6 +14,7 @@ import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
 import { HomeFaq } from "@/components/site/tips-section";
 import { useApi } from "@/components/site/use-api";
+import { useRecentSearches } from "@/components/site/use-recent-searches";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import type { SolveResult } from "@/lib/unscramble";
@@ -24,6 +25,7 @@ export function UnscramblerTool() {
   const { t, lang } = useLanguage();
   const { get } = useApi();
   const def = LANGUAGES[lang as LanguageCode];
+  const { searches, addSearch } = useRecentSearches();
 
   const [letters, setLetters] = useState("");
   const [startsWith, setStartsWith] = useState("");
@@ -42,6 +44,7 @@ export function UnscramblerTool() {
         startsWith, endsWith, mustInclude,
       });
       setResult(r);
+      addSearch(letters.toUpperCase(), "/");
     } catch {
       setResult({ groups: [], total: 0 });
     } finally {
@@ -81,6 +84,24 @@ export function UnscramblerTool() {
               ))}
             </div>
           </div>
+
+          {/* Recent searches */}
+          {searches.length > 0 && (
+            <div className="mt-4">
+              <p className="text-xs text-muted-foreground mb-2">Recent searches:</p>
+              <div className="flex flex-wrap gap-2">
+                {searches.slice(0, 6).map((s, i) => (
+                  <button
+                    key={i}
+                    onClick={() => { setLetters(s.query); }}
+                    className="rounded-md px-2.5 py-1 text-xs font-mono uppercase tracking-wider bg-brand/10 border border-brand/20 text-brand hover:bg-brand/20 transition-colors"
+                  >
+                    {s.query}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Advanced filters */}
           <Collapsible open={showFilters} onOpenChange={setShowFilters} className="mt-5">
@@ -138,9 +159,21 @@ export function UnscramblerTool() {
           )}
         </div>
         {loading ? (
-          <GlassCard className="p-10 flex items-center justify-center">
-            <Loader2 className="h-6 w-6 animate-spin text-brand" />
-          </GlassCard>
+          <div className="space-y-4">
+            {[6, 5, 4].map((l) => (
+              <GlassCard key={l} className="p-4 sm:p-5">
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <div className="skeleton-word w-20" />
+                  <div className="skeleton-word w-16" />
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5">
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <div key={i} className="skeleton-word w-full" />
+                  ))}
+                </div>
+              </GlassCard>
+            ))}
+          </div>
         ) : result ? (
           <WordGroups groups={result.groups} t={t} lang={def} />
         ) : (

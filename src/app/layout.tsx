@@ -51,6 +51,8 @@ export default function RootLayout({
           <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>
         <SonnerToaster position="top-center" richColors />
+        {/* Pre-warm dictionary cache on load (fire-and-forget) */}
+        <script dangerouslySetInnerHTML={{ __html: "fetch('/api/warmup').catch(()=>{})" }} />
       </body>
     </html>
   );
