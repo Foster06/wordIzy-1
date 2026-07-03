@@ -349,3 +349,17 @@ Work Log:
 
 Stage Summary:
 - Letters with no words are disabled (not clickable) on Word Lists, Starts-by, and Ends-by pages. The hamburger drawer is merged into the navbar — nav links are inline and scrollable on all viewports, no drawer.
+
+---
+Task ID: 64
+Agent: main
+Task: Add hamburger drawer (mobile left) + brand font Roboto Slab ExtraBold 800
+
+Work Log:
+- Added hamburger button to the left corner of the navbar (lg:hidden). Opens a left-side drawer (fixed left-0, w-280px, bg-background solid, no blur on panel). Body backdrop has blur(8px). Drawer has Solvers/Tools/Site categories with Bree Serif font + hover effects. Hamburger in drawer header closes it. Desktop (lg+) shows inline nav with hover dropdowns.
+- Brand font: added weight ["600","800"] to Roboto_Slab in layout.tsx. Updated .font-roboto-slab CSS class to font-weight: 800 !important.
+- Verified: hamburger present on mobile ✓, drawer opens on left with blurred body ✓, hamburger closes ✓, brand font-weight = 800 ✓.
+- bun run lint clean.
+
+Stage Summary:
+- Hamburger drawer is back in the left corner for mobile mode. WordIzy brand uses Roboto Slab ExtraBold 800.

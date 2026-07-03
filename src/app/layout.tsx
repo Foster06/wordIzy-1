@@ -10,7 +10,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 const lora = Lora({ variable: "--font-serif", subsets: ["latin"], weight: ["600", "700"] });
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 const breeSerif = Bree_Serif({ variable: "--font-bree-serif", subsets: ["latin"], weight: ["400"] });
-const robotoSlab = Roboto_Slab({ variable: "--font-roboto-slab", subsets: ["latin"], weight: ["600"] });
+const robotoSlab = Roboto_Slab({ variable: "--font-roboto-slab", subsets: ["latin"], weight: ["600", "800"] });
 
 export const metadata: Metadata = {
   title: "WordIzy — Word Unscrambler, Anagram & Wordle Solver",
