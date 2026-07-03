@@ -53,9 +53,10 @@ export function SiteHeader() {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => setMobileOpen(true)}
+                onClick={() => setMobileOpen((v) => !v)}
                 className="lg:hidden rounded-full glass-soft"
-                aria-label="Open menu"
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileOpen}
               >
                 <Menu className="h-5 w-5" />
               </Button>
@@ -107,36 +108,21 @@ export function SiteHeader() {
         </div>
       </header>
 
-      {/* Mobile left drawer */}
+      {/* Mobile left drawer — starts below navbar, doesn't overlay it */}
       {mobileOpen && (
         <>
           <div
-            className="lg:hidden fixed inset-0 z-40 bg-black/40"
+            className="lg:hidden fixed left-0 right-0 bottom-0 top-16 z-40 bg-black/40"
             style={{ backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
             onClick={() => setMobileOpen(false)}
             aria-hidden
           />
           <div
-            className="lg:hidden fixed left-0 top-0 bottom-0 w-[280px] z-50 bg-background border-r border-white/10 flex flex-col"
+            className="lg:hidden fixed left-0 top-16 bottom-0 w-[280px] z-50 bg-background border-r border-white/10 flex flex-col"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
           >
-            <div className="flex items-center justify-between px-4 py-3 shrink-0 border-b border-white/5">
-              <button onClick={() => go("/")} className="flex items-center gap-2" aria-label="WordIzy home">
-                <Logo size="sm" />
-                <span className="text-lg font-roboto-slab">Word<span className="text-gradient-brand">Izy</span></span>
-              </button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setMobileOpen(false)}
-                className="rounded-full glass-soft"
-                aria-label="Close menu"
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
-            </div>
             <div className="flex-1 overflow-y-auto nice-scroll px-3 py-4">
               {mobileGroups.map(({ group, routes: grpRoutes }) => (
                 <div key={group}>
