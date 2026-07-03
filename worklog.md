@@ -214,3 +214,18 @@ Work Log:
 
 Stage Summary:
 - Word Lists page now displays words centered, in uppercase, using Bree Serif font (matching the unscramble results style). Starts-by and Ends-by pages remain unchanged with the default font.
+
+---
+Task ID: 55
+Agent: main
+Task: Footer left hamburger menu + same font + uppercase words + centered text
+
+Work Log:
+- Footer redesigned: hamburger menu button on the LEFT side (next to logo). Clicking opens/closes a collapsible 3-category menu (Solvers/Tools/Site) in a 3-column grid. All category headers and links use the same Inter font (.nav-item class). Brand + copyright on the right.
+- Verified: hamburger present on left ✓; menu closed initially ✓; clicking opens all 3 categories ✓; all 3 use Inter font ✓; clicking again closes ✓.
+- Uppercase: WordGroups, WordList, and WordBucket already have `uppercase` on word spans. Check Dictionary left as-is (not forced uppercase on results). Verified: word-item text-transform=uppercase ✓.
+- Centered text: changed result card headers from justify-between to justify-center + text-center. Grids already had justify-items-center + text-center. Verified: header justifyContent=center ✓; grid justifyItems=center ✓.
+- bun run lint clean.
+
+Stage Summary:
+- Footer menu is on the left side with a hamburger to open/close. All 3 categories use the same Inter font. Words are uppercase across the website (except Check Dictionary). All result text is centered.

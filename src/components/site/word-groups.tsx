@@ -46,7 +46,7 @@ function LengthGroupCard({ group, t }: { group: LengthGroup; t: Translation }) {
 
   return (
     <GlassCard className="p-4 sm:p-5 result-card">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-center gap-3 mb-3 text-center">
         <h3 className="flex items-baseline gap-2 text-sm font-semibold uppercase tracking-wider text-brand">
           <span className="text-lg font-bold">{group.length}</span>
           <span className="text-muted-foreground">-{t.common.length}</span>

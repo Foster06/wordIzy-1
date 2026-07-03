@@ -36,7 +36,7 @@ export function WordList({ words, lang, t, emptyMessage, pageSize = 50 }: WordLi
 
   return (
     <GlassCard className="p-4 sm:p-5 result-card">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-center gap-3 mb-3 text-center">
         <span className="text-xs text-muted-foreground">{words.length} {t.common.wordsCount}</span>
         {totalPages > 1 && <span className="text-xs text-muted-foreground tabular-nums">{page + 1} / {totalPages}</span>}
       </div>

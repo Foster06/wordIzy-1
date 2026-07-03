@@ -59,7 +59,7 @@ export function WordBucket({
 
   return (
     <GlassCard className="p-4 result-card">
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-center gap-2 mb-2 text-center">
         <h3 className="text-sm font-semibold text-brand flex items-center gap-1.5">
           <ArrowDownAZ className="h-3.5 w-3.5" />
           {title}
