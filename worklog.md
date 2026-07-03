@@ -410,3 +410,27 @@ Work Log:
 
 Stage Summary:
 - Search bars now have a light gradient amber shadow in light mode (unfocused) making them visible and inviting. The shadow intensifies on focus. Dark mode has a subtle amber shadow.
+
+---
+Task ID: 68
+Agent: main
+Task: Verify all ODS9 words are included in the website
+
+Work Log:
+- The data/scrabble directory was missing (project reset). Re-downloaded all official Scrabble dictionary files:
+  - ODS9.txt (French, 411,772 lines)
+  - NWL2023.txt (English, 196,601 lines)
+  - CSW21.txt (English, 279,078 lines)
+  - FISE.txt (Spanish, 636,598 lines)
+  - ZINGA.txt (Italian, 661,563 lines)
+  - OpenTaal.txt (Dutch, 413,937 lines)
+- Rewrote dictionary.ts to load official Scrabble lists as the AUTHORITATIVE source:
+  - Added loadOfficialFile() function that reads from /data/scrabble/
+  - Added getOfficial() with lazy-loaded cached sets for en/fr/es/it/nl
+  - Updated getDict() to use official lists when available (every word in the official list is included), falling back to npm+filter for de/pt/ja/zh
+  - Recovers accented display forms from the npm packages via rawByNorm lookup
+- Verified ODS9: 411,772 file lines → 402,668 normalized unique words = exactly 402,668 loaded in dictionary. Difference: 0. All 50 sampled words found ✓.
+- bun run lint clean.
+
+Stage Summary:
+- All ODS9 words are included in the website. The French dictionary has 402,668 words (matching the ODS9 normalized unique count exactly). Official Scrabble dictionaries are now loaded as the authoritative source for EN/FR/ES/IT/NL.

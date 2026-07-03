@@ -1,11 +1,16 @@
 // src/lib/dictionary.ts
-// Server-side dictionary service. Loads word lists from npm packages + curated
-// romaji/pinyin lists, normalizes them, and indexes by length for fast lookups.
+// Server-side dictionary service. Loads the OFFICIAL Scrabble word lists
+// (NWL2023 + CSW21 for English, ODS9 for French, FISE for Spanish,
+// Zingarelli for Italian, OpenTaal for Dutch) as the authoritative source,
+// falling back to npm word packages for German/Portuguese (filtered) and
+// curated romaji/pinyin lists for Japanese/Mandarin.
 // MUST only be imported from server code (API routes / server components).
 
 import type { LanguageCode } from "./languages";
 import { normalizeWord } from "./languages";
 import { isScrabbleValid } from "./scrabble-filter";
+import * as fs from "fs";
+import * as path from "path";
 
 export interface WordEntry {
   word: string; // original (with accents/case preserved)
@@ -29,6 +34,42 @@ type DictStore = {
 };
 
 const cache = new Map<LanguageCode, DictStore>();
+
+/** Official Scrabble dictionary files shipped in /data/scrabble. */
+function loadOfficialFile(filename: string, extractFirst: boolean): Set<string> {
+  const filepath = path.join(process.cwd(), "data", "scrabble", filename);
+  if (!fs.existsSync(filepath)) return new Set();
+  const content = fs.readFileSync(filepath, "utf8");
+  const result = new Set<string>();
+  for (const line of content.split("\n")) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const token = extractFirst ? trimmed.split(/\s/)[0] : trimmed;
+    const norm = normalizeWord(token);
+    if (!norm || norm.length < 2 || norm.length > 15) continue;
+    if (!/^[a-zñç]+$/.test(norm)) continue;
+    result.add(norm);
+  }
+  return result;
+}
+
+/** Official Scrabble word sets (loaded lazily, cached). */
+let officialCache: Partial<Record<LanguageCode, Set<string>>> | null = null;
+function getOfficial(lang: LanguageCode): Set<string> | null {
+  if (!officialCache) {
+    officialCache = {
+      en: new Set([
+        ...loadOfficialFile("NWL2023.txt", true),
+        ...loadOfficialFile("CSW21.txt", true),
+      ]),
+      fr: loadOfficialFile("ODS9.txt", false),
+      es: loadOfficialFile("FISE.txt", false),
+      it: loadOfficialFile("ZINGA.txt", false),
+      nl: loadOfficialFile("OpenTaal.txt", false),
+    };
+  }
+  return officialCache[lang] ?? null;
+}
 
 function loadRaw(lang: LanguageCode): string[] {
   switch (lang) {
@@ -64,30 +105,49 @@ export function getDict(lang: LanguageCode): DictStore {
   const cached = cache.get(lang);
   if (cached) return cached;
 
+  const official = getOfficial(lang);
   const raw = loadRaw(lang);
   const entries: WordEntry[] = [];
   const byLength = new Map<number, WordEntry[]>();
   const seen = new Set<string>();
 
+  // Build a normalized lookup of the raw npm list to recover original (accented) form
+  const rawByNorm = new Map<string, string>();
   for (const w of raw) {
     const norm = normalizeWord(w);
-    if (!norm || norm.length < 2) continue;
-    // Skip words with non-letter chars after normalization (already filtered) or weird chars.
-    if (!/^[a-zñç]+$/.test(norm)) continue;
-    const key = norm;
-    if (seen.has(key)) continue;
-    seen.add(key);
-    // Cap length to avoid absurdly long words eating memory in indexes.
-    if (norm.length > 20) continue;
-    // Scrabble-validity filter: reject words not acceptable in official
-    // Scrabble dictionaries (NWL2020/CSW21, ODS9, FISE-2, Zingarelli,
-    // Scrabble-Wörterbuch, OpenTaal, Léxico pt-BR approximations).
-    if (!isScrabbleValid(w, lang)) continue;
-    const entry: WordEntry = { word: w, norm, len: norm.length };
-    entries.push(entry);
-    const bucket = byLength.get(entry.len);
-    if (bucket) bucket.push(entry);
-    else byLength.set(entry.len, [entry]);
+    if (norm && norm.length >= 2 && norm.length <= 15 && /^[a-zñç]+$/.test(norm)) {
+      if (!rawByNorm.has(norm)) rawByNorm.set(norm, w);
+    }
+  }
+
+  if (official) {
+    // AUTHORITATIVE: use the official Scrabble list. Every word in it is valid.
+    for (const norm of official) {
+      if (seen.has(norm)) continue;
+      seen.add(norm);
+      const display = rawByNorm.get(norm) ?? norm;
+      const entry: WordEntry = { word: display, norm, len: norm.length };
+      entries.push(entry);
+      const bucket = byLength.get(entry.len);
+      if (bucket) bucket.push(entry);
+      else byLength.set(entry.len, [entry]);
+    }
+  } else {
+    // No official list (de/pt/ja/zh): use npm/curated + Scrabble-validity filter.
+    for (const w of raw) {
+      const norm = normalizeWord(w);
+      if (!norm || norm.length < 2) continue;
+      if (!/^[a-zñç]+$/.test(norm)) continue;
+      if (seen.has(norm)) continue;
+      seen.add(norm);
+      if (norm.length > 20) continue;
+      if (!isScrabbleValid(w, lang)) continue;
+      const entry: WordEntry = { word: w, norm, len: norm.length };
+      entries.push(entry);
+      const bucket = byLength.get(entry.len);
+      if (bucket) bucket.push(entry);
+      else byLength.set(entry.len, [entry]);
+    }
   }
 
   const store: DictStore = { entries, byLength };
