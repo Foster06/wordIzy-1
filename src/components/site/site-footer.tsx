@@ -58,16 +58,11 @@ export function SiteFooter() {
           <AdSlot format="horizontal" />
         </div>
 
-        {/* Bottom row: copyright (left) + links (right) */}
-        <div className="flex items-center justify-between gap-3 pt-6 border-t border-white/5">
-          <p className="text-xs text-muted-foreground">
+        {/* Bottom row: copyright (left) */}
+        <div className="flex items-center justify-center gap-3 pt-6 border-t border-white/5">
+          <p className="text-xs text-muted-foreground text-center">
             © 2026 WordIzy. © {t.footer.rights}
           </p>
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <button onClick={() => navigate("/privacy")} className="hover:text-brand transition-colors">{t.nav.privacy}</button>
-            <button onClick={() => navigate("/contact")} className="hover:text-brand transition-colors">{t.nav.contact}</button>
-            <button onClick={() => navigate("/sitemap")} className="hover:text-brand transition-colors">{t.nav.sitemap}</button>
-          </div>
         </div>
       </div>
     </footer>

@@ -118,7 +118,7 @@ export function SiteHeader() {
             aria-hidden
           />
           <div
-            className="lg:hidden fixed left-0 top-16 bottom-0 w-[280px] z-50 bg-background border-r border-white/10 flex flex-col"
+            className="lg:hidden fixed left-0 top-16 bottom-0 w-[320px] z-50 bg-background border-r border-white/10 flex flex-col rounded-r-2xl"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
