@@ -487,3 +487,22 @@ Work Log:
 
 Stage Summary:
 - Word Lists now uses starting-letter buckets (A..., B..., C...) instead of ending-letter (…A, …B, …C). This ensures every letter that has words shows them. All 81 French 2-letter words are present and correctly sorted alphabetically within each letter bucket.
+
+---
+Task ID: 71
+Agent: main
+Task: Fix sandbox crash + add word counts per letter on Word Lists/Starts-by/Ends-by
+
+Work Log:
+- Root cause of sandbox crash: the /api/letter-counts endpoint called getDict() which loads the entire dictionary (283k+ words for English) into memory. When the useLetterAvailability hook made 6 parallel requests (one per length 2-7) for the "all" mode, all 6 tried to load the dictionary simultaneously, causing memory exhaustion and server crash.
+- Fix 1: Optimized /api/letter-counts route to do a single pass through each length bucket (instead of 26 passes per letter).
+- Fix 2: Updated useLetterAvailability hook to fetch lengths SEQUENTIALLY (not in parallel) when no specific length is selected. This prevents 6 simultaneous dictionary loads.
+- Added word counts to letter buttons on all 3 pages (Word Lists, Starts-by, Ends-by):
+  - Each letter button is now h-14 w-14 (taller) with the letter on top and count below
+  - Count shown in 9px bold tabular-nums with 70% opacity
+  - Letters with 0 words are disabled and show no count
+- Verified: Word Lists page shows A: 4194, B: 5414, C: 6002, D: 4098, E: 2434, etc. VLM confirmed counts visible and words sorted alphabetically.
+- bun run lint clean.
+
+Stage Summary:
+- Fixed the sandbox crash by making letter-counts requests sequential. Added per-letter word counts to the A-Z buttons on Word Lists, Starts-by, and Ends-by pages. All words 2-7 letters are included and sorted alphabetically.
