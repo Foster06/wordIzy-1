@@ -244,3 +244,17 @@ Work Log:
 
 Stage Summary:
 - Footer menu is always visible (no hamburger) with 3 categories using the same Inter font. All search result words are uppercase and centered. Check Dictionary excluded from uppercase.
+
+---
+Task ID: 57
+Agent: main
+Task: Footer — description below brand, copyright bottom left
+
+Work Log:
+- Moved "Unscramble, Solve & Discover Word" to sit directly below the WordIzy brand name (logo + name, then description paragraph).
+- Moved copyright "© 2026 WordIzy. © All rights reserved." to the bottom left corner of the footer (using flex justify-between — copyright on left, privacy/contact/sitemap links on right).
+- Verified: brand="WordIzy", desc="Unscramble, Solve & Discover Word" directly below ✓; copyright="© 2026 WordIzy. © All rights reserved." in bottom left ✓.
+- bun run lint clean.
+
+Stage Summary:
+- "Unscramble, Solve & Discover Word" is now just below the brand name. Copyright text is in the bottom left corner of the footer.
