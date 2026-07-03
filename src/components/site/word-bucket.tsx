@@ -11,11 +11,13 @@ interface WordItem { word: string; score: number; length: number; }
 
 const PAGE_SIZE = 50;
 
-/** A single browsable word bucket with 5-col grid + pagination (>200 words). */
+/** A single browsable word bucket with 4-col grid + pagination (>50 words). */
 export function WordBucket({
-  lang, mode, length, letter, title,
+  lang, mode, length, letter, title, breeStyle = false,
 }: {
   lang: LanguageCode; mode: "all" | "starts" | "ends"; length: number; letter: string; title: string;
+  /** use Bree Serif uppercase font for words (like unscramble results) */
+  breeStyle?: boolean;
 }) {
   const { t } = useLanguage();
   const [allWords, setAllWords] = useState<WordItem[]>([]);
@@ -83,10 +85,10 @@ export function WordBucket({
               <div
                 key={w.word}
                 className="word-cell flex items-center justify-center gap-1 rounded-md px-2 py-1 bg-white/[0.06] border border-white/[0.06] hover:bg-brand/10 hover:border-brand/30 transition-colors text-sm w-full"
-                title={`${w.score} ${t.common.points}`}
+                title={`${w.word.toUpperCase()} · ${w.score} ${t.common.points}`}
               >
-                <span className="truncate font-medium">{w.word}</span>
-                <span className="text-[10px] font-bold text-brand tabular-nums shrink-0">{w.score}</span>
+                <span className={breeStyle ? "word-item truncate uppercase tracking-wide !text-[15px]" : "truncate font-medium"}>{w.word}</span>
+                <span className="text-[10px] font-bold text-brand tabular-nums shrink-0 ml-auto">{w.score}</span>
               </div>
             ))}
           </div>

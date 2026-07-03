@@ -200,3 +200,17 @@ Work Log:
 
 Stage Summary:
 - Word containers are now less visible in light mode (subtle bg/border/shadow). Words are centered inside containers without shrinking — containers fill the grid cell width and content is centered.
+
+---
+Task ID: 54
+Agent: main
+Task: Word Lists page — center words, uppercase, Bree Serif font
+
+Work Log:
+- Added `breeStyle` prop to WordBucket component. When true, word spans use `.word-item` class (Bree Serif 20px/400, uppercase, tracking-wide). When false (default), uses plain `truncate font-medium`.
+- Passed `breeStyle` from Word Lists page only (wordlists-tool.tsx). Starts-by and Ends-by pages do NOT pass it — they keep the default font.
+- Verified: Word Lists page word spans use Bree Serif, uppercase, centered (justify-content: center) ✓. Starts-by page does NOT use Bree Serif (no .word-item class) ✓.
+- bun run lint clean.
+
+Stage Summary:
+- Word Lists page now displays words centered, in uppercase, using Bree Serif font (matching the unscramble results style). Starts-by and Ends-by pages remain unchanged with the default font.

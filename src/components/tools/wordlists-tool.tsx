@@ -79,7 +79,7 @@ export function WordlistsTool() {
               </div>
               <div className={cn("grid gap-4", letter === "all" ? "md:grid-cols-2 lg:grid-cols-3" : "lg:grid-cols-1")}>
                 {visibleLetters.map((lt) => (
-                  <WordBucket key={lt} lang={lang as LanguageCode} mode="ends" length={l} letter={lt} title={`…${lt}`} />
+                  <WordBucket key={lt} lang={lang as LanguageCode} mode="ends" length={l} letter={lt} title={`…${lt}`} breeStyle />
                 ))}
               </div>
             </section>
