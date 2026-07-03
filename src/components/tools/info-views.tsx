@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Info, Mail, Shield, Map, Send, Check } from "lucide-react";
+import { Info, Mail, Shield, Map, Send, Check, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -30,20 +30,50 @@ export function AboutView() {
 }
 
 export function ContactView() {
-  const { t } = useLanguage();
-  const [sent, setSent] = useState(false);
+  const { t, lang } = useLanguage();
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (status === "sending") return;
+
     const form = e.currentTarget;
-    const name = (form.elements.namedItem("name") as HTMLInputElement)?.value || "";
-    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value || "";
-    const message = (form.elements.namedItem("message") as HTMLTextAreaElement)?.value || "";
-    const subject = `WordIzy Contact — ${name}`;
-    const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-    window.location.href = `mailto:info.wordizy@proton.me?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
-    toast.success("Opening your email app…");
+    const name = (form.elements.namedItem("name") as HTMLInputElement)?.value?.trim() ?? "";
+    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value?.trim() ?? "";
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement)?.value?.trim() ?? "";
+
+    if (!name || !email || !message) {
+      toast.error(t.contact.error);
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message, locale: lang }),
+      });
+
+      if (!res.ok) {
+        let errMsg = t.contact.error;
+        try {
+          const data = await res.json();
+          if (data?.error && typeof data.error === "string") errMsg = data.error;
+        } catch {
+          /* ignore parse error, fall back to generic */
+        }
+        throw new Error(errMsg);
+      }
+
+      setStatus("sent");
+      toast.success(t.contact.success);
+      form.reset();
+    } catch (err) {
+      console.error("[contact] submit failed:", err);
+      setStatus("error");
+      toast.error(err instanceof Error ? err.message : t.contact.error);
+    }
   };
 
   return (
@@ -51,36 +81,64 @@ export function ContactView() {
       <PageHeader badge={t.nav.contact} title={t.contact.title} subtitle={t.contact.body} icon={<Mail className="h-6 w-6" />} />
       <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_0.8fr]">
         <GlassCard strong className="p-6">
-          {sent ? (
+          {status === "sent" ? (
             <div className="flex flex-col items-center justify-center py-10 text-center">
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/15 border border-emerald-500/40 mb-4">
                 <Check className="h-7 w-7 text-emerald-300" />
               </div>
-              <p className="text-sm text-muted-foreground">Your email app should have opened with your message pre-filled. If not, email us at info.wordizy@proton.me</p>
-              <Button onClick={() => setSent(false)} variant="ghost" className="mt-4 glass-soft rounded-lg">Send another</Button>
+              <h3 className="text-base font-semibold text-foreground mb-1.5">{t.contact.success}</h3>
+              <p className="text-sm text-muted-foreground max-w-sm">{t.contact.successDesc}</p>
+              <Button onClick={() => setStatus("idle")} variant="ghost" className="mt-4 glass-soft rounded-lg">
+                {t.contact.another}
+              </Button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <Label htmlFor="name" className="text-xs text-muted-foreground">{t.contact.name}</Label>
-                  <Input id="name" name="name" required className="glass-soft border-white/10 search-amber" />
+                  <Input id="name" name="name" required maxLength={120} disabled={status === "sending"} className="glass-soft border-white/10 search-amber" />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="email" className="text-xs text-muted-foreground">{t.contact.email}</Label>
-                  <Input id="email" name="email" type="email" required className="glass-soft border-white/10 search-amber" />
+                  <Input id="email" name="email" type="email" required maxLength={200} disabled={status === "sending"} className="glass-soft border-white/10 search-amber" />
                 </div>
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="message" className="text-xs text-muted-foreground">{t.contact.message}</Label>
-                <Textarea id="message" name="message" required rows={5} className="glass-soft border-white/10 search-amber resize-none" />
+                <Textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={5}
+                  maxLength={5000}
+                  disabled={status === "sending"}
+                  className="glass-soft border-white/10 search-amber resize-none"
+                />
               </div>
-              <div className="text-xs text-muted-foreground">
-                Your message will be sent to <span className="text-brand font-medium">info.wordizy@proton.me</span> via your email app.
-              </div>
-              <Button type="submit" className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold rounded-lg">
-                <Send className="h-4 w-4" />
-                {t.contact.send}
+              <div className="text-xs text-muted-foreground">{t.contact.note}</div>
+              {status === "error" && (
+                <div className="flex items-center gap-2 rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-xs text-rose-300">
+                  <AlertCircle className="h-4 w-4 shrink-0" />
+                  <span>{t.contact.error}</span>
+                </div>
+              )}
+              <Button
+                type="submit"
+                disabled={status === "sending"}
+                className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold rounded-lg disabled:opacity-60"
+              >
+                {status === "sending" ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    {t.contact.sending}
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-4 w-4" />
+                    {t.contact.send}
+                  </>
+                )}
               </Button>
             </form>
           )}

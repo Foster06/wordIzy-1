@@ -30,3 +30,23 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+/// Submissions from the on-site Contact form.
+/// Stored so the user never leaves the website (no mailto: redirect).
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  /// Optional: which language the UI was in when submitted (for triage).
+  locale    String   @default("en")
+  /// Has the site owner read / handled this message?
+  handled   Boolean  @default(false)
+  /// Optional IP / user-agent for spam triage. Stored only if present.
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([handled])
+  @@index([createdAt])
+}
