@@ -7,7 +7,7 @@ import type { Translation } from "@/components/i18n/translations";
 export type RouteId =
   | "home" | "scramble" | "anagram" | "wordle" | "quordle" | "scrabble"
   | "random" | "wordfeud" | "dictionary" | "wordlists" | "wordstarts" | "wordends"
-  | "about" | "contact" | "privacy" | "sitemap";
+  | "about" | "contact" | "privacy" | "sitemap" | "inbox";
 
 export type RouteGroup = "solvers" | "tools" | "site";
 export type DesktopNavSlot = "inline" | "tools" | "wordlab" | "site";
@@ -19,6 +19,8 @@ export interface RouteDef {
   labelKey: keyof Translation["nav"];
   group: RouteGroup;
   desktop: DesktopNavSlot;
+  /** Hidden routes are routable but not shown in nav/footer. */
+  hidden?: boolean;
 }
 
 export const ROUTES: RouteDef[] = [
@@ -42,6 +44,8 @@ export const ROUTES: RouteDef[] = [
   { id: "contact", hash: "/contact", icon: "Mail", labelKey: "contact", group: "site", desktop: "site" },
   { id: "privacy", hash: "/privacy", icon: "Shield", labelKey: "privacy", group: "site", desktop: "site" },
   { id: "sitemap", hash: "/sitemap", icon: "Map", labelKey: "sitemap", group: "site", desktop: "site" },
+  // Hidden — owner-only inbox for contact form submissions. Access via #/inbox
+  { id: "inbox", hash: "/inbox", icon: "Inbox", labelKey: "inbox", group: "site", desktop: "site", hidden: true },
 ];
 
 export const ROUTE_MAP: Record<string, RouteDef> = Object.fromEntries(

@@ -21,6 +21,7 @@ import { WordlistsTool } from "@/components/tools/wordlists-tool";
 import { WordStartsTool } from "@/components/tools/word-starts-tool";
 import { WordEndsTool } from "@/components/tools/word-ends-tool";
 import { AboutView, ContactView, PrivacyView, SitemapView } from "@/components/tools/info-views";
+import { InboxView } from "@/components/tools/inbox-view";
 
 function HomeHero() {
   const { t } = useLanguage();
@@ -65,6 +66,7 @@ export default function Home() {
       case "contact": return <ContactView />;
       case "privacy": return <PrivacyView />;
       case "sitemap": return <SitemapView />;
+      case "inbox": return <InboxView />;
       default:
         return (
           <>

@@ -32,10 +32,10 @@ export function SiteHeader() {
   const isActive = (r: RouteDef) => route.id === r.id;
   const go = (hash: string) => { navigate(hash); setMobileOpen(false); };
 
-  const inlineRoutes = ROUTES.filter((r) => r.desktop === "inline");
+  const inlineRoutes = ROUTES.filter((r) => r.desktop === "inline" && !r.hidden);
   const mobileGroups = GROUP_ORDER.map((g) => ({
     group: g,
-    routes: ROUTES.filter((r) => r.group === g),
+    routes: ROUTES.filter((r) => r.group === g && !r.hidden),
   }));
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export function SiteHeader() {
                 </button>
               ))}
               {DESKTOP_DROPDOWNS.map((dd) => {
-                const ddRoutes = ROUTES.filter((r) => r.desktop === dd.slot);
+                const ddRoutes = ROUTES.filter((r) => r.desktop === dd.slot && !r.hidden);
                 const activeInDd = ddRoutes.some((r) => isActive(r));
                 return (
                   <HoverDropdown

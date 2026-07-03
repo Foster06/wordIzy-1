@@ -30,7 +30,7 @@ export function SiteFooter() {
         {/* SOLVERS / TOOLS / SITE — 3-column grid */}
         <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-6">
           {GROUP_ORDER.map((group: RouteGroup) => {
-            const groupRoutes = ROUTES.filter((r) => r.group === group);
+            const groupRoutes = ROUTES.filter((r) => r.group === group && !r.hidden);
             const labelKey = GROUP_LABELS[group];
             return (
               <div key={group}>
