@@ -12,6 +12,7 @@ import { LANGUAGES } from "@/lib/languages";
 import { cn } from "@/lib/utils";
 import { TipsSection } from "@/components/site/tips-section";
 import { FAQ_TITLE, wordlistsFaq } from "@/components/site/faq-content";
+import { useLetterAvailability } from "@/components/site/use-letter-availability";
 
 const LENGTHS_ASC = LENGTHS;
 
@@ -20,6 +21,9 @@ export function WordlistsTool() {
   const def = LANGUAGES[lang as LanguageCode];
   const [length, setLength] = useState<number | "all">("all");
   const [letter, setLetter] = useState<string | "all">("all");
+
+  const numLength = length === "all" ? undefined : length;
+  const availableLetters = useLetterAvailability(lang as LanguageCode, "ends", numLength);
 
   const visibleLengths = length === "all" ? LENGTHS_ASC : [length];
   const visibleLetters = letter === "all" ? ALPHABET : [letter];
@@ -52,11 +56,23 @@ export function WordlistsTool() {
                 <button onClick={() => setLetter("all")} className={cn("h-11 px-4 rounded-md transition-colors", letter === "all" ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand")}>
                   <span className="nav-item !text-[14px]">{t.common.allWords}</span>
                 </button>
-                {ALPHABET.map((l) => (
-                  <button key={l} onClick={() => setLetter(l)} className={cn("h-11 w-11 rounded-md flex items-center justify-center transition-colors", letter === l ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand")}>
-                    <span className="alpha-button">{l}</span>
-                  </button>
-                ))}
+                {ALPHABET.map((l) => {
+                  const isAvailable = availableLetters.has(l);
+                  return (
+                    <button
+                      key={l}
+                      onClick={() => isAvailable && setLetter(l)}
+                      disabled={!isAvailable}
+                      className={cn(
+                        "h-11 w-11 rounded-md flex items-center justify-center transition-colors",
+                        !isAvailable && "opacity-25 cursor-not-allowed",
+                        letter === l && isAvailable ? "bg-brand text-background" : isAvailable ? "glass-soft text-foreground/80 hover:text-brand" : "glass-soft text-muted-foreground"
+                      )}
+                    >
+                      <span className="alpha-button">{l}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>

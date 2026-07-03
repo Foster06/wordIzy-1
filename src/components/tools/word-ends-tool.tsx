@@ -11,12 +11,16 @@ import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import { cn } from "@/lib/utils";
 import { FAQ_TITLE, wordendsFaq } from "@/components/site/faq-content";
+import { useLetterAvailability } from "@/components/site/use-letter-availability";
 
 export function WordEndsTool() {
   const { t, lang } = useLanguage();
   const def = LANGUAGES[lang as LanguageCode];
   const [letter, setLetter] = useState("A");
   const [length, setLength] = useState<number | "all">("all");
+
+  const numLength = length === "all" ? undefined : length;
+  const availableLetters = useLetterAvailability(lang as LanguageCode, "ends", numLength);
 
   const visibleLengths = length === "all" ? LENGTHS : [length];
 
@@ -43,11 +47,23 @@ export function WordEndsTool() {
           <div>
             <p className="section-label !text-[14px] mb-2.5 text-muted-foreground">{t.wordlists.letter}</p>
             <div className="flex flex-wrap gap-2">
-              {ALPHABET.map((l) => (
-                <button key={l} onClick={() => setLetter(l)} className={cn("h-11 w-11 rounded-md flex items-center justify-center transition-colors", letter === l ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand")}>
-                  <span className="alpha-button">{l}</span>
-                </button>
-              ))}
+              {ALPHABET.map((l) => {
+                const isAvailable = availableLetters.has(l);
+                return (
+                  <button
+                    key={l}
+                    onClick={() => isAvailable && setLetter(l)}
+                    disabled={!isAvailable}
+                    className={cn(
+                      "h-11 w-11 rounded-md flex items-center justify-center transition-colors",
+                      !isAvailable && "opacity-25 cursor-not-allowed",
+                      letter === l && isAvailable ? "bg-brand text-background" : isAvailable ? "glass-soft text-foreground/80 hover:text-brand" : "glass-soft text-muted-foreground"
+                    )}
+                  >
+                    <span className="alpha-button">{l}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </GlassCard>

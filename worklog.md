@@ -333,3 +333,19 @@ Work Log:
 
 Stage Summary:
 - Hamburger drawer menu items now use Bree Serif font and have a hover effect (amber highlight + slide right).
+
+---
+Task ID: 63
+Agent: main
+Task: Disable empty letters + merge drawer into navbar
+
+Work Log:
+- Created /api/letter-counts endpoint: returns word counts per letter for a given mode/length in a single request (efficient — no 26×N requests).
+- Created useLetterAvailability hook: fetches letter counts and returns a Set of letters with >0 words. Re-fetches when lang/mode/length changes.
+- Updated WordStartsTool, WordEndsTool, WordlistsTool: letter buttons now check availability. Unavailable letters are disabled (disabled attribute, opacity-25, cursor-not-allowed). Verified: on starts-by with length=2, V is disabled (0 words). On ends-by with length=2, C/J/K/Q/V/Z are disabled.
+- Merged hamburger drawer into navbar: removed the drawer/backdrop/hamburger entirely. The nav is now inline and horizontally scrollable on all viewports (no-scrollbar, shrink-0 on items). Language selector (compact) + theme toggle in the right corner on all viewports.
+- Verified: no hamburger button ✓, nav present ✓, disabled letters work ✓.
+- bun run lint clean.
+
+Stage Summary:
+- Letters with no words are disabled (not clickable) on Word Lists, Starts-by, and Ends-by pages. The hamburger drawer is merged into the navbar — nav links are inline and scrollable on all viewports, no drawer.

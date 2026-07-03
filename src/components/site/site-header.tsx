@@ -3,11 +3,10 @@
 import { useState, useEffect, useRef } from "react";
 import {
   Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2,
-  BookOpen, Trophy, List, Info, Mail, Shield, Map, Menu, ChevronDown,
+  BookOpen, Trophy, List, Info, Mail, Shield, Map, ChevronDown,
   ArrowDownToLine, ArrowUpFromLine,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ROUTES, DESKTOP_DROPDOWNS, GROUP_ORDER, GROUP_LABELS, type RouteDef } from "./routes";
+import { ROUTES, DESKTOP_DROPDOWNS, type RouteDef } from "./routes";
 import { useHashRoute } from "./use-hash-route";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LanguageSelector } from "./language-selector";
@@ -28,53 +27,32 @@ function NavIcon({ name, className }: { name: string; className?: string }) {
 export function SiteHeader() {
   const { route, navigate } = useHashRoute();
   const { t } = useLanguage();
-  const [mobileOpen, setMobileOpen] = useState(false);
   const isActive = (r: RouteDef) => route.id === r.id;
-  const go = (hash: string) => { navigate(hash); setMobileOpen(false); };
+  const go = (hash: string) => { navigate(hash); };
 
   const inlineRoutes = ROUTES.filter((r) => r.desktop === "inline");
-  const mobileGroups = GROUP_ORDER.map((g) => ({
-    group: g,
-    routes: ROUTES.filter((r) => r.group === g),
-  }));
-
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen]);
 
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-white/5 bg-background/70 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6">
           <div className="flex h-16 items-center justify-between gap-3">
-            {/* Left corner: hamburger + logo */}
-            <div className="flex items-center gap-2.5">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setMobileOpen(true)}
-                className="lg:hidden rounded-full glass-soft"
-                aria-label="Open menu"
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
-              <button onClick={() => go("/")} className="flex items-center gap-2.5 shrink-0" aria-label="WordIzy home">
-                <Logo size="md" />
-                <span className="text-xl font-bold tracking-tight font-roboto-slab">
-                  Word<span className="text-gradient-brand">Izy</span>
-                </span>
-              </button>
-            </div>
+            {/* Logo */}
+            <button onClick={() => go("/")} className="flex items-center gap-2.5 shrink-0" aria-label="WordIzy home">
+              <Logo size="md" />
+              <span className="text-lg sm:text-xl font-bold tracking-tight font-roboto-slab">
+                Word<span className="text-gradient-brand">Izy</span>
+              </span>
+            </button>
 
-            {/* Desktop inline nav */}
-            <nav className="hidden lg:flex items-center gap-0.5 flex-1">
+            {/* Inline nav — scrollable on all viewports */}
+            <nav className="flex items-center gap-0.5 flex-1 overflow-x-auto nice-scroll no-scrollbar min-w-0">
               {inlineRoutes.map((r) => (
                 <button
                   key={r.id}
                   onClick={() => go(r.hash)}
                   className={cn(
-                    "nav-item !text-[14px] px-3 py-2 rounded-md transition-colors whitespace-nowrap",
+                    "nav-item !text-[13px] sm:!text-[14px] px-2.5 sm:px-3 py-2 rounded-md transition-colors whitespace-nowrap shrink-0",
                     isActive(r) ? "text-brand" : "text-foreground/80 hover:text-brand"
                   )}
                 >
@@ -99,73 +77,13 @@ export function SiteHeader() {
             </nav>
 
             {/* Right: language + theme */}
-            <div className="flex items-center gap-2">
-              <div className="hidden lg:flex items-center gap-2">
-                <LanguageSelector />
-                <ThemeToggle />
-              </div>
-              <LanguageSelector compact className="lg:hidden" />
-              <ThemeToggle className="lg:hidden" />
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <LanguageSelector compact />
+              <ThemeToggle />
             </div>
           </div>
         </div>
       </header>
-
-      {/* Mobile left drawer */}
-      {mobileOpen && (
-        <>
-          <div
-            className="lg:hidden fixed inset-0 z-40 bg-black/40"
-            style={{ backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
-            onClick={() => setMobileOpen(false)}
-            aria-hidden
-          />
-          <div
-            className="lg:hidden fixed left-0 top-0 bottom-0 w-[280px] z-50 bg-background border-r border-white/10 flex flex-col"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation menu"
-          >
-            <div className="flex items-center justify-between px-4 py-3 shrink-0 border-b border-white/5">
-              <button onClick={() => go("/")} className="flex items-center gap-2" aria-label="WordIzy home">
-                <Logo size="sm" />
-                <span className="text-lg font-roboto-slab">Word<span className="text-gradient-brand">Izy</span></span>
-              </button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setMobileOpen(false)}
-                className="rounded-full glass-soft"
-                aria-label="Close menu"
-              >
-                <Menu className="h-5 w-5" />
-              </Button>
-            </div>
-            <div className="flex-1 overflow-y-auto nice-scroll px-3 py-4">
-              {mobileGroups.map(({ group, routes: grpRoutes }) => (
-                <div key={group}>
-                  <p className="px-3 pt-4 pb-1 text-[11px] uppercase tracking-wider text-muted-foreground">{t.nav[GROUP_LABELS[group]]}</p>
-                  {grpRoutes.map((r) => (
-                    <button
-                      key={r.id}
-                      onClick={() => go(r.hash)}
-                      className={cn(
-                        "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-200 font-bree",
-                        isActive(r)
-                          ? "bg-brand/15 text-brand"
-                          : "text-foreground/85 hover:bg-brand/10 hover:text-brand hover:translate-x-1"
-                      )}
-                    >
-                      <NavIcon name={r.icon} className="h-4 w-4 opacity-80" />
-                      <span className="!text-[16px]">{t.nav[r.labelKey]}</span>
-                    </button>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </>
-      )}
     </>
   );
 }
