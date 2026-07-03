@@ -4,14 +4,11 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { cn } from "@/lib/utils";
+
+const THEMES = ["light", "dark", "system"] as const;
+const ICONS = { light: Sun, dark: Moon, system: Monitor };
 
 export function ThemeToggle({ compact = false, className }: { compact?: boolean; className?: string }) {
   const { theme, setTheme, resolvedTheme } = useTheme();
@@ -23,48 +20,30 @@ export function ThemeToggle({ compact = false, className }: { compact?: boolean;
     setMounted(true);
   }, []);
 
-  const isDark = (mounted ? resolvedTheme : "dark") === "dark";
-  const currentTheme = mounted ? theme : "dark";
+  const currentTheme = mounted ? (theme as string) : "dark";
 
-  const icon = currentTheme === "system"
-    ? <Monitor className="h-4 w-4 text-brand" />
-    : isDark
-      ? <Sun className="h-4 w-4 text-brand" />
-      : <Moon className="h-4 w-4 text-brand" />;
+  const cycle = () => {
+    const idx = THEMES.indexOf(currentTheme as typeof THEMES[number]);
+    const next = THEMES[(idx + 1) % THEMES.length];
+    setTheme(next);
+  };
+
+  const Icon = ICONS[currentTheme as keyof typeof ICONS] ?? Sun;
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className={cn(
-            "rounded-full glass-soft hover:bg-white/10 text-foreground transition-colors",
-            compact && "h-8 w-8",
-            className
-          )}
-          aria-label="Theme"
-        >
-          {icon}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-40 glass-strong border-white/10">
-        <DropdownMenuItem onClick={() => setTheme("light")} className="gap-2 cursor-pointer focus:bg-white/10">
-          <Sun className="h-4 w-4" />
-          <span className="text-sm">Light</span>
-          {currentTheme === "light" && <span className="ml-auto text-brand">✓</span>}
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")} className="gap-2 cursor-pointer focus:bg-white/10">
-          <Moon className="h-4 w-4" />
-          <span className="text-sm">Dark</span>
-          {currentTheme === "dark" && <span className="ml-auto text-brand">✓</span>}
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")} className="gap-2 cursor-pointer focus:bg-white/10">
-          <Monitor className="h-4 w-4" />
-          <span className="text-sm">System</span>
-          {currentTheme === "system" && <span className="ml-auto text-brand">✓</span>}
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={cycle}
+      className={cn(
+        "rounded-full glass-soft hover:bg-white/10 text-foreground transition-colors",
+        compact && "h-8 w-8",
+        className
+      )}
+      aria-label={`Theme: ${currentTheme}`}
+      title={`Theme: ${currentTheme} (click to cycle)`}
+    >
+      {mounted ? <Icon className="h-4 w-4 text-brand" /> : <Sun className="h-4 w-4 text-brand" />}
+    </Button>
   );
 }
