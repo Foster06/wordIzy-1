@@ -152,3 +152,22 @@ Work Log:
 
 Stage Summary:
 - All page headings are centered in Bree Serif (matching "Word Unscrambler" style). Pagination at 50 words confirmed on all result pages. A-Z letter sort row is under the length row on Word Lists, Starts-by, and Ends-by pages.
+
+---
+Task ID: 51
+Agent: main
+Task: Footer SOLVERS/TOOLS/SITE 3-column + center all search results
+
+Work Log:
+- Footer: rewrote to use GROUP_ORDER (solvers/tools/site) with exact categorization:
+  - SOLVERS: Unscrambler, Scramble Solver, Anagram Solver, Scrabble Duplicate, Wordle Solver, Quordle Solver
+  - TOOLS: Check Dictionary, Random Word, Wordfeud Helper, Word Lists, Starts By, Ends By
+  - SITE: About, Contact, Privacy, Sitemap
+  - 3-column grid (grid-cols-3) on ALL viewports (mobile + desktop). Responsive text sizes (smaller on mobile).
+  - Brand row with logo + "Unscramble, Solve & Discover Word" description.
+- Verified: footer headings are Solvers/Tools/Site ✓; links match exact order ✓; 3 columns on desktop (1440px) ✓; 3 columns on mobile (390px) ✓.
+- Centered search results: added `justify-items-center text-center` to all result grids (WordGroups, WordList, WordBucket). Verified: computed justify-items=center, text-align=center ✓. VLM confirmed word cells are centered.
+- bun run lint clean.
+
+Stage Summary:
+- Footer uses 3-column grid (Solvers/Tools/Site) on both mobile and desktop with exact categorization. All search results are centered across the website.

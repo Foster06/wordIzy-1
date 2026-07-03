@@ -56,7 +56,7 @@ function LengthGroupCard({ group, t }: { group: LengthGroup; t: Translation }) {
           {totalPages > 1 && <span className="ml-2 tabular-nums">{page + 1}/{totalPages}</span>}
         </span>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5 justify-items-center text-center">
         {visible.map((w) => (
           <div
             key={w.word}

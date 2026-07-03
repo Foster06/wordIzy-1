@@ -78,7 +78,7 @@ export function WordBucket({
         <p className="text-xs text-muted-foreground py-4 text-center">{t.common.none}</p>
       ) : (
         <>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5 justify-items-center text-center">
             {pageWords.map((w) => (
               <div
                 key={w.word}
