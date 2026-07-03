@@ -277,3 +277,18 @@ Work Log:
 
 Stage Summary:
 - Mobile hamburger drawer is now on the left side with the body content (right side) blurred when open. Hamburger icon opens and closes the drawer.
+
+---
+Task ID: 59
+Agent: main
+Task: Remove blur from menu + remove hamburger drawer from navbar
+
+Work Log:
+- Removed the entire mobile drawer system (backdrop + left drawer + blur) from site-header.tsx. No more blur, no more drawer, no more hamburger button.
+- Removed unused imports (Menu, Button, GROUP_ORDER, GROUP_LABELS) and unused state (mobileOpen, mobileGroups, useEffect for body scroll lock).
+- The navbar is now a single top bar on all viewports (desktop/tablet/mobile) with logo, inline nav links + Tools/Word Lab dropdowns, language selector + theme toggle.
+- Verified: no hamburger button in DOM ✓, no drawer/blur ✓, navbar present as simple top bar ✓.
+- bun run lint clean.
+
+Stage Summary:
+- No blur, no hamburger drawer. The navbar is a clean top bar on all viewports with language + theme toggles.
