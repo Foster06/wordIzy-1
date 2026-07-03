@@ -91,7 +91,7 @@ export function DictionaryTool() {
             <h2 className="text-sm font-semibold uppercase tracking-wider text-brand mb-4">{t.dictionary.title}</h2>
             <div className="space-y-1.5">
               <Label htmlFor="dword" className="text-xs text-muted-foreground">{t.common.example}</Label>
-              <Input id="dword" value={word} onChange={(e) => setWord(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") check(); }} placeholder="scrabble" maxLength={20} className="h-12 text-lg uppercase glass-soft border-white/10 tracking-widest" autoComplete="off" spellCheck={false} />
+              <Input id="dword" value={word} onChange={(e) => setWord(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") check(); }} placeholder="scrabble" maxLength={20} className="h-12 text-lg uppercase glass-soft border-white/10 search-amber tracking-widest" autoComplete="off" spellCheck={false} />
             </div>
             <div className="mt-4">
               <ActionButtons

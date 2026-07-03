@@ -92,7 +92,7 @@ export function ScrambleTool() {
           <div className="flex flex-wrap gap-3 items-end">
             <div className="flex-1 min-w-[200px] space-y-1.5">
               <Label htmlFor="word" className="text-xs text-muted-foreground">Word</Label>
-              <Input id="word" value={word} onChange={(e) => setWord(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") scramble(); }} placeholder="scrabble" maxLength={15} className="h-10 uppercase glass-soft border-white/10" autoComplete="off" />
+              <Input id="word" value={word} onChange={(e) => setWord(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") scramble(); }} placeholder="scrabble" maxLength={15} className="h-10 uppercase glass-soft border-white/10 search-amber" autoComplete="off" />
             </div>
             <Button onClick={scramble} disabled={scramLoading || !word.trim()} className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold rounded-lg">
               {scramLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Shuffle className="h-4 w-4" />}

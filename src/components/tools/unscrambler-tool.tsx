@@ -94,15 +94,15 @@ export function UnscramblerTool() {
               <div className="grid sm:grid-cols-3 gap-3 rounded-xl glass-soft p-4">
                 <div className="space-y-1.5">
                   <Label htmlFor="sw" className="text-xs text-muted-foreground">{t.common.startsWith}</Label>
-                  <Input id="sw" value={startsWith} onChange={(e) => setStartsWith(e.target.value)} className="h-9 glass-soft border-white/10 uppercase" placeholder="ab" maxLength={6} />
+                  <Input id="sw" value={startsWith} onChange={(e) => setStartsWith(e.target.value)} className="h-9 glass-soft border-white/10 search-amber uppercase" placeholder="ab" maxLength={6} />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="ew" className="text-xs text-muted-foreground">{t.common.endsWith}</Label>
-                  <Input id="ew" value={endsWith} onChange={(e) => setEndsWith(e.target.value)} className="h-9 glass-soft border-white/10 uppercase" placeholder="ed" maxLength={6} />
+                  <Input id="ew" value={endsWith} onChange={(e) => setEndsWith(e.target.value)} className="h-9 glass-soft border-white/10 search-amber uppercase" placeholder="ed" maxLength={6} />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="mi" className="text-xs text-muted-foreground">{t.common.mustInclude}</Label>
-                  <Input id="mi" value={mustInclude} onChange={(e) => setMustInclude(e.target.value)} className="h-9 glass-soft border-white/10 uppercase" placeholder="cat" maxLength={8} />
+                  <Input id="mi" value={mustInclude} onChange={(e) => setMustInclude(e.target.value)} className="h-9 glass-soft border-white/10 search-amber uppercase" placeholder="cat" maxLength={8} />
                 </div>
               </div>
             </CollapsibleContent>

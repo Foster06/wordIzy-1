@@ -69,7 +69,7 @@ export function RandomTool() {
             <div className="space-y-1.5">
               <Label className="text-xs text-muted-foreground">{t.random.length}</Label>
               <Select value={length} onValueChange={setLength}>
-                <SelectTrigger className="glass-soft border-white/10"><SelectValue /></SelectTrigger>
+                <SelectTrigger className="glass-soft border-white/10 search-amber"><SelectValue /></SelectTrigger>
                 <SelectContent className="glass-strong border-white/10">
                   <SelectItem value="any">{t.random.any}</SelectItem>
                   {Array.from({ length: 11 }, (_, i) => i + 2).map((l) => (
@@ -80,19 +80,19 @@ export function RandomTool() {
             </div>
             <div className="space-y-1.5">
               <Label className="text-xs text-muted-foreground">{t.common.startsWith}</Label>
-              <Input value={startsWith} onChange={(e) => setStartsWith(e.target.value)} placeholder="ab" maxLength={5} className="h-9 uppercase glass-soft border-white/10" autoComplete="off" />
+              <Input value={startsWith} onChange={(e) => setStartsWith(e.target.value)} placeholder="ab" maxLength={5} className="h-9 uppercase glass-soft border-white/10 search-amber" autoComplete="off" />
             </div>
             <div className="space-y-1.5">
               <Label className="text-xs text-muted-foreground">{t.common.endsWith}</Label>
-              <Input value={endsWith} onChange={(e) => setEndsWith(e.target.value)} placeholder="ed" maxLength={5} className="h-9 uppercase glass-soft border-white/10" autoComplete="off" />
+              <Input value={endsWith} onChange={(e) => setEndsWith(e.target.value)} placeholder="ed" maxLength={5} className="h-9 uppercase glass-soft border-white/10 search-amber" autoComplete="off" />
             </div>
             <div className="space-y-1.5">
               <Label className="text-xs text-muted-foreground">{t.common.mustInclude}</Label>
-              <Input value={contains} onChange={(e) => setContains(e.target.value)} placeholder="cat" maxLength={6} className="h-9 uppercase glass-soft border-white/10" autoComplete="off" />
+              <Input value={contains} onChange={(e) => setContains(e.target.value)} placeholder="cat" maxLength={6} className="h-9 uppercase glass-soft border-white/10 search-amber" autoComplete="off" />
             </div>
             <div className="space-y-1.5">
               <Label className="text-xs text-muted-foreground">{t.random.count}</Label>
-              <Input type="number" min={1} max={200} value={count} onChange={(e) => setCount(e.target.value)} className="h-9 glass-soft border-white/10" />
+              <Input type="number" min={1} max={200} value={count} onChange={(e) => setCount(e.target.value)} className="h-9 glass-soft border-white/10 search-amber" />
             </div>
           </div>
           <div className="mt-5">

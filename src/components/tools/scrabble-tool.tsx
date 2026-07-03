@@ -68,7 +68,7 @@ export function ScrabbleTool() {
                 onKeyDown={(e) => { if (e.key === "Enter") solve(); }}
                 placeholder={t.scrabble.board}
                 maxLength={20}
-                className="h-10 uppercase glass-soft border-white/10 tracking-widest"
+                className="h-10 uppercase glass-soft border-white/10 search-amber tracking-widest"
                 autoComplete="off"
                 spellCheck={false}
               />

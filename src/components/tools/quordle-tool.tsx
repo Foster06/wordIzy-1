@@ -114,16 +114,16 @@ export function QuordleTool() {
                 <div className="space-y-3">
                   <div className="space-y-1.5">
                     <Label className="text-xs text-muted-foreground">{t.wordle.placed}</Label>
-                    <Input value={b.pattern} onChange={(e) => updateBoard(b.id, { pattern: e.target.value })} placeholder={".".repeat(b.length)} maxLength={b.length} className="h-10 font-mono uppercase tracking-[0.25em] glass-soft border-white/10" autoComplete="off" />
+                    <Input value={b.pattern} onChange={(e) => updateBoard(b.id, { pattern: e.target.value })} placeholder={".".repeat(b.length)} maxLength={b.length} className="h-10 font-mono uppercase tracking-[0.25em] glass-soft border-white/10 search-amber" autoComplete="off" />
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="space-y-1.5">
                       <Label className="text-xs text-muted-foreground">{t.wordle.valid}</Label>
-                      <Input value={b.validLetters} onChange={(e) => updateBoard(b.id, { validLetters: e.target.value })} placeholder="rs" maxLength={15} className="h-9 uppercase glass-soft border-white/10 tracking-widest" autoComplete="off" />
+                      <Input value={b.validLetters} onChange={(e) => updateBoard(b.id, { validLetters: e.target.value })} placeholder="rs" maxLength={15} className="h-9 uppercase glass-soft border-white/10 search-amber tracking-widest" autoComplete="off" />
                     </div>
                     <div className="space-y-1.5">
                       <Label className="text-xs text-muted-foreground">{t.wordle.excluded}</Label>
-                      <Input value={b.excludedLetters} onChange={(e) => updateBoard(b.id, { excludedLetters: e.target.value })} placeholder="bx" maxLength={20} className="h-9 uppercase glass-soft border-white/10 tracking-widest" autoComplete="off" />
+                      <Input value={b.excludedLetters} onChange={(e) => updateBoard(b.id, { excludedLetters: e.target.value })} placeholder="bx" maxLength={20} className="h-9 uppercase glass-soft border-white/10 search-amber tracking-widest" autoComplete="off" />
                     </div>
                   </div>
                 </div>

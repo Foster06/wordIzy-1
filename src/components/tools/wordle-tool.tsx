@@ -67,18 +67,18 @@ export function WordleTool() {
 
               <div className="space-y-1.5">
                 <Label htmlFor="pattern" className="text-xs text-muted-foreground">{t.wordle.placed}</Label>
-                <Input id="pattern" value={pattern} onChange={(e) => setPattern(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") solve(); }} placeholder={".".repeat(length)} maxLength={length} className="h-11 text-lg font-mono uppercase tracking-[0.3em] glass-soft border-white/10" autoComplete="off" />
+                <Input id="pattern" value={pattern} onChange={(e) => setPattern(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") solve(); }} placeholder={".".repeat(length)} maxLength={length} className="h-11 text-lg font-mono uppercase tracking-[0.3em] glass-soft border-white/10 search-amber" autoComplete="off" />
                 <p className="text-[11px] text-muted-foreground">{t.wordle.hint}</p>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-3">
                 <div className="space-y-1.5">
                   <Label htmlFor="valid" className="text-xs text-muted-foreground">{t.wordle.valid}</Label>
-                  <Input id="valid" value={valid} onChange={(e) => setValid(e.target.value)} placeholder="rst" maxLength={15} className="h-10 uppercase glass-soft border-white/10 tracking-widest" autoComplete="off" />
+                  <Input id="valid" value={valid} onChange={(e) => setValid(e.target.value)} placeholder="rst" maxLength={15} className="h-10 uppercase glass-soft border-white/10 search-amber tracking-widest" autoComplete="off" />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="excluded" className="text-xs text-muted-foreground">{t.wordle.excluded}</Label>
-                  <Input id="excluded" value={excluded} onChange={(e) => setExcluded(e.target.value)} placeholder="bxf" maxLength={20} className="h-10 uppercase glass-soft border-white/10 tracking-widest" autoComplete="off" />
+                  <Input id="excluded" value={excluded} onChange={(e) => setExcluded(e.target.value)} placeholder="bxf" maxLength={20} className="h-10 uppercase glass-soft border-white/10 search-amber tracking-widest" autoComplete="off" />
                 </div>
               </div>
 

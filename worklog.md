@@ -393,3 +393,20 @@ Work Log:
 
 Stage Summary:
 - Build error fixed (German quotes replaced with guillemets). FAQ content now translates when switching languages.
+
+---
+Task ID: 67
+Agent: main
+Task: Add light gradient amber shadow to search bars in light mode
+
+Work Log:
+- Added `.search-amber` CSS class to globals.css:
+  - Dark mode (default): subtle amber shadow — 0 0 0 1px rgba(245,166,35,0.15), 0 2px 12px -4px rgba(245,166,35,0.20)
+  - Light mode (:root:not(.dark)): stronger visible amber glow — 0 0 0 1px rgba(245,166,35,0.25), 0 2px 10px -2px rgba(245,166,35,0.30) !important
+  - Light mode focus: even stronger — 0 0 0 1px rgba(245,166,35,0.50), 0 0 0 3px rgba(245,166,35,0.20), 0 4px 16px -4px rgba(245,166,35,0.40) !important
+- Applied `search-amber` class to all 9 tool files' search bar inputs (letter-input, scramble, random, unscrambler, scrabble, info-views, wordle, dictionary, quordle).
+- Verified: light mode search bar has visible amber glow (rgba(245,166,35,0.25) + rgba(245,166,35,0.3)) ✓; dark mode has subtle amber shadow (rgba(245,166,35,0.15)) ✓.
+- bun run lint clean.
+
+Stage Summary:
+- Search bars now have a light gradient amber shadow in light mode (unfocused) making them visible and inviting. The shadow intensifies on focus. Dark mode has a subtle amber shadow.

@@ -53,16 +53,16 @@ export function ContactView() {
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <Label htmlFor="name" className="text-xs text-muted-foreground">{t.contact.name}</Label>
-                  <Input id="name" required className="glass-soft border-white/10" />
+                  <Input id="name" required className="glass-soft border-white/10 search-amber" />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="email" className="text-xs text-muted-foreground">{t.contact.email}</Label>
-                  <Input id="email" type="email" required className="glass-soft border-white/10" />
+                  <Input id="email" type="email" required className="glass-soft border-white/10 search-amber" />
                 </div>
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="message" className="text-xs text-muted-foreground">{t.contact.message}</Label>
-                <Textarea id="message" required rows={5} className="glass-soft border-white/10 resize-none" />
+                <Textarea id="message" required rows={5} className="glass-soft border-white/10 search-amber resize-none" />
               </div>
               <Button type="submit" className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold rounded-lg">
                 <Send className="h-4 w-4" />
