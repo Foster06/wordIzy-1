@@ -15,7 +15,7 @@ export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-white/5 bg-background/60 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
-        <div className="grid gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-3 gap-4 sm:gap-6">
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-3">
@@ -31,7 +31,7 @@ export function SiteFooter() {
           {/* Tools */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-brand mb-3">{t.nav.tools}</h3>
-            <ul className="space-y-2">
+            <ul class="space-y-1.5 sm:space-y-2">
               {toolRoutes.slice(0, 8).map((r) => (
                 <li key={r.id}>
                   <button
@@ -48,7 +48,7 @@ export function SiteFooter() {
           {/* More */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-brand mb-3">{t.footer.links}</h3>
-            <ul className="space-y-2">
+            <ul class="space-y-1.5 sm:space-y-2">
               {infoRoutes.map((r) => (
                 <li key={r.id}>
                   <button

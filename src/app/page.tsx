@@ -8,7 +8,6 @@ import { PageHeader } from "@/components/site/page-header";
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
 import { HomeFaq } from "@/components/site/tips-section";
-import { Sparkles } from "lucide-react";
 import { UnscramblerTool } from "@/components/tools/unscrambler-tool";
 import { ScrambleTool } from "@/components/tools/scramble-tool";
 import { WordleTool } from "@/components/tools/wordle-tool";
@@ -30,11 +29,6 @@ function HomeHero() {
       <div className="absolute -top-20 -right-10 h-56 w-56 rounded-full bg-brand/15 blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 -left-10 h-56 w-56 rounded-full bg-brand-soft/10 blur-3xl pointer-events-none" />
       <div className="relative">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 border border-brand/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand">
-            <Sparkles className="h-3 w-3" /> {t.home.heroBadge}
-          </span>
-        </div>
         <h1 className="text-3xl sm:text-5xl font-bold tracking-tight leading-tight">
           {t.home.title.split(" ")[0]} <span className="text-gradient-brand">{t.home.title.split(" ").slice(1).join(" ")}</span>
         </h1>

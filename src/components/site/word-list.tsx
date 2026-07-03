@@ -26,7 +26,7 @@ export function WordList({ words, lang, t, emptyMessage, maxVisible = 200 }: Wor
   }
   const shown = words.slice(0, maxVisible);
   return (
-    <GlassCard className="p-4 sm:p-5">
+    <GlassCard className="p-4 sm:p-5 result-card">
       <div className="flex items-center justify-between mb-3">
         <span className="text-xs text-muted-foreground">{words.length} {t.common.wordsCount}</span>
         {words.length > maxVisible && <span className="text-xs text-muted-foreground">({t.common.showMore} {maxVisible})</span>}

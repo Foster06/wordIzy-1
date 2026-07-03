@@ -68,3 +68,22 @@ Work Log:
 Stage Summary:
 - Browser-verified: Scrabble filter (qi✓/za✓/ii✗), synonyms (happy→halcyon,content,joyful...; froh→glücklich,zufrieden...), definitions (scrabble→"A scramble." via Free Dictionary API with phonetic), Word Lists 5-col grid + pagination + A-Z sort row.
 - All 4 requested external APIs integrated and filtered against official Scrabble dictionaries.
+
+---
+Task ID: 47
+Agent: main
+Task: Redo all 6 UI improvements (project was reset)
+
+Work Log:
+- Project had been reset to an earlier state, so all 6 changes were redone:
+1. FAQ: Created faq-content.ts with 4-6 detailed page-specific Q&As per tool (Unscrambler, Scramble, Wordle, Quordle, Anagram, Random, Wordfeud, Dictionary, Scrabble, Word Lists, Starts-by, Ends-by). Updated tips-section.tsx with "How to use & FAQ" heading (Roboto Slab bold, shadow). All tools now use page-specific FAQ content.
+2. Footer: Changed to grid-cols-3 on all viewports (3-column on desktop and mobile). Responsive text sizes. Replaced desc+tagline with "Unscramble, Solve & Discover Word".
+3. Hero badge: Removed "FREE • NO SIGN-UP • 9 LANGUAGES" badge from home page (removed Sparkles import + badge span).
+4. Dictionary stat cards: Shrunk to rounded-lg px-2 py-1.5 with text-base value + text-[9px] label, grid-cols-3 gap-2. Added word-cell class for shadow.
+5. Dictionary badge: Changed from emerald green to amber gradient (bg-gradient-to-r from-brand to-brand-soft).
+6. 3D shadows: Added box-shadow to .glass, .glass-strong, .glass-soft classes in globals.css. Added .result-card class (with light-mode boost) and .word-cell class (with light-mode boost) for result containers and word cells.
+- Verified via Agent Browser: badge removed ✓, 3D shadow on cards ✓ (rgba(0,0,0,0.18) 0px 4px 6px...), footer 3-column ✓, FAQ "How to use" heading ✓ + Wordle-specific FAQ ✓, dictionary stat cards small ✓ + amber gradient badge ✓.
+- bun run lint clean.
+
+Stage Summary:
+- All 6 changes redone and verified: detailed page-specific FAQ, 3-column footer on all viewports, hero badge removed, smaller dictionary stat cards with amber gradient badge, and 3D light black shadows on all cards + result containers + word cells.

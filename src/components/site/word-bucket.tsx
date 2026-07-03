@@ -56,7 +56,7 @@ export function WordBucket({
   const hasMore = total > 500 && allWords.length < total;
 
   return (
-    <GlassCard className="p-4">
+    <GlassCard className="p-4 result-card">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-sm font-semibold text-brand flex items-center gap-1.5">
           <ArrowDownAZ className="h-3.5 w-3.5" />

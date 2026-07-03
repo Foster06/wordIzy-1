@@ -13,6 +13,7 @@ import { PageHeader } from "@/components/site/page-header";
 import { useApi } from "@/components/site/use-api";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
+import { FAQ_TITLE, dictionaryFaq } from "@/components/site/faq-content";
 
 interface CheckResult {
   word: string; exists: boolean; score: number; length: number;
@@ -128,12 +129,12 @@ export function DictionaryTool() {
                     ))}
                   </div>
                 </div>
-                <div className={`flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold ${result.exists ? "bg-emerald-500/15 border border-emerald-500/40 text-emerald-300" : "bg-red-500/15 border border-red-500/40 text-red-300"}`}>
+                <div className={`flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold ${result.exists ? "bg-gradient-to-r from-brand to-brand-soft border border-brand/40 text-background" : "bg-red-500/15 border border-red-500/40 text-red-300"}`}>
                   {result.exists ? <Check className="h-4 w-4" /> : <X className="h-4 w-4" />}
                   {result.exists ? t.dictionary.exists : t.dictionary.notExists}
                 </div>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center">
+              <div className="grid grid-cols-3 gap-2 text-center">
                 <Stat label={t.dictionary.score} value={result.score} />
                 <Stat label={t.common.length} value={result.length} />
                 <Stat label={t.common.points} value={`${result.score}`} />
@@ -207,10 +208,7 @@ export function DictionaryTool() {
           </section>
         )}
 
-        <TipsSection title={t.common.tipsTitle} items={[
-          { q: t.home.q1, a: t.home.a1 },
-          { q: t.home.q3, a: t.home.a3 },
-        ]} />
+        <TipsSection title={FAQ_TITLE} items={dictionaryFaq} />
         <AdSlot format="horizontal" />
       </div>
     </>
@@ -219,9 +217,9 @@ export function DictionaryTool() {
 
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-xl glass-soft p-3">
-      <div className="text-2xl font-bold text-brand tabular-nums">{value}</div>
-      <div className="text-[11px] text-muted-foreground uppercase tracking-wider mt-0.5">{label}</div>
+    <div className="rounded-lg glass-soft px-2 py-1.5 word-cell">
+      <div className="text-base font-bold text-brand tabular-nums">{value}</div>
+      <div className="text-[9px] text-muted-foreground uppercase tracking-wider mt-0.5">{label}</div>
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { TipsSection } from "@/components/site/tips-section";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import { cn } from "@/lib/utils";
+import { FAQ_TITLE, wordstartsFaq } from "@/components/site/faq-content";
 
 export function WordStartsTool() {
   const { t, lang } = useLanguage();
@@ -65,10 +66,7 @@ export function WordStartsTool() {
           </div>
         </div>
 
-        <TipsSection title={t.common.tipsTitle} items={[
-          { q: t.home.q4, a: t.home.a4 },
-          { q: t.home.q3, a: t.home.a3 },
-        ]} />
+        <TipsSection title={FAQ_TITLE} items={wordstartsFaq} />
         <AdSlot format="horizontal" />
         <p className="text-center text-xs text-muted-foreground">
           {def.flag} {def.nativeName} — official Scrabble dictionary filter applied

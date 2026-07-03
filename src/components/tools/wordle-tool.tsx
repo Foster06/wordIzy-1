@@ -14,6 +14,7 @@ import { useApi } from "@/components/site/use-api";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import type { SolvedWord } from "@/lib/unscramble";
+import { FAQ_TITLE, wordleFaq } from "@/components/site/faq-content";
 
 const LENGTHS = [4, 5, 6, 7, 8];
 
@@ -126,10 +127,7 @@ export function WordleTool() {
           )}
         </section>
 
-        <TipsSection title={t.common.tipsTitle} items={[
-          { q: t.home.q1, a: t.home.a1 },
-          { q: t.home.q3, a: t.home.a3 },
-        ]} />
+        <TipsSection title={FAQ_TITLE} items={wordleFaq} />
         <AdSlot format="horizontal" />
       </div>
     </>

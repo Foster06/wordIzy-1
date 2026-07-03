@@ -42,7 +42,7 @@ function LengthGroupCard({ group, t, lang }: { group: LengthGroup; t: Translatio
   const hasMore = group.words.length > INITIAL_PER_GROUP;
 
   return (
-    <GlassCard className="p-4 sm:p-5">
+    <GlassCard className="p-4 sm:p-5 result-card">
       <div className="flex items-center justify-between mb-3">
         <h3 className="flex items-baseline gap-2 text-sm font-semibold uppercase tracking-wider text-brand">
           <span className="text-lg font-bold">{group.length}</span>
