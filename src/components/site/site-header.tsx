@@ -116,11 +116,12 @@ export function SiteHeader() {
         <>
           <div
             className="lg:hidden fixed inset-0 z-40 bg-black/40"
+            style={{ backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
             onClick={() => setMobileOpen(false)}
             aria-hidden
           />
           <div
-            className="lg:hidden fixed left-0 top-0 bottom-0 w-[280px] z-50 glass-blur-xl border-r border-white/10 flex flex-col"
+            className="lg:hidden fixed left-0 top-0 bottom-0 w-[280px] z-50 bg-background border-r border-white/10 flex flex-col"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"

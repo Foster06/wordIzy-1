@@ -305,3 +305,17 @@ Work Log:
 
 Stage Summary:
 - Hamburger drawer is back in the left side corner of the navbar, opening a left-side drawer with categorized navigation.
+
+---
+Task ID: 61
+Agent: main
+Task: Remove blur from drawer, keep blur on body
+
+Work Log:
+- Drawer panel: changed from glass-blur-xl (frosted/blur) to bg-background (solid, no blur).
+- Body backdrop: added backdrop-filter blur(8px) to the bg-black/40 overlay so the body content behind the drawer is blurred.
+- Verified: drawer panel is solid (not blurred) ✓; body content behind is blurred/dimmed ✓.
+- bun run lint clean.
+
+Stage Summary:
+- The hamburger drawer panel is now solid (no blur), while the body content behind it remains blurred when the drawer is open.
