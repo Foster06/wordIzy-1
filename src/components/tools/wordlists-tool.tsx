@@ -12,6 +12,7 @@ import { LANGUAGES } from "@/lib/languages";
 import { cn } from "@/lib/utils";
 import { TipsSection } from "@/components/site/tips-section";
 import { useLetterAvailability } from "@/components/site/use-letter-availability";
+import { useLengthCounts } from "@/components/site/use-length-counts";
 
 const LENGTHS_ASC = LENGTHS;
 
@@ -22,7 +23,8 @@ export function WordlistsTool() {
   const [letter, setLetter] = useState<string | "all">("all");
 
   const numLength = length === "all" ? undefined : length;
-  const { available: availableLetters, counts } = useLetterAvailability(lang as LanguageCode, "starts", numLength);
+  const { available: availableLetters } = useLetterAvailability(lang as LanguageCode, "starts", numLength);
+  const lengthCounts = useLengthCounts(lang as LanguageCode, "starts", letter === "all" ? undefined : letter);
 
   const visibleLengths = length === "all" ? LENGTHS_ASC : [length];
   const visibleLetters = letter === "all" ? ALPHABET : [letter];
@@ -33,22 +35,26 @@ export function WordlistsTool() {
       <div className="mt-6 space-y-6">
         <GlassCard strong className="p-5">
           <div className="space-y-5">
-            {/* Length sort row (2-7) — TOP */}
+            {/* Length sort row (2-7) with counts — TOP */}
             <div>
               <p className="section-label !text-[14px] mb-2.5 text-muted-foreground">{t.wordlists.selectLength}</p>
               <div className="flex flex-wrap gap-2">
-                <button onClick={() => setLength("all")} className={cn("h-10 px-4 rounded-md transition-colors", length === "all" ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand")}>
+                <button onClick={() => setLength("all")} className={cn("h-14 px-4 rounded-md flex flex-col items-center justify-center gap-0.5 transition-colors", length === "all" ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand")}>
                   <span className="nav-item !text-[14px]">{t.common.allWords}</span>
                 </button>
-                {LENGTHS.map((l) => (
-                  <button key={l} onClick={() => setLength(l)} className={cn("h-10 w-10 rounded-md flex items-center justify-center transition-colors", length === l ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand")}>
-                    <span className="num-button">{l}</span>
-                  </button>
-                ))}
+                {LENGTHS.map((l) => {
+                  const count = lengthCounts[l] ?? 0;
+                  return (
+                    <button key={l} onClick={() => setLength(l)} className={cn("h-14 w-14 rounded-md flex flex-col items-center justify-center gap-0.5 transition-colors", length === l ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand")}>
+                      <span className="num-button">{l}</span>
+                      {count > 0 && <span className="text-[9px] font-bold tabular-nums opacity-70">{count}</span>}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            {/* A-Z letter sort row with counts — BELOW length */}
+            {/* A-Z letter sort row — BELOW length */}
             <div>
               <p className="section-label !text-[14px] mb-2.5 text-muted-foreground">{t.wordlists.letter}</p>
               <div className="flex flex-wrap gap-2">
@@ -57,20 +63,18 @@ export function WordlistsTool() {
                 </button>
                 {ALPHABET.map((l) => {
                   const isAvailable = availableLetters.has(l);
-                  const count = counts[l] ?? 0;
                   return (
                     <button
                       key={l}
                       onClick={() => isAvailable && setLetter(l)}
                       disabled={!isAvailable}
                       className={cn(
-                        "h-14 w-14 rounded-md flex flex-col items-center justify-center transition-colors gap-0.5",
+                        "h-11 w-11 rounded-md flex items-center justify-center transition-colors",
                         !isAvailable && "opacity-25 cursor-not-allowed",
                         letter === l && isAvailable ? "bg-brand text-background" : isAvailable ? "glass-soft text-foreground/80 hover:text-brand" : "glass-soft text-muted-foreground"
                       )}
                     >
                       <span className="alpha-button">{l}</span>
-                      {count > 0 && <span className="text-[9px] font-bold tabular-nums opacity-70">{count}</span>}
                     </button>
                   );
                 })}
