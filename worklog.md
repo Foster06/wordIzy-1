@@ -258,3 +258,22 @@ Work Log:
 
 Stage Summary:
 - "Unscramble, Solve & Discover Word" is now just below the brand name. Copyright text is in the bottom left corner of the footer.
+
+---
+Task ID: 58
+Agent: main
+Task: Move hamburger drawer to left + blur right side
+
+Work Log:
+- Replaced the shadcn Sheet (right-side) with a custom left-side drawer:
+  - Drawer is fixed on the LEFT (left-0, w-280px, glass-blur-xl, border-r).
+  - Backdrop covers full screen with bg-black/40 + backdrop-filter blur(8px) — blurs/dims the right side (body content).
+  - Clicking the backdrop closes the drawer.
+  - Drawer header: logo on left, hamburger (Menu icon) on right to close.
+  - Body scroll locked when open.
+  - Hamburger in navbar opens the drawer.
+- Verified: drawer on left ✓, right side blurred ✓, hamburger closes drawer ✓.
+- bun run lint clean.
+
+Stage Summary:
+- Mobile hamburger drawer is now on the left side with the body content (right side) blurred when open. Hamburger icon opens and closes the drawer.

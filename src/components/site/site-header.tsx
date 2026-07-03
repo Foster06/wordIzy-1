@@ -7,7 +7,6 @@ import {
   ArrowDownToLine, ArrowUpFromLine,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ROUTES, DESKTOP_DROPDOWNS, GROUP_ORDER, GROUP_LABELS, type RouteDef } from "./routes";
 import { useHashRoute } from "./use-hash-route";
 import { useLanguage } from "@/components/i18n/language-provider";
@@ -34,103 +33,141 @@ export function SiteHeader() {
   const go = (hash: string) => { navigate(hash); setMobileOpen(false); };
 
   const inlineRoutes = ROUTES.filter((r) => r.desktop === "inline");
-
-  // Mobile drawer routes grouped by GROUP_ORDER
   const mobileGroups = GROUP_ORDER.map((g) => ({
     group: g,
     routes: ROUTES.filter((r) => r.group === g),
   }));
 
+  // Lock body scroll when drawer open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-white/5 bg-background/70 backdrop-blur-xl">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="flex h-16 items-center justify-between gap-3">
-          {/* Logo */}
-          <button onClick={() => go("/")} className="flex items-center gap-2.5 shrink-0" aria-label="WordIzy home">
-            <Logo size="md" />
-            <span className="text-xl font-bold tracking-tight font-roboto-slab">
-              Word<span className="text-gradient-brand">Izy</span>
-            </span>
-          </button>
+    <>
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-background/70 backdrop-blur-xl">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="flex h-16 items-center justify-between gap-3">
+            {/* Logo */}
+            <button onClick={() => go("/")} className="flex items-center gap-2.5 shrink-0" aria-label="WordIzy home">
+              <Logo size="md" />
+              <span className="text-xl font-bold tracking-tight font-roboto-slab">
+                Word<span className="text-gradient-brand">Izy</span>
+              </span>
+            </button>
 
-          {/* Desktop inline nav */}
-          <nav className="hidden lg:flex items-center gap-0.5 flex-1">
-            {inlineRoutes.map((r) => (
-              <button
-                key={r.id}
-                onClick={() => go(r.hash)}
-                className={cn(
-                  "nav-item !text-[14px] px-3 py-2 rounded-md transition-colors whitespace-nowrap",
-                  isActive(r) ? "text-brand" : "text-foreground/80 hover:text-brand"
-                )}
+            {/* Desktop inline nav */}
+            <nav className="hidden lg:flex items-center gap-0.5 flex-1">
+              {inlineRoutes.map((r) => (
+                <button
+                  key={r.id}
+                  onClick={() => go(r.hash)}
+                  className={cn(
+                    "nav-item !text-[14px] px-3 py-2 rounded-md transition-colors whitespace-nowrap",
+                    isActive(r) ? "text-brand" : "text-foreground/80 hover:text-brand"
+                  )}
+                >
+                  {t.nav[r.labelKey]}
+                </button>
+              ))}
+              {DESKTOP_DROPDOWNS.map((dd) => {
+                const ddRoutes = ROUTES.filter((r) => r.desktop === dd.slot);
+                const activeInDd = ddRoutes.some((r) => isActive(r));
+                return (
+                  <HoverDropdown
+                    key={dd.slot}
+                    label={t.nav[dd.labelKey]}
+                    active={activeInDd}
+                    routes={ddRoutes}
+                    isActive={isActive}
+                    t={t}
+                    onGo={go}
+                  />
+                );
+              })}
+            </nav>
+
+            {/* Right: language + theme + mobile hamburger */}
+            <div className="flex items-center gap-2">
+              <div className="hidden lg:flex items-center gap-2">
+                <LanguageSelector />
+                <ThemeToggle />
+              </div>
+              <LanguageSelector compact className="lg:hidden" />
+              <ThemeToggle className="lg:hidden" />
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setMobileOpen(true)}
+                className="lg:hidden rounded-full glass-soft"
+                aria-label="Open menu"
               >
-                {t.nav[r.labelKey]}
-              </button>
-            ))}
-            {DESKTOP_DROPDOWNS.map((dd) => {
-              const ddRoutes = ROUTES.filter((r) => r.desktop === dd.slot);
-              const activeInDd = ddRoutes.some((r) => isActive(r));
-              return (
-                <HoverDropdown
-                  key={dd.slot}
-                  label={t.nav[dd.labelKey]}
-                  active={activeInDd}
-                  routes={ddRoutes}
-                  isActive={isActive}
-                  t={t}
-                  onGo={go}
-                />
-              );
-            })}
-          </nav>
-
-          {/* Right: language + theme + mobile hamburger */}
-          <div className="flex items-center gap-2">
-            <div className="hidden lg:flex items-center gap-2">
-              <LanguageSelector />
-              <ThemeToggle />
+                <Menu className="h-5 w-5" />
+              </Button>
             </div>
-            <LanguageSelector compact className="lg:hidden" />
-            <ThemeToggle className="lg:hidden" />
-            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden rounded-full glass-soft" aria-label="Menu">
-                  <Menu className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] glass-strong border-white/10 p-0">
-                <SheetHeader className="px-5 pt-5">
-                  <SheetTitle className="flex items-center gap-2">
-                    <Logo size="sm" />
-                    <span className="text-lg font-bold font-roboto-slab">Word<span className="text-gradient-brand">Izy</span></span>
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="px-3 py-4 space-y-1 overflow-y-auto nice-scroll h-[calc(100vh-5rem)]">
-                  {mobileGroups.map(({ group, routes: grpRoutes }) => (
-                    <div key={group}>
-                      <p className="px-3 pt-4 pb-1 text-[11px] uppercase tracking-wider text-muted-foreground">{t.nav[GROUP_LABELS[group]]}</p>
-                      {grpRoutes.map((r) => (
-                        <button
-                          key={r.id}
-                          onClick={() => go(r.hash)}
-                          className={cn(
-                            "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors",
-                            isActive(r) ? "bg-brand/10 text-brand" : "text-foreground/85 hover:bg-white/5"
-                          )}
-                        >
-                          <NavIcon name={r.icon} className="h-4 w-4 opacity-80" />
-                          {t.nav[r.labelKey]}
-                        </button>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </SheetContent>
-            </Sheet>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile left drawer + blurred backdrop */}
+      {mobileOpen && (
+        <>
+          {/* Backdrop: blurs the right side (body content) */}
+          <div
+            className="lg:hidden fixed inset-0 z-40 bg-black/40"
+            style={{ backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
+            onClick={() => setMobileOpen(false)}
+            aria-hidden
+          />
+          {/* Left drawer */}
+          <div
+            className="lg:hidden fixed left-0 top-0 bottom-0 w-[280px] z-50 glass-blur-xl border-r border-white/10 flex flex-col"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+          >
+            {/* Drawer header: logo + close hamburger */}
+            <div className="flex items-center justify-between px-4 py-3 shrink-0 border-b border-white/5">
+              <button onClick={() => go("/")} className="flex items-center gap-2" aria-label="WordIzy home">
+                <Logo size="sm" />
+                <span className="text-lg font-roboto-slab">Word<span className="text-gradient-brand">Izy</span></span>
+              </button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-full glass-soft"
+                aria-label="Close menu"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            </div>
+            {/* Drawer nav body */}
+            <div className="flex-1 overflow-y-auto nice-scroll px-3 py-4">
+              {mobileGroups.map(({ group, routes: grpRoutes }) => (
+                <div key={group}>
+                  <p className="px-3 pt-4 pb-1 text-[11px] uppercase tracking-wider text-muted-foreground">{t.nav[GROUP_LABELS[group]]}</p>
+                  {grpRoutes.map((r) => (
+                    <button
+                      key={r.id}
+                      onClick={() => go(r.hash)}
+                      className={cn(
+                        "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors",
+                        isActive(r) ? "bg-brand/10 text-brand" : "text-foreground/85 hover:bg-white/5"
+                      )}
+                    >
+                      <NavIcon name={r.icon} className="h-4 w-4 opacity-80" />
+                      {t.nav[r.labelKey]}
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+    </>
   );
 }
 
