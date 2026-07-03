@@ -32,6 +32,20 @@ export function AboutView() {
 export function ContactView() {
   const { t } = useLanguage();
   const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const name = (form.elements.namedItem("name") as HTMLInputElement)?.value || "";
+    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value || "";
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement)?.value || "";
+    const subject = `WordIzy Contact — ${name}`;
+    const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+    window.location.href = `mailto:info.wordizy@proton.me?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setSent(true);
+    toast.success("Opening your email app…");
+  };
+
   return (
     <>
       <PageHeader badge={t.nav.contact} title={t.contact.title} subtitle={t.contact.body} icon={<Mail className="h-6 w-6" />} />
@@ -42,27 +56,27 @@ export function ContactView() {
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/15 border border-emerald-500/40 mb-4">
                 <Check className="h-7 w-7 text-emerald-300" />
               </div>
-              <p className="text-sm text-muted-foreground">Thanks! Your message has been noted (no data is stored).</p>
+              <p className="text-sm text-muted-foreground">Your email app should have opened with your message pre-filled. If not, email us at info.wordizy@proton.me</p>
               <Button onClick={() => setSent(false)} variant="ghost" className="mt-4 glass-soft rounded-lg">Send another</Button>
             </div>
           ) : (
-            <form
-              onSubmit={(e) => { e.preventDefault(); setSent(true); toast.success("Message sent"); }}
-              className="space-y-4"
-            >
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <Label htmlFor="name" className="text-xs text-muted-foreground">{t.contact.name}</Label>
-                  <Input id="name" required className="glass-soft border-white/10 search-amber" />
+                  <Input id="name" name="name" required className="glass-soft border-white/10 search-amber" />
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="email" className="text-xs text-muted-foreground">{t.contact.email}</Label>
-                  <Input id="email" type="email" required className="glass-soft border-white/10 search-amber" />
+                  <Input id="email" name="email" type="email" required className="glass-soft border-white/10 search-amber" />
                 </div>
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="message" className="text-xs text-muted-foreground">{t.contact.message}</Label>
-                <Textarea id="message" required rows={5} className="glass-soft border-white/10 search-amber resize-none" />
+                <Textarea id="message" name="message" required rows={5} className="glass-soft border-white/10 search-amber resize-none" />
+              </div>
+              <div className="text-xs text-muted-foreground">
+                Your message will be sent to <span className="text-brand font-medium">info.wordizy@proton.me</span> via your email app.
               </div>
               <Button type="submit" className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold rounded-lg">
                 <Send className="h-4 w-4" />
@@ -73,7 +87,10 @@ export function ContactView() {
         </GlassCard>
         <GlassCard className="p-6 h-fit">
           <h3 className="text-sm font-semibold mb-2 text-brand">{t.nav.contact}</h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">{t.contact.body}</p>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-3">{t.contact.body}</p>
+          <a href="mailto:info.wordizy@proton.me" className="text-sm text-brand hover:underline font-medium">
+            info.wordizy@proton.me
+          </a>
         </GlassCard>
       </div>
     </>
