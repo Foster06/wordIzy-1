@@ -7,7 +7,8 @@ import { AdSlot } from "./ad-slot";
 import { Logo } from "./logo";
 
 /** Footer with SOLVERS / TOOLS / SITE — 3-column grid, always visible.
- *  Brand name + description on top, copyright bottom left. */
+ *  Brand name + description on top, copyright bottom left.
+ *  All text uses Bree Serif 15px. */
 export function SiteFooter() {
   const { navigate } = useHashRoute();
   const { t } = useLanguage();
@@ -21,7 +22,7 @@ export function SiteFooter() {
             <Logo size="sm" />
             <span className="text-lg font-roboto-slab">Word<span className="text-gradient-brand">Izy</span></span>
           </div>
-          <p className="page-subtitle !text-[15px] text-muted-foreground max-w-2xl">
+          <p className="font-bree !text-[15px] text-muted-foreground max-w-2xl">
             Unscramble, Solve &amp; Discover Word
           </p>
         </div>
@@ -33,7 +34,7 @@ export function SiteFooter() {
             const labelKey = GROUP_LABELS[group];
             return (
               <div key={group}>
-                <h3 className="nav-item !text-[11px] sm:!text-[13px] !font-semibold uppercase tracking-wider mb-2 sm:mb-3 text-brand">
+                <h3 className="font-bree !text-[15px] !font-semibold uppercase tracking-wider mb-2 sm:mb-3 text-brand">
                   {t.nav[labelKey]}
                 </h3>
                 <ul className="space-y-1.5 sm:space-y-2">
@@ -41,7 +42,7 @@ export function SiteFooter() {
                     <li key={r.id}>
                       <button
                         onClick={() => navigate(r.hash)}
-                        className="nav-item !text-[12px] sm:!text-[15px] text-muted-foreground hover:text-brand transition-colors text-left break-words"
+                        className="font-bree !text-[15px] text-muted-foreground hover:text-brand transition-colors text-left break-words"
                       >
                         {t.nav[r.labelKey]}
                       </button>
