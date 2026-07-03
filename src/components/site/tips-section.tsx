@@ -2,7 +2,9 @@
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { GlassCard } from "./glass-card";
-import { FAQ_TITLE, unscramblerFaq, type FaqItem } from "./faq-content";
+import type { Translation } from "@/components/i18n/translations";
+
+export type FaqItem = { q: string; a: string };
 
 /** Tips / FAQ accordion used on tool pages. */
 export function TipsSection({ title, items }: { title: string; items: FaqItem[] }) {
@@ -26,6 +28,6 @@ export function TipsSection({ title, items }: { title: string; items: FaqItem[] 
 }
 
 /** Standard FAQ block for the home/unscrambler page. */
-export function HomeFaq() {
-  return <TipsSection title={FAQ_TITLE} items={unscramblerFaq} />;
+export function HomeFaq({ t }: { t: Translation }) {
+  return <TipsSection title={t.faq.title} items={t.faq.unscrambler} />;
 }

@@ -10,7 +10,6 @@ import { TipsSection } from "@/components/site/tips-section";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import { cn } from "@/lib/utils";
-import { FAQ_TITLE, wordendsFaq } from "@/components/site/faq-content";
 import { useLetterAvailability } from "@/components/site/use-letter-availability";
 
 export function WordEndsTool() {
@@ -81,7 +80,7 @@ export function WordEndsTool() {
           </div>
         </div>
 
-        <TipsSection title={FAQ_TITLE} items={wordendsFaq} />
+        <TipsSection title={t.faq.title} items={t.faq.wordends} />
         <AdSlot format="horizontal" />
         <p className="text-center text-xs text-muted-foreground">{def.flag} {def.nativeName} — official Scrabble dictionary filter applied</p>
       </div>

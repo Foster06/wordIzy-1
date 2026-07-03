@@ -17,7 +17,6 @@ import { useApi } from "@/components/site/use-api";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import type { LengthGroup, SolvedWord } from "@/lib/unscramble";
-import { FAQ_TITLE, randomFaq } from "@/components/site/faq-content";
 
 function groupByLength(words: SolvedWord[]): LengthGroup[] {
   const map = new Map<number, SolvedWord[]>();
@@ -124,7 +123,7 @@ export function RandomTool() {
           )}
         </section>
 
-        <TipsSection title={FAQ_TITLE} items={randomFaq} />
+        <TipsSection title={t.faq.title} items={t.faq.random} />
         <AdSlot format="horizontal" />
       </div>
     </>

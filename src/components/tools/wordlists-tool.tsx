@@ -11,7 +11,6 @@ import type { LanguageCode } from "@/lib/languages";
 import { LANGUAGES } from "@/lib/languages";
 import { cn } from "@/lib/utils";
 import { TipsSection } from "@/components/site/tips-section";
-import { FAQ_TITLE, wordlistsFaq } from "@/components/site/faq-content";
 import { useLetterAvailability } from "@/components/site/use-letter-availability";
 
 const LENGTHS_ASC = LENGTHS;
@@ -102,7 +101,7 @@ export function WordlistsTool() {
           ))}
         </div>
 
-        <TipsSection title={FAQ_TITLE} items={wordlistsFaq} />
+        <TipsSection title={t.faq.title} items={t.faq.wordlists} />
         <AdSlot format="horizontal" />
         <p className="text-center text-xs text-muted-foreground">
           {def.flag} {def.nativeName} — official Scrabble dictionary filter applied

@@ -64,7 +64,7 @@ function LengthGroupCard({ group, t }: { group: LengthGroup; t: Translation }) {
             title={`${w.word.toUpperCase()} · ${w.score} ${t.common.points}`}
           >
             <span className="word-item truncate uppercase tracking-wide !text-[15px] min-w-0">{w.word}</span>
-            <span className="text-[10px] font-bold text-brand tabular-nums shrink-0 ml-auto">{w.score}</span>
+            <span className="text-[10px] font-bold text-brand tabular-nums shrink-0">{w.score}</span>
           </div>
         ))}
       </div>

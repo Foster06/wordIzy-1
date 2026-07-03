@@ -4,7 +4,6 @@ import { LettersSolver } from "./letters-solver";
 import { PageHeader } from "@/components/site/page-header";
 import { Gamepad2 } from "lucide-react";
 import { useLanguage } from "@/components/i18n/language-provider";
-import { FAQ_TITLE, wordfeudFaq } from "@/components/site/faq-content";
 
 export function WordfeudTool() {
   const { t } = useLanguage();
@@ -21,8 +20,8 @@ export function WordfeudTool() {
           endpoint="/api/unscramble"
           buttonLabel={t.wordfeud.btn}
           hint={t.wordfeud.hint}
-          tipsTitle={FAQ_TITLE}
-          tips={wordfeudFaq}
+          tipsTitle={t.faq.title}
+          tips={t.faq.wordfeud}
         />
       </div>
     </>

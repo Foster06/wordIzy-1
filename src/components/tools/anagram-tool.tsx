@@ -4,7 +4,6 @@ import { LettersSolver } from "./letters-solver";
 import { PageHeader } from "@/components/site/page-header";
 import { Repeat } from "lucide-react";
 import { useLanguage } from "@/components/i18n/language-provider";
-import { FAQ_TITLE, anagramFaq } from "@/components/site/faq-content";
 
 export function AnagramTool() {
   const { t } = useLanguage();
@@ -21,8 +20,8 @@ export function AnagramTool() {
           endpoint="/api/anagram"
           buttonLabel={t.anagram.btn}
           hint={t.anagram.hint}
-          tipsTitle={FAQ_TITLE}
-          tips={anagramFaq}
+          tipsTitle={t.faq.title}
+          tips={t.faq.anagram}
         />
       </div>
     </>

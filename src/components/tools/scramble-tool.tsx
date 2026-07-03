@@ -18,7 +18,7 @@ import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import { PageHeader } from "@/components/site/page-header";
 import type { SolveResult } from "@/lib/unscramble";
-import { FAQ_TITLE, scrambleFaq } from "@/components/site/faq-content";
+
 
 export function ScrambleTool() {
   const { t, lang } = useLanguage();
@@ -124,7 +124,7 @@ export function ScrambleTool() {
           )}
         </section>
 
-        <TipsSection title={FAQ_TITLE} items={scrambleFaq} />
+        <TipsSection title={t.faq.title} items={t.faq.scramble} />
         <AdSlot format="horizontal" />
       </div>
     </>

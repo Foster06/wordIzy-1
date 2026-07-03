@@ -88,7 +88,7 @@ export function WordBucket({
                 title={`${w.word.toUpperCase()} · ${w.score} ${t.common.points}`}
               >
                 <span className={breeStyle ? "word-item truncate uppercase tracking-wide !text-[15px]" : "truncate font-medium"}>{w.word}</span>
-                <span className="text-[10px] font-bold text-brand tabular-nums shrink-0 ml-auto">{w.score}</span>
+                <span className="text-[10px] font-bold text-brand tabular-nums shrink-0">{w.score}</span>
               </div>
             ))}
           </div>

@@ -45,7 +45,15 @@ export type Translation = {
   privacy: { title: string; body: string };
   sitemap: { title: string; body: string };
   footer: { rights: string; madeWith: string; links: string; desc: string };
+  faq: {
+    title: string;
+    unscrambler: FaqItemT[]; scramble: FaqItemT[]; wordle: FaqItemT[]; quordle: FaqItemT[];
+    anagram: FaqItemT[]; random: FaqItemT[]; wordfeud: FaqItemT[]; dictionary: FaqItemT[];
+    scrabble: FaqItemT[]; wordlists: FaqItemT[]; wordstarts: FaqItemT[]; wordends: FaqItemT[];
+  };
 };
+
+type FaqItemT = { q: string; a: string };
 
 const en: Translation = {
   nav: {
@@ -124,6 +132,84 @@ const en: Translation = {
   privacy: { title: "Privacy Policy", body: "WordIzy does not require an account and does not collect personal data. All solving happens server-side using dictionaries kept in memory; nothing you type is permanently stored. Google AdSense may use cookies to serve ads; you can manage this in your browser settings." },
   sitemap: { title: "Sitemap", body: "All pages on WordIzy." },
   footer: { rights: "All rights reserved.", madeWith: "Built for word lovers.", links: "Quick links", desc: "Free word unscrambler, anagram & puzzle solvers in 9 languages. No sign-up." },
+  faq: {
+    title: "How to use & FAQ",
+    unscrambler: [
+      { q: "What is a Word Unscrambler and how do I use it?", a: "A word unscrambler takes a jumble of letters — like a Scrabble rack (e.g. SRAABLC) — and finds every valid dictionary word that can be spelled from those letters. Type your letters into the 'Your Letters' box, then click Unscramble. Results appear grouped by word length (longest first), each word showing its Scrabble point value. It's ideal for Scrabble, Words With Friends, Wordfeud, crosswords, and anagram puzzles." },
+      { q: "How do wildcards (? and *) work?", a: "Use ? or * as a wildcard to represent any unknown letter. For example, entering 'QUER?Y' tells WordIzy to find all words matching 'QUER' + any single letter + 'Y'. Each wildcard acts as a blank tile (scoring 0 points). You can use multiple wildcards at once — 'A??LE' matches APPLE, ADDLE, AGILE, and more." },
+      { q: "How do I use the Advanced Filters?", a: "Click 'Advanced Filters' to reveal three optional fields. 'Starts with' limits results to words beginning with given letters (e.g. 'AB' → only words starting with AB). 'Ends with' does the same for suffixes (e.g. 'ED' → only words ending in ED). 'Must include' guarantees certain letters appear in every result, in any position. Combine all three with wildcards for precise control." },
+      { q: "How are words scored?", a: "Each word is scored using the official Scrabble letter values for the selected language. For English: A/E/I/O/U = 1pt, D/G = 2pt, B/C/M/P = 3pt, F/H/V/W/Y = 4pt, K = 5pt, J/X = 8pt, Q/Z = 10pt. Wildcards (? *) score 0. The total is shown next to each word, and results are sorted by score within each length group so the highest-scoring plays appear first." },
+      { q: "Which dictionaries are available?", a: "WordIzy supports 9 languages: English (NWL2023 + CSW21), French (ODS9 2024), Spanish (FISE), Italian (Zingarelli), Portuguese, German, Dutch (OpenTaal), plus Japanese (romaji) and Mandarin (pinyin). All words are filtered against the official Scrabble dictionary for each language. Switch languages using the language selector in the navbar." },
+      { q: "Why are results grouped by length?", a: "Grouping by word length makes it easy to find the type of play you need. In Scrabble, longer words generally score higher, but sometimes a shorter word fits the board better. The longest words appear at the top, descending to 2-letter words. Within each group, words are sorted by Scrabble score so you can quickly spot the best play." },
+    ],
+    scramble: [
+      { q: "What is the Scramble / Descrambler for?", a: "This tool solves jumble puzzles — where letters are scrambled and you must find the original word(s). Enter the scrambled letters (e.g. RBOLENW) and click Descramble to see all real words that can be formed. It's perfect for newspaper jumble puzzles, anagram games, and word-scramble challenges." },
+      { q: "How is this different from the Unscrambler?", a: "The Descrambler uses the same engine as the Unscrambler but is focused on solving scrambled-word puzzles rather than finding every possible word from a rack. You can also use the 'Scramble a word' feature below the input to jumble a word into random variants — useful for creating your own puzzles." },
+      { q: "Can I use wildcards?", a: "Yes. Use ? or * to represent unknown letters. For example, if a jumble puzzle has a missing letter, enter the known letters plus a ? and WordIzy will fill in the blank with every valid letter combination." },
+      { q: "How do I create my own scrambled word?", a: "Use the 'Scramble a word' card below the main input. Type any word (e.g. 'scrabble') and click Generate — WordIzy produces several randomized scrambles of that word. Use these to create puzzles for friends or practice unscrambling." },
+    ],
+    wordle: [
+      { q: "How does the Wordle Solver work?", a: "The Wordle Solver narrows down today's Wordle answer using your game feedback. Enter the information you've gathered from your guesses: green letters (correct position), yellow letters (in the word but wrong position), and gray letters (not in the word). The solver returns all valid words that match your constraints." },
+      { q: "How do I enter placed (green) letters?", a: "In the 'Placed letters (green)' field, type the letters you know are in the correct position, using . or _ for empty slots. For example, if you know the word is A _ _ L E, enter 'A..LE'. The solver only returns words matching this exact pattern." },
+      { q: "What are valid (yellow) and excluded (gray) letters?", a: "Valid letters (yellow) are letters you know are IN the word but not in the position you guessed — enter them all in the 'Valid letters' field (e.g. 'RST'). Excluded letters (gray) are letters confirmed NOT in the word — enter them in 'Excluded letters' (e.g. 'BXF'). The solver filters out any word containing excluded letters." },
+      { q: "What word length should I use?", a: "Select the length of today's Wordle (default 5). WordIzy supports 4- to 8-letter words, so it works for Wordle variants like Quordle, Octordle, and custom-length games too." },
+      { q: "Any tips for choosing the next guess?", a: "Pick a word from the results that uses common letters you haven't tested yet (like R, T, S, L, N). This maximizes information gain. If the list is long, choose a word that eliminates the most possibilities. The solver shows each word's Scrabble score — higher scores often mean rarer letters that can help narrow things down." },
+    ],
+    quordle: [
+      { q: "What is the Quordle Solver?", a: "Quordle is a game where you solve four Wordle puzzles simultaneously. This solver lets you enter constraints for up to 4 boards at once and returns candidate words for each. Each board keeps its own placed (green), valid (yellow), and excluded (gray) letters." },
+      { q: "How do I use multiple boards?", a: "Fill in what you know for each board. Board 1's constraints only affect Board 1's results. Click 'Add board' to add up to 4 boards. Use the X button to remove a board. When ready, click Solve to get candidate words for all boards at once." },
+      { q: "Should I share letters between boards?", a: "Yes — a key Quordle strategy is using one guess to gather information across multiple boards. If a letter is green on Board 1, it's likely in the same position on other boards too. Enter shared constraints on each board to cross-pollinate information and narrow down all four answers faster." },
+      { q: "Any strategy tips for Quordle?", a: "Start with a word rich in common letters (like CRANE or SLATE) to gather information across all boards. Focus on the board with the most constraints first — solving it frees up mental space. Use the solver after 2-3 guesses when you have enough info to narrow each board to a manageable list." },
+    ],
+    anagram: [
+      { q: "What is an anagram?", a: "An anagram is a word or phrase formed by rearranging all the letters of another word. For example, LISTEN and SILENT are anagrams — same letters, different order. The Anagram Solver finds every word that uses exactly all the letters you provide." },
+      { q: "How is this different from the Unscrambler?", a: "The Unscrambler finds words of ANY length that can be formed from your letters (including shorter words). The Anagram Solver only finds words that use ALL your letters — the full-length anagrams. For example, with 'CHIEN', the anagram solver returns CHIEN, CHINE, NICHE (all 5 letters), while the unscrambler would also return shorter words like ICE, IN, HE." },
+      { q: "Can I use wildcards?", a: "Yes. Use ? or * as wildcards to fill remaining slots. For example, entering 'CAT??' finds all 5-letter anagrams where CAT is combined with any two letters. Wildcards score 0 points (like blank tiles)." },
+      { q: "What are anagrams useful for?", a: "Anagrams are used in word games, puzzles, cryptography, and linguistics. In Scrabble, finding anagrams of your rack helps you spot bingos (using all 7 tiles for a 50-point bonus). They're also popular in crossword clues, trivia, and brain teasers." },
+    ],
+    random: [
+      { q: "What does the Random Word Generator do?", a: "It generates random real words from the selected dictionary, with optional filters. You can specify word length, starting letters, ending letters, or letters the word must contain. Use it for games, creative writing, naming, vocabulary practice, or generating passwords with real words." },
+      { q: "How do I filter the random words?", a: "Set 'Length' to a specific number (2-12) or leave it as 'Any'. 'Starts with' limits words to those beginning with given letters. 'Ends with' limits to words ending with given letters. 'Contains' requires the word to include certain letters anywhere. 'How many' controls the number of words generated (1-200)." },
+      { q: "Are the words valid Scrabble words?", a: "Yes. All generated words come from the official Scrabble dictionary for the selected language (NWL2023/CSW21 for English, ODS9 for French, etc.). Every word is playable in Scrabble and other word games." },
+      { q: "Can I use this for word games?", a: "Absolutely. Generate random words for Pictionary, charades, word association games, or vocabulary quizzes. For password generation, combine 3-4 random words of different lengths — this creates memorable yet secure passphrases." },
+    ],
+    wordfeud: [
+      { q: "What is the Wordfeud Helper?", a: "Wordfeud is a popular mobile word game similar to Scrabble. This helper finds the best words you can play from your rack. Enter your 7 letters (plus any board letters already placed) and WordIzy returns all playable words, sorted by Scrabble score." },
+      { q: "How do I enter my rack?", a: "Type your 7 tile letters into the 'Your Letters' box. Use ? or * for blank tiles (which can represent any letter but score 0 points). If there are letters already on the board you want to build off, add them too — WordIzy will find words that can be formed from the combined pool." },
+      { q: "Which dictionary should I use?", a: "Wordfeud supports multiple dictionaries depending on your region. English Wordfeud uses a Scrabble-like list, so English (NWL2023/CSW21) works well. For other languages, select the matching one (French ODS9, Spanish FISE, etc.) from the language selector." },
+      { q: "How are scores calculated?", a: "Scores use the official Scrabble letter values for the selected language. Note that Wordfeud's actual scoring may differ slightly (it has bonus squares and its own tile distribution). Use the scores as a guide to identify high-value plays — the word with the most points from your rack is usually your best move." },
+    ],
+    dictionary: [
+      { q: "What does Check Dictionary do?", a: "Enter any word to verify whether it's valid in the official Scrabble dictionary for the selected language. The tool shows the word as Scrabble tiles, a valid/invalid badge, the Scrabble score, word length, letter tiles, a dictionary definition, and synonyms (where available)." },
+      { q: "Where do definitions come from?", a: "Definitions are sourced from multiple references: the Free Dictionary API (for English, French, Spanish, German, Italian, Portuguese), Wiktionary (all languages as a fallback), and an AI assistant for any remaining gaps. The source is labeled next to each definition." },
+      { q: "Where do synonyms come from?", a: "Synonyms come from Datamuse (for English, Spanish, French, Italian, Portuguese) and OpenThesaurus (for German). Only synonyms that are themselves valid Scrabble words are shown — click any synonym to check it instantly." },
+      { q: "Why might a common word be invalid?", a: "Scrabble dictionaries are strict — they exclude proper nouns, abbreviations, hyphenated words, and words requiring apostrophes. For example, 'BRUNCH' is valid but 'BRUNCH'S' may not be. If a word seems missing, it may be a capitalized proper noun or a recent addition not yet in the official list. Switch languages to check the word in a different dictionary." },
+    ],
+    scrabble: [
+      { q: "What is Scrabble Duplicate?", a: "Duplicate Scrabble is a variant where every player receives the same rack and must find the best possible play. It's used in tournaments and training to test skill without luck. This tool helps you find the highest-scoring words from your rack — enter your 7 letters and optionally any board letters, then click 'Find best words'." },
+      { q: "How do I enter board letters?", a: "If there are letters already on the board that you can build off, type them in the 'Board letters (optional)' field along with your rack letters. WordIzy treats the combined pool as available letters. This helps find words that hook onto existing plays — essential for maximizing score in real games." },
+      { q: "How are the top plays ranked?", a: "Words are sorted by Scrabble score (highest first). The top 10 plays appear in a highlighted list at the top. Remember: actual game scores also depend on bonus squares (double/triple letter/word) and bingos (50-point bonus for using all 7 tiles). Use the tool's scores as a baseline, then factor in board positioning." },
+      { q: "What's a bingo and how do I find one?", a: "A bingo is playing all 7 tiles in one turn for a 50-point bonus. To find bingos, enter your full 7-letter rack and look at the 7-letter results group. If any words appear, those are potential bingos. Wildcards (? *) can represent the blank tiles in your rack." },
+    ],
+    wordlists: [
+      { q: "What is the Word Lists page?", a: "Word Lists lets you browse every valid Scrabble word from 2 to 7 letters. Words are grouped by length, then by ending letter (A-Z), so you can explore the dictionary systematically. Use it to study, find words for games, or expand your vocabulary." },
+      { q: "How do I filter by length?", a: "Use the length selector (2-7) at the top. Click 'All' to see every length stacked (2-letter words on top, 7-letter at the bottom), or click a specific number to see only that length. Each length section shows 26 containers (one per ending letter A-Z)." },
+      { q: "How do I filter by letter?", a: "Use the A-Z letter row below the length selector. Click a letter to show only words ending with that letter, or 'All' to show every letter. This is useful for finding words that hook onto a specific letter already on the board." },
+      { q: "Why are words shown in uppercase?", a: "Scrabble tiles are uppercase, so words are displayed in uppercase to match. Each word shows its Scrabble point value next to it. Words within each letter container are sorted alphabetically (A-Z) for easy scanning." },
+    ],
+    wordstarts: [
+      { q: "What is the Word Starts By page?", a: "This page lets you browse all valid Scrabble words that START with a specific letter. Select a letter (A-Z) and WordIzy shows every word beginning with that letter, grouped by length (2-7 letters). It's perfect for studying openings and finding words to build off a starting letter on the board." },
+      { q: "How do I use the length and letter selectors?", a: "First, pick a letter from the A-Z row — this sets the starting letter. Then use the length row (2-7 or All) to filter by word length. Each length section shows all words starting with your chosen letter, sorted alphabetically. Click 'All' in either row to remove that filter." },
+      { q: "How is this useful for Scrabble?", a: "Knowing words that start with each letter helps you plan openings and hooks. If you have a Q, knowing all Q-starting words (QI, QAT, QUAD...) helps you play it effectively. The page is also valuable for crosswords, where clues often specify 'starts with...'." },
+      { q: "Why paginate at 50 words?", a: "Some letters (like S, A, E) have thousands of starting words. To keep pages fast and readable, results paginate at 50 words per page with prev/next buttons. Each page shows the page number and total pages so you know where you are." },
+    ],
+    wordends: [
+      { q: "What is the Word Ends By page?", a: "This page lets you browse all valid Scrabble words that END with a specific letter. Select a letter (A-Z) and WordIzy shows every word ending with that letter, grouped by length (2-7 letters). It's ideal for finding words to hook onto an existing letter on the board." },
+      { q: "How do I use the length and letter selectors?", a: "First, pick a letter from the A-Z row — this sets the ending letter. Then use the length row (2-7 or All) to filter by word length. Each length section shows all words ending with your chosen letter, sorted alphabetically. Click 'All' in either row to remove that filter." },
+      { q: "How is this useful for Scrabble?", a: "Ending letters matter for hooks — if there's an S on the board, knowing all words ending in S lets you pluralize or extend plays. Similarly, knowing words ending in D, ED, ING helps you build off common suffixes. This page is a powerful study tool for competitive play." },
+      { q: "Why paginate at 50 words?", a: "Some letters (like E, S, D) have thousands of ending words. To keep pages fast and readable, results paginate at 50 words per page with prev/next buttons. Each page shows the page number and total pages so you know where you are." },
+    ],
+  },
 };
 
 const fr: Translation = {
@@ -200,6 +286,84 @@ const fr: Translation = {
   privacy: { title: "Politique de confidentialité", body: "WordIzy ne nécessite pas de compte et ne collecte pas de données personnelles. Toute la résolution se fait côté serveur avec des dictionnaires en mémoire ; rien de ce que vous tapez n'est stocké. Google AdSense peut utiliser des cookies pour diffuser des annonces ; gérez-le dans les réglages de votre navigateur." },
   sitemap: { title: "Plan du site", body: "Toutes les pages de WordIzy." },
   footer: { rights: "Tous droits réservés.", madeWith: "Conçu pour les amoureux des mots.", links: "Liens rapides", desc: "Anagrammeur et solveurs de puzzles gratuits en 9 langues. Sans inscription." },
+  faq: {
+    title: "Mode d'emploi & FAQ",
+    unscrambler: [
+      { q: "Qu'est-ce qu'un anagrammeur et comment l'utiliser ?", a: "Un anagrammeur prend un mélange de lettres — comme un chevalet Scrabble (ex. SRAABLC) — et trouve tous les mots valides du dictionnaire écrivables avec ces lettres. Saisissez vos lettres dans la case « Vos lettres », puis cliquez sur Anagrammer. Les résultats apparaissent groupés par longueur (les plus longs d'abord), chaque mot affichant sa valeur Scrabble. Idéal pour Scrabble, Words With Friends, Wordfeud, mots croisés et puzzles d'anagrammes." },
+      { q: "Comment fonctionnent les jokers (? et *) ?", a: "Utilisez ? ou * comme joker pour représenter une lettre inconnue. Par exemple, saisir « QUER?Y » demande à WordIzy de trouver tous les mots correspondant à « QUER » + n'importe quelle lettre + « Y ». Chaque joker agit comme une tuile vierge (0 point). Vous pouvez utiliser plusieurs jokers à la fois — « A??LE » correspond à APPLE, ADDLE, AGILE, et d'autres." },
+      { q: "Comment utiliser les Filtres avancés ?", a: "Cliquez sur « Filtres avancés » pour afficher trois champs facultatifs. « Commence par » limite les résultats aux mots commençant par les lettres indiquées (ex. « AB » → uniquement les mots commençant par AB). « Finit par » fait de même pour les suffixes (ex. « ED » → uniquement les mots finissant par ED). « Doit contenir » garantit que certaines lettres apparaissent dans chaque résultat, à n'importe quelle position. Combinez les trois avec des jokers pour un contrôle précis." },
+      { q: "Comment les mots sont-ils scorés ?", a: "Chaque mot est scoré avec les valeurs officielles Scrabble pour la langue choisie. Pour l'anglais : A/E/I/O/U = 1 pt, D/G = 2 pt, B/C/M/P = 3 pt, F/H/V/W/Y = 4 pt, K = 5 pt, J/X = 8 pt, Q/Z = 10 pt. Les jokers (? *) valent 0. Le total est affiché à côté de chaque mot, et les résultats sont triés par score au sein de chaque groupe de longueur afin que les meilleurs coups apparaissent en premier." },
+      { q: "Quels dictionnaires sont disponibles ?", a: "WordIzy prend en charge 9 langues : anglais (NWL2023 + CSW21), français (ODS9 2024), espagnol (FISE), italien (Zingarelli), portugais, allemand, néerlandais (OpenTaal), plus japonais (romaji) et mandarin (pinyin). Tous les mots sont filtrés selon le dictionnaire Scrabble officiel de chaque langue. Changez de langue via le sélecteur dans la barre de navigation." },
+      { q: "Pourquoi les résultats sont-ils groupés par longueur ?", a: "Le regroupement par longueur facilite la recherche du type de coup dont vous avez besoin. Au Scrabble, les mots longs marquent généralement plus, mais parfois un mot plus court s'intègre mieux au plateau. Les mots les plus longs apparaissent en haut, jusqu'aux mots de 2 lettres. Au sein de chaque groupe, les mots sont triés par score Scrabble afin de repérer rapidement le meilleur coup." },
+    ],
+    scramble: [
+      { q: "À quoi sert le Mélangeur / Démêleur ?", a: "Cet outil résout les puzzles d'anagrammes — où les lettres sont mélangées et vous devez retrouver le ou les mots d'origine. Saisissez les lettres mélangées (ex. RBOLENW) et cliquez sur Démêler pour voir tous les vrais mots formables. Parfait pour les anagrammes de journal, les jeux de lettres et les défis de mots mélangés." },
+      { q: "Quelle est la différence avec l'Anagrammeur ?", a: "Le Démêleur utilise le même moteur que l'Anagrammeur, mais se concentre sur la résolution de puzzles de mots mélangés plutôt que sur la recherche de tous les mots possibles d'un chevalet. Vous pouvez aussi utiliser la fonction « Mélanger un mot » sous la saisie pour transformer un mot en variantes aléatoires — utile pour créer vos propres puzzles." },
+      { q: "Puis-je utiliser des jokers ?", a: "Oui. Utilisez ? ou * pour représenter les lettres inconnues. Par exemple, si un puzzle a une lettre manquante, saisissez les lettres connues plus un ? et WordIzy remplira le blanc avec toutes les combinaisons valides." },
+      { q: "Comment créer mon propre mot mélangé ?", a: "Utilisez la carte « Mélanger un mot » sous la saisie principale. Tapez n'importe quel mot (ex. « scrabble ») et cliquez sur Générer — WordIzy produit plusieurs mélanges aléatoires de ce mot. Utilisez-les pour créer des puzzles pour vos amis ou vous entraîner." },
+    ],
+    wordle: [
+      { q: "Comment fonctionne le Solveur Wordle ?", a: "Le Solveur Wordle réduit les possibilités du Wordle du jour en utilisant les retours de votre partie. Saisissez les informations collectées : lettres vertes (bonne position), lettres jaunes (dans le mot mais mauvaise position) et lettres grises (absentes du mot). Le solveur renvoie tous les mots valides correspondant à vos contraintes." },
+      { q: "Comment saisir les lettres placées (vertes) ?", a: "Dans le champ « Lettres placées (vert) », tapez les lettres dont vous savez qu'elles sont à la bonne position, en utilisant . ou _ pour les cases vides. Par exemple, si vous savez que le mot est A _ _ L E, saisissez « A..LE ». Le solveur ne renvoie que les mots correspondant exactement à ce motif." },
+      { q: "Que sont les lettres valides (jaunes) et exclues (grises) ?", a: "Les lettres valides (jaunes) sont les lettres que vous savez DANS le mot, mais pas à la position devinée — saisissez-les toutes dans le champ « Lettres valides » (ex. « RST »). Les lettres exclues (grises) sont les lettres confirmées ABSENTES du mot — saisissez-les dans « Lettres exclues » (ex. « BXF »). Le solveur filtre tout mot contenant une lettre exclue." },
+      { q: "Quelle longueur de mot utiliser ?", a: "Sélectionnez la longueur du Wordle du jour (par défaut 5). WordIzy prend en charge les mots de 4 à 8 lettres, donc il fonctionne aussi pour les variantes comme Quordle, Octordle et les parties à longueur personnalisée." },
+      { q: "Des astuces pour choisir la prochaine tentative ?", a: "Choisissez dans les résultats un mot utilisant des lettres courantes non encore testées (R, T, S, L, N). Cela maximise le gain d'information. Si la liste est longue, choisissez un mot qui élimine le plus de possibilités. Le solveur affiche le score Scrabble de chaque mot — les scores élevés indiquent souvent des lettres rares qui aident à cerner la solution." },
+    ],
+    quordle: [
+      { q: "Qu'est-ce que le Solveur Quordle ?", a: "Quordle est un jeu où vous résolvez quatre Wordle simultanément. Ce solveur vous permet de saisir les contraintes jusqu'à 4 plateaux à la fois et renvoie des mots candidats pour chacun. Chaque plateau conserve ses propres lettres placées (vertes), valides (jaunes) et exclues (grises)." },
+      { q: "Comment utiliser plusieurs plateaux ?", a: "Remplissez ce que vous savez pour chaque plateau. Les contraintes du plateau 1 n'affectent que ses propres résultats. Cliquez sur « Ajouter un plateau » pour aller jusqu'à 4 plateaux. Utilisez le bouton X pour retirer un plateau. Quand vous êtes prêt, cliquez sur Résoudre pour obtenir les mots candidats de tous les plateaux." },
+      { q: "Faut-il partager les lettres entre plateaux ?", a: "Oui — une stratégie clé de Quordle consiste à utiliser une tentative pour récolter de l'information sur plusieurs plateaux. Si une lettre est verte au plateau 1, elle est probablement à la même position sur les autres. Saisissez les contraintes partagées sur chaque plateau pour croiser les informations et réduire plus vite les quatre réponses." },
+      { q: "Des astuces stratégiques pour Quordle ?", a: "Commencez par un mot riche en lettres courantes (comme CRANE ou SLATE) pour récolter de l'info sur tous les plateaux. Concentrez-vous d'abord sur le plateau le plus contraint — le résoudre libère de l'espace mental. Utilisez le solveur après 2-3 tentatives, quand vous avez assez d'infos pour ramener chaque plateau à une liste gérable." },
+    ],
+    anagram: [
+      { q: "Qu'est-ce qu'une anagramme ?", a: "Une anagramme est un mot ou une expression formé en réarrangeant toutes les lettres d'un autre mot. Par exemple, LISTEN et SILENT sont des anagrammes — mêmes lettres, ordre différent. Le Solveur d'Anagrammes trouve tous les mots qui utilisent exactement toutes les lettres fournies." },
+      { q: "Quelle est la différence avec l'Anagrammeur ?", a: "L'Anagrammeur trouve les mots de TOUTE longueur formables à partir de vos lettres (y compris plus courts). Le Solveur d'Anagrammes ne trouve que les mots utilisant TOUTES vos lettres — les anagrammes de pleine longueur. Par exemple, avec « CHIEN », le solveur d'anagrammes renvoie CHIEN, CHINE, NICHE (toutes 5 lettres), tandis que l'anagrammeur renverrait aussi des mots plus courts comme ICE, IN, HE." },
+      { q: "Puis-je utiliser des jokers ?", a: "Oui. Utilisez ? ou * comme jokers pour remplir les cases restantes. Par exemple, saisir « CAT?? » trouve toutes les anagrammes de 5 lettres où CAT est combiné avec deux lettres quelconques. Les jokers valent 0 point (comme les tuiles vierges)." },
+      { q: "À quoi servent les anagrammes ?", a: "Les anagrammes sont utilisées dans les jeux de lettres, puzzles, cryptographie et linguistique. Au Scrabble, trouver les anagrammes de son chevalet aide à repérer les bingos (jouer les 7 tuiles pour un bonus de 50 points). Elles sont aussi populaires dans les définitions de mots croisés, les trivia et les énigmes." },
+    ],
+    random: [
+      { q: "Que fait le Générateur de Mots Aléatoires ?", a: "Il génère des mots réels aléatoires tirés du dictionnaire choisi, avec filtres facultatifs. Vous pouvez préciser la longueur, les lettres de début, de fin, ou les lettres que le mot doit contenir. Utilisez-le pour des jeux, l'écriture créative, le nommage, l'entraînement du vocabulaire ou générer des mots de passe avec de vrais mots." },
+      { q: "Comment filtrer les mots aléatoires ?", a: "Réglez « Longueur » sur un nombre précis (2-12) ou laissez « Toutes ». « Commence par » limite aux mots commençant par les lettres indiquées. « Finit par » limite aux mots finissant par ces lettres. « Contient » exige que le mot contienne certaines lettres, n'importe où. « Combien » contrôle le nombre de mots générés (1-200)." },
+      { q: "Les mots sont-ils valides au Scrabble ?", a: "Oui. Tous les mots générés proviennent du dictionnaire Scrabble officiel de la langue choisie (NWL2023/CSW21 pour l'anglais, ODS9 pour le français, etc.). Chaque mot est jouable au Scrabble et dans les autres jeux de lettres." },
+      { q: "Puis-je l'utiliser pour des jeux de mots ?", a: "Absolument. Générez des mots aléatoires pour Pictionary, les charades, les jeux d'association de mots ou les quiz de vocabulaire. Pour les mots de passe, combinez 3-4 mots aléatoires de longueurs différentes — cela crée des phrases-mots de passe mémorables mais sûres." },
+    ],
+    wordfeud: [
+      { q: "Qu'est-ce que l'Aide Wordfeud ?", a: "Wordfeud est un jeu de lettres mobile populaire similaire au Scrabble. Cette aide trouve les meilleurs mots jouables depuis votre chevalet. Saisissez vos 7 lettres (plus les lettres déjà posées sur le plateau) et WordIzy renvoie tous les mots jouables, triés par score Scrabble." },
+      { q: "Comment saisir mon chevalet ?", a: "Tapez vos 7 lettres de tuiles dans la case « Vos lettres ». Utilisez ? ou * pour les tuiles vierges (elles représentent n'importe quelle lettre mais valent 0 point). S'il y a déjà des lettres sur le plateau dont vous voulez vous servir, ajoutez-les aussi — WordIzy trouvera les mots formables à partir du pool combiné." },
+      { q: "Quel dictionnaire utiliser ?", a: "Wordfeud prend en charge plusieurs dictionnaires selon votre région. Le Wordfeud anglais utilise une liste proche du Scrabble, donc l'anglais (NWL2023/CSW21) convient. Pour les autres langues, sélectionnez la correspondante (français ODS9, espagnol FISE, etc.) via le sélecteur de langue." },
+      { q: "Comment les scores sont-ils calculés ?", a: "Les scores utilisent les valeurs officielles Scrabble pour la langue choisie. À noter : le score réel de Wordfeud peut différer légèrement (cases bonus et distribution de tuiles propres). Utilisez les scores comme guide pour repérer les coups à forte valeur — le mot rapportant le plus de points depuis votre chevalet est généralement votre meilleur coup." },
+    ],
+    dictionary: [
+      { q: "Que fait Vérifier le Dictionnaire ?", a: "Saisissez n'importe quel mot pour vérifier s'il est valide dans le dictionnaire Scrabble officiel de la langue choisie. L'outil affiche le mot en tuiles Scrabble, un badge valide/invalide, le score Scrabble, la longueur du mot, les tuiles de lettres, une définition et (si disponibles) des synonymes." },
+      { q: "D'où viennent les définitions ?", a: "Les définitions proviennent de plusieurs sources : l'API Free Dictionary (anglais, français, espagnol, allemand, italien, portugais), Wiktionary (toutes langues, en repli) et un assistant IA pour les éventuels manquants. La source est indiquée à côté de chaque définition." },
+      { q: "D'où viennent les synonymes ?", a: "Les synonymes proviennent de Datamuse (anglais, espagnol, français, italien, portugais) et d'OpenThesaurus (allemand). Seuls les synonymes qui sont eux-mêmes des mots valides au Scrabble sont affichés — cliquez sur n'importe quel synonyme pour le vérifier instantanément." },
+      { q: "Pourquoi un mot courant pourrait-il être invalide ?", a: "Les dictionnaires Scrabble sont stricts — ils excluent les noms propres, abréviations, mots à trait d'union et mots avec apostrophe. Par exemple, « BRUNCH » est valide mais « BRUNCH'S » ne l'est peut-être pas. Si un mot semble manquant, c'est peut-être un nom propre capitalisé ou un ajout récent pas encore dans la liste officielle. Changez de langue pour vérifier le mot dans un autre dictionnaire." },
+    ],
+    scrabble: [
+      { q: "Qu'est-ce que le Scrabble Duplicate ?", a: "Le Scrabble duplicate est une variante où chaque joueur reçoit le même chevalet et doit trouver le meilleur coup possible. Il est utilisé en tournoi et à l'entraînement pour tester la compétence sans chance. Cet outil vous aide à trouver les mots les plus forts depuis votre chevalet — saisissez vos 7 lettres et, si besoin, les lettres du plateau, puis cliquez sur « Trouver les meilleurs mots »." },
+      { q: "Comment saisir les lettres du plateau ?", a: "S'il y a déjà des lettres sur le plateau sur lesquelles vous pouvez construire, tapez-les dans le champ « Lettres du plateau (optionnel) » avec vos lettres de chevalet. WordIzy traite le pool combiné comme lettres disponibles. Cela permet de trouver des mots qui s'accrochent aux coups existants — essentiel pour maximiser le score en partie réelle." },
+      { q: "Comment les meilleurs coups sont-ils classés ?", a: "Les mots sont triés par score Scrabble (le plus élevé d'abord). Les 10 meilleurs coups apparaissent en haut dans une liste mise en valeur. À noter : le score réel dépend aussi des cases bonus (lettre/mot double/triple) et des bingos (bonus de 50 points pour les 7 tuiles). Utilisez les scores de l'outil comme base, puis intégrez le positionnement sur le plateau." },
+      { q: "Qu'est-ce qu'un bingo et comment en trouver un ?", a: "Un bingo consiste à jouer les 7 tuiles en un seul coup pour un bonus de 50 points. Pour en trouver, saisissez votre chevalet complet de 7 lettres et regardez le groupe de résultats de 7 lettres. Si des mots apparaissent, ce sont des bingos potentiels. Les jokers (? *) peuvent représenter les tuiles vierges de votre chevalet." },
+    ],
+    wordlists: [
+      { q: "Qu'est-ce que la page Listes de Mots ?", a: "Listes de Mots permet de parcourir tous les mots valides au Scrabble de 2 à 7 lettres. Les mots sont groupés par longueur, puis par lettre finale (A-Z), pour explorer le dictionnaire de façon systématique. Utilisez-la pour étudier, trouver des mots pour vos parties ou enrichir votre vocabulaire." },
+      { q: "Comment filtrer par longueur ?", a: "Utilisez le sélecteur de longueur (2-7) en haut. Cliquez sur « Tous » pour voir toutes les longueurs empilées (mots de 2 lettres en haut, 7 lettres en bas), ou sur un nombre précis pour ne voir que cette longueur. Chaque section de longueur affiche 26 conteneurs (un par lettre finale A-Z)." },
+      { q: "Comment filtrer par lettre ?", a: "Utilisez la rangée A-Z sous le sélecteur de longueur. Cliquez sur une lettre pour ne voir que les mots finissant par cette lettre, ou « Tous » pour toutes les lettres. Utile pour trouver des mots qui s'accrochent à une lettre déjà présente sur le plateau." },
+      { q: "Pourquoi les mots sont-ils en majuscules ?", a: "Les tuiles Scrabble sont en majuscules, donc les mots sont affichés en majuscules pour correspondre. Chaque mot affiche sa valeur Scrabble à côté. Au sein de chaque conteneur de lettre, les mots sont triés par ordre alphabétique (A-Z) pour faciliter le balayage." },
+    ],
+    wordstarts: [
+      { q: "Qu'est-ce que la page Commence Par ?", a: "Cette page permet de parcourir tous les mots valides au Scrabble qui COMMENCENT par une lettre précise. Sélectionnez une lettre (A-Z) et WordIzy affiche tous les mots commençant par cette lettre, groupés par longueur (2-7 lettres). Parfait pour étudier les ouvertures et trouver des mots à construire depuis une lettre de départ sur le plateau." },
+      { q: "Comment utiliser les sélecteurs de longueur et de lettre ?", a: "D'abord, choisissez une lettre dans la rangée A-Z — cela définit la lettre de départ. Puis utilisez la rangée de longueur (2-7 ou Tous) pour filtrer par longueur. Chaque section de longueur affiche tous les mots commençant par la lettre choisie, triés alphabétiquement. Cliquez sur « Tous » dans l'une ou l'autre rangée pour retirer ce filtre." },
+      { q: "En quoi cela sert-il au Scrabble ?", a: "Connaître les mots commençant par chaque lettre aide à planifier ouvertures et accroches. Si vous avez un Q, connaître tous les mots en Q (QI, QAT, QUAD...) aide à le jouer efficacement. La page est aussi précieuse pour les mots croisés, où les définitions précisent souvent « commence par... »." },
+      { q: "Pourquoi paginer à 50 mots ?", a: "Certaines lettres (S, A, E) ont des milliers de mots commençant par elles. Pour garder les pages rapides et lisibles, les résultats paginent à 50 mots par page avec des boutons précédent/suivant. Chaque page indique son numéro et le total pour vous repérer." },
+    ],
+    wordends: [
+      { q: "Qu'est-ce que la page Finit Par ?", a: "Cette page permet de parcourir tous les mots valides au Scrabble qui FINISSENT par une lettre précise. Sélectionnez une lettre (A-Z) et WordIzy affiche tous les mots finissant par cette lettre, groupés par longueur (2-7 lettres). Idéal pour trouver des mots à accrocher à une lettre déjà présente sur le plateau." },
+      { q: "Comment utiliser les sélecteurs de longueur et de lettre ?", a: "D'abord, choisissez une lettre dans la rangée A-Z — cela définit la lettre finale. Puis utilisez la rangée de longueur (2-7 ou Tous) pour filtrer par longueur. Chaque section de longueur affiche tous les mots finissant par la lettre choisie, triés alphabétiquement. Cliquez sur « Tous » dans l'une ou l'autre rangée pour retirer ce filtre." },
+      { q: "En quoi cela sert-il au Scrabble ?", a: "Les lettres finales comptent pour les accroches — s'il y a un S sur le plateau, connaître tous les mots finissant par S permet de pluraliser ou prolonger un coup. De même, connaître les mots finissant par D, ED, ING aide à s'appuyer sur les suffixes courants. Cette page est un puissant outil d'étude pour la compétition." },
+      { q: "Pourquoi paginer à 50 mots ?", a: "Certaines lettres (E, S, D) ont des milliers de mots finissant par elles. Pour garder les pages rapides et lisibles, les résultats paginent à 50 mots par page avec des boutons précédent/suivant. Chaque page indique son numéro et le total pour vous repérer." },
+    ],
+  },
 };
 
 const es: Translation = {
@@ -249,6 +413,84 @@ const es: Translation = {
   privacy: { title: "Política de privacidad", body: "WordIzy no requiere cuenta ni recoge datos personales. Toda la resolución ocurre en el servidor con diccionarios en memoria; nada de lo que escribes se almacena. Google AdSense puede usar cookies para anuncios; gestiónalo en tu navegador." },
   sitemap: { title: "Mapa del sitio", body: "Todas las páginas de WordIzy." },
   footer: { rights: "Todos los derechos reservados.", madeWith: "Hecho para amantes de las palabras.", links: "Enlaces rápidos", desc: "Desordenador y resolvedores gratuitos en 9 idiomas. Sin registro." },
+  faq: {
+    title: "Cómo usar y preguntas frecuentes",
+    unscrambler: [
+      { q: "¿Qué es un desordenador de palabras y cómo se usa?", a: "Un desordenador toma un grupo de letras — como un atril de Scrabble (p. ej. SRAABLC) — y encuentra todas las palabras válidas del diccionario que pueden escribirse con esas letras. Escribe tus letras en la casilla «Tus letras» y haz clic en Desordenar. Los resultados aparecen agrupados por longitud (las más largas primero), cada palabra muestra su valor en puntos Scrabble. Ideal para Scrabble, Words With Friends, Wordfeud, crucigramas y puzzles de anagramas." },
+      { q: "¿Cómo funcionan los comodines (? y *)?", a: "Usa ? o * como comodín para representar cualquier letra desconocida. Por ejemplo, escribir «QUER?Y» indica a WordIzy que busque todas las palabras que coincidan con «QUER» + una letra cualquiera + «Y». Cada comodín actúa como ficha en blanco (0 puntos). Puedes usar varios a la vez — «A??LE» coincide con APPLE, ADDLE, AGILE y más." },
+      { q: "¿Cómo uso los Filtros avanzados?", a: "Haz clic en «Filtros avanzados» para mostrar tres campos opcionales. «Empieza por» limita los resultados a palabras que comienzan con las letras dadas (p. ej. «AB» → solo palabras que empiezan por AB). «Termina en» hace lo mismo con sufijos (p. ej. «ED» → solo palabras que terminan en ED). «Debe incluir» garantiza que ciertas letras aparezcan en cada resultado, en cualquier posición. Combina los tres con comodines para un control preciso." },
+      { q: "¿Cómo se puntúan las palabras?", a: "Cada palabra se puntúa con los valores oficiales Scrabble del idioma elegido. Para inglés: A/E/I/O/U = 1 pto, D/G = 2, B/C/M/P = 3, F/H/V/W/Y = 4, K = 5, J/X = 8, Q/Z = 10. Los comodines (? *) valen 0. El total se muestra junto a cada palabra y los resultados se ordenan por puntuación dentro de cada grupo de longitud, de modo que las mejores jugadas aparecen primero." },
+      { q: "¿Qué diccionarios están disponibles?", a: "WordIzy admite 9 idiomas: inglés (NWL2023 + CSW21), francés (ODS9 2024), español (FISE), italiano (Zingarelli), portugués, alemán, neerlandés (OpenTaal), además de japonés (romaji) y mandarín (pinyin). Todas las palabras se filtran contra el diccionario oficial Scrabble de cada idioma. Cambia de idioma con el selector en la barra de navegación." },
+      { q: "¿Por qué los resultados se agrupan por longitud?", a: "Agrupar por longitud facilita encontrar el tipo de jugada que necesitas. En Scrabble, las palabras largas suelen puntuar más, pero a veces una palabra más corta encaja mejor en el tablero. Las palabras más largas aparecen arriba, descendiendo hasta las de 2 letras. Dentro de cada grupo, las palabras se ordenan por puntuación Scrabble para detectar rápidamente la mejor jugada." },
+    ],
+    scramble: [
+      { q: "¿Para qué sirve el Mezclador / Solucionador?", a: "Esta herramienta resuelve puzzles de anagramas — donde las letras están mezcladas y debes encontrar la(s) palabra(s) original(es). Escribe las letras mezcladas (p. ej. RBOLENW) y haz clic en Resolver para ver todas las palabras reales que pueden formarse. Perfecto para anagramas de periódico, juegos de palabras y retos de palabras mezcladas." },
+      { q: "¿En qué se diferencia del Desordenador?", a: "El Solucionador usa el mismo motor que el Desordenador pero se centra en resolver puzzles de palabras mezcladas más que en encontrar todas las palabras posibles de un atril. También puedes usar la función «Mezclar una palabra» bajo la entrada para convertir una palabra en variantes aleatorias — útil para crear tus propios puzzles." },
+      { q: "¿Puedo usar comodines?", a: "Sí. Usa ? o * para representar letras desconocidas. Por ejemplo, si un puzzle tiene una letra que falta, escribe las letras conocidas más un ? y WordIzy rellenará el hueco con todas las combinaciones válidas." },
+      { q: "¿Cómo creo mi propia palabra mezclada?", a: "Usa la tarjeta «Mezclar una palabra» bajo la entrada principal. Escribe cualquier palabra (p. ej. «scrabble») y haz clic en Generar — WordIzy produce varias mezclas aleatorias de esa palabra. Úsalas para crear puzzles para tus amigos o practicar el desordenado." },
+    ],
+    wordle: [
+      { q: "¿Cómo funciona el Sol. Wordle?", a: "El Solucionador Wordle reduce las posibilidades de la respuesta de hoy usando la retroalimentación de tu partida. Introduce la información recopilada en tus intentos: letras verdes (posición correcta), letras amarillas (en la palabra pero en posición equivocada) y letras grises (no en la palabra). El solver devuelve todas las palabras válidas que cumplen tus restricciones." },
+      { q: "¿Cómo introduzco las letras colocadas (verdes)?", a: "En el campo «Letras colocadas (verde)», escribe las letras que sabes que están en la posición correcta, usando . o _ para huecos vacíos. Por ejemplo, si sabes que la palabra es A _ _ L E, escribe «A..LE». El solver solo devuelve palabras que coinciden exactamente con ese patrón." },
+      { q: "¿Qué son las letras válidas (amarillas) y excluidas (grises)?", a: "Las letras válidas (amarillas) son letras que sabes que ESTÁN en la palabra pero no en la posición que probaste — escríbelas todas en «Letras válidas» (p. ej. «RST»). Las letras excluidas (grises) son letras confirmadas que NO están en la palabra — escríbelas en «Letras excluidas» (p. ej. «BXF»). El solver filtra cualquier palabra que contenga letras excluidas." },
+      { q: "¿Qué longitud de palabra debo usar?", a: "Selecciona la longitud del Wordle de hoy (por defecto 5). WordIzy admite palabras de 4 a 8 letras, así que también funciona con variantes como Quordle, Octordle y partidas de longitud personalizada." },
+      { q: "¿Algún consejo para elegir el siguiente intento?", a: "Elige de los resultados una palabra que use letras comunes que aún no hayas probado (como R, T, S, L, N). Esto maximiza la información obtenida. Si la lista es larga, elige una palabra que elimine la mayor cantidad de posibilidades. El solver muestra la puntuación Scrabble de cada palabra — las puntuaciones altas suelen indicar letras raras que ayudan a acotar." },
+    ],
+    quordle: [
+      { q: "¿Qué es el Sol. Quordle?", a: "Quordle es un juego en el que resuelves cuatro Wordle a la vez. Este solver te permite introducir restricciones para hasta 4 tableros a la vez y devuelve palabras candidatas para cada uno. Cada tablero mantiene sus propias letras colocadas (verdes), válidas (amarillas) y excluidas (grises)." },
+      { q: "¿Cómo uso varios tableros?", a: "Rellena lo que sepas de cada tablero. Las restricciones del tablero 1 solo afectan a sus resultados. Haz clic en «Añadir tablero» para llegar hasta 4 tableros. Usa el botón X para eliminar un tablero. Cuando estés listo, haz clic en Resolver para obtener palabras candidatas de todos los tableros." },
+      { q: "¿Debo compartir letras entre tableros?", a: "Sí — una estrategia clave de Quordle es usar un intento para obtener información de varios tableros. Si una letra es verde en el tablero 1, probablemente esté en la misma posición en los otros. Introduce restricciones compartidas en cada tablero para cruzar información y reducir las cuatro respuestas más rápido." },
+      { q: "¿Algún consejo estratégico para Quordle?", a: "Empieza con una palabra rica en letras comunes (como CRANE o SLATE) para obtener información de todos los tableros. Céntrate primero en el tablero con más restricciones — resolverlo libera espacio mental. Usa el solver tras 2-3 intentos, cuando tengas suficiente información para reducir cada tablero a una lista manejable." },
+    ],
+    anagram: [
+      { q: "¿Qué es un anagrama?", a: "Un anagrama es una palabra o frase formada al reorganizar todas las letras de otra palabra. Por ejemplo, LISTEN y SILENT son anagramas — mismas letras, distinto orden. El Solucionador de Anagramas encuentra cada palabra que usa exactamente todas las letras que proporciones." },
+      { q: "¿En qué se diferencia del Desordenador?", a: "El Desordenador encuentra palabras de CUALQUIER longitud formables con tus letras (incluidas las más cortas). El Solucionador de Anagramas solo encuentra palabras que usan TODAS tus letras — los anagramas de longitud completa. Por ejemplo, con «CHIEN», el solver de anagramas devuelve CHIEN, CHINE, NICHE (todas de 5 letras), mientras que el desordenador también devolvería palabras más cortas como ICE, IN, HE." },
+      { q: "¿Puedo usar comodines?", a: "Sí. Usa ? o * como comodines para rellenar huecos restantes. Por ejemplo, escribir «CAT??» encuentra todos los anagramas de 5 letras donde CAT se combina con dos letras cualesquiera. Los comodines puntúan 0 (como fichas en blanco)." },
+      { q: "¿Para qué sirven los anagramas?", a: "Los anagramas se usan en juegos de palabras, puzzles, criptografía y lingüística. En Scrabble, encontrar anagramas de tu atril ayuda a detectar bingos (usar las 7 fichas para un bonus de 50 puntos). También son populares en definiciones de crucigramas, trivia y acertijos." },
+    ],
+    random: [
+      { q: "¿Qué hace el Generador de Palabras Aleatorias?", a: "Genera palabras reales al azar del diccionario seleccionado, con filtros opcionales. Puedes especificar longitud, letras iniciales, letras finales o letras que la palabra debe contener. Úsalo para juegos, escritura creativa, naming, práctica de vocabulario o generar contraseñas con palabras reales." },
+      { q: "¿Cómo filtro las palabras aleatorias?", a: "Ajusta «Longitud» a un número concreto (2-12) o déjalo en «Cualquiera». «Empieza por» limita a palabras que comienzan con esas letras. «Termina en» limita a palabras que terminan con esas letras. «Contiene» exige que la palabra incluya ciertas letras en cualquier posición. «Cuántas» controla el número de palabras generadas (1-200)." },
+      { q: "¿Las palabras son válidas en Scrabble?", a: "Sí. Todas las palabras generadas provienen del diccionario oficial Scrabble del idioma elegido (NWL2023/CSW21 para inglés, ODS9 para francés, etc.). Cada palabra es jugable en Scrabble y otros juegos de palabras." },
+      { q: "¿Puedo usarlo para juegos de palabras?", a: "Por supuesto. Genera palabras aleatorias para Pictionary, charadas, juegos de asociación o quizzes de vocabulario. Para contraseñas, combina 3-4 palabras aleatorias de distintas longitudes — crea frases-contraseña memorables pero seguras." },
+    ],
+    wordfeud: [
+      { q: "¿Qué es la Ayuda Wordfeud?", a: "Wordfeud es un popular juego móvil de palabras similar a Scrabble. Esta ayuda encuentra las mejores palabras que puedes jugar desde tu atril. Introduce tus 7 letras (más las letras ya colocadas en el tablero) y WordIzy devuelve todas las palabras jugables, ordenadas por puntuación Scrabble." },
+      { q: "¿Cómo introduzco mi atril?", a: "Escribe tus 7 letras de fichas en la casilla «Tus letras». Usa ? o * para fichas en blanco (representan cualquier letra pero puntúan 0). Si hay letras en el tablero sobre las que quieras construir, añádelas también — WordIzy buscará palabras formables del pool combinado." },
+      { q: "¿Qué diccionario debo usar?", a: "Wordfeud admite varios diccionarios según tu región. El Wordfeud en inglés usa una lista tipo Scrabble, así que inglés (NWL2023/CSW21) funciona bien. Para otros idiomas, selecciona el correspondiente (francés ODS9, español FISE, etc.) en el selector de idioma." },
+      { q: "¿Cómo se calculan las puntuaciones?", a: "Las puntuaciones usan los valores oficiales Scrabble del idioma elegido. Ten en cuenta que la puntuación real de Wordfeud puede diferir ligeramente (tiene casillas bonus y su propia distribución de fichas). Usa las puntuaciones como guía para identificar jugadas de alto valor — la palabra con más puntos desde tu atril suele ser tu mejor jugada." },
+    ],
+    dictionary: [
+      { q: "¿Qué hace Ver Diccionario?", a: "Introduce cualquier palabra para verificar si es válida en el diccionario oficial Scrabble del idioma elegido. La herramienta muestra la palabra como fichas Scrabble, un distintivo válido/no válido, la puntuación Scrabble, la longitud, las fichas, una definición y sinónimos (cuando estén disponibles)." },
+      { q: "¿De dónde provienen las definiciones?", a: "Las definiciones proceden de varias fuentes: la API Free Dictionary (inglés, francés, español, alemán, italiano, portugués), Wiktionary (todos los idiomas como respaldo) y un asistente de IA para los huecos restantes. La fuente se indica junto a cada definición." },
+      { q: "¿De dónde provienen los sinónimos?", a: "Los sinónimos provienen de Datamuse (inglés, español, francés, italiano, portugués) y OpenThesaurus (alemán). Solo se muestran los sinónimos que a su vez son palabras válidas en Scrabble — haz clic en cualquiera para comprobarlo al instante." },
+      { q: "¿Por qué una palabra común podría ser inválida?", a: "Los diccionarios Scrabble son estrictos — excluyen nombres propios, abreviaturas, palabras con guion y palabras que requieren apóstrofo. Por ejemplo, «BRUNCH» es válida pero «BRUNCH'S» puede no serlo. Si una palabra parece faltar, puede ser un nombre propio en mayúscula o una incorporación reciente aún no en la lista oficial. Cambia de idioma para comprobar la palabra en otro diccionario." },
+    ],
+    scrabble: [
+      { q: "¿Qué es Scrabble Duplicate?", a: "El Scrabble duplicate es una variante en la que cada jugador recibe el mismo atril y debe encontrar la mejor jugada posible. Se usa en torneos y entrenamiento para medir habilidad sin suerte. Esta herramienta te ayuda a encontrar las palabras de mayor puntuación desde tu atril — introduce tus 7 letras y, opcionalmente, las del tablero, y haz clic en «Buscar mejores palabras»." },
+      { q: "¿Cómo introduzco las letras del tablero?", a: "Si hay letras ya colocadas en el tablero sobre las que puedas construir, escríbelas en el campo «Letras del tablero (opcional)» junto con las de tu atril. WordIzy trata el pool combinado como letras disponibles. Esto ayuda a encontrar palabras que enganchan con jugadas existentes — esencial para maximizar la puntuación en partidas reales." },
+      { q: "¿Cómo se clasifican las mejores jugadas?", a: "Las palabras se ordenan por puntuación Scrabble (la más alta primero). Las 10 mejores jugadas aparecen en una lista destacada arriba. Recuerda: la puntuación real también depende de las casillas bonus (letra/palabra doble/triple) y los bingos (bonus de 50 puntos por usar las 7 fichas). Usa las puntuaciones de la herramienta como base y luego integra la posición en el tablero." },
+      { q: "¿Qué es un bingo y cómo encuentro uno?", a: "Un bingo es jugar las 7 fichas en un turno para un bonus de 50 puntos. Para encontrar bingos, introduce tu atril completo de 7 letras y mira el grupo de resultados de 7 letras. Si aparecen palabras, son posibles bingos. Los comodines (? *) pueden representar las fichas en blanco de tu atril." },
+    ],
+    wordlists: [
+      { q: "¿Qué es la página Listas de Palabras?", a: "Listas de Palabras te permite explorar todas las palabras válidas en Scrabble de 2 a 7 letras. Las palabras se agrupan por longitud y luego por letra final (A-Z), para explorar el diccionario de forma sistemática. Úsala para estudiar, encontrar palabras para tus partidas o ampliar vocabulario." },
+      { q: "¿Cómo filtro por longitud?", a: "Usa el selector de longitud (2-7) arriba. Haz clic en «Todas» para ver todas las longitudes apiladas (palabras de 2 letras arriba, de 7 abajo), o en un número concreto para ver solo esa longitud. Cada sección de longitud muestra 26 contenedores (uno por letra final A-Z)." },
+      { q: "¿Cómo filtro por letra?", a: "Usa la fila A-Z bajo el selector de longitud. Haz clic en una letra para mostrar solo las palabras que terminan con esa letra, o «Todas» para mostrar todas. Útil para encontrar palabras que enganchan con una letra ya en el tablero." },
+      { q: "¿Por qué las palabras se muestran en mayúsculas?", a: "Las fichas Scrabble son mayúsculas, así que las palabras se muestran así para coincidir. Cada palabra muestra su valor Scrabble junto a ella. Dentro de cada contenedor de letra, las palabras se ordenan alfabéticamente (A-Z) para facilitar el escaneo." },
+    ],
+    wordstarts: [
+      { q: "¿Qué es la página Empieza Por?", a: "Esta página te permite explorar todas las palabras válidas en Scrabble que EMPIEZAN por una letra concreta. Selecciona una letra (A-Z) y WordIzy muestra cada palabra que empieza por esa letra, agrupada por longitud (2-7 letras). Perfecta para estudiar aperturas y encontrar palabras para construir desde una letra inicial en el tablero." },
+      { q: "¿Cómo uso los selectores de longitud y letra?", a: "Primero, elige una letra de la fila A-Z — eso fija la letra inicial. Luego usa la fila de longitud (2-7 o Todas) para filtrar por longitud. Cada sección muestra todas las palabras que empiezan por la letra elegida, ordenadas alfabéticamente. Haz clic en «Todas» en cualquiera de las filas para quitar ese filtro." },
+      { q: "¿En qué ayuda esto para Scrabble?", a: "Conocer las palabras que empiezan por cada letra ayuda a planificar aperturas y enganches. Si tienes una Q, saber todas las palabras que empiezan por Q (QI, QAT, QUAD...) te ayuda a jugarla con eficacia. La página también es útil para crucigramas, donde las pistas suelen especificar «empieza por...»." },
+      { q: "¿Por qué paginar a 50 palabras?", a: "Algunas letras (como S, A, E) tienen miles de palabras que empiezan por ellas. Para mantener las páginas rápidas y legibles, los resultados se paginan a 50 palabras por página con botones anterior/siguiente. Cada página indica su número y el total para que sepas dónde estás." },
+    ],
+    wordends: [
+      { q: "¿Qué es la página Termina En?", a: "Esta página te permite explorar todas las palabras válidas en Scrabble que TERMINAN con una letra concreta. Selecciona una letra (A-Z) y WordIzy muestra cada palabra que termina con esa letra, agrupada por longitud (2-7 letras). Ideal para encontrar palabras que enganchen con una letra ya presente en el tablero." },
+      { q: "¿Cómo uso los selectores de longitud y letra?", a: "Primero, elige una letra de la fila A-Z — eso fija la letra final. Luego usa la fila de longitud (2-7 o Todas) para filtrar por longitud. Cada sección muestra todas las palabras que terminan con la letra elegida, ordenadas alfabéticamente. Haz clic en «Todas» en cualquiera de las filas para quitar ese filtro." },
+      { q: "¿En qué ayuda esto para Scrabble?", a: "Las letras finales importan para los enganches — si hay una S en el tablero, conocer todas las palabras terminadas en S te permite pluralizar o extender jugadas. Igualmente, conocer las palabras terminadas en D, ED, ING ayuda a apoyarte en sufijos comunes. Esta página es una poderosa herramienta de estudio para juego competitivo." },
+      { q: "¿Por qué paginar a 50 palabras?", a: "Algunas letras (como E, S, D) tienen miles de palabras que terminan con ellas. Para mantener las páginas rápidas y legibles, los resultados se paginan a 50 palabras por página con botones anterior/siguiente. Cada página indica su número y el total para que sepas dónde estás." },
+    ],
+  },
 };
 
 const de: Translation = {
@@ -278,7 +520,7 @@ const de: Translation = {
     q1: "Wozu dient ein Wort-Entwirker?",
     a1: "Ein Entwirker nimmt Buchstaben (wie ein Scrabble-Gestell) und findet jedes gültige Wörterbuchwort, das sich daraus bilden lässt. Ideal für Scrabble, Wordfeud, Kreuzworträtsel und Anagramm-Puzzles.",
     q2: "Wie nutze ich die erweiterten Optionen?",
-    a2: "Öffne nach der Eingabe die Erweiterten Filter. „Beginnt mit“ beschränkt auf Wörter mit diesem Präfix, „Endet mit“ auf Suffixe, „Muss enthalten“ garantiert bestimmte Buchstaben. Mit Platzhaltern (? oder *) ersetzt du unbekannte Buchstaben.",
+    a2: "Öffne nach der Eingabe die Erweiterten Filter. „Beginnt mit“ beschränkt auf Wörter mit diesem Präfix, „Endet mit“ auf Suffixe, „Muss enthalten“ garantiert bestimmte Buchstaben. Mit Platzhaltern (? oder *) ersetzt du unbekannte Buchstaben.“,
     q3: "Wie funktioniert das?",
     a3: "WordIzy vergleicht deinen Buchstabenpool mit einem vollständigen Wörterbuch im Speicher für die gewählte Sprache, prüft welche Wörter bildbar sind (? und * als Platzhalter), wendet deine Filter an, bewertet jedes Wort mit offiziellen Scrabble-Werten und gruppiert die Ergebnisse nach Länge — längste zuerst.",
     q4: "Welche Sprachen werden unterstützt?",
@@ -298,6 +540,84 @@ const de: Translation = {
   privacy: { title: "Datenschutzerklärung", body: "WordIzy benötigt kein Konto und erfasst keine personenbezogenen Daten. Die Lösung erfolgt serverseitig mit Wörterbüchern im Speicher; nichts wird gespeichert. Google AdSense kann Cookies nutzen; verwalte dies im Browser." },
   sitemap: { title: "Sitemap", body: "Alle Seiten von WordIzy." },
   footer: { rights: "Alle Rechte vorbehalten.", madeWith: "Für Wortliebhaber gemacht.", links: "Schnelllinks", desc: "Kostenloser Entwirker und Löser in 9 Sprachen. Ohne Anmeldung." },
+  faq: {
+    title: "Anleitung & FAQ",
+    unscrambler: [
+      { q: "Was ist ein Wort-Entwirker und wie benutze ich ihn?", a: "Ein Entwirker nimmt einen Buchstabensalat — z. B. ein Scrabble-Gestell (SRAABLC) — und findet jedes gültige Wörterbuchwort, das aus diesen Buchstaben gebildet werden kann. Tippe deine Buchstaben ins Feld „Deine Buchstaben“ und klicke auf Entwirren. Die Ergebnisse erscheinen nach Wortlänge gruppiert (längste zuerst), jedes Wort zeigt seinen Scrabble-Punktwert. Ideal für Scrabble, Words With Friends, Wordfeud, Kreuzworträtsel und Anagramm-Puzzles." },
+      { q: "Wie funktionieren Platzhalter (? und *)?", a: "Verwende ? oder * als Platzhalter für einen unbekannten Buchstaben. Wenn du z. B. „QUER?Y“ eingibst, sucht WordIzy alle Wörter, die auf „QUER“ + einen beliebigen Buchstaben + „Y“ passen. Jeder Platzhalter wirkt wie ein Blanko-Stein (0 Punkte). Du kannst mehrere gleichzeitig nutzen — „A??LE“ liefert APPLE, ADDLE, AGILE u. a." },
+      { q: "Wie nutze ich die Erweiterten Filter?", a: "Klicke auf „Erweiterte Filter“, um drei optionale Felder einzublenden. „Beginnt mit“ beschränkt die Ergebnisse auf Wörter, die mit den angegebenen Buchstaben beginnen (z. B. „AB“ → nur Wörter, die mit AB beginnen). „Endet mit“ macht das Gleiche für Suffixe (z. B. „ED“ → nur Wörter auf ED). „Muss enthalten“ garantiert, dass bestimmte Buchstaben in jedem Ergebnis vorkommen, an beliebiger Position. Kombiniere alle drei mit Platzhaltern für präzise Kontrolle." },
+      { q: "Wie werden Wörter bewertet?", a: "Jedes Wort wird mit den offiziellen Scrabble-Buchstabenwerten der gewählten Sprache bewertet. Für Englisch: A/E/I/O/U = 1 Pkt, D/G = 2, B/C/M/P = 3, F/H/V/W/Y = 4, K = 5, J/X = 8, Q/Z = 10. Platzhalter (? *) zählen 0. Die Summe wird neben jedem Wort angezeigt, und innerhalb jeder Längengruppe werden die Ergebnisse nach Punkten sortiert, damit die wertvollsten Züge oben stehen." },
+      { q: "Welche Wörterbücher sind verfügbar?", a: "WordIzy unterstützt 9 Sprachen: Englisch (NWL2023 + CSW21), Französisch (ODS9 2024), Spanisch (FISE), Italienisch (Zingarelli), Portugiesisch, Deutsch, Niederländisch (OpenTaal) sowie Japanisch (Romaji) und Mandarin (Pinyin). Alle Wörter werden gegen das offizielle Scrabble-Wörterbuch der jeweiligen Sprache gefiltert. Wechsle die Sprache über die Sprachauswahl in der Navigationsleiste." },
+      { q: "Warum sind die Ergebnisse nach Länge gruppiert?", a: "Die Gruppierung nach Wortlänge erleichtert es, die Art Zug zu finden, die du brauchst. Bei Scrabble bringen längere Wörter meist mehr Punkte, doch manchmal passt ein kürzeres besser aufs Brett. Die längsten Wörter erscheinen oben, absteigend bis zu 2-Buchstaben-Wörtern. Innerhalb jeder Gruppe sind die Wörter nach Scrabble-Punkten sortiert, damit du den besten Zug schnell erkennst." },
+    ],
+    scramble: [
+      { q: "Wozu dient der Wort-Mischer / -Löser?", a: "Dieses Werkzeug löst Buchstaben-Rätsel — bei denen die Buchstaben gemischt sind und du das/die ursprüngliche(n) Wort(e) finden musst. Gib die gemischten Buchstaben ein (z. B. RBOLENW) und klicke auf Auflösen, um alle echten Wörter zu sehen, die sich bilden lassen. Perfekt für Zeitungsanagramme, Wortspiele und Misch-Rätsel." },
+      { q: "Worin unterscheidet sich das vom Entwirker?", a: "Der Löser nutzt denselben Motor wie der Entwirker, konzentriert sich aber auf das Lösen von Misch-Rätseln statt alle möglichen Wörter eines Gestells zu finden. Du kannst auch die Funktion „Wort mischen“ unter der Eingabe nutzen, um ein Wort in zufällige Varianten zu mischen — nützlich, um eigene Rätsel zu erstellen." },
+      { q: "Kann ich Platzhalter verwenden?", a: "Ja. Nutze ? oder * für unbekannte Buchstaben. Wenn ein Rätsel z. B. einen fehlenden Buchstaben hat, gib die bekannten Buchstaben plus ein ? ein und WordIzy füllt die Lücke mit allen gültigen Kombinationen." },
+      { q: "Wie erstelle ich mein eigenes gemischtes Wort?", a: "Nutze die Karte „Wort mischen“ unter der Haupteingabe. Tippe ein beliebiges Wort (z. B. „scrabble“) und klicke auf Generieren — WordIzy erzeugt mehrere zufällige Mischungen dieses Wortes. Nutze sie, um Rätsel für Freunde zu basteln oder das Entwirren zu üben." },
+    ],
+    wordle: [
+      { q: "Wie funktioniert der Wordle-Löser?", a: "Der Wordle-Löser grenzt die heutige Wordle-Antwort anhand deines Spiel-Feedbacks ein. Gib die gesammelten Infos ein: grüne Buchstaben (richtige Position), gelbe Buchstaben (im Wort, aber falsche Position) und graue Buchstaben (nicht im Wort). Der Löser liefert alle gültigen Wörter, die deinen Bedingungen entsprechen." },
+      { q: "Wie gebe ich platzierte (grüne) Buchstaben ein?", a: "Trage im Feld „Platzierte (grün)“ die Buchstaben ein, von denen du weißt, dass sie an der richtigen Position stehen, mit . oder _ für leere Felder. Wenn du z. B. weißt, das Wort ist A _ _ L E, gib „A..LE“ ein. Der Löser liefert nur Wörter, die genau auf dieses Muster passen." },
+      { q: "Was sind gültige (gelbe) und ausgeschlossene (graue) Buchstaben?", a: "Gültige Buchstaben (gelb) sind Buchstaben, die im Wort, aber nicht an der geratenen Position sind — trage sie alle ins Feld „Gültige (gelb)“ ein (z. B. „RST“). Ausgeschlossene Buchstaben (grau) sind bestätigt NICHT im Wort — trage sie unter „Ausgeschlossene (grau)“ ein (z. B. „BXF“). Der Löser filtert jedes Wort, das ausgeschlossene Buchstaben enthält." },
+      { q: "Welche Wortlänge soll ich verwenden?", a: "Wähle die Länge des heutigen Wordle (standardmäßig 5). WordIzy unterstützt 4- bis 8-buchstabige Wörter, funktioniert also auch für Varianten wie Quordle, Octordle und eigene Längen." },
+      { q: "Tipps für den nächsten Tipp?", a: "Wähle aus den Ergebnissen ein Wort mit häufigen Buchstaben, die du noch nicht getestet hast (R, T, S, L, N). Das maximiert den Informationsgewinn. Bei langer Liste wähle ein Wort, das die meisten Möglichkeiten ausschließt. Der Löser zeigt die Scrabble-Punkte jedes Wortes — hohe Werte bedeuten oft seltene Buchstaben, die helfen, die Lösung einzugrenzen." },
+    ],
+    quordle: [
+      { q: "Was ist der Quordle-Löser?", a: "Quordle ist ein Spiel, bei dem du vier Wordle gleichzeitig löst. Dieser Löser lässt dich Bedingungen für bis zu 4 Bretter gleichzeitig eingeben und liefert Kandidatenwörter für jedes. Jedes Brett behält eigene platzierte (grüne), gültige (gelbe) und ausgeschlossene (graue) Buchstaben." },
+      { q: "Wie nutze ich mehrere Bretter?", a: "Fülle aus, was du für jedes Brett weißt. Die Bedingungen von Brett 1 beeinflussen nur dessen Ergebnisse. Klicke auf „Brett hinzufügen“, um bis zu 4 Bretter anzulegen. Mit der X-Schaltfläche entfernst du ein Brett. Wenn du bereit bist, klicke auf Lösen, um Kandidaten für alle Bretter zu erhalten." },
+      { q: "Sollte ich Buchstaben zwischen den Brettern teilen?", a: "Ja — eine zentrale Quordle-Strategie ist es, einen Tipp zu nutzen, um Informationen über mehrere Bretter zu sammeln. Ist ein Buchstabe auf Brett 1 grün, ist er wahrscheinlich auch auf den anderen an derselben Position. Gib gemeinsame Bedingungen in jedes Brett ein, um Informationen zu kreuzen und alle vier Antworten schneller einzugrenzen." },
+      { q: "Strategie-Tipps für Quordle?", a: "Starte mit einem Wort voller häufiger Buchstaben (wie CRANE oder SLATE), um auf allen Brettern Infos zu sammeln. Konzentriere dich zuerst auf das Brett mit den meisten Einschränkungen — es zu lösen, schafft mentalen Freiraum. Nutze den Löser nach 2-3 Tipps, wenn du genug Infos hast, um jedes Brett auf eine handhabbare Liste zu reduzieren." },
+    ],
+    anagram: [
+      { q: "Was ist ein Anagramm?", a: "Ein Anagramm ist ein Wort oder Satz, das/der durch Umstellen aller Buchstaben eines anderen Wortes entsteht. So sind LISTEN und SILENT Anagramme — dieselben Buchstaben, andere Reihenfolge. Der Anagramm-Löser findet jedes Wort, das genau alle deine Buchstaben verwendet." },
+      { q: "Worin unterscheidet sich das vom Entwirker?", a: "Der Entwirker findet Wörter JEGLICHER Länge aus deinen Buchstaben (auch kürzere). Der Anagramm-Löser findet nur Wörter, die ALLE deine Buchstaben nutzen — die vollständigen Anagramme. Mit „CHIEN“ liefert der Anagramm-Löser z. B. CHIEN, CHINE, NICHE (alle 5 Buchstaben), während der Entwirker auch kürzere wie ICE, IN, HE liefern würde." },
+      { q: "Kann ich Platzhalter verwenden?", a: "Ja. Nutze ? oder * als Platzhalter für die restlichen Felder. „CAT??“ findet z. B. alle 5-Buchstaben-Anagramme, bei denen CAT mit zwei beliebigen Buchstaben kombiniert wird. Platzhalter zählen 0 Punkte (wie Blankos)." },
+      { q: "Wofür sind Anagramme nützlich?", a: "Anagramme werden in Wortspielen, Puzzles, Kryptografie und Linguistik verwendet. Beim Scrabble hilft es, Anagramme des eigenen Gestells zu kennen, um Bingos zu erkennen (alle 7 Steine für 50 Punkte Bonus). Sie sind auch beliebt in Kreuzwort-Hinweisen, Trivia und Denksportaufgaben." },
+    ],
+    random: [
+      { q: "Was macht der Zufallswort-Generator?", a: "Er erzeugt zufällige echte Wörter aus dem gewählten Wörterbuch, mit optionalen Filtern. Du kannst Wortlänge, Anfangsbuchstaben, Endbuchstaben oder Buchstaben, die daswort enthalten muss, festlegen. Nutze ihn für Spiele, kreatives Schreiben, Namensfindung, Vokabel-Training oder um Passwörter aus echten Wörtern zu erzeugen." },
+      { q: "Wie filtere ich die Zufallswörter?", a: "Setze „Länge“ auf eine konkrete Zahl (2-12) oder lass sie auf „Beliebig“. „Beginnt mit“ beschränkt auf Wörter mit diesen Anfangsbuchstaben. „Endet mit“ auf Wörter mit diesen Endbuchstaben. „Enthält“ verlangt, dass daswort bestimmte Buchstaben irgendwo enthält. „Wie viele“ steuert die Anzahl erzeugter Wörter (1-200)." },
+      { q: "Sind die Wörter gültige Scrabble-Wörter?", a: "Ja. Alle erzeugten Wörter stammen aus dem offiziellen Scrabble-Wörterbuch der gewählten Sprache (NWL2023/CSW21 für Englisch, ODS9 für Französisch usw.). Jedes Wort ist in Scrabble und anderen Wortspielen spielbar." },
+      { q: "Kann ich das für Wortspiele verwenden?", a: "Absolut. Erzeuge Zufallswörter für Pictionary, Scharade, Wortassoziation oder Vokabel-Quiz. Für Passwörter kombiniere 3-4 Zufallswörter unterschiedlicher Länge — das ergibt einprägsame, aber sichere Passphrasen." },
+    ],
+    wordfeud: [
+      { q: "Was ist die Wordfeud-Hilfe?", a: "Wordfeud ist ein beliebtes mobiles Wortspiel ähnlich wie Scrabble. Diese Hilfe findet die besten Wörter, die du aus deinem Gestell spielen kannst. Gib deine 7 Buchstaben (plus eventuelle Brett-Buchstaben) ein und WordIzy liefert alle spielbaren Wörter, sortiert nach Scrabble-Punkten." },
+      { q: "Wie gebe ich mein Gestell ein?", a: "Tippe deine 7 Buchstaben ins Feld „Deine Buchstaben“. Nutze ? oder * für Blankos (sie vertreten jeden Buchstaben, zählen aber 0 Punkte). Wenn es schon Buchstaben auf dem Brett gibt, an die du anknüpfen willst, füge sie hinzu — WordIzy findet Wörter aus dem kombinierten Pool." },
+      { q: "Welches Wörterbuch soll ich verwenden?", a: "Wordfeud unterstützt je nach Region mehrere Wörterbücher. Das englische Wordfeud nutzt eine Scrabble-ähnliche Liste, daher passt Englisch (NWL2023/CSW21). Für andere Sprachen wähle das passende (Französisch ODS9, Spanisch FISE usw.) in der Sprachauswahl." },
+      { q: "Wie werden die Punkte berechnet?", a: "Die Punkte nutzen die offiziellen Scrabble-Buchstabenwerte der gewählten Sprache. Hinweis: Die tatsächliche Wordfeud-Wertung kann leicht abweichen (Bonusfelder und eigene Steine-Verteilung). Nutze die Punkte als Orientierung, um wertvolle Züge zu erkennen — das Wort mit den meisten Punkten aus deinem Gestell ist meist dein bester Zug." },
+    ],
+    dictionary: [
+      { q: "Was macht Wörterbuch prüfen?", a: "Gib ein beliebiges Wort ein, um zu prüfen, ob es im offiziellen Scrabble-Wörterbuch der gewählten Sprache gültig ist. Das Werkzeug zeigt das Wort als Scrabble-Steine, ein gültig/ungültig-Badge, die Scrabble-Punkte, Wortlänge, Buchstaben-Steine, eine Wörterbuchdefinition und (falls verfügbar) Synonyme." },
+      { q: "Woher kommen die Definitionen?", a: "Definitionen stammen aus mehreren Quellen: der Free Dictionary API (Englisch, Französisch, Spanisch, Deutsch, Italienisch, Portugiesisch), Wiktionary (alle Sprachen als Fallback) und einem KI-Assistenten für verbleibende Lücken. Die Quelle ist neben jeder Definition angegeben." },
+      { q: "Woher kommen die Synonyme?", a: "Synonyme kommen von Datamuse (Englisch, Spanisch, Französisch, Italienisch, Portugiesisch) und OpenThesaurus (Deutsch). Es werden nur Synonyme gezeigt, die selbst gültige Scrabble-Wörter sind — klicke auf ein Synonym, um es sofort zu prüfen." },
+      { q: "Warum könnte ein häufiges Wort ungültig sein?", a: "Scrabble-Wörterbücher sind streng — sie schließen Eigennamen, Abkürzungen, Bindestrichwörter und Wörter mit Apostroph aus. „BRUNCH“ ist z. B. gültig, „BRUNCH'S“ vielleicht nicht. Wenn ein Wort zu fehlen scheint, ist es vielleicht ein großgeschriebener Eigenname oder eine aktuelle Ergänzung, die noch nicht in der offiziellen Liste steht. Wechsle die Sprache, um das Wort in einem anderen Wörterbuch zu prüfen." },
+    ],
+    scrabble: [
+      { q: "Was ist Scrabble Duplicate?", a: "Duplicate-Scrabble ist eine Variante, bei der jeder Spieler dasselbe Gestell erhält und den bestmöglichen Zug finden muss. Es wird in Turnieren und Training genutzt, um Können ohne Glück zu testen. Dieses Werkzeug hilft dir, die punktereichsten Wörter aus deinem Gestell zu finden — gib deine 7 Buchstaben und optional Brett-Buchstaben ein und klicke auf „Beste Wörter finden“." },
+      { q: "Wie gebe ich Brett-Buchstaben ein?", a: "Wenn es schon Buchstaben auf dem Brett gibt, an die du anknüpfen kannst, tippe sie zusammen mit deinen Gestell-Buchstaben ins Feld „Brett-Buchstaben (optional)“. WordIzy behandelt den kombinierten Pool als verfügbare Buchstaben. So findest du Wörter, die an bestehende Züge andocken — wichtig, um in echten Partien die Punktzahl zu maximieren." },
+      { q: "Wie werden die Top-Züge gerankt?", a: "Die Wörter sind nach Scrabble-Punkten sortiert (höchste zuerst). Die Top-10-Züge erscheinen oben in einer hervorgehobenen Liste. Achtung: Tatsächliche Spiel-Punkte hängen auch von Bonusfeldern (Buchstabe/Wort doppelt/dreifach) und Bingos (50-Punkte-Bonus für alle 7 Steine) ab. Nutze die Punktzahlen des Werkzeugs als Basis und beziehe dann die Brett-Position ein." },
+      { q: "Was ist ein Bingo und wie finde ich einen?", a: "Ein Bingo ist das Spielen aller 7 Steine in einem Zug für einen 50-Punkte-Bonus. Um Bingos zu finden, gib dein vollständiges 7-Buchstaben-Gestell ein und schau in die Gruppe der 7-Buchstaben-Ergebnisse. Erscheinen dort Wörter, sind das potenzielle Bingos. Platzhalter (? *) können die Blankos deines Gestells vertreten." },
+    ],
+    wordlists: [
+      { q: "Was ist die Seite Wortlisten?", a: "Wortlisten lässt dich jedes gültige Scrabble-Wort von 2 bis 7 Buchstaben durchsuchen. Wörter sind nach Länge und dann nach Endbuchstabe (A-Z) gruppiert, damit du das Wörterbuch systematisch erkunden kannst. Nutze sie zum Studieren, zum Finden von Wörtern für Partien oder zum Erweitern deines Wortschatzes." },
+      { q: "Wie filtere ich nach Länge?", a: "Nutze oben den Längen-Selector (2-7). Klicke auf „Alle“, um alle Längen gestapelt zu sehen (2-Buchstaben oben, 7-Buchstaben unten), oder auf eine Zahl, um nur diese Länge zu sehen. Jeder Längen-Abschnitt zeigt 26 Container (einen pro Endbuchstabe A-Z)." },
+      { q: "Wie filtere ich nach Buchstabe?", a: "Nutze die A-Z-Reihe unter dem Längen-Selector. Klicke auf einen Buchstaben, um nur Wörter zu zeigen, die damit enden, oder auf „Alle“, um jeden Buchstaben zu sehen. Hilfreich, um Wörter zu finden, die an einen bestimmten Buchstaben auf dem Brett andocken." },
+      { q: "Warum werden die Wörter großgeschrieben?", a: "Scrabble-Steine sind groß, daher werden die Wörter passend groß angezeigt. Jedes Wort zeigt seinen Scrabble-Wert daneben. Innerhalb jedes Buchstaben-Containers sind die Wörter alphabetisch (A-Z) sortiert für leichtes Überfliegen." },
+    ],
+    wordstarts: [
+      { q: "Was ist die Seite Beginnt Mit?", a: "Diese Seite lässt dich alle gültigen Scrabble-Wörter durchsuchen, die MIT einem bestimmten Buchstaben BEGINNEN. Wähle einen Buchstaben (A-Z) und WordIzy zeigt jedes Wort, das damit beginnt, gruppiert nach Länge (2-7 Buchstaben). Perfekt, um Eröffnungen zu studieren und Wörter zu finden, die an einen Anfangsbuchstaben auf dem Brett anknüpfen." },
+      { q: "Wie nutze ich die Längen- und Buchstaben-Selectoren?", a: "Wähle zuerst einen Buchstaben aus der A-Z-Reihe — das legt den Anfangsbuchstaben fest. Nutze dann die Längen-Reihe (2-7 oder Alle), um nach Wortlänge zu filtern. Jeder Längen-Abschnitt zeigt alle Wörter, die mit dem gewählten Buchstaben beginnen, alphabetisch sortiert. Klicke in einer der Reihen auf „Alle“, um diesen Filter zu entfernen." },
+      { q: "Wie ist das für Scrabble nützlich?", a: "Zu wissen, welche Wörter mit jedem Buchstaben beginnen, hilft beim Planen von Eröffnungen und Anknüpfungen. Hast du ein Q, hilft es, alle Q-Wörter (QI, QAT, QUAD...) zu kennen, um es wirksam zu spielen. Die Seite ist auch wertvoll für Kreuzworträtsel, wo Hinweise oft „beginnt mit...“ angeben." },
+      { q: "Warum bei 50 Wörtern paginieren?", a: "Manche Buchstaben (wie S, A, E) haben Tausende Anfangswörter. Damit die Seiten schnell und lesbar bleiben, paginieren die Ergebnisse mit 50 Wörtern pro Seite und Vor-/Zurück-Schaltflächen. Jede Seite zeigt Seitennummer und Gesamtseiten, damit du weißt, wo du bist." },
+    ],
+    wordends: [
+      { q: "Was ist die Seite Endet Mit?", a: "Diese Seite lässt dich alle gültigen Scrabble-Wörter durchsuchen, die MIT einem bestimmten Buchstaben ENDEN. Wähle einen Buchstaben (A-Z) und WordIzy zeigt jedes Wort, das damit endet, gruppiert nach Länge (2-7 Buchstaben). Ideal, um Wörter zu finden, die an einen bestehenden Buchstaben auf dem Brett andocken." },
+      { q: "Wie nutze ich die Längen- und Buchstaben-Selectoren?", a: "Wähle zuerst einen Buchstaben aus der A-Z-Reihe — das legt den Endbuchstaben fest. Nutze dann die Längen-Reihe (2-7 oder Alle), um nach Wortlänge zu filtern. Jeder Längen-Abschnitt zeigt alle Wörter, die auf den gewählten Buchstaben enden, alphabetisch sortiert. Klicke in einer der Reihen auf „Alle“, um diesen Filter zu entfernen." },
+      { q: "Wie ist das für Scrabble nützlich?", a: "Endbuchstaben zählen für Anknüpfungen — ist ein S auf dem Brett, hilft es, alle Wörter auf S zu kennen, um zu pluralisieren oder Züge zu erweitern. Ebenso helfen Wörter auf D, ED, ING, um an häufige Suffixe anzudocken. Diese Seite ist ein mächtiges Trainingswerkzeug für den Wettkampf." },
+      { q: "Warum bei 50 Wörtern paginieren?", a: "Manche Buchstaben (wie E, S, D) haben Tausende Endwörter. Damit die Seiten schnell und lesbar bleiben, paginieren die Ergebnisse mit 50 Wörtern pro Seite und Vor-/Zurück-Schaltflächen. Jede Seite zeigt Seitennummer und Gesamtseiten, damit du weißt, wo du bist." },
+    ],
+  },
 };
 
 const it: Translation = {
@@ -347,6 +667,84 @@ const it: Translation = {
   privacy: { title: "Informativa sulla privacy", body: "WordIzy non richiede account né raccoglie dati personali. La risoluzione avviene lato server con dizionari in memoria; nulla viene memorizzato. Google AdSense può usare cookie; gestiscili nel browser." },
   sitemap: { title: "Mappa del sito", body: "Tutte le pagine di WordIzy." },
   footer: { rights: "Tutti i diritti riservati.", madeWith: "Fatto per gli amanti delle parole.", links: "Link rapidi", desc: "Anagrammatore e risolutori gratuiti in 9 lingue. Senza registrazione." },
+  faq: {
+    title: "Come usare & FAQ",
+    unscrambler: [
+      { q: "Cos'è un anagrammatore di parole e come si usa?", a: "Un anagrammatore prende un insieme di lettere — come un portatile Scrabble (es. SRAABLC) — e trova ogni parola valida del dizionario scrivibile con quelle lettere. Digita le lettere nella casella «Le tue lettere» e clicca su Anagramma. I risultati appaiono raggruppati per lunghezza (le più lunghe prima), ogni parola mostra il suo valore Scrabble. Ideale per Scrabble, Words With Friends, Wordfeud, cruciverba e puzzle di anagrammi." },
+      { q: "Come funzionano i jolly (? e *)?", a: "Usa ? o * come jolly per rappresentare una lettera sconosciuta. Ad esempio, inserendo «QUER?Y» chiedi a WordIzy di cercare tutte le parole che corrispondono a «QUER» + una lettera qualsiasi + «Y». Ogni jolly vale come una casella bianca (0 punti). Puoi usare più jolly insieme — «A??LE» corrisponde a APPLE, ADDLE, AGILE e altre." },
+      { q: "Come uso i Filtri avanzati?", a: "Clicca su «Filtri avanzati» per mostrare tre campi opzionali. «Inizia con» limita i risultati alle parole che iniziano con le lettere indicate (es. «AB» → solo parole che iniziano per AB). «Finisce con» fa lo stesso per i suffissi (es. «ED» → solo parole che finiscono in ED). «Deve includere» garantisce che certe lettere appaiano in ogni risultato, in qualsiasi posizione. Combina i tre con i jolly per un controllo preciso." },
+      { q: "Come sono punteggiate le parole?", a: "Ogni parola è punteggiata con i valori ufficiali Scrabble della lingua scelta. Per l'inglese: A/E/I/O/U = 1 pt, D/G = 2, B/C/M/P = 3, F/H/V/W/Y = 4, K = 5, J/X = 8, Q/Z = 10. I jolly (? *) valgono 0. Il totale è mostrato accanto a ogni parola e i risultati sono ordinati per punteggio entro ogni gruppo di lunghezza, così le giocate migliori appaiono per prime." },
+      { q: "Quali dizionari sono disponibili?", a: "WordIzy supporta 9 lingue: inglese (NWL2023 + CSW21), francese (ODS9 2024), spagnolo (FISE), italiano (Zingarelli), portoghese, tedesco, olandese (OpenTaal), più giapponese (romaji) e mandarino (pinyin). Tutte le parole sono filtrate rispetto al dizionario Scrabble ufficiale di ogni lingua. Cambia lingua con il selettore nella barra di navigazione." },
+      { q: "Perché i risultati sono raggruppati per lunghezza?", a: "Il raggruppamento per lunghezza rende facile trovare il tipo di giocata che ti serve. A Scrabble, le parole più lunghe di solito valgono di più, ma a volte una parola più corta si adatta meglio alla scacchiera. Le parole più lunghe appaiono in alto, scendendo fino alle parole di 2 lettere. Entro ogni gruppo, le parole sono ordinate per punteggio Scrabble per individuare in fretta la giocata migliore." },
+    ],
+    scramble: [
+      { q: "A cosa serve il Mischia / Risolutore?", a: "Questo strumento risolve puzzle di anagrammi — in cui le lettere sono mischiate e devi trovare la/le parola/e originale/i. Inserisci le lettere mischiate (es. RBOLENW) e clicca su Risolvi per vedere tutte le parole reali componibili. Perfetto per anagrammi di giornale, giochi di parole e sfide di parole mischiate." },
+      { q: "In cosa differisce dall'Anagrammatore?", a: "Il Risolutore usa lo stesso motore dell'Anagrammatore ma è focalizzato sulla risoluzione di puzzle di parole mischiate piuttosto che nel trovare ogni parola possibile da un portatile. Puoi anche usare la funzione «Mischia una parola» sotto l'input per trasformare una parola in varianti casuali — utile per creare i tuoi puzzle." },
+      { q: "Posso usare i jolly?", a: "Sì. Usa ? o * per rappresentare lettere sconosciute. Ad esempio, se un puzzle ha una lettera mancante, inserisci le lettere note più un ? e WordIzy riempirà lo spazio con ogni combinazione valida." },
+      { q: "Come creo la mia parola mischiata?", a: "Usa la scheda «Mischia una parola» sotto l'input principale. Digita una parola qualsiasi (es. «scrabble») e clicca su Genera — WordIzy produce diverse mescolate casuali di quella parola. Usale per creare puzzle per gli amici o per esercitarti." },
+    ],
+    wordle: [
+      { q: "Come funziona il Ris. Wordle?", a: "Il Risolutore Wordle restringe la risposta di oggi usando il feedback della tua partita. Inserisci le informazioni raccolte dai tentativi: lettere verdi (posizione corretta), lettere gialle (nella parola ma posizione sbagliata) e lettere grigie (non nella parola). Il solver restituisce tutte le parole valide che rispettano i tuoi vincoli." },
+      { q: "Come inserisco le lettere collocate (verdi)?", a: "Nel campo «Lettere collocate (verde)», digita le lettere che sai essere nella posizione corretta, usando . o _ per gli spazi vuoti. Ad esempio, se sai che la parola è A _ _ L E, inserisci «A..LE». Il solver restituisce solo le parole che corrispondono esattamente a questo schema." },
+      { q: "Cosa sono le lettere valide (gialle) ed escluse (grigie)?", a: "Le lettere valide (gialle) sono lettere che sai essere NELLA parola ma non nella posizione tentata — inseriscile tutte nel campo «Lettere valide» (es. «RST»). Le lettere escluse (grigie) sono lettere confermate NON nella parola — inseriscile in «Lettere escluse» (es. «BXF»). Il solver filtra ogni parola che contiene lettere escluse." },
+      { q: "Quale lunghezza di parola usare?", a: "Seleziona la lunghezza del Wordle di oggi (predefinita 5). WordIzy supporta parole da 4 a 8 lettere, quindi funziona anche per varianti come Quordle, Octordle e partite a lunghezza personalizzata." },
+      { q: "Consigli per scegliere il prossimo tentativo?", a: "Scegli tra i risultati una parola che usi lettere comuni non ancora testate (R, T, S, L, N). Questo massimizza il guadagno di informazioni. Se la lista è lunga, scegli una parola che elimini più possibilità. Il solver mostra il punteggio Scrabble di ogni parola — punteggi alti spesso indicano lettere rare che aiutano a restringere." },
+    ],
+    quordle: [
+      { q: "Cos'è il Ris. Quordle?", a: "Quordle è un gioco in cui risolvi quattro Wordle contemporaneamente. Questo solver ti permette di inserire vincoli per fino a 4 tabelloni in una volta e restituisce parole candidate per ciascuno. Ogni tabellone mantiene le proprie lettere collocate (verdi), valide (gialle) ed escluse (grigie)." },
+      { q: "Come uso più tabelloni?", a: "Compila ciò che sai per ogni tabellone. I vincoli del tabellone 1 influenzano solo i suoi risultati. Clicca su «Aggiungi tabellone» per arrivare fino a 4 tabelloni. Usa il pulsante X per rimuovere un tabellone. Quando sei pronto, clicca su Risolvi per ottenere le parole candidate di tutti i tabelloni." },
+      { q: "Devo condividere lettere tra tabelloni?", a: "Sì — una strategia chiave di Quordle è usare un tentativo per raccogliere informazioni su più tabelloni. Se una lettera è verde sul tabellone 1, è probabile che sia nella stessa posizione anche sugli altri. Inserisci vincoli condivisi su ogni tabellone per incrociare le informazioni e restringere più in fretta le quattro risposte." },
+      { q: "Consigli strategici per Quordle?", a: "Inizia con una parola ricca di lettere comuni (come CRANE o SLATE) per raccogliere informazioni su tutti i tabelloni. Concentrati prima sul tabellone con più vincoli — risolverlo libera spazio mentale. Usa il solver dopo 2-3 tentativi, quando hai abbastanza informazioni per ridurre ogni tabellone a una lista gestibile." },
+    ],
+    anagram: [
+      { q: "Cos'è un anagramma?", a: "Un anagramma è una parola o frase formata riorganizzando tutte le lettere di un'altra parola. Ad esempio, LISTEN e SILENT sono anagrammi — stesse lettere, ordine diverso. Il Risolutore di Anagrammi trova ogni parola che usa esattamente tutte le lettere fornite." },
+      { q: "In cosa differisce dall'Anagrammatore?", a: "L'Anagrammatore trova parole di QUALSIASI lunghezza componibili dalle tue lettere (anche più corte). Il Risolutore di Anagrammi trova solo parole che usano TUTTE le tue lettere — gli anagrammi a lunghezza piena. Ad esempio, con «CHIEN», il solver restituisce CHIEN, CHINE, NICHE (tutte 5 lettere), mentre l'anagrammatore restituirebbe anche parole più corte come ICE, IN, HE." },
+      { q: "Posso usare i jolly?", a: "Sì. Usa ? o * come jolly per riempire gli spazi restanti. Ad esempio, inserendo «CAT??» trovi tutti gli anagrammi di 5 lettere in cui CAT è combinato con due lettere qualsiasi. I jolly valgono 0 punti (come caselle bianche)." },
+      { q: "A cosa servono gli anagrammi?", a: "Gli anagrammi si usano in giochi di parole, puzzle, crittografia e linguistica. A Scrabble, trovare anagrammi del proprio portatile aiuta a individuare bingo (usare tutte e 7 le tessere per un bonus di 50 punti). Sono anche popolari in definizioni di cruciverba, trivia e indovinelli." },
+    ],
+    random: [
+      { q: "Cosa fa il Generatore di Parole Casuali?", a: "Genera parole reali casuali dal dizionario selezionato, con filtri opzionali. Puoi specificare lunghezza, lettere iniziali, lettere finali o lettere che la parola deve contenere. Usalo per giochi, scrittura creativa, naming, pratica di vocabolario o per generare password con parole reali." },
+      { q: "Come filtro le parole casuali?", a: "Imposta «Lunghezza» su un numero specifico (2-12) o lascia «Qualsiasi». «Inizia con» limita alle parole che iniziano con certe lettere. «Finisce con» limita alle parole che finiscono con certe lettere. «Contiene» richiede che la parola includa certe lettere ovunque. «Quante» controlla il numero di parole generate (1-200)." },
+      { q: "Le parole sono valide per Scrabble?", a: "Sì. Tutte le parole generate provengono dal dizionario Scrabble ufficiale della lingua selezionata (NWL2023/CSW21 per l'inglese, ODS9 per il francese, ecc.). Ogni parola è giocabile in Scrabble e altri giochi di parole." },
+      { q: "Posso usarlo per giochi di parole?", a: "Assolutamente. Genera parole casuali per Pictionary, sciarade, giochi di associazione o quiz di vocabolario. Per le password, combina 3-4 parole casuali di lunghezze diverse — questo crea passphrase memorabili ma sicure." },
+    ],
+    wordfeud: [
+      { q: "Cos'è l'Aiuto Wordfeud?", a: "Wordfeud è un popolare gioco mobile di parole simile a Scrabble. Questo aiuto trova le migliori parole giocabili dal tuo portatile. Inserisci le tue 7 lettere (più eventuali lettere già in tabellone) e WordIzy restituisce tutte le parole giocabili, ordinate per punteggio Scrabble." },
+      { q: "Come inserisco il mio portatile?", a: "Digita le tue 7 lettere nella casella «Le tue lettere». Usa ? o * per le caselle bianche (rappresentano qualsiasi lettera ma valgono 0 punti). Se ci sono lettere già in tabellone su cui vuoi costruire, aggiungile — WordIzy troverà le parole componibili dal pool combinato." },
+      { q: "Quale dizionario usare?", a: "Wordfeud supporta più dizionari a seconda della regione. Il Wordfeud inglese usa una lista tipo Scrabble, quindi inglese (NWL2023/CSW21) funziona bene. Per altre lingue, seleziona quella corrispondente (francese ODS9, spagnolo FISE, ecc.) dal selettore di lingua." },
+      { q: "Come sono calcolati i punteggi?", a: "I punteggi usano i valori ufficiali Scrabble della lingua selezionata. Nota: il punteggio reale di Wordfeud può differire leggermente (ha caselle bonus e una propria distribuzione di tessere). Usa i punteggi come guida per individuare giocate di alto valore — la parola con più punti dal tuo portatile è di solito la tua mossa migliore." },
+    ],
+    dictionary: [
+      { q: "Cosa fa Verifica Dizionario?", a: "Inserisci una parola qualsiasi per verificare se è valida nel dizionario Scrabble ufficiale della lingua selezionata. Lo strumento mostra la parola come tessere Scrabble, un badge valido/non valido, il punteggio Scrabble, la lunghezza, le tessere, una definizione e sinonimi (se disponibili)." },
+      { q: "Da dove provengono le definizioni?", a: "Le definizioni provengono da più fonti: l'API Free Dictionary (per inglese, francese, spagnolo, tedesco, italiano, portoghese), Wiktionary (tutte le lingue come fallback) e un assistente IA per eventuali lacune. La fonte è indicata accanto a ogni definizione." },
+      { q: "Da dove provengono i sinonimi?", a: "I sinonimi provengono da Datamuse (per inglese, spagnolo, francese, italiano, portoghese) e OpenThesaurus (per il tedesco). Sono mostrati solo i sinonimi che sono a loro volta parole valide in Scrabble — clicca su un sinonimo per verificarlo all'istante." },
+      { q: "Perché una parola comune potrebbe essere invalida?", a: "I dizionari Scrabble sono severi — escludono nomi propri, abbreviazioni, parole con trattino e parole con apostrofo. Ad esempio, «BRUNCH» è valida ma «BRUNCH'S» potrebbe non esserlo. Se una parola sembra mancare, può essere un nome proprio maiuscolo o un'inclusione recente non ancora nella lista ufficiale. Cambia lingua per controllare la parola in un altro dizionario." },
+    ],
+    scrabble: [
+      { q: "Cos'è Scrabble Duplicate?", a: "Lo Scrabble duplicate è una variante in cui ogni giocatore riceve lo stesso portatile e deve trovare la migliore giocata possibile. È usato in tornei e allenamenti per testare l'abilità senza fortuna. Questo strumento ti aiuta a trovare le parole più redditizie dal tuo portatile — inserisci le tue 7 lettere ed eventualmente le lettere in tabellone, poi clicca su «Trova migliori parole»." },
+      { q: "Come inserisco le lettere del tabellone?", a: "Se ci sono lettere già sul tabellone su cui puoi costruire, digita nel campo «Lettere del tabellone (opzionale)» insieme alle lettere del tuo portatile. WordIzy tratta il pool combinato come lettere disponibili. Questo aiuta a trovare parole che si agganciano a giocate esistenti — essenziale per massimizzare il punteggio in partite reali." },
+      { q: "Come sono classificate le migliori giocate?", a: "Le parole sono ordinate per punteggio Scrabble (più alto prima). Le 10 migliori giocate appaiono in cima in una lista evidenziata. Ricorda: il punteggio reale dipende anche dalle caselle bonus (lettera/parola doppia/tripla) e dai bingo (bonus di 50 punti per l'uso di tutte e 7 le tessere). Usa i punteggi dello strumento come base, poi integra il posizionamento sul tabellone." },
+      { q: "Cos'è un bingo e come ne trovo uno?", a: "Un bingo è giocare tutte e 7 le tessere in un turno per un bonus di 50 punti. Per trovare bingo, inserisci il tuo portatile completo di 7 lettere e guarda il gruppo di risultati a 7 lettere. Se compaiono parole, sono potenziali bingo. I jolly (? *) possono rappresentare le caselle bianche del tuo portatile." },
+    ],
+    wordlists: [
+      { q: "Cos'è la pagina Liste di Parole?", a: "Liste di Parole ti permette di sfogliare ogni parola valida in Scrabble da 2 a 7 lettere. Le parole sono raggruppate per lunghezza e poi per lettera finale (A-Z), per esplorare il dizionario in modo sistematico. Usala per studiare, trovare parole per le partite o ampliare il vocabolario." },
+      { q: "Come filtro per lunghezza?", a: "Usa il selettore di lunghezza (2-7) in alto. Clicca su «Tutte» per vedere tutte le lunghezze impilate (parole di 2 lettere sopra, 7 sotto), o su un numero specifico per vedere solo quella lunghezza. Ogni sezione di lunghezza mostra 26 contenitori (uno per lettera finale A-Z)." },
+      { q: "Come filtro per lettera?", a: "Usa la riga A-Z sotto il selettore di lunghezza. Clicca su una lettera per mostrare solo le parole che finiscono con quella lettera, o «Tutte» per mostrarle tutte. Utile per trovare parole che si agganciano a una lettera già sul tabellone." },
+      { q: "Perché le parole sono in maiuscolo?", a: "Le tessere Scrabble sono maiuscole, quindi le parole sono mostrate in maiuscolo per corrispondenza. Ogni parola mostra accanto il suo valore Scrabble. Entro ogni contenitore di lettera, le parole sono ordinate alfabeticamente (A-Z) per una scansione agevole." },
+    ],
+    wordstarts: [
+      { q: "Cos'è la pagina Inizia Per?", a: "Questa pagina ti permette di sfogliare tutte le parole valide in Scrabble che INIZIANO con una lettera specifica. Seleziona una lettera (A-Z) e WordIzy mostra ogni parola che inizia con quella lettera, raggruppata per lunghezza (2-7 lettere). Perfetta per studiare aperture e trovare parole da costruire su una lettera iniziale sul tabellone." },
+      { q: "Come uso i selettori di lunghezza e lettera?", a: "Prima, scegli una lettera dalla riga A-Z — questo fissa la lettera iniziale. Poi usa la riga di lunghezza (2-7 o Tutte) per filtrare per lunghezza. Ogni sezione mostra tutte le parole che iniziano con la lettera scelta, ordinate alfabeticamente. Clicca su «Tutte» in una delle righe per rimuovere quel filtro." },
+      { q: "In che modo è utile per Scrabble?", a: "Conoscere le parole che iniziano con ciascuna lettera aiuta a pianificare aperture e agganci. Se hai una Q, conoscere tutte le parole in Q (QI, QAT, QUAD...) ti aiuta a giocarla in modo efficace. La pagina è utile anche per cruciverba, dove le definizioni spesso specificano «inizia per...»." },
+      { q: "Perché impaginare a 50 parole?", a: "Alcune lettere (come S, A, E) hanno migliaia di parole iniziali. Per mantenere le pagine veloci e leggibili, i risultati impaginano a 50 parole per pagina con pulsanti precedente/successivo. Ogni pagina indica il numero e il totale per orientarti." },
+    ],
+    wordends: [
+      { q: "Cos'è la pagina Finisce Con?", a: "Questa pagina ti permette di sfogliare tutte le parole valide in Scrabble che FINISCONO con una lettera specifica. Seleziona una lettera (A-Z) e WordIzy mostra ogni parola che finisce con quella lettera, raggruppata per lunghezza (2-7 lettere). Ideale per trovare parole da agganciare a una lettera già sul tabellone." },
+      { q: "Come uso i selettori di lunghezza e lettera?", a: "Prima, scegli una lettera dalla riga A-Z — questo fissa la lettera finale. Poi usa la riga di lunghezza (2-7 o Tutte) per filtrare per lunghezza. Ogni sezione mostra tutte le parole che finiscono con la lettera scelta, ordinate alfabeticamente. Clicca su «Tutte» in una delle righe per rimuovere quel filtro." },
+      { q: "In che modo è utile per Scrabble?", a: "Le lettere finali contano per gli agganci — se c'è una S sul tabellone, conoscere tutte le parole in S ti permette di pluralizzare o estendere giocate. Allo stesso modo, conoscere le parole in D, ED, ING aiuta ad appoggiarti sui suffissi comuni. Questa pagina è un potente strumento di studio per il gioco agonistico." },
+      { q: "Perché impaginare a 50 parole?", a: "Alcune lettere (come E, S, D) hanno migliaia di parole finali. Per mantenere le pagine veloci e leggibili, i risultati impaginano a 50 parole per pagina con pulsanti precedente/successivo. Ogni pagina indica il numero e il totale per orientarti." },
+    ],
+  },
 };
 
 const pt: Translation = {
@@ -396,6 +794,84 @@ const pt: Translation = {
   privacy: { title: "Política de privacidade", body: "O WordIzy não exige conta nem recolhe dados pessoais. A resolução ocorre no servidor com dicionários em memória; nada é armazenado. O Google AdSense pode usar cookies; gerencie no navegador." },
   sitemap: { title: "Mapa do site", body: "Todas as páginas do WordIzy." },
   footer: { rights: "Todos os direitos reservados.", madeWith: "Feito para amantes das palavras.", links: "Links rápidos", desc: "Descodificador e resolvedores gratuitos em 9 idiomas. Sem cadastro." },
+  faq: {
+    title: "Como usar & FAQ",
+    unscrambler: [
+      { q: "O que é um descodificador de palavras e como o uso?", a: "Um descodificador pega num conjunto de letras — como um suporte de Scrabble (ex. SRAABLC) — e encontra todas as palavras válidas do dicionário escrevíveis com essas letras. Escreve as tuas letras na caixa «As tuas letras» e clica em Descodificar. Os resultados aparecem agrupados por comprimento (os mais longos primeiro), cada palavra mostra o seu valor em pontos Scrabble. Ideal para Scrabble, Words With Friends, Wordfeud, palavras cruzadas e puzzles de anagramas." },
+      { q: "Como funcionam os curingas (? e *)?", a: "Usa ? ou * como curinga para representar qualquer letra desconhecida. Por exemplo, escrever «QUER?Y» pede ao WordIzy que encontre todas as palavras correspondentes a «QUER» + uma letra qualquer + «Y». Cada curinga age como uma peça em branco (0 pontos). Podes usar vários ao mesmo tempo — «A??LE» corresponde a APPLE, ADDLE, AGILE e mais." },
+      { q: "Como uso os Filtros avançados?", a: "Clica em «Filtros avançados» para mostrar três campos opcionais. «Começa por» limita os resultados a palavras que começam pelas letras indicadas (ex. «AB» → só palavras que começam por AB). «Termina em» faz o mesmo para sufixos (ex. «ED» → só palavras que terminam em ED). «Deve incluir» garante que certas letras apareçam em cada resultado, em qualquer posição. Combina os três com curingas para controlo preciso." },
+      { q: "Como são pontuadas as palavras?", a: "Cada palavra é pontuada com os valores oficiais Scrabble do idioma escolhido. Para inglês: A/E/I/O/U = 1 pto, D/G = 2, B/C/M/P = 3, F/H/V/W/Y = 4, K = 5, J/X = 8, Q/Z = 10. Os curingas (? *) valem 0. O total aparece ao lado de cada palavra e os resultados são ordenados por pontuação dentro de cada grupo de comprimento, para que as melhores jogadas apareçam primeiro." },
+      { q: "Que dicionários estão disponíveis?", a: "O WordIzy suporta 9 idiomas: inglês (NWL2023 + CSW21), francês (ODS9 2024), espanhol (FISE), italiano (Zingarelli), português, alemão, neerlandês (OpenTaal), além de japonês (romaji) e mandarim (pinyin). Todas as palavras são filtradas pelo dicionário oficial Scrabble de cada idioma. Muda de idioma no seletor da barra de navegação." },
+      { q: "Por que os resultados são agrupados por comprimento?", a: "Agrupar por comprimento facilita encontrar o tipo de jogada que precisas. No Scrabble, palavras mais longas costumam valer mais, mas às vezes uma palavra mais curta encaixa melhor no tabuleiro. As palavras mais longas aparecem no topo, descendo até às de 2 letras. Dentro de cada grupo, as palavras são ordenadas por pontuação Scrabble para detetares rapidamente a melhor jogada." },
+    ],
+    scramble: [
+      { q: "Para que serve o Mistura / Resolvedor?", a: "Esta ferramenta resolve puzzles de anagramas — em que as letras estão misturadas e tens de encontrar a(s) palavra(s) original(is). Escreve as letras misturadas (ex. RBOLENW) e clica em Resolver para ver todas as palavras reais formáveis. Perfeito para anagramas de jornal, jogos de palavras e desafios de palavras misturadas." },
+      { q: "Em que difere do Descodificador?", a: "O Resolvedor usa o mesmo motor do Descodificador mas foca-se em resolver puzzles de palavras misturadas em vez de encontrar todas as palavras possíveis de um suporte. Podes também usar a função «Misturar uma palavra» sob a entrada para transformar uma palavra em variantes aleatórias — útil para criar os teus próprios puzzles." },
+      { q: "Posso usar curingas?", a: "Sim. Usa ? ou * para representar letras desconhecidas. Por exemplo, se um puzzle tem uma letra em falta, escreve as letras conhecidas mais um ? e o WordIzy preenche o espaço com todas as combinações válidas." },
+      { q: "Como crio a minha própria palavra misturada?", a: "Usa o cartão «Misturar uma palavra» sob a entrada principal. Escreve qualquer palavra (ex. «scrabble») e clica em Gerar — o WordIzy produz várias misturas aleatórias dessa palavra. Usa-as para criar puzzles para amigos ou praticar." },
+    ],
+    wordle: [
+      { q: "Como funciona o Sol. Wordle?", a: "O Resolvedor Wordle estreita a resposta de hoje usando o feedback da tua partida. Introduz as informações recolhidas dos teus palpites: letras verdes (posição correta), letras amarelas (na palavra mas na posição errada) e letras cinzentas (não na palavra). O solver devolve todas as palavras válidas que cumprem as tuas restrições." },
+      { q: "Como introduzo as letras colocadas (verdes)?", a: "No campo «Letras colocadas (verde)», escreve as letras que sabes estar na posição correta, usando . ou _ para espaços vazios. Por exemplo, se sabes que a palavra é A _ _ L E, escreve «A..LE». O solver só devolve palavras que correspondem exatamente a esse padrão." },
+      { q: "O que são letras válidas (amarelas) e excluídas (cinzentas)?", a: "Letras válidas (amarelas) são letras que sabes ESTAR na palavra mas não na posição que tentaste — escreve-as todas no campo «Letras válidas» (ex. «RST»). Letras excluídas (cinzentas) são letras confirmadas NÃO na palavra — escreve-as em «Letras excluídas» (ex. «BXF»). O solver filtra qualquer palavra que contenha letras excluídas." },
+      { q: "Que comprimento de palavra usar?", a: "Seleciona o comprimento do Wordle de hoje (predefinição 5). O WordIzy suporta palavras de 4 a 8 letras, pelo que também funciona para variantes como Quordle, Octordle e jogos de comprimento personalizado." },
+      { q: "Dicas para escolher o próximo palpite?", a: "Escolhe dos resultados uma palavra que use letras comuns que ainda não testaste (R, T, S, L, N). Isso maximiza o ganho de informação. Se a lista for longa, escolhe uma palavra que elimine mais possibilidades. O solver mostra a pontuação Scrabble de cada palavra — pontuações altas costumam indicar letras raras que ajudam a estreitar." },
+    ],
+    quordle: [
+      { q: "O que é o Sol. Quordle?", a: "Quordle é um jogo em que resolves quatro Wordle em simultâneo. Este solver permite introduzir restrições para até 4 tabuleiros de uma só vez e devolve palavras candidatas para cada um. Cada tabuleiro mantém as suas próprias letras colocadas (verdes), válidas (amarelas) e excluídas (cinzentas)." },
+      { q: "Como uso vários tabuleiros?", a: "Preenche o que sabes de cada tabuleiro. As restrições do tabuleiro 1 só afetam os seus resultados. Clica em «Adicionar tabuleiro» para chegar até 4 tabuleiros. Usa o botão X para remover um tabuleiro. Quando estiveres pronto, clica em Resolver para obter palavras candidatas de todos os tabuleiros." },
+      { q: "Devo partilhar letras entre tabuleiros?", a: "Sim — uma estratégia chave do Quordle é usar um palpite para recolher informação em vários tabuleiros. Se uma letra é verde no tabuleiro 1, é provável que esteja na mesma posição nos outros. Introduz restrições partilhadas em cada tabuleiro para cruzar informação e estreitar as quatro respostas mais depressa." },
+      { q: "Dicas estratégicas para Quordle?", a: "Começa com uma palavra rica em letras comuns (como CRANE ou SLATE) para recolher informação em todos os tabuleiros. Foca-te primeiro no tabuleiro com mais restrições — resolvê-lo liberta espaço mental. Usa o solver após 2-3 palpites, quando tens informação suficiente para reduzir cada tabuleiro a uma lista gerível." },
+    ],
+    anagram: [
+      { q: "O que é um anagrama?", a: "Um anagrama é uma palavra ou frase formada ao reorganizar todas as letras de outra palavra. Por exemplo, LISTEN e SILENT são anagramas — mesmas letras, ordem diferente. O Resolvedor de Anagramas encontra todas as palavras que usam exatamente todas as letras que forneces." },
+      { q: "Em que difere do Descodificador?", a: "O Descodificador encontra palavras de QUALQUER comprimento formáveis com as tuas letras (incluindo mais curtas). O Resolvedor de Anagramas só encontra palavras que usam TODAS as tuas letras — os anagramas de comprimento completo. Por exemplo, com «CHIEN», o solver devolve CHIEN, CHINE, NICHE (todas 5 letras), enquanto o descodificador também devolveria palavras mais curtas como ICE, IN, HE." },
+      { q: "Posso usar curingas?", a: "Sim. Usa ? ou * como curingas para preencher espaços restantes. Por exemplo, escrever «CAT??» encontra todos os anagramas de 5 letras em que CAT é combinado com duas letras quaisquer. Os curingas valem 0 pontos (como peças em branco)." },
+      { q: "Para que servem os anagramas?", a: "Anagramas usam-se em jogos de palavras, puzzles, criptografia e linguística. No Scrabble, encontrar anagramas do suporte ajuda a detetar bingos (usar as 7 peças para um bónus de 50 pontos). Também são populares em definições de palavras cruzadas, trivialidades e enigmas." },
+    ],
+    random: [
+      { q: "O que faz o Gerador de Palavras Aleatórias?", a: "Gera palavras reais aleatórias do dicionário selecionado, com filtros opcionais. Podes especificar comprimento, letras iniciais, letras finais ou letras que a palavra deve conter. Usa-o para jogos, escrita criativa, naming, prática de vocabulário ou gerar palavras-passe com palavras reais." },
+      { q: "Como filtro as palavras aleatórias?", a: "Define «Comprimento» num número específico (2-12) ou deixa em «Qualquer». «Começa por» limita a palavras que começam por essas letras. «Termina em» limita a palavras que terminam com essas letras. «Contém» exige que a palavra inclua certas letras em qualquer posição. «Quantas» controla o número de palavras geradas (1-200)." },
+      { q: "As palavras são válidas no Scrabble?", a: "Sim. Todas as palavras geradas vêm do dicionário oficial Scrabble do idioma selecionado (NWL2023/CSW21 para inglês, ODS9 para francês, etc.). Cada palavra é jogável em Scrabble e outros jogos de palavras." },
+      { q: "Posso usar isto para jogos de palavras?", a: "Com certeza. Gera palavras aleatórias para Pictionary, charadas, jogos de associação ou quizzes de vocabulário. Para palavras-passe, combina 3-4 palavras aleatórias de comprimentos diferentes — cria passphrases memoráveis mas seguras." },
+    ],
+    wordfeud: [
+      { q: "O que é a Ajuda Wordfeud?", a: "Wordfeud é um popular jogo móvel de palavras semelhante ao Scrabble. Esta ajuda encontra as melhores palavras que podes jogar do teu suporte. Introduz as tuas 7 letras (mais letras já no tabuleiro) e o WordIzy devolve todas as palavras jogáveis, ordenadas por pontuação Scrabble." },
+      { q: "Como introduzo o meu suporte?", a: "Escreve as tuas 7 letras de peças na caixa «As tuas letras». Usa ? ou * para peças em branco (representam qualquer letra mas valem 0 pontos). Se já há letras no tabuleiro sobre as quais queiras construir, adiciona-as também — o WordIzy encontra palavras formáveis do pool combinado." },
+      { q: "Que dicionário devo usar?", a: "Wordfeud suporta vários dicionários consoante a tua região. O Wordfeud em inglês usa uma lista tipo Scrabble, por isso inglês (NWL2023/CSW21) funciona bem. Para outros idiomas, seleciona o correspondente (francês ODS9, espanhol FISE, etc.) no seletor de idioma." },
+      { q: "Como são calculadas as pontuações?", a: "As pontuações usam os valores oficiais Scrabble do idioma selecionado. Nota: a pontuação real do Wordfeud pode diferir ligeiramente (tem casas bónus e a sua própria distribuição de peças). Usa as pontuações como guia para identificar jogadas de alto valor — a palavra com mais pontos do teu suporte é geralmente a tua melhor jogada." },
+    ],
+    dictionary: [
+      { q: "O que faz Verificar Dicionário?", a: "Introduz qualquer palavra para verificar se é válida no dicionário oficial Scrabble do idioma selecionado. A ferramenta mostra a palavra como peças Scrabble, um selo válido/inválido, a pontuação Scrabble, o comprimento, as peças, uma definição e sinónimos (quando disponíveis)." },
+      { q: "De onde vêm as definições?", a: "As definições vêm de várias fontes: a API Free Dictionary (inglês, francês, espanhol, alemão, italiano, português), Wiktionary (todos os idiomas como recurso) e um assistente de IA para eventuais lacunas. A fonte é indicada junto a cada definição." },
+      { q: "De onde vêm os sinónimos?", a: "Os sinónimos vêm de Datamuse (inglês, espanhol, francês, italiano, português) e OpenThesaurus (alemão). Apenas se mostram sinónimos que são eles próprios palavras válidas em Scrabble — clica num sinónimo para verificá-lo de imediato." },
+      { q: "Por que uma palavra comum poderia ser inválida?", a: "Os dicionários Scrabble são rigorosos — excluem nomes próprios, abreviaturas, palavras com hífen e palavras com apóstrofo. Por exemplo, «BRUNCH» é válida mas «BRUNCH'S» pode não ser. Se uma palavra parece faltar, pode ser um nome próprio capitalizado ou um acréscimo recente ainda não na lista oficial. Muda de idioma para verificar a palavra noutro dicionário." },
+    ],
+    scrabble: [
+      { q: "O que é Scrabble Duplicate?", a: "Scrabble duplicate é uma variante em que cada jogador recebe o mesmo suporte e deve encontrar a melhor jogada possível. Usa-se em torneios e treino para testar habilidade sem sorte. Esta ferramenta ajuda-te a encontrar as palavras mais pontuadas do teu suporte — introduz as tuas 7 letras e, opcionalmente, letras do tabuleiro, depois clica em «Buscar melhores palavras»." },
+      { q: "Como introduzo letras do tabuleiro?", a: "Se já há letras no tabuleiro sobre as quais podes construir, escreve-as no campo «Letras do tabuleiro (opcional)» juntamente com as do teu suporte. O WordIzy trata o pool combinado como letras disponíveis. Isto ajuda a encontrar palavras que se engatam em jogadas existentes — essencial para maximizar a pontuação em partidas reais." },
+      { q: "Como são classificadas as melhores jogadas?", a: "As palavras são ordenadas por pontuação Scrabble (mais alta primeiro). As 10 melhores jogadas aparecem no topo numa lista destacada. Lembra-te: a pontuação real também depende de casas bónus (letra/palavra dupla/tripla) e de bingos (bónus de 50 pontos por usar as 7 peças). Usa as pontuações da ferramenta como base e depois integra o posicionamento no tabuleiro." },
+      { q: "O que é um bingo e como encontro um?", a: "Um bingo é jogar todas as 7 peças num turno para um bónus de 50 pontos. Para encontrar bingos, introduz o teu suporte completo de 7 letras e olha o grupo de resultados de 7 letras. Se aparecerem palavras, são potenciais bingos. Curingas (? *) podem representar as peças em branco do teu suporte." },
+    ],
+    wordlists: [
+      { q: "O que é a página Listas de Palavras?", a: "Listas de Palavras permite-te navegar por todas as palavras válidas em Scrabble de 2 a 7 letras. As palavras são agrupadas por comprimento e depois por letra final (A-Z), para explorar o dicionário de forma sistemática. Usa-a para estudar, encontrar palavras para partidas ou ampliar o vocabulário." },
+      { q: "Como filtro por comprimento?", a: "Usa o seletor de comprimento (2-7) no topo. Clica em «Todas» para ver todos os comprimentos empilhados (palavras de 2 letras no topo, de 7 no fundo), ou num número específico para ver só esse comprimento. Cada secção de comprimento mostra 26 contentores (um por letra final A-Z)." },
+      { q: "Como filtro por letra?", a: "Usa a linha A-Z sob o seletor de comprimento. Clica numa letra para mostrar só as palavras que terminam com essa letra, ou «Todas» para mostrar todas. Útil para encontrar palavras que se engatam numa letra já no tabuleiro." },
+      { q: "Por que as palavras são mostradas em maiúsculas?", a: "As peças Scrabble são maiúsculas, por isso as palavras são mostradas em maiúsculas para corresponder. Cada palavra mostra o seu valor Scrabble ao lado. Dentro de cada contentor de letra, as palavras são ordenadas alfabeticamente (A-Z) para facilitar a leitura." },
+    ],
+    wordstarts: [
+      { q: "O que é a página Começa Por?", a: "Esta página permite-te navegar por todas as palavras válidas em Scrabble que COMEÇAM por uma letra específica. Seleciona uma letra (A-Z) e o WordIzy mostra todas as palavras que começam por essa letra, agrupadas por comprimento (2-7 letras). Perfeita para estudar aberturas e encontrar palavras para construir sobre uma letra inicial no tabuleiro." },
+      { q: "Como uso os seletores de comprimento e letra?", a: "Primeiro, escolhe uma letra da linha A-Z — isso define a letra inicial. Depois usa a linha de comprimento (2-7 ou Todas) para filtrar por comprimento. Cada secção mostra todas as palavras que começam pela letra escolhida, ordenadas alfabeticamente. Clica em «Todas» numa das linhas para remover esse filtro." },
+      { q: "Como isto ajuda no Scrabble?", a: "Conhecer as palavras que começam por cada letra ajuda a planear aberturas e engates. Se tens um Q, conhecer todas as palavras com Q (QI, QAT, QUAD...) ajuda a jogá-lo com eficácia. A página também é valiosa para palavras cruzadas, onde as pistas costumam indicar «começa por...»." },
+      { q: "Por que paginar a 50 palavras?", a: "Algumas letras (como S, A, E) têm milhares de palavras iniciais. Para manter as páginas rápidas e legíveis, os resultados paginam a 50 palavras por página com botões anterior/seguinte. Cada página indica o número e o total para te localizares." },
+    ],
+    wordends: [
+      { q: "O que é a página Termina Em?", a: "Esta página permite-te navegar por todas as palavras válidas em Scrabble que TERMINAM com uma letra específica. Seleciona uma letra (A-Z) e o WordIzy mostra todas as palavras que terminam com essa letra, agrupadas por comprimento (2-7 letras). Ideal para encontrar palavras que se engatem numa letra já presente no tabuleiro." },
+      { q: "Como uso os seletores de comprimento e letra?", a: "Primeiro, escolhe uma letra da linha A-Z — isso define a letra final. Depois usa a linha de comprimento (2-7 ou Todas) para filtrar por comprimento. Cada secção mostra todas as palavras que terminam com a letra escolhida, ordenadas alfabeticamente. Clica em «Todas» numa das linhas para remover esse filtro." },
+      { q: "Como isto ajuda no Scrabble?", a: "As letras finais importam para os engates — se há um S no tabuleiro, conhecer todas as palavras terminadas em S permite-te pluralizar ou estender jogadas. Do mesmo modo, conhecer palavras terminadas em D, ED, ING ajuda a apoiar-te em sufixos comuns. Esta página é uma poderosa ferramenta de estudo para jogo competitivo." },
+      { q: "Por que paginar a 50 palavras?", a: "Algumas letras (como E, S, D) têm milhares de palavras finais. Para manter as páginas rápidas e legíveis, os resultados paginam a 50 palavras por página com botões anterior/seguinte. Cada página indica o número e o total para te localizares." },
+    ],
+  },
 };
 
 const nl: Translation = {
@@ -445,6 +921,84 @@ const nl: Translation = {
   privacy: { title: "Privacybeleid", body: "WordIzy vereist geen account en verzamelt geen persoonsgegevens. Het oplossen gebeurt server-side met woordenboeken in het geheugen; niets wordt opgeslagen. Google AdSense kan cookies gebruiken; beheer dit in je browser." },
   sitemap: { title: "Sitemap", body: "Alle pagina's van WordIzy." },
   footer: { rights: "Alle rechten voorbehouden.", madeWith: "Gemaakt voor woordliefhebbers.", links: "Snelle links", desc: "Gratis ontwarer en oplossers in 9 talen. Zonder registratie." },
+  faq: {
+    title: "Hoe te gebruiken & FAQ",
+    unscrambler: [
+      { q: "Wat is een woordontwarer en hoe gebruik ik hem?", a: "Een ontwarer neemt een hoop letters — zoals een Scrabble-rek (bijv. SRAABLC) — en vindt elk geldig woordenboekwoord dat met die letters gespeld kan worden. Typ je letters in het veld „Jouw letters“ en klik op Ontwarren. Resultaten verschijnen gegroepeerd op woordlengte (langste eerst), elk woord toont zijn Scrabble-puntwaarde. Ideaal voor Scrabble, Words With Friends, Wordfeud, kruiswoordraadsels en anagram-puzzels." },
+      { q: "Hoe werken jokers (? en *)?", a: "Gebruik ? of * als joker voor een onbekende letter. Als je bijvoorbeeld „QUER?Y“ invoert, zoekt WordIzy alle woorden die passen op „QUER“ + één willekeurige letter + „Y“. Elke joker werkt als een blanco steen (0 punten). Je kunt er meerdere tegelijk gebruiken — „A??LE“ levert APPLE, ADDLE, AGILE en meer." },
+      { q: "Hoe gebruik ik de Geavanceerde filters?", a: "Klik op „Geavanceerde filters“ om drie optionele velden te tonen. „Begint met“ beperkt resultaten tot woorden die met de opgegeven letters beginnen (bijv. „AB“ → alleen woorden die met AB beginnen). „Eindigt op“ doet hetzelfde voor achtervoegsels (bijv. „ED“ → alleen woorden die op ED eindigen). „Moet bevatten“ garandeert dat bepaalde letters in elk resultaat voorkomen, op elke positie. Combineer alle drie met jokers voor nauwkeurige controle." },
+      { q: "Hoe worden woorden gescoord?", a: "Elk woord wordt gescoord met de officiële Scrabble-letterwaarden van de gekozen taal. Voor Engels: A/E/I/O/U = 1 pt, D/G = 2, B/C/M/P = 3, F/H/V/W/Y = 4, K = 5, J/X = 8, Q/Z = 10. Jokers (? *) scoren 0. Het totaal staat naast elk woord en resultaten worden binnen elke lengtegroep op score gesorteerd, zodat de hoogst scorende zetten bovenaan staan." },
+      { q: "Welke woordenboeken zijn beschikbaar?", a: "WordIzy ondersteunt 9 talen: Engels (NWL2023 + CSW21), Frans (ODS9 2024), Spaans (FISE), Italiaans (Zingarelli), Portugees, Duits, Nederlands (OpenTaal), plus Japans (romaji) en Mandarijn (pinyin). Alle woorden worden gefilterd tegen het officiële Scrabble-woordenboek van elke taal. Wissel van taal via de taalselectie in de navigatiebalk." },
+      { q: "Waarom zijn resultaten op lengte gegroepeerd?", a: "Groeperen op woordlengte maakt het makkelijk om het type zet te vinden dat je nodig hebt. Bij Scrabble scoren langere woorden meestal hoger, maar soms past een korter woord beter op het bord. De langste woorden staan bovenaan, aflopend tot 2-letterwoorden. Binnen elke groep zijn woorden op Scrabble-score gesorteerd, zodat je de beste zet snel ziet." },
+    ],
+    scramble: [
+      { q: "Waarvoor dient de Mengoplosser?", a: "Deze tool lost anagram-puzzels op — waarbij letters gemengd zijn en je het oorspronkelijke woord(en) moet vinden. Voer de gemengde letters in (bijv. RBOLENW) en klik op Oplossen om alle echte woorden te zien die gevormd kunnen worden. Perfect voor krantenanagrammen, woordspellen en meng-uitdagingen." },
+      { q: "Waar verschilt dit van de Ontwarer?", a: "De Oplosser gebruikt dezelfde motor als de Ontwarer, maar richt zich op het oplossen van meng-puzzels in plaats van het vinden van elk mogelijk woord uit een rek. Je kunt ook de functie „Een woord mengen“ onder de invoer gebruiken om een woord in willekeurige varianten te mengen — handig om je eigen puzzels te maken." },
+      { q: "Kan ik jokers gebruiken?", a: "Ja. Gebruik ? of * voor onbekende letters. Als een puzzel bijvoorbeeld een ontbrekende letter heeft, voer dan de bekende letters plus een ? in en WordIzy vult de plek met elke geldige combinatie." },
+      { q: "Hoe maak ik mijn eigen gemengde woord?", a: "Gebruik de kaart „Een woord mengen“ onder de hoofdinvoer. Typ een willekeurig woord (bijv. „scrabble“) en klik op Genereren — WordIzy maakt verschillende willekeurige mengsels van dat woord. Gebruik ze om puzzels voor vrienden te maken of om het ontwarren te oefenen." },
+    ],
+    wordle: [
+      { q: "Hoe werkt de Wordle-oplosser?", a: "De Wordle-oplosser beperkt het antwoord van vandaag met behulp van je spel-feedback. Voer de informatie uit je gissingen in: groene letters (juiste positie), gele letters (in het woord maar verkeerde positie) en grijze letters (niet in het woord). De solver retourneert alle geldige woorden die aan je voorwaarden voldoen." },
+      { q: "Hoe voer ik geplaatste (groene) letters in?", a: "Typ in het veld „Geplaatste letters (groen)“ de letters waarvan je weet dat ze op de juiste positie staan, met . of _ voor lege plekken. Als je bijvoorbeeld weet dat het woord A _ _ L E is, voer dan „A..LE“ in. De solver retourneert alleen woorden die exact aan dit patroon voldoen." },
+      { q: "Wat zijn geldige (gele) en uitgesloten (grijze) letters?", a: "Geldige letters (geel) zijn letters waarvan je weet dat ze IN het woord zitten, maar niet op de positie die je raadde — voer ze allemaal in het veld „Geldige letters“ in (bijv. „RST“). Uitgesloten letters (grijs) zijn letters die bevestigd NIET in het woord zitten — voer ze in bij „Uitgesloten letters“ (bijv. „BXF“). De solver filtert elk woord dat uitgesloten letters bevat." },
+      { q: "Welke woordlengte moet ik gebruiken?", a: "Selecteer de lengte van de Wordle van vandaag (standaard 5). WordIzy ondersteunt woorden van 4 tot 8 letters, dus het werkt ook voor varianten zoals Quordle, Octordle en spellen met aangepaste lengte." },
+      { q: "Tips voor de volgende gissing?", a: "Kies uit de resultaten een woord met veel voorkomende letters die je nog niet hebt getest (zoals R, T, S, L, N). Dat maximaliseert de informatiewinst. Is de lijst lang, kies dan een woord dat de meeste mogelijkheden uitsluit. De solver toont de Scrabble-score van elk woord — hoge scores betekenen vaak zeldzame letters die helpen om in te perken." },
+    ],
+    quordle: [
+      { q: "Wat is de Quordle-oplosser?", a: "Quordle is een spel waarbij je vier Wordles tegelijk oplost. Deze solver laat je voorwaarden invoeren voor tot wel 4 borden tegelijk en retourneert kandidaatwoorden voor elk. Elk bord houdt zijn eigen geplaatste (groene), geldige (gele) en uitgesloten (grijze) letters." },
+      { q: "Hoe gebruik ik meerdere borden?", a: "Vul in wat je voor elk bord weet. De voorwaarden van bord 1 beïnvloeden alleen de resultaten van bord 1. Klik op „Bord toevoegen“ om tot 4 borden te maken. Gebruik de X-knop om een bord te verwijderen. Klik op Oplosser om kandidaten voor alle borden te krijgen." },
+      { q: "Moet ik letters tussen borden delen?", a: "Ja — een belangrijke Quordle-strategie is één gissing gebruiken om informatie over meerdere borden te verzamelen. Als een letter groen is op bord 1, staat deze waarschijnlijk ook op dezelfde positie op de andere borden. Voer gedeelde voorwaarden op elk bord in om informatie te kruisen en de vier antwoorden sneller in te perken." },
+      { q: "Strategie-tips voor Quordle?", a: "Begin met een woord vol veelvoorkomende letters (zoals CRANE of SLATE) om informatie over alle borden te verzamelen. Richt je eerst op het bord met de meeste voorwaarden — het oplossen ervan schept mentale ruimte. Gebruik de solver na 2-3 gissingen, als je genoeg info hebt om elk bord terug te brengen tot een beheersbare lijst." },
+    ],
+    anagram: [
+      { q: "Wat is een anagram?", a: "Een anagram is een woord of zin dat wordt gevormd door alle letters van een ander woord te herschikken. LISTEN en SILENT zijn bijvoorbeeld anagrammen — dezelfde letters, andere volgorde. De Anagram-oplosser vindt elk woord dat exact al je letters gebruikt." },
+      { q: "Waar verschilt dit van de Ontwarer?", a: "De Ontwarer vindt woorden van ELKE lengte die uit je letters gevormd kunnen worden (inclusief kortere). De Anagram-oplosser vindt alleen woorden die AL je letters gebruiken — de volledige anagrammen. Met „CHIEN“ retourneert de anagram-solver bijvoorbeeld CHIEN, CHINE, NICHE (allemaal 5 letters), terwijl de ontwarer ook kortere woorden zou geven zoals ICE, IN, HE." },
+      { q: "Kan ik jokers gebruiken?", a: "Ja. Gebruik ? of * als jokers om resterende plekken te vullen. „CAT??“ vindt bijvoorbeeld alle 5-letter anagrammen waarbij CAT met twee willekeurige letters wordt gecombineerd. Jokers scoren 0 punten (zoals blanco's)." },
+      { q: "Waarvoor zijn anagrammen nuttig?", a: "Anagrammen worden gebruikt in woordspellen, puzzels, cryptografie en taalkunde. Bij Scrabble helpt het kennen van anagrammen van je rek om bingo's te spotten (alle 7 stenen gebruiken voor 50 punten bonus). Ze zijn ook populair in kruiswoord-aanwijzingen, trivia en breinbrekers." },
+    ],
+    random: [
+      { q: "Wat doet de Willekeurig Woord-generator?", a: "Hij genereert willekeurige echte woorden uit het gekozen woordenboek, met optionele filters. Je kunt woordlengte, beginletters, eindletters of letters die het woord moet bevatten opgeven. Gebruik hem voor spellen, creatief schrijven, naamgeving, woordenschat-oefening of om wachtwoorden met echte woorden te maken." },
+      { q: "Hoe filter ik de willekeurige woorden?", a: "Zet „Lengte“ op een specifiek getal (2-12) of laat het op „Willekeurig“. „Begint met“ beperkt tot woorden die met die letters beginnen. „Eindigt op“ beperkt tot woorden die op die letters eindigen. „Bevat“ vereist dat het woord bepaalde letters ergens bevat. „Hoeveel“ bepaalt het aantal gegenereerde woorden (1-200)." },
+      { q: "Zijn de woorden geldige Scrabble-woorden?", a: "Ja. Alle gegenereerde woorden komen uit het officiële Scrabble-woordenboek van de gekozen taal (NWL2023/CSW21 voor Engels, ODS9 voor Frans, enz.). Elk woord is speelbaar in Scrabble en andere woordspellen." },
+      { q: "Kan ik dit voor woordspellen gebruiken?", a: "Zeker. Genereer willekeurige woorden voor Pictionary, charades, woordassociatie-spellen of woordenschat-quizzes. Voor wachtwoorden combineer 3-4 willekeurige woorden van verschillende lengtes — dat levert memorabele maar veilige wachtzinnen op." },
+    ],
+    wordfeud: [
+      { q: "Wat is de Wordfeud-hulp?", a: "Wordfeud is een populair mobiel woordspel vergelijkbaar met Scrabble. Deze hulp vindt de beste woorden die je vanuit je rek kunt spelen. Voer je 7 letters in (plus eventuele bordletters) en WordIzy retourneert alle speelbare woorden, gesorteerd op Scrabble-score." },
+      { q: "Hoe voer ik mijn rek in?", a: "Typ je 7 steenletters in het veld „Jouw letters“. Gebruik ? of * voor blanco stenen (ze vertegenwoordigen elke letter maar scoren 0). Als er al bordletters zijn waarop je wilt bouwen, voeg die dan ook toe — WordIzy vindt woorden uit de gecombineerde verzameling." },
+      { q: "Welk woordenboek moet ik gebruiken?", a: "Wordfeud ondersteunt meerdere woordenboeken afhankelijk van je regio. Engels Wordfeud gebruikt een Scrabble-achtige lijst, dus Engels (NWL2023/CSW21) werkt goed. Voor andere talen selecteer je de juiste (Frans ODS9, Spaans FISE, enz.) in de taalselectie." },
+      { q: "Hoe worden scores berekend?", a: "Scores gebruiken de officiële Scrabble-letterwaarden van de gekozen taal. Let op: de werkelijke Wordfeud-score kan licht afwijken (het heeft bonusvakjes en een eigen steenverdeling). Gebruik de scores als richtlijn om waardevolle zetten te herkennen — het woord met de meeste punten uit je rek is meestal je beste zet." },
+    ],
+    dictionary: [
+      { q: "Wat doet Woordenboek?", a: "Voer een willekeurig woord in om te controleren of het geldig is in het officiële Scrabble-woordenboek van de gekozen taal. De tool toont het woord als Scrabble-stenen, een geldig/ongeldig-badge, de Scrabble-score, woordlengte, letterstenen, een woordenboekdefinitie en synoniemen (indien beschikbaar)." },
+      { q: "Waar komen de definities vandaan?", a: "Definities komen uit meerdere bronnen: de Free Dictionary API (voor Engels, Frans, Spaans, Duits, Italiaans, Portugees), Wiktionary (alle talen als fallback) en een AI-assistent voor resterende gaten. De bron staat naast elke definitie vermeld." },
+      { q: "Waar komen de synoniemen vandaan?", a: "Synoniemen komen van Datamuse (voor Engels, Spaans, Frans, Italiaans, Portugees) en OpenThesaurus (voor Duits). Alleen synoniemen die zelf geldige Scrabble-woorden zijn worden getoond — klik op een synoniem om het direct te controleren." },
+      { q: "Waarom zou een veelvoorkomend woord ongeldig kunnen zijn?", a: "Scrabble-woordenboeken zijn streng — ze sluiten eigennamen, afkortingen, woorden met koppelteken en woorden met apostrof uit. „BRUNCH“ is bijvoorbeeld geldig, maar „BRUNCH'S“ misschien niet. Als een woord lijkt te ontbreken, kan het een met hoofdletter geschreven eigennaam zijn of een recente toevoeging die nog niet in de officiële lijst staat. Wissel van taal om het woord in een ander woordenboek te controleren." },
+    ],
+    scrabble: [
+      { q: "Wat is Scrabble Duplicate?", a: "Duplicate-Scrabble is een variant waarbij elke speler hetzelfde rek krijgt en de best mogelijke zet moet vinden. Het wordt gebruikt in toernooien en training om vaardigheid zonder geluk te testen. Deze tool helpt je de hoogst scorende woorden uit je rek te vinden — voer je 7 letters en optioneel bordletters in, en klik op „Beste woorden vinden“." },
+      { q: "Hoe voer ik bordletters in?", a: "Als er al bordletters zijn waarop je kunt bouwen, typ ze dan in het veld „Bordletters (optioneel)“ samen met je rekletters. WordIzy behandelt de gecombineerde verzameling als beschikbare letters. Dit helpt woorden te vinden die aansluiten op bestaande zetten — essentieel om in echte spellen de score te maximaliseren." },
+      { q: "Hoe worden de top-zetten gerangschikt?", a: "Woorden worden op Scrabble-score gesorteerd (hoogste eerst). De top-10 zetten verschijnen bovenaan in een gemarkeerde lijst. Onthoud: de werkelijke spelscore hangt ook af van bonusvakjes (dubbele/drievoudige letter/woord) en bingo's (50-punten-bonus voor alle 7 stenen). Gebruik de scores van de tool als basis en weeg dan de bordpositie mee." },
+      { q: "Wat is een bingo en hoe vind ik er een?", a: "Een bingo is het spelen van alle 7 stenen in één beurt voor een bonus van 50 punten. Om bingo's te vinden, voer je volledige 7-letter rek in en kijk naar de 7-letter resultaatgroep. Verschijnen er woorden, dan zijn dat potentiële bingo's. Jokers (? *) kunnen de blanco's in je rek vertegenwoordigen." },
+    ],
+    wordlists: [
+      { q: "Wat is de pagina Woordlijsten?", a: "Woordlijsten laat je elk geldig Scrabble-woord van 2 tot 7 letters doorbladeren. Woorden zijn gegroepeerd op lengte en dan op eindletter (A-Z), zodat je het woordenboek systematisch kunt verkennen. Gebruik het om te studeren, woorden voor spellen te vinden of je woordenschat uit te breiden." },
+      { q: "Hoe filter ik op lengte?", a: "Gebruik de lengte-selector (2-7) bovenaan. Klik op „Alle“ om alle lengtes gestapeld te zien (2-letterwoorden bovenaan, 7-letter onderaan), of op een specifiek getal om alleen die lengte te zien. Elke lengtesectie toont 26 containers (één per eindletter A-Z)." },
+      { q: "Hoe filter ik op letter?", a: "Gebruik de A-Z-rij onder de lengte-selector. Klik op een letter om alleen woorden te tonen die op die letter eindigen, of „Alle“ om elke letter te tonen. Handig om woorden te vinden die aansluiten op een bepaalde letter die al op het bord ligt." },
+      { q: "Waarom worden woorden in hoofdletters getoond?", a: "Scrabble-stenen zijn hoofdletters, dus woorden worden in hoofdletters weergegeven om daarmee overeen te komen. Elk woord toont zijn Scrabble-waarde ernaast. Binnen elke lettercontainer zijn woorden alfabetisch (A-Z) gesorteerd voor makkelijk scannen." },
+    ],
+    wordstarts: [
+      { q: "Wat is de pagina Begint Met?", a: "Deze pagina laat je alle geldige Scrabble-woorden doorbladeren die MET een specifieke letter BEGINNEN. Selecteer een letter (A-Z) en WordIzy toont elk woord dat met die letter begint, gegroepeerd op lengte (2-7 letters). Perfect om openingen te bestuderen en woorden te vinden om op een beginletter op het bord te bouwen." },
+      { q: "Hoe gebruik ik de lengte- en letter-selectors?", a: "Kies eerst een letter uit de A-Z-rij — dat stelt de beginletter in. Gebruik dan de lengte-rij (2-7 of Alle) om op woordlengte te filteren. Elke lengtesectie toont alle woorden die met de gekozen letter beginnen, alfabetisch gesorteerd. Klik op „Alle“ in een van de rijen om dat filter te verwijderen." },
+      { q: "Hoe is dit nuttig voor Scrabble?", a: "Het kennen van woorden die met elke letter beginnen helpt bij het plannen van openingen en aansluitingen. Heb je een Q, dan helpt het kennen van alle Q-woorden (QI, QAT, QUAD...) om hem effectief te spelen. De pagina is ook waardevol voor kruiswoordraadsels, waar aanwijzingen vaak „begint met...“ specificeren." },
+      { q: "Waarom pagineren op 50 woorden?", a: "Sommige letters (zoals S, A, E) hebben duizenden beginwoorden. Om pagina's snel en leesbaar te houden, pagineren de resultaten met 50 woorden per pagina en vorige/volgende-knoppen. Elke pagina toont het paginanummer en het totaal, zodat je weet waar je bent." },
+    ],
+    wordends: [
+      { q: "Wat is de pagina Eindigt Op?", a: "Deze pagina laat je alle geldige Scrabble-woorden doorbladeren die OP een specifieke letter EINDIGEN. Selecteer een letter (A-Z) en WordIzy toont elk woord dat op die letter eindigt, gegroepeerd op lengte (2-7 letters). Ideaal om woorden te vinden die aansluiten op een bestaande letter op het bord." },
+      { q: "Hoe gebruik ik de lengte- en letter-selectors?", a: "Kies eerst een letter uit de A-Z-rij — dat stelt de eindletter in. Gebruik dan de lengte-rij (2-7 of Alle) om op woordlengte te filteren. Elke lengtesectie toont alle woorden die op de gekozen letter eindigen, alfabetisch gesorteerd. Klik op „Alle“ in een van de rijen om dat filter te verwijderen." },
+      { q: "Hoe is dit nuttig voor Scrabble?", a: "Eindletters doen ertoe voor aansluitingen — als er een S op het bord ligt, helpt het kennen van alle woorden op S om te pluraliseren of zetten uit te breiden. Evenzo helpt het kennen van woorden op D, ED, ING om aan te haken op veelvoorkomende achtervoegsels. Deze pagina is een krachtige studie-tool voor competitief spel." },
+      { q: "Waarom pagineren op 50 woorden?", a: "Sommige letters (zoals E, S, D) hebben duizenden eindwoorden. Om pagina's snel en leesbaar te houden, pagineren de resultaten met 50 woorden per pagina en vorige/volgende-knoppen. Elke pagina toont het paginanummer en het totaal, zodat je weet waar je bent." },
+    ],
+  },
 };
 
 const ja: Translation = {
@@ -497,6 +1051,84 @@ const ja: Translation = {
   privacy: { title: "プライバシーポリシー", body: "WordIzyはアカウント不要で個人データを収集しません。解決はサーバー側で行われ、入力は保存されません。" },
   sitemap: { title: "サイトマップ", body: "WordIzyのすべてのページ。" },
   footer: { rights: "全著作権所有。", madeWith: "言葉を愛する人のために。", links: "クイックリンク", desc: "9言語の無料アナグラム&解決ツール。登録不要。" },
+  faq: {
+    title: "使い方 & FAQ",
+    unscrambler: [
+      { q: "ワードアナグラムとは？使い方は？", a: "アナグラムは、スクラブルのラックのような文字の集まり（例：SRAABLC）を受け取り、その文字で綴れる辞書内の有効な単語をすべて見つけます。「あなたの文字」ボックスに文字を入力し、解決をクリックします。結果は長さ別（長い順）にグループ化され、各単語にスクラブルの得点が表示されます。スクラブル、Words With Friends、Wordfeud、クロスワード、アナグラムパズルに最適です。" },
+      { q: "ワイルドカード(? と *)の仕組みは？", a: "? または * をワイルドカードとして使い、不明な文字を表します。例えば「QUER?Y」と入力すると、WordIzyは「QUER」+任意1文字+「Y」に一致する単語をすべて探します。各ワイルドカードはブランクタイルと同様に扱われ（0点）、複数同時に使えます。「A??LE」はAPPLE、ADDLE、AGILEなどに一致します。" },
+      { q: "詳細フィルターの使い方は？", a: "「詳細フィルター」をクリックすると3つのオプション欄が表示されます。「で始まる」は指定文字で始まる単語に限定（例：「AB」→ABで始まる単語のみ）。「で終わる」は同様に接尾辞で制限。「必ず含む」は特定の文字が結果のどこかに必ず含まれるようにします。3つすべてをワイルドカードと組み合わせて精密に制御できます。" },
+      { q: "単語の得点はどう計算されますか？", a: "各単語は選択言語の公式スクラブル文字得点で評価されます。英語の場合：A/E/I/O/U=1点、D/G=2点、B/C/M/P=3点、F/H/V/W/Y=4点、K=5点、J/X=8点、Q/Z=10点。ワイルドカード(? *)は0点。合計は各単語の隣に表示され、各長さグループ内で得点順に並び、最も高得点の手が先に表示されます。" },
+      { q: "どんな辞書が使えますか？", a: "WordIzyは9言語に対応：英語（NWL2023 + CSW21）、フランス語（ODS9 2024）、スペイン語（FISE）、イタリア語（Zingarelli）、ポルトガル語、ドイツ語、オランダ語（OpenTaal）、さらに日本語（ローマ字）と中国語（ピンイン）。すべての単語は各言語の公式スクラブル辞書で絞り込まれています。ナビバーの言語セレクターで切替できます。" },
+      { q: "なぜ結果は長さ別にグループ化されるのですか？", a: "長さ別グループ化により、必要な手の種類を見つけやすくなります。スクラブルでは長い単語ほど高得点ですが、短い単語が盤面に合うこともあります。最も長い単語が上に、2文字単語まで順に表示されます。各グループ内ではスクラブル得点順に並び、最善手を素早く見つけられます。" },
+    ],
+    scramble: [
+      { q: "ミックス / 解決ツールの用途は？", a: "このツールは、文字が混ぜられて元の単語を探すアナグラムパズルを解きます。混ぜた文字（例：RBOLENW）を入力して解決をクリックすると、形成可能な実在単語をすべて表示します。新聞のアナグラム、言葉遊び、ミックス挑戦に最適です。" },
+      { q: "アナグラム（ワードアナグラム）との違いは？", a: "この解決ツールはワードアナグラムと同じエンジンを使いますが、ラックから可能な単語をすべて探すのではなく、混ぜられた単語パズルの解決に特化しています。入力下の「単語を混ぜる」機能で、単語をランダムなバリエーションに混ぜることもできます——自作パズルに便利です。" },
+      { q: "ワイルドカードは使えますか？", a: "はい。? または * で不明文字を表せます。パズルに欠けた文字がある場合、既知の文字に ? を加えて入力すると、WordIzyがすべての有効な組み合わせで埋めます。" },
+      { q: "自分で混ぜた単語を作るには？", a: "メイン入力下の「単語を混ぜる」カードを使います。任意の単語（例：「scrabble」）を入力して生成をクリックすると、WordIzyがその単語のランダムな混ぜ合わせを複数生成します。友人向けのパズル作成や、解く練習に使えます。" },
+    ],
+    wordle: [
+      { q: "Wordle解決の仕組みは？", a: "Wordle解決は、ゲームのフィードバックを使って今日の答えを絞り込みます。緑（正しい位置）、黄（単語内だが位置違い）、グレー（単語にない）の文字情報を入力すると、条件に合う有効な単語をすべて返します。" },
+      { q: "配置済（緑）文字の入力方法は？", a: "「配置済(緑)」欄に、正しい位置にあることが分かっている文字を入力し、空欄は . または _ で表します。例：A _ _ L E と分かっていれば「A..LE」と入力します。解決はこのパターンに完全一致する単語のみを返します。" },
+      { q: "有効（黄）と除外（グレー）の文字とは？", a: "有効文字（黄）は単語内にあることが分かっているが、推測した位置にはない文字です——「有効(黄)」欄にすべて入力します（例：「RST」）。除外文字（グレー）は単語にないことが確認された文字です——「除外(グレー)」欄に入力します（例：「BXF」）。解決は除外文字を含む単語をすべて取り除きます。" },
+      { q: "単語の長さはどう選ぶ？", a: "今日のWordleの長さを選択します（既定5）。WordIzyは4〜8文字の単語に対応しているため、Quordle、Octordle、長さカスタムのゲームにも使えます。" },
+      { q: "次の推測の選び方のヒントは？", a: "結果から、まだ試していない一般的な文字（R、T、S、L、Nなど）を使う単語を選びましょう。情報量が最大になります。候補が多ければ、最も多くの可能性を消せる単語を選びます。解決は各単語のスクラブル得点を表示します——高得点はまれな文字を意味し、絞り込みに役立つことが多いです。" },
+    ],
+    quordle: [
+      { q: "Quordle解決とは？", a: "Quordleは4つのWordleを同時に解くゲームです。この解決ツールは最大4ボード分の条件を一度に入力でき、各ボードの候補単語を返します。各ボードは独自の配置済（緑）、有効（黄）、除外（グレー）文字を保持します。" },
+      { q: "複数ボードの使い方は？", a: "各ボードについて分かっていることを入力します。ボード1の条件はボード1の結果にのみ影響します。「ボード追加」をクリックして最大4ボードまで追加できます。Xボタンでボードを削除。準備ができたら解決をクリックして全ボードの候補を取得します。" },
+      { q: "ボード間で文字を共有すべき？", a: "はい——Quordleの主要戦略は、1つの推測で複数ボードの情報を集めることです。ある文字がボード1で緑なら、他のボードでも同じ位置にある可能性が高いです。各ボードに共有条件を入力して情報を交差させ、4つの答えをより早く絞りましょう。" },
+      { q: "Quordleの戦略ヒントは？", a: "一般的な文字を多く含む単語（CRANEやSLATEなど）で始め、全ボードの情報を集めましょう。最も条件の多いボードに先に集中します——解決すれば精神的な余裕が生まれます。各ボードが扱いやすいリストまで絞れる十分な情報（2〜3推測後）が揃ったら解決を使いましょう。" },
+    ],
+    anagram: [
+      { q: "アナグラムとは？", a: "アナグラムとは、別の単語のすべての文字を並べ替えて作られた単語やフレーズです。例えばLISTENとSILENTはアナグラム——同じ文字、異なる順序。アナグラム解決は、指定したすべての文字をちょうど使う単語をすべて見つけます。" },
+      { q: "ワードアナグラムとの違いは？", a: "ワードアナグラムは文字から形成できる「任意の長さ」の単語を（短いものも含めて）見つけます。アナグラム解決は「すべての」文字を使う単語のみ——完全長のアナグラム——を見つけます。例：「CHIEN」では、アナグラム解決はCHIEN、CHINE、NICHE（すべて5文字）を返しますが、ワードアナグラムはICE、IN、HEのような短い単語も返します。" },
+      { q: "ワイルドカードは使えますか？", a: "はい。? または * をワイルドカードとして残り枠を埋めます。例：「CAT??」と入力すると、CATと任意2文字を組み合わせた5文字アナグラムをすべて見つけます。ワイルドカードは0点（ブランクタイル同様）です。" },
+      { q: "アナグラムは何に役立つ？", a: "アナグラムは言葉遊び、パズル、暗号、言語学に使われます。スクラブルでは、ラックのアナグラムを見つけるとビンゴ（7タイルすべてを使って50点ボーナス）を見つけやすくなります。クロスワードのヒント、トリビア、頭の体操にも人気です。" },
+    ],
+    random: [
+      { q: "ランダム単語生成は何をしますか？", a: "選択した辞書から、オプションのフィルター付きでランダムな実在単語を生成します。単語の長さ、先頭文字、末尾文字、必須文字を指定できます。ゲーム、創作、ネーミング、語彙練習、実在単語によるパスワード生成に使えます。" },
+      { q: "ランダム単語の絞り込み方は？", a: "「長さ」を特定の数（2〜12）にするか「任意」のままにします。「で始まる」は先頭文字で絞り込みます。「で終わる」は末尾文字で絞り込みます。「含む」は特定の文字がどこかに含まれることを要求します。「生成数」は生成する単語数（1〜200）を制御します。" },
+      { q: "スクラブルで有効な単語ですか？", a: "はい。生成されるすべての単語は選択言語の公式スクラブル辞書（英語はNWL2023/CSW21、フランス語はODS9など）から取得されます。すべてスクラブルや他の言葉遊びでプレイ可能です。" },
+      { q: "言葉遊びに使えますか？", a: "もちろんです。Pictionary、シャレード、連想ゲーム、語彙クイズ用にランダム単語を生成できます。パスワード生成には、異なる長さのランダム単語を3〜4個組み合わせると、覚えやすく安全なパスフレーズになります。" },
+    ],
+    wordfeud: [
+      { q: "Wordfeudヘルプとは？", a: "Wordfeudはスクラブルに似た人気のモバイル言葉遊びです。このヘルプは、ラックからプレイ可能な最良の単語を見つけます。7文字（＋盤面の既存文字）を入力すると、WordIzyがプレイ可能なすべての単語をスクラブル得点順で返します。" },
+      { q: "ラックの入力方法は？", a: "「あなたの文字」ボックスに7つのタイル文字を入力します。ブランクタイルには ? または * を使います（任意の文字を表すが0点）。盤面に既にある文字から繋げたい場合はそれも加えます——WordIzyは合わせたプールから形成可能な単語を探します。" },
+      { q: "どの辞書を使うべき？", a: "Wordfeudは地域によって複数の辞書に対応しています。英語版Wordfeudはスクラブル類似のリストを使うため、英語（NWL2023/CSW21）が適しています。他言語は、言語セレクターから対応するもの（フランス語ODS9、スペイン語FISEなど）を選びます。" },
+      { q: "得点はどう計算されますか？", a: "得点は選択言語の公式スクラブル文字得点を使います。なお、Wordfeudの実際の得点計算は少し異なる場合があります（ボーナスマスや独自タイル配布があるため）。高得点の手を見つける目安として使ってください——ラックから最も点数の高い単語が通常、最善の手です。" },
+    ],
+    dictionary: [
+      { q: "辞書チェックは何をしますか？", a: "任意の単語を入力すると、選択言語の公式スクラブル辞書で有効かどうかを確認します。ツールは単語をスクラブルタイルとして表示し、有効/無効バッジ、スクラブル得点、単語の長さ、文字タイル、辞書の定義、（あれば）同義語を表示します。" },
+      { q: "定義はどこから来ますか？", a: "定義は複数の出典から取得します：Free Dictionary API（英語、フランス語、スペイン語、ドイツ語、イタリア語、ポルトガル語）、Wiktionary（全言語のフォールバック）、残りのギャップはAIアシスタント。各定義の横に出典が表示されます。" },
+      { q: "同義語はどこから来ますか？", a: "同義語はDatamuse（英語、スペイン語、フランス語、イタリア語、ポルトガル語）とOpenThesaurus（ドイツ語）から取得します。表示されるのは、それ自体がスクラブル有効単語である同義語のみです——同義語をクリックすると即座に確認できます。" },
+      { q: "よく使う単語が無効になるのはなぜ？", a: "スクラブル辞書は厳格——固有名詞、略語、ハイフン付き単語、アポストロフィ必要な単語を除外します。例：「BRUNCH」は有効ですが「BRUNCH'S」は無効かも。単語が欠けているように見える場合、大文字の固有名詞か、公式リストにまだ追加されていない新語かもしれません。他言語に切替えて別辞書で確認してみてください。" },
+    ],
+    scrabble: [
+      { q: "スクラブル複製とは？", a: "複製スクラブルは、全プレイヤーが同じラックを受け取り、最善の手を見つける変種です。運ではなく技術を試すため、大会や練習で使われます。このツールはラックから最も高得点の単語を見つけるのに役立ちます——7文字と、必要なら盤面文字を入力し、「最適な単語を見つける」をクリックします。" },
+      { q: "盤面文字の入力方法は？", a: "盤面にすでに置かれていて繋げられる文字があれば、「盤面文字(任意)」欄にラック文字と一緒に入力します。WordIzyは合わせたプールを利用可能文字として扱います。これにより、既存の手に引っ掛ける単語を見つけやすくなります——実戦で得点を最大化するために必須です。" },
+      { q: "上位手のランキングは？", a: "単語はスクラブル得点順（高い順）に並びます。上位10手が上部のハイライトリストに表示されます。実際の得点はボーナスマス（文字/単語の2倍/3倍）やビンゴ（7タイルすべてで50点ボーナス）にも依存することに注意。ツールの得点を基準にし、盤面の位置を考慮してください。" },
+      { q: "ビンゴとは？見つけ方は？", a: "ビンゴは、1ターンに7タイルすべてを使って50点ボーナスを得る手です。ビンゴを見つけるには、7文字のラックすべてを入力し、7文字結果グループを見ます。単語があれば、それらがビンゴ候補です。ワイルドカード(? *)でラックのブランクを表せます。" },
+    ],
+    wordlists: [
+      { q: "単語リストページとは？", a: "単語リストでは、2〜7文字のすべての有効スクラブル単語を閲覧できます。単語は長さ別、さらに末尾文字別（A〜Z）にグループ化され、辞書を体系的に探索できます。学習、ゲーム用単語の発見、語彙の拡張に使えます。" },
+      { q: "長さで絞り込むには？", a: "上部の長さセレクター（2〜7）を使います。「すべて」をクリックするとすべての長さが積み重なって表示され（2文字が上、7文字が下）、特定の数字をクリックするとその長さのみ表示されます。各長さセクションには26個のコンテナ（末尾文字A〜Zごとに1つ）があります。" },
+      { q: "文字で絞り込むには？", a: "長さセレクター下のA〜Z文字列を使います。文字をクリックするとその文字で終わる単語のみが表示され、「すべて」で全文字を表示します。盤面の特定文字に引っ掛ける単語を見つけるのに便利です。" },
+      { q: "なぜ単語は大文字で表示されるの？", a: "スクラブルタイルは大文字なので、合わせて大文字で表示されます。各単語の隣にスクラブル得点が表示されます。各文字コンテナ内では、単語はアルファベット順（A〜Z）に並んでおり、眺めやすいです。" },
+    ],
+    wordstarts: [
+      { q: "「始まる」ページとは？", a: "このページでは、特定の文字で「始まる」すべての有効スクラブル単語を閲覧できます。文字（A〜Z）を選ぶと、WordIzyはその文字で始まるすべての単語を長さ別（2〜7文字）にグループ化して表示します。オープニングの研究や、盤面の先頭文字から繋ぐ単語を見つけるのに最適です。" },
+      { q: "長さ・文字セレクターの使い方は？", a: "まずA〜Z列から文字を選び——先頭文字が決まります。次に長さ列（2〜7またはすべて）で長さを絞ります。各長さセクションは、選んだ文字で始まるすべての単語をアルファベット順で表示します。どちらかの列で「すべて」をクリックするとそのフィルターが外れます。" },
+      { q: "スクラブルにどう役立つ？", a: "各文字で始まる単語を知ることは、オープニングや引っ掛けの計画に役立ちます。Qを持っていれば、Qで始まる単語（QI、QAT、QUAD…）を知ることで効果的にプレイできます。クロスワードのヒントが「〜で始まる」と指定することも多く、このページは重宝します。" },
+      { q: "なぜ50単語でページ分割？", a: "S、A、Eなどの文字には何千もの先頭単語があります。ページを高速で読みやすく保つため、結果は50単語ごとにページ分割され、前/次ボタンが付きます。各ページにページ番号と総ページ数が表示され、現在地が分かります。" },
+    ],
+    wordends: [
+      { q: "「終わる」ページとは？", a: "このページでは、特定の文字で「終わる」すべての有効スクラブル単語を閲覧できます。文字（A〜Z）を選ぶと、WordIzyはその文字で終わるすべての単語を長さ別（2〜7文字）にグループ化して表示します。盤面の既存文字に引っ掛ける単語を見つけるのに理想的です。" },
+      { q: "長さ・文字セレクターの使い方は？", a: "まずA〜Z列から文字を選び——末尾文字が決まります。次に長さ列（2〜7またはすべて）で長さを絞ります。各長さセクションは、選んだ文字で終わるすべての単語をアルファベット順で表示します。どちらかの列で「すべて」をクリックするとそのフィルターが外れます。" },
+      { q: "スクラブルにどう役立つ？", a: "末尾文字は引っ掛けに重要——盤面にSがあれば、Sで終わる単語を知ることで複数形や手の延長が可能です。同様に、D、ED、INGで終わる単語を知ることで、よくある接尾辞に繋げやすくなります。このページは競技プレイのための強力な学習ツールです。" },
+      { q: "なぜ50単語でページ分割？", a: "E、S、Dなどの文字には何千もの末尾単語があります。ページを高速で読みやすく保つため、結果は50単語ごとにページ分割され、前/次ボタンが付きます。各ページにページ番号と総ページ数が表示され、現在地が分かります。" },
+    ],
+  },
 };
 
 const zh: Translation = {
@@ -549,6 +1181,84 @@ const zh: Translation = {
   privacy: { title: "隐私政策", body: "WordIzy无需账号，不收集个人数据。所有求解在服务端用内存词典完成；输入不会被保存。Google AdSense可能使用Cookie投放广告，可在浏览器中管理。" },
   sitemap: { title: "网站地图", body: "WordIzy的全部页面。" },
   footer: { rights: "保留所有权利。", madeWith: "为词语爱好者打造。", links: "快速链接", desc: "9种语言的免费重组与求解工具。无需注册。" },
+  faq: {
+    title: "使用说明 & 常见问题",
+    unscrambler: [
+      { q: "什么是单词重组器？如何使用？", a: "重组器接收一组字母——比如Scrabble牌架（如SRAABLC）——并找出字典中所有可用这些字母拼出的有效单词。在「你的字母」框中输入字母，然后点击重组。结果按单词长度分组（最长在前），每个单词显示其Scrabble得分。适合Scrabble、Words With Friends、Wordfeud、填字和易位词谜题。" },
+      { q: "通配符(? 和 *)如何工作？", a: "用 ? 或 * 作为通配符表示任意未知字母。例如输入「QUER?Y」，WordIzy会找出所有匹配「QUER」+任意一个字母+「Y」的单词。每个通配符相当于空白牌（0分）。可同时使用多个通配符——「A??LE」匹配APPLE、ADDLE、AGILE等。" },
+      { q: "如何使用高级筛选？", a: "点击「高级筛选」展开三个可选字段。「开头为」将结果限定为以指定字母开头的单词（如「AB」→仅以AB开头的单词）。「结尾为」对后缀做同样限制（如「ED」→仅以ED结尾的单词）。「必须包含」确保某些字母出现在每个结果中（任意位置）。三者可与通配符组合，实现精确控制。" },
+      { q: "单词如何计分？", a: "每个单词按所选语言的官方Scrabble字母分值计分。英语：A/E/I/O/U=1分、D/G=2分、B/C/M/P=3分、F/H/V/W/Y=4分、K=5分、J/X=8分、Q/Z=10分。通配符(? *)为0分。每个单词旁显示总分，结果在每个长度组内按得分排序，最高分玩法排在最前。" },
+      { q: "有哪些词典？", a: "WordIzy支持9种语言：英语（NWL2023 + CSW21）、法语（ODS9 2024）、西班牙语（FISE）、意大利语（Zingarelli）、葡萄牙语、德语、荷兰语（OpenTaal），以及日语（罗马字）和普通话（拼音）。所有单词都按各语言的官方Scrabble词典筛选。可在导航栏的语言选择器中切换语言。" },
+      { q: "为何结果按长度分组？", a: "按长度分组便于找到你需要的玩法类型。Scrabble中较长的单词通常得分更高，但有时较短的单词更适合棋盘。最长的单词出现在顶部，向下到2字母单词。每组内单词按Scrabble得分排序，便于快速找到最佳玩法。" },
+    ],
+    scramble: [
+      { q: "乱序/求解工具是做什么的？", a: "此工具用于解决易位词谜题——字母被打乱，你需要找出原词。输入乱序字母（如RBOLENW），点击求解即可看到所有可组成的真实单词。适合报纸易位词、单词游戏和乱序挑战。" },
+      { q: "与重组器有何不同？", a: "求解工具使用与重组器相同的引擎，但专注于解决乱序词谜题，而非从牌架找出所有可能的单词。你也可使用输入下方的「打乱单词」功能，把单词随机打乱成多个变体——便于自制谜题。" },
+      { q: "可以使用通配符吗？", a: "可以。用 ? 或 * 表示未知字母。例如谜题缺一个字母，输入已知字母加一个 ?，WordIzy会用所有有效字母组合填补空缺。" },
+      { q: "如何创建自己的乱序单词？", a: "使用主输入下方的「打乱单词」卡片。输入任意单词（如「scrabble」），点击生成——WordIzy会生成该单词的多个随机乱序版本。可用于为朋友出题或练习重组。" },
+    ],
+    wordle: [
+      { q: "Wordle求解器如何工作？", a: "Wordle求解器根据你的游戏反馈缩小今日答案范围。输入你从猜测中收集的信息：绿色字母（位置正确）、黄色字母（在词中但位置错误）和灰色字母（不在词中）。求解器返回所有符合约束的有效单词。" },
+      { q: "如何输入已放置（绿）字母？", a: "在「已放置(绿)」字段中，输入你知道位置正确的字母，用 . 或 _ 表示空位。例如你已知单词是A _ _ L E，输入「A..LE」。求解器只返回与此模式完全匹配的单词。" },
+      { q: "什么是有效（黄）和已排除（灰）字母？", a: "有效字母（黄）是你知道在词中但不在所猜位置的字母——全部输入到「有效(黄)」字段（如「RST」）。已排除字母（灰）是确认不在词中的字母——输入到「已排除(灰)」（如「BXF」）。求解器会过滤掉任何包含已排除字母的单词。" },
+      { q: "应该用多长的单词？", a: "选择今日Wordle的长度（默认5）。WordIzy支持4至8字母单词，因此也适用于Quordle、Octordle等变体以及自定义长度的游戏。" },
+      { q: "选择下一个猜测有什么技巧？", a: "从结果中挑选使用尚未测试的常见字母（如R、T、S、L、N）的单词，可最大化信息收益。若列表很长，选择能排除最多可能性的单词。求解器显示每个单词的Scrabble得分——高分往往意味着稀有字母，有助于缩小范围。" },
+    ],
+    quordle: [
+      { q: "什么是Quordle求解器？", a: "Quordle是一款同时解四个Wordle的游戏。此求解器允许你一次输入最多4个棋盘的约束，并返回每个棋盘的候选单词。每个棋盘保留各自的已放置（绿）、有效（黄）和已排除（灰）字母。" },
+      { q: "如何使用多个棋盘？", a: "填入每个棋盘已知信息。棋盘1的约束只影响棋盘1的结果。点击「添加棋盘」可加到最多4个棋盘。用X按钮可移除棋盘。准备好后点击求解，即可获取所有棋盘的候选单词。" },
+      { q: "应该在棋盘间共享字母吗？", a: "应该——Quordle的关键策略是用一次猜测在多个棋盘上获取信息。如果某字母在棋盘1为绿色，在其他棋盘上很可能也在相同位置。在每个棋盘上输入共享约束，可交叉信息并更快缩小四个答案。" },
+      { q: "Quordle有什么策略建议？", a: "以富含常见字母的单词（如CRANE或SLATE）开局，在所有棋盘上获取信息。先聚焦约束最多的棋盘——解出它能释放脑力。在2-3次猜测、有足够信息把每个棋盘缩减到可管理列表后再使用求解器。" },
+    ],
+    anagram: [
+      { q: "什么是易位词？", a: "易位词是通过重新排列另一个词的所有字母所组成的词或短语。例如LISTEN和SILENT是易位词——字母相同，顺序不同。易位词求解器找出所有恰好使用你提供的所有字母的单词。" },
+      { q: "与重组器有何不同？", a: "重组器找出可用你的字母组成的「任意长度」的单词（包括较短的）。易位词求解器只找出使用你「全部」字母的单词——即完整长度的易位词。例如用「CHIEN」，易位词求解器返回CHIEN、CHINE、NICHE（都是5字母），而重组器还会返回较短的单词如ICE、IN、HE。" },
+      { q: "可以使用通配符吗？", a: "可以。用 ? 或 * 作为通配符填补剩余位置。例如输入「CAT??」可找出所有CAT与任意两个字母组合的5字母易位词。通配符为0分（如同空白牌）。" },
+      { q: "易位词有什么用？", a: "易位词用于文字游戏、谜题、密码学和语言学。在Scrabble中，找出牌架的易位词有助于发现bingo（用完所有7个牌得到50分奖励）。它在填字提示、问答和脑筋急转弯中也很流行。" },
+    ],
+    random: [
+      { q: "随机单词生成器是做什么的？", a: "它从所选词典中生成随机真实单词，可选用筛选条件。可指定单词长度、开头字母、结尾字母或必须包含的字母。可用于游戏、创意写作、命名、词汇练习，或生成由真实单词组成的密码。" },
+      { q: "如何筛选随机单词？", a: "将「长度」设为具体数字（2-12）或保持「任意」。「开头为」限定以这些字母开头的单词。「结尾为」限定以这些字母结尾的单词。「包含」要求单词在任意位置包含某些字母。「数量」控制生成的单词数（1-200）。" },
+      { q: "这些单词是有效的Scrabble单词吗？", a: "是的。所有生成的单词都来自所选语言的官方Scrabble词典（英语为NWL2023/CSW21、法语为ODS9等）。每个单词都可在Scrabble和其他文字游戏中使用。" },
+      { q: "可用于文字游戏吗？", a: "当然。可生成随机单词用于Pictionary、你画我猜、词语联想游戏或词汇问答。生成密码时，组合3-4个不同长度的随机单词——能创建既好记又安全的口令短语。" },
+    ],
+    wordfeud: [
+      { q: "什么是Wordfeud助手？", a: "Wordfeud是一款类似Scrabble的热门手机文字游戏。此助手帮你从牌架找出可玩的最佳单词。输入你的7个字母（加上已放置的棋盘字母），WordIzy返回所有可玩单词，按Scrabble得分排序。" },
+      { q: "如何输入我的牌架？", a: "在「你的字母」框中输入你的7个字母牌。空白牌用 ? 或 *（可代表任意字母但0分）。如果棋盘上已有字母你想接续，也加上它们——WordIzy会从合并字母池中找出可组成的单词。" },
+      { q: "应使用哪个词典？", a: "Wordfeud根据你的地区支持多个词典。英语Wordfeud使用类Scrabble词表，因此英语（NWL2023/CSW21）即可。其他语言请从语言选择器选择对应的（法语ODS9、西班牙语FISE等）。" },
+      { q: "得分如何计算？", a: "得分使用所选语言的官方Scrabble字母分值。注意Wordfeud的实际计分可能略有不同（有奖励格和自己的牌分布）。把得分作为识别高价值玩法的指南——牌架上得分最高的单词通常是你最好的选择。" },
+    ],
+    dictionary: [
+      { q: "查词典是做什么的？", a: "输入任意单词可验证它在所选语言的官方Scrabble词典中是否有效。工具显示单词的Scrabble字母牌、有效/无效徽章、Scrabble得分、单词长度、字母牌、词典释义以及（如可用的）同义词。" },
+      { q: "释义来自哪里？", a: "释义来自多个来源：Free Dictionary API（英语、法语、西班牙语、德语、意大利语、葡萄牙语）、Wiktionary（所有语言的兜底）和AI助手用于剩余缺口。每个释义旁标注了来源。" },
+      { q: "同义词来自哪里？", a: "同义词来自Datamuse（英语、西班牙语、法语、意大利语、葡萄牙语）和OpenThesaurus（德语）。只显示本身是有效Scrabble单词的同义词——点击任意同义词即可立即验证。" },
+      { q: "为什么常见单词可能无效？", a: "Scrabble词典很严格——排除专有名词、缩写、带连字符的单词和需要撇号的单词。例如「BRUNCH」有效，但「BRUNCH'S」可能无效。如果某词似乎缺失，可能是大写的专有名词或尚未加入官方列表的新词。切换语言以在不同词典中查证。" },
+    ],
+    scrabble: [
+      { q: "什么是Scrabble复刻？", a: "复刻Scrabble是一种变体，每位玩家收到相同牌架，需找出最佳玩法。用于比赛和训练，在不靠运气的情况下考验技术。此工具帮你从牌架找出最高分单词——输入你的7个字母（可选填棋盘字母），然后点击「找最佳单词」。" },
+      { q: "如何输入棋盘字母？", a: "如果棋盘上已有可接续的字母，请在「盘面字母(可选)」字段中连同牌架字母一起输入。WordIzy将合并字母池视为可用字母。这有助于找出接续已有玩法的单词——在实际对局中最大化得分的关键。" },
+      { q: "最佳玩法如何排名？", a: "单词按Scrabble得分排序（最高在前）。前10名玩法在顶部高亮列表中显示。注意：实际对局得分还取决于奖励格（字母/单词双倍/三倍）和bingo（用完7个牌得50分奖励）。把工具得分作为基线，再考虑盘面位置。" },
+      { q: "什么是bingo？如何找到？", a: "bingo指一回合内打完所有7个牌以获得50分奖励。要找bingo，请输入完整的7字母牌架并查看7字母结果组。如有单词出现，即为潜在bingo。通配符(? *)可代表牌架中的空白牌。" },
+    ],
+    wordlists: [
+      { q: "什么是单词表页面？", a: "单词表让你浏览所有2到7字母的有效Scrabble单词。单词按长度分组，再按结尾字母（A-Z）分组，便于系统化探索词典。可用于学习、为对局找词或扩展词汇。" },
+      { q: "如何按长度筛选？", a: "使用顶部的长度选择器（2-7）。点击「全部」可查看所有长度叠加（2字母在上，7字母在下），或点击具体数字只看该长度。每个长度部分显示26个容器（每个结尾字母A-Z一个）。" },
+      { q: "如何按字母筛选？", a: "使用长度选择器下方的A-Z字母行。点击字母只显示以该字母结尾的单词，或点「全部」显示所有字母。便于找出接续棋盘上特定字母的单词。" },
+      { q: "为什么单词以大写显示？", a: "Scrabble字母牌是大写的，因此单词也以大写显示以保持一致。每个单词旁显示其Scrabble分值。每个字母容器内的单词按字母顺序（A-Z）排序，便于浏览。" },
+    ],
+    wordstarts: [
+      { q: "什么是「开头」页面？", a: "此页面让你浏览所有以特定字母「开头」的有效Scrabble单词。选择一个字母（A-Z），WordIzy会显示所有以该字母开头的单词，按长度分组（2-7字母）。适合研究开局并找出从棋盘上开头字母接续的单词。" },
+      { q: "如何使用长度和字母选择器？", a: "先从A-Z行选一个字母——设定开头字母。然后用长度行（2-7或全部）按长度筛选。每个长度部分显示所有以所选字母开头的单词，按字母顺序排序。在任一行点「全部」可移除该筛选。" },
+      { q: "这对Scrabble有何帮助？", a: "了解每个字母开头的单词有助于规划开局和接续。如果你有Q，了解所有以Q开头的单词（QI、QAT、QUAD…）有助于有效使用它。此页面在填字游戏中也很有用，因为提示常指定「以…开头」。" },
+      { q: "为什么按50个单词分页？", a: "有些字母（如S、A、E）有数千个开头单词。为保持页面快速可读，结果按每页50个单词分页，配以上/下一页按钮。每页显示页码和总页数，便于了解当前位置。" },
+    ],
+    wordends: [
+      { q: "什么是「结尾」页面？", a: "此页面让你浏览所有以特定字母「结尾」的有效Scrabble单词。选择一个字母（A-Z），WordIzy会显示所有以该字母结尾的单词，按长度分组（2-7字母）。适合找出接续棋盘上已有字母的单词。" },
+      { q: "如何使用长度和字母选择器？", a: "先从A-Z行选一个字母——设定结尾字母。然后用长度行（2-7或全部）按长度筛选。每个长度部分显示所有以所选字母结尾的单词，按字母顺序排序。在任一行点「全部」可移除该筛选。" },
+      { q: "这对Scrabble有何帮助？", a: "结尾字母对接续很重要——如果棋盘上有S，了解所有以S结尾的单词可让你复数化或扩展玩法。同样，了解以D、ED、ING结尾的单词有助于借助常见后缀。此页面是竞技对局的强力学习工具。" },
+      { q: "为什么按50个单词分页？", a: "有些字母（如E、S、D）有数千个结尾单词。为保持页面快速可读，结果按每页50个单词分页，配以上/下一页按钮。每页显示页码和总页数，便于了解当前位置。" },
+    ],
+  },
 };
 
 export const translations: Record<LanguageCode, Translation> = {

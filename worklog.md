@@ -363,3 +363,17 @@ Work Log:
 
 Stage Summary:
 - Hamburger drawer is back in the left corner for mobile mode. WordIzy brand uses Roboto Slab ExtraBold 800.
+
+---
+Task ID: 65
+Agent: main
+Task: Center-justify all result text on every page
+
+Work Log:
+- Removed `ml-auto` from score spans in WordGroups, WordList, and WordBucket. Previously `ml-auto` pushed the score to the right edge, making the word left-aligned. Now the word + score are centered together within each cell (justify-center).
+- All grids already had `justify-items-center text-center` and word cells use `justify-center w-full`.
+- Verified: word cell justify-content=center, text-align=center ✓. VLM confirmed words + scores centered together.
+- bun run lint clean.
+
+Stage Summary:
+- All search result text is now center-justified across every page — the word and its score are centered together within each container.

@@ -15,7 +15,6 @@ import { useApi } from "@/components/site/use-api";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import type { SolvedWord, WordleConstraint } from "@/lib/unscramble";
-import { FAQ_TITLE, quordleFaq } from "@/components/site/faq-content";
 
 interface Board extends WordleConstraint {
   id: number;
@@ -180,7 +179,7 @@ export function QuordleTool() {
           </GlassCard>
         )}
 
-        <TipsSection title={FAQ_TITLE} items={quordleFaq} />
+        <TipsSection title={t.faq.title} items={t.faq.quordle} />
         <AdSlot format="horizontal" />
       </div>
     </>

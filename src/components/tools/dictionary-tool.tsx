@@ -13,7 +13,6 @@ import { PageHeader } from "@/components/site/page-header";
 import { useApi } from "@/components/site/use-api";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
-import { FAQ_TITLE, dictionaryFaq } from "@/components/site/faq-content";
 
 interface CheckResult {
   word: string; exists: boolean; score: number; length: number;
@@ -208,7 +207,7 @@ export function DictionaryTool() {
           </section>
         )}
 
-        <TipsSection title={FAQ_TITLE} items={dictionaryFaq} />
+        <TipsSection title={t.faq.title} items={t.faq.dictionary} />
         <AdSlot format="horizontal" />
       </div>
     </>
