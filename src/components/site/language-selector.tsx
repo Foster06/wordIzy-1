@@ -14,9 +14,16 @@ import { LANGUAGE_LIST } from "@/lib/languages";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { cn } from "@/lib/utils";
 
+// 2-letter codes for display
+const LANG_CODES: Record<string, string> = {
+  en: "EN", fr: "FR", es: "ES", it: "IT", pt: "PT",
+  de: "DE", nl: "NL", ja: "JA", zh: "ZH",
+};
+
 export function LanguageSelector({ compact = false, className }: { compact?: boolean; className?: string }) {
   const { lang, setLang, t } = useLanguage();
   const current = LANGUAGE_LIST.find((l) => l.code === lang) ?? LANGUAGE_LIST[0];
+  const code = LANG_CODES[current.code] ?? current.code.toUpperCase();
 
   return (
     <DropdownMenu>
@@ -25,17 +32,15 @@ export function LanguageSelector({ compact = false, className }: { compact?: boo
           variant="ghost"
           size="sm"
           className={cn(
-            "gap-2 rounded-full glass-soft hover:bg-white/10 text-foreground",
+            "gap-1.5 rounded-full glass-soft hover:bg-white/10 text-foreground",
             compact && "px-2",
             className
           )}
           aria-label={t.common.languageLabel}
         >
           <Globe className="h-4 w-4 text-brand" />
-          <span className="text-lg leading-none">{current.flag}</span>
-          {!compact && (
-            <span className="hidden sm:inline text-xs font-medium">{current.nativeName}</span>
-          )}
+          <span className="text-base leading-none">{current.flag}</span>
+          <span className="text-xs font-bold uppercase tracking-wider text-brand">{code}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56 glass-strong border-white/10">
@@ -51,6 +56,7 @@ export function LanguageSelector({ compact = false, className }: { compact?: boo
           >
             <span className="text-lg leading-none">{l.flag}</span>
             <span className="flex-1 text-sm">{l.nativeName}</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-brand">{LANG_CODES[l.code] ?? l.code.toUpperCase()}</span>
             {l.code === lang && <Check className="h-4 w-4 text-brand" />}
           </DropdownMenuItem>
         ))}
