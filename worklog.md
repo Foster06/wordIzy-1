@@ -319,3 +319,17 @@ Work Log:
 
 Stage Summary:
 - The hamburger drawer panel is now solid (no blur), while the body content behind it remains blurred when the drawer is open.
+
+---
+Task ID: 62
+Agent: main
+Task: Bree Serif font + hover effect in hamburger drawer
+
+Work Log:
+- Changed drawer menu items to use font-bree class (Bree Serif), matching the main heading font. Text size set to 16px.
+- Added hover effect: transition-all duration-200, hover:bg-brand/10 hover:text-brand hover:translate-x-1 (amber highlight + slight right shift on hover). Active items use bg-brand/15 text-brand.
+- Verified: "Unscrambler" menu item font-family = "Bree Serif" ✓; transition = 0.2s cubic-bezier (hover effect active) ✓.
+- bun run lint clean.
+
+Stage Summary:
+- Hamburger drawer menu items now use Bree Serif font and have a hover effect (amber highlight + slide right).

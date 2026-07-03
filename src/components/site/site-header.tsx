@@ -150,12 +150,14 @@ export function SiteHeader() {
                       key={r.id}
                       onClick={() => go(r.hash)}
                       className={cn(
-                        "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors",
-                        isActive(r) ? "bg-brand/10 text-brand" : "text-foreground/85 hover:bg-white/5"
+                        "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-200 font-bree",
+                        isActive(r)
+                          ? "bg-brand/15 text-brand"
+                          : "text-foreground/85 hover:bg-brand/10 hover:text-brand hover:translate-x-1"
                       )}
                     >
                       <NavIcon name={r.icon} className="h-4 w-4 opacity-80" />
-                      {t.nav[r.labelKey]}
+                      <span className="!text-[16px]">{t.nav[r.labelKey]}</span>
                     </button>
                   ))}
                 </div>
