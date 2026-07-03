@@ -346,7 +346,7 @@ input[type="number"] {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 10px 24px -8px rgba(0, 0, 0, 0.45);
 }
 :root:not(.dark) .result-card {
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.20), 0 8px 20px -6px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 2px 8px -4px rgba(0, 0, 0, 0.10) !important;
 }
 
 /* ---------- Word cell shadow (light mode separation) ---------- */
@@ -354,5 +354,11 @@ input[type="number"] {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
 }
 :root:not(.dark) .word-cell {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.18) !important;
+  background-color: rgba(0, 0, 0, 0.02) !important;
+  border-color: rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06) !important;
+}
+:root:not(.dark) .word-cell:hover {
+  background-color: rgba(245, 166, 35, 0.08) !important;
+  border-color: rgba(245, 166, 35, 0.20) !important;
 }

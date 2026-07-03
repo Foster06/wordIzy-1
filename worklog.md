@@ -184,3 +184,19 @@ Work Log:
 
 Stage Summary:
 - All action buttons now have 70/30 width split (primary amber gradient 70%, Clear with eraser icon 30%), both matching search bar height. Applied across all tool pages.
+
+---
+Task ID: 53
+Agent: main
+Task: Less visible containers in light mode + center words without shrinking
+
+Work Log:
+- Light mode word-cell: changed to very subtle bg (rgba(0,0,0,0.02)), faint border (rgba(0,0,0,0.05)), minimal shadow (0 1px 2px rgba(0,0,0,0.06)). Hover: subtle amber tint.
+- Light mode result-card: softer shadow (0 1px 3px rgba(0,0,0,0.08), 0 2px 8px -4px rgba(0,0,0,0.10)).
+- Word cells: added justify-center + w-full so words center within the full grid cell width without shrinking. Score stays right-aligned via ml-auto (word-groups/word-list) or shrink-0 (word-bucket).
+- Applied to WordGroups, WordList, WordBucket.
+- Verified: dark mode justify-content=center, width=293px (full cell) ✓; light mode bg=rgba(0,0,0,0.02), border=rgba(0,0,0,0.05) (subtle) ✓; VLM confirmed containers less visible + words centered.
+- bun run lint clean.
+
+Stage Summary:
+- Word containers are now less visible in light mode (subtle bg/border/shadow). Words are centered inside containers without shrinking — containers fill the grid cell width and content is centered.

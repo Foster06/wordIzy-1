@@ -42,7 +42,7 @@ export function WordList({ words, lang, t, emptyMessage, pageSize = 50 }: WordLi
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5 justify-items-center text-center">
         {shown.map((w) => (
-          <div key={w.word} className="word-cell flex items-center gap-1.5 rounded-md px-2 py-1 bg-white/[0.06] border border-white/[0.06] hover:bg-brand/10 hover:border-brand/30 transition-colors min-w-0" title={`${w.word.toUpperCase()} · ${w.score} ${t.common.points}`}>
+          <div key={w.word} className="word-cell flex items-center justify-center gap-1.5 rounded-md px-2 py-1 bg-white/[0.06] border border-white/[0.06] hover:bg-brand/10 hover:border-brand/30 transition-colors min-w-0 w-full" title={`${w.word.toUpperCase()} · ${w.score} ${t.common.points}`}>
             <span className="word-item truncate uppercase tracking-wide !text-[15px] min-w-0">{w.word}</span>
             <span className="text-[10px] font-bold text-brand tabular-nums shrink-0 ml-auto">{w.score}</span>
           </div>
