@@ -105,3 +105,32 @@ Work Log:
 
 Stage Summary:
 - All search results now use word-list text style (Bree Serif, no tiles) in 4-column grids with pagination at 50 words. Result containers have shadows for separation. Starts-by and Ends-by pages have the 2-7 length sort row above the A-Z letter columns.
+
+---
+Task ID: 49
+Agent: main
+Task: Typography updates + desktop navbar restructure + fix class→className
+
+Work Log:
+- Typography classes updated in globals.css:
+  - .section-label: 18px → 17px
+  - .alpha-button: 16px → 18px
+  - .count-text: 18px → 20px
+  - (nav-item 18px/600/24px, num-button 15px/700, word-item Bree Serif 20px, yellow-heading 20px/700, page-title Bree Serif 72px, page-subtitle Inter 22px — all unchanged, correct)
+- routes.ts rewritten with desktop nav structure:
+  - Inline: Unscrambler, Scramble Solver, Anagram Solver, Scrabble Duplicate, Wordle Solver, Check Dictionary
+  - Tools dropdown: Random Word, Wordfeud Helper, Quordle Solver
+  - Word Lab dropdown: Word Lists, Word Starts By, Word Ends By
+  - Added solvers/site/wordlab nav labels to all 9 languages
+- site-header.tsx rebuilt:
+  - Desktop: inline links + HoverDropdown components (hover to open, 120ms close delay, click-outside to dismiss)
+  - Mobile: Sheet drawer with Solvers/Tools/Site grouped sections (unchanged behavior)
+  - Language selector + theme toggle in right corner on all viewports
+- Fixed 'class' → 'className' DOM property error in site-footer.tsx (2 occurrences on <ul> elements)
+- Added className prop to ThemeToggle and LanguageSelector components
+- Created missing logo.tsx (flat 2D amber square with white W)
+- Verified: desktop nav shows correct inline links + Tools + Word Lab dropdowns; Tools dropdown pops up on hover ✓; no Invalid DOM property errors ✓; alpha-button 18px ✓.
+- bun run lint clean.
+
+Stage Summary:
+- Typography updated (section-label 17px, alpha-button 18px, count-text 20px). Desktop navbar restructured with inline solver links + Tools/Word Lab hover dropdowns. Fixed class→className error. Mobile drawer unchanged. All browser-verified.

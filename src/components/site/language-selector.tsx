@@ -14,7 +14,7 @@ import { LANGUAGE_LIST } from "@/lib/languages";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { cn } from "@/lib/utils";
 
-export function LanguageSelector({ compact = false }: { compact?: boolean }) {
+export function LanguageSelector({ compact = false, className }: { compact?: boolean; className?: string }) {
   const { lang, setLang, t } = useLanguage();
   const current = LANGUAGE_LIST.find((l) => l.code === lang) ?? LANGUAGE_LIST[0];
 
@@ -26,7 +26,8 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
           size="sm"
           className={cn(
             "gap-2 rounded-full glass-soft hover:bg-white/10 text-foreground",
-            compact && "px-2"
+            compact && "px-2",
+            className
           )}
           aria-label={t.common.languageLabel}
         >

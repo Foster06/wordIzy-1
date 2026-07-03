@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { cn } from "@/lib/utils";
 
-export function ThemeToggle({ compact = false }: { compact?: boolean }) {
+export function ThemeToggle({ compact = false, className }: { compact?: boolean; className?: string }) {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
@@ -26,7 +26,8 @@ export function ThemeToggle({ compact = false }: { compact?: boolean }) {
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={cn(
         "rounded-full glass-soft hover:bg-white/10 text-foreground transition-colors",
-        compact && "h-8 w-8"
+        compact && "h-8 w-8",
+        className
       )}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       title={isDark ? t.common.languageLabel : t.common.languageLabel}

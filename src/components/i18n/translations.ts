@@ -9,6 +9,7 @@ export type Translation = {
     anagram: string; random: string; wordfeud: string; dictionary: string;
     scrabble: string; wordlists: string; wordstarts: string; wordends: string; about: string; contact: string;
     privacy: string; sitemap: string; tools: string; more: string;
+    solvers: string; site: string; wordlab: string;
   };
   brand: { name: string; tagline: string };
   common: {
@@ -52,7 +53,7 @@ const en: Translation = {
     quordle: "Quordle Solver", anagram: "Anagram Solver", random: "Random Word",
     wordfeud: "Wordfeud Helper", dictionary: "Check Dictionary", scrabble: "Scrabble Duplicate",
     wordlists: "Word Lists", wordstarts: "Starts By", wordends: "Ends By", about: "About", contact: "Contact", privacy: "Privacy",
-    sitemap: "Sitemap", tools: "Tools", more: "More",
+    sitemap: "Sitemap", tools: "Tools", more: "More", solvers: "Solvers", site: "Site", wordlab: "Word Lab",
   },
   brand: { name: "WordIzy", tagline: "Unscramble. Solve. Win." },
   common: {
@@ -131,7 +132,7 @@ const fr: Translation = {
     quordle: "Solveur Quordle", anagram: "Solveur d'Anagrammes", random: "Mot Aléatoire",
     wordfeud: "Aide Wordfeud", dictionary: "Vérifier le Dico", scrabble: "Scrabble Duplicate",
     wordlists: "Listes de Mots", wordstarts: "Commence Par", wordends: "Finit Par", about: "À propos", contact: "Contact", privacy: "Confidentialité",
-    sitemap: "Plan du site", tools: "Outils", more: "Plus",
+    sitemap: "Plan du site", tools: "Outils", more: "Plus", solvers: "Solveurs", site: "Site", wordlab: "Labo des Mots",
   },
   brand: { name: "WordIzy", tagline: "Anagrammez. Résolvez. Gagnez." },
   common: {
@@ -207,7 +208,7 @@ const es: Translation = {
     quordle: "Sol. Quordle", anagram: "Sol. Anagramas", random: "Palabra Aleatoria",
     wordfeud: "Ayuda Wordfeud", dictionary: "Ver Diccionario", scrabble: "Scrabble Duplicate",
     wordlists: "Listas de Palabras", wordstarts: "Empieza Por", wordends: "Termina En", about: "Acerca de", contact: "Contacto", privacy: "Privacidad",
-    sitemap: "Mapa del sitio", tools: "Herramientas", more: "Más",
+    sitemap: "Mapa del sitio", tools: "Herramientas", more: "Más", solvers: "Solucionadores", site: "Sitio", wordlab: "Lab de Palabras",
   },
   brand: { name: "WordIzy", tagline: "Desordena. Resuelve. Gana." },
   common: {
@@ -256,7 +257,7 @@ const de: Translation = {
     quordle: "Quordle-Löser", anagram: "Anagramm-Löser", random: "Zufallswort",
     wordfeud: "Wordfeud-Hilfe", dictionary: "Wörterbuch", scrabble: "Scrabble Duplicate",
     wordlists: "Wortlisten", wordstarts: "Beginnt Mit", wordends: "Endet Mit", about: "Über", contact: "Kontakt", privacy: "Datenschutz",
-    sitemap: "Sitemap", tools: "Werkzeuge", more: "Mehr",
+    sitemap: "Sitemap", tools: "Werkzeuge", more: "Mehr", solvers: "Löser", site: "Seite", wordlab: "Wort-Labor",
   },
   brand: { name: "WordIzy", tagline: "Entwirren. Lösen. Gewinnen." },
   common: {
@@ -305,7 +306,7 @@ const it: Translation = {
     quordle: "Ris. Quordle", anagram: "Ris. Anagrammi", random: "Parola Casuale",
     wordfeud: "Aiuto Wordfeud", dictionary: "Verifica Diz.", scrabble: "Scrabble Duplicate",
     wordlists: "Liste Parole", wordstarts: "Inizia Per", wordends: "Finisce Per", about: "Info", contact: "Contatti", privacy: "Privacy",
-    sitemap: "Mappa", tools: "Strumenti", more: "Altro",
+    sitemap: "Mappa", tools: "Strumenti", more: "Altro", solvers: "Risolutori", site: "Sito", wordlab: "Lab delle Parole",
   },
   brand: { name: "WordIzy", tagline: "Riordina. Risolvi. Vinci." },
   common: {
@@ -354,7 +355,7 @@ const pt: Translation = {
     quordle: "Sol. Quordle", anagram: "Sol. Anagramas", random: "Palavra Aleatória",
     wordfeud: "Ajuda Wordfeud", dictionary: "Verificar Dicio.", scrabble: "Scrabble Duplicate",
     wordlists: "Listas de Palavras", wordstarts: "Começa Por", wordends: "Termina Em", about: "Sobre", contact: "Contato", privacy: "Privacidade",
-    sitemap: "Mapa do site", tools: "Ferramentas", more: "Mais",
+    sitemap: "Mapa do site", tools: "Ferramentas", more: "Mais", solvers: "Solucionadores", site: "Site", wordlab: "Lab de Palavras",
   },
   brand: { name: "WordIzy", tagline: "Descodifica. Resolve. Vence." },
   common: {
@@ -403,7 +404,7 @@ const nl: Translation = {
     quordle: "Quordle-oplosser", anagram: "Anagram-oplosser", random: "Willekeurig Woord",
     wordfeud: "Wordfeud-hulp", dictionary: "Woordenboek", scrabble: "Scrabble Duplicate",
     wordlists: "Woordlijsten", wordstarts: "Begint Met", wordends: "Eindigt Op", about: "Over", contact: "Contact", privacy: "Privacy",
-    sitemap: "Sitemap", tools: "Hulpmiddelen", more: "Meer",
+    sitemap: "Sitemap", tools: "Hulpmiddelen", more: "Meer", solvers: "Oplossers", site: "Site", wordlab: "Woord-Lab",
   },
   brand: { name: "WordIzy", tagline: "Ontwar. Los op. Win." },
   common: {
@@ -453,7 +454,7 @@ const ja: Translation = {
     quordle: "Quordle解決", anagram: "アナグラム解決", random: "ランダム単語",
     wordfeud: "Wordfeudヘルプ", dictionary: "辞書チェック", scrabble: "スクラブル複製",
     wordlists: "単語リスト", wordstarts: "始まる", wordends: "終わる", about: "概要", contact: "お問い合わせ", privacy: "プライバシー",
-    sitemap: "サイトマップ", tools: "ツール", more: "その他",
+    sitemap: "サイトマップ", tools: "ツール", more: "その他", solvers: "ソルバー", site: "サイト", wordlab: "ワードラボ",
   },
   brand: { name: "WordIzy", tagline: "解き、勝つ。" },
   common: {
@@ -505,7 +506,7 @@ const zh: Translation = {
     quordle: "Quordle求解", anagram: "易位词", random: "随机单词",
     wordfeud: "Wordfeud助手", dictionary: "查词典", scrabble: "Scrabble复刻",
     wordlists: "单词表", wordstarts: "开头", wordends: "结尾", about: "关于", contact: "联系", privacy: "隐私",
-    sitemap: "网站地图", tools: "工具", more: "更多",
+    sitemap: "网站地图", tools: "工具", more: "更多", solvers: "求解器", site: "站点", wordlab: "词汇实验室",
   },
   brand: { name: "WordIzy", tagline: "重组。求解。获胜。" },
   common: {
