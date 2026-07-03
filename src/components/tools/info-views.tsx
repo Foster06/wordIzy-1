@@ -49,21 +49,42 @@ export function ContactView() {
 
     setStatus("sending");
     try {
-      const res = await fetch("/api/contact", {
+      // FormSubmit.co — free, no signup, no API key.
+      // Submissions are emailed to info.wordizy@proton.me.
+      // The /ajax/ variant returns JSON so we stay on the page (no redirect).
+      // First-ever submission triggers a one-time confirmation email to the
+      // owner; until confirmed, FormSubmit returns success but holds messages.
+      const res = await fetch("https://formsubmit.co/ajax/info.wordizy@proton.me", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message, locale: lang }),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _subject: `WordIzy Contact — ${name}`,
+          _template: "table",
+          _captcha: "false",
+          _replyto: email,
+          _locale: lang,
+        }),
       });
 
-      if (!res.ok) {
-        let errMsg = t.contact.error;
-        try {
-          const data = await res.json();
-          if (data?.error && typeof data.error === "string") errMsg = data.error;
-        } catch {
-          /* ignore parse error, fall back to generic */
-        }
-        throw new Error(errMsg);
+      let data: { success?: string; message?: string } | null = null;
+      try {
+        data = await res.json();
+      } catch {
+        /* non-JSON response, treat as failure */
+      }
+
+      // FormSubmit returns 200 with { success: "true" } even when the email
+      // is still pending first-time confirmation — that's still a successful
+      // submit from the user's perspective, so we don't error on it.
+      if (!res.ok || !data || data.success !== "true") {
+        const msg = data?.message || t.contact.error;
+        throw new Error(msg);
       }
 
       setStatus("sent");
