@@ -377,3 +377,19 @@ Work Log:
 
 Stage Summary:
 - All search result text is now center-justified across every page — the word and its score are centered together within each container.
+
+---
+Task ID: 66
+Agent: main
+Task: Fix build error from German quotes + FAQ translation
+
+Work Log:
+- Build error caused by German quotation marks („ U+201E and " U+201C) and ASCII " used as German closing quotes inside JavaScript strings. These broke the Turbopack parser.
+- Fix: replaced all German quotes („..."") with guillemets (»...«) which don't conflict with JavaScript string syntax. Also replaced ASCII " that were used as German closing quotes inside strings with «.
+- Fixed 6 lines where ASCII " inside string values was being interpreted as string terminators.
+- FAQ translations: the faq section was already added to translations.ts by a previous agent (with translations for all 9 languages). The build error was preventing them from loading. After fixing the parsing error, the FAQ now translates correctly.
+- Verified: English FAQ shows "How to use" ✓; switching to French shows French FAQ ✓.
+- bun run lint clean.
+
+Stage Summary:
+- Build error fixed (German quotes replaced with guillemets). FAQ content now translates when switching languages.
