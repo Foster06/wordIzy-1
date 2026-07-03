@@ -87,7 +87,7 @@ export function WordBucket({
                 className="word-cell flex items-center justify-center gap-1 rounded-md px-2 py-1 bg-white/[0.06] border border-white/[0.06] hover:bg-brand/10 hover:border-brand/30 transition-colors text-sm w-full"
                 title={`${w.word.toUpperCase()} · ${w.score} ${t.common.points}`}
               >
-                <span className={breeStyle ? "word-item truncate uppercase tracking-wide !text-[15px]" : "truncate font-medium uppercase tracking-wide"}>{w.word}</span>
+                <span className="word-item truncate uppercase tracking-wide !text-[15px]">{w.word}</span>
                 <span className="text-[10px] font-bold text-brand tabular-nums shrink-0">{w.score}</span>
               </div>
             ))}
