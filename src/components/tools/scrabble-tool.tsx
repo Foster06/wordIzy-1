@@ -11,7 +11,6 @@ import { PageHeader } from "@/components/site/page-header";
 import { WordGroups } from "@/components/site/word-groups";
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
-import { Tile } from "@/components/site/tile";
 import { TipsSection } from "@/components/site/tips-section";
 import { useApi } from "@/components/site/use-api";
 import { useLanguage } from "@/components/i18n/language-provider";
@@ -94,14 +93,12 @@ export function ScrabbleTool() {
         {result && top.length > 0 && (
           <GlassCard className="p-5">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-brand mb-3">Top plays</h3>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5 justify-items-center text-center">
               {top.map((w) => (
-                <span key={w.word} className="word-chip">
-                  {w.word.split("").map((ch, i) => (
-                    <Tile key={i} letter={ch} value={def.letterValues[ch.toUpperCase()] ?? 0} size="xs" />
-                  ))}
-                  <span className="pts">{w.score}</span>
-                </span>
+                <div key={w.word} className="word-cell flex items-center justify-center gap-1.5 rounded-md px-2 py-1 bg-white/[0.06] border border-white/[0.06] hover:bg-brand/10 hover:border-brand/30 transition-colors w-full">
+                  <span className="word-item truncate uppercase tracking-wide !text-[15px]">{w.word}</span>
+                  <span className="text-[10px] font-bold text-brand tabular-nums shrink-0">{w.score}</span>
+                </div>
               ))}
             </div>
           </GlassCard>
