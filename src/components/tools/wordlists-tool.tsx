@@ -22,7 +22,7 @@ export function WordlistsTool() {
   const [letter, setLetter] = useState<string | "all">("all");
 
   const numLength = length === "all" ? undefined : length;
-  const availableLetters = useLetterAvailability(lang as LanguageCode, "ends", numLength);
+  const { available: availableLetters, counts } = useLetterAvailability(lang as LanguageCode, "starts", numLength);
 
   const visibleLengths = length === "all" ? LENGTHS_ASC : [length];
   const visibleLetters = letter === "all" ? ALPHABET : [letter];
@@ -48,7 +48,7 @@ export function WordlistsTool() {
               </div>
             </div>
 
-            {/* A-Z letter sort row — BELOW length */}
+            {/* A-Z letter sort row with counts — BELOW length */}
             <div>
               <p className="section-label !text-[14px] mb-2.5 text-muted-foreground">{t.wordlists.letter}</p>
               <div className="flex flex-wrap gap-2">
@@ -57,18 +57,20 @@ export function WordlistsTool() {
                 </button>
                 {ALPHABET.map((l) => {
                   const isAvailable = availableLetters.has(l);
+                  const count = counts[l] ?? 0;
                   return (
                     <button
                       key={l}
                       onClick={() => isAvailable && setLetter(l)}
                       disabled={!isAvailable}
                       className={cn(
-                        "h-11 w-11 rounded-md flex items-center justify-center transition-colors",
+                        "h-14 w-14 rounded-md flex flex-col items-center justify-center transition-colors gap-0.5",
                         !isAvailable && "opacity-25 cursor-not-allowed",
                         letter === l && isAvailable ? "bg-brand text-background" : isAvailable ? "glass-soft text-foreground/80 hover:text-brand" : "glass-soft text-muted-foreground"
                       )}
                     >
                       <span className="alpha-button">{l}</span>
+                      {count > 0 && <span className="text-[9px] font-bold tabular-nums opacity-70">{count}</span>}
                     </button>
                   );
                 })}
@@ -92,7 +94,6 @@ export function WordlistsTool() {
                   {t.wordlists.allWords} — {letter === "all" ? "A–Z" : letter}
                 </span>
               </div>
-              {/* Starting-letter buckets — every letter gets its words */}
               {letter === "all" ? (
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {visibleLetters.map((lt) => (

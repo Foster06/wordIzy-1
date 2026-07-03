@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { ALPHABET } from "@/components/site/word-bucket";
 import type { LanguageCode } from "@/lib/languages";
 
-/** Fetches which letters have words available for a given mode/length.
- *  Returns a Set of letters that have at least 1 word. */
+/** Fetches word counts per letter for a given mode/length.
+ *  Returns { available: Set<string>, counts: Record<string, number> }. */
 export function useLetterAvailability(lang: LanguageCode, mode: "starts" | "ends", length?: number) {
   const [available, setAvailable] = useState<Set<string>>(new Set(ALPHABET));
+  const [counts, setCounts] = useState<Record<string, number>>({});
 
   useEffect(() => {
     let cancelled = false;
@@ -25,6 +26,7 @@ export function useLetterAvailability(lang: LanguageCode, mode: "starts" | "ends
           if ((data.counts[letter] ?? 0) > 0) set.add(letter);
         }
         setAvailable(set);
+        setCounts(data.counts);
       })
       .catch(() => {
         // On error, assume all letters are available
@@ -33,5 +35,5 @@ export function useLetterAvailability(lang: LanguageCode, mode: "starts" | "ends
     return () => { cancelled = true; };
   }, [lang, mode, length]);
 
-  return available;
+  return { available, counts };
 }

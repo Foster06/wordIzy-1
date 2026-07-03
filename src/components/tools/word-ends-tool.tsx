@@ -19,7 +19,7 @@ export function WordEndsTool() {
   const [length, setLength] = useState<number | "all">("all");
 
   const numLength = length === "all" ? undefined : length;
-  const availableLetters = useLetterAvailability(lang as LanguageCode, "ends", numLength);
+  const { available: availableLetters, counts } = useLetterAvailability(lang as LanguageCode, "ends", numLength);
 
   const visibleLengths = length === "all" ? LENGTHS : [length];
 
@@ -48,18 +48,20 @@ export function WordEndsTool() {
             <div className="flex flex-wrap gap-2">
               {ALPHABET.map((l) => {
                 const isAvailable = availableLetters.has(l);
+                const count = counts[l] ?? 0;
                 return (
                   <button
                     key={l}
                     onClick={() => isAvailable && setLetter(l)}
                     disabled={!isAvailable}
                     className={cn(
-                      "h-11 w-11 rounded-md flex items-center justify-center transition-colors",
+                      "h-14 w-14 rounded-md flex flex-col items-center justify-center transition-colors gap-0.5",
                       !isAvailable && "opacity-25 cursor-not-allowed",
                       letter === l && isAvailable ? "bg-brand text-background" : isAvailable ? "glass-soft text-foreground/80 hover:text-brand" : "glass-soft text-muted-foreground"
                     )}
                   >
                     <span className="alpha-button">{l}</span>
+                    {count > 0 && <span className="text-[9px] font-bold tabular-nums opacity-70">{count}</span>}
                   </button>
                 );
               })}
