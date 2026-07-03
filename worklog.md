@@ -292,3 +292,16 @@ Work Log:
 
 Stage Summary:
 - No blur, no hamburger drawer. The navbar is a clean top bar on all viewports with language + theme toggles.
+
+---
+Task ID: 60
+Agent: main
+Task: Add hamburger drawer to left side corner
+
+Work Log:
+- Added hamburger button to the LEFT corner of the navbar (before the logo, lg:hidden). Opens a left-side drawer (fixed left-0, w-280px, glass-blur-xl) with Solvers/Tools/Site categorized navigation. Backdrop dims the body (bg-black/40, no blur per user's earlier request). Hamburger in drawer header closes it. Body scroll locked when open.
+- Verified: hamburger in left corner on mobile ✓; drawer opens on the left with categories ✓.
+- bun run lint clean.
+
+Stage Summary:
+- Hamburger drawer is back in the left side corner of the navbar, opening a left-side drawer with categorized navigation.
