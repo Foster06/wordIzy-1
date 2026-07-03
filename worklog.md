@@ -229,3 +229,18 @@ Work Log:
 
 Stage Summary:
 - Footer menu is on the left side with a hamburger to open/close. All 3 categories use the same Inter font. Words are uppercase across the website (except Check Dictionary). All result text is centered.
+
+---
+Task ID: 56
+Agent: main
+Task: Remove footer hamburger + same font + uppercase + centered results
+
+Work Log:
+- Removed hamburger from footer — the 3-category menu (Solvers/Tools/Site) is now always visible in a 3-column grid. No toggle needed.
+- All 3 category headers and links use the same Inter font (.nav-item class). Verified: all 3 h3 elements report font-family Inter.
+- Uppercase: already applied on word spans in WordGroups, WordList, WordBucket. Verified: text-transform=uppercase on word-item.
+- Centered: result card headers use justify-center + text-center. Grids use justify-items-center + text-center. Verified: justify-items=center.
+- bun run lint clean.
+
+Stage Summary:
+- Footer menu is always visible (no hamburger) with 3 categories using the same Inter font. All search result words are uppercase and centered. Check Dictionary excluded from uppercase.
