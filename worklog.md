@@ -171,3 +171,16 @@ Work Log:
 
 Stage Summary:
 - Footer uses 3-column grid (Solvers/Tools/Site) on both mobile and desktop with exact categorization. All search results are centered across the website.
+
+---
+Task ID: 52
+Agent: main
+Task: Buttons 70/30 split + eraser icon on Clear
+
+Work Log:
+- Rewrote ActionButtons: primary button flex-[7] (~70% width, h-12, amber gradient), Clear button flex-[3] (~30% width, h-12, glass styling, Eraser icon replacing Trash2).
+- Verified: Unscramble=439px (~68%), Clear=204px (~32%), both h-12 (48px). Clear button SVG path = Eraser icon (M21 21H8...). VLM confirmed amber gradient on primary, eraser icon on Clear, matching heights.
+- bun run lint clean.
+
+Stage Summary:
+- All action buttons now have 70/30 width split (primary amber gradient 70%, Clear with eraser icon 30%), both matching search bar height. Applied across all tool pages.
