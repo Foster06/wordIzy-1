@@ -22,6 +22,14 @@ export function WordfeudTool() {
           hint={t.wordfeud.hint}
           tipsTitle={t.faq.title}
           tips={t.faq.wordfeud}
+          tipsCard={{
+            title: "Tips",
+            items: [
+              "Enter all 7 rack letters. Add board letters you can build off for more options.",
+              "Use ? or * for blank tiles — they represent any letter but score 0.",
+              "Wordfeud has bonus squares (DL, TL, DW, TW) that multiply letter/word scores.",
+            ],
+          }}
         />
       </div>
     </>

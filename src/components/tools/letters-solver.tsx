@@ -3,7 +3,6 @@
 import { useState, type ReactNode } from "react";
 import { Loader2 } from "lucide-react";
 import { LetterInput } from "@/components/site/letter-input";
-import { TileValuesPanel } from "@/components/site/tile-values-panel";
 import { ActionButtons } from "@/components/site/action-buttons";
 import { WordGroups } from "@/components/site/word-groups";
 import { GlassCard } from "@/components/site/glass-card";
@@ -15,15 +14,17 @@ import type { SolveResult } from "@/lib/unscramble";
 import { TipsSection } from "@/components/site/tips-section";
 
 interface Props {
-  endpoint: string; // "/api/anagram" | "/api/unscramble"
+  endpoint: string;
   buttonLabel: string;
   hint: string;
   tipsTitle: string;
   tips: { q: string; a: string }[];
   extraControls?: ReactNode;
+  /** Optional tips card content to show instead of TileValuesPanel */
+  tipsCard?: { title: string; items: string[] };
 }
 
-export function LettersSolver({ endpoint, buttonLabel, hint, tipsTitle, tips, extraControls }: Props) {
+export function LettersSolver({ endpoint, buttonLabel, hint, tipsTitle, tips, extraControls, tipsCard }: Props) {
   const { t, lang } = useLanguage();
   const { get } = useApi();
   const def = LANGUAGES[lang as LanguageCode];
@@ -63,10 +64,23 @@ export function LettersSolver({ endpoint, buttonLabel, hint, tipsTitle, tips, ex
               loading={loading}
               disabled={!letters.trim()}
               t={t}
+              fullWidth
             />
           </div>
         </GlassCard>
-        <TileValuesPanel lang={lang as LanguageCode} />
+        {tipsCard && (
+          <GlassCard className="p-5 sm:p-6 h-fit">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-brand mb-3">{tipsCard.title}</h3>
+            <ul className="space-y-2.5 text-sm text-muted-foreground">
+              {tipsCard.items.map((item, i) => (
+                <li key={i} className="flex gap-2">
+                  <span className="text-brand shrink-0">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </GlassCard>
+        )}
       </div>
 
       <AdSlot format="horizontal" />

@@ -22,6 +22,14 @@ export function AnagramTool() {
           hint={t.anagram.hint}
           tipsTitle={t.faq.title}
           tips={t.faq.anagram}
+          tipsCard={{
+            title: "Tips",
+            items: [
+              "An anagram uses ALL the letters you provide — no more, no less.",
+              "Wildcards (? or *) fill remaining slots but score 0 points.",
+              "In Scrabble, a 7-letter anagram (bingo) earns a 50-point bonus.",
+            ],
+          }}
         />
       </div>
     </>

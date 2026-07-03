@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LetterInput } from "@/components/site/letter-input";
-import { TileValuesPanel } from "@/components/site/tile-values-panel";
 import { ActionButtons } from "@/components/site/action-buttons";
 import { WordGroups } from "@/components/site/word-groups";
 import { GlassCard } from "@/components/site/glass-card";
@@ -81,7 +80,23 @@ export function ScrambleTool() {
               />
             </div>
           </GlassCard>
-          <TileValuesPanel lang={lang as LanguageCode} />
+          <GlassCard className="p-5 sm:p-6 h-fit">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-brand mb-3">Tips</h3>
+            <ul className="space-y-2.5 text-sm text-muted-foreground">
+              <li className="flex gap-2">
+                <span className="text-brand shrink-0">•</span>
+                <span>Enter scrambled letters in any order — the tool finds all valid words that can be formed.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-brand shrink-0">•</span>
+                <span>Use ? or * for unknown letters. Each wildcard matches any single letter.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-brand shrink-0">•</span>
+                <span>Use the "Scramble a word" feature below to create your own jumble puzzles.</span>
+              </li>
+            </ul>
+          </GlassCard>
         </div>
 
         {/* Scramble-a-word helper */}
