@@ -54,7 +54,7 @@ export function SiteHeader() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setMobileOpen((v) => !v)}
-                className="lg:hidden rounded-full glass-soft"
+                className="lg:hidden rounded-lg glass-soft"
                 aria-label={mobileOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileOpen}
               >
@@ -118,7 +118,7 @@ export function SiteHeader() {
             aria-hidden
           />
           <div
-            className="lg:hidden fixed left-0 top-16 bottom-0 w-[320px] z-50 bg-background border-r border-white/10 flex flex-col rounded-r-2xl"
+            className="lg:hidden fixed left-0 top-16 bottom-0 w-[320px] z-50 bg-background border-r border-white/10 flex flex-col"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"
