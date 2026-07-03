@@ -9,7 +9,7 @@ import type { LanguageCode } from "@/lib/languages";
 
 interface WordItem { word: string; score: number; length: number; }
 
-const PAGE_SIZE = 200;
+const PAGE_SIZE = 50;
 
 /** A single browsable word bucket with 5-col grid + pagination (>200 words). */
 export function WordBucket({
@@ -78,7 +78,7 @@ export function WordBucket({
         <p className="text-xs text-muted-foreground py-4 text-center">{t.common.none}</p>
       ) : (
         <>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-1.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5">
             {pageWords.map((w) => (
               <div
                 key={w.word}

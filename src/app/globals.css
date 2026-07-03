@@ -6,7 +6,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter), var(--font-geist-sans), system-ui, sans-serif;
+  --font-inter: var(--font-inter), system-ui, sans-serif;
+  --font-bree: var(--font-bree-serif), var(--font-serif), Georgia, serif;
+  --font-roboto-slab: var(--font-roboto-slab), Georgia, serif;
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-serif);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -168,6 +171,23 @@
       radial-gradient(700px 700px at 50% 120%, var(--body-glow-3), transparent 60%);
     background-attachment: fixed;
   }
+}
+
+/* ---------- Font utilities (Inter for UI, Bree Serif for branding/words) ---------- */
+@layer components {
+  .font-inter { font-family: var(--font-inter), system-ui, sans-serif; }
+  .font-bree { font-family: var(--font-bree-serif), var(--font-serif), Georgia, serif; }
+  .font-roboto-slab { font-family: var(--font-roboto-slab), Georgia, serif; font-weight: 600; }
+  .nav-item { font-family: var(--font-inter), system-ui, sans-serif; font-size: 18px; font-weight: 600; line-height: 24px; }
+  .section-label { font-family: var(--font-inter), system-ui, sans-serif; font-size: 18px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .num-button { font-family: var(--font-inter), system-ui, sans-serif; font-size: 15px; font-weight: 700; line-height: 1; }
+  .alpha-button { font-family: var(--font-bree-serif), var(--font-serif), Georgia, serif; font-size: 16px; font-weight: 400; line-height: 1; }
+  .word-item { font-family: var(--font-bree-serif), var(--font-serif), Georgia, serif; font-size: 20px; font-weight: 400; line-height: 1.3; }
+  .yellow-heading { font-family: var(--font-inter), system-ui, sans-serif; font-size: 20px; font-weight: 700; line-height: 1.3; }
+  .count-number { font-family: var(--font-inter), system-ui, sans-serif; font-size: 15px; font-weight: 700; }
+  .count-text { font-family: var(--font-inter), system-ui, sans-serif; font-size: 18px; font-weight: 400; }
+  .page-title { font-family: var(--font-bree-serif), var(--font-serif), Georgia, serif; font-size: clamp(2.25rem, 6vw, 4.5rem); font-weight: 400; line-height: 1.1; }
+  .page-subtitle { font-family: var(--font-inter), system-ui, sans-serif; font-size: clamp(1rem, 2.2vw, 1.375rem); font-weight: 400; line-height: 1.5; }
 }
 
 /* ---------- Frosted glass utilities ---------- */

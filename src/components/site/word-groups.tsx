@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { LengthGroup } from "@/lib/unscramble";
 import type { LanguageDef } from "@/lib/languages";
 import type { Translation } from "@/components/i18n/translations";
-import { TileRack } from "./tile";
 import { GlassCard } from "./glass-card";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
-const INITIAL_PER_GROUP = 24;
+const PAGE_SIZE = 50;
 
 interface WordGroupsProps {
   groups: LengthGroup[];
@@ -17,8 +17,10 @@ interface WordGroupsProps {
   emptyMessage?: string;
 }
 
-/** Renders solved words grouped by length, each word shown as a Scrabble tile rack. */
+/** Renders solved words grouped by length as text (Bree Serif) in a 4-col grid.
+ *  Paginates at 50 words per page with prev/next. */
 export function WordGroups({ groups, t, lang, emptyMessage }: WordGroupsProps) {
+  void lang;
   if (groups.length === 0) {
     return (
       <GlassCard className="p-8 text-center">
@@ -30,16 +32,17 @@ export function WordGroups({ groups, t, lang, emptyMessage }: WordGroupsProps) {
   return (
     <div className="space-y-5">
       {groups.map((g) => (
-        <LengthGroupCard key={g.length} group={g} t={t} lang={lang} />
+        <LengthGroupCard key={g.length} group={g} t={t} />
       ))}
     </div>
   );
 }
 
-function LengthGroupCard({ group, t, lang }: { group: LengthGroup; t: Translation; lang: LanguageDef }) {
-  const [expanded, setExpanded] = useState(false);
-  const visible = expanded ? group.words : group.words.slice(0, INITIAL_PER_GROUP);
-  const hasMore = group.words.length > INITIAL_PER_GROUP;
+function LengthGroupCard({ group, t }: { group: LengthGroup; t: Translation }) {
+  const [page, setPage] = useState(0);
+  const totalPages = Math.max(1, Math.ceil(group.words.length / PAGE_SIZE));
+  const start = page * PAGE_SIZE;
+  const visible = group.words.slice(start, start + PAGE_SIZE);
 
   return (
     <GlassCard className="p-4 sm:p-5 result-card">
@@ -50,35 +53,33 @@ function LengthGroupCard({ group, t, lang }: { group: LengthGroup; t: Translatio
         </h3>
         <span className="text-xs text-muted-foreground">
           {group.words.length} {t.common.wordsCount}
+          {totalPages > 1 && <span className="ml-2 tabular-nums">{page + 1}/{totalPages}</span>}
         </span>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5">
         {visible.map((w) => (
-          <WordRow key={w.word} word={w.word} score={w.score} lang={lang} />
+          <div
+            key={w.word}
+            className="word-cell flex items-center gap-1.5 rounded-md px-2 py-1 bg-white/[0.06] border border-white/[0.06] hover:bg-brand/10 hover:border-brand/30 transition-colors min-w-0"
+            title={`${w.word.toUpperCase()} · ${w.score} ${t.common.points}`}
+          >
+            <span className="word-item truncate uppercase tracking-wide !text-[15px] min-w-0">{w.word}</span>
+            <span className="text-[10px] font-bold text-brand tabular-nums shrink-0 ml-auto">{w.score}</span>
+          </div>
         ))}
       </div>
-      {hasMore && (
-        <button
-          onClick={() => setExpanded((v) => !v)}
-          className="mt-4 text-xs font-medium text-brand hover:text-brand-soft transition-colors"
-        >
-          {expanded
-            ? `${t.common.showLess} ▲`
-            : `${t.common.showMore} (${group.words.length - INITIAL_PER_GROUP} ${t.common.wordsCount}) ▼`}
-        </button>
+
+      {totalPages > 1 && (
+        <div className="mt-4 flex items-center justify-center gap-2 pt-3 border-t border-white/5">
+          <Button onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0} variant="ghost" size="sm" className="gap-1 glass-soft rounded-md h-8 px-3">
+            <ChevronLeft className="h-3.5 w-3.5" />{t.common.showLess}
+          </Button>
+          <span className="text-xs text-muted-foreground tabular-nums min-w-[3rem] text-center">{page + 1} / {totalPages}</span>
+          <Button onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1} variant="ghost" size="sm" className="gap-1 glass-soft rounded-md h-8 px-3">
+            {t.common.showMore}<ChevronRight className="h-3.5 w-3.5" />
+          </Button>
+        </div>
       )}
     </GlassCard>
-  );
-}
-
-function WordRow({ word, score, lang }: { word: string; score: number; lang: LanguageDef }) {
-  return (
-    <div className="flex items-center justify-between gap-2 rounded-lg px-2 py-1.5 hover:bg-white/[0.03] transition-colors">
-      <TileRack letters={word} values={lang.letterValues} size="xs" className="flex-1 !p-1 !gap-1 bg-transparent border-0" />
-      <span className={cn("shrink-0 text-xs font-bold tabular-nums text-brand min-w-[2rem] text-right")}>
-        {score}
-        <span className="text-[9px] text-muted-foreground ml-0.5">{""}</span>
-      </span>
-    </div>
   );
 }

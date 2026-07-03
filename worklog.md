@@ -87,3 +87,21 @@ Work Log:
 
 Stage Summary:
 - All 6 changes redone and verified: detailed page-specific FAQ, 3-column footer on all viewports, hero badge removed, smaller dictionary stat cards with amber gradient badge, and 3D light black shadows on all cards + result containers + word cells.
+
+---
+Task ID: 48
+Agent: main
+Task: No tiles in results, 4-col grid, pagination >50, length sort row above A-Z, container shadows
+
+Work Log:
+- WordGroups: removed TileRack, words now display as text using .word-item class (Bree Serif, uppercase). 4-col grid (grid-cols-2 sm:grid-cols-3 lg:grid-cols-4). Pagination at 50/page with prev/next. Added result-card + word-cell classes for shadows.
+- WordList (Wordle/Quordle): same — text style, 4-col grid, 50/page pagination, shadows.
+- WordBucket (Starts-by/Ends-by/Word Lists): 4-col grid (was 5-col), PAGE_SIZE 50 (was 200), result-card + word-cell classes added.
+- WordStartsTool + WordEndsTool: added 2-7 length sort row (num-button) ABOVE the A-Z letter row (alpha-button). Length filter shows/hides length buckets.
+- Added all font utility classes to globals.css (.nav-item, .section-label, .num-button, .alpha-button, .word-item, .yellow-heading, .count-number, .count-text, .page-title, .page-subtitle, .font-inter, .font-bree, .font-roboto-slab).
+- Added Inter, Bree_Serif, Roboto_Slab fonts to layout.tsx.
+- Verified via Agent Browser: word-item uses Bree Serif ✓, 4-col grid ✓, result-card shadows ✓, pagination on S starts-by ✓, length row (top:383) above A-Z row (top:475) ✓.
+- bun run lint clean.
+
+Stage Summary:
+- All search results now use word-list text style (Bree Serif, no tiles) in 4-column grids with pagination at 50 words. Result containers have shadows for separation. Starts-by and Ends-by pages have the 2-7 length sort row above the A-Z letter columns.
