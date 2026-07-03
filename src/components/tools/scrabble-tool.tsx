@@ -5,7 +5,6 @@ import { Loader2, Trophy } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LetterInput } from "@/components/site/letter-input";
-import { TileValuesPanel } from "@/components/site/tile-values-panel";
 import { ActionButtons } from "@/components/site/action-buttons";
 import { PageHeader } from "@/components/site/page-header";
 import { WordGroups } from "@/components/site/word-groups";
@@ -85,7 +84,23 @@ export function ScrabbleTool() {
               />
             </div>
           </GlassCard>
-          <TileValuesPanel lang={lang as LanguageCode} />
+          <GlassCard className="p-5 sm:p-6 h-fit">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-brand mb-3">Tips</h3>
+            <ul className="space-y-2.5 text-sm text-muted-foreground">
+              <li className="flex gap-2">
+                <span className="text-brand shrink-0">•</span>
+                <span>Duplicate Scrabble gives every player the same rack. The goal is to find the highest-scoring word.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-brand shrink-0">•</span>
+                <span>Use <code className="px-1 rounded bg-brand/10 text-brand font-mono">?</code> for blank tiles. Blanks can represent any letter but score 0 points.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="text-brand shrink-0">•</span>
+                <span>Results are sorted by Scrabble score. Longer words with high-value letters (Q, Z, X, J) tend to score best.</span>
+              </li>
+            </ul>
+          </GlassCard>
         </div>
 
         <AdSlot format="horizontal" />
