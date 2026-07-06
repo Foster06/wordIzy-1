@@ -198,6 +198,35 @@ export function PrivacyView() {
                 </p>
               </div>
             ))}
+
+            {/* Third-party services — clickable service names (no visible URLs) */}
+            {t.privacy.thirdPartyServices && t.privacy.thirdPartyServices.length > 0 && (
+              <div>
+                <h2 className="text-base sm:text-lg font-semibold text-brand mb-2 flex items-center gap-2">
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand shrink-0" />
+                  Third-Party Services
+                </h2>
+                <div className="space-y-3">
+                  {t.privacy.thirdPartyServices.map((service, i) => (
+                    <div key={i} className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                      <a
+                        href={service.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-brand hover:underline font-medium"
+                      >
+                        {service.name}
+                      </a>
+                      {" — "}
+                      {service.description}
+                    </div>
+                  ))}
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    We do not sell, rent, or share your data with any other third parties.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </GlassCard>
         <AdSlot format="horizontal" />

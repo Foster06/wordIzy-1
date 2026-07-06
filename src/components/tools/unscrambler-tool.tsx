@@ -15,6 +15,7 @@ import { AdSlot } from "@/components/site/ad-slot";
 import { HomeFaq } from "@/components/site/tips-section";
 import { useApi } from "@/components/site/use-api";
 import { useRecentSearches } from "@/components/site/use-recent-searches";
+import { useMounted } from "@/components/site/use-mounted";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import type { SolveResult } from "@/lib/unscramble";
@@ -26,6 +27,7 @@ export function UnscramblerTool() {
   const { get } = useApi();
   const def = LANGUAGES[lang as LanguageCode];
   const { searches, addSearch } = useRecentSearches();
+  const mounted = useMounted();
 
   const [letters, setLetters] = useState("");
   const [startsWith, setStartsWith] = useState("");
@@ -103,31 +105,40 @@ export function UnscramblerTool() {
             </div>
           )}
 
-          {/* Advanced filters */}
-          <Collapsible open={showFilters} onOpenChange={setShowFilters} className="mt-5">
-            <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-2 text-foreground/80 hover:text-brand px-2">
+          {/* Advanced filters — gate Radix Collapsible until mounted to avoid useId hydration mismatch */}
+          {mounted ? (
+            <Collapsible open={showFilters} onOpenChange={setShowFilters} className="mt-5">
+              <CollapsibleTrigger asChild>
+                <Button variant="ghost" size="sm" className="gap-2 text-foreground/80 hover:text-brand px-2">
+                  <SlidersHorizontal className="h-4 w-4" />
+                  {t.common.advancedFilters}
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-3">
+                <div className="grid sm:grid-cols-3 gap-3 rounded-xl glass-soft p-4">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="sw" className="text-xs text-muted-foreground">{t.common.startsWith}</Label>
+                    <Input id="sw" value={startsWith} onChange={(e) => setStartsWith(e.target.value)} className="h-9 glass-soft border-white/10 search-amber uppercase" placeholder="ab" maxLength={6} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="ew" className="text-xs text-muted-foreground">{t.common.endsWith}</Label>
+                    <Input id="ew" value={endsWith} onChange={(e) => setEndsWith(e.target.value)} className="h-9 glass-soft border-white/10 search-amber uppercase" placeholder="ed" maxLength={6} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="mi" className="text-xs text-muted-foreground">{t.common.mustInclude}</Label>
+                    <Input id="mi" value={mustInclude} onChange={(e) => setMustInclude(e.target.value)} className="h-9 glass-soft border-white/10 search-amber uppercase" placeholder="cat" maxLength={8} />
+                  </div>
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          ) : (
+            <div className="mt-5">
+              <Button variant="ghost" size="sm" className="gap-2 text-foreground/80 hover:text-brand px-2" disabled>
                 <SlidersHorizontal className="h-4 w-4" />
                 {t.common.advancedFilters}
               </Button>
-            </CollapsibleTrigger>
-            <CollapsibleContent className="mt-3">
-              <div className="grid sm:grid-cols-3 gap-3 rounded-xl glass-soft p-4">
-                <div className="space-y-1.5">
-                  <Label htmlFor="sw" className="text-xs text-muted-foreground">{t.common.startsWith}</Label>
-                  <Input id="sw" value={startsWith} onChange={(e) => setStartsWith(e.target.value)} className="h-9 glass-soft border-white/10 search-amber uppercase" placeholder="ab" maxLength={6} />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="ew" className="text-xs text-muted-foreground">{t.common.endsWith}</Label>
-                  <Input id="ew" value={endsWith} onChange={(e) => setEndsWith(e.target.value)} className="h-9 glass-soft border-white/10 search-amber uppercase" placeholder="ed" maxLength={6} />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="mi" className="text-xs text-muted-foreground">{t.common.mustInclude}</Label>
-                  <Input id="mi" value={mustInclude} onChange={(e) => setMustInclude(e.target.value)} className="h-9 glass-soft border-white/10 search-amber uppercase" placeholder="cat" maxLength={8} />
-                </div>
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
+            </div>
+          )}
 
           <div className="mt-5">
             <ActionButtons

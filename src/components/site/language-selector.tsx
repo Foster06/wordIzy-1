@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LANGUAGE_LIST, type LanguageCode } from "@/lib/languages";
 import { useLanguage } from "@/components/i18n/language-provider";
+import { useMounted } from "@/components/site/use-mounted";
 import { cn } from "@/lib/utils";
 
 const LANG_CODES: Record<string, string> = {
@@ -21,6 +22,7 @@ const LANG_CODES: Record<string, string> = {
 
 export function LanguageSelector({ compact = false, className }: { compact?: boolean; className?: string }) {
   const { lang, setLang, t } = useLanguage();
+  const mounted = useMounted();
   const current = LANGUAGE_LIST.find((l) => l.code === lang) ?? LANGUAGE_LIST[0];
   const code = LANG_CODES[current.code] ?? current.code.toUpperCase();
 
@@ -28,6 +30,33 @@ export function LanguageSelector({ compact = false, className }: { compact?: boo
     e.preventDefault();
     setLang(code);
   };
+
+  const triggerContent = (
+    <>
+      <Globe className="h-4 w-4 text-brand" />
+      <span className="text-base leading-none">{current.flag}</span>
+      <span className="text-xs font-bold uppercase tracking-wider text-brand">{code}</span>
+    </>
+  );
+
+  // Before mount: render a plain button (no Radix) to avoid useId hydration mismatch
+  if (!mounted) {
+    return (
+      <Button
+        variant="ghost"
+        size="sm"
+        className={cn(
+          "gap-1.5 rounded-full glass-soft hover:bg-white/10 text-foreground",
+          compact && "px-2",
+          className
+        )}
+        aria-label={t.common.languageLabel}
+        disabled
+      >
+        {triggerContent}
+      </Button>
+    );
+  }
 
   return (
     <DropdownMenu>
@@ -42,9 +71,7 @@ export function LanguageSelector({ compact = false, className }: { compact?: boo
           )}
           aria-label={t.common.languageLabel}
         >
-          <Globe className="h-4 w-4 text-brand" />
-          <span className="text-base leading-none">{current.flag}</span>
-          <span className="text-xs font-bold uppercase tracking-wider text-brand">{code}</span>
+          {triggerContent}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56 glass-strong border-white/10">
@@ -68,4 +95,3 @@ export function LanguageSelector({ compact = false, className }: { compact?: boo
     </DropdownMenu>
   );
 }
-

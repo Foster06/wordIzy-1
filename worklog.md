@@ -540,3 +540,37 @@ Work Log:
 
 Stage Summary:
 - All 8 non-English languages now have professional, structured about: and privacy: blocks matching the English format. The translations.ts file lints clean and type-checks clean. No URLs, emails, dictionary names, or universal terms (GDPR/CCPA/PWA) were altered.
+
+---
+Task ID: privacy-3rdparty-update
+Agent: subagent (general-purpose)
+Task: Update privacy 3rd-party sections for 8 non-English languages to match English format change
+
+Work Log:
+- The English privacy block in `/home/z/my-project/src/components/i18n/translations.ts` had already been updated by the main agent: the "Third-Party Services" section was removed from `sections[]` and a new `thirdPartyServices[]` array was added (3 services: Google AdSense, Turso, Google Fonts — NO Resend). The TypeScript type definition at line 62-67 already included `thirdPartyServices: { name: string; description: string; url: string }[]`.
+- Updated the 8 non-English privacy blocks to mirror this new format. For each language (fr, es, de, it, pt, nl, ja, zh) two edits were applied via MultiEdit:
+  1. REMOVED the "Third-Party Services" section line entirely from the `sections[]` array (the section that listed Google AdSense, Turso, Resend, Google Fonts in body text).
+  2. ADDED a new `thirdPartyServices` array right after the closing `],` of `sections[]` and before the closing `},` of the privacy block, with 3 services (Google AdSense, Turso, Google Fonts) — NO Resend.
+- Translated the `description` field for each service into the local language. Brand names ("Google AdSense", "Turso", "Google Fonts") kept as-is per instructions. URLs kept unchanged:
+  - https://policies.google.com/technologies/ads
+  - https://turso.tech/privacy
+  - https://policies.google.com/fonts
+- Formatting matches the English reference: 2-space indent for `thirdPartyServices: [`, 4-space for `{`, 6-space for fields (`name`, `description`, `url`), 4-space for `},`, 2-space for `],`.
+- Languages updated (final line numbers of new thirdPartyServices arrays):
+  - French (fr): line 446
+  - Spanish (es): line 629
+  - German (de): line 812
+  - Italian (it): line 995
+  - Portuguese (pt): line 1178
+  - Dutch (nl): line 1361
+  - Japanese (ja): line 1547
+  - Chinese (zh): line 1733
+- Verifications:
+  - Grep for "Resend" / "resend" → 0 matches in file (all references removed).
+  - Grep for `thirdPartyServices` → 10 matches (1 type definition + 9 languages including English). Correct.
+  - Grep for the old section headings ("Services tiers", "Servicios de terceros", "Drittanbieter-Dienste", "Servizi di terze parti", "Serviços de terceiros", "Diensten van derden", "サードパーティサービス", "第三方服务") → 0 matches (all old sections removed).
+  - Each non-English `sections[]` array now contains 7 sections (was 8): Data We Collect, Anonymous Search Analytics, How We Process Your Input, Contact Form Submissions, Cookies & Advertising, Your Rights (GDPR & CCPA), Contact — matching English.
+- File grew from 1707 → 1835 lines (+128 lines, exactly 16 new lines × 8 languages = +128; each thirdPartyServices array block contributes 16 new lines and removes 1 line, net +15 per language, but the Services section line was 1 long line; 8 × 16 = 128).
+
+Stage Summary:
+- `bun run lint` → clean (no errors, exit 0). All 8 non-English languages now use the new `thirdPartyServices[]` array format matching the English block. Resend is fully removed from the privacy policy across all 9 languages. Translations preserve the meaning of the English descriptions while using natural, formal register appropriate to each locale.
