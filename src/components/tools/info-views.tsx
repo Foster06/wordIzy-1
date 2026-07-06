@@ -21,7 +21,24 @@ export function AboutView() {
       <PageHeader badge={t.nav.about} title={t.about.title} icon={<Info className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
         <GlassCard className="p-6 sm:p-8">
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{t.about.body}</p>
+          {/* Intro — larger, prominent lead paragraph */}
+          <p className="text-base sm:text-lg text-foreground/90 leading-relaxed mb-6 max-w-3xl mx-auto">
+            {t.about.intro}
+          </p>
+          {/* Sections with headings */}
+          <div className="space-y-6 max-w-3xl mx-auto">
+            {t.about.sections.map((section, i) => (
+              <div key={i}>
+                <h2 className="text-base sm:text-lg font-semibold text-brand mb-2 flex items-center gap-2">
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand shrink-0" />
+                  {section.heading}
+                </h2>
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed whitespace-pre-line">
+                  {section.body}
+                </p>
+              </div>
+            ))}
+          </div>
         </GlassCard>
         <AdSlot format="horizontal" />
       </div>
@@ -162,7 +179,26 @@ export function PrivacyView() {
       <PageHeader badge={t.nav.privacy} title={t.privacy.title} icon={<Shield className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
         <GlassCard className="p-6 sm:p-8">
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{t.privacy.body}</p>
+          {/* Intro — larger, prominent lead paragraph */}
+          <p className="text-base sm:text-lg text-foreground/90 leading-relaxed mb-4 max-w-3xl mx-auto">
+            {t.privacy.intro}
+          </p>
+          {/* Last updated badge */}
+          <p className="text-xs text-muted-foreground/70 mb-6 max-w-3xl mx-auto">{t.privacy.lastUpdated}</p>
+          {/* Sections with headings */}
+          <div className="space-y-6 max-w-3xl mx-auto">
+            {t.privacy.sections.map((section, i) => (
+              <div key={i}>
+                <h2 className="text-base sm:text-lg font-semibold text-brand mb-2 flex items-center gap-2">
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand shrink-0" />
+                  {section.heading}
+                </h2>
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed whitespace-pre-line">
+                  {section.body}
+                </p>
+              </div>
+            ))}
+          </div>
         </GlassCard>
         <AdSlot format="horizontal" />
       </div>

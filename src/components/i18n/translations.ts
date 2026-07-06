@@ -40,7 +40,11 @@ export type Translation = {
     title: string; subtitle: string; allWords: string; startsBy: string; endsBy: string;
     letter: string; selectLength: string; selectLetter: string; browse: string;
   };
-  about: { title: string; body: string };
+  about: {
+    title: string;
+    intro: string;
+    sections: { heading: string; body: string }[];
+  };
   contact: {
     title: string;
     body: string;
@@ -55,7 +59,12 @@ export type Translation = {
     another: string;
     note: string;
   };
-  privacy: { title: string; body: string };
+  privacy: {
+    title: string;
+    intro: string;
+    lastUpdated: string;
+    sections: { heading: string; body: string }[];
+  };
   sitemap: { title: string; body: string };
   footer: { rights: string; madeWith: string; links: string; desc: string };
   faq: {
@@ -139,7 +148,41 @@ const en: Translation = {
   },
   about: {
     title: "About WordIzy",
-    body: "WordIzy is a free, privacy-friendly suite of word tools: unscrambler, anagram solver, Wordle & Quordle solvers, Scrabble and Wordfeud helpers, random word generator, dictionary checker and browsable word lists — all in 9 languages. No account, no data collection, no tracking. Just words.",
+    intro: "WordIzy is a free, privacy-first word puzzle platform built for word game enthusiasts, students, and language lovers worldwide. Our mission is simple: provide fast, accurate, and ad-supported word tools that respect your privacy — no account required, no personal data collected.",
+    sections: [
+      {
+        heading: "Our Mission",
+        body: "We believe word tools should be instant, accurate, and accessible to everyone. Whether you are stuck on a Wordle puzzle, looking for the best Scrabble play, or exploring a new language, WordIzy gives you the answers without friction, sign-ups, or paywalls.",
+      },
+      {
+        heading: "What We Offer",
+        body: "WordIzy includes twelve dedicated tools: a Word Unscrambler, Scramble Solver, Anagram Solver, Scrabble Duplicate helper, Wordle Solver, Quordle Solver, Wordfeud Helper, Random Word Generator, Dictionary Checker, Word Lists, Word Starts By, and Word Ends By. Every tool runs entirely in your browser — results appear the moment you submit your letters.",
+      },
+      {
+        heading: "Official Scrabble Dictionaries",
+        body: "We use authoritative tournament word lists as our primary source: NWL2023 and CSW21 for English, ODS9 for French, FISE for Spanish, Zingarelli for Italian, OpenTaal for Dutch, and curated Scrabble-filtered lists for German and Portuguese. This means the words you find here are the same ones accepted in official Scrabble competition play.",
+      },
+      {
+        heading: "Nine Languages Supported",
+        body: "WordIzy operates in English, French, Spanish, Italian, Portuguese, German, Dutch, Japanese (romaji), and Mandarin Chinese (pinyin). Switch languages at any time using the selector in the navigation bar — the entire interface, the FAQ tips, and the underlying dictionary change instantly.",
+      },
+      {
+        heading: "Smart Features",
+        body: "Copy any word list to your clipboard with one click. Your recent searches are saved locally for quick re-running. Loading skeletons give you a smooth experience while dictionaries warm up. And the entire site is a Progressive Web App — install it on your phone or desktop for full-screen, app-like access.",
+      },
+      {
+        heading: "Privacy by Design",
+        body: "No accounts. No cross-site tracking. No fingerprinting. Every query is processed server-side using dictionaries held in memory. We collect only anonymous search analytics (the query string, tool used, and result count — no IP address, no user ID) to help us improve. A cookie consent banner appears on your first visit, and you can manage cookies in your browser settings at any time.",
+      },
+      {
+        heading: "Themes & Accessibility",
+        body: "Choose between Light, Dark, or System theme — the toggle cycles through all three with a single click. The interface uses semantic HTML, ARIA labels for screen readers, and keyboard-friendly navigation throughout. Active navigation items are marked with aria-current for assistive technology.",
+      },
+      {
+        heading: "Get in Touch",
+        body: "Found a bug, have a suggestion, or want to request a new feature? Visit our Contact page and send us a message directly — we read every submission and respond to as many as we can. Your message is stored securely and never shared with third parties.",
+      },
+    ],
   },
   contact: {
     title: "Contact",
@@ -155,7 +198,45 @@ const en: Translation = {
     another: "Send another",
     note: "Your message is sent directly to our inbox — you stay right here on the site.",
   },
-  privacy: { title: "Privacy Policy", body: "WordIzy does not require an account and does not collect personal data. All solving happens server-side using dictionaries kept in memory; nothing you type is permanently stored. Google AdSense may use cookies to serve ads; you can manage this in your browser settings." },
+  privacy: {
+    title: "Privacy Policy",
+    intro: "Your privacy is fundamental to how WordIzy operates. This policy explains, in plain language, what data we process, why we process it, and the choices you have. We are committed to full transparency and compliance with the GDPR (EU) and CCPA (California).",
+    lastUpdated: "Last updated: July 2026",
+    sections: [
+      {
+        heading: "Data We Collect",
+        body: "WordIzy does not require an account and does not collect personal data such as your name, email, or browsing history (except when you voluntarily submit the contact form — see below). We do not use fingerprinting, third-party tracking pixels, or cross-site tracking. The only information we process is what you actively type into our tools, plus anonymous usage statistics (see below).",
+      },
+      {
+        heading: "Anonymous Search Analytics",
+        body: "When you perform a search, we anonymously record the query string, the tool you used, your selected language, and the number of results returned. No IP address, no user ID, no browser fingerprint, and no personal information is stored with this data. This helps us understand which searches are popular and identify content gaps. You cannot be identified from this data.",
+      },
+      {
+        heading: "How We Process Your Input",
+        body: "Every query — letters to unscramble, a Wordle pattern, a dictionary word to check — is processed server-side using dictionaries held in memory. Your input is used solely to generate results and is discarded immediately after the response is sent. The search terms themselves are stored anonymously in our analytics (see above) but are not linked to you in any way.",
+      },
+      {
+        heading: "Contact Form Submissions",
+        body: "When you submit the contact form, your name, email address, and message are stored in our database so that we can read and respond to your inquiry. This data is only accessible to the site owner and is never shared with third parties. You may request deletion of your submission at any time by emailing info.wordizy@proton.me. To prevent spam, contact form submissions are rate-limited to 5 per hour per IP address.",
+      },
+      {
+        heading: "Third-Party Services",
+        body: "WordIzy uses the following third-party services, each with their own privacy policies that we encourage you to review:\n\n• Google AdSense (https://policies.google.com/technologies/ads) — serves advertisements. AdSense may use cookies to display relevant ads and measure performance. You can opt out of personalised advertising at https://www.google.com/settings/ads.\n\n• Turso (https://turso.tech/privacy) — hosts our SQLite database that stores contact form submissions and anonymous search analytics. Data is stored on Turso's servers.\n\n• Resend (https://resend.com/privacy) — optionally used to send email notifications to the site owner when a contact form is submitted. Your email address may be included in the notification as the reply-to address. Resend does not store your message content beyond delivery.\n\n• Google Fonts (https://policies.google.com/fonts) — serves the Inter, Bree Serif, and Roboto Slab fonts used on this site. Google may log the request for your IP address temporarily.\n\nWe do not sell, rent, or share your data with any other third parties.",
+      },
+      {
+        heading: "Cookies & Advertising",
+        body: "WordIzy displays ads through Google AdSense to keep the service free. AdSense may use cookies to serve relevant ads and measure ad performance. A cookie consent banner appears on your first visit, allowing you to accept or decline. You can manage or disable cookies in your browser settings, and opt out of personalised advertising via Google's Ads Settings (https://www.google.com/settings/ads). We do not set any first-party tracking cookies ourselves — only a single preference cookie to remember your consent choice and your selected language and theme.",
+      },
+      {
+        heading: "Your Rights (GDPR & CCPA)",
+        body: "Because we do not create accounts or link analytics to individuals, there is no personal profile associated with you. You are not tracked across visits. If you have submitted a contact form message and wish to have it deleted, contact us at info.wordizy@proton.me and we will remove it promptly. Under the GDPR (EU residents) you have the right to access, rectify, or erase any personal data we hold about you. Under the CCPA (California residents) you have the right to know what personal information is collected, request deletion, and opt out of the sale of personal information — we do not sell your information.",
+      },
+      {
+        heading: "Contact",
+        body: "Questions about this policy? Email us at info.wordizy@proton.me and we will be happy to help. You can also use the Contact form on this site to send us a message directly.",
+      },
+    ],
+  },
   sitemap: { title: "Sitemap", body: "All pages on WordIzy." },
   footer: { rights: "All rights reserved.", madeWith: "Built for word lovers.", links: "Quick links", desc: "Free word unscrambler, anagram & puzzle solvers in 9 languages. No sign-up." },
   faq: {
@@ -307,7 +388,20 @@ const fr: Translation = {
     title: "Listes de Mots", subtitle: "Parcourez tous les mots de 2 à 7 lettres. Choisissez une vue, une longueur et une lettre pour explorer le dictionnaire de A à Z.",
     allWords: "Tous les mots", startsBy: "Commence par A–Z", endsBy: "Finit par A–Z", letter: "Lettre", selectLength: "Longueur", selectLetter: "Lettre", browse: "Parcourir",
   },
-  about: { title: "À propos de WordIzy", body: "WordIzy est une suite gratuite et respectueuse de la vie privée d'outils liés aux mots : anagrammeur, solveur d'anagrammes, solveurs Wordle & Quordle, aides Scrabble et Wordfeud, générateur de mots aléatoires, vérificateur de dictionnaire et listes de mots navigables — en 9 langues. Pas de compte, pas de collecte de données, pas de suivi." },
+  about: {
+    title: "À propos de WordIzy",
+    intro: "WordIzy est une plateforme gratuite de jeux de mots axée sur la confidentialité, conçue pour les amateurs de jeux de mots, les étudiants et les passionnés de langues du monde entier. Notre mission est simple : fournir des outils linguistiques rapides, précis et financés par la publicité qui respectent votre vie privée — aucun compte requis, aucune donnée personnelle collectée.",
+    sections: [
+      { heading: "Notre mission", body: "Nous pensons que les outils linguistiques doivent être instantanés, précis et accessibles à tous. Que vous soyez bloqué sur une énigme Wordle, à la recherche du meilleur coup au Scrabble, ou en train d'explorer une nouvelle langue, WordIzy vous donne les réponses sans friction, sans inscription et sans paywall." },
+      { heading: "Ce que nous offrons", body: "WordIzy comprend douze outils dédiés : un Désordre de mots, un Solveur de brouillage, un Solveur d'anagrammes, un Aide au Scrabble Duplicate, un Solveur Wordle, un Solveur Quordle, un Aide Wordfeud, un Générateur de mots aléatoires, un Vérificateur de dictionnaire, des Listes de mots, des Mots commençant par et des Mots finissant par. Chaque outil s'exécute entièrement dans votre navigateur — les résultats apparaissent dès que vous soumettez vos lettres." },
+      { heading: "Dictionnaires officiels de Scrabble", body: "Nous utilisons des listes de mots de tournoi faisant autorité comme source principale : NWL2023 et CSW21 pour l'anglais, ODS9 pour le français, FISE pour l'espagnol, Zingarelli pour l'italien, OpenTaal pour le néerlandais, et des listes filtrées Scrabble soigneusement sélectionnées pour l'allemand et le portugais. Cela signifie que les mots que vous trouvez ici sont les mêmes que ceux acceptés lors des compétitions officielles de Scrabble." },
+      { heading: "Neuf langues prises en charge", body: "WordIzy fonctionne en anglais, français, espagnol, italien, portugais, allemand, néerlandais, japonais (romaji) et chinois mandarin (pinyin). Changez de langue à tout moment à l'aide du sélecteur dans la barre de navigation — toute l'interface, les astuces de la FAQ et le dictionnaire sous-jacent changent instantanément." },
+      { heading: "Fonctionnalités intelligentes", body: "Copiez n'importe quelle liste de mots dans votre presse-papiers en un seul clic. Vos recherches récentes sont enregistrées localement pour une réutilisation rapide. Les squelettes de chargement offrent une expérience fluide pendant le chargement des dictionnaires. Et l'ensemble du site est une Progressive Web App — installez-la sur votre téléphone ou votre ordinateur pour un accès plein écran, semblable à une application." },
+      { heading: "Confidentialité par conception", body: "Pas de comptes. Pas de suivi intersites. Pas d'empreinte numérique. Chaque requête est traitée côté serveur à l'aide de dictionnaires conservés en mémoire. Nous collectons uniquement des statistiques de recherche anonymes (la chaîne de requête, l'outil utilisé et le nombre de résultats — pas d'adresse IP, pas d'identifiant utilisateur) pour nous aider à nous améliorer. Une bannière de consentement aux cookies apparaît lors de votre première visite, et vous pouvez gérer les cookies dans les paramètres de votre navigateur à tout moment." },
+      { heading: "Thèmes et accessibilité", body: "Choisissez entre les thèmes Clair, Sombre ou Système — la commande parcourt les trois en un seul clic. L'interface utilise du HTML sémantique, des libellés ARIA pour les lecteurs d'écran et une navigation conviviale au clavier partout. Les éléments de navigation actifs sont marqués avec aria-current pour les technologies d'assistance." },
+      { heading: "Contactez-nous", body: "Vous avez trouvé un bug, avez une suggestion ou souhaitez demander une nouvelle fonctionnalité ? Visitez notre page Contact et envoyez-nous un message directement — nous lisons chaque soumission et répondons à autant que possible. Votre message est stocké en toute sécurité et n'est jamais partagé avec des tiers." },
+    ],
+  },
   contact: {
     title: "Contact",
     body: "Une suggestion ou un bug ? Envoyez-nous un message.",
@@ -322,7 +416,21 @@ const fr: Translation = {
     another: "Envoyer un autre message",
     note: "Votre message est envoyé directement dans notre boîte de réception — vous restez sur le site.",
   },
-  privacy: { title: "Politique de confidentialité", body: "WordIzy ne nécessite pas de compte et ne collecte pas de données personnelles. Toute la résolution se fait côté serveur avec des dictionnaires en mémoire ; rien de ce que vous tapez n'est stocké. Google AdSense peut utiliser des cookies pour diffuser des annonces ; gérez-le dans les réglages de votre navigateur." },
+  privacy: {
+    title: "Politique de confidentialité",
+    intro: "Votre vie privée est fondamentale pour le fonctionnement de WordIzy. Cette politique explique, en termes clairs, quelles données nous traitons, pourquoi nous les traitons et les choix dont vous disposez. Nous nous engageons à une transparence totale et à la conformité au GDPR (UE) et au CCPA (Californie).",
+    lastUpdated: "Dernière mise à jour : juillet 2026",
+    sections: [
+      { heading: "Données que nous collectons", body: "WordIzy ne nécessite pas de compte et ne collecte pas de données personnelles telles que votre nom, votre e-mail ou votre historique de navigation (sauf lorsque vous soumettez volontairement le formulaire de contact — voir ci-dessous). Nous n'utilisons pas d'empreinte numérique, de pixels de suivi tiers ou de suivi intersites. Les seules informations que nous traitons sont ce que vous tapez activement dans nos outils, plus des statistiques d'utilisation anonymes (voir ci-dessous)." },
+      { heading: "Statistiques de recherche anonymes", body: "Lorsque vous effectuez une recherche, nous enregistrons de manière anonyme la chaîne de requête, l'outil que vous avez utilisé, la langue sélectionnée et le nombre de résultats renvoyés. Aucune adresse IP, aucun identifiant utilisateur, aucune empreinte de navigateur et aucune information personnelle ne sont stockés avec ces données. Cela nous aide à comprendre quelles recherches sont populaires et à identifier les lacunes de contenu. Vous ne pouvez pas être identifié à partir de ces données." },
+      { heading: "Comment nous traitons vos saisies", body: "Chaque requête — lettres à désordonner, un motif Wordle, un mot de dictionnaire à vérifier — est traitée côté serveur à l'aide de dictionnaires conservés en mémoire. Votre saisie est utilisée uniquement pour générer des résultats et est immédiatement supprimée après l'envoi de la réponse. Les termes de recherche eux-mêmes sont stockés de manière anonyme dans nos statistiques (voir ci-dessus) mais ne vous sont en aucun cas liés." },
+      { heading: "Soumissions de formulaire de contact", body: "Lorsque vous soumettez le formulaire de contact, votre nom, votre adresse e-mail et votre message sont stockés dans notre base de données afin que nous puissions lire et répondre à votre demande. Ces données sont uniquement accessibles au propriétaire du site et ne sont jamais partagées avec des tiers. Vous pouvez demander la suppression de votre soumission à tout moment en écrivant à info.wordizy@proton.me. Pour éviter le spam, les soumissions du formulaire de contact sont limitées à 5 par heure et par adresse IP." },
+      { heading: "Services tiers", body: "WordIzy utilise les services tiers suivants, chacun ayant sa propre politique de confidentialité que nous vous encourageons à consulter :\n\n• Google AdSense (https://policies.google.com/technologies/ads) — diffuse des publicités. AdSense peut utiliser des cookies pour afficher des annonces pertinentes et mesurer les performances. Vous pouvez désactiver la publicité personnalisée sur https://www.google.com/settings/ads.\n\n• Turso (https://turso.tech/privacy) — héberge notre base de données SQLite qui stocke les soumissions du formulaire de contact et les statistiques de recherche anonymes. Les données sont stockées sur les serveurs de Turso.\n\n• Resend (https://resend.com/privacy) — utilisé en option pour envoyer des notifications par e-mail au propriétaire du site lorsqu'un formulaire de contact est soumis. Votre adresse e-mail peut être incluse dans la notification comme adresse de réponse. Resend ne stocke pas le contenu de votre message au-delà de la livraison.\n\n• Google Fonts (https://policies.google.com/fonts) — diffuse les polices Inter, Bree Serif et Roboto Slab utilisées sur ce site. Google peut enregistrer temporairement la demande de votre adresse IP.\n\nNous ne vendons, ne louons et ne partageons pas vos données avec d'autres tiers." },
+      { heading: "Cookies et publicité", body: "WordIzy affiche des annonces via Google AdSense pour rester gratuit. AdSense peut utiliser des cookies pour diffuser des annonces pertinentes et mesurer les performances publicitaires. Une bannière de consentement aux cookies apparaît lors de votre première visite, vous permettant d'accepter ou de refuser. Vous pouvez gérer ou désactiver les cookies dans les paramètres de votre navigateur, et désactiver la publicité personnalisée via les paramètres publicitaires de Google (https://www.google.com/settings/ads). Nous ne définissons aucun cookie de suivi propriétaire nous-mêmes — seulement un cookie de préférence unique pour mémoriser votre choix de consentement ainsi que la langue et le thème sélectionnés." },
+      { heading: "Vos droits (GDPR et CCPA)", body: "Comme nous ne créons pas de comptes et ne relions pas les statistiques à des individus, aucun profil personnel n'est associé à vous. Vous n'êtes pas suivi d'une visite à l'autre. Si vous avez soumis un message via le formulaire de contact et souhaitez le faire supprimer, contactez-nous à info.wordizy@proton.me et nous le supprimerons rapidement. Dans le cadre du GDPR (résidents de l'UE), vous avez le droit d'accéder, de rectifier ou d'effacer toutes les données personnelles que nous détenons à votre sujet. Dans le cadre du CCPA (résidents de Californie), vous avez le droit de savoir quelles informations personnelles sont collectées, d'en demander la suppression et de vous opposer à la vente d'informations personnelles — nous ne vendons pas vos informations." },
+      { heading: "Contact", body: "Des questions sur cette politique ? Écrivez-nous à info.wordizy@proton.me et nous serons ravis de vous aider. Vous pouvez également utiliser le formulaire de Contact sur ce site pour nous envoyer un message directement." },
+    ],
+  },
   sitemap: { title: "Plan du site", body: "Toutes les pages de WordIzy." },
   footer: { rights: "Tous droits réservés.", madeWith: "Conçu pour les amoureux des mots.", links: "Liens rapides", desc: "Anagrammeur et solveurs de puzzles gratuits en 9 langues. Sans inscription." },
   faq: {
@@ -447,7 +555,20 @@ const es: Translation = {
   dictionary: { title: "Ver Diccionario", subtitle: "Comprueba si una palabra existe en el diccionario, mira su puntuación Scrabble y lee una definición.", btn: "Comprobar", exists: "es una palabra válida", notExists: "no se encontró en el diccionario", definition: "Definición", score: "Puntuación Scrabble", tiles: "Fichas" },
   scrabble: { title: "Scrabble Duplicate", subtitle: "El Scrabble duplicate da el mismo atril a todos. Introduce tus 7 letras (y las del tablero) y encuentra las mejores jugadas.", rack: "Tu atril", board: "Letras del tablero (opcional)", btn: "Buscar mejores palabras", hint: "Comodines permitidos. Resultados por puntuación." },
   wordlists: { title: "Listas de Palabras", subtitle: "Explora todas las palabras de 2 a 7 letras. Elige vista, longitud y letra para navegar A–Z.", allWords: "Todas las palabras", startsBy: "Empieza por A–Z", endsBy: "Termina en A–Z", letter: "Letra", selectLength: "Longitud", selectLetter: "Letra", browse: "Explorar" },
-  about: { title: "Acerca de WordIzy", body: "WordIzy es una suite gratuita y respetuosa con la privacidad de herramientas de palabras: desordenador, sol. de anagramas, Wordle y Quordle, ayudas Scrabble y Wordfeud, generador aleatorio, verificador de diccionario y listas navegables — en 9 idiomas. Sin cuenta, sin recogida de datos, sin rastreo." },
+  about: {
+    title: "Acerca de WordIzy",
+    intro: "WordIzy es una plataforma gratuita de juegos de palabras centrada en la privacidad, creada para entusiastas de los juegos de palabras, estudiantes y amantes de los idiomas en todo el mundo. Nuestra misión es sencilla: ofrecer herramientas lingüísticas rápidas, precisas y financiadas con publicidad que respeten su privacidad — sin cuenta requerida, sin recopilación de datos personales.",
+    sections: [
+      { heading: "Nuestra misión", body: "Creemos que las herramientas de palabras deben ser instantáneas, precisas y accesibles para todos. Ya sea que esté atascado en un acertijo de Wordle, buscando la mejor jugada de Scrabble o explorando un nuevo idioma, WordIzy le da las respuestas sin fricciones, sin registros ni muros de pago." },
+      { heading: "Lo que ofrecemos", body: "WordIzy incluye doce herramientas dedicadas: un Descodificador de palabras, un Solucionador de mezclas, un Solucionador de anagramas, un Ayudante de Scrabble Duplicate, un Solucionador de Wordle, un Solucionador de Quordle, un Ayudante de Wordfeud, un Generador de palabras aleatorias, un Comprobador de diccionario, Listas de palabras, Palabras que empiezan por y Palabras que terminan en. Cada herramienta se ejecuta completamente en su navegador — los resultados aparecen en el momento en que envía sus letras." },
+      { heading: "Diccionarios oficiales de Scrabble", body: "Utilizamos listas de palabras de torneo oficiales como fuente principal: NWL2023 y CSW21 para inglés, ODS9 para francés, FISE para español, Zingarelli para italiano, OpenTaal para neerlandés, y listas filtradas para Scrabble cuidadosamente seleccionadas para alemán y portugués. Esto significa que las palabras que encuentre aquí son las mismas que se aceptan en las competiciones oficiales de Scrabble." },
+      { heading: "Nueve idiomas disponibles", body: "WordIzy funciona en inglés, francés, español, italiano, portugués, alemán, neerlandés, japonés (romaji) y chino mandarín (pinyin). Cambie de idioma en cualquier momento usando el selector de la barra de navegación — toda la interfaz, las sugerencias de las preguntas frecuentes y el diccionario subyacente cambian al instante." },
+      { heading: "Funciones inteligentes", body: "Copie cualquier lista de palabras al portapapeles con un solo clic. Sus búsquedas recientes se guardan localmente para volver a ejecutarlas rápidamente. Los esqueletos de carga ofrecen una experiencia fluida mientras se cargan los diccionarios. Y todo el sitio es una Progressive Web App — instálela en su teléfono o escritorio para un acceso a pantalla completa, como una aplicación." },
+      { heading: "Privacidad por diseño", body: "Sin cuentas. Sin rastreo entre sitios. Sin huella digital. Cada consulta se procesa en el servidor usando diccionarios en memoria. Solo recopilamos estadísticas de búsqueda anónimas (la cadena de consulta, la herramienta utilizada y el número de resultados — sin dirección IP, sin identificador de usuario) para ayudarnos a mejorar. Aparece un banner de consentimiento de cookies en su primera visita, y puede gestionar las cookies en la configuración de su navegador en cualquier momento." },
+      { heading: "Temas y accesibilidad", body: "Elija entre el tema Claro, Oscuro o del Sistema — el conmutador recorre los tres con un solo clic. La interfaz utiliza HTML semántico, etiquetas ARIA para lectores de pantalla y navegación amigable con el teclado en toda la aplicación. Los elementos de navegación activos se marcan con aria-current para la tecnología de asistencia." },
+      { heading: "Póngase en contacto", body: "¿Ha encontrado un error, tiene una sugerencia o desea solicitar una nueva función? Visite nuestra página de Contacto y envíenos un mensaje directamente — leemos todos los envíos y respondemos a tantos como podemos. Su mensaje se almacena de forma segura y nunca se comparte con terceros." },
+    ],
+  },
   contact: {
     title: "Contacto",
     body: "¿Sugerencia o error? Envíanos un mensaje.",
@@ -462,7 +583,21 @@ const es: Translation = {
     another: "Enviar otro",
     note: "Tu mensaje se envía directamente a nuestra bandeja de entrada — te quedas en el sitio.",
   },
-  privacy: { title: "Política de privacidad", body: "WordIzy no requiere cuenta ni recoge datos personales. Toda la resolución ocurre en el servidor con diccionarios en memoria; nada de lo que escribes se almacena. Google AdSense puede usar cookies para anuncios; gestiónalo en tu navegador." },
+  privacy: {
+    title: "Política de privacidad",
+    intro: "Su privacidad es fundamental para el funcionamiento de WordIzy. Esta política explica, en lenguaje claro, qué datos procesamos, por qué los procesamos y qué opciones tiene. Nos comprometemos con la total transparencia y el cumplimiento del GDPR (UE) y del CCPA (California).",
+    lastUpdated: "Última actualización: julio de 2026",
+    sections: [
+      { heading: "Datos que recopilamos", body: "WordIzy no requiere cuenta y no recopila datos personales como su nombre, correo electrónico o historial de navegación (excepto cuando envía voluntariamente el formulario de contacto — ver más abajo). No utilizamos huellas digitales, píxeles de seguimiento de terceros ni rastreo entre sitios. La única información que procesamos es lo que escribe activamente en nuestras herramientas, además de estadísticas de uso anónimas (ver más abajo)." },
+      { heading: "Estadísticas de búsqueda anónimas", body: "Cuando realiza una búsqueda, registramos de forma anónima la cadena de consulta, la herramienta que utilizó, el idioma seleccionado y el número de resultados devueltos. No se almacena ninguna dirección IP, ningún identificador de usuario, ninguna huella del navegador ni ninguna información personal con estos datos. Esto nos ayuda a entender qué búsquedas son populares e identificar lagunas de contenido. No se le puede identificar a partir de estos datos." },
+      { heading: "Cómo procesamos su entrada", body: "Cada consulta — letras para descodificar, un patrón de Wordle, una palabra del diccionario para comprobar — se procesa en el servidor utilizando diccionarios en memoria. Su entrada se usa únicamente para generar resultados y se descarta inmediatamente después de enviar la respuesta. Los propios términos de búsqueda se almacenan de forma anónima en nuestras estadísticas (ver más arriba) pero no se vinculan con usted de ninguna manera." },
+      { heading: "Envíos del formulario de contacto", body: "Cuando envía el formulario de contacto, su nombre, dirección de correo electrónico y mensaje se almacenan en nuestra base de datos para que podamos leer y responder a su consulta. Estos datos solo son accesibles para el propietario del sitio y nunca se comparten con terceros. Puede solicitar la eliminación de su envío en cualquier momento escribiendo a info.wordizy@proton.me. Para evitar el spam, los envíos del formulario de contacto están limitados a 5 por hora por dirección IP." },
+      { heading: "Servicios de terceros", body: "WordIzy utiliza los siguientes servicios de terceros, cada uno con sus propias políticas de privacidad que le recomendamos revisar:\n\n• Google AdSense (https://policies.google.com/technologies/ads) — muestra anuncios. AdSense puede usar cookies para mostrar anuncios relevantes y medir el rendimiento. Puede desactivar la publicidad personalizada en https://www.google.com/settings/ads.\n\n• Turso (https://turso.tech/privacy) — aloja nuestra base de datos SQLite que almacena los envíos del formulario de contacto y las estadísticas de búsqueda anónimas. Los datos se almacenan en los servidores de Turso.\n\n• Resend (https://resend.com/privacy) — se utiliza opcionalmente para enviar notificaciones por correo electrónico al propietario del sitio cuando se envía un formulario de contacto. Su dirección de correo electrónico puede incluirse en la notificación como dirección de respuesta. Resend no almacena el contenido de su mensaje más allá de la entrega.\n\n• Google Fonts (https://policies.google.com/fonts) — sirve las fuentes Inter, Bree Serif y Roboto Slab utilizadas en este sitio. Google puede registrar temporalmente la solicitud de su dirección IP.\n\nNo vendemos, alquilamos ni compartimos sus datos con ningún otro tercero." },
+      { heading: "Cookies y publicidad", body: "WordIzy muestra anuncios a través de Google AdSense para mantener el servicio gratuito. AdSense puede usar cookies para ofrecer anuncios relevantes y medir el rendimiento publicitario. Aparece un banner de consentimiento de cookies en su primera visita, lo que le permite aceptar o rechazar. Puede gestionar o desactivar las cookies en la configuración de su navegador, y desactivar la publicidad personalizada a través de la configuración de anuncios de Google (https://www.google.com/settings/ads). Nosotros no establecemos ninguna cookie de seguimiento propia — solo una cookie de preferencia única para recordar su elección de consentimiento y su idioma y tema seleccionados." },
+      { heading: "Sus derechos (GDPR y CCPA)", body: "Dado que no creamos cuentas ni vinculamos las estadísticas con individuos, no hay ningún perfil personal asociado a usted. No se le rastrea entre visitas. Si ha enviado un mensaje por el formulario de contacto y desea que se elimine, contáctenos en info.wordizy@proton.me y lo eliminaremos rápidamente. Conforme al GDPR (residentes de la UE), usted tiene derecho a acceder, rectificar o suprimir cualquier dato personal que tengamos sobre usted. Conforme al CCPA (residentes de California), usted tiene derecho a saber qué información personal se recopila, solicitar su eliminación y oponerse a la venta de información personal — no vendemos su información." },
+      { heading: "Contacto", body: "¿Tiene preguntas sobre esta política? Escríbanos a info.wordizy@proton.me y estaremos encantados de ayudarle. También puede usar el formulario de Contacto de este sitio para enviarnos un mensaje directamente." },
+    ],
+  },
   sitemap: { title: "Mapa del sitio", body: "Todas las páginas de WordIzy." },
   footer: { rights: "Todos los derechos reservados.", madeWith: "Hecho para amantes de las palabras.", links: "Enlaces rápidos", desc: "Desordenador y resolvedores gratuitos en 9 idiomas. Sin registro." },
   faq: {
@@ -587,7 +722,20 @@ const de: Translation = {
   dictionary: { title: "Wörterbuch prüfen", subtitle: "Prüfe, ob ein Wort existiert, sieh Scrabble-Punkte und eine Definition.", btn: "Prüfen", exists: "ist ein gültiges Wort", notExists: "nicht im Wörterbuch gefunden", definition: "Definition", score: "Scrabble-Punkte", tiles: "Buchstabensteine" },
   scrabble: { title: "Scrabble Duplicate", subtitle: "Duplicate gibt allen dasselbe Gestell. 7 Buchstaben (plus Brett-Buchstaben) eingeben und die besten Züge finden.", rack: "Dein Gestell", board: "Brett-Buchstaben (optional)", btn: "Beste Wörter finden", hint: "Platzhalter erlaubt. Nach Punkten sortiert." },
   wordlists: { title: "Wortlisten", subtitle: "Alle 2- bis 7-Buchstaben-Wörter durchsuchen. Ansicht, Länge und Buchstabe wählen, A–Z erkunden.", allWords: "Alle Wörter", startsBy: "Beginnt mit A–Z", endsBy: "Endet mit A–Z", letter: "Buchstabe", selectLength: "Länge", selectLetter: "Buchstabe", browse: "Durchsuchen" },
-  about: { title: "Über WordIzy", body: "WordIzy ist eine kostenlose, datenschutzfreundliche Werkzeugsammlung: Entwirker, Anagramm-Löser, Wordle- & Quordle-Löser, Scrabble- und Wordfeud-Hilfen, Zufallsgenerator, Wörterbuch-Prüfer und durchsuchbare Wortlisten — in 9 Sprachen. Kein Konto, keine Datenerfassung." },
+  about: {
+    title: "Über WordIzy",
+    intro: "WordIzy ist eine kostenlose, datenschutzorientierte Wortspiel-Plattform, die für Wortspiel-Enthusiasten, Studierende und Sprachliebhaber weltweit entwickelt wurde. Unsere Mission ist einfach: schnelle, präzise und werbefinanzierte Wortwerkzeuge anzubieten, die Ihre Privatsphäre respektieren — kein Konto erforderlich, keine persönlichen Daten erfasst.",
+    sections: [
+      { heading: "Unsere Mission", body: "Wir glauben, dass Wortwerkzeuge sofort, präzise und für jeden zugänglich sein sollten. Egal, ob Sie bei einem Wordle-Rätsel feststecken, nach dem besten Scrabble-Zug suchen oder eine neue Sprache erkunden — WordIzy gibt Ihnen die Antworten ohne Reibung, ohne Registrierung und ohne Bezahlschranken." },
+      { heading: "Was wir bieten", body: "WordIzy umfasst zwölf spezialisierte Werkzeuge: einen Wort-Entwirker, einen Scramble-Löser, einen Anagramm-Löser, einen Scrabble-Duplicate-Helfer, einen Wordle-Löser, einen Quordle-Löser, einen Wordfeud-Helfer, einen Zufallswort-Generator, eine Wörterbuch-Prüfung, Wortlisten, Wort-beginnt-mit und Wort-endet-mit. Jedes Werkzeug läuft vollständig in Ihrem Browser — die Ergebnisse erscheinen, sobald Sie Ihre Buchstaben absenden." },
+      { heading: "Offizielle Scrabble-Wörterbücher", body: "Wir verwenden autoritative Turnier-Wortlisten als Hauptquelle: NWL2023 und CSW21 für Englisch, ODS9 für Französisch, FISE für Spanisch, Zingarelli für Italienisch, OpenTaal für Niederländisch sowie kuratierte, nach Scrabble gefilterte Listen für Deutsch und Portugiesisch. Das bedeutet, dass die Wörter, die Sie hier finden, dieselben sind, die bei offiziellen Scrabble-Wettbewerben akzeptiert werden." },
+      { heading: "Neun Sprachen unterstützt", body: "WordIzy ist auf Englisch, Französisch, Spanisch, Italienisch, Portugiesisch, Deutsch, Niederländisch, Japanisch (Romaji) und Chinesisch (Mandarin, Pinyin) verfügbar. Wechseln Sie jederzeit die Sprache über die Auswahl in der Navigationsleiste — die gesamte Oberfläche, die FAQ-Tipps und das zugrunde liegende Wörterbuch ändern sich sofort." },
+      { heading: "Intelligente Funktionen", body: "Kopieren Sie jede Wortliste mit einem Klick in die Zwischenablage. Ihre letzten Suchen werden lokal gespeichert, um sie schnell erneut auszuführen. Lade-Skelette sorgen für ein reibungsloses Erlebnis, während die Wörterbücher laden. Und die gesamte Website ist eine Progressive Web App — installieren Sie sie auf Ihrem Telefon oder Desktop für den Vollbildzugriff wie eine App." },
+      { heading: "Privacy by Design", body: "Keine Konten. Kein seitenübergreifendes Tracking. Kein Fingerprinting. Jede Anfrage wird serverseitig mit Wörterbüchern im Arbeitsspeicher verarbeitet. Wir erfassen nur anonyme Suchstatistiken (die Suchanfrage, das verwendete Werkzeug und die Ergebnisanzahl — keine IP-Adresse, keine Benutzer-ID), um uns zu verbessern. Beim ersten Besuch wird ein Cookie-Zustimmungsbanner eingeblendet, und Sie können Cookies jederzeit in Ihren Browser-Einstellungen verwalten." },
+      { heading: "Themes & Barrierefreiheit", body: "Wählen Sie zwischen dem hellen, dunklen oder System-Theme — der Umschalter wechselt mit einem Klick durch alle drei. Die Oberfläche nutzt semantisches HTML, ARIA-Labels für Screenreader und durchgängig tastaturfreundliche Navigation. Aktive Navigationspunkte werden mit aria-current für Hilfstechnologien markiert." },
+      { heading: "Kontakt aufnehmen", body: "Einen Fehler gefunden, einen Vorschlag oder eine neue Funktion gewünscht? Besuchen Sie unsere Kontaktseite und senden Sie uns direkt eine Nachricht — wir lesen jede Einsendung und antworten auf so viele wie möglich. Ihre Nachricht wird sicher gespeichert und niemals an Dritte weitergegeben." },
+    ],
+  },
   contact: {
     title: "Kontakt",
     body: "Vorschlag oder Bug? Schreib uns.",
@@ -602,7 +750,21 @@ const de: Translation = {
     another: "Weitere senden",
     note: "Deine Nachricht geht direkt an unseren Posteingang — du bleibst auf der Website.",
   },
-  privacy: { title: "Datenschutzerklärung", body: "WordIzy benötigt kein Konto und erfasst keine personenbezogenen Daten. Die Lösung erfolgt serverseitig mit Wörterbüchern im Speicher; nichts wird gespeichert. Google AdSense kann Cookies nutzen; verwalte dies im Browser." },
+  privacy: {
+    title: "Datenschutzerklärung",
+    intro: "Ihre Privatsphäre ist grundlegend für die Funktionsweise von WordIzy. Diese Richtlinie erklärt in verständlicher Sprache, welche Daten wir verarbeiten, warum wir sie verarbeiten und welche Wahlmöglichkeiten Sie haben. Wir bekennen uns zu voller Transparenz und zur Einhaltung des GDPR (EU) und des CCPA (Kalifornien).",
+    lastUpdated: "Zuletzt aktualisiert: Juli 2026",
+    sections: [
+      { heading: "Daten, die wir erfassen", body: "WordIzy erfordert kein Konto und erfasst keine persönlichen Daten wie Ihren Namen, Ihre E-Mail oder Ihren Browserverlauf (außer wenn Sie freiwillig das Kontaktformular absenden — siehe unten). Wir verwenden kein Fingerprinting, keine Tracking-Pixel von Drittanbietern und kein seitenübergreifendes Tracking. Die einzigen Informationen, die wir verarbeiten, sind das, was Sie aktiv in unsere Werkzeuge eingeben, sowie anonyme Nutzungsstatistiken (siehe unten)." },
+      { heading: "Anonyme Suchanalysen", body: "Wenn Sie eine Suche durchführen, zeichnen wir anonym die Suchanfrage, das verwendete Werkzeug, die gewählte Sprache und die Anzahl der zurückgegebenen Ergebnisse auf. Es werden keine IP-Adresse, keine Benutzer-ID, kein Browser-Fingerprint und keine persönlichen Informationen mit diesen Daten gespeichert. Dies hilft uns zu verstehen, welche Suchen beliebt sind und Lücken im Inhalt zu erkennen. Sie können aus diesen Daten nicht identifiziert werden." },
+      { heading: "Wie wir Ihre Eingabe verarbeiten", body: "Jede Anfrage — zu entwirrende Buchstaben, ein Wordle-Muster, ein zu prüfendes Wörterbuchwort — wird serverseitig mit Wörterbüchern im Arbeitsspeicher verarbeitet. Ihre Eingabe wird ausschließlich zur Ergebniserzeugung verwendet und unmittelbar nach dem Senden der Antwort verworfen. Die Suchbegriffe selbst werden anonym in unseren Analysen gespeichert (siehe oben), aber in keiner Weise mit Ihnen verknüpft." },
+      { heading: "Kontaktformular-Einsendungen", body: "Wenn Sie das Kontaktformular absenden, werden Ihr Name, Ihre E-Mail-Adresse und Ihre Nachricht in unserer Datenbank gespeichert, damit wir Ihre Anfrage lesen und beantworten können. Diese Daten sind nur für den Websitebetreiber zugänglich und werden niemals an Dritte weitergegeben. Sie können die Löschung Ihrer Einsendung jederzeit per E-Mail an info.wordizy@proton.me anfordern. Um Spam zu verhindern, sind Kontaktformular-Einsendungen auf 5 pro Stunde und IP-Adresse begrenzt." },
+      { heading: "Drittanbieter-Dienste", body: "WordIzy nutzt die folgenden Drittanbieter-Dienste, die jeweils eigene Datenschutzrichtlinien haben, deren Lektüre wir empfehlen:\n\n• Google AdSense (https://policies.google.com/technologies/ads) — liefert Werbung. AdSense kann Cookies verwenden, um relevante Anzeigen einzublenden und die Leistung zu messen. Sie können personalisierte Werbung unter https://www.google.com/settings/ads deaktivieren.\n\n• Turso (https://turso.tech/privacy) — hostet unsere SQLite-Datenbank, die Kontaktformular-Einsendungen und anonyme Suchanalysen speichert. Daten werden auf den Servern von Turso gespeichert.\n\n• Resend (https://resend.com/privacy) — wird optional verwendet, um dem Websitebetreiber E-Mail-Benachrichtigungen zu senden, wenn ein Kontaktformular abgesendet wird. Ihre E-Mail-Adresse kann als Antwortadresse in die Benachrichtigung aufgenommen werden. Resend speichert Ihren Nachrichtinhalt nicht über die Zustellung hinaus.\n\n• Google Fonts (https://policies.google.com/fonts) — liefert die auf dieser Website verwendeten Schriftarten Inter, Bree Serif und Roboto Slab. Google kann die Anfrage Ihrer IP-Adresse vorübergehend protokollieren.\n\nWir verkaufen, vermieten oder teilen Ihre Daten nicht mit anderen Drittanbietern." },
+      { heading: "Cookies & Werbung", body: "WordIzy blendet Werbung über Google AdSense ein, um den Dienst kostenlos anzubieten. AdSense kann Cookies verwenden, um relevante Anzeigen zu liefern und die Anzeigenleistung zu messen. Beim ersten Besuch wird ein Cookie-Zustimmungsbanner eingeblendet, mit dem Sie zustimmen oder ablehnen können. Sie können Cookies in Ihren Browser-Einstellungen verwalten oder deaktivieren und personalisierte Werbung über die Anzeigeneinstellungen von Google (https://www.google.com/settings/ads) deaktivieren. Wir selbst setzen keine First-Party-Tracking-Cookies — sondern nur ein einziges Präferenz-Cookie, um Ihre Zustimmung sowie die gewählte Sprache und Theme zu speichern." },
+      { heading: "Ihre Rechte (GDPR & CCPA)", body: "Da wir keine Konten erstellen und Analysen nicht mit Personen verknüpfen, ist kein persönliches Profil mit Ihnen verknüpft. Sie werden über Besuche hinweg nicht verfolgt. Wenn Sie eine Nachricht über das Kontaktformular gesendet haben und diese löschen lassen möchten, kontaktieren Sie uns unter info.wordizy@proton.me und wir werden sie umgehend entfernen. Nach dem GDPR (EU-Bewohner) haben Sie das Recht, auf alle personenbezogenen Daten, die wir über Sie gespeichert haben, zuzugreifen, diese zu berichtigen oder zu löschen. Nach dem CCPA (Bewohner Kaliforniens) haben Sie das Recht zu wissen, welche personenbezogenen Daten erfasst werden, deren Löschung zu verlangen und sich dem Verkauf personenbezogener Daten zu widersetzen — wir verkaufen Ihre Daten nicht." },
+      { heading: "Kontakt", body: "Fragen zu dieser Richtlinie? Schreiben Sie uns an info.wordizy@proton.me und wir helfen Ihnen gerne weiter. Sie können auch das Kontaktformular auf dieser Website nutzen, um uns direkt eine Nachricht zu senden." },
+    ],
+  },
   sitemap: { title: "Sitemap", body: "Alle Seiten von WordIzy." },
   footer: { rights: "Alle Rechte vorbehalten.", madeWith: "Für Wortliebhaber gemacht.", links: "Schnelllinks", desc: "Kostenloser Entwirker und Löser in 9 Sprachen. Ohne Anmeldung." },
   faq: {
@@ -727,7 +889,20 @@ const it: Translation = {
   dictionary: { title: "Verifica Dizionario", subtitle: "Verifica se una parola esiste, vedi il punteggio Scrabble e una definizione.", btn: "Verifica", exists: "è una parola valida", notExists: "non trovata nel dizionario", definition: "Definizione", score: "Punteggio Scrabble", tiles: "Tessere" },
   scrabble: { title: "Scrabble Duplicate", subtitle: "Il duplicate dà a tutti la stessa rastrelliera. Inserisci 7 lettere (più quelle in tabellone) e trova le mosse migliori.", rack: "La tua rastrelliera", board: "Lettere tabellone (facoltative)", btn: "Trova le migliori", hint: "Jolly ammessi. Risultati per punteggio." },
   wordlists: { title: "Liste Parole", subtitle: "Sfoglia tutte le parole da 2 a 7 lettere. Scegli vista, lunghezza e lettera per esplorare A–Z.", allWords: "Tutte le parole", startsBy: "Inizia per A–Z", endsBy: "Finisce per A–Z", letter: "Lettera", selectLength: "Lunghezza", selectLetter: "Lettera", browse: "Sfoglia" },
-  about: { title: "Info su WordIzy", body: "WordIzy è una suite gratuita e rispettosa della privacy: anagrammatore, ris. anagrammi, Wordle e Quordle, aiuti Scrabble e Wordfeud, generatore casuale, verificatore di dizionario e liste sfogliabili — in 9 lingue. Nessun account, nessuna raccolta dati." },
+  about: {
+    title: "Informazioni su WordIzy",
+    intro: "WordIzy è una piattaforma gratuita di giochi di parole orientata alla privacy, creata per appassionati di giochi di parole, studenti e amanti delle lingue in tutto il mondo. La nostra missione è semplice: fornire strumenti linguistici rapidi, precisi e sostenuti dalla pubblicità che rispettino la tua privacy — nessun account richiesto, nessun dato personale raccolto.",
+    sections: [
+      { heading: "La nostra missione", body: "Riteniamo che gli strumenti di parole debbano essere istantanei, precisi e accessibili a tutti. Che tu sia bloccato su un puzzle di Wordle, alla ricerca della migliore mossa di Scrabble o stia esplorando una nuova lingua, WordIzy ti dà le risposte senza attriti, senza registrazione e senza paywall." },
+      { heading: "Cosa offriamo", body: "WordIzy include dodici strumenti dedicati: un Disordinatore di parole, un Risolutore di mischia, un Risolutore di anagrammi, un Aiutante per Scrabble Duplicate, un Risolutore Wordle, un Risolutore Quordle, un Aiutante Wordfeud, un Generatore di parole casuali, un Verificatore di dizionario, Elenchi di parole, Parole che iniziano per e Parole che finiscono per. Ogni strumento viene eseguito interamente nel tuo browser — i risultati appaiono non appena inserisci le lettere." },
+      { heading: "Dizionari ufficiali di Scrabble", body: "Utilizziamo liste di parole da torneo autorevoli come fonte principale: NWL2023 e CSW21 per l'inglese, ODS9 per il francese, FISE per lo spagnolo, Zingarelli per l'italiano, OpenTaal per l'olandese e liste filtrate per Scrabble curate per il tedesco e il portoghese. Ciò significa che le parole che trovi qui sono le stesse accettate nelle competizioni ufficiali di Scrabble." },
+      { heading: "Nove lingue supportate", body: "WordIzy è disponibile in inglese, francese, spagnolo, italiano, portoghese, tedesco, olandese, giapponese (romaji) e cinese mandarino (pinyin). Cambia lingua in qualsiasi momento usando il selettore nella barra di navigazione — l'intera interfaccia, i suggerimenti della FAQ e il dizionario sottostante cambiano istantaneamente." },
+      { heading: "Funzioni intelligenti", body: "Copia qualsiasi lista di parole negli appunti con un clic. Le tue ricerche recenti vengono salvate localmente per rieseguirle rapidamente. Gli scheletri di caricamento offrono un'esperienza fluida mentre i dizionari si caricano. E l'intero sito è una Progressive Web App — installala sul telefono o sul desktop per un accesso a schermo intero, come un'app." },
+      { heading: "Privacy by Design", body: "Nessun account. Nessun tracciamento cross-site. Nessun fingerprinting. Ogni richiesta viene elaborata lato server utilizzando dizionari in memoria. Raccogliamo solo statistiche di ricerca anonime (la stringa di query, lo strumento utilizzato e il numero di risultati — nessun indirizzo IP, nessun ID utente) per aiutarci a migliorare. Un banner di consenso ai cookie appare alla prima visita, e puoi gestire i cookie nelle impostazioni del browser in qualsiasi momento." },
+      { heading: "Temi e accessibilità", body: "Scegli tra i temi Chiaro, Scuro o Sistema — l'interruttore scorre tra i tre con un solo clic. L'interfaccia utilizza HTML semantico, etichette ARIA per i lettori di schermo e navigazione comoda con tastiera in tutta l'applicazione. Gli elementi di navigazione attivi sono contrassegnati con aria-current per le tecnologie assistive." },
+      { heading: "Contattaci", body: "Hai trovato un bug, hai un suggerimento o vuoi richiedere una nuova funzione? Visita la nostra pagina Contatti e inviaci un messaggio direttamente — leggiamo ogni invio e rispondiamo a quanti più possibile. Il tuo messaggio viene conservato in modo sicuro e non viene mai condiviso con terze parti." },
+    ],
+  },
   contact: {
     title: "Contatti",
     body: "Suggerimento o bug? Scrivici.",
@@ -742,7 +917,21 @@ const it: Translation = {
     another: "Invia un altro",
     note: "Il tuo messaggio arriva direttamente nella nostra casella — resti sul sito.",
   },
-  privacy: { title: "Informativa sulla privacy", body: "WordIzy non richiede account né raccoglie dati personali. La risoluzione avviene lato server con dizionari in memoria; nulla viene memorizzato. Google AdSense può usare cookie; gestiscili nel browser." },
+  privacy: {
+    title: "Informativa sulla privacy",
+    intro: "La tua privacy è fondamentale per il funzionamento di WordIzy. Questa informativa spiega, in linguaggio semplice, quali dati trattiamo, perché li trattiamo e quali scelte hai. Ci impegniamo per la totale trasparenza e la conformità al GDPR (UE) e al CCPA (California).",
+    lastUpdated: "Ultimo aggiornamento: luglio 2026",
+    sections: [
+      { heading: "Dati che raccogliamo", body: "WordIzy non richiede un account e non raccoglie dati personali come nome, email o cronologia di navigazione (tranne quando invii volontariamente il modulo di contatto — vedi sotto). Non utilizziamo fingerprinting, pixel di tracciamento di terze parti o tracciamento cross-site. Le uniche informazioni che trattiamo sono quelle che digiti attivamente nei nostri strumenti, oltre a statistiche di utilizzo anonime (vedi sotto)." },
+      { heading: "Statistiche di ricerca anonime", body: "Quando effettui una ricerca, registriamo anonimamente la stringa di query, lo strumento utilizzato, la lingua selezionata e il numero di risultati restituiti. Nessun indirizzo IP, nessun ID utente, nessun fingerprint del browser e nessuna informazione personale vengono memorizzati con questi dati. Questo ci aiuta a capire quali ricerche sono popolari e a identificare le lacune nei contenuti. Non puoi essere identificato da questi dati." },
+      { heading: "Come trattiamo il tuo input", body: "Ogni richiesta — lettere da disordinare, un pattern di Wordle, una parola di dizionario da verificare — viene elaborata lato server utilizzando dizionari in memoria. Il tuo input viene utilizzato esclusivamente per generare risultati e viene eliminato immediatamente dopo l'invio della risposta. I termini di ricerca stessi vengono memorizzati anonimamente nelle nostre statistiche (vedi sopra) ma non sono in alcun modo collegati a te." },
+      { heading: "Invii del modulo di contatto", body: "Quando invii il modulo di contatto, il tuo nome, l'indirizzo email e il messaggio vengono memorizzati nel nostro database in modo che possiamo leggere e rispondere alla tua richiesta. Questi dati sono accessibili solo al proprietario del sito e non vengono mai condivisi con terze parti. Puoi richiedere in qualsiasi momento la cancellazione del tuo invio scrivendo a info.wordizy@proton.me. Per prevenire lo spam, gli invii del modulo di contatto sono limitati a 5 all'ora per indirizzo IP." },
+      { heading: "Servizi di terze parti", body: "WordIzy utilizza i seguenti servizi di terze parti, ciascuno con le proprie informative sulla privacy che ti invitiamo a consultare:\n\n• Google AdSense (https://policies.google.com/technologies/ads) — pubblica annunci. AdSense può utilizzare cookie per mostrare annunci pertinenti e misurare le prestazioni. Puoi disattivare la pubblicità personalizzata su https://www.google.com/settings/ads.\n\n• Turso (https://turso.tech/privacy) — ospita il nostro database SQLite che memorizza gli invii del modulo di contatto e le statistiche di ricerca anonime. I dati sono memorizzati sui server di Turso.\n\n• Resend (https://resend.com/privacy) — utilizzato facoltativamente per inviare notifiche via email al proprietario del sito quando viene inviato un modulo di contatto. Il tuo indirizzo email può essere incluso nella notifica come indirizzo di risposta. Resend non memorizza il contenuto del tuo messaggio oltre la consegna.\n\n• Google Fonts (https://policies.google.com/fonts) — fornisce i font Inter, Bree Serif e Roboto Slab utilizzati su questo sito. Google può registrare temporaneamente la richiesta del tuo indirizzo IP.\n\nNon vendiamo, affittiamo né condividiamo i tuoi dati con altre terze parti." },
+      { heading: "Cookie e pubblicità", body: "WordIzy mostra annunci tramite Google AdSense per mantenere il servizio gratuito. AdSense può utilizzare cookie per fornire annunci pertinenti e misurare le prestazioni degli annunci. Alla prima visita viene mostrato un banner di consenso ai cookie, che ti permette di accettare o rifiutare. Puoi gestire o disattivare i cookie nelle impostazioni del browser e disattivare la pubblicità personalizzata tramite le Impostazioni annunci di Google (https://www.google.com/settings/ads). Non impostiamo noi stessi alcun cookie di tracciamento di prima parte — solo un singolo cookie di preferenza per ricordare la tua scelta di consenso e la lingua e il tema selezionati." },
+      { heading: "I tuoi diritti (GDPR e CCPA)", body: "Poiché non creiamo account né colleghiamo le statistiche a individui, non c'è alcun profilo personale associato a te. Non sei tracciato tra una visita e l'altra. Se hai inviato un messaggio tramite il modulo di contatto e desideri che venga cancellato, contattaci all'indirizzo info.wordizy@proton.me e provvederemo tempestivamente. Secondo il GDPR (residenti UE) hai il diritto di accedere, rettificare o cancellare qualsiasi dato personale che conserviamo su di te. Secondo il CCPA (residenti in California) hai il diritto di sapere quali informazioni personali vengono raccolte, richiederne la cancellazione e opporti alla vendita di informazioni personali — non vendiamo le tue informazioni." },
+      { heading: "Contatti", body: "Domande su questa informativa? Scrivici a info.wordizy@proton.me e saremo felici di aiutarti. Puoi anche utilizzare il modulo di Contatto su questo sito per inviarci un messaggio direttamente." },
+    ],
+  },
   sitemap: { title: "Mappa del sito", body: "Tutte le pagine di WordIzy." },
   footer: { rights: "Tutti i diritti riservati.", madeWith: "Fatto per gli amanti delle parole.", links: "Link rapidi", desc: "Anagrammatore e risolutori gratuiti in 9 lingue. Senza registrazione." },
   faq: {
@@ -867,7 +1056,20 @@ const pt: Translation = {
   dictionary: { title: "Verificar Dicionário", subtitle: "Verifique se uma palavra existe, veja a pontuação Scrabble e uma definição.", btn: "Verificar", exists: "é uma palavra válida", notExists: "não encontrada no dicionário", definition: "Definição", score: "Pontuação Scrabble", tiles: "Fichas" },
   scrabble: { title: "Scrabble Duplicate", subtitle: "O duplicate dá o mesmo suporte a todos. Digite 7 letras (e as do tabuleiro) e encontre as melhores jogadas.", rack: "Seu suporte", board: "Letras do tabuleiro (opcional)", btn: "Encontrar melhores", hint: "Curingas permitidos. Por pontuação." },
   wordlists: { title: "Listas de Palavras", subtitle: "Navegue por todas as palavras de 2 a 7 letras. Escolha vista, tamanho e letra para explorar A–Z.", allWords: "Todas as palavras", startsBy: "Começa por A–Z", endsBy: "Termina em A–Z", letter: "Letra", selectLength: "Tamanho", selectLetter: "Letra", browse: "Navegar" },
-  about: { title: "Sobre o WordIzy", body: "O WordIzy é um conjunto gratuito e respeitoso da privacidade de ferramentas: descodificador, sol. anagramas, Wordle e Quordle, ajudas Scrabble e Wordfeud, gerador aleatório, verificador de dicionário e listas navegáveis — em 9 idiomas. Sem conta, sem coleta de dados." },
+  about: {
+    title: "Sobre o WordIzy",
+    intro: "O WordIzy é uma plataforma gratuita de jogos de palavras focada na privacidade, criada para entusiastas de jogos de palavras, estudantes e amantes de idiomas em todo o mundo. A nossa missão é simples: fornecer ferramentas de palavras rápidas, precisas e suportadas por anúncios que respeitem a sua privacidade — sem conta necessária, sem dados pessoais recolhidos.",
+    sections: [
+      { heading: "A nossa missão", body: "Acreditamos que as ferramentas de palavras devem ser instantâneas, precisas e acessíveis a todos. Esteja você preso num puzzle de Wordle, à procura da melhor jogada de Scrabble ou a explorar um novo idioma, o WordIzy dá-lhe as respostas sem atrito, sem inscrições e sem barreiras de pagamento." },
+      { heading: "O que oferecemos", body: "O WordIzy inclui doze ferramentas dedicadas: um Descodificador de palavras, um Solucionador de embaralhamento, um Solucionador de anagramas, um Auxiliar de Scrabble Duplicate, um Solucionador de Wordle, um Solucionador de Quordle, um Auxiliar de Wordfeud, um Gerador de palavras aleatórias, um Verificador de dicionário, Listas de palavras, Palavras que começam por e Palavras que terminam em. Cada ferramenta corre inteiramente no seu navegador — os resultados aparecem no momento em que submete as suas letras." },
+      { heading: "Dicionários oficiais de Scrabble", body: "Usamos listas de palavras de torneio oficiais como fonte principal: NWL2023 e CSW21 para inglês, ODS9 para francês, FISE para espanhol, Zingarelli para italiano, OpenTaal para neerlandês e listas filtradas para Scrabble cuidadosamente curadas para alemão e português. Isto significa que as palavras que encontra aqui são as mesmas aceites nas competições oficiais de Scrabble." },
+      { heading: "Nove idiomas suportados", body: "O WordIzy funciona em inglês, francês, espanhol, italiano, português, alemão, neerlandês, japonês (romaji) e chinês mandarim (pinyin). Mude de idioma a qualquer momento utilizando o seletor na barra de navegação — toda a interface, as dicas das perguntas frequentes e o dicionário subjacente mudam instantaneamente." },
+      { heading: "Funcionalidades inteligentes", body: "Copie qualquer lista de palavras para a área de transferência com um clique. As suas pesquisas recentes são guardadas localmente para reexecução rápida. Os esqueletos de carregamento oferecem uma experiência fluida enquanto os dicionários carregam. E todo o site é uma Progressive Web App — instale-a no telefone ou no computador para um acesso em ecrã inteiro, semelhante a uma aplicação." },
+      { heading: "Privacidade por design", body: "Sem contas. Sem rastreamento entre sites. Sem impressão digital. Cada consulta é processada no servidor usando dicionários em memória. Recolhemos apenas estatísticas de pesquisa anónimas (a cadeia de consulta, a ferramenta utilizada e o número de resultados — sem endereço IP, sem ID de utilizador) para nos ajudar a melhorar. Um banner de consentimento de cookies aparece na sua primeira visita e pode gerir os cookies nas definições do navegador a qualquer momento." },
+      { heading: "Temas e acessibilidade", body: "Escolha entre o tema Claro, Escuro ou Sistema — o alternador percorre os três com um único clique. A interface utiliza HTML semântico, etiquetas ARIA para leitores de ecrã e navegação amigável para teclado em toda a aplicação. Os itens de navegação ativos são marcados com aria-current para tecnologia de assistência." },
+      { heading: "Contacte-nos", body: "Encontrou um erro, tem uma sugestão ou quer pedir uma nova funcionalidade? Visite a nossa página de Contacto e envie-nos uma mensagem diretamente — lemos todas as submissões e respondemos a tantas quantas conseguimos. A sua mensagem é guardada de forma segura e nunca é partilhada com terceiros." },
+    ],
+  },
   contact: {
     title: "Contato",
     body: "Sugestão ou erro? Envie uma mensagem.",
@@ -882,7 +1084,21 @@ const pt: Translation = {
     another: "Enviar outra",
     note: "Sua mensagem vai direto para nossa caixa de entrada — você continua no site.",
   },
-  privacy: { title: "Política de privacidade", body: "O WordIzy não exige conta nem recolhe dados pessoais. A resolução ocorre no servidor com dicionários em memória; nada é armazenado. O Google AdSense pode usar cookies; gerencie no navegador." },
+  privacy: {
+    title: "Política de privacidade",
+    intro: "A sua privacidade é fundamental para o funcionamento do WordIzy. Esta política explica, em linguagem simples, que dados processamos, porque os processamos e que escolhas tem. Comprometemo-nos com a total transparência e conformidade com o GDPR (UE) e o CCPA (Califórnia).",
+    lastUpdated: "Última atualização: julho de 2026",
+    sections: [
+      { heading: "Dados que recolhemos", body: "O WordIzy não exige conta e não recolhe dados pessoais como o seu nome, e-mail ou histórico de navegação (exceto quando submete voluntariamente o formulário de contacto — ver abaixo). Não usamos impressão digital, pixels de rastreamento de terceiros nem rastreamento entre sites. A única informação que processamos é aquilo que escreve ativamente nas nossas ferramentas, além de estatísticas de uso anónimas (ver abaixo)." },
+      { heading: "Estatísticas de pesquisa anónimas", body: "Quando realiza uma pesquisa, registamos anonimamente a cadeia de consulta, a ferramenta que utilizou, o idioma selecionado e o número de resultados devolvidos. Nenhum endereço IP, nenhum ID de utilizador, nenhuma impressão digital do navegador e nenhuma informação pessoal são armazenados com estes dados. Isto ajuda-nos a perceber que pesquisas são populares e a identificar lacunas de conteúdo. Não pode ser identificado a partir destes dados." },
+      { heading: "Como processamos o seu input", body: "Cada consulta — letras para descodificar, um padrão de Wordle, uma palavra de dicionário para verificar — é processada no servidor usando dicionários em memória. O seu input é usado apenas para gerar resultados e é descartado imediatamente após a resposta ser enviada. Os próprios termos de pesquisa são armazenados anonimamente nas nossas estatísticas (ver acima) mas não estão ligados a si de forma alguma." },
+      { heading: "Submissões do formulário de contacto", body: "Quando submete o formulário de contacto, o seu nome, endereço de e-mail e mensagem são guardados na nossa base de dados para que possamos ler e responder ao seu pedido. Estes dados são apenas acessíveis ao proprietário do site e nunca são partilhados com terceiros. Pode pedir a eliminação da sua submissão a qualquer momento escrevendo para info.wordizy@proton.me. Para evitar spam, as submissões do formulário de contacto estão limitadas a 5 por hora por endereço IP." },
+      { heading: "Serviços de terceiros", body: "O WordIzy utiliza os seguintes serviços de terceiros, cada um com as suas próprias políticas de privacidade que o incentivamos a consultar:\n\n• Google AdSense (https://policies.google.com/technologies/ads) — exibe anúncios. O AdSense pode usar cookies para mostrar anúncios relevantes e medir o desempenho. Pode desativar a publicidade personalizada em https://www.google.com/settings/ads.\n\n• Turso (https://turso.tech/privacy) — aloja a nossa base de dados SQLite que armazena as submissões do formulário de contacto e as estatísticas de pesquisa anónimas. Os dados são guardados nos servidores da Turso.\n\n• Resend (https://resend.com/privacy) — usado opcionalmente para enviar notificações por e-mail ao proprietário do site quando um formulário de contacto é submetido. O seu endereço de e-mail pode ser incluído na notificação como endereço de resposta. O Resend não armazena o conteúdo da sua mensagem para além da entrega.\n\n• Google Fonts (https://policies.google.com/fonts) — fornece as fontes Inter, Bree Serif e Roboto Slab usadas neste site. O Google pode registar temporariamente o pedido do seu endereço IP.\n\nNão vendemos, alugamos nem partilhamos os seus dados com quaisquer outros terceiros." },
+      { heading: "Cookies e publicidade", body: "O WordIzy exibe anúncios através do Google AdSense para manter o serviço gratuito. O AdSense pode usar cookies para servir anúncios relevantes e medir o desempenho dos anúncios. Um banner de consentimento de cookies aparece na sua primeira visita, permitindo-lhe aceitar ou recusar. Pode gerir ou desativar os cookies nas definições do navegador e desativar a publicidade personalizada através das Definições de Anúncios do Google (https://www.google.com/settings/ads). Não definimos nenhum cookie de rastreamento próprio — apenas um único cookie de preferência para lembrar a sua escolha de consentimento e o seu idioma e tema selecionados." },
+      { heading: "Os seus direitos (GDPR e CCPA)", body: "Como não criamos contas nem ligamos as estatísticas a indivíduos, não há nenhum perfil pessoal associado a si. Não é rastreado entre visitas. Se submeteu uma mensagem por formulário de contacto e deseja que seja eliminada, contacte-nos em info.wordizy@proton.me e removê-la-emos prontamente. Ao abrigo do GDPR (residentes da UE) tem o direito de aceder, retificar ou apagar quaisquer dados pessoais que tenhamos sobre si. Ao abrigo do CCPA (residentes da Califórnia) tem o direito de saber que informações pessoais são recolhidas, pedir a sua eliminação e excluir-se da venda de informações pessoais — nós não vendemos as suas informações." },
+      { heading: "Contacto", body: "Perguntas sobre esta política? Envie-nos um e-mail para info.wordizy@proton.me e teremos todo o gosto em ajudar. Também pode usar o formulário de Contacto neste site para nos enviar uma mensagem diretamente." },
+    ],
+  },
   sitemap: { title: "Mapa do site", body: "Todas as páginas do WordIzy." },
   footer: { rights: "Todos os direitos reservados.", madeWith: "Feito para amantes das palavras.", links: "Links rápidos", desc: "Descodificador e resolvedores gratuitos em 9 idiomas. Sem cadastro." },
   faq: {
@@ -1007,7 +1223,20 @@ const nl: Translation = {
   dictionary: { title: "Woordenboek controleren", subtitle: "Controleer of een woord bestaat, zie de Scrabble-score en een definitie.", btn: "Controleren", exists: "is een geldig woord", notExists: "niet in woordenboek gevonden", definition: "Definitie", score: "Scrabble-score", tiles: "Lettertegels" },
   scrabble: { title: "Scrabble Duplicate", subtitle: "Duplicate geeft iedereen hetzelfde rek. Voer 7 letters in (plus bordletters) en vind de beste zetten.", rack: "Jouw rek", board: "Bordletters (optioneel)", btn: "Beste woorden vinden", hint: "Jokers toegestaan. Op score gesorteerd." },
   wordlists: { title: "Woordlijsten", subtitle: "Doorzoek alle 2- tot 7-letterwoorden. Kies weergave, lengte en letter om A–Z te verkennen.", allWords: "Alle woorden", startsBy: "Begint met A–Z", endsBy: "Eindigt op A–Z", letter: "Letter", selectLength: "Lengte", selectLetter: "Letter", browse: "Bladeren" },
-  about: { title: "Over WordIzy", body: "WordIzy is een gratis, privacyvriendelijke suite woordhulpmiddelen: ontwarer, anagram-oplosser, Wordle- en Quordle-oplossers, Scrabble- en Wordfeud-hulp, willekeurigegeneratoren, woordenboekcontrole en doorzoekbare lijsten — in 9 talen. Geen account, geen gegevensverzameling." },
+  about: {
+    title: "Over WordIzy",
+    intro: "WordIzy is een gratis, privacygerichte woordpuzzel-platform, gebouwd voor woordspelliefhebbers, studenten en taalliefhebbers wereldwijd. Onze missie is eenvoudig: snelle, nauwkeurige en door advertenties ondersteunde woordhulpmiddelen bieden die uw privacy respecteren — geen account vereist, geen persoonlijke gegevens verzameld.",
+    sections: [
+      { heading: "Onze missie", body: "Wij geloven dat woordhulpmiddelen direct, nauwkeurig en voor iedereen toegankelijk moeten zijn. Of u nu vastzit bij een Wordle-puzzel, op zoek bent naar de beste Scrabble-zet of een nieuwe taal verkent, WordIzy geeft u de antwoorden zonder frictie, zonder registratie en zonder betaalmuren." },
+      { heading: "Wat we bieden", body: "WordIzy omvat twaalf specifieke hulpmiddelen: een Woordontwarer, Scramble-oplosser, Anagram-oplosser, Scrabble Duplicate-hulp, Wordle-oplosser, Quordle-oplosser, Wordfeud-hulp, Willekeurige-woordgenerator, Woordenboekcontrole, Woordenlijsten, Woorden-beginnen-met en Woorden-eindigen-met. Elk hulpmiddel draait volledig in uw browser — resultaten verschijnen zodra u uw letters verstuurt." },
+      { heading: "Officiële Scrabble-woordenboeken", body: "We gebruiken gezaghebbende toernooiwoordenlijsten als belangrijkste bron: NWL2023 en CSW21 voor Engels, ODS9 voor Frans, FISE voor Spaans, Zingarelli voor Italiaans, OpenTaal voor Nederlands, en zorgvuldig samengestelde, op Scrabble gefilterde lijsten voor Duits en Portugees. Dit betekent dat de woorden die u hier vindt dezelfde zijn die in officiële Scrabble-wedstrijden worden geaccepteerd." },
+      { heading: "Negen talen ondersteund", body: "WordIzy is beschikbaar in het Engels, Frans, Spaans, Italiaans, Portugees, Duits, Nederlands, Japans (romaji) en Mandarijn-Chinees (pinyin). Wijzig op elk moment van taal met de schakelaar in de navigatiebalk — de hele interface, de FAQ-tips en het onderliggende woordenboek wijzigen direct." },
+      { heading: "Slimme functies", body: "Kopieer elke woordenlijst met één klik naar uw klembord. Uw recente zoekopdrachten worden lokaal opgeslagen voor snelle heruitvoering. Laadskeletons zorgen voor een vloeiende ervaring terwijl woordenboeken opwarmen. En de hele site is een Progressive Web App — installeer hem op uw telefoon of desktop voor full-screen, app-achtige toegang." },
+      { heading: "Privacy by Design", body: "Geen accounts. Geen cross-site tracking. Geen fingerprinting. Elke zoekopdracht wordt server-side verwerkt met woordenboeken in het geheugen. We verzamelen alleen anonieme zoekanalyses (de queryreeks, gebruikte hulpmiddel en aantal resultaten — geen IP-adres, geen gebruikers-ID) om onszelf te verbeteren. Bij uw eerste bezoek verschijnt een cookietoestemmingsbanner en kunt u cookies op elk moment beheren in uw browserinstellingen." },
+      { heading: "Thema's en toegankelijkheid", body: "Kies tussen het thema Licht, Donker of Systeem — de schakelaar doorloopt alle drie met één klik. De interface gebruikt semantische HTML, ARIA-labels voor schermlezers en toetsenbordvriendelijke navigatie overal. Actieve navigatie-items worden gemarkeerd met aria-current voor hulptechnologie." },
+      { heading: "Contact opnemen", body: "Een bug gevonden, een suggestie of een nieuwe functie aangevraagd? Bezoek onze Contactpagina en stuur ons direct een bericht — we lezen elke inzending en reageren op zoveel mogelijk. Uw bericht wordt veilig opgeslagen en nooit met derden gedeeld." },
+    ],
+  },
   contact: {
     title: "Contact",
     body: "Suggestie of bug? Stuur een bericht.",
@@ -1022,7 +1251,21 @@ const nl: Translation = {
     another: "Nog een bericht",
     note: "Je bericht gaat direct naar onze inbox — je blijft op de website.",
   },
-  privacy: { title: "Privacybeleid", body: "WordIzy vereist geen account en verzamelt geen persoonsgegevens. Het oplossen gebeurt server-side met woordenboeken in het geheugen; niets wordt opgeslagen. Google AdSense kan cookies gebruiken; beheer dit in je browser." },
+  privacy: {
+    title: "Privacybeleid",
+    intro: "Uw privacy is fundamenteel voor de manier waarop WordIzy werkt. Dit beleid legt in gewone taal uit welke gegevens we verwerken, waarom we ze verwerken en welke keuzes u heeft. Wij streven naar volledige transparantie en naleving van de GDPR (EU) en de CCPA (Californië).",
+    lastUpdated: "Laatst bijgewerkt: juli 2026",
+    sections: [
+      { heading: "Gegevens die we verzamelen", body: "WordIzy vereist geen account en verzamelt geen persoonlijke gegevens zoals uw naam, e-mail of browsergeschiedenis (behalve wanneer u vrijwillig het contactformulier verstuurt — zie hieronder). We gebruiken geen fingerprinting, trackingpixels van derden of cross-site tracking. De enige informatie die we verwerken is wat u actief in onze hulpmiddelen typt, plus anonieme gebruiksstatistieken (zie hieronder)." },
+      { heading: "Anonieme zoekanalyses", body: "Wanneer u een zoekopdracht uitvoert, registreren we anoniem de queryreeks, het gebruikte hulpmiddel, de geselecteerde taal en het aantal geretourneerde resultaten. Er worden geen IP-adres, geen gebruikers-ID, geen browserfingerprint en geen persoonlijke informatie bij deze gegevens opgeslagen. Dit helpt ons begrijpen welke zoekopdrachten populair zijn en lacunes in de inhoud te identificeren. U kunt niet uit deze gegevens worden geïdentificeerd." },
+      { heading: "Hoe we uw invoer verwerken", body: "Elke zoekopdracht — te ontwarren letters, een Wordle-patroon, een te controleren woordenboekwoord — wordt server-side verwerkt met woordenboeken in het geheugen. Uw invoer wordt uitsluitend gebruikt om resultaten te genereren en wordt direct na het versturen van het antwoord verwijderd. De zoektermen zelf worden anoniem opgeslagen in onze analyses (zie hierboven) maar zijn op geen enkele manier aan u gekoppeld." },
+      { heading: "Contactformulier-inzendingen", body: "Wanneer u het contactformulier verstuurt, worden uw naam, e-mailadres en bericht in onze database opgeslagen zodat we uw vraag kunnen lezen en beantwoorden. Deze gegevens zijn alleen toegankelijk voor de site-eigenaar en worden nooit met derden gedeeld. U kunt op elk moment verwijdering van uw inzending aanvragen door te e-mailen naar info.wordizy@proton.me. Om spam te voorkomen zijn contactformulier-inzendingen beperkt tot 5 per uur per IP-adres." },
+      { heading: "Diensten van derden", body: "WordIzy maakt gebruik van de volgende diensten van derden, elk met hun eigen privacybeleid dat we u aanraden te raadplegen:\n\n• Google AdSense (https://policies.google.com/technologies/ads) — toont advertenties. AdSense kan cookies gebruiken om relevante advertenties te tonen en prestaties te meten. U kunt gepersonaliseerde advertenties uitschakelen op https://www.google.com/settings/ads.\n\n• Turso (https://turso.tech/privacy) — host onze SQLite-database die contactformulier-inzendingen en anonieme zoekanalyses opslaat. Gegevens worden opgeslagen op Turso's servers.\n\n• Resend (https://resend.com/privacy) — optioneel gebruikt om e-mailmeldingen naar de site-eigenaar te sturen wanneer een contactformulier wordt verstuurd. Uw e-mailadres kan in de melding worden opgenomen als reply-to-adres. Resend slaat de inhoud van uw bericht niet op na bezorging.\n\n• Google Fonts (https://policies.google.com/fonts) — levert de Inter-, Bree Serif- en Roboto Slab-lettertypen die op deze site worden gebruikt. Google kan het verzoek van uw IP-adres tijdelijk loggen.\n\nWe verkopen, verhuren of delen uw gegevens niet met andere derden." },
+      { heading: "Cookies en advertenties", body: "WordIzy toont advertenties via Google AdSense om de dienst gratis te houden. AdSense kan cookies gebruiken om relevante advertenties te tonen en advertentieprestaties te meten. Bij uw eerste bezoek verschijnt een cookietoestemmingsbanner waarmee u kunt accepteren of weigeren. U kunt cookies beheren of uitschakelen in uw browserinstellingen en gepersonaliseerde advertenties uitschakelen via de advertentie-instellingen van Google (https://www.google.com/settings/ads). We stellen zelf geen first-party tracking-cookies in — alleen een enkele voorkeurscookie om uw toestemmingskeuze en uw geselecteerde taal en thema te onthouden." },
+      { heading: "Uw rechten (GDPR en CCPA)", body: "Omdat we geen accounts aanmaken en analyses niet aan personen koppelen, is er geen persoonlijk profiel aan u gekoppeld. U wordt niet tussen bezoeken gevolgd. Als u een bericht via het contactformulier heeft verstuurd en dit wilt laten verwijderen, neem dan contact met ons op via info.wordizy@proton.me en wij verwijderen het prompt. Onder de GDPR (EU-burgers) heeft u het recht om toegang te krijgen tot, te rectificeren of te laten wissen alle persoonsgegevens die we over u hebben. Onder de CCPA (inwoners van Californië) heeft u het recht te weten welke persoonlijke informatie wordt verzameld, verwijdering te vragen en u af te melden voor de verkoop van persoonlijke informatie — wij verkopen uw informatie niet." },
+      { heading: "Contact", body: "Vragen over dit beleid? E-mail ons op info.wordizy@proton.me en we helpen u graag verder. U kunt ook het contactformulier op deze site gebruiken om ons direct een bericht te sturen." },
+    ],
+  },
   sitemap: { title: "Sitemap", body: "Alle pagina's van WordIzy." },
   footer: { rights: "Alle rechten voorbehouden.", madeWith: "Gemaakt voor woordliefhebbers.", links: "Snelle links", desc: "Gratis ontwarer en oplossers in 9 talen. Zonder registratie." },
   faq: {
@@ -1150,7 +1393,20 @@ const ja: Translation = {
   dictionary: { title: "辞書チェック", subtitle: "単語の存在確認、スクラブル得点、定義を表示。", btn: "確認", exists: "は有効な単語です", notExists: "は辞書に見つかりません", definition: "定義", score: "スクラブル得点", tiles: "文字タイル" },
   scrabble: { title: "スクラブル複製", subtitle: "全員同じラックの複製モード。7文字(+盤面文字)で最高得点の手を見つけます。", rack: "ラック", board: "盤面文字(任意)", btn: "最適な単語を見つける", hint: "ワイルドカード可。得点順。" },
   wordlists: { title: "単語リスト", subtitle: "2〜7文字のすべての単語を閲覧。A〜Zで探索。", allWords: "すべての単語", startsBy: "A〜Zで始まる", endsBy: "A〜Zで終わる", letter: "文字", selectLength: "長さ", selectLetter: "文字", browse: "閲覧" },
-  about: { title: "WordIzyについて", body: "WordIzyは無料でプライバシー重視の単語ツール群です。アカウント不要、データ収集なし。" },
+  about: {
+    title: "WordIzyについて",
+    intro: "WordIzyは、世界中のワードゲーム愛好家、学生、言語愛好家のために構築された、無料でプライバシー重視のワードパズルプラットフォームです。当社のミッションはシンプルです。プライバシーを尊重する、高速で正確で広告支援付きの単語ツールを提供することです。アカウント不要、個人データの収集なし。",
+    sections: [
+      { heading: "当社のミッション", body: "単語ツールは、瞬時で正確、そして誰にでもアクセス可能であるべきだと信じています。Wordleのパズルに行き詰まったとき、Scrabbleの最善手を探しているとき、新しい言語を探索しているときでも、WordIzyは摩擦も、登録も、課金壁もなしに答えを提供します。" },
+      { heading: "提供するもの", body: "WordIzyには12の専用ツールが含まれています。ワードアンスクランブラー、スクランブルソルバー、アナグラムソルバー、Scrabble Duplicateヘルパー、Wordleソルバー、Quordleソルバー、Wordfeudヘルパー、ランダムワードジェネレーター、辞書チェッカー、ワードリスト、ワード開始文字、ワード終了文字。各ツールはブラウザー内で完全に動作し、文字を送信するとすぐに結果が表示されます。" },
+      { heading: "公式Scrabble辞書", body: "権威あるトーナメント単語リストを主な情報源として使用しています。英語にはNWL2023とCSW21、フランス語にはODS9、スペイン語にはFISE、イタリア語にはZingarelli、オランダ語にはOpenTaal、そしてドイツ語とポルトガル語には厳選したScrabbleフィルター済みリストです。つまり、ここで見つける単語は、公式Scrabble競技会で認められるものと同じです。" },
+      { heading: "9言語をサポート", body: "WordIzyは英語、フランス語、スペイン語、イタリア語、ポルトガル語、ドイツ語、オランダ語、日本語（ローマ字）、中国語（普通話・ピンイン）で動作します。ナビゲーションバーのセレクターを使っていつでも言語を切り替えられます。インターフェース全体、FAQのヒント、基盤となる辞書が瞬時に切り替わります。" },
+      { heading: "スマートな機能", body: "任意の単語リストを1クリックでクリップボードにコピーできます。最近の検索はローカルに保存され、すぐに再実行できます。ローディングスケルトンにより、辞書の準備中もスムーズな体験が得られます。また、サイト全体はProgressive Web Appであり、フルスクリーンのアプリのようなアクセスのために電話やデスクトップにインストールできます。" },
+      { heading: "プライバシー・バイ・デザイン", body: "アカウントなし。サイト間追跡なし。フィンガープリントなし。すべてのクエリは、メモリ内の辞書を使用してサーバー側で処理されます。改善のために、匿名の検索分析（クエリ文字列、使用ツール、結果数のみ。IPアドレスやユーザーIDなし）のみを収集します。初回訪問時にCookie同意バナーが表示され、ブラウザー設定でCookieをいつでも管理できます。" },
+      { heading: "テーマとアクセシビリティ", body: "ライト、ダーク、またはシステムテーマから選択できます。トグルは1回のクリックで3つを順に切り替えます。インターフェースはセマンティックHTML、スクリーンリーダー向けのARIAラベル、そして全体にわたるキーボードフレンドリーなナビゲーションを使用しています。アクティブなナビゲーション項目は支援技術のためにaria-currentでマークされています。" },
+      { heading: "お問い合わせ", body: "バグを見つけた、提案がある、新機能をリクエストしたいという場合は、お問い合わせページにアクセスして直接メッセージをお送りください。すべての送信を読み、可能な限り返信しています。メッセージは安全に保管され、第三者と共有されることはありません。" },
+    ],
+  },
   contact: {
     title: "お問い合わせ",
     body: "ご意見やバグ報告をお送りください。",
@@ -1165,7 +1421,21 @@ const ja: Translation = {
     another: "もう一度送信",
     note: "メッセージは直接私たちの受信箱に送信されます — サイト上に留まります。",
   },
-  privacy: { title: "プライバシーポリシー", body: "WordIzyはアカウント不要で個人データを収集しません。解決はサーバー側で行われ、入力は保存されません。" },
+  privacy: {
+    title: "プライバシーポリシー",
+    intro: "あなたのプライバシーは、WordIzyの運営において基本的なものです。このポリシーは、平易な言葉で、どのようなデータを処理するか、なぜ処理するか、そしてあなたが持つ選択肢を説明します。完全な透明性と、GDPR（EU）およびCCPA（カリフォルニア州）の遵守に努めています。",
+    lastUpdated: "最終更新：2026年7月",
+    sections: [
+      { heading: "収集するデータ", body: "WordIzyはアカウントを必要とせず、氏名、メール、閲覧履歴などの個人データを収集しません（お問い合わせフォームを自発的に送信した場合を除く — 下記参照）。フィンガープリント、サードパーティのトラッキングピクセル、サイト間追跡は使用しません。処理する情報は、あなたがツールに能動的に入力した内容と、匿名の利用統計（下記参照）のみです。" },
+      { heading: "匿名検索分析", body: "検索を行う際、クエリ文字列、使用したツール、選択した言語、返された結果数を匿名で記録します。このデータにはIPアドレス、ユーザーID、ブラウザーフィンガープリント、個人情報は一切保存されません。これは、どの検索が人気かを理解し、コンテンツのギャップを特定するのに役立ちます。このデータから個人を特定することはできません。" },
+      { heading: "入力の処理方法", body: "すべてのクエリ（アンスクランブルする文字、Wordleのパターン、確認する辞書の単語）は、メモリ内の辞書を使用してサーバー側で処理されます。入力は結果の生成にのみ使用され、レスポンス送信後に直ちに破棄されます。検索語そのものは分析に匿名で保存されます（上記参照）が、あなたとは一切関連付けられません。" },
+      { heading: "お問い合わせフォームの送信", body: "お問い合わせフォームを送信すると、氏名、メールアドレス、メッセージがデータベースに保存され、お問い合わせを読んで対応できるようになります。このデータにはサイト所有者のみがアクセスでき、第三者と共有されることはありません。info.wordizy@proton.meにメールして、いつでも送信の削除をリクエストできます。スパムを防ぐため、お問い合わせフォームの送信はIPアドレスごとに1時間あたり5件に制限されています。" },
+      { heading: "サードパーティサービス", body: "WordIzyは以下のサードパーティサービスを使用しています。それぞれに独自のプライバシーポリシーがあり、確認することをお勧めします。\n\n• Google AdSense（https://policies.google.com/technologies/ads）— 広告を配信します。AdSenseは関連性の高い広告を表示し、パフォーマンスを測定するためにCookieを使用する場合があります。https://www.google.com/settings/adsでパーソナライズド広告をオプトアウトできます。\n\n• Turso（https://turso.tech/privacy）— お問い合わせフォームの送信と匿名検索分析を保存するSQLiteデータベースをホストします。データはTursoのサーバーに保存されます。\n\n• Resend（https://resend.com/privacy）— お問い合わせフォームが送信された際にサイト所有者へメール通知を送信するためにオプションで使用されます。お客様のメールアドレスが返信先として通知に含まれる場合があります。Resendは配信を超えてメッセージ内容を保存しません。\n\n• Google Fonts（https://policies.google.com/fonts）— このサイトで使用されているInter、Bree Serif、Roboto Slabフォントを配信します。GoogleはリクエストのIPアドレスを一時的に記録する場合があります。\n\n当社は他のいかなる第三者ともデータを売却、貸与、共有することはありません。" },
+      { heading: "Cookieと広告", body: "WordIzyはサービスを無料で提供するため、Google AdSenseを通じて広告を表示します。AdSenseは関連広告を配信し、広告パフォーマンスを測定するためにCookieを使用する場合があります。初回訪問時にCookie同意バナーが表示され、承諾または拒否できます。ブラウザー設定でCookieを管理または無効にでき、Googleの広告設定（https://www.google.com/settings/ads）でパーソナライズド広告をオプトアウトできます。当社自身はファーストパーティのトラッキングCookieを設定しません。同意の選択と、選択した言語・テーマを記憶するための単一の設定Cookieのみです。" },
+      { heading: "あなたの権利（GDPRおよびCCPA）", body: "当社はアカウントを作成せず、分析を個人に関連付けないため、あなたに関連付けられた個人プロフィールは存在しません。訪問間で追跡されることはありません。お問い合わせフォームでメッセージを送信し、削除を希望する場合は、info.wordizy@proton.meまでご連絡ください。迅速に削除します。GDPR（EU居住者）の下では、あなたに関する個人データへのアクセス、訂正、消去の権利があります。CCPA（カリフォルニア州居住者）の下では、収集される個人情報を知る権利、削除を要求する権利、個人情報の販売のオプトアウトの権利があります。当社はあなたの情報を販売しません。" },
+      { heading: "お問い合わせ", body: "このポリシーについてご質問がありますか？info.wordizy@proton.meまでメールをお送りください。喜んでお手伝いします。このサイトのお問い合わせフォームを使用して、直接メッセージを送信することもできます。" },
+    ],
+  },
   sitemap: { title: "サイトマップ", body: "WordIzyのすべてのページ。" },
   footer: { rights: "全著作権所有。", madeWith: "言葉を愛する人のために。", links: "クイックリンク", desc: "9言語の無料アナグラム&解決ツール。登録不要。" },
   faq: {
@@ -1293,7 +1563,20 @@ const zh: Translation = {
   dictionary: { title: "查词典", subtitle: "验证单词是否存在，查看Scrabble得分和释义。", btn: "检查", exists: "是有效单词", notExists: "未在词典中找到", definition: "释义", score: "Scrabble得分", tiles: "字母牌" },
   scrabble: { title: "Scrabble复刻", subtitle: "复刻模式每人相同牌架。输入7个字母（加已放字母）找出最高分。", rack: "你的牌架", board: "盘面字母(可选)", btn: "找最佳单词", hint: "支持通配符。按得分排序。" },
   wordlists: { title: "单词表", subtitle: "浏览所有2到7字母单词。选择视图、长度和字母按A–Z探索。", allWords: "全部单词", startsBy: "开头A–Z", endsBy: "结尾A–Z", letter: "字母", selectLength: "长度", selectLetter: "字母", browse: "浏览" },
-  about: { title: "关于 WordIzy", body: "WordIzy是一套免费、注重隐私的单词工具：重组、易位词、Wordle与Quordle求解、Scrabble与Wordfeud助手、随机生成、词典检查和可浏览单词表——支持9种语言。无需账号，不收集数据。" },
+  about: {
+    title: "关于 WordIzy",
+    intro: "WordIzy 是一个免费、注重隐私的文字益智平台，为全球的文字游戏爱好者、学生和语言爱好者打造。我们的使命很简单：提供快速、准确、由广告支持的单词工具，尊重您的隐私——无需账号，不收集个人数据。",
+    sections: [
+      { heading: "我们的使命", body: "我们相信单词工具应当即时、准确，并让所有人都能使用。无论您是卡在 Wordle 谜题上、寻找最佳的 Scrabble 出牌、还是在探索一门新语言，WordIzy 都能毫无阻碍、无需注册、无需付费墙地给您答案。" },
+      { heading: "我们的内容", body: "WordIzy 包含十二个专用工具：单词重组器、乱序求解器、易位词求解器、Scrabble Duplicate 助手、Wordle 求解器、Quordle 求解器、Wordfeud 助手、随机单词生成器、词典检查器、单词列表、单词开头和单词结尾。每个工具都完全在您的浏览器中运行——您提交字母后立即出现结果。" },
+      { heading: "官方 Scrabble 词典", body: "我们以权威的比赛词表作为主要来源：英语使用 NWL2023 和 CSW21，法语使用 ODS9，西班牙语使用 FISE，意大利语使用 Zingarelli，荷兰语使用 OpenTaal，德语和葡萄牙语则使用精选的 Scrabble 过滤词表。这意味着您在这里找到的单词与官方 Scrabble 比赛中所接受的单词完全相同。" },
+      { heading: "支持九种语言", body: "WordIzy 支持英语、法语、西班牙语、意大利语、葡萄牙语、德语、荷兰语、日语（罗马字）和中文普通话（拼音）。您可以随时使用导航栏中的选择器切换语言——整个界面、FAQ 提示和底层词典都会立即切换。" },
+      { heading: "智能功能", body: "一键将任意单词列表复制到剪贴板。您最近的搜索会保存在本地，方便快速重新运行。加载骨架在词典预热时为您提供流畅的体验。整个站点是一个 Progressive Web App——您可以将其安装在手机或桌面，获得全屏、应用般的访问体验。" },
+      { heading: "隐私即设计", body: "无需账号。无跨站跟踪。无指纹采集。每个查询都使用内存中的词典在服务器端处理。我们仅收集匿名搜索分析（查询字符串、所用工具和结果数量——无 IP 地址、无用户 ID）以帮助我们改进。首次访问时会显示 Cookie 同意横幅，您可以随时在浏览器设置中管理 Cookie。" },
+      { heading: "主题与无障碍", body: "在浅色、深色或系统主题之间选择——一次点击即可在三者之间循环切换。界面使用语义化 HTML、面向屏幕阅读器的 ARIA 标签，以及贯穿始终的键盘友好导航。当前导航项以 aria-current 标记，便于辅助技术识别。" },
+      { heading: "联系我们", body: "发现 Bug、有建议或想请求新功能？请访问我们的联系页面并直接给我们留言——我们会阅读每份提交，并尽可能多地回复。您的留言将安全存储，绝不与第三方分享。" },
+    ],
+  },
   contact: {
     title: "联系",
     body: "有建议或发现bug？给我们留言。",
@@ -1308,7 +1591,21 @@ const zh: Translation = {
     another: "再发一条",
     note: "您的留言会直接送达我们的收件箱 — 您不会离开本站。",
   },
-  privacy: { title: "隐私政策", body: "WordIzy无需账号，不收集个人数据。所有求解在服务端用内存词典完成；输入不会被保存。Google AdSense可能使用Cookie投放广告，可在浏览器中管理。" },
+  privacy: {
+    title: "隐私政策",
+    intro: "您的隐私是 WordIzy 运营的基础。本政策以平实的语言说明我们处理哪些数据、为何处理以及您有哪些选择。我们致力于完全透明，并遵守 GDPR（欧盟）和 CCPA（加利福尼亚州）。",
+    lastUpdated: "最后更新：2026 年 7 月",
+    sections: [
+      { heading: "我们收集的数据", body: "WordIzy 不需要账号，也不收集姓名、电子邮件或浏览历史等个人数据（除非您自愿提交联系表单——见下文）。我们不使用指纹采集、第三方跟踪像素或跨站跟踪。我们处理的唯一信息是您在我们的工具中主动输入的内容，加上匿名的使用统计（见下文）。" },
+      { heading: "匿名搜索分析", body: "当您执行搜索时，我们会匿名记录查询字符串、您使用的工具、所选语言以及返回的结果数量。该数据不存储任何 IP 地址、用户 ID、浏览器指纹或个人信息。这有助于我们了解哪些搜索受欢迎并发现内容缺口。您无法通过此数据被识别。" },
+      { heading: "我们如何处理您的输入", body: "每个查询——需要重组的字母、Wordle 模式、要检查的词典单词——都使用内存中的词典在服务器端处理。您的输入仅用于生成结果，并在响应发送后立即被丢弃。搜索词本身会匿名存储在我们的分析中（见上文），但不会以任何方式与您关联。" },
+      { heading: "联系表单提交", body: "当您提交联系表单时，您的姓名、电子邮件地址和留言会存储在我们的数据库中，以便我们阅读并回复您的询问。此数据仅站点所有者可访问，绝不与第三方分享。您可以随时发邮件至 info.wordizy@proton.me 请求删除您的提交。为防止垃圾信息，联系表单提交限制为每个 IP 每小时 5 次。" },
+      { heading: "第三方服务", body: "WordIzy 使用以下第三方服务，每项服务都有自己的隐私政策，我们建议您查阅：\n\n• Google AdSense（https://policies.google.com/technologies/ads）——投放广告。AdSense 可能使用 Cookie 来展示相关广告并衡量效果。您可以在 https://www.google.com/settings/ads 选择停用个性化广告。\n\n• Turso（https://turso.tech/privacy）——托管我们的 SQLite 数据库，该数据库存储联系表单提交和匿名搜索分析。数据存储在 Turso 的服务器上。\n\n• Resend（https://resend.com/privacy）——可选用于在提交联系表单时向站点所有者发送电子邮件通知。您的电子邮件地址可能作为回复地址包含在通知中。Resend 不会在投递之后存储您的留言内容。\n\n• Google Fonts（https://policies.google.com/fonts）——提供本站使用的 Inter、Bree Serif 和 Roboto Slab 字体。Google 可能会临时记录您的 IP 地址请求。\n\n我们不会向任何其他第三方出售、出租或分享您的数据。" },
+      { heading: "Cookie 与广告", body: "WordIzy 通过 Google AdSense 展示广告以保持服务免费。AdSense 可能使用 Cookie 来投放相关广告并衡量广告效果。首次访问时会显示 Cookie 同意横幅，您可以选择接受或拒绝。您可以在浏览器设置中管理或禁用 Cookie，并通过 Google 的广告设置（https://www.google.com/settings/ads）停用个性化广告。我们自己不设置任何第一方跟踪 Cookie——只设置一个偏好 Cookie 来记住您的同意选择以及您选择的语言和主题。" },
+      { heading: "您的权利（GDPR 与 CCPA）", body: "由于我们不创建账号或将分析与个人相关联，因此不存在与您相关联的个人资料。您不会在访问之间被跟踪。如果您已通过联系表单提交留言并希望将其删除，请通过 info.wordizy@proton.me 联系我们，我们会尽快删除。根据 GDPR（欧盟居民），您有权访问、更正或删除我们持有的关于您的任何个人数据。根据 CCPA（加利福尼亚州居民），您有权知道收集了哪些个人信息、请求删除以及选择不出售个人信息——我们不出售您的信息。" },
+      { heading: "联系方式", body: "对本政策有疑问？请发送电子邮件至 info.wordizy@proton.me，我们将很乐意提供帮助。您也可以使用本站的联系表单直接给我们留言。" },
+    ],
+  },
   sitemap: { title: "网站地图", body: "WordIzy的全部页面。" },
   footer: { rights: "保留所有权利。", madeWith: "为词语爱好者打造。", links: "快速链接", desc: "9种语言的免费重组与求解工具。无需注册。" },
   faq: {

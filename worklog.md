@@ -506,3 +506,37 @@ Work Log:
 
 Stage Summary:
 - Fixed the sandbox crash by making letter-counts requests sequential. Added per-letter word counts to the A-Z buttons on Word Lists, Starts-by, and Ends-by pages. All words 2-7 letters are included and sorted alphabetically.
+
+---
+Task ID: about-privacy-translate
+Agent: subagent (general-purpose)
+Task: Translate About+Privacy blocks to 8 non-English languages
+
+Work Log:
+- Updated `/home/z/my-project/src/components/i18n/translations.ts` to convert the OLD simple format (`about: { title, body }` and `privacy: { title, body }`) into the NEW structured format (`title`, `intro`, `sections[]`, and `lastUpdated` for privacy) for the following 8 languages:
+  - French (fr): about line 391, privacy line 419
+  - Spanish (es): about line 558, privacy line 586
+  - German (de): about line 725, privacy line 753
+  - Italian (it): about line 892, privacy line 920
+  - Portuguese (pt): about line 1059, privacy line 1087
+  - Dutch (nl): about line 1226, privacy line 1254
+  - Japanese (ja): about line 1396, privacy line 1424
+  - Chinese (zh): about line 1566, privacy line 1594
+- Each about block has exactly 8 sections (Our Mission, What We Offer, Official Scrabble Dictionaries, Nine Languages Supported, Smart Features, Privacy by Design, Themes & Accessibility, Get in Touch) — matching the English structure.
+- Each privacy block has exactly 8 sections (Data We Collect, Anonymous Search Analytics, How We Process Your Input, Contact Form Submissions, Third-Party Services, Cookies & Advertising, Your Rights (GDPR & CCPA), Contact) — matching the English structure.
+- Preserved all required tokens across all languages:
+  - URLs unchanged: https://policies.google.com/technologies/ads, https://turso.tech/privacy, https://resend.com/privacy, https://policies.google.com/fonts, https://www.google.com/settings/ads
+  - Email unchanged: info.wordizy@proton.me
+  - Dictionary names unchanged: NWL2023, CSW21, ODS9, FISE, Zingarelli, OpenTaal
+  - "GDPR" and "CCPA" kept as-is (did NOT localize to RGPD/DSGVO/AVG) per rule 5
+  - "Progressive Web App" kept as-is per rule 6
+  - The `\n\n` line-break sequences in the Third-Party Services body kept intact per rule 8
+- German translation (rule 7): No quoted text appears in the source English about/privacy content, so no `»...«` guillemets were needed; verified no `„...` or `"..."` characters were introduced.
+- Used professional, formal language for each locale (e.g. formal "usted" in Spanish, "Sie" in German, "vous" in French, polite "-masu" form in Japanese, polite "您" register in Chinese).
+- Verification:
+  - `bun run lint` → clean (no errors, exit 0)
+  - `bunx tsc --noEmit` → 0 errors in translations.ts (other pre-existing TS errors in unrelated files are not affected)
+  - Counted 8 about-sections and 8 privacy-sections in each of the 9 language blocks (English + 8 translations)
+
+Stage Summary:
+- All 8 non-English languages now have professional, structured about: and privacy: blocks matching the English format. The translations.ts file lints clean and type-checks clean. No URLs, emails, dictionary names, or universal terms (GDPR/CCPA/PWA) were altered.
