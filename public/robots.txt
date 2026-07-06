@@ -1,14 +1,7 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# Allow all crawlers full access
 User-agent: *
 Allow: /
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://wordizy.com/sitemap.xml

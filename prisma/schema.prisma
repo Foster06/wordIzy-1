@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -33,12 +30,13 @@ model Post {
 
 /// Submissions from the on-site Contact form.
 /// Stored so the user never leaves the website (no mailto: redirect).
+/// Read via the owner-only inbox at #/inbox (auth-gated by ADMIN_PASSWORD).
 model ContactMessage {
   id        String   @id @default(cuid())
   name      String
   email     String
   message   String
-  /// Optional: which language the UI was in when submitted (for triage).
+  /// UI language when submitted (for triage).
   locale    String   @default("en")
   /// Has the site owner read / handled this message?
   handled   Boolean  @default(false)
@@ -49,4 +47,25 @@ model ContactMessage {
 
   @@index([handled])
   @@index([createdAt])
+}
+
+/// Anonymous search analytics — NO personal data.
+/// Stores only the query string, route, language, and result count.
+/// Used to identify popular searches for content optimization.
+model SearchEvent {
+  id          String   @id @default(cuid())
+  /// The search query (letters, word, etc.)
+  query       String
+  /// Which tool was used (route id: home, anagram, wordle, etc.)
+  route       String
+  /// UI language code (en, fr, es, ...)
+  lang        String   @default("en")
+  /// Number of results returned (0 if none)
+  resultCount Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  @@index([route])
+  @@index([lang])
+  @@index([createdAt])
+  @@index([query])
 }

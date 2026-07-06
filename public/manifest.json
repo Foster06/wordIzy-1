@@ -1,0 +1,21 @@
+{
+  "name": "WordIzy — Word Unscrambler & Solver",
+  "short_name": "WordIzy",
+  "description": "Free word unscrambler, anagram solver, Wordle & Quordle solver with 9-language official Scrabble dictionaries. No sign-up.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0d0f",
+  "theme_color": "#f5a623",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "utilities", "games"],
+  "lang": "en",
+  "dir": "ltr"
+}
