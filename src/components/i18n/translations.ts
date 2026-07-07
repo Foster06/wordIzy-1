@@ -68,7 +68,7 @@ export type Translation = {
   thirdPartyServices: { name: string; description: string; url: string }[];
  };
  sitemap: { title: string; body: string };
- footer: { rights: string; madeWith: string; links: string; desc: string };
+ footer: { rights: string; madeWith: string; links: string; desc: string; disclaimer: string };
  faq: {
   title: string;
   unscrambler: FaqItemT[]; scramble: FaqItemT[]; wordle: FaqItemT[]; quordle: FaqItemT[];
@@ -254,7 +254,7 @@ const en: Translation = {
   ],
  },
  sitemap: { title: "Sitemap", body: "All pages on WordIzy." },
- footer: { rights: "All rights reserved.", madeWith: "Built for word lovers.", links: "Quick links", desc: "Free word unscrambler, anagram & puzzle solvers in 9 languages. No sign-up." },
+ footer: { rights: "All rights reserved.", madeWith: "Built for word lovers.", links: "Quick links", desc: "Free word unscrambler, anagram & puzzle solvers in 9 languages. No sign-up.", disclaimer: "For entertainment & word games. Not affiliated with Scrabble or Wordle." },
  faq: {
   title: "How to use & FAQ",
   unscrambler: [
@@ -465,7 +465,7 @@ const fr: Translation = {
   ],
  },
  sitemap: { title: "Plan du site", body: "Toutes les pages de WordIzy." },
- footer: { rights: "Tous droits réservés.", madeWith: "Conçu pour les amoureux des mots.", links: "Liens rapides", desc: "Anagrammeur et solveurs de puzzles gratuits en 9 langues. Sans inscription." },
+ footer: { rights: "Tous droits réservés.", madeWith: "Conçu pour les amoureux des mots.", links: "Liens rapides", desc: "Anagrammeur et solveurs de puzzles gratuits en 9 langues. Sans inscription.", disclaimer: "Pour le divertissement et les jeux de mots. Non affilié au Scrabble ou au Wordle." },
  faq: {
   title: "Mode d'emploi & FAQ",
   unscrambler: [
@@ -649,7 +649,7 @@ const es: Translation = {
   ],
  },
  sitemap: { title: "Mapa del sitio", body: "Todas las páginas de WordIzy." },
- footer: { rights: "Todos los derechos reservados.", madeWith: "Hecho para amantes de las palabras.", links: "Enlaces rápidos", desc: "Desordenador y resolvedores gratuitos en 9 idiomas. Sin registro." },
+ footer: { rights: "Todos los derechos reservados.", madeWith: "Hecho para amantes de las palabras.", links: "Enlaces rápidos", desc: "Desordenador y resolvedores gratuitos en 9 idiomas. Sin registro.", disclaimer: "Para entretenimiento y juegos de palabras. No afiliado con Scrabble ni Wordle." },
  faq: {
   title: "Cómo usar y preguntas frecuentes",
   unscrambler: [
@@ -833,7 +833,7 @@ const de: Translation = {
   ],
  },
  sitemap: { title: "Sitemap", body: "Alle Seiten von WordIzy." },
- footer: { rights: "Alle Rechte vorbehalten.", madeWith: "Für Wortliebhaber gemacht.", links: "Schnelllinks", desc: "Kostenloser Entwirker und Löser in 9 Sprachen. Ohne Anmeldung." },
+ footer: { rights: "Alle Rechte vorbehalten.", madeWith: "Für Wortliebhaber gemacht.", links: "Schnelllinks", desc: "Kostenloser Entwirker und Löser in 9 Sprachen. Ohne Anmeldung.", disclaimer: "Für Unterhaltung und Wortspiele. Nicht verbunden mit Scrabble oder Wordle." },
  faq: {
   title: "Anleitung & FAQ",
   unscrambler: [
@@ -1017,7 +1017,7 @@ const it: Translation = {
   ],
  },
  sitemap: { title: "Mappa del sito", body: "Tutte le pagine di WordIzy." },
- footer: { rights: "Tutti i diritti riservati.", madeWith: "Fatto per gli amanti delle parole.", links: "Link rapidi", desc: "Anagrammatore e risolutori gratuiti in 9 lingue. Senza registrazione." },
+ footer: { rights: "Tutti i diritti riservati.", madeWith: "Fatto per gli amanti delle parole.", links: "Link rapidi", desc: "Anagrammatore e risolutori gratuiti in 9 lingue. Senza registrazione.", disclaimer: "Per intrattenimento e giochi di parole. Non affiliato con Scrabble o Wordle." },
  faq: {
   title: "Come usare & FAQ",
   unscrambler: [
@@ -1201,7 +1201,7 @@ const pt: Translation = {
   ],
  },
  sitemap: { title: "Mapa do site", body: "Todas as páginas do WordIzy." },
- footer: { rights: "Todos os direitos reservados.", madeWith: "Feito para amantes das palavras.", links: "Links rápidos", desc: "Descodificador e resolvedores gratuitos em 9 idiomas. Sem cadastro." },
+ footer: { rights: "Todos os direitos reservados.", madeWith: "Feito para amantes das palavras.", links: "Links rápidos", desc: "Descodificador e resolvedores gratuitos em 9 idiomas. Sem cadastro.", disclaimer: "Para entretenimento e jogos de palavras. Não afiliado com Scrabble ou Wordle." },
  faq: {
   title: "Como usar & FAQ",
   unscrambler: [
@@ -1385,7 +1385,7 @@ const nl: Translation = {
   ],
  },
  sitemap: { title: "Sitemap", body: "Alle pagina's van WordIzy." },
- footer: { rights: "Alle rechten voorbehouden.", madeWith: "Gemaakt voor woordliefhebbers.", links: "Snelle links", desc: "Gratis ontwarer en oplossers in 9 talen. Zonder registratie." },
+ footer: { rights: "Alle rechten voorbehouden.", madeWith: "Gemaakt voor woordliefhebbers.", links: "Snelle links", desc: "Gratis ontwarer en oplossers in 9 talen. Zonder registratie.", disclaimer: "Voor entertainment en woordspellen. Niet gelieerd aan Scrabble of Wordle." },
  faq: {
   title: "Hoe te gebruiken & FAQ",
   unscrambler: [
@@ -1572,7 +1572,7 @@ const ja: Translation = {
   ],
  },
  sitemap: { title: "サイトマップ", body: "WordIzyのすべてのページ。" },
- footer: { rights: "全著作権所有。", madeWith: "言葉を愛する人のために。", links: "クイックリンク", desc: "9言語の無料アナグラム&解決ツール。登録不要。" },
+ footer: { rights: "全著作権所有。", madeWith: "言葉を愛する人のために。", links: "クイックリンク", desc: "9言語の無料アナグラム&解決ツール。登録不要。", disclaimer: "エンターテインメントとワードゲーム用。ScrabbleやWordleとは提携していません。" },
  faq: {
   title: "使い方 & FAQ",
   unscrambler: [
@@ -1759,7 +1759,7 @@ const zh: Translation = {
   ],
  },
  sitemap: { title: "网站地图", body: "WordIzy的全部页面。" },
- footer: { rights: "保留所有权利。", madeWith: "为词语爱好者打造。", links: "快速链接", desc: "9种语言的免费重组与求解工具。无需注册。" },
+ footer: { rights: "保留所有权利。", madeWith: "为词语爱好者打造。", links: "快速链接", desc: "9种语言的免费重组与求解工具。无需注册。", disclaimer: "仅供娱乐与文字游戏。与Scrabble或Wordle无关。" },
  faq: {
   title: "使用说明 & 常见问题",
   unscrambler: [

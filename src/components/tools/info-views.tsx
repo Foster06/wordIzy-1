@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Info, Mail, Shield, Map, Send, Check, Loader2, AlertCircle } from "lucide-react";
+import { Info, Mail, Shield, Map, Send, Check, Loader2, AlertCircle, Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2, BookOpen, Trophy, List, ArrowDownToLine, ArrowUpFromLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

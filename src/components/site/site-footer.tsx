@@ -64,7 +64,7 @@ export function SiteFooter() {
             © 2026 WordIzy. {t.footer.rights}
           </p>
           <p className="text-xs text-muted-foreground/60">
-            For entertainment &amp; word games. Not affiliated with Scrabble or Wordle.
+            {t.footer.disclaimer}
           </p>
         </div>
       </div>
