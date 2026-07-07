@@ -8,6 +8,8 @@ import { PageHeader } from "@/components/site/page-header";
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
 import { HomeFaq } from "@/components/site/tips-section";
+import { ErrorBoundary } from "@/components/site/error-boundary";
+import { RouteSeo } from "@/components/site/route-seo";
 import { UnscramblerTool } from "@/components/tools/unscrambler-tool";
 import { ScrambleTool } from "@/components/tools/scramble-tool";
 import { WordleTool } from "@/components/tools/wordle-tool";
@@ -22,6 +24,7 @@ import { WordStartsTool } from "@/components/tools/word-starts-tool";
 import { WordEndsTool } from "@/components/tools/word-ends-tool";
 import { AboutView, ContactView, PrivacyView, SitemapView } from "@/components/tools/info-views";
 import { InboxView } from "@/components/tools/inbox-view";
+import { DashboardView } from "@/components/tools/dashboard-view";
 
 function HomeHero() {
   const { t } = useLanguage();
@@ -48,30 +51,120 @@ export default function Home() {
         return (
           <>
             <HomeHero />
-            <UnscramblerTool />
+            <ErrorBoundary label="Unscrambler">
+              <UnscramblerTool />
+            </ErrorBoundary>
           </>
         );
-      case "scramble": return <ScrambleTool />;
-      case "wordle": return <WordleTool />;
-      case "quordle": return <QuordleTool />;
-      case "anagram": return <AnagramTool />;
-      case "random": return <RandomTool />;
-      case "wordfeud": return <WordfeudTool />;
-      case "dictionary": return <DictionaryTool />;
-      case "scrabble": return <ScrabbleTool />;
-      case "wordlists": return <WordlistsTool />;
-      case "wordstarts": return <WordStartsTool />;
-      case "wordends": return <WordEndsTool />;
-      case "about": return <AboutView />;
-      case "contact": return <ContactView />;
-      case "privacy": return <PrivacyView />;
-      case "sitemap": return <SitemapView />;
-      case "inbox": return <InboxView />;
+      case "scramble":
+        return (
+          <ErrorBoundary label="Scramble Solver">
+            <ScrambleTool />
+          </ErrorBoundary>
+        );
+      case "wordle":
+        return (
+          <ErrorBoundary label="Wordle Solver">
+            <WordleTool />
+          </ErrorBoundary>
+        );
+      case "quordle":
+        return (
+          <ErrorBoundary label="Quordle Solver">
+            <QuordleTool />
+          </ErrorBoundary>
+        );
+      case "anagram":
+        return (
+          <ErrorBoundary label="Anagram Solver">
+            <AnagramTool />
+          </ErrorBoundary>
+        );
+      case "random":
+        return (
+          <ErrorBoundary label="Random Word">
+            <RandomTool />
+          </ErrorBoundary>
+        );
+      case "wordfeud":
+        return (
+          <ErrorBoundary label="Wordfeud Helper">
+            <WordfeudTool />
+          </ErrorBoundary>
+        );
+      case "dictionary":
+        return (
+          <ErrorBoundary label="Dictionary">
+            <DictionaryTool />
+          </ErrorBoundary>
+        );
+      case "scrabble":
+        return (
+          <ErrorBoundary label="Scrabble Duplicate">
+            <ScrabbleTool />
+          </ErrorBoundary>
+        );
+      case "wordlists":
+        return (
+          <ErrorBoundary label="Word Lists">
+            <WordlistsTool />
+          </ErrorBoundary>
+        );
+      case "wordstarts":
+        return (
+          <ErrorBoundary label="Word Starts By">
+            <WordStartsTool />
+          </ErrorBoundary>
+        );
+      case "wordends":
+        return (
+          <ErrorBoundary label="Word Ends By">
+            <WordEndsTool />
+          </ErrorBoundary>
+        );
+      case "about":
+        return (
+          <ErrorBoundary label="About">
+            <AboutView />
+          </ErrorBoundary>
+        );
+      case "contact":
+        return (
+          <ErrorBoundary label="Contact">
+            <ContactView />
+          </ErrorBoundary>
+        );
+      case "privacy":
+        return (
+          <ErrorBoundary label="Privacy Policy">
+            <PrivacyView />
+          </ErrorBoundary>
+        );
+      case "sitemap":
+        return (
+          <ErrorBoundary label="Sitemap">
+            <SitemapView />
+          </ErrorBoundary>
+        );
+      case "inbox":
+        return (
+          <ErrorBoundary label="Inbox">
+            <InboxView />
+          </ErrorBoundary>
+        );
+      case "dashboard":
+        return (
+          <ErrorBoundary label="Dashboard">
+            <DashboardView />
+          </ErrorBoundary>
+        );
       default:
         return (
           <>
             <HomeHero />
-            <UnscramblerTool />
+            <ErrorBoundary label="Unscrambler">
+              <UnscramblerTool />
+            </ErrorBoundary>
           </>
         );
     }
@@ -79,6 +172,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <RouteSeo route={route} />
       <SiteHeader />
       <main className="flex-1 mx-auto w-full max-w-7xl px-4 sm:px-6 py-6 sm:py-8">
         {renderView()}

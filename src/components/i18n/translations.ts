@@ -10,6 +10,7 @@ export type Translation = {
   scrabble: string; wordlists: string; wordstarts: string; wordends: string; about: string; contact: string;
   privacy: string; sitemap: string; tools: string; more: string;
   solvers: string; site: string; wordlab: string; inbox: string;
+  dashboard: string;
  };
  brand: { name: string; tagline: string };
  common: {
@@ -85,6 +86,7 @@ const en: Translation = {
   wordfeud: "Wordfeud Helper", dictionary: "Check Dictionary", scrabble: "Scrabble Duplicate",
   wordlists: "Word Lists", wordstarts: "Word Starts By", wordends: "Word Ends By", about: "About", contact: "Contact", privacy: "Privacy",
   sitemap: "Sitemap", tools: "Tools", more: "More", solvers: "Solvers", site: "Site", wordlab: "Word Lab", inbox: "Inbox",
+  dashboard: "Dashboard",
  },
  brand: { name: "WordIzy", tagline: "Unscramble. Solve. Win." },
  common: {
@@ -340,6 +342,7 @@ const fr: Translation = {
   wordfeud: "Aide Wordfeud", dictionary: "Vérifier le Dico", scrabble: "Scrabble Duplicate",
   wordlists: "Listes de Mots", wordstarts: "Mots Commencent Par", wordends: "Mots Finissent Par", about: "À propos", contact: "Contact", privacy: "Confidentialité",
   sitemap: "Plan du site", tools: "Outils", more: "Plus", solvers: "Solveurs", site: "Site", wordlab: "Labo des Mots", inbox: "Boîte de réception",
+  dashboard: "Tableau de bord",
  },
  brand: { name: "WordIzy", tagline: "Anagrammez. Résolvez. Gagnez." },
  common: {
@@ -550,6 +553,7 @@ const es: Translation = {
   wordfeud: "Ayuda Wordfeud", dictionary: "Ver Diccionario", scrabble: "Scrabble Duplicate",
   wordlists: "Listas de Palabras", wordstarts: "Palabras Empiezan Por", wordends: "Palabras Terminan En", about: "Acerca de", contact: "Contacto", privacy: "Privacidad",
   sitemap: "Mapa del sitio", tools: "Herramientas", more: "Más", solvers: "Solucionadores", site: "Sitio", wordlab: "Lab de Palabras", inbox: "Bandeja de entrada",
+  dashboard: "Panel",
  },
  brand: { name: "WordIzy", tagline: "Desordena. Resuelve. Gana." },
  common: {
@@ -733,6 +737,7 @@ const de: Translation = {
   wordfeud: "Wordfeud-Hilfe", dictionary: "Wörterbuch", scrabble: "Scrabble Duplicate",
   wordlists: "Wortlisten", wordstarts: "Wörter Beginnen Mit", wordends: "Wörter Enden Mit", about: "Über", contact: "Kontakt", privacy: "Datenschutz",
   sitemap: "Sitemap", tools: "Werkzeuge", more: "Mehr", solvers: "Löser", site: "Seite", wordlab: "Wort-Labor", inbox: "Posteingang",
+  dashboard: "Dashboard",
  },
  brand: { name: "WordIzy", tagline: "Entwirren. Lösen. Gewinnen." },
  common: {
@@ -916,6 +921,7 @@ const it: Translation = {
   wordfeud: "Aiuto Wordfeud", dictionary: "Verifica Diz.", scrabble: "Scrabble Duplicate",
   wordlists: "Liste Parole", wordstarts: "Parole Iniziano Per", wordends: "Parole Finiscono Per", about: "Info", contact: "Contatti", privacy: "Privacy",
   sitemap: "Mappa", tools: "Strumenti", more: "Altro", solvers: "Risolutori", site: "Sito", wordlab: "Lab delle Parole", inbox: "Posta in arrivo",
+  dashboard: "Cruscotto",
  },
  brand: { name: "WordIzy", tagline: "Riordina. Risolvi. Vinci." },
  common: {
@@ -1099,6 +1105,7 @@ const pt: Translation = {
   wordfeud: "Ajuda Wordfeud", dictionary: "Verificar Dicio.", scrabble: "Scrabble Duplicate",
   wordlists: "Listas de Palavras", wordstarts: "Palavras Começam Por", wordends: "Palavras Terminam Em", about: "Sobre", contact: "Contato", privacy: "Privacidade",
   sitemap: "Mapa do site", tools: "Ferramentas", more: "Mais", solvers: "Solucionadores", site: "Site", wordlab: "Lab de Palavras", inbox: "Caixa de entrada",
+  dashboard: "Painel",
  },
  brand: { name: "WordIzy", tagline: "Descodifica. Resolve. Vence." },
  common: {
@@ -1282,6 +1289,7 @@ const nl: Translation = {
   wordfeud: "Wordfeud-hulp", dictionary: "Woordenboek", scrabble: "Scrabble Duplicate",
   wordlists: "Woordlijsten", wordstarts: "Woorden Beginnen Met", wordends: "Woorden Eindigen Op", about: "Over", contact: "Contact", privacy: "Privacy",
   sitemap: "Sitemap", tools: "Hulpmiddelen", more: "Meer", solvers: "Oplossers", site: "Site", wordlab: "Woord-Lab", inbox: "Postvak IN",
+  dashboard: "Dashboard",
  },
  brand: { name: "WordIzy", tagline: "Ontwar. Los op. Win." },
  common: {
@@ -1466,6 +1474,7 @@ const ja: Translation = {
   wordfeud: "Wordfeudヘルプ", dictionary: "辞書チェック", scrabble: "スクラブル複製",
   wordlists: "単語リスト", wordstarts: "単語 始まる", wordends: "単語 終わる", about: "概要", contact: "お問い合わせ", privacy: "プライバシー",
   sitemap: "サイトマップ", tools: "ツール", more: "その他", solvers: "ソルバー", site: "サイト", wordlab: "ワードラボ", inbox: "受信箱",
+  dashboard: "ダッシュボード",
  },
  brand: { name: "WordIzy", tagline: "解き、勝つ。" },
  common: {
@@ -1652,6 +1661,7 @@ const zh: Translation = {
   wordfeud: "Wordfeud助手", dictionary: "查词典", scrabble: "Scrabble复刻",
   wordlists: "单词表", wordstarts: "单词 开头", wordends: "单词 结尾", about: "关于", contact: "联系", privacy: "隐私",
   sitemap: "网站地图", tools: "工具", more: "更多", solvers: "求解器", site: "站点", wordlab: "词汇实验室", inbox: "收件箱",
+  dashboard: "仪表盘",
  },
  brand: { name: "WordIzy", tagline: "重组。求解。获胜。" },
  common: {

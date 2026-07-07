@@ -4,6 +4,9 @@ import "./globals.css";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { LanguageProvider } from "@/components/i18n/language-provider";
 import { ThemeProvider } from "@/components/site/theme-provider";
+import { CookieConsent } from "@/components/site/cookie-consent";
+import { WebVitals } from "@/components/site/web-vitals";
+import { DictionaryWarmer } from "@/components/site/dictionary-warmer";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -12,7 +15,42 @@ const inter = Inter({ variable: "--font-inter", subsets: ["latin"], weight: ["40
 const breeSerif = Bree_Serif({ variable: "--font-bree-serif", subsets: ["latin"], weight: ["400"] });
 const robotoSlab = Roboto_Slab({ variable: "--font-roboto-slab", subsets: ["latin"], weight: ["600", "800"] });
 
+const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+const showAdsense =
+  typeof adsenseClient === "string" &&
+  adsenseClient.length > 0 &&
+  !adsenseClient.includes("XXXXXXXX");
+
+const SITE_URL = "https://wordizy.com";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "WordIzy",
+  url: SITE_URL,
+  description:
+    "Free word unscrambler, anagram solver, Wordle & Quordle solver with multi-language official Scrabble dictionaries. No sign-up.",
+  applicationCategory: "Game",
+  applicationSubCategory: "Word Game Helper",
+  operatingSystem: "Web",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  brand: { "@type": "Brand", name: "WordIzy" },
+  featureList: [
+    "Word Unscrambler",
+    "Anagram Solver",
+    "Wordle Solver",
+    "Quordle Solver",
+    "Scrabble Duplicate Solver",
+    "Wordfeud Helper",
+    "Random Word Generator",
+    "Multi-language Word Lists",
+  ],
+  inLanguage: ["en", "fr", "es", "it", "pt", "de", "nl", "ja", "zh"],
+  publisher: { "@type": "Organization", name: "WordIzy" },
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "WordIzy — Word Unscrambler, Anagram & Wordle Solver",
   description:
     "WordIzy is a free word unscrambler and solver. Unscramble letters, solve anagrams, Wordle, Quordle, Scrabble, Wordfeud and browse multi-language word lists. No sign up.",
@@ -27,13 +65,31 @@ export const metadata: Metadata = {
     "WordIzy",
   ],
   authors: [{ name: "WordIzy" }],
-  icons: { icon: "/logo.svg" },
+  manifest: "/manifest.json",
+  icons: { icon: "/logo.svg", apple: "/logo.svg" },
+  robots: { index: true, follow: true },
   openGraph: {
     title: "WordIzy — Word Unscrambler & Solver",
     description:
       "Free word unscrambler, anagram solver, Wordle & Quordle solver with multi-language dictionaries. No sign up.",
     siteName: "WordIzy",
     type: "website",
+    url: SITE_URL,
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "WordIzy — Word Unscrambler & Anagram Solver",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "WordIzy — Word Unscrambler & Solver",
+    description:
+      "Free word unscrambler, anagram solver, Wordle & Quordle solver with multi-language dictionaries. No sign up.",
+    images: ["/og-image.svg"],
   },
 };
 
@@ -44,15 +100,31 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {showAdsense && adsenseClient && (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
+            crossOrigin="anonymous"
+          />
+        )}
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} ${inter.variable} ${breeSerif.variable} ${robotoSlab.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true}>
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider>
+            {children}
+            <CookieConsent />
+            <WebVitals />
+            <DictionaryWarmer />
+          </LanguageProvider>
         </ThemeProvider>
         <SonnerToaster position="top-center" richColors />
-        {/* Pre-warm dictionary cache on load (fire-and-forget) */}
-        <script dangerouslySetInnerHTML={{ __html: "fetch('/api/warmup').catch(()=>{})" }} />
       </body>
     </html>
   );

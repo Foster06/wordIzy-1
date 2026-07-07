@@ -574,3 +574,33 @@ Work Log:
 
 Stage Summary:
 - `bun run lint` → clean (no errors, exit 0). All 8 non-English languages now use the new `thirdPartyServices[]` array format matching the English block. Resend is fully removed from the privacy policy across all 9 languages. Translations preserve the meaning of the English descriptions while using natural, formal register appropriate to each locale.
+
+---
+Task ID: recreate-missing-files
+Agent: subagent (general-purpose)
+Task: Recreate all missing files lost due to session reset
+
+Work Log:
+- Read existing reference files (inbox-view, glass-card, button, use-hash-route, routes.ts, page.tsx, layout.tsx, translations.ts) to match code style.
+
+Files created (7):
+- src/components/site/error-boundary.tsx — class-based React error boundary. Catches render errors, shows GlassCard fallback with "Something went wrong" + Reload page button (calls window.location.reload()). Optional `label` prop for heading. Error message/stack shown only when process.env.NODE_ENV !== "production". Logs to console.error in componentDidCatch.
+- src/components/site/cookie-consent.tsx — "use client" cookie consent banner. Uses useEffect + useState. Shows after 1.5s delay on first visit (localStorage key "wordizy-cookie-consent"). Accept/Decline buttons persist choice + hide banner. Uses useHashRoute to link to Privacy page. Uses Button, Cookie + X icons from lucide-react. Fixed position bottom, glass-strong card style.
+- src/components/site/web-vitals.tsx — "use client" invisible component. Tracks LCP, CLS, FID via PerformanceObserver. Only runs in production. Logs metrics to console. Returns null.
+- src/components/site/dictionary-warmer.tsx — "use client" invisible component. Fires fetch("/api/warmup") on mount (fire-and-forget). Returns null.
+- src/components/site/route-seo.tsx — "use client" component. Takes `route` prop (RouteDef). Updates document.title + meta description tag on route change. SEO record covers all 18 route IDs: home, scramble, anagram, wordle, quordle, scrabble, dictionary, random, wordfeud, wordlists, wordstarts, wordends, about, contact, privacy, sitemap, inbox, dashboard. Each entry has title + description.
+- src/components/tools/dashboard-view.tsx — "use client" auth-gated analytics dashboard. Same pattern as inbox-view.tsx. Password gate with sessionStorage (key "wordizy-dashboard-key"). Fetches /api/analytics?key=PASSWORD&days=N. Shows: summary cards (total searches, top query, top tool, top language), time range selector (24h/7d/30d), bar chart of top queries, tables for top routes + languages, zero-result searches. Uses GlassCard, PageHeader, Button, Input, Label. Icons: LayoutDashboard, Lock, RefreshCw, ChevronLeft, Loader2, AlertCircle, TrendingUp, Globe, Search, BarChart3.
+- public/og-image.svg — 1200×630px SVG. Dark bg gradient (#0d0d0f → #1a1a1f). Amber square logo with "W" + WordIzy wordmark. Title "Word Unscrambler & Anagram Solver". Subtitle "Free • 9 languages • Official Scrabble dictionaries". Amber "Get Started →" button shape. Tool pills on right. URL "wordizy.com" footer.
+
+Files modified (4):
+- src/app/layout.tsx — Added metadataBase, manifest, icons (icon + apple), robots {index,follow}, Open Graph images (/og-image.svg 1200×630), Twitter card (summary_large_image with og:image). Added JSON-LD WebApplication structured data in <head> via <script type="application/ld+json">. Added conditional Google AdSense script (only when NEXT_PUBLIC_ADSENSE_CLIENT set + not containing "XXXXXXXX"). Imported + rendered CookieConsent, WebVitals, DictionaryWarmer inside LanguageProvider. Removed old inline fetch('/api/warmup') script (replaced by DictionaryWarmer component).
+- src/app/page.tsx — Imported ErrorBoundary, DashboardView, RouteSeo. Wrapped every tool/view in renderView() with <ErrorBoundary label="...">. Added case "dashboard": return <ErrorBoundary label="Dashboard"><DashboardView /></ErrorBoundary>. Added <RouteSeo route={route} /> at the top of the returned JSX (before SiteHeader). Preserved original HomeHero i18n behaviour.
+- src/components/site/routes.ts — Added "dashboard" to RouteId union. Added hidden route { id: "dashboard", hash: "/dashboard", icon: "BarChart3", labelKey: "dashboard", group: "site", desktop: "site", hidden: true }.
+- src/components/i18n/translations.ts — Added `dashboard: string` to the nav type. Added translated `dashboard: "..."` to all 9 language nav blocks: en "Dashboard", fr "Tableau de bord", es "Panel", de "Dashboard", it "Cruscotto", pt "Painel", nl "Dashboard", ja "ダッシュボード", zh "仪表盘".
+
+Lint + type check:
+- `bun run lint` → clean (0 errors, 0 warnings, exit 0).
+- `bunx tsc --noEmit` → no errors in any new/modified file. (Pre-existing TS errors in unrelated files: examples/websocket/*, skills/image-edit/scripts/image-edit.ts, skills/stock-analysis-skill/src/analyzer.ts, src/components/tools/quordle-tool.tsx, src/lib/db.ts — none touched by this task.)
+
+Stage Summary:
+- All 7 missing files recreated + 4 files updated. ErrorBoundary now wraps every view so render errors show a graceful fallback. RouteSeo keeps document.title + meta description in sync with hash-route changes. DashboardView mirrors InboxView's auth-gated pattern and surfaces /api/analytics data. Layout has full metadata (base URL, manifest, icons, OG, Twitter, JSON-LD, AdSense conditional), plus CookieConsent + WebVitals + DictionaryWarmer rendered inside providers. Routes registry + 9-language translations extended for the new hidden dashboard route.

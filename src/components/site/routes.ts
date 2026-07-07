@@ -7,7 +7,7 @@ import type { Translation } from "@/components/i18n/translations";
 export type RouteId =
   | "home" | "scramble" | "anagram" | "wordle" | "quordle" | "scrabble"
   | "random" | "wordfeud" | "dictionary" | "wordlists" | "wordstarts" | "wordends"
-  | "about" | "contact" | "privacy" | "sitemap" | "inbox";
+  | "about" | "contact" | "privacy" | "sitemap" | "inbox" | "dashboard";
 
 export type RouteGroup = "solvers" | "tools" | "site";
 export type DesktopNavSlot = "inline" | "tools" | "wordlab" | "site";
@@ -46,6 +46,8 @@ export const ROUTES: RouteDef[] = [
   { id: "sitemap", hash: "/sitemap", icon: "Map", labelKey: "sitemap", group: "site", desktop: "site" },
   // Hidden — owner-only inbox for contact form submissions. Access via #/inbox
   { id: "inbox", hash: "/inbox", icon: "Inbox", labelKey: "inbox", group: "site", desktop: "site", hidden: true },
+  // Hidden — owner-only analytics dashboard. Access via #/dashboard
+  { id: "dashboard", hash: "/dashboard", icon: "BarChart3", labelKey: "dashboard", group: "site", desktop: "site", hidden: true },
 ];
 
 export const ROUTE_MAP: Record<string, RouteDef> = Object.fromEntries(
