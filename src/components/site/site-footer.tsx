@@ -58,10 +58,13 @@ export function SiteFooter() {
           <AdSlot format="horizontal" />
         </div>
 
-        {/* Bottom row: copyright (left) */}
-        <div className="flex items-center justify-center gap-3 pt-6 border-t border-white/5">
-          <p className="text-xs text-muted-foreground text-center">
-            © 2026 WordIzy. © {t.footer.rights}
+        {/* Bottom row: copyright (left) + disclaimer (right) */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6 border-t border-white/5">
+          <p className="text-xs text-muted-foreground">
+            © 2026 WordIzy. {t.footer.rights}
+          </p>
+          <p className="text-xs text-muted-foreground/60">
+            For entertainment &amp; word games. Not affiliated with Scrabble or Wordle.
           </p>
         </div>
       </div>
