@@ -1,6 +1,7 @@
 "use client";
 
 import { GlassCard } from "./glass-card";
+import { ShareButtons } from "./share-buttons";
 import type { ReactNode } from "react";
 
 interface PageHeaderProps {
@@ -11,7 +12,7 @@ interface PageHeaderProps {
 }
 
 /** Hero header — centered, Bree Serif title with brand gradient on remaining words
- *  (matches the home "Word Unscrambler" style). */
+ *  (matches the home "Word Unscrambler" style). Includes social share buttons. */
 export function PageHeader({ badge, title, subtitle, icon }: PageHeaderProps) {
   const titleText = typeof title === "string" ? title : "";
   const parts = titleText.split(" ");
@@ -46,6 +47,9 @@ export function PageHeader({ badge, title, subtitle, icon }: PageHeaderProps) {
             {subtitle}
           </p>
         )}
+        <div className="mt-4">
+          <ShareButtons title={titleText || "wordIzy"} />
+        </div>
       </div>
     </GlassCard>
   );

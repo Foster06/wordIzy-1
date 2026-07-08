@@ -66,7 +66,13 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "wordIzy" }],
   manifest: "/manifest.json",
-  icons: { icon: "/logo.svg", apple: "/logo.svg" },
+  icons: {
+    icon: [
+      { url: "/logo.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", type: "image/x-icon" },
+    ],
+    apple: "/logo.svg",
+  },
   robots: { index: true, follow: true },
   openGraph: {
     title: "wordIzy — Word Unscrambler & Solver",
@@ -101,6 +107,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Force favicon refresh — cache-busting query param */}
+        <link rel="icon" type="image/svg+xml" href="/logo.svg?v=2" />
+        <link rel="apple-touch-icon" href="/logo.svg?v=2" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

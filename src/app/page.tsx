@@ -6,6 +6,7 @@ import { useHashRoute } from "@/components/site/use-hash-route";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { PageHeader } from "@/components/site/page-header";
 import { GlassCard } from "@/components/site/glass-card";
+import { ShareButtons } from "@/components/site/share-buttons";
 import { AdSlot } from "@/components/site/ad-slot";
 import { HomeFaq } from "@/components/site/tips-section";
 import { ErrorBoundary } from "@/components/site/error-boundary";
@@ -37,6 +38,9 @@ function HomeHero() {
           {t.home.title.split(" ")[0]} <span className="text-gradient-brand">{t.home.title.split(" ").slice(1).join(" ")}</span>
         </h1>
         <p className="page-subtitle mt-3 text-muted-foreground max-w-3xl">{t.home.subtitle}</p>
+        <div className="mt-4">
+          <ShareButtons title={t.home.title} />
+        </div>
       </div>
     </GlassCard>
   );
