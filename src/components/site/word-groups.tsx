@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Copy, Check } from "lucide-react";
+import { ChevronLeft, ChevronRight, Copy, Check, Share2 } from "lucide-react";
 import type { LengthGroup } from "@/lib/unscramble";
 import type { LanguageDef } from "@/lib/languages";
 import type { Translation } from "@/components/i18n/translations";
@@ -53,6 +53,18 @@ function LengthGroupCard({ group, t }: { group: LengthGroup; t: Translation }) {
     });
   };
 
+  const shareAll = async () => {
+    const words = group.words.map((w) => w.word.toUpperCase()).join(", ");
+    const text = `${group.words.length} ${group.length}-letter words from wordIzy:\n${words}`;
+    if (navigator.share) {
+      try { await navigator.share({ title: "wordIzy results", text }); } catch { /* user cancelled */ }
+    } else {
+      navigator.clipboard?.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
   return (
     <GlassCard className="p-4 sm:p-5 result-card">
       <div className="flex items-center justify-center gap-3 mb-3 text-center">
@@ -64,9 +76,14 @@ function LengthGroupCard({ group, t }: { group: LengthGroup; t: Translation }) {
           {group.words.length} {t.common.wordsCount}
           {totalPages > 1 && <span className="ml-2 tabular-nums">{page + 1}/{totalPages}</span>}
         </span>
-        <button onClick={copyAll} className="ml-auto text-muted-foreground hover:text-brand transition-colors" title={t.common.copy} aria-label={t.common.copy}>
-          {copied ? <Check className="h-3.5 w-3.5 text-brand" /> : <Copy className="h-3.5 w-3.5" />}
-        </button>
+        <div className="ml-auto flex items-center gap-1.5">
+          <button onClick={shareAll} className="text-muted-foreground hover:text-brand transition-colors" title="Share" aria-label="Share results">
+            <Share2 className="h-3.5 w-3.5" />
+          </button>
+          <button onClick={copyAll} className="text-muted-foreground hover:text-brand transition-colors" title={t.common.copy} aria-label={t.common.copy}>
+            {copied ? <Check className="h-3.5 w-3.5 text-brand" /> : <Copy className="h-3.5 w-3.5" />}
+          </button>
+        </div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5 justify-items-center text-center">
         {visible.map((w) => (

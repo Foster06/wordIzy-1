@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Loader2, ChevronLeft, ChevronRight, ArrowDownAZ } from "lucide-react";
+import { Loader2, ChevronLeft, ChevronRight, ArrowDownAZ, Copy, Check, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/site/glass-card";
 import { useLanguage } from "@/components/i18n/language-provider";
@@ -24,6 +24,7 @@ export function WordBucket({
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const fetchAll = useCallback(async () => {
     setLoading(true);
@@ -57,6 +58,25 @@ export function WordBucket({
   const pageWords = allWords.slice(start, start + PAGE_SIZE);
   const hasMore = total > 500 && allWords.length < total;
 
+  const copyAll = () => {
+    const text = allWords.map((w) => w.word.toUpperCase()).join("\n");
+    navigator.clipboard?.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
+  const shareAll = async () => {
+    const text = `${total} words from wordIzy:\n${allWords.map((w) => w.word.toUpperCase()).join(", ")}`;
+    if (navigator.share) {
+      try { await navigator.share({ title: "wordIzy results", text }); } catch { /* cancelled */ }
+    } else {
+      navigator.clipboard?.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
   return (
     <GlassCard className="p-4 result-card">
       <div className="flex items-center justify-center gap-2 mb-2 text-center">
@@ -65,6 +85,14 @@ export function WordBucket({
           {title}
         </h3>
         <span className="text-xs text-muted-foreground">{total} {t.common.wordsCount}</span>
+        <div className="ml-auto flex items-center gap-1.5">
+          <button onClick={shareAll} className="text-muted-foreground hover:text-brand transition-colors" title="Share" aria-label="Share results" disabled={allWords.length === 0}>
+            <Share2 className="h-3.5 w-3.5" />
+          </button>
+          <button onClick={copyAll} className="text-muted-foreground hover:text-brand transition-colors" title={t.common.copy} aria-label={t.common.copy} disabled={allWords.length === 0}>
+            {copied ? <Check className="h-3.5 w-3.5 text-brand" /> : <Copy className="h-3.5 w-3.5" />}
+          </button>
+        </div>
       </div>
       <div className="mb-3 text-[10px] uppercase tracking-wider text-muted-foreground/70 flex items-center gap-1">
         <span>{t.common.length} {length}</span>
