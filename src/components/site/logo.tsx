@@ -21,9 +21,9 @@ export function Logo({ size = "md", className }: { size?: LogoSize; className?: 
     >
       <span
         className="font-bold leading-none select-none text-white"
-        style={{ fontFamily: "var(--font-roboto-slab), Georgia, serif", fontSize: "0.85em", fontWeight: 700, letterSpacing: "-0.02em" }}
+        style={{ fontFamily: "var(--font-roboto-slab), Georgia, serif", fontSize: "1.25em", fontWeight: 700 }}
       >
-        WI
+        W
       </span>
     </span>
   );
