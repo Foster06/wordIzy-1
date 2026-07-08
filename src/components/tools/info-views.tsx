@@ -226,11 +226,9 @@ export function PrivacyView() {
                       {service.description}
                     </div>
                   ))}
-                  <div className="mt-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3">
-                    <p className="text-sm sm:text-base font-semibold text-emerald-400 leading-relaxed">
-                      We do not sell, rent, or share your data with any other third parties.
-                    </p>
-                  </div>
+                  <p className="mt-4 text-sm sm:text-base font-bold text-brand leading-relaxed">
+                    We do not sell, rent, or share your data with any other third parties.
+                  </p>
                 </div>
               </div>
             )}
