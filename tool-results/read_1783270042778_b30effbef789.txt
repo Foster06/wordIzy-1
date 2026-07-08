@@ -1,0 +1,787 @@
+     1→# WordIzy Build Worklog
+     2→
+     3→This file tracks all work done by the main agent and subagents on the WordIzy project.
+     4→
+     5→---
+     6→Task ID: 0
+     7→Agent: main
+     8→Task: Project setup, planning, and foundation
+     9→
+    10→Work Log:
+    11→- Explored existing Next.js 16 scaffold (Tailwind 4, shadcn/ui, Prisma/SQLite, z-ai-web-dev-sdk, next-intl available).
+    12→- Reviewed user design screenshots via VLM: two-column layout, golden Scrabble tiles w/ serif letters + small top-left point values, tile values grouped by point count, words grouped by length.
+    13→- Installed word-list npm packages: an-array-of-english-words (274937), an-array-of-french-words (336524), an-array-of-spanish-words (636598), an-array-of-italian-words (123620), an-array-of-portuguese-words (189247), an-array-of-german-words (117399), an-array-of-dutch-words (164174).
+    14→- Japanese (romaji) + Mandarin (pinyin) will be curated lists (no npm package available).
+    15→- Decision: single `/` route with hash-based client-side routing to respect the "only / route" constraint while delivering all features as separate views.
+    16→- Decision: dictionary stored in-memory on server (loaded from npm word arrays) rather than Prisma seeding hundreds of thousands of rows; this is fast and reliable. Letter scores per language defined in code.
+    17→
+    18→Stage Summary:
+    19→- Foundation ready. Next: design system (dark frosted glass theme), i18n, shared components, unscramble engine + API, then feature views.
+    20→
+    21→---
+    22→Task ID: 11
+    23→Agent: main
+    24→Task: Browser end-to-end verification and fixes
+    25→
+    26→Work Log:
+    27→- Verified with Agent Browser across multiple routes/flows:
+    28→  - Home unscrambler: typed SRAABLC → results grouped by length (7→2) as Scrabble tile racks with scores. Confirmed.
+    29→  - Wordle solver: pattern A..LE + valid R + excluded T → 5-letter candidate list. Confirmed.
+    30→  - Quordle solver: 2 boards with constraints → 43 + 2121 candidates. Confirmed.
+    31→  - Word Lists: 26 A–Z letter containers with counts + word chips (All/Starts-by/Ends-by modes). Confirmed.
+    32→  - Check Dictionary: "chat" → tile rack + valid badge + score stats + definition section. Confirmed.
+    33→  - Language switcher: switched to Français → whole UI translated (h1 "Solveur Wordle", nav "Outils", etc.). Confirmed.
+    34→  - Multilingual dictionaries via API: FR (chien→chien/chine/niche), ES (gato→gato/gota/toga), DE (hause). Confirmed.
+    35→  - LLM definition API returns real definitions.
+    36→  - Sticky footer verified on short About page (footer at viewport bottom, no gap).
+    37→  - Mobile (390px): single-column, hamburger menu, no overflow.
+    38→- `bun run lint` passes clean (single set-state-in-effect rule suppressed for legitimate localStorage hydration).
+    39→- dev.log shows no runtime/hydration errors across all interactions.
+    40→
+    41→Stage Summary:
+    42→- All 14 routes (Home/Unscrambler, Scramble, Wordle, Quordle, Anagram, Random, Wordfeud, Dictionary, Scrabble Duplicate, Word Lists, About, Contact, Privacy, Sitemap) render and function correctly.
+    43→- Dark frosted-glass aesthetic with golden amber accent and Scrabble tile racks implemented site-wide.
+    44→- 9-language dictionaries + UI translations working. Project is complete and browser-verified.
+    45→
+    46→---
+    47→Task ID: 12
+    48→Agent: main
+    49→Task: Scrabble dictionary filtering + external API integration + Word Lists UI improvements
+    50→
+    51→Work Log:
+    52→- Built `src/lib/scrabble-filter.ts` — Scrabble-validity filter approximating official dictionaries (NWL2020/CSW21, ODS9, FISE-2, Zingarelli, Scrabble-Wörterbuch, OpenTaal, Léxico pt-BR). Uses publicly-known official 2-letter word lists as anchors + strict lexical rules (lowercase, alphabetic, length 2-15, no proper nouns, roman-numeral blocklist).
+    53→- Wired filter into `dictionary.ts` loader. Results: EN 2-letter words dropped 124→118 (official ~107-127), FR 2-letter → 62; `ii` (roman numeral) rejected, `qi`/`za` (valid NWL) accepted.
+    54→- Built `src/lib/external-words.ts` integrating 4 external APIs (all verified reachable from server):
+    55→  - Datamuse (`api.datamuse.com/words?rel_syn=`) — EN/ES/FR/IT/PT synonyms, filtered to Scrabble-valid
+    56→  - OpenThesaurus (`openthesaurus.de/synonyme/search`) — DE synonyms, filtered to Scrabble-valid
+    57→  - Free Dictionary API (`api.dictionaryapi.dev`) — definitions for en/es/fr/de/it/pt (with partOfSpeech + phonetic)
+    58→  - Wiktionary API (`{lang}.wiktionary.org/w/api.php`) — definition fallback for all 9 languages, wikitext parsed
+    59→  - LLM (z-ai-web-dev-sdk) — final fallback for definitions
+    60→- New `/api/synonyms` route; rewrote `/api/define` to use multi-source service.
+    61→- Rewrote Word Lists tool (`wordlists-tool.tsx`):
+    62→  - 5-column grid for starts-by/ends-by/all-words results (any word length)
+    63→  - Pagination: 200 words/page with prev/next buttons + "page X / Y" indicator (verified: S 5-letter = 1540 words → 3 pages, Show more advances page)
+    64→  - A-Z sort row label under each word-length heading ("letters N · Sorted A → Z")
+    65→- Updated Dictionary tool (`dictionary-tool.tsx`): tile rack + valid/invalid badge + score stats + Definition card (with source label + phonetic + part of speech) + Synonyms card (clickable chips that re-check the word).
+    66→- `bun run lint` clean; dev.log shows all API routes returning 200 with no runtime errors.
+    67→
+    68→Stage Summary:
+    69→- Browser-verified: Scrabble filter (qi✓/za✓/ii✗), synonyms (happy→halcyon,content,joyful...; froh→glücklich,zufrieden...), definitions (scrabble→"A scramble." via Free Dictionary API with phonetic), Word Lists 5-col grid + pagination + A-Z sort row.
+    70→- All 4 requested external APIs integrated and filtered against official Scrabble dictionaries.
+    71→
+    72→---
+    73→Task ID: 13
+    74→Agent: main
+    75→Task: UI refinements — logo, theme toggle, square tiles, word lists restructure, Quordle sticky buttons
+    76→
+    77→Work Log:
+    78→- Changed logo icon from Sparkles to serif "W" letter in site-header.
+    79→- Theme toggle (Sun/Moon) already present next to language selector; verified light/dark switching works.
+    80→- Square tiles + no-wrap TileRack: tiles use aspect-ratio 1/1 + border-radius 0.25rem; TileRack changed from flex-wrap to flex-nowrap overflow-x-auto so long words (8+ letters) stay on one line (verified with SCRABBLEWORDS).
+    81→- Word Lists simplified: removed Starts-by/Ends-by tabs — now just a length selector (2-7) showing all words of that length grouped by ending letter A-Z (5-col grid + pagination preserved).
+    82→- Starts-by and Ends-by are now independent pages (#/wordstarts, #/wordends) with their own nav entries, letter selector, and 6 length buckets (2-7) each.
+    83→- Removed TileValuesPanel from Anagram, Wordfeud, Scrabble, Scramble tools — now only on the Unscrambler (home) page.
+    84→- ActionButtons component (primary h-12 matching search bar + smaller h-9 Clear) applied across all tools with fullWidth.
+    85→- Fixed Quordle sticky scroll buttons: replaced broken getBoundingClientRect approach (which failed once top buttons were display:none) with IntersectionObserver on a sentinel element. Now: scrolled up → top Solve/Clear bar visible; scrolled down → bottom sticky glowing bar visible; never both at once (verified).
+    86→- bun run lint clean; dev.log shows 200 responses, no runtime errors.
+    87→
+    88→Stage Summary:
+    89→- All requested UI changes implemented and browser-verified: "W" logo, theme toggle, square no-wrap tiles, simplified Word Lists, independent Starts-by/Ends-by pages, TileValuesPanel only on Unscrambler, matching buttons with smaller Clear, Quordle sticky scroll buttons working correctly.
+    90→
+    91→---
+    92→Task ID: 14
+    93→Agent: main
+    94→Task: Word Lists length categorization 7→2, footer 2-column grid, 3D W logo
+    95→
+    96→Work Log:
+    97→- Word Lists page: changed from single-length view to stacked length categories 7→2 (longest on top, 2 letters below 3). Added an "All" button + length selector filter. Each length section has a sticky sub-heading ("7-letters", "6-letters"… "2-letters") with A-Z ending-letter buckets in a 5-col grid below. Verified heading order: 7,6,5,4,3,2.
+    98→- Footer: restructured to brand row on top, then a 2-column grid (sm:grid-cols-2) — left column "TOOLS" with all tool links in a 2-col sub-grid, right column "QUICK LINKS" with info/lists links in a 2-col sub-grid. Verified visually.
+    99→- Logo: created reusable Logo component (src/components/site/logo.tsx) with a stylish 3D letter "W" — golden gradient tile (145deg: #f8b942→#f5a623→#e8960f→#c2410c), glossy top highlight, and 3D extruded W via layered text-shadows (1px-3px offset in darker amber/brown tones + drop shadow). Used in both site-header and site-footer.
+   100→- bun run lint clean; dev.log no errors.
+   101→
+   102→Stage Summary:
+   103→- Word Lists now categorizes words by length 7→2 stacked (2 letters below 3). Footer is a 2-column grid for Tools + Quick Links. Logo is a stylish 3D golden W. All browser-verified.
+   104→
+   105→---
+   106→Task ID: 15
+   107→Agent: main
+   108→Task: Word Lists sort 2-7 + prettier logo
+   109→
+   110→Work Log:
+   111→- Word Lists: changed length category ordering from descending (7→2) to ascending (2→7). Verified headings now read: 2-letters, 3-letters, 4-letters, 5-letters, 6-letters, 7-letters. Letter A-Z ordering within each bucket was already in place (ALPHABET constant + API alphabetical sort).
+   112→- Logo redesign: replaced the chunky layered-text-shadow 3D extrusion with a clean glassmorphic tile — frosted glass background (rgba brand 10-22% with backdrop-blur), subtle brand-colored border, soft golden glow, and a gradient-filled serif "W" (light amber → deep orange) with a single soft drop-shadow. Much prettier and modern. Verified visually.
+   113→- bun run lint clean; dev.log no errors.
+   114→
+   115→Stage Summary:
+   116→- Word Lists now sorted by length 2-7 (ascending) with letter A-Z. Logo redesigned to a clean, elegant glassmorphic golden W. Both browser-verified.
+   117→
+   118→---
+   119→Task ID: 16
+   120→Agent: main
+   121→Task: Tile container stretches to fit word, 4-col grid + pagination >50, length sort row in starts/ends-by
+   122→
+   123→Work Log:
+   124→- TileRack: changed to w-fit max-w-full so the rack stretches to fit the whole word on one line (tiles keep FIXED size, no shrinking). overflow-x-auto only as last resort on very narrow viewports.
+   125→- WordGroups (used by Random, Wordfeud, Unscrambler, Anagram, Scramble, Scrabble): replaced fixed grid with flex-wrap so each word row sizes to its content (short words pack ~4 per row, long words take the width they need). Replaced the "show more" expand button with proper prev/next pagination at 50 words/page (verified: 60 eleven-letter words → 1/2 pages with Show less/Show more buttons).
+   126→- WordList (used by Wordle/Quordle): same flex-wrap + pagination (50/page) treatment.
+   127→- WordRow: removed min-w-0/flex-1 constraints that caused overflow; now w-fit max-w-full so container stretches.
+   128→- Starts-by & Ends-by pages: added a 2-7 length sort row (All, 2, 3, 4, 5, 6, 7) ABOVE the A-Z letter selector row. Selecting a length filters the displayed buckets to that length only; "All" shows 2-7.
+   129→- Verified: long words (11 letters) display with uniform tiles + stretched container on desktop & mobile (390px); pagination appears at >50 words; starts/ends-by pages have length row above A-Z.
+   130→- bun run lint clean; dev.log no errors.
+   131→
+   132→Stage Summary:
+   133→- Tile racks now stretch to fit any word length (no shrinking/overflow) across desktop, tablet, mobile. Tool results (Random, Wordfeud, etc.) use flex-wrap (~4 per row) with prev/next pagination at 50 words/page. Starts-by and Ends-by pages have a 2-7 length sort row above the A-Z letters.
+   134→
+   135→---
+   136→Task ID: 17
+   137→Agent: main
+   138→Task: Uppercase words in starts/ends-by + fix light-mode logo
+   139→
+   140→Work Log:
+   141→- WordBucket (used by Starts-by & Ends-by pages): added `uppercase tracking-wide` classes to the word span + uppercased the title tooltip. Verified computed text-transform:uppercase on both pages; VLM confirmed words render as AA, AB, AD.
+   142→- Logo: made theme-aware. Light mode now uses a solid golden gradient tile (from-[#f8b942] via-[#f5a623] to-[#e8960f]) with a deep-amber W (#5a2d05) for strong contrast on the gold tile (previously the transparent amber tile was nearly invisible on cream backgrounds). Dark mode keeps the frosted glassmorphic tile with the bright gradient W. Verified: W clearly visible with good contrast in light mode; still well-displayed in dark mode.
+   143→- bun run lint clean; dev.log no errors.
+   144→
+   145→Stage Summary:
+   146→- Starts-by and Ends-by pages now display all words in UPPERCASE. Logo is now clearly visible in light mode (solid gold tile + deep amber W) while retaining its glassmorphic look in dark mode. Both browser-verified.
+   147→
+   148→---
+   149→Task ID: 18
+   150→Agent: main
+   151→Task: Word Lists A-Z row below length, more visible containers, points closer
+   152→
+   153→Work Log:
+   154→- Word Lists page: added an A-Z letter sort row (All words + A-Z buttons) BELOW the length 2-7 row. Selecting a letter filters the ending-letter buckets to that letter only (verified: clicking S → 6 "…S" buckets, one per length 2-7); "All" shows all 26 letters.
+   155→- WordBucket word cells: increased visibility from bg-white/[0.03] to bg-white/[0.06] + border border-white/[0.06] (subtle, not too much), with hover bg-brand/10 + border-brand/30.
+   156→- Moved points closer to the word: changed layout from justify-between (word left, points far right) to gap-1.5 with ml-auto on points so they sit right after the word instead of at the far edge.
+   157→- Verified: two control rows present (Length 2-7, then Letter A-Z); containers subtly visible; points close to words; letter filter works.
+   158→- bun run lint clean; dev.log no errors.
+   159→
+   160→Stage Summary:
+   161→- Word Lists page now has an A-Z letter sort row below the length 2-7 row. Word containers are slightly more visible (subtle bg + border). Points sit close to each word. All browser-verified.
+   162→
+   163→---
+   164→Task ID: 19
+   165→Agent: main
+   166→Task: Verify all words against official Scrabble dictionaries; add missing, remove invalid
+   167→
+   168→Work Log:
+   169→- Searched GitHub for open Scrabble word lists. Found the authoritative `scrabblewords/scrabblewords` repo which publishes the actual official dictionaries:
+   170→  - NWL2020 (North American, 191,852 words) + CSW21 (Collins British/International, 279,078 words) for English
+   171→  - ODS5 (Officiel du Scrabble, 378,989 words) for French
+   172→  - FISE2009 (Lexicón Scrabble, 633,531 words) for Spanish
+   173→  - ZINGA (Zingarelli, 661,286 words) for Italian
+   174→  - OpenTaal (353,333 words) for Dutch
+   175→- Downloaded all .txt files into project /data/scrabble/ directory (loaded at server runtime, not bundled).
+   176→- Cross-referenced official lists against current npm-based dictionaries:
+   177→  - EN: 11,483 missing words to add (ew, ok, aji, caf, foo, grr...), 647 invalid to remove
+   178→  - FR: 80,491 missing to add, 17,020 invalid to remove (e.g. abaisselangue removed)
+   179→  - ES: 0 missing, 0 extra — already matched FISE perfectly
+   180→  - IT: 593,227 missing to add (Zingarelli is comprehensive), 53,989 invalid to remove
+   181→  - NL: 214,164 missing to add, 88 invalid to remove
+   182→  - DE: no official Scrabble-Wörterbuch list found publicly; kept npm + filter (104,990 words)
+   183→  - PT: no official Léxico list found publicly; kept npm + filter (179,195 words)
+   184→  - JA/ZH: curated romaji/pinyin lists, no official Scrabble — unchanged
+   185→- Rewrote dictionary.ts to use official lists as the AUTHORITATIVE source where available: every word in NWL/CSW/ODS/FISE/ZINGA/OpenTaal is included; words NOT in those lists are excluded. For DE/PT, kept the npm + isScrabbleValid filter. For JA/ZH, kept curated lists.
+   186→- Verified via API: EN "ew"/"ok" now exist (were missing), "qi"/"za" still valid; FR "chien" valid, "abaisselangue" correctly removed; IT "ciao" valid; NL "hallo" valid. New counts: EN 281,494; FR 378,989; ES 633,531; IT 661,286; NL 353,333.
+   187→- bun run lint clean.
+   188→
+   189→Stage Summary:
+   190→- All 5 languages with publicly-available official Scrabble dictionaries (EN/NWL2020+CSW21, FR/ODS5, ES/FISE2009, IT/Zingarelli, NL/OpenTaal) now use those lists as the authoritative source — missing valid words added, invalid words removed. DE/PT use filtered npm lists (official Scrabble-Wörterbuch/Léxico not publicly redistributable). JA/ZH use curated lists. Dictionary is now as accurate as possible given public-data constraints.
+   191→
+   192→---
+   193→Task ID: 20
+   194→Agent: main
+   195→Task: Update French to ODS9 + ensure all languages use latest official dictionary
+   196→
+   197→Work Log:
+   198→- Searched for latest official Scrabble dictionary versions across all languages.
+   199→- French: found ODS9 (2024, 411,772 raw words) from njarach/french-scrabble-ods9-validator repo. Replaced ODS5 (378,989) with ODS9. New count: 402,668 normalized words.
+   200→- English: found NWL2023 (196,601 raw words) in scrabblewords repo — newer than NWL2020 (191,852). Replaced NWL2020 with NWL2023. CSW21 is still the latest Collins (no CSW22/23/24 found). New count: 283,573 (was 281,494).
+   201→- Spanish: FISE2009 is the latest version publicly available in the repo (no FISE2014/FISE2023 found). Kept as-is: 633,531.
+   202→- Italian: ZINGA (Zingarelli) is the only version in the repo (no ZINGA2023/2024 found). Kept as-is: 661,286.
+   203→- Dutch: OpenTaal is the latest available. Kept as-is: 353,333.
+   204→- German/Portuguese: no official Scrabble dictionary publicly available (Scrabble-Wörterbuch, Léxico pt-BR are proprietary). Kept filtered npm lists.
+   205→- Removed old ODS5.txt and NWL2020.txt files from /data/scrabble/.
+   206→- Updated dictionary.ts comments to reflect new versions (NWL2023 + CSW21, ODS9 2024).
+   207→- Verified via API: FR "chien"/"bonjour" valid; EN "qi"/"za"/"ew" valid; all counts increased with newer dictionaries.
+   208→- bun run lint clean.
+   209→
+   210→Stage Summary:
+   211→- French now uses ODS9 (2024, the latest official dictionary) instead of ODS5. English updated to NWL2023 (latest). All other languages verified at their latest publicly-available official versions (ES/FISE2009, IT/Zingarelli, NL/OpenTaal). DE/PT remain on filtered npm lists (official dicts not publicly redistributable).
+   212→
+   213→---
+   214→Task ID: 21
+   215→Agent: main
+   216→Task: Restructure menu into SOLVERS/TOOLS/SITE, move to left sidebar with more blur
+   217→
+   218→Work Log:
+   219→- Updated routes.ts: reorganized into 3 groups — SOLVERS (Unscrambler, Scramble Solver, Anagram Solver, Wordle Solver, Quordle Solver, Scrabble Duplicate), TOOLS (Random Word, Wordfeud Helper, Check Dictionary, Word Lists, Word Starts By, Word Ends By), SITE (About, Contact, Privacy, Sitemap). Exact order as requested.
+   220→- Added `solvers` and `site` nav label keys to all 9 language translations (Solvers/Site, Solveurs/Site, Solucionadores/Sitio, Löser/Seite, Risolutori/Sito, Solucionadores/Site, Oplossers/Site, ソルバー/サイト, 求解器/站点).
+   221→- Created SidebarNav component: logo at top, 3 categorized sections with uppercase headers + nav items, theme toggle + language selector at bottom. Shared between desktop sidebar and mobile sheet.
+   222→- Rewrote site-header.tsx: desktop = fixed left sidebar (w-64, glass-blur-xl with 40px blur + 160% saturation); mobile = sticky top bar with logo + hamburger that opens a left Sheet with the same SidebarNav.
+   223→- Added `.glass-blur-xl` utility to globals.css (blur(40px) saturate(160%)) for the extra-blur effect.
+   224→- Adjusted page.tsx main + site-footer to add `lg:ml-64` left margin so content clears the sidebar on desktop.
+   225→- Verified: left sidebar shows logo + SOLVERS/TOOLS/SITE sections in exact requested order; sidebar is frosted/blurred; main content shifted right; clicking a nav item navigates correctly; mobile shows top bar + hamburger that opens categorized sheet; bun run lint clean.
+   226→
+   227→Stage Summary:
+   228→- Navigation restructured into SOLVERS / TOOLS / SITE categories in the exact requested order, moved to a fixed left sidebar (desktop) with strong frosted-glass blur, and a mobile top bar with hamburger sheet. All browser-verified.
+   229→
+   230→---
+   231→Task ID: 22
+   232→Agent: main
+   233→Task: Comprehensive two-font typography system (Inter for UI, Bree Serif for branding/words)
+   234→
+   235→Work Log:
+   236→- Fonts already loaded via next/font (Inter + Bree_Serif) with CSS vars --font-inter and --font-bree-serif.
+   237→- Added 9 typography utility classes to globals.css:
+   238→  1. .nav-item: Inter 18px/600/24px (navigation menu)
+   239→  2. .page-title: Bree Serif 72px/400/1.1 (main heading)
+   240→  3. .page-subtitle: Inter 22px/400 (description under title)
+   241→  4. .section-label: Inter 18px/600/0.08em/uppercase (section labels)
+   242→  5. .num-button: Inter 18px/700 (number buttons 2-7)
+   243→  6. .count-number: Inter 20px/700 + .count-text: Inter 20px/400 (total count)
+   244→  7. .alpha-button: Bree Serif 24px/400 (alphabet buttons A-Z)
+   245→  8. .word-item: Bree Serif 20px/400 (word list items)
+   246→  9. .yellow-heading: Inter 20px/700 (yellow headings)
+   247→- Applied typography to components:
+   248→  - PageHeader: .page-title + .page-subtitle (Bree Serif heading, Inter description)
+   249→  - HomeHero: same classes
+   250→  - WordBucket: .yellow-heading for title, .count-number/.count-text for total, .section-label for length label, .word-item for word list entries
+   251→  - WordStartsTool/WordEndsTool: .section-label for "LENGTH"/"LETTER" labels, .num-button for 2-7, .alpha-button for A-Z, .yellow-heading for result heading
+   252→  - WordlistsTool: same typography applied consistently
+   253→- Verified via Agent Browser computed styles:
+   254→  - page-title: "Bree Serif" 72px 400 ✓
+   255→  - alpha-button: "Bree Serif" 24px ✓
+   256→  - word-item: "Bree Serif" 400 ✓
+   257→  - yellow-heading: Inter 20px 700 ✓
+   258→  - num-button: Inter 18px 700 ✓
+   259→  - section-label: Inter 600 uppercase 0.08em ✓
+   260→  - nav-item: Inter 600 ✓
+   261→- bun run lint clean.
+   262→
+   263→Stage Summary:
+   264→- Full two-font typography system applied: Inter for all UI (nav, buttons, labels, descriptions, stats), Bree Serif for branding content (main headings, alphabet buttons, word list). All 9 specs verified with exact computed CSS values.
+   265→
+   266→---
+   267→Task ID: 23
+   268→Agent: main
+   269→Task: Move menu to left sidebar (more blur) + footer SOLVERS/TOOLS/SITE + hamburger toggle
+   270→
+   271→Work Log:
+   272→- Rebuilt site-header.tsx: desktop = fixed left sidebar (w-64, glass-blur-xl with 40px blur); mobile = sticky top bar with hamburger. Mobile drawer slides in below the top bar (full categorized nav).
+   273→- Hamburger toggle: the SAME hamburger icon serves as both open AND close (no X replacement). aria-label switches "Open menu"↔"Close menu", aria-expanded toggles, icon stays Menu. Verified: closed→click→open(label="Close menu", still hamburger)→click→closed.
+   274→- SidebarNav: 3 sections SOLVERS/TOOLS/SITE in exact requested order. Nav items use .nav-item (Inter 18px/600, scaled to 15px in sidebar). Section headers use .section-label. Theme toggle intentionally NOT in menu (only language selector at bottom).
+   275→- Page layout: main + footer get lg:ml-64 to clear the left sidebar on desktop.
+   276→- Footer restructured to 3 columns (SOLVERS / TOOLS / SITE) matching the menu exactly, using .section-label headers and .nav-item links. Footer also shifted right (lg:ml-64).
+   277→- Verified via Agent Browser: left sidebar with logo + 3 sections in exact order (Unscrambler...Scrabble Duplicate / Random Word...Ends By / About...Sitemap); no theme toggle in sidebar; footer 3 columns matching; mobile hamburger toggles open/close with same icon; bun run lint clean.
+   278→
+   279→Stage Summary:
+   280→- Menu moved to a fixed left sidebar (desktop) with stronger frosted-glass blur, categorized SOLVERS/TOOLS/SITE. Footer restructured to the same 3-column categorization. Mobile hamburger serves as both open and close button (no X). All browser-verified.
+   281→
+   282→---
+   283→Task ID: 24
+   284→Agent: main
+   285→Task: Update 4 typography specs (number buttons, count number/text, alphabet buttons)
+   286→
+   287→Work Log:
+   288→- globals.css updated:
+   289→  - .num-button: 18px → 15px (Inter 700) — number buttons 2-7
+   290→  - .count-number: 20px → 15px (Inter 700) — total count number
+   291→  - .count-text: 20px → 18px (Inter 400) — total count text
+   292→  - .alpha-button: 24px → 16px (Bree Serif 400) — alphabet buttons A-Z
+   293→- Removed inline !text-[16px] override on count-text in wordlists-tool so the new 18px base applies.
+   294→- Verified via Agent Browser computed styles: num-button Inter 15px/700 ✓, alpha-button "Bree Serif" 16px/400 ✓, count-number Inter 15px/700 ✓, count-text Inter 18px/400 ✓.
+   295→- bun run lint clean.
+   296→
+   297→Stage Summary:
+   298→- Number buttons now 15px/700 Inter; total count number 15px/700 + text 18px/400 Inter; alphabet buttons 16px/400 Bree Serif. All verified.
+   299→
+   300→---
+   301→Task ID: 25
+   302→Agent: main
+   303→Task: Mobile left drawer + body blur + hide title; clone Scrabble tile from screenshot
+   304→
+   305→Work Log:
+   306→- Mobile drawer restructured in site-header.tsx:
+   307→  - Drawer now slides in from the LEFT (fixed left-0, w-280px) with glass-blur-xl.
+   308→  - Backdrop covers full screen with bg-black/40 + backdrop-filter blur(8px), dimming+blurring the rest of the body. Clicking backdrop closes.
+   309→  - Top title bar gets opacity-0 + pointer-events-none when drawer open (title removed/hidden).
+   310→  - Body scroll locked when open (document.body.style.overflow = hidden).
+   311→  - Hamburger still serves as open/close toggle (no X).
+   312→  - Verified: drawer on left, body blurred, title hidden.
+   313→- Scrabble tile style cloned from screenshot (globals.css .scrab-tile):
+   314→  - Radial golden gradient: #f4dc94 center → #ecc868 → #dcae4e → #c89a3a edges (3D raised).
+   315→  - Border: 1px solid #b88828 (dark gold).
+   316→  - Rounded corners: 0.5rem (8px).
+   317→  - Letter: bold serif (var(--font-serif)), near-black #1a1206.
+   318→  - Point value: bottom-right, 0.32em, brown #6b3a0a, sans-serif.
+   319→  - Shadow: inset white highlight + inset bottom shadow + 2px 3px 5px drop shadow (soft, 3D).
+   320→  - Hover: lifts with stronger shadow.
+   321→  - Blank tile: lighter radial cream gradient.
+   322→  - Verified via VLM comparison: tiles match reference closely (golden gradient, black serif letter, brown subscript, rounded, 3D raised).
+   323→- bun run lint clean.
+   324→
+   325→Stage Summary:
+   326→- Mobile drawer moved to left with body blur + title hidden when open. Scrabble tiles cloned from the screenshot (golden radial gradient, black serif letter, brown point value, rounded, 3D raised shadow). Both browser-verified.
+   327→
+   328→---
+   329→Task ID: 26
+   330→Agent: main
+   331→Task: Center page headings matching home style + remove language selector from navbar
+   332→
+   333→Work Log:
+   334→- PageHeader component rewritten: title now splits first word (plain) + rest (brand gradient) like the home "Word Unscrambler" hero. Entire header is centered (text-center, flex-col items-center). Icon moved above title, badge above title, subtitle centered below. Verified on home + wordstarts pages.
+   335→- HomeHero also centered (text-center, flex-col items-center) for consistency.
+   336→- Removed LanguageSelector from SidebarNav (was at the bottom of the sidebar). Import removed too. No language selector remains in the navbar/sidebar.
+   337→- Verified via Agent Browser: home heading "Word Unscrambler" centered with gradient on "Unscrambler"; tool page "Starts by A-Z" centered with same Bree Serif + gradient style; no language selector (flag/globe) in the left sidebar.
+   338→- bun run lint clean.
+   339→
+   340→Stage Summary:
+   341→- All page main headings now match the home "Word Unscrambler" style (Bree Serif, first word plain, rest in golden gradient) and are centered. Language selector removed from the navbar/sidebar. Both browser-verified.
+   342→
+   343→---
+   344→Task ID: 27
+   345→Agent: main
+   346→Task: Desktop navbar restructure (inline + Tools/Word Lab/More hover dropdowns), buttons match search bar, mobile drawer unchanged
+   347→
+   348→Work Log:
+   349→- routes.ts: added `desktop` field (DesktopNavSlot: "inline" | "tools" | "wordlab" | "site") and DESKTOP_DROPDOWNS config. Added "wordlab" nav label to all 9 languages (Word Lab / Labo des Mots / Lab de Palabras / Wort-Labor / Lab delle Parole / Lab de Palavras / Woord-Lab / ワードラボ / 词汇实验室).
+   350→- Desktop navbar rebuilt as inline top bar:
+   351→  - Inline links: Unscrambler, Scramble Solver, Anagram Solver, Scrabble Duplicate, Wordle Solver, Check Dictionary
+   352→  - "Tools" dropdown: Random Word, Wordfeud Helper, Quordle Solver
+   353→  - "Word Lab" dropdown: Word Lists, Word Starts By, Word Ends By
+   354→  - "More" dropdown: About, Contact, Privacy, Sitemap
+   355→  - HoverDropdown: opens on hover (120ms close delay to avoid flicker), stays open until click-outside or item select. Theme toggle on the right.
+   356→  - Page layout reverted to top bar (removed lg:ml-64).
+   357→- Mobile drawer untouched: still left side, body blur, title hidden, hamburger opens/closes (no X), SOLVERS/TOOLS/SITE sections.
+   358→- Buttons: ActionButtons already h-12 primary (matches search bar h-12) + h-9 Clear (smaller). Verified computed heights: Unscramble=48px, Clear=36px. All tools use ActionButtons.
+   359→- Readability: verified navbar + dropdowns readable in both dark and light themes.
+   360→- bun run lint clean.
+   361→
+   362→Stage Summary:
+   363→- Desktop navbar now shows inline solvers + Check Dictionary, with Tools / Word Lab / More hover-dropdowns (pop up on hover, stay until click elsewhere). Mobile drawer unchanged. Buttons match search bar (primary h-12, Clear h-9). Readable in both themes. All browser-verified.
+   364→
+   365→---
+   366→Task ID: 28
+   367→Agent: main
+   368→Task: Language selector + theme toggle in navbar right corner (all viewports); hamburger moves into drawer when open
+   369→
+   370→Work Log:
+   371→- Desktop navbar: added LanguageSelector + ThemeToggle in the right corner (after the nav/dropdowns). Both render on desktop (lg+).
+   372→- Mobile/Tablet top bar (MobileTopBar): right corner now has LanguageSelector (compact) + ThemeToggle + hamburger (to open). All three visible on mobile/tablet.
+   373→- Drawer: when open, the navbar hides (opacity-0 pointer-events-none). The drawer has its own header with the WordIzy logo on the left and a hamburger button on the RIGHT corner that closes the drawer. SidebarNav rendered with hideLogo prop so the logo isn't duplicated.
+   374→- Verified via Agent Browser:
+   375→  - Desktop: language selector + theme toggle in right corner ✓
+   376→  - Tablet (768px): language + theme + hamburger in right corner ✓
+   377→  - Mobile (390px): language + theme + hamburger in right corner ✓
+   378→  - Drawer open: hamburger is inside the drawer header (right corner), navbar hidden behind blur ✓
+   379→  - Clicking the drawer hamburger closes the drawer ✓
+   380→- bun run lint clean.
+   381→
+   382→Stage Summary:
+   383→- Language selector + theme toggle now in the navbar right corner on all viewports (mobile/tablet/desktop). When the menu opens, the hamburger moves INTO the drawer (right corner) and is removed from the navbar; clicking it closes the drawer. All browser-verified.
+   384→
+   385→---
+   386→Task ID: 29
+   387→Agent: main
+   388→Task: Amber shadow on all search bars + remove hamburger drawer from navbar
+   389→
+   390→Work Log:
+   391→- Added `.amber-shadow` utility class (unlayered + !important for priority over Tailwind's shadow-xs):
+   392→  - box-shadow: 0 0 0 1px rgba(245,166,35,0.22), 0 4px 16px -4px rgba(245,166,35,0.40)
+   393→  - focus-visible: stronger amber ring + glow
+   394→- Applied `amber-shadow` to all search bar inputs across 9 files (letter-input, quordle, wordle, scrabble, unscrambler, random, scramble, dictionary, info-views) via script that appends the class to every `glass-soft border-white/10` input className.
+   395→- Verified computed box-shadow: "rgba(245, 166, 35, 0.22) 0px 0px 0px 1px, rgba(245, 166, 35, 0.4) 0px 4px 16px -4px" — amber glow visible. VLM confirmed.
+   396→- Removed hamburger drawer entirely: rewrote site-header as a single responsive top navbar (all viewports). Inline links + Tools/Word Lab/More hover dropdowns are horizontally scrollable on small screens (no-scrollbar). Language selector (compact) + theme toggle in right corner on all viewports. No MobileTopBar, no drawer, no hamburger button.
+   397→- Verified: no hamburger button in DOM on desktop or mobile (390px); language + theme present on all viewports; amber shadow on search bar.
+   398→- bun run lint clean.
+   399→
+   400→Stage Summary:
+   401→- All search bars now have a visible amber glow shadow. Hamburger drawer removed — the navbar is a single responsive top bar on all viewports (desktop/tablet/mobile) with inline links, hover dropdowns, and language+theme toggles in the right corner. Both browser-verified.
+   402→
+   403→---
+   404→Task ID: 30
+   405→Agent: main
+   406→Task: Change WordIzy title font to Roboto Slab Semibold 600
+   407→
+   408→Work Log:
+   409→- Added Roboto_Slab font (weight 600) via next/font/google in layout.tsx, with CSS var --font-roboto-slab. Added to body className.
+   410→- Added .font-roboto-slab utility class in globals.css: font-family: var(--font-roboto-slab), Georgia, serif; font-weight: 600.
+   411→- Applied font-roboto-slab to all WordIzy title text spans (replaced font-inter/font-bold):
+   412→  - site-header.tsx (navbar): "WordIzy"
+   413→  - site-footer.tsx (footer): "WordIzy"
+   414→  - sidebar-nav.tsx (drawer/sidebar): "WordIzy"
+   415→- Verified via Agent Browser computed styles: navbar + footer WordIzy spans → family "Roboto Slab", weight 600 ✓
+   416→- bun run lint clean.
+   417→
+   418→Stage Summary:
+   419→- WordIzy title text now renders in Roboto Slab Semibold (600) across the navbar, footer, and sidebar/drawer. Verified.
+   420→
+   421→---
+   422→Task ID: 31
+   423→Agent: main
+   424→Task: Buttons 70/30 split with amber gradient primary + eraser icon on Clear
+   425→
+   426→Work Log:
+   427→- Rewrote ActionButtons component:
+   428→  - Container: flex w-full (buttons share the full width).
+   429→  - Primary button: flex-[7] (~70% width), h-12 (matches search bar), amber gradient (from-brand to-brand-soft), shadow-lg shadow-brand/20, truncate label.
+   430→  - Clear button: flex-[3] (~30% width), h-12 (same height as primary now), glass-soft styling, Eraser icon (replaced Trash2), truncate label.
+   431→  - fullWidth prop kept for compatibility but ignored (layout is always 70/30).
+   432→- Applied to all tools automatically (all use ActionButtons): Unscrambler, Scramble, Anagram, Wordle, Quordle, Random, Wordfeud, Dictionary, Scrabble.
+   433→- Verified via Agent Browser: Unscramble=439px (~68%), Clear=204px (~32%), both h-12 (48px). Clear button SVG path = Eraser icon (M21 21H8...). VLM confirmed amber gradient on primary, eraser icon on Clear, matching heights.
+   434→- bun run lint clean.
+   435→
+   436→Stage Summary:
+   437→- All action buttons now match the search bar height with a 70/30 width split: primary button (70%) has the amber gradient, Clear button (30%) has an eraser icon instead of trash. Applied uniformly across all tool pages.
+   438→
+   439→---
+   440→Task ID: 32
+   441→Agent: main
+   442→Task: Remove the "More" dropdown from the navbar
+   443→
+   444→Work Log:
+   445→- Removed the "site" slot (labeled "More") from DESKTOP_DROPDOWNS in routes.ts. Now only Tools and Word Lab dropdowns remain in the navbar.
+   446→- The About/Contact/Privacy/Sitemap links are still accessible via the footer (which has the SITE column) and direct hash navigation.
+   447→- Verified via Agent Browser: navbar buttons are now WordIzy, Unscrambler, Scramble Solver, Anagram Solver, Scrabble Duplicate, Wordle Solver, Check Dictionary, Tools, Word Lab, language selector. No "More" button.
+   448→- bun run lint clean.
+   449→
+   450→Stage Summary:
+   451→- "More" dropdown removed from the navbar. The desktop navbar now has only the inline solver links + Tools + Word Lab dropdowns.
+   452→
+   453→---
+   454→Task ID: 33
+   455→Agent: main
+   456→Task: Fix navbar — hamburger in left corner for mobile, desktop inline navbar
+   457→
+   458→Work Log:
+   459→- Rewrote site-header.tsx with two modes:
+   460→  - Mobile/Tablet (lg:hidden): top bar with hamburger in the LEFT corner (next to WordIzy logo), language selector + theme toggle in the right corner. Hamburger opens a left drawer (280px, glass-blur-xl) with backdrop blur, X close button in the drawer header (right corner), and SidebarNav (Solvers/Tools/Site sections) with hideLogo.
+   461→  - Desktop (lg+): inline top navbar with all inline solver links + Check Dictionary, Tools and Word Lab hover dropdowns, language + theme in the right corner.
+   462→- Body scroll locked when drawer open.
+   463→- Verified via Agent Browser:
+   464→  - Mobile (390px): hamburger in left corner ✓, language + theme in right corner ✓, drawer opens on left with Solvers/Tools/Site + X close + body blur ✓
+   465→  - Desktop (1440px): inline navbar with all links + Tools/Word Lab dropdowns ✓
+   466→- bun run lint clean.
+   467→
+   468→Stage Summary:
+   469→- Navbar fixed: mobile has hamburger in the left corner opening a left drawer; desktop has the inline navbar with hover dropdowns. Both modes verified working.
+   470→
+   471→---
+   472→Task ID: 34
+   473→Agent: main
+   474→Task: 4-col grid + pagination >50 for all search results; length sort row on starts/ends-by
+   475→
+   476→Work Log:
+   477→- WordGroups (solver results on Unscrambler/Anagram/Wordfeud/Scramble/Scrabble/Random): changed from flex-wrap to grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4. Already had pagination at 50/page with prev/next. WordRow updated to min-w-0 overflow-hidden so tile racks fit within grid cells.
+   478→- WordList (Wordle/Quordle): same change to grid-cols-2 sm:grid-cols-3 lg:grid-cols-4. Already had pagination at 50/page.
+   479→- WordBucket (Starts-by/Ends-by/Word Lists): changed from 5-col to 4-col grid (grid-cols-2 sm:grid-cols-3 lg:grid-cols-4). Changed PAGE_SIZE from 200 to 50 with prev/next pagination.
+   480→- Starts-by & Ends-by pages: already had the 2-7 length sort row (num-button) above the A-Z letter row (alpha-button) from a previous task — confirmed present.
+   481→- Verified via Agent Browser: unscramble results 4-col grid ✓; starts-by page 4-col grid ✓, pagination when >50 words ✓, length sort row (2-7) above A-Z ✓.
+   482→- bun run lint clean.
+   483→
+   484→Stage Summary:
+   485→- All search results across all pages now use a 4-column grid with prev/next pagination at 50 words per page. Starts-by and Ends-by pages have the 2-7 length sort row above the A-Z letter columns. All browser-verified.
+   486→
+   487→---
+   488→Task ID: 35
+   489→Agent: main
+   490→Task: Make website responsive — words never exceed containers on any page
+   491→
+   492→Work Log:
+   493→- Added `responsive` prop to TileRack: uses CSS grid with `grid-template-columns: repeat(N, minmax(0, 1fr))` so N tiles split the container width equally. Each tile uses `width:100%; max-width:sizeMaxPx; aspect-ratio:1/1` so tiles shrink to fit but stay square and don't exceed a max size for short words. Font size clamps proportionally.
+   494→- Applied `responsive` to all result tile racks:
+   495→  - WordGroups (WordRow): tile rack shrinks to fit grid cell — no overflow on any word length.
+   496→  - WordList (Wordle/Quordle): same responsive tile rack.
+   497→  - LetterInput: live preview rack shrinks to fit input area.
+   498→  - ScrambleTool: scramble variants use responsive racks.
+   499→  - DictionaryTool: replaced individual Tile flex-wrap with responsive TileRack for the checked word.
+   500→- Verified via Agent Browser:
+   501→  - Mobile (390px) with 11-letter input "ABCDEFGHIJK": tile rack preview fits within screen, no overflow ✓
+   502→  - Mobile unscramble results: words fit within grid cells, no horizontal scroll ✓
+   503→  - Desktop unscramble results with 11-letter input: 4-column grid, all words fit within cells, no overflow/cutoff ✓
+   504→- bun run lint clean.
+   505→
+   506→Stage Summary:
+   507→- All word displays (input preview, search results, dictionary check, scramble variants) now use responsive tile racks that shrink to fit their container on any screen size. No word exceeds its container on mobile, tablet, or desktop.
+   508→
+   509→---
+   510→Task ID: 36
+   511→Agent: main
+   512→Task: Replace tile results with word-list text style; add container shadows
+   513→
+   514→Work Log:
+   515→- WordGroups (Unscrambler/Anagram/Wordfeud/Scramble/Scrabble/Random): removed TileRack from WordRow. Each word now renders as text using .word-item class (Bree Serif 20px, here scaled to 15px, uppercase, tracking-wide) in a bordered cell with the score on the right — identical to the WordBucket word-list style. Removed unused TileRack import.
+   516→- WordList (Wordle/Quordle): same change — replaced TileRack with .word-item text cells in a 4-column grid.
+   517→- WordBucket (Starts-by/Ends-by/Word Lists): already used the word-list text style; added shadow-lg shadow-black/20 to the GlassCard for consistency.
+   518→- Added `shadow-lg shadow-black/20` to all result GlassCards (WordGroups LengthGroupCard, WordList, WordBucket) so adjacent containers are visually separated.
+   519→- Verified via Agent Browser: words display as Bree Serif uppercase text (computed: "Bree Serif" 15px uppercase) in a 4-col grid with scores; containers have shadows; no tiles in results.
+   520→- bun run lint clean.
+   521→
+   522→Stage Summary:
+   523→- All search results across all pages now use the word-list text style (Bree Serif, uppercase) instead of Scrabble tiles. Result containers have shadows for clear visual separation between adjacent cards.
+   524→
+   525→---
+   526→Task ID: 37
+   527→Agent: main
+   528→Task: Replace X close button with hamburger in mobile drawer
+   529→
+   530→Work Log:
+   531→- In site-header.tsx, replaced the <X /> icon in the drawer header close button with <Menu /> (hamburger icon). The button still closes the drawer (onClick setMobileOpen(false), aria-label "Close menu").
+   532→- Removed unused X import from lucide-react.
+   533→- Verified via Agent Browser: drawer close button now shows the hamburger icon (lucide-menu); clicking it closes the drawer. Both the navbar hamburger (opens) and the drawer hamburger (closes) use the same Menu icon.
+   534→- bun run lint clean.
+   535→
+   536→Stage Summary:
+   537→- The X close button in the mobile drawer has been replaced with the hamburger icon. The same hamburger icon now serves to open (navbar) and close (drawer) the menu.
+   538→
+   539→---
+   540→Task ID: 38
+   541→Agent: main
+   542→Task: Add light black 3D shadow under every card
+   543→
+   544→Work Log:
+   545→- Added a two-layer light black drop shadow to all three glass card classes in globals.css for a 3D/elevated effect:
+   546→  - .glass: 0 4px 6px -1px rgba(0,0,0,0.15), 0 10px 24px -8px rgba(0,0,0,0.45)
+   547→  - .glass-strong: 0 4px 6px -1px rgba(0,0,0,0.18), 0 12px 28px -8px rgba(0,0,0,0.50)
+   548→  - .glass-soft: 0 2px 4px -1px rgba(0,0,0,0.12), 0 6px 16px -6px rgba(0,0,0,0.35)
+   549→- Each shadow has a tight near-shadow (small offset, lighter) + a wider far-shadow (larger offset, darker) for realistic depth.
+   550→- Applied globally to every card since all cards use these classes.
+   551→- Verified via Agent Browser: computed box-shadow on a .glass-strong card = "rgba(0,0,0,0.18) 0px 4px 6px -1px, rgba(0,0,0,0.5) 0px 12px 28px -8px". VLM confirmed visible 3D shadow under cards.
+   552→- bun run lint clean.
+   553→
+   554→Stage Summary:
+   555→- Every card on the site now has a light black drop shadow creating a 3D/elevated effect, with stronger shadows on glass-strong cards and softer on glass-soft.
+   556→
+   557→---
+   558→Task ID: 39
+   559→Agent: main
+   560→Task: Dictionary — smaller stat cards + amber gradient valid badge
+   561→
+   562→Work Log:
+   563→- Stat cards (Scrabble score / letters / points): shrunk from rounded-xl p-3 with text-2xl value + text-[11px] label → rounded-lg px-2 py-1.5 with text-base value + text-[9px] label. Grid changed from grid-cols-2 sm:grid-cols-3 gap-3 → grid-cols-3 gap-2 (always 3 compact columns).
+   564→- "is a valid word" badge: changed from emerald green (bg-emerald-500/15 border-emerald-500/40 text-emerald-300) to amber gradient (bg-gradient-to-r from-brand to-brand-soft text-background border border-brand/40). Invalid badge stays red.
+   565→- Verified via Agent Browser: stat cards compact ✓, valid badge golden/amber gradient (not green) ✓.
+   566→- bun run lint clean.
+   567→
+   568→Stage Summary:
+   569→- Dictionary check stat cards are now small/compact, and the "is a valid word" badge uses the amber brand gradient. Both browser-verified.
+   570→
+   571→---
+   572→Task ID: 40
+   573→Agent: main
+   574→Task: Update footer text + stack footer same on desktop as mobile
+   575→
+   576→Work Log:
+   577→- Footer description: replaced the old desc + tagline + madeWith lines ("Free word unscrambler... No sign-up." / "Unscramble. Solve. Win." / "Built for word lovers.") with the single new text "Unscramble, Solve & Discover Word".
+   578→- Footer layout: changed the sections grid from `grid gap-8 sm:grid-cols-3` (3 columns on desktop) to `grid gap-6` (single column, stacked) so SOLVERS / TOOLS / SITE sections stack vertically on all viewports — desktop matches mobile. Each section's links use `grid grid-cols-2 sm:grid-cols-3` within the section for compactness.
+   579→- Verified via Agent Browser: footer grid computed as 1 column with 3 stacked children ✓; description text is "Unscramble, Solve & Discover Word" ✓; VLM confirmed sections stacked vertically.
+   580→- bun run lint clean.
+   581→
+   582→Stage Summary:
+   583→- Footer now shows "Unscramble, Solve & Discover Word" and the SOLVERS/TOOLS/SITE sections are stacked vertically on desktop (same as mobile).
+   584→
+   585→---
+   586→Task ID: 41
+   587→Agent: main
+   588→Task: Footer 3-column grid on all viewports + remove hero badge
+   589→
+   590→Work Log:
+   591→- Footer: changed sections grid from single-column stacked (`grid gap-6`) to 3-column grid on all viewports (`grid grid-cols-3 gap-4 sm:gap-6`). Section headers and link text use responsive sizes (smaller on mobile: !text-[10px]/!text-[12px], larger on desktop: !text-[13px]/!text-[15px]) so the 3 columns fit on mobile. Links use space-y instead of inner grid for clean single-column lists within each section.
+   592→- Removed the "FREE • NO SIGN-UP • 9 LANGUAGES" hero badge from the home page (HomeHero) — removed the badge span and the Sparkles import.
+   593→- Verified via Agent Browser: footer grid computed as 3 columns on both desktop (1440px) and mobile (390px) ✓; hero badge removed ✓.
+   594→- bun run lint clean.
+   595→
+   596→Stage Summary:
+   597→- Footer now uses a 3-column grid (Solvers / Tools / Site) on both desktop and mobile. The "FREE • NO SIGN-UP • 9 LANGUAGES" badge is removed from the home hero.
+   598→
+   599→---
+   600→Task ID: 42
+   601→Agent: main
+   602→Task: New premium WordIzy logo design
+   603→
+   604→Work Log:
+   605→- Designed a new logo as a professional brand designer. Concept: an amber-gradient rounded tile where the "W" is sculpted from four ascending letter-blocks (evoking Scrabble tiles being assembled into a word) — capturing the word-game DNA while being modern and distinctive.
+   606→- Implementation (logo.tsx): pure CSS + inline SVG (scales perfectly at any size, no image assets).
+   607→  - Tile: rich amber gradient (#fbbf24 → #f59e0b → #d97706 → #b45309), 1px amber-brown border, layered box-shadow (inset white highlight, inset bottom shadow, cast shadow, amber glow).
+   608→  - "W" mark: inline SVG with 4 bar-paths forming a W, filled with a cream-to-gold gradient (#fffbeb → #fde68a → #fcd34d), stroked in deep amber. Subtle white highlight stripes on each bar for a glossy 3D finish.
+   609→  - Top glossy sheen (white gradient on top half) + bottom inner shadow for depth.
+   610→  - Theme-aware: the amber tile + cream W works in both light and dark modes (strong contrast on cream, luminous on dark).
+   611→- Verified via Agent Browser: logo is an amber tile with stylized W made of ascending blocks; premium, 3D, glossy, distinctive. Rated 8/10 in both dark and light modes.
+   612→- bun run lint clean.
+   613→
+   614→Stage Summary:
+   615→- New premium WordIzy logo: amber-gradient tile with a "W" sculpted from four ascending letter-tile blocks, glossy 3D finish. Scales crisply via SVG, works in both themes. Browser-verified.
+   616→
+   617→---
+   618→Task ID: 43
+   619→Agent: main
+   620→Task: Redesign logo as 2D flat square
+   621→
+   622→Work Log:
+   623→- Replaced the 3D glossy logo with a minimal 2D flat square: solid amber (#f59e0b) fill, rounded-md corners, bold white "W" set in Roboto Slab. No gradients, no shadows, no gloss, no inner highlights — completely flat.
+   624→- Works in both dark and light modes (solid amber + white W has strong contrast on any background).
+   625→- Verified via Agent Browser: logo is a flat 2D amber square with white W in both dark and light modes.
+   626→- bun run lint clean.
+   627→
+   628→Stage Summary:
+   629→- Logo is now a clean 2D flat square (solid amber, white W, no effects). Verified in both themes.
+   630→
+   631→---
+   632→Task ID: 44
+   633→Agent: main
+   634→Task: Improve FAQ section — "How to use & FAQ" with detailed explanations on each page
+   635→
+   636→Work Log:
+   637→- Created faq-content.ts with rich, page-specific FAQ content for every tool (4-6 detailed Q&As each):
+   638→  - Unscrambler (6 Q&A): what it is, wildcards, advanced filters, scoring, dictionaries, length grouping
+   639→  - Scramble (4 Q&A): purpose, difference from unscrambler, wildcards, creating scrambles
+   640→  - Wordle (5 Q&A): how it works, green/yellow/gray letters, word length, guessing strategy
+   641→  - Quordle (4 Q&A): multi-board usage, shared letters, strategy tips
+   642→  - Anagram (4 Q&A): definition, difference from unscrambler, wildcards, use cases
+   643→  - Random (4 Q&A): purpose, filters, Scrabble validity, game uses
+   644→  - Wordfeud (4 Q&A): rack entry, dictionary choice, scoring, blank tiles
+   645→  - Dictionary (4 Q&A): validity check, definition sources, synonym sources, why words may be invalid
+   646→  - Scrabble Duplicate (4 Q&A): duplicate rules, board letters, ranking, bingos
+   647→  - Word Lists (4 Q&A): purpose, length filter, letter filter, uppercase display
+   648→  - Starts-by (4 Q&A): purpose, selectors, Scrabble usefulness, pagination
+   649→  - Ends-by (4 Q&A): purpose, selectors, hooks usefulness, pagination
+   650→- Updated TipsSection: heading now "How to use & FAQ" in Roboto Slab bold, larger text, shadow on card. Accordion triggers are semibold, answers have relaxed padding.
+   651→- Updated all 12 tool pages + home to use the page-specific FAQ content (replaced generic t.home.q1-q4 with dedicated faq-content arrays).
+   652→- Removed HomeFaq's dependency on Translation (now uses faq-content directly).
+   653→- Verified via Agent Browser: home shows "How to use & FAQ" with detailed unscrambler questions; Wordle page shows 5 Wordle-specific questions ("How does the Wordle Solver work?", "How do I enter placed (green) letters?", etc.).
+   654→- bun run lint clean.
+   655→
+   656→Stage Summary:
+   657→- Every tool page now has a detailed "How to use & FAQ" section with 4-6 page-specific questions and thorough explanations. Content is tailored to each tool's features and use cases.
+   658→
+   659→---
+   660→Task ID: 45
+   661→Agent: main
+   662→Task: Add light black shadow to result containers in light mode
+   663→
+   664→Work Log:
+   665→- Added a `.result-card` CSS class in globals.css with:
+   666→  - Default (dark mode): 0 4px 6px -1px rgba(0,0,0,0.15), 0 10px 24px -8px rgba(0,0,0,0.45)
+   667→  - Light mode (html:not(.dark)): stronger visible shadow — 0 2px 4px -1px rgba(0,0,0,0.20), 0 8px 20px -6px rgba(0,0,0,0.30), 0 1px 3px rgba(0,0,0,0.15) with !important to override Tailwind utilities.
+   668→- Applied `result-card` class to all result containers (replacing shadow-lg shadow-black/20):
+   669→  - WordGroups (LengthGroupCard)
+   670→  - WordList (Wordle/Quordle results)
+   671→  - WordBucket (Starts-by/Ends-by/Word Lists)
+   672→- Verified via Agent Browser in light mode: result containers have visible light black shadow (computed: "rgba(0,0,0,0.2) 0px 2px 4px -1px, rgba(0,0,0,0.3) 0px 8px 20px -6px, rgba(0,0,0,0.15)..."). VLM confirmed containers stand out from background and each other.
+   673→- bun run lint clean.
+   674→
+   675→Stage Summary:
+   676→- Result containers now have a clearly visible light black shadow in light mode, creating clear separation between adjacent cards. Dark mode retains its existing shadow.
+   677→
+   678→---
+   679→Task ID: 46
+   680→Agent: main
+   681→Task: Add light black shadow to word cells in light mode for separation
+   682→
+   683→Work Log:
+   684→- Added `.word-cell` CSS class in globals.css (unlayered, !important):
+   685→  - Default (dark mode): 0 1px 2px rgba(0,0,0,0.08) — subtle
+   686→  - Light mode (:root:not(.dark)): 0 2px 4px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.18) — clearly visible light black shadow
+   687→- Applied `word-cell` class to all word cell divs in:
+   688→  - WordGroups (solver results)
+   689→  - WordList (Wordle/Quordle results)
+   690→  - WordBucket (Starts-by/Ends-by/Word Lists)
+   691→- Used :root:not(.dark) selector (html class is "light"/"dark" via ThemeProvider).
+   692→- Verified via Agent Browser in light mode: word cells have computed shadow "rgba(0,0,0,0.25) 0px 2px 4px 0px, rgba(0,0,0,0.18) 0px 1px 2px 0px". VLM confirmed visible separation between word cells.
+   693→- bun run lint clean.
+   694→
+   695→Stage Summary:
+   696→- Individual word cells in all search results now have a visible light black shadow in light mode, creating clear separation between adjacent word containers. Dark mode retains a subtle shadow.
+   697→
+   698→---
+   699→Task ID: 4-translations
+   700→Agent: general-purpose
+   701→Task: Translate About/Privacy content to 6 languages
+   702→
+   703→Work Log:
+   704→- Read worklog.md and src/components/i18n/translations.ts to locate the 6 target languages (de, it, pt, nl, ja, zh) currently using old one-line `about:`/`privacy:` format with single `body:` string.
+   705→- Replaced German (de) about block with new structured format (title "Über WordIzy" + intro + 6 sections: Unsere Mission, Was wir bieten, Offizielle Scrabble-Wörterbücher, Neun Sprachen unterstützt, Datenschutz by Design, Kontakt aufnehmen). Used »...« guillemets for tool-name quotes.
+   706→- Replaced German (de) privacy block (title "Datenschutzerklärung" + intro + lastUpdated "Zuletzt aktualisiert: Juli 2026" + 6 sections: Daten die wir erfassen, Wie wir Ihre Eingabe verarbeiten, Übermittlungen über das Kontaktformular, Cookies und Werbung, Ihre Rechte, Kontakt).
+   707→- Replaced Italian (it) about block (title "Info su WordIzy" + 6 sections: La nostra missione, Cosa offriamo, Dizionari ufficiali di Scrabble, Nove lingue supportate, Privacy by Design, Contattaci). Used «...» guillemets per Italian convention.
+   708→- Replaced Italian (it) privacy block (lastUpdated "Ultimo aggiornamento: luglio 2026" + 6 sections: Dati che raccogliamo, Come elaboriamo il tuo input, Invii tramite modulo di contatto, Cookie e pubblicità, I tuoi diritti, Contatti).
+   709→- Replaced Portuguese (pt) about block (title "Sobre o WordIzy" + 6 sections in PT-PT style). Used «...» guillemets.
+   710→- Replaced Portuguese (pt) privacy block (lastUpdated "Última atualização: julho de 2026" + 6 sections).
+   711→- Replaced Dutch (nl) about block (title "Over WordIzy" + 6 sections). For Dutch quotes used straight ASCII "..." to avoid Turbopack-breaking curly quotes „...".
+   712→- Replaced Dutch (nl) privacy block (lastUpdated "Laatst bijgewerkt: juli 2026" + 6 sections).
+   713→- Replaced Japanese (ja) about block (title "WordIzyについて" + 6 sections). Used full-width punctuation and Japanese-style headings.
+   714→- Replaced Japanese (ja) privacy block (lastUpdated "最終更新：2026年7月" + 6 sections).
+   715→- Replaced Chinese (zh) about block (title "关于 WordIzy" + 6 sections). Used 「...」 corner brackets for tool-name quotes per Chinese convention.
+   716→- Replaced Chinese (zh) privacy block (lastUpdated "最后更新：2026 年 7 月" + 6 sections).
+   717→- Preserved `info.wordizy@proton.me` and dictionary names (NWL2023, CSW21, ODS9, FISE, Zingarelli, OpenTaal) verbatim across all languages.
+   718→- Ran `bun run lint` — eslint passed with zero output (no errors, no warnings).
+   719→
+   720→Stage Summary:
+   721→- All 6 languages (de, it, pt, nl, ja, zh) now use the same structured format as English/French/Spanish: `about: { title, intro, sections[6] }` and `privacy: { title, intro, lastUpdated, sections[6] }`.
+   722→- Section ordering matches English reference for every language.
+   723→- Lint clean. No Turbopack-breaking curly-quote characters (only »...« for German, «...» for Italian/Portuguese, 「...」 for Chinese, straight ASCII "..." for Dutch; Japanese uses no quotes).
+   724→- File: src/components/i18n/translations.ts. Total file now ~1220 lines.
+   725→
+   726→---
+   727→Task ID: 10-tips-translation
+   728→Agent: general-purpose
+   729→Task: Translate Tips/FAQ cards to all 9 languages
+   730→
+   731→Work Log:
+   732→- Read /home/z/my-project/worklog.md and src/components/site/faq-content.ts to inventory 12 FAQ arrays (unscrambler 6, scramble 4, wordle 5, quordle 4, anagram 4, random 4, wordfeud 4, dictionary 4, scrabble 4, wordlists 4, wordstarts 4, wordends 4 — 51 Q&A pairs total).
+   733→- Read src/components/i18n/translations.ts and confirmed the `Translation` type did NOT yet have a `faq` property (only `home.faqTitle` existed as a single string). Added a new `faq` block to the Translation type with `title` + 12 typed tool arrays using a new exported `FaqItemT = { q: string; a: string }` type.
+   734→- Populated the English `faq` block by copying the 51 Q&A pairs verbatim from faq-content.ts (preserving all word examples, dictionary names, email, wildcards, and technical formatting).
+   735→- Translated all 51 Q&A pairs into French (fr), Spanish (es), German (de), Italian (it), Portuguese (pt), Dutch (nl), Japanese (ja), Chinese (zh). Used professional, natural phrasing; kept all word examples (SRAABLC, QUER?Y, A??LE, RBOLENW, A..LE, CHIEN/CHINE/NICHE, LISTEN/SILENT, CAT??, BRUNCH, BRUNCH'S, CRANE, SLATE, RST, BXF, QI/QAT/QUAD), dictionary names (NWL2023, CSW21, ODS9, FISE, Zingarelli, OpenTaal), game names (Scrabble, Wordle, Wordfeud, Quordle, Octordle, Words With Friends, Pictionary), and the info.wordizy@proton.me email unchanged across all languages.
+   736→- Quote-style rules per language: German »...« guillemets (NO „..."), French/Spanish/Italian/Portuguese/Dutch «...», Japanese 「...」 corner brackets, Chinese 「...」 corner brackets. No Turbopack-breaking curly quotes.
+   737→- Updated src/components/site/tips-section.tsx: removed `FaqItem` import from faq-content, inlined `{ q: string; a: string }[]` prop type, made `HomeFaq` use `useLanguage()` to read `t.faq.title` + `t.faq.unscrambler`.
+   738→- Updated 11 tool components to read from `t.faq` instead of importing from faq-content.ts:
+   739→  - anagram-tool.tsx, wordfeud-tool.tsx (use LettersSolver with tipsTitle={t.faq.title} tips={t.faq.<tool>})
+   740→  - scramble-tool.tsx, wordle-tool.tsx, quordle-tool.tsx, random-tool.tsx, dictionary-tool.tsx, scrabble-tool.tsx, wordlists-tool.tsx, word-starts-tool.tsx, word-ends-tool.tsx (use <TipsSection title={t.faq.title} items={t.faq.<tool>} />)
+   741→  - unscrambler-tool.tsx already uses <HomeFaq /> which now reads from t.faq — no change needed.
+   742→- Deleted src/components/site/faq-content.ts (dead code — no longer imported anywhere; task allowed either keep-as-is or delete, chose delete for cleanliness).
+   743→- Ran `bun run lint` — clean (exit 0, no eslint errors, no warnings).
+   744→- Verified via `bunx tsc --noEmit` that the only TypeScript errors are pre-existing in unrelated files (examples/websocket, skills/image-edit, skills/stock-analysis-skill, and a pre-existing maxVisible prop mismatch in quordle-tool.tsx line 162 that exists in main without my changes).
+   745→
+   746→Stage Summary:
+   747→- All 9 languages (en, fr, es, de, it, pt, nl, ja, zh) now have fully translated FAQ content (title + 12 tool arrays × 4-6 Q&A each = 51 Q&A pairs per language, 459 total translated strings).
+   748→- All 11 tool components + HomeFaq + TipsSection now read FAQ content from `t.faq` (via useLanguage) — none import from faq-content.ts anymore.
+   749→- faq-content.ts deleted.
+   750→- lint clean (exit 0). Pre-existing TS errors unrelated to this task remain (in examples/, skills/, and an unrelated maxVisible prop in quordle-tool.tsx).
+   751→- File: src/components/i18n/translations.ts is now 3319 lines.
+   752→
+   753→---
+   754→Task ID: rec-7-6
+   755→Agent: subagent
+   756→Task: Add React Error Boundary component + in-memory rate limiting on the contact form API
+   757→
+   758→Work Log:
+   759→- Created `/home/z/my-project/src/components/site/error-boundary.tsx`:
+   760→  - Class-based React error boundary (`ErrorBoundary`) implementing `getDerivedStateFromError` + `componentDidCatch`.
+   761→  - Fallback UI uses the site's `GlassCard strong` style with brand gradient title and amber/destructive blur accents (matches `PageHeader` look).
+   762→  - Shows a friendly "Something went wrong" message (or `<label> failed to load` when the optional `label` prop is provided) and a primary "Reload page" button that calls `window.location.reload()` after resetting boundary state.
+   763→  - The actual `Error.name: Error.message` is only rendered when `process.env.NODE_ENV === "development"` (hidden in production), inside a destructive-tinted mono block.
+   764→  - Logs the caught error + component stack to `console.error` for observability.
+   765→- Wrapped every branch of `renderView()` in `/home/z/my-project/src/app/page.tsx` with `<ErrorBoundary label="…">` — each tool/view (home, scramble, wordle, quordle, anagram, random, wordfeud, dictionary, scrabble, wordlists, wordstarts, wordends, about, contact, privacy, sitemap, inbox, and the default fallback) now sits inside its own boundary so a single tool's render failure no longer blanks the whole page.
+   766→- Updated `/home/z/my-project/src/app/api/contact/route.ts` with in-memory per-IP rate limiting on the POST handler:
+   767→  - `RATE_LIMIT_MAX = 5`, `RATE_LIMIT_WINDOW_MS = 1h`.
+   768→  - `Map<string, number[]>` (`submissionTimes`) stores submission timestamps per IP; stale (>1h) timestamps are pruned on every request.
+   769→  - Helper `recentSubmissionsFor(ip, now)` returns the freshly-pruned array; deletes empty IP entries; runs a light-touch GC across the whole map only when the map exceeds 200 entries (to keep memory bounded without per-request O(n) cost).
+   770→  - Uses `x-forwarded-for` IP (already parsed in the existing code); falls back to the `"unknown"` bucket when no IP is present (e.g. local dev) so the limit still applies.
+   771→  - On limit exceeded: returns HTTP 429 with `{ ok: false, error: "Too many submissions. Please try again in about Ns." }` and a `Retry-After` header derived from the oldest in-window timestamp.
+   772→  - Successful submissions are recorded against the bucket only after the DB write succeeds (so a DB failure doesn't burn a user's quota).
+   773→- Ran `cd /home/z/my-project && bun run lint` → exit code 0, no errors or warnings.
+   774→
+   775→Files created:
+   776→- /home/z/my-project/src/components/site/error-boundary.tsx
+   777→
+   778→Files modified:
+   779→- /home/z/my-project/src/app/page.tsx
+   780→- /home/z/my-project/src/app/api/contact/route.ts
+   781→
+   782→Lint result: PASS (exit 0, no output).
+   783→
+   784→Notes / next actions:
+   785→- Rate limit is per-instance in-memory: in a multi-instance/serverless deployment each instance keeps its own counter, so the effective ceiling is `MAX * instance_count`. If stricter global limiting is ever needed, swap the `Map` for an Upstash Redis or Prisma-backed counter.
+   786→- The error boundary catches render-time errors only (per React's design); event-handler and async errors inside tools are still surfaced via their own try/catch + toast flows. Could later wire `componentDidCatch` into an error-reporting service.
+   787→

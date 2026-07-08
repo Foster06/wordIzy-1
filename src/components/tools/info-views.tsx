@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Info, Mail, Shield, Map, Send, Check, Loader2, AlertCircle, Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2, BookOpen, Trophy, List, ArrowDownToLine, ArrowUpFromLine } from "lucide-react";
+import { Info, Mail, Shield, Map, Send, Check, Loader2, AlertCircle, Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2, BookOpen, Trophy, List, ArrowDownToLine, ArrowUpFromLine, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,8 +11,13 @@ import { AdSlot } from "@/components/site/ad-slot";
 import { PageHeader } from "@/components/site/page-header";
 import { useHashRoute } from "@/components/site/use-hash-route";
 import { useLanguage } from "@/components/i18n/language-provider";
-import { ROUTES } from "@/components/site/routes";
+import { ROUTES, GROUP_ORDER, GROUP_LABELS, type RouteGroup } from "@/components/site/routes";
 import { toast } from "sonner";
+
+const SITEMAP_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2,
+  BookOpen, Trophy, List, Info, Mail, Shield, Map, ArrowDownToLine, ArrowUpFromLine,
+};
 
 export function AboutView() {
   const { t } = useLanguage();
@@ -221,9 +226,11 @@ export function PrivacyView() {
                       {service.description}
                     </div>
                   ))}
-                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    We do not sell, rent, or share your data with any other third parties.
-                  </p>
+                  <div className="mt-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3">
+                    <p className="text-sm sm:text-base font-semibold text-emerald-400 leading-relaxed">
+                      We do not sell, rent, or share your data with any other third parties.
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
@@ -241,20 +248,39 @@ export function SitemapView() {
   return (
     <>
       <PageHeader badge={t.nav.sitemap} title={t.sitemap.title} subtitle={t.sitemap.body} icon={<Map className="h-6 w-6" />} />
-      <div className="mt-6">
-        <GlassCard className="p-6">
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {ROUTES.filter((r) => !r.hidden).map((r) => (
-              <button
-                key={r.id}
-                onClick={() => navigate(r.hash)}
-                className="text-left rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:text-brand hover:bg-white/5 transition-colors"
-              >
-                {t.nav[r.labelKey]}
-              </button>
-            ))}
-          </div>
-        </GlassCard>
+      <div className="mt-6 space-y-6">
+        {GROUP_ORDER.map((group: RouteGroup) => {
+          const groupRoutes = ROUTES.filter((r) => r.group === group && !r.hidden);
+          const labelKey = GROUP_LABELS[group];
+          return (
+            <GlassCard key={group} className="p-5 sm:p-6 result-card">
+              <h2 className="section-label !text-[14px] mb-4 text-brand flex items-center gap-2">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
+                {t.nav[labelKey]}
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {groupRoutes.map((r) => {
+                  const Icon = SITEMAP_ICONS[r.icon] ?? Shuffle;
+                  return (
+                    <button
+                      key={r.id}
+                      onClick={() => navigate(r.hash)}
+                      className="group flex items-center gap-3 rounded-xl px-4 py-3 bg-white/[0.04] border border-white/[0.08] hover:bg-brand/10 hover:border-brand/30 transition-all text-left shadow-sm hover:shadow-md"
+                    >
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand/10 border border-brand/20 group-hover:bg-brand/20 transition-colors">
+                        <Icon className="h-4 w-4 text-brand" />
+                      </div>
+                      <span className="flex-1 text-sm font-medium text-foreground/80 group-hover:text-brand transition-colors truncate">
+                        {t.nav[r.labelKey]}
+                      </span>
+                      <ChevronRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-0.5 transition-all shrink-0" />
+                    </button>
+                  );
+                })}
+              </div>
+            </GlassCard>
+          );
+        })}
       </div>
     </>
   );
