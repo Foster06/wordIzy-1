@@ -55,9 +55,10 @@ function LengthGroupCard({ group, t }: { group: LengthGroup; t: Translation }) {
 
   const shareAll = async () => {
     const words = group.words.map((w) => w.word.toUpperCase()).join(", ");
-    const text = `${group.words.length} ${group.length}-letter words from wordIzy:\n${words}`;
+    const url = typeof window !== "undefined" ? window.location.href : "https://wordizy.com";
+    const text = `${group.words.length} ${group.length}-letter words from wordIzy:\n${words}\n\nTry it: ${url}`;
     if (navigator.share) {
-      try { await navigator.share({ title: "wordIzy results", text }); } catch { /* user cancelled */ }
+      try { await navigator.share({ title: "wordIzy results", text, url }); } catch { /* user cancelled */ }
     } else {
       navigator.clipboard?.writeText(text);
       setCopied(true);

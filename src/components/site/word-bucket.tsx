@@ -67,9 +67,10 @@ export function WordBucket({
   };
 
   const shareAll = async () => {
-    const text = `${total} words from wordIzy:\n${allWords.map((w) => w.word.toUpperCase()).join(", ")}`;
+    const url = typeof window !== "undefined" ? window.location.href : "https://wordizy.com";
+    const text = `${total} words from wordIzy:\n${allWords.map((w) => w.word.toUpperCase()).join(", ")}\n\nTry it: ${url}`;
     if (navigator.share) {
-      try { await navigator.share({ title: "wordIzy results", text }); } catch { /* cancelled */ }
+      try { await navigator.share({ title: "wordIzy results", text, url }); } catch { /* cancelled */ }
     } else {
       navigator.clipboard?.writeText(text);
       setCopied(true);
