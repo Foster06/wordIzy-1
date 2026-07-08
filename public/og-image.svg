@@ -31,7 +31,7 @@
   <!-- Logo: amber square with white W -->
   <g filter="url(#softShadow)">
     <rect x="100" y="100" width="92" height="92" rx="20" fill="url(#brandGrad)"/>
-    <path d="M118 124 L132 168 L146 138 L160 168 L174 124 L162 124 L154 150 L146 128 L138 150 L130 124 Z" fill="#1a1a1f"/>
+    <text x="146" y="160" font-family="Roboto Slab, Georgia, serif" font-size="48" font-weight="700" fill="#1a1a1f" text-anchor="middle">WI</text>
   </g>
   <text x="208" y="158" font-family="Roboto Slab, Georgia, serif" font-size="44" font-weight="700" fill="#ffffff">
     word<tspan fill="#f5a623">Izy</tspan>
