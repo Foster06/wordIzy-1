@@ -40,11 +40,11 @@ export function SidebarNav({ onNavigate, hideLogo }: { onNavigate?: () => void; 
         <button
           onClick={() => go("/")}
           className="flex items-center gap-2.5 px-4 py-4 shrink-0"
-          aria-label="WordIzy home"
+          aria-label="wordIzy home"
         >
           <Logo size="md" />
-          <span className="text-xl tracking-tight font-roboto-slab">
-            Word<span className="text-gradient-brand">Izy</span>
+          <span className="text-xl tracking-tight font-roboto-slab" style={{ fontWeight: 700 }}>
+            word<span className="text-gradient-brand">Izy</span>
           </span>
         </button>
       )}

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 const lora = Lora({ variable: "--font-serif", subsets: ["latin"], weight: ["600", "700"] });
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 const breeSerif = Bree_Serif({ variable: "--font-bree-serif", subsets: ["latin"], weight: ["400"] });
-const robotoSlab = Roboto_Slab({ variable: "--font-roboto-slab", subsets: ["latin"], weight: ["600", "800"] });
+const robotoSlab = Roboto_Slab({ variable: "--font-roboto-slab", subsets: ["latin"], weight: ["600", "700", "800"] });
 
 const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 const showAdsense =
@@ -26,7 +26,7 @@ const SITE_URL = "https://wordizy.com";
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "WordIzy",
+  name: "wordIzy",
   url: SITE_URL,
   description:
     "Free word unscrambler, anagram solver, Wordle & Quordle solver with multi-language official Scrabble dictionaries. No sign-up.",
@@ -34,7 +34,7 @@ const jsonLd = {
   applicationSubCategory: "Word Game Helper",
   operatingSystem: "Web",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  brand: { "@type": "Brand", name: "WordIzy" },
+  brand: { "@type": "Brand", name: "wordIzy" },
   featureList: [
     "Word Unscrambler",
     "Anagram Solver",
@@ -46,14 +46,14 @@ const jsonLd = {
     "Multi-language Word Lists",
   ],
   inLanguage: ["en", "fr", "es", "it", "pt", "de", "nl", "ja", "zh"],
-  publisher: { "@type": "Organization", name: "WordIzy" },
+  publisher: { "@type": "Organization", name: "wordIzy" },
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "WordIzy — Word Unscrambler, Anagram & Wordle Solver",
+  title: "wordIzy — Word Unscrambler, Anagram & Wordle Solver",
   description:
-    "WordIzy is a free word unscrambler and solver. Unscramble letters, solve anagrams, Wordle, Quordle, Scrabble, Wordfeud and browse multi-language word lists. No sign up.",
+    "wordIzy is a free word unscrambler and solver. Unscramble letters, solve anagrams, Wordle, Quordle, Scrabble, Wordfeud and browse multi-language word lists. No sign up.",
   keywords: [
     "word unscrambler",
     "anagram solver",
@@ -62,17 +62,17 @@ export const metadata: Metadata = {
     "scrabble helper",
     "wordfeud helper",
     "word lists",
-    "WordIzy",
+    "wordIzy",
   ],
-  authors: [{ name: "WordIzy" }],
+  authors: [{ name: "wordIzy" }],
   manifest: "/manifest.json",
   icons: { icon: "/logo.svg", apple: "/logo.svg" },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "WordIzy — Word Unscrambler & Solver",
+    title: "wordIzy — Word Unscrambler & Solver",
     description:
       "Free word unscrambler, anagram solver, Wordle & Quordle solver with multi-language dictionaries. No sign up.",
-    siteName: "WordIzy",
+    siteName: "wordIzy",
     type: "website",
     url: SITE_URL,
     images: [
@@ -80,13 +80,13 @@ export const metadata: Metadata = {
         url: "/og-image.svg",
         width: 1200,
         height: 630,
-        alt: "WordIzy — Word Unscrambler & Anagram Solver",
+        alt: "wordIzy — Word Unscrambler & Anagram Solver",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "WordIzy — Word Unscrambler & Solver",
+    title: "wordIzy — Word Unscrambler & Solver",
     description:
       "Free word unscrambler, anagram solver, Wordle & Quordle solver with multi-language dictionaries. No sign up.",
     images: ["/og-image.svg"],

@@ -88,7 +88,7 @@ const en: Translation = {
   sitemap: "Sitemap", tools: "Tools", more: "More", solvers: "Solvers", site: "Site", wordlab: "Word Lab", inbox: "Inbox",
   dashboard: "Dashboard",
  },
- brand: { name: "WordIzy", tagline: "Unscramble. Solve. Win." },
+ brand: { name: "wordIzy", tagline: "Unscramble. Solve. Win." },
  common: {
   yourLetters: "Your Letters", unscramble: "Unscramble", clear: "Clear", advancedFilters: "Advanced Filters",
   startsWith: "Starts with", endsWith: "Ends with", mustInclude: "Must include", dictionaryLabel: "Dictionary",
@@ -344,7 +344,7 @@ const fr: Translation = {
   sitemap: "Plan du site", tools: "Outils", more: "Plus", solvers: "Solveurs", site: "Site", wordlab: "Labo des Mots", inbox: "Boîte de réception",
   dashboard: "Tableau de bord",
  },
- brand: { name: "WordIzy", tagline: "Anagrammez. Résolvez. Gagnez." },
+ brand: { name: "wordIzy", tagline: "Anagrammez. Résolvez. Gagnez." },
  common: {
   yourLetters: "Vos lettres", unscramble: "Anagrammer", clear: "Effacer", advancedFilters: "Filtres avancés",
   startsWith: "Commence par", endsWith: "Finit par", mustInclude: "Doit contenir", dictionaryLabel: "Dictionnaire",
@@ -555,7 +555,7 @@ const es: Translation = {
   sitemap: "Mapa del sitio", tools: "Herramientas", more: "Más", solvers: "Solucionadores", site: "Sitio", wordlab: "Lab de Palabras", inbox: "Bandeja de entrada",
   dashboard: "Panel",
  },
- brand: { name: "WordIzy", tagline: "Desordena. Resuelve. Gana." },
+ brand: { name: "wordIzy", tagline: "Desordena. Resuelve. Gana." },
  common: {
   yourLetters: "Tus letras", unscramble: "Desordenar", clear: "Borrar", advancedFilters: "Filtros avanzados",
   startsWith: "Empieza por", endsWith: "Termina en", mustInclude: "Debe incluir", dictionaryLabel: "Diccionario",
@@ -739,7 +739,7 @@ const de: Translation = {
   sitemap: "Sitemap", tools: "Werkzeuge", more: "Mehr", solvers: "Löser", site: "Seite", wordlab: "Wort-Labor", inbox: "Posteingang",
   dashboard: "Dashboard",
  },
- brand: { name: "WordIzy", tagline: "Entwirren. Lösen. Gewinnen." },
+ brand: { name: "wordIzy", tagline: "Entwirren. Lösen. Gewinnen." },
  common: {
   yourLetters: "Deine Buchstaben", unscramble: "Entwirren", clear: "Löschen", advancedFilters: "Erweiterte Filter",
   startsWith: "Beginnt mit", endsWith: "Endet mit", mustInclude: "Muss enthalten", dictionaryLabel: "Wörterbuch",
@@ -923,7 +923,7 @@ const it: Translation = {
   sitemap: "Mappa", tools: "Strumenti", more: "Altro", solvers: "Risolutori", site: "Sito", wordlab: "Lab delle Parole", inbox: "Posta in arrivo",
   dashboard: "Cruscotto",
  },
- brand: { name: "WordIzy", tagline: "Riordina. Risolvi. Vinci." },
+ brand: { name: "wordIzy", tagline: "Riordina. Risolvi. Vinci." },
  common: {
   yourLetters: "Le tue lettere", unscramble: "Anagramma", clear: "Pulisci", advancedFilters: "Filtri avanzati",
   startsWith: "Inizia per", endsWith: "Finisce per", mustInclude: "Deve contenere", dictionaryLabel: "Dizionario",
@@ -1107,7 +1107,7 @@ const pt: Translation = {
   sitemap: "Mapa do site", tools: "Ferramentas", more: "Mais", solvers: "Solucionadores", site: "Site", wordlab: "Lab de Palavras", inbox: "Caixa de entrada",
   dashboard: "Painel",
  },
- brand: { name: "WordIzy", tagline: "Descodifica. Resolve. Vence." },
+ brand: { name: "wordIzy", tagline: "Descodifica. Resolve. Vence." },
  common: {
   yourLetters: "Suas letras", unscramble: "Descodificar", clear: "Limpar", advancedFilters: "Filtros avançados",
   startsWith: "Começa por", endsWith: "Termina em", mustInclude: "Deve conter", dictionaryLabel: "Dicionário",
@@ -1291,7 +1291,7 @@ const nl: Translation = {
   sitemap: "Sitemap", tools: "Hulpmiddelen", more: "Meer", solvers: "Oplossers", site: "Site", wordlab: "Woord-Lab", inbox: "Postvak IN",
   dashboard: "Dashboard",
  },
- brand: { name: "WordIzy", tagline: "Ontwar. Los op. Win." },
+ brand: { name: "wordIzy", tagline: "Ontwar. Los op. Win." },
  common: {
   yourLetters: "Jouw letters", unscramble: "Ontwarren", clear: "Wissen", advancedFilters: "Geavanceerde filters",
   startsWith: "Begint met", endsWith: "Eindigt op", mustInclude: "Moet bevatten", dictionaryLabel: "Woordenboek",
@@ -1476,7 +1476,7 @@ const ja: Translation = {
   sitemap: "サイトマップ", tools: "ツール", more: "その他", solvers: "ソルバー", site: "サイト", wordlab: "ワードラボ", inbox: "受信箱",
   dashboard: "ダッシュボード",
  },
- brand: { name: "WordIzy", tagline: "解き、勝つ。" },
+ brand: { name: "wordIzy", tagline: "解き、勝つ。" },
  common: {
   ...en.common,
   yourLetters: "あなたの文字", unscramble: "解決", clear: "クリア", advancedFilters: "詳細フィルター",
@@ -1663,7 +1663,7 @@ const zh: Translation = {
   sitemap: "网站地图", tools: "工具", more: "更多", solvers: "求解器", site: "站点", wordlab: "词汇实验室", inbox: "收件箱",
   dashboard: "仪表盘",
  },
- brand: { name: "WordIzy", tagline: "重组。求解。获胜。" },
+ brand: { name: "wordIzy", tagline: "重组。求解。获胜。" },
  common: {
   ...en.common,
   yourLetters: "你的字母", unscramble: "重组", clear: "清除", advancedFilters: "高级筛选",

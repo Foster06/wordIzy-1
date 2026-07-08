@@ -20,7 +20,7 @@ export function SiteFooter() {
         <div className="mb-6">
           <div className="flex items-center gap-2.5 mb-2">
             <Logo size="sm" />
-            <span className="text-lg font-roboto-slab">Word<span className="text-gradient-brand">Izy</span></span>
+            <span className="text-lg font-roboto-slab" style={{ fontWeight: 700 }}>word<span className="text-gradient-brand">Izy</span></span>
           </div>
           <p className="font-bree !text-[15px] text-muted-foreground max-w-2xl">
             Unscramble, Solve &amp; Discover Word
@@ -61,7 +61,7 @@ export function SiteFooter() {
         {/* Bottom row: copyright (left) + disclaimer (right) */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6 border-t border-white/5">
           <p className="text-xs text-muted-foreground">
-            © 2026 WordIzy. {t.footer.rights}
+            © 2026 wordIzy. {t.footer.rights}
           </p>
           <p className="text-xs text-muted-foreground/60">
             {t.footer.disclaimer}

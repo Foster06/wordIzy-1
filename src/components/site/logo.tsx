@@ -10,18 +10,18 @@ const sizeMap: Record<LogoSize, { box: string }> = {
   lg: { box: "h-12 w-12" },
 };
 
-/** WordIzy logo — a flat 2D amber square with a bold white "W" in Roboto Slab. */
+/** wordIzy logo — a flat 2D amber square with a bold white "W" in Roboto Slab. */
 export function Logo({ size = "md", className }: { size?: LogoSize; className?: string }) {
   const s = sizeMap[size];
   return (
     <span
       className={cn("relative inline-flex items-center justify-center rounded-md", s.box, className)}
       style={{ backgroundColor: "#f59e0b" }}
-      aria-label="WordIzy logo"
+      aria-label="wordIzy logo"
     >
       <span
         className="font-bold leading-none select-none text-white"
-        style={{ fontFamily: "var(--font-roboto-slab), Georgia, serif", fontSize: "1.25em" }}
+        style={{ fontFamily: "var(--font-roboto-slab), Georgia, serif", fontSize: "1.25em", fontWeight: 700 }}
       >
         W
       </span>

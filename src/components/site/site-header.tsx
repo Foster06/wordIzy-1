@@ -60,10 +60,10 @@ export function SiteHeader() {
               >
                 <Menu className="h-5 w-5" />
               </Button>
-              <button onClick={() => go("/")} className="flex items-center gap-2 shrink-0" aria-label="WordIzy home">
+              <button onClick={() => go("/")} className="flex items-center gap-2 shrink-0" aria-label="wordIzy home">
                 <Logo size="md" />
-                <span className="text-base sm:text-xl tracking-tight font-roboto-slab">
-                  Word<span className="text-gradient-brand">Izy</span>
+                <span className="text-base sm:text-xl tracking-tight font-roboto-slab" style={{ fontWeight: 700 }}>
+                  word<span className="text-gradient-brand">Izy</span>
                 </span>
               </button>
             </div>

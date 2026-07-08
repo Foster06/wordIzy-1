@@ -177,7 +177,7 @@
 @layer components {
   .font-inter { font-family: var(--font-inter), system-ui, sans-serif; }
   .font-bree { font-family: var(--font-bree-serif), var(--font-serif), Georgia, serif; }
-  .font-roboto-slab { font-family: var(--font-roboto-slab), Georgia, serif; font-weight: 800 !important; }
+  .font-roboto-slab { font-family: var(--font-roboto-slab), Georgia, serif; font-weight: 700 !important; }
   .nav-item { font-family: var(--font-inter), system-ui, sans-serif; font-size: 18px; font-weight: 600; line-height: 24px; }
   .section-label { font-family: var(--font-inter), system-ui, sans-serif; font-size: 17px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
   .num-button { font-family: var(--font-inter), system-ui, sans-serif; font-size: 15px; font-weight: 700; line-height: 1; }
