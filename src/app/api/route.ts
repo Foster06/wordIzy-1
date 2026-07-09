@@ -1,20 +1,38 @@
-// Ensure this file runs ONLY on the server side
+import { NextResponse } from "next/server";
+import { headers } from "next/headers";
+import { db } from "@/lib/db";
+
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
-  const { password } = await request.json();
-  
-  // Directly pull the string that Vercel injects into the execution container
-  const expectedPassword = process.env.ADMIN_PASSWORD;
+  try {
+    const { name, email, message, locale } = await request.json();
+    
+    // 1. Extract request headers
+    const reqHeaders = await headers();
+    const userAgent = reqHeaders.get("user-agent") || null;
+    
+    // Vercel routes real IPs through x-forwarded-for.
+    // If it's a chain of proxy IPs, we grab the first one (the user's real IP).
+    const forwardedFor = reqHeaders.get("x-forwarded-for");
+    const ip = forwardedFor ? forwardedFor.split(",")[0].trim() : null;
 
-  if (!expectedPassword) {
-    console.error("CRITICAL: Vercel environment variable ADMIN_PASSWORD is not loaded.");
-    return new Response(JSON.stringify({ error: "Server misconfiguration" }), { status: 500 });
+    // 2. Save to Turso
+    const savedMessage = await db.contactMessage.create({
+      data: {
+        name,
+        email,
+        message,
+        locale: locale || "en",
+        handled: false,
+        ip,          // Populated safely for anti-spam tracking
+        userAgent,   // Saved to troubleshoot form display bugs
+      },
+    });
+
+    return NextResponse.json({ success: true, data: savedMessage });
+  } catch (error) {
+    console.error("Contact form processing error:", error);
+    return NextResponse.json({ error: "Failed to process form message" }, { status: 500 });
   }
-
-  if (password !== expectedPassword) {
-    return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
-  }
-
-  return new Response(JSON.stringify({ success: true }), { status: 200 });
 }
