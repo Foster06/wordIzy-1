@@ -8,7 +8,6 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("TURSO_DATABASE_URL")
 }
 
 model User {
@@ -29,9 +28,9 @@ model Post {
   updatedAt DateTime @updatedAt
 }
 
-/// Submissions from the on-site Contact form.
-/// Stored so the user never leaves the website (no mailto: redirect).
-/// Read via the owner-only inbox at #/inbox (auth-gated by ADMIN_PASSWORD).
+//Submissions from the on-site Contact form.
+ //Stored so the user never leaves the website (no mailto: redirect).
+// Read via the owner-only inbox at #/inbox (auth-gated by ADMIN_PASSWORD).
 model ContactMessage {
   id        String   @id @default(cuid())
   name      String

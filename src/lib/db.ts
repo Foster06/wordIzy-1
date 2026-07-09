@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaLibSql } from '@prisma/adapter-libsql'
+import { PrismaLibSQL } from '@prisma/adapter-libsql' // Fixed capitalization
 import { createClient } from '@libsql/client'
 
 const globalForPrisma = globalThis as unknown as {
@@ -7,22 +7,28 @@ const globalForPrisma = globalThis as unknown as {
 }
 
 function createPrismaClient(): PrismaClient {
-  // If TURSO_DATABASE_URL is set, use Turso (hosted SQLite for production).
-  // Otherwise, fall back to local SQLite (development).
   const tursoUrl = process.env.TURSO_DATABASE_URL
   const tursoToken = process.env.TURSO_AUTH_TOKEN
 
+  // Production: If variables exist, connect to your cloud Turso database instance
   if (tursoUrl && tursoToken) {
     const libsql = createClient({
       url: tursoUrl,
       authToken: tursoToken,
     })
-    const adapter = new PrismaLibSql(libsql)
+    const adapter = new PrismaLibSQL(libsql)
     return new PrismaClient({ adapter, log: ['error', 'warn'] })
   }
 
-  // Local SQLite (development)
+  // Development Fallback: Prisma 7 natively requires an adapter inside the constructor
+  // We use a local file client so your local setup keeps running automatically
+  const localClient = createClient({
+    url: process.env.DATABASE_URL ?? "file:./prisma/custom.db",
+  })
+  const localAdapter = new PrismaLibSQL(localClient)
+
   return new PrismaClient({
+    adapter: localAdapter,
     log: process.env.NODE_ENV !== 'production' ? ['query'] : ['error', 'warn'],
   })
 }
