@@ -14,14 +14,25 @@ interface WordListProps {
   t: Translation;
   emptyMessage?: string;
   pageSize?: number;
+  maxVisible?: number; // 👈 1. Added optional configuration type flag
 }
 
 /** Flat list of solved words as text (Bree Serif) in a 4-col grid.
  *  Paginates at 50 words per page with prev/next. */
-export function WordList({ words, lang, t, emptyMessage, pageSize = 50 }: WordListProps) {
+export function WordList({ 
+  words: initialWords, // Rename incoming array to manipulate it safely
+  lang, 
+  t, 
+  emptyMessage, 
+  pageSize = 50,
+  maxVisible // 👈 2. Destructure the property here
+}: WordListProps) {
   void lang;
   const [page, setPage] = useState(0);
   const [copied, setCopied] = useState(false);
+
+  // 3. Slice the word array if maxVisible constraint property was supplied by parent
+  const words = maxVisible ? initialWords.slice(0, maxVisible) : initialWords;
 
   if (words.length === 0) {
     return (
