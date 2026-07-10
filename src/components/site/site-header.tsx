@@ -69,14 +69,14 @@ export function SiteHeader() {
             </div>
 
             {/* Desktop inline nav */}
-            <nav className="hidden lg:flex items-center gap-0.5 flex-1">
+            <nav className="hidden lg:flex items-center gap-0 flex-1 min-w-0 overflow-hidden">
               {inlineRoutes.map((r) => (
                 <button
                   key={r.id}
                   onClick={() => go(r.hash)}
                   aria-current={isActive(r) ? "page" : undefined}
                   className={cn(
-                    "nav-item !text-[14px] px-3 py-2 rounded-md transition-colors whitespace-nowrap",
+                    "nav-item !text-[14px] px-2 py-2 rounded-md transition-colors whitespace-nowrap",
                     isActive(r) ? "text-brand" : "text-foreground/80 hover:text-brand"
                   )}
                 >
@@ -193,7 +193,7 @@ function HoverDropdown({
       <button
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "nav-item !text-[14px] px-3 py-2 rounded-md transition-colors flex items-center gap-1 whitespace-nowrap",
+          "nav-item !text-[14px] px-2 py-2 rounded-md transition-colors flex items-center gap-1 whitespace-nowrap",
           active || open ? "text-brand" : "text-foreground/80 hover:text-brand"
         )}
       >

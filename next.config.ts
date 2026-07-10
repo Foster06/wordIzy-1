@@ -1,12 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
-  /* config options here */
-  typescript: {
-    ignoreBuildErrors: true,
+  output: "standalone", // Keeps your fast Bun runner fully optimized
+  
+  // Forces Vercel to route /ads.txt requests instantly to the public crawler file
+  async rewrites() {
+    return [
+      {
+        source: "/ads.txt",
+        destination: "/ads.txt",
+      },
+    ];
   },
-  reactStrictMode: false,
 };
 
 export default nextConfig;

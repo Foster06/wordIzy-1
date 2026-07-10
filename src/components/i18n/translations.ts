@@ -81,9 +81,9 @@ type FaqItemT = { q: string; a: string };
 
 const en: Translation = {
  nav: {
-  unscrambler: "Unscrambler", scramble: "Scramble Solver", wordle: "Wordle Solver",
-  quordle: "Quordle Solver", anagram: "Anagram Solver", random: "Random Word",
-  wordfeud: "Wordfeud Helper", dictionary: "Check Dictionary", scrabble: "Scrabble Duplicate",
+  unscrambler: "Unscrambler", scramble: "Scramble", wordle: "Wordle",
+  quordle: "Quordle", anagram: "Anagram", random: "Random Word",
+  wordfeud: "Wordfeud", dictionary: "Dictionary", scrabble: "Duplicate",
   wordlists: "Word Lists", wordstarts: "Word Starts By", wordends: "Word Ends By", about: "About", contact: "Contact", privacy: "Privacy",
   sitemap: "Sitemap", tools: "Tools", more: "More", solvers: "Solvers", site: "Site", wordlab: "Word Lab", inbox: "Inbox",
   dashboard: "Dashboard",
@@ -337,9 +337,9 @@ const en: Translation = {
 
 const fr: Translation = {
  nav: {
-  unscrambler: "Anagrammeur", scramble: "Solveur de Mélange", wordle: "Solveur Wordle",
-  quordle: "Solveur Quordle", anagram: "Solveur d'Anagrammes", random: "Mot Aléatoire",
-  wordfeud: "Aide Wordfeud", dictionary: "Vérifier le Dico", scrabble: "Scrabble Duplicate",
+  unscrambler: "Anagrammeur", scramble: "Mélange", wordle: "Wordle",
+  quordle: "Quordle", anagram: "Anagrammes", random: "Mot Aléatoire",
+  wordfeud: "Wordfeud", dictionary: "Dictionnaire", scrabble: "Duplicate",
   wordlists: "Listes de Mots", wordstarts: "Mots Commencent Par", wordends: "Mots Finissent Par", about: "À propos", contact: "Contact", privacy: "Confidentialité",
   sitemap: "Plan du site", tools: "Outils", more: "Plus", solvers: "Solveurs", site: "Site", wordlab: "Labo des Mots", inbox: "Boîte de réception",
   dashboard: "Tableau de bord",
@@ -548,9 +548,9 @@ const fr: Translation = {
 
 const es: Translation = {
  nav: {
-  unscrambler: "Desordenador", scramble: "Sol. Mezcla", wordle: "Sol. Wordle",
-  quordle: "Sol. Quordle", anagram: "Sol. Anagramas", random: "Palabra Aleatoria",
-  wordfeud: "Ayuda Wordfeud", dictionary: "Ver Diccionario", scrabble: "Scrabble Duplicate",
+  unscrambler: "Desordenador", scramble: "Mezcla", wordle: "Wordle",
+  quordle: "Quordle", anagram: "Anagramas", random: "Palabra Aleatoria",
+  wordfeud: "Wordfeud", dictionary: "Diccionario", scrabble: "Duplicate",
   wordlists: "Listas de Palabras", wordstarts: "Palabras Empiezan Por", wordends: "Palabras Terminan En", about: "Acerca de", contact: "Contacto", privacy: "Privacidad",
   sitemap: "Mapa del sitio", tools: "Herramientas", more: "Más", solvers: "Solucionadores", site: "Sitio", wordlab: "Lab de Palabras", inbox: "Bandeja de entrada",
   dashboard: "Panel",
@@ -732,9 +732,9 @@ const es: Translation = {
 
 const de: Translation = {
  nav: {
-  unscrambler: "Entwirker", scramble: "Misch-Löser", wordle: "Wordle-Löser",
-  quordle: "Quordle-Löser", anagram: "Anagramm-Löser", random: "Zufallswort",
-  wordfeud: "Wordfeud-Hilfe", dictionary: "Wörterbuch", scrabble: "Scrabble Duplicate",
+  unscrambler: "Entwirker", scramble: "Misch", wordle: "Wordle",
+  quordle: "Quordle", anagram: "Anagramme", random: "Zufallswort",
+  wordfeud: "Wordfeud", dictionary: "Wörterbuch", scrabble: "Duplicate",
   wordlists: "Wortlisten", wordstarts: "Wörter Beginnen Mit", wordends: "Wörter Enden Mit", about: "Über", contact: "Kontakt", privacy: "Datenschutz",
   sitemap: "Sitemap", tools: "Werkzeuge", more: "Mehr", solvers: "Löser", site: "Seite", wordlab: "Wort-Labor", inbox: "Posteingang",
   dashboard: "Dashboard",
@@ -916,9 +916,9 @@ const de: Translation = {
 
 const it: Translation = {
  nav: {
-  unscrambler: "Anagrammatore", scramble: "Ris. Mischia", wordle: "Ris. Wordle",
-  quordle: "Ris. Quordle", anagram: "Ris. Anagrammi", random: "Parola Casuale",
-  wordfeud: "Aiuto Wordfeud", dictionary: "Verifica Diz.", scrabble: "Scrabble Duplicate",
+  unscrambler: "Anagrammatore", scramble: "Mischia", wordle: "Wordle",
+  quordle: "Quordle", anagram: "Anagrammi", random: "Parola Casuale",
+  wordfeud: "Wordfeud", dictionary: "Verifica Diz.", scrabble: "Duplicate",
   wordlists: "Liste Parole", wordstarts: "Parole Iniziano Per", wordends: "Parole Finiscono Per", about: "Info", contact: "Contatti", privacy: "Privacy",
   sitemap: "Mappa", tools: "Strumenti", more: "Altro", solvers: "Risolutori", site: "Sito", wordlab: "Lab delle Parole", inbox: "Posta in arrivo",
   dashboard: "Cruscotto",
@@ -1100,9 +1100,9 @@ const it: Translation = {
 
 const pt: Translation = {
  nav: {
-  unscrambler: "Descodificador", scramble: "Sol. Mistura", wordle: "Sol. Wordle",
-  quordle: "Sol. Quordle", anagram: "Sol. Anagramas", random: "Palavra Aleatória",
-  wordfeud: "Ajuda Wordfeud", dictionary: "Verificar Dicio.", scrabble: "Scrabble Duplicate",
+  unscrambler: "Descodificador", scramble: "Mistura", wordle: "Wordle",
+  quordle: "Quordle", anagram: "Anagramas", random: "Palavra Aleatória",
+  wordfeud: "Wordfeud", dictionary: "Verificar Dicio.", scrabble: "Duplicate",
   wordlists: "Listas de Palavras", wordstarts: "Palavras Começam Por", wordends: "Palavras Terminam Em", about: "Sobre", contact: "Contato", privacy: "Privacidade",
   sitemap: "Mapa do site", tools: "Ferramentas", more: "Mais", solvers: "Solucionadores", site: "Site", wordlab: "Lab de Palavras", inbox: "Caixa de entrada",
   dashboard: "Painel",
@@ -1284,9 +1284,9 @@ const pt: Translation = {
 
 const nl: Translation = {
  nav: {
-  unscrambler: "Woordontwarer", scramble: "Mengoplosser", wordle: "Wordle-oplosser",
-  quordle: "Quordle-oplosser", anagram: "Anagram-oplosser", random: "Willekeurig Woord",
-  wordfeud: "Wordfeud-hulp", dictionary: "Woordenboek", scrabble: "Scrabble Duplicate",
+  unscrambler: "Woordontwarer", scramble: "Meng", wordle: "Wordle",
+  quordle: "Quordle", anagram: "Anagrammen", random: "Willekeurig Woord",
+  wordfeud: "Wordfeud", dictionary: "Woordenboek", scrabble: "Duplicate",
   wordlists: "Woordlijsten", wordstarts: "Woorden Beginnen Met", wordends: "Woorden Eindigen Op", about: "Over", contact: "Contact", privacy: "Privacy",
   sitemap: "Sitemap", tools: "Hulpmiddelen", more: "Meer", solvers: "Oplossers", site: "Site", wordlab: "Woord-Lab", inbox: "Postvak IN",
   dashboard: "Dashboard",
@@ -1469,9 +1469,9 @@ const nl: Translation = {
 const ja: Translation = {
  ...en,
  nav: {
-  unscrambler: "アナグラム", scramble: "ミックス解決", wordle: "Wordle解決",
-  quordle: "Quordle解決", anagram: "アナグラム解決", random: "ランダム単語",
-  wordfeud: "Wordfeudヘルプ", dictionary: "辞書チェック", scrabble: "スクラブル複製",
+  unscrambler: "アナグラム", scramble: "ミックス", wordle: "Wordle",
+  quordle: "Quordle", anagram: "アナグラム解決", random: "ランダム単語",
+  wordfeud: "Wordfeud", dictionary: "辞書", scrabble: "Duplicate",
   wordlists: "単語リスト", wordstarts: "単語 始まる", wordends: "単語 終わる", about: "概要", contact: "お問い合わせ", privacy: "プライバシー",
   sitemap: "サイトマップ", tools: "ツール", more: "その他", solvers: "ソルバー", site: "サイト", wordlab: "ワードラボ", inbox: "受信箱",
   dashboard: "ダッシュボード",
@@ -1656,9 +1656,9 @@ const ja: Translation = {
 const zh: Translation = {
  ...en,
  nav: {
-  unscrambler: "字母重组", scramble: "乱序求解", wordle: "Wordle求解",
-  quordle: "Quordle求解", anagram: "易位词", random: "随机单词",
-  wordfeud: "Wordfeud助手", dictionary: "查词典", scrabble: "Scrabble复刻",
+  unscrambler: "字母重组", scramble: "乱序", wordle: "Wordle",
+  quordle: "Quordle", anagram: "易位词", random: "随机单词",
+  wordfeud: "Wordfeud", dictionary: "词典", scrabble: "Duplicate",
   wordlists: "单词表", wordstarts: "单词 开头", wordends: "单词 结尾", about: "关于", contact: "联系", privacy: "隐私",
   sitemap: "网站地图", tools: "工具", more: "更多", solvers: "求解器", site: "站点", wordlab: "词汇实验室", inbox: "收件箱",
   dashboard: "仪表盘",
