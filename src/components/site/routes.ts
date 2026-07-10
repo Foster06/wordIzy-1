@@ -59,9 +59,11 @@ export const GROUP_LABELS: Record<RouteGroup, "solvers" | "tools" | "site"> = {
   solvers: "solvers", tools: "tools", site: "site",
 };
 
-export const DESKTOP_DROPDOWNS: { slot: "tools" | "wordlab"; labelKey: "tools" | "wordlab" }[] = [
+
+export const DESKTOP_DROPDOWNS: { slot: "tools" | "wordlab" | "site"; labelKey: "tools" | "wordlab" | "more" }[] = [
   { slot: "tools", labelKey: "tools" },
   { slot: "wordlab", labelKey: "wordlab" },
+  { slot: "site", labelKey: "more" },
 ];
 
 export function routeFromHash(hash: string): RouteDef {

@@ -69,7 +69,7 @@ export function SiteHeader() {
             </div>
 
             {/* Desktop inline nav */}
-            <nav className="hidden lg:flex items-center gap-0 flex-1 min-w-0 overflow-hidden">
+            <nav className="hidden lg:flex items-center gap-0 flex-1 min-w-0 overflow-visible">
               {inlineRoutes.map((r) => (
                 <button
                   key={r.id}
