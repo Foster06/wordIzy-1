@@ -259,17 +259,22 @@ function ChartTooltipContent({
 
 const ChartLegend = RechartsPrimitive.Legend
 
+// 1. Create a clean custom type interface that Recharts v3 won't reject
+type ChartLegendContentProps = React.ComponentProps<"div"> & {
+  payload?: any[]
+  verticalAlign?: "top" | "middle" | "bottom"
+  hideIcon?: boolean
+  nameKey?: string
+}
+
+// 2. Attach the new custom properties directly to the signature definition
 function ChartLegendContent({
   className,
   hideIcon = false,
   payload,
   verticalAlign = "bottom",
   nameKey,
-}: React.ComponentProps<"div"> &
-  Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-    hideIcon?: boolean
-    nameKey?: string
-  }) {
+}: ChartLegendContentProps) { // 👈 Use the clean custom interface wrapper here!
   const { config } = useChart()
 
   if (!payload?.length) {
