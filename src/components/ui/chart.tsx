@@ -105,19 +105,19 @@ ${colorConfig
 const ChartTooltip = RechartsPrimitive.Tooltip
 
 type ChartTooltipContentProps = {
-  active?: boolean;
-  payload?: any[];
-  label?: any;
-  className?: string;
-  indicator?: "line" | "dot" | "dashed";
-  hideLabel?: boolean;
-  hideIndicator?: boolean;
-  labelFormatter?: (value: any, payload: any[]) => React.ReactNode;
-  labelClassName?: string;
-  formatter?: Function;
-  color?: string;
-  nameKey?: string;
-  labelKey?: string;
+  active?: boolean
+  payload?: any[]
+  label?: any
+  className?: string
+  indicator?: "line" | "dot" | "dashed"
+  hideLabel?: boolean
+  hideIndicator?: boolean
+  labelFormatter?: (value: any, payload: any[]) => React.ReactNode
+  labelClassName?: string
+  formatter?: Function
+  color?: string
+  nameKey?: string
+  labelKey?: string
 }
 
 function ChartTooltipContent({
@@ -259,7 +259,6 @@ function ChartTooltipContent({
 
 const ChartLegend = RechartsPrimitive.Legend
 
-// 1. Create a clean custom type interface that Recharts v3 won't reject
 type ChartLegendContentProps = React.ComponentProps<"div"> & {
   payload?: any[]
   verticalAlign?: "top" | "middle" | "bottom"
@@ -267,14 +266,13 @@ type ChartLegendContentProps = React.ComponentProps<"div"> & {
   nameKey?: string
 }
 
-// 2. Attach the new custom properties directly to the signature definition
 function ChartLegendContent({
   className,
   hideIcon = false,
   payload,
   verticalAlign = "bottom",
   nameKey,
-}: ChartLegendContentProps) { // 👈 Use the clean custom interface wrapper here!
+}: ChartLegendContentProps) {
   const { config } = useChart()
 
   if (!payload?.length) {
@@ -320,7 +318,6 @@ function ChartLegendContent({
   )
 }
 
-// 🎯 THE CRUCIAL MISSING UTILITY HELPER TO RESOLVE OBJECT EXTRACTION CRASHES:
 function getPayloadConfigFromPayload(
   config: ChartConfig,
   payload: any,
@@ -345,15 +342,9 @@ function getPayloadConfigFromPayload(
     typeof payloadPayload[key] === "string"
   ) {
     configLabelKey = payloadPayload[key]
-  } else if (
-    payload.name &&
-    payload.name in config
-  ) {
+  } else if (payload.name && payload.name in config) {
     configLabelKey = payload.name
-  } else if (
-    payload.dataKey &&
-    payload.dataKey in config
-  ) {
+  } else if (payload.dataKey && payload.dataKey in config) {
     configLabelKey = payload.dataKey
   }
 
@@ -365,3 +356,7 @@ function getPayloadConfigFromPayload(
 export {
   ChartContainer,
   ChartStyle,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+}
