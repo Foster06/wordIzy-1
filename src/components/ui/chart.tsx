@@ -118,7 +118,7 @@ function ChartTooltipContent({
   color,
   nameKey,
   labelKey,
-}: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
+}: RechartsPrimitive.TooltipProps<any, any> & // 👈 Changed from React.ComponentProps<typeof Tooltip>
   React.ComponentProps<"div"> & {
     hideLabel?: boolean
     hideIndicator?: boolean
@@ -127,6 +127,7 @@ function ChartTooltipContent({
     labelKey?: string
   }) {
   const { config } = useChart()
+
 
   const tooltipLabel = React.useMemo(() => {
     if (hideLabel || !payload?.length) {
