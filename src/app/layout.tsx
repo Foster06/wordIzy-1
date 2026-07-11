@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/site/theme-provider";
 import { CookieConsent } from "@/components/site/cookie-consent";
 import { WebVitals } from "@/components/site/web-vitals";
 import { DictionaryWarmer } from "@/components/site/dictionary-warmer";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
