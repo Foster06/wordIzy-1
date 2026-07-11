@@ -1,13 +1,11 @@
 "use client";
 
+import { use } from "react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { useHashRoute } from "@/components/site/use-hash-route";
 import { useLanguage } from "@/components/i18n/language-provider";
-import { PageHeader } from "@/components/site/page-header";
 import { GlassCard } from "@/components/site/glass-card";
-import { AdSlot } from "@/components/site/ad-slot";
-import { HomeFaq } from "@/components/site/tips-section";
 import { ErrorBoundary } from "@/components/site/error-boundary";
 import { RouteSeo } from "@/components/site/route-seo";
 import { UnscramblerTool } from "@/components/tools/unscrambler-tool";
@@ -25,6 +23,11 @@ import { WordEndsTool } from "@/components/tools/word-ends-tool";
 import { AboutView, ContactView, PrivacyView, SitemapView } from "@/components/tools/info-views";
 import { InboxView } from "@/components/tools/inbox-view";
 import { DashboardView } from "@/components/tools/dashboard-view";
+import { ProgrammaticSEOView } from "@/components/site/programmatic-seo-view";
+
+interface PageProps {
+  params: Promise<{ tool?: string[] }>;
+}
 
 function HomeHero() {
   const { t } = useLanguage();
@@ -42,10 +45,24 @@ function HomeHero() {
   );
 }
 
-export default function Home() {
+export default function Home({ params }: PageProps) {
+  const resolvedParams = use(params);
+  const toolSegments = resolvedParams.tool || [];
+  
   const { route } = useHashRoute();
 
   const renderView = () => {
+    const primaryRoute = toolSegments[0] || "home";
+    const subRoute = toolSegments[1] || "";
+
+    if (primaryRoute === "unscramble" && subRoute) {
+      return (
+        <ErrorBoundary label="Programmatic Word Lists">
+          <ProgrammaticSEOView slug={subRoute} />
+        </ErrorBoundary>
+      );
+    }
+
     switch (route.id) {
       case "home":
         return (
@@ -57,107 +74,39 @@ export default function Home() {
           </>
         );
       case "scramble":
-        return (
-          <ErrorBoundary label="Scramble Solver">
-            <ScrambleTool />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Scramble Solver"><ScrambleTool /></ErrorBoundary>;
       case "wordle":
-        return (
-          <ErrorBoundary label="Wordle Solver">
-            <WordleTool />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Wordle Solver"><WordleTool /></ErrorBoundary>;
       case "quordle":
-        return (
-          <ErrorBoundary label="Quordle Solver">
-            <QuordleTool />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Quordle Solver"><QuordleTool /></ErrorBoundary>;
       case "anagram":
-        return (
-          <ErrorBoundary label="Anagram Solver">
-            <AnagramTool />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Anagram Solver"><AnagramTool /></ErrorBoundary>;
       case "random":
-        return (
-          <ErrorBoundary label="Random Word">
-            <RandomTool />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Random Word"><RandomTool /></ErrorBoundary>;
       case "wordfeud":
-        return (
-          <ErrorBoundary label="Wordfeud Helper">
-            <WordfeudTool />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Wordfeud Helper"><WordfeudTool /></ErrorBoundary>;
       case "dictionary":
-        return (
-          <ErrorBoundary label="Dictionary">
-            <DictionaryTool />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Dictionary"><DictionaryTool /></ErrorBoundary>;
       case "scrabble":
-        return (
-          <ErrorBoundary label="Scrabble Duplicate">
-            <ScrabbleTool />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Scrabble Duplicate"><ScrabbleTool /></ErrorBoundary>;
       case "wordlists":
-        return (
-          <ErrorBoundary label="Word Lists">
-            <WordlistsTool />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Word Lists"><WordlistsTool /></ErrorBoundary>;
       case "wordstarts":
-        return (
-          <ErrorBoundary label="Word Starts By">
-            <WordStartsTool />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Word Starts By"><WordStartsTool /></ErrorBoundary>;
       case "wordends":
-        return (
-          <ErrorBoundary label="Word Ends By">
-            <WordEndsTool />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Word Ends By"><WordEndsTool /></ErrorBoundary>;
       case "about":
-        return (
-          <ErrorBoundary label="About">
-            <AboutView />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="About"><AboutView /></ErrorBoundary>;
       case "contact":
-        return (
-          <ErrorBoundary label="Contact">
-            <ContactView />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Contact"><ContactView /></ErrorBoundary>;
       case "privacy":
-        return (
-          <ErrorBoundary label="Privacy Policy">
-            <PrivacyView />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Privacy Policy"><PrivacyView /></ErrorBoundary>;
       case "sitemap":
-        return (
-          <ErrorBoundary label="Sitemap">
-            <SitemapView />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Sitemap"><SitemapView /></ErrorBoundary>;
       case "inbox":
-        return (
-          <ErrorBoundary label="Inbox">
-            <InboxView />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Inbox"><InboxView /></ErrorBoundary>;
       case "dashboard":
-        return (
-          <ErrorBoundary label="Dashboard">
-            <DashboardView />
-          </ErrorBoundary>
-        );
+        return <ErrorBoundary label="Dashboard"><DashboardView /></ErrorBoundary>;
       default:
         return (
           <>

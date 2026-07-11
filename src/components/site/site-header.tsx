@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link"; // 🎯 Intercepts links cleanly for Next.js routing
 import {
   Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2,
   BookOpen, Trophy, List, Info, Mail, Shield, Map, Menu, ChevronDown,
@@ -26,11 +28,28 @@ function NavIcon({ name, className }: { name: string; className?: string }) {
 }
 
 export function SiteHeader() {
-  const { route, navigate } = useHashRoute();
+  const router = useRouter();
+  const { route } = useHashRoute();
   const { t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const isActive = (r: RouteDef) => route.id === r.id;
-  const go = (hash: string) => { navigate(hash); setMobileOpen(false); };
+
+  // 🎯 THE PERMANENT ROUTING FIX: Ensures relative paths work on localhost and Vercel
+  const go = (hash: string) => { 
+    setMobileOpen(false); 
+    let cleanPath = hash.replace("/#", "").replace("#", "");
+    
+    if (cleanPath === "" || cleanPath === "home" || cleanPath === "/") {
+      router.push("/");
+      return;
+    }
+    
+    if (!cleanPath.startsWith("/")) {
+      cleanPath = `/${cleanPath}`;
+    }
+    
+    router.push(cleanPath);
+  };
 
   const inlineRoutes = ROUTES.filter((r) => r.desktop === "inline" && !r.hidden);
   const mobileGroups = GROUP_ORDER.map((g) => ({
@@ -71,17 +90,17 @@ export function SiteHeader() {
             {/* Desktop inline nav */}
             <nav className="hidden lg:flex items-center gap-0 flex-1 min-w-0 overflow-visible">
               {inlineRoutes.map((r) => (
-                <button
+                <Link
                   key={r.id}
-                  onClick={() => go(r.hash)}
+                  href={r.hash}
                   aria-current={isActive(r) ? "page" : undefined}
                   className={cn(
-                    "nav-item !text-[14px] px-2 py-2 rounded-md transition-colors whitespace-nowrap",
+                    "nav-item !text-[14px] px-2 py-2 rounded-md transition-colors whitespace-nowrap cursor-pointer",
                     isActive(r) ? "text-brand" : "text-foreground/80 hover:text-brand"
                   )}
                 >
                   {t.nav[r.labelKey]}
-                </button>
+                </Link>
               ))}
               {DESKTOP_DROPDOWNS.map((dd) => {
                 const ddRoutes = ROUTES.filter((r) => r.desktop === dd.slot && !r.hidden);
@@ -207,12 +226,15 @@ function HoverDropdown({
               <button
                 key={r.id}
                 onClick={() => { onGo(r.hash); setOpen(false); }}
+                aria-current={isActive(r) ? "page" : undefined}
                 className={cn(
-                  "nav-item !text-[14px] w-full flex items-center gap-2.5 px-4 py-2 text-left transition-colors",
-                  isActive(r) ? "text-brand" : "text-foreground/80 hover:text-brand hover:bg-white/5"
+                  "w-full flex items-center gap-2.5 rounded-lg px-3 py-2 text-left transition-colors font-bree text-[14px]",
+                  isActive(r)
+                    ? "bg-brand/10 text-brand font-medium"
+                    : "text-foreground/90 hover:bg-white/[0.06] hover:text-brand"
                 )}
               >
-                <NavIcon name={r.icon} className="h-4 w-4 shrink-0 opacity-80" />
+                <NavIcon name={r.icon} className="h-3.5 w-3.5 opacity-70" />
                 <span>{t.nav[r.labelKey]}</span>
               </button>
             ))}

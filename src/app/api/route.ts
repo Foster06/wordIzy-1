@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     // must be your own account email until you verify your domain inside Resend)
     if (process.env.RESEND_API_KEY) {
       await resend.emails.send({
-        from: "wordIzy <onboarding@resend.dev>", // Replace with support@wordizy.com after DNS verification
+        from: "wordIzy <support@wordizy.com>", // Replace with support@wordizy.com after DNS verification
         to: email, 
         subject: `Thank you for contacting wordIzy, ${name}!`,
         html: `

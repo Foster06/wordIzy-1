@@ -1,16 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  output: "standalone", // Keeps your fast Bun runner fully optimized
   
-  // Forces the compiler to ignore type errors in external/example folders
+  // 🎯 FIXED: Correct Next.js 16 syntax rules to bypass type check build errors
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   
+  // Forces Vercel to route /ads.txt requests instantly to public asset crawlers
   async rewrites() {
     return [
       {

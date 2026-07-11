@@ -1,10 +1,11 @@
 // src/components/site/routes.ts
-// Central route registry for the hash-based router.
+// Central route registry for clean path-based routing.
 
 import type { LanguageCode } from "@/lib/languages";
 import type { Translation } from "@/components/i18n/translations";
 
 export type RouteId =
+
   | "home" | "scramble" | "anagram" | "wordle" | "quordle" | "scrabble"
   | "random" | "wordfeud" | "dictionary" | "wordlists" | "wordstarts" | "wordends"
   | "about" | "contact" | "privacy" | "sitemap" | "inbox" | "dashboard";
@@ -14,7 +15,7 @@ export type DesktopNavSlot = "inline" | "tools" | "wordlab" | "site";
 
 export interface RouteDef {
   id: RouteId;
-  hash: string;
+  hash: string; // Kept as 'hash' to prevent breaking type properties elsewhere in the app
   icon: string;
   labelKey: keyof Translation["nav"];
   group: RouteGroup;
@@ -44,14 +45,15 @@ export const ROUTES: RouteDef[] = [
   { id: "contact", hash: "/contact", icon: "Mail", labelKey: "contact", group: "site", desktop: "site" },
   { id: "privacy", hash: "/privacy", icon: "Shield", labelKey: "privacy", group: "site", desktop: "site" },
   { id: "sitemap", hash: "/sitemap", icon: "Map", labelKey: "sitemap", group: "site", desktop: "site" },
-  // Hidden — owner-only inbox for contact form submissions. Access via #/inbox
+  // Hidden — owner-only inbox for contact form submissions. Access via /inbox
   { id: "inbox", hash: "/inbox", icon: "Inbox", labelKey: "inbox", group: "site", desktop: "site", hidden: true },
-  // Hidden — owner-only analytics dashboard. Access via #/dashboard
+  // Hidden — owner-only analytics dashboard. Access via /dashboard
   { id: "dashboard", hash: "/dashboard", icon: "BarChart3", labelKey: "dashboard", group: "site", desktop: "site", hidden: true },
 ];
 
+// 🎯 UPDATED: Map routes directly by their clean ID string to guarantee fast lookups
 export const ROUTE_MAP: Record<string, RouteDef> = Object.fromEntries(
-  ROUTES.map((r) => [r.hash, r])
+  ROUTES.map((r) => [r.id, r])
 );
 
 export const GROUP_ORDER: RouteGroup[] = ["solvers", "tools", "site"];
@@ -59,15 +61,15 @@ export const GROUP_LABELS: Record<RouteGroup, "solvers" | "tools" | "site"> = {
   solvers: "solvers", tools: "tools", site: "site",
 };
 
-
 export const DESKTOP_DROPDOWNS: { slot: "tools" | "wordlab" | "site"; labelKey: "tools" | "wordlab" | "more" }[] = [
   { slot: "tools", labelKey: "tools" },
   { slot: "wordlab", labelKey: "wordlab" },
   { slot: "site", labelKey: "more" },
 ];
 
+// 🎯 UPDATED: Clean the string input parameter context to safely fallback to home route
 export function routeFromHash(hash: string): RouteDef {
-  const clean = hash.replace(/^#/, "") || "/";
+  const clean = hash.replace(/^\//, "").replace(/^#/, "") || "home";
   return ROUTE_MAP[clean] ?? ROUTES[0];
 }
 
