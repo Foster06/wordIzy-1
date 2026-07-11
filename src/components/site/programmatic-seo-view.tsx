@@ -5,12 +5,17 @@ interface ProgrammaticSEOViewProps {
   slug: string;
 }
 
+// Look for your parseSlug function in your programmatic view handlers and update it:
 function parseSlug(slug: string) {
   const lengthMatch = slug.match(/^(\d+)-letter-words$/);
   if (lengthMatch) return { type: "length", value: parseInt(lengthMatch[1]) };
 
   const startMatch = slug.match(/^words-starting-with-([a-z])$/);
   if (startMatch) return { type: "starts", value: startMatch[1] };
+
+  // 🎯 Add this check so your pages render the ending lists accurately!
+  const endMatch = slug.match(/^words-ending-with-([a-z])$/);
+  if (endMatch) return { type: "ends", value: endMatch[1] };
 
   return null;
 }

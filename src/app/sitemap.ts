@@ -4,7 +4,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://wordizy.com";
   const currentDate = new Date().toISOString();
 
-  // 1. All core game solvers and helper tools (High priority, changes weekly)
+  // 1. Core game solvers and helper tools (High priority, changes weekly)
   const coreTools = [
     "", // Homepage / Unscrambler
     "/scramble",
@@ -22,10 +22,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}${route}`,
     lastModified: currentDate,
     changeFrequency: "weekly" as const,
-    priority: 1.0, // 🎯 High priority tell Google these are core tools
+    priority: 1.0,
   }));
 
-  // 2. Core informational marketing and compliance pages (Lower priority)
+  // 2. Core informational pages
   const sitePages = [
     "/about",
     "/contact",
@@ -46,15 +46,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // 4. Programmatic target paths for alphabet landing filters (A to Z)
-  const alphabetPages = "abcdefghijklmnopqrstuvwxyz".split("").map((letter) => ({
+  // 4. Programmatic target paths for alphabet starting configurations (A to Z)
+  const alphabetStartingPages = "abcdefghijklmnopqrstuvwxyz".split("").map((letter) => ({
     url: `${baseUrl}/unscramble/words-starting-with-${letter}`,
     lastModified: currentDate,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
-  // Note: /inbox and /dashboard are purposely EXCLUDED because they are private admin views that search engines should never index!
+  // 🎯 5. ADDED: Programmatic target paths for alphabet ending configurations (A to Z)
+  const alphabetEndingPages = "abcdefghijklmnopqrstuvwxyz".split("").map((letter) => ({
+    url: `${baseUrl}/unscramble/words-ending-with-${letter}`, // Matches your wordends tool path structure
+    lastModified: currentDate,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
 
-  return [...coreTools, ...sitePages, ...lengthPages, ...alphabetPages];
+  // Combine all route collections together into a master sitemap matrix block
+  return [
+    ...coreTools, 
+    ...sitePages, 
+    ...lengthPages, 
+    ...alphabetStartingPages, 
+    ...alphabetEndingPages // 👈 Google will now cleanly crawl these 26 pages too!
+  ];
 }
