@@ -1,7 +1,7 @@
 "use client";
 
+import Link from "next/link"; // 🎯 ADDED: Standard Next.js Link element
 import { ROUTES, GROUP_ORDER, GROUP_LABELS, type RouteGroup } from "./routes";
-import { useHashRoute } from "./use-hash-route";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { AdSlot } from "./ad-slot";
 import { Logo } from "./logo";
@@ -10,7 +10,6 @@ import { Logo } from "./logo";
  *  Brand name + description on top, copyright bottom left.
  *  All text uses Bree Serif 15px. */
 export function SiteFooter() {
-  const { navigate } = useHashRoute();
   const { t } = useLanguage();
 
   return (
@@ -40,12 +39,13 @@ export function SiteFooter() {
                 <ul className="space-y-1.5 sm:space-y-2">
                   {groupRoutes.map((r) => (
                     <li key={r.id}>
-                      <button
-                        onClick={() => navigate(r.hash)}
-                        className="font-bree !text-[15px] text-muted-foreground hover:text-brand transition-colors text-left break-words"
+                      {/* 🎯 FIXED: Replaced legacy button/navigate with pure Next.js Link elements */}
+                      <Link
+                        href={r.hash}
+                        className="font-bree !text-[15px] text-muted-foreground hover:text-brand transition-colors text-left break-words block cursor-pointer"
                       >
                         {t.nav[r.labelKey]}
-                      </button>
+                      </Link>
                     </li>
                   ))}
                 </ul>
