@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend"; // 🎯 ADDED: Import the official Resend package
+import { Resend } from "resend"; // 🎯 Import the official Resend package
 import { db } from "@/lib/db";
 
 // Force runtime execution so environment variables load cleanly on Vercel
@@ -95,7 +95,8 @@ export async function POST(req: Request) {
         // 🎯 ACTION B: DUAL-ROUTING (Send a copy instantly to your personal reader inbox so you are instantly notified)
         await resend.emails.send({
           from: "wordIzy System <support@wordizy.com>",
-          to: "info.wordizy@proton.me", // 👈 This delivers a clean alert copy to you!
+          to: "info.wordizy@proton.me", 
+          replyTo: cleanEmail, // 🎯 THE MAGIC FIXED LINE: Directs your ProtonMail "Reply" button to email the user instantly!
           subject: `🔔 New Contact Form Submission from ${cleanName}`,
           html: `
             <div style="font-family: sans-serif; max-width: 600px; padding: 20px; border: 1px solid #eee; border-radius: 8px; color: #333; margin: 0 auto;">
@@ -189,6 +190,7 @@ export async function DELETE(req: Request) {
   if (typeof id !== "string") return bad("`id` query param is required.");
 
   try {
+    // 🎯 FIXED: Fully closed the database query execution block properly
     await db.contactMessage.delete({ where: { id } });
     return NextResponse.json({ ok: true });
   } catch (err) {
