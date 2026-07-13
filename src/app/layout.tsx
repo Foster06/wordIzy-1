@@ -7,7 +7,8 @@ import { ThemeProvider } from "@/components/site/theme-provider";
 import { CookieConsent } from "@/components/site/cookie-consent";
 import { WebVitals } from "@/components/site/web-vitals";
 import { DictionaryWarmer } from "@/components/site/dictionary-warmer";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@/components/site/google-analytics"; // 🎯 IMPORTED: Dynamic analytics tracking wrapper
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -49,7 +50,7 @@ const jsonLd = {
   inLanguage: ["en", "fr", "es", "it", "pt", "de", "nl", "ja", "zh"],
   publisher: { "@type": "Organization", name: "wordIzy" },
   
-  // 🎯 ADDED: This enables the official Google Sitelinks Searchbox integration directly underneath your search rankings listing
+  // 🎯 FIXED: Dynamic endpoint format tracking parameter restored for Google Sitelinks structures
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
@@ -138,6 +139,9 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true}>
           <LanguageProvider>
+            {/* 🎯 PLACED: Embedded cleanly at the root level of providers layout layer streams */}
+            <GoogleAnalytics />
+            
             {children}
             <CookieConsent />
             <WebVitals />
