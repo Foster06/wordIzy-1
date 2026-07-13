@@ -526,7 +526,7 @@
    526→   526→- Each privacy block has exactly 8 sections (Data We Collect, Anonymous Search Analytics, How We Process Your Input, Contact Form Submissions, Third-Party Services, Cookies & Advertising, Your Rights (GDPR & CCPA), Contact) — matching the English structure.
    527→   527→- Preserved all required tokens across all languages:
    528→   528→  - URLs unchanged: https://policies.google.com/technologies/ads, https://turso.tech/privacy, https://resend.com/privacy, https://policies.google.com/fonts, https://www.google.com/settings/ads
-   529→   529→  - Email unchanged: info.wordizy@proton.me
+   529→   529→  - Email unchanged: support@wordizy.com
    530→   530→  - Dictionary names unchanged: NWL2023, CSW21, ODS9, FISE, Zingarelli, OpenTaal
    531→   531→  - "GDPR" and "CCPA" kept as-is (did NOT localize to RGPD/DSGVO/AVG) per rule 5
    532→   532→  - "Progressive Web App" kept as-is per rule 6

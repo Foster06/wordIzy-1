@@ -168,8 +168,8 @@ export function ContactView() {
         <GlassCard className="p-6 h-fit">
           <h3 className="text-sm font-semibold mb-2 text-brand">{t.nav.contact}</h3>
           <p className="text-sm text-muted-foreground leading-relaxed mb-3">{t.contact.body}</p>
-          <a href="mailto:info.wordizy@proton.me" className="text-sm text-brand hover:underline font-medium">
-            info.wordizy@proton.me
+          <a href="mailto:support@wordizy.com" className="text-sm text-brand hover:underline font-medium">
+            support@wordizy.com
           </a>
         </GlassCard>
       </div>

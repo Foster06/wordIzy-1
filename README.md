@@ -573,7 +573,7 @@ This project is for personal use. The official Scrabble dictionary files in `dat
 
 ## Contact
 
-- **Email**: [info.wordizy@proton.me](mailto:info.wordizy@proton.me)
+- **Email**: [support@wordizy.com](mailto:support@wordizy.com)
 - **Contact form**: Visit `/#/contact` on the site
 
 ---

@@ -714,7 +714,7 @@
    714→- Replaced Japanese (ja) privacy block (lastUpdated "最終更新：2026年7月" + 6 sections).
    715→- Replaced Chinese (zh) about block (title "关于 WordIzy" + 6 sections). Used 「...」 corner brackets for tool-name quotes per Chinese convention.
    716→- Replaced Chinese (zh) privacy block (lastUpdated "最后更新：2026 年 7 月" + 6 sections).
-   717→- Preserved `info.wordizy@proton.me` and dictionary names (NWL2023, CSW21, ODS9, FISE, Zingarelli, OpenTaal) verbatim across all languages.
+   717→- Preserved `support@wordizy.com` and dictionary names (NWL2023, CSW21, ODS9, FISE, Zingarelli, OpenTaal) verbatim across all languages.
    718→- Ran `bun run lint` — eslint passed with zero output (no errors, no warnings).
    719→
    720→Stage Summary:
@@ -732,7 +732,7 @@
    732→- Read /home/z/my-project/worklog.md and src/components/site/faq-content.ts to inventory 12 FAQ arrays (unscrambler 6, scramble 4, wordle 5, quordle 4, anagram 4, random 4, wordfeud 4, dictionary 4, scrabble 4, wordlists 4, wordstarts 4, wordends 4 — 51 Q&A pairs total).
    733→- Read src/components/i18n/translations.ts and confirmed the `Translation` type did NOT yet have a `faq` property (only `home.faqTitle` existed as a single string). Added a new `faq` block to the Translation type with `title` + 12 typed tool arrays using a new exported `FaqItemT = { q: string; a: string }` type.
    734→- Populated the English `faq` block by copying the 51 Q&A pairs verbatim from faq-content.ts (preserving all word examples, dictionary names, email, wildcards, and technical formatting).
-   735→- Translated all 51 Q&A pairs into French (fr), Spanish (es), German (de), Italian (it), Portuguese (pt), Dutch (nl), Japanese (ja), Chinese (zh). Used professional, natural phrasing; kept all word examples (SRAABLC, QUER?Y, A??LE, RBOLENW, A..LE, CHIEN/CHINE/NICHE, LISTEN/SILENT, CAT??, BRUNCH, BRUNCH'S, CRANE, SLATE, RST, BXF, QI/QAT/QUAD), dictionary names (NWL2023, CSW21, ODS9, FISE, Zingarelli, OpenTaal), game names (Scrabble, Wordle, Wordfeud, Quordle, Octordle, Words With Friends, Pictionary), and the info.wordizy@proton.me email unchanged across all languages.
+   735→- Translated all 51 Q&A pairs into French (fr), Spanish (es), German (de), Italian (it), Portuguese (pt), Dutch (nl), Japanese (ja), Chinese (zh). Used professional, natural phrasing; kept all word examples (SRAABLC, QUER?Y, A??LE, RBOLENW, A..LE, CHIEN/CHINE/NICHE, LISTEN/SILENT, CAT??, BRUNCH, BRUNCH'S, CRANE, SLATE, RST, BXF, QI/QAT/QUAD), dictionary names (NWL2023, CSW21, ODS9, FISE, Zingarelli, OpenTaal), game names (Scrabble, Wordle, Wordfeud, Quordle, Octordle, Words With Friends, Pictionary), and the support@wordizy.com email unchanged across all languages.
    736→- Quote-style rules per language: German »...« guillemets (NO „..."), French/Spanish/Italian/Portuguese/Dutch «...», Japanese 「...」 corner brackets, Chinese 「...」 corner brackets. No Turbopack-breaking curly quotes.
    737→- Updated src/components/site/tips-section.tsx: removed `FaqItem` import from faq-content, inlined `{ q: string; a: string }[]` prop type, made `HomeFaq` use `useLanguage()` to read `t.faq.title` + `t.faq.unscrambler`.
    738→- Updated 11 tool components to read from `t.faq` instead of importing from faq-content.ts:
@@ -801,7 +801,7 @@
    801→  5. Cookies & Advertising (now mentions cookie consent banner + single preference cookie for consent/language/theme)
    802→  6. Your Rights (now mentions GDPR right to access/rectify/erase)
    803→  7. Contact
-   804→- Kept `info.wordizy@proton.me` unchanged in every language (3 occurrences per block: contact form deletion request, your-rights deletion request, and the contact section).
+   804→- Kept `support@wordizy.com` unchanged in every language (3 occurrences per block: contact form deletion request, your-rights deletion request, and the contact section).
    805→- Kept the term "GDPR" literal in all translations per the task's language-specific rule (e.g. did not localize to RGPD / DS-GVO / RGPD / AVG / etc.).
    806→- German block uses formal "Sie" register and continues using em-dashes for parentheticals, consistent with the existing German style. No quotation marks were required by the source text, so the »...« guillemet rule had no direct application; it was respected by not introducing any „...« or "..." quotes.
    807→- Verified post-edit with a Python script: all 9 runtime privacy blocks (en + 8 translations) now have exactly 7 sections, exactly 3 email references, and exactly 1 GDPR reference each. Type-definition block unchanged.

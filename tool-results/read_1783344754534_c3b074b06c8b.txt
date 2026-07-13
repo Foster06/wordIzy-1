@@ -77,8 +77,8 @@
    216→        body: "Every query — letters to unscramble, a Wordle pattern, a dictionary word to check — is processed server-side using dictionaries held in memory. Your input is used solely to generate results and is discarded immediately after the response is sent. The search terms themselves are stored anonymously in our analytics (see above) but are not linked to you in any way.",
    217→      },
    218→      {
-   219→        heading: "Contact Form Submissions",
-   220→        body: "When you submit the contact form, your name, email address, and message are stored in our database so that we can read and respond to your inquiry. This data is only accessible to the site owner and is never shared with third parties. You may request deletion of your submission at any time by emailing info.wordizy@proton.me. To prevent spam, contact form submissions are rate-limited to 5 per hour per IP address.",
+   219→        heading: "Contact Form Submissions", support@wordizy.com
+   220→        body: "When you submit the contact form, your name, email address, and message are stored in our database so that we can read and respond to your inquiry. This data is only accessible to the site owner and is never shared with third parties. You may request deletion of your submission at any time by emailing . To prevent spam, contact form submissions are rate-limited to 5 per hour per IP address.",
    221→      },
    222→      {
    223→        heading: "Third-Party Services",
@@ -89,12 +89,12 @@
    228→        body: "WordIzy displays ads through Google AdSense to keep the service free. AdSense may use cookies to serve relevant ads and measure ad performance. A cookie consent banner appears on your first visit, allowing you to accept or decline. You can manage or disable cookies in your browser settings, and opt out of personalised advertising via Google's Ads Settings (https://www.google.com/settings/ads). We do not set any first-party tracking cookies ourselves — only a single preference cookie to remember your consent choice and your selected language and theme.",
    229→      },
    230→      {
-   231→        heading: "Your Rights (GDPR & CCPA)",
-   232→        body: "Because we do not create accounts or link analytics to individuals, there is no personal profile associated with you. You are not tracked across visits. If you have submitted a contact form message and wish to have it deleted, contact us at info.wordizy@proton.me and we will remove it promptly. Under the GDPR (EU residents) you have the right to access, rectify, or erase any personal data we hold about you. Under the CCPA (California residents) you have the right to know what personal information is collected, request deletion, and opt out of the sale of personal information — we do not sell your information.",
+   231→        heading: "Your Rights (GDPR & CCPA)", support@wordizy.com
+   232→        body: "Because we do not create accounts or link analytics to individuals, there is no personal profile associated with you. You are not tracked across visits. If you have submitted a contact form message and wish to have it deleted, contact us at  and we will remove it promptly. Under the GDPR (EU residents) you have the right to access, rectify, or erase any personal data we hold about you. Under the CCPA (California residents) you have the right to know what personal information is collected, request deletion, and opt out of the sale of personal information — we do not sell your information.",
    233→      },
    234→      {
    235→        heading: "Contact",
-   236→        body: "Questions about this policy? Email us at info.wordizy@proton.me and we will be happy to help. You can also use the Contact form on this site to send us a message directly.",
+   236→        body: "Questions about this policy? Email us at support@wordizy.com and we will be happy to help. You can also use the Contact form on this site to send us a message directly.",
    237→      },
    238→    ],
    239→  },

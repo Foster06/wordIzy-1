@@ -197,7 +197,7 @@
    197→   197→      },
    198→   198→      {
    199→   199→        heading: "Contact Form Submissions",
-   200→   200→        body: "When you submit the contact form, your name, email address, and message are stored in our database so that we can read and respond to your inquiry. This data is only accessible to the site owner and is never shared with third parties. You may request deletion of your submission at any time by emailing info.wordizy@proton.me.",
+   200→   200→        body: "When you submit the contact form, your name, email address, and message are stored in our database so that we can read and respond to your inquiry. This data is only accessible to the site owner and is never shared with third parties. You may request deletion of your submission at any time by emailing support@wordizy.com.",
    201→   201→      },
    202→   202→      {
    203→   203→        heading: "Cookies & Advertising",
@@ -205,11 +205,11 @@
    205→   205→      },
    206→   206→      {
    207→   207→        heading: "Your Rights",
-   208→   208→        body: "Because we do not collect personal data or create accounts, there is no profile associated with you. You are not tracked across visits. If you have submitted a contact form message and wish to have it deleted, contact us at info.wordizy@proton.me and we will remove it promptly.",
+   208→   208→        body: "Because we do not collect personal data or create accounts, there is no profile associated with you. You are not tracked across visits. If you have submitted a contact form message and wish to have it deleted, contact us at support@wordizy.com and we will remove it promptly.",
    209→   209→      },
    210→   210→      {
    211→   211→        heading: "Contact",
-   212→   212→        body: "Questions about this policy? Email us at info.wordizy@proton.me and we will be happy to help.",
+   212→   212→        body: "Questions about this policy? Email us at support@wordizy.com and we will be happy to help.",
    213→   213→      },
    214→   214→    ],
    215→   215→  },
@@ -345,7 +345,7 @@
    345→   345→      },
    346→   346→      {
    347→   347→        heading: "Messages du formulaire de contact",
-   348→   348→        body: "Lorsque vous envoyez le formulaire de contact, votre nom, votre adresse e-mail et votre message sont stockés dans notre base de données afin que nous puissions les lire et répondre à votre demande. Ces données sont uniquement accessibles au propriétaire du site et ne sont jamais partagées avec des tiers. Vous pouvez demander la suppression de votre message à tout moment en écrivant à info.wordizy@proton.me.",
+   348→   348→        body: "Lorsque vous envoyez le formulaire de contact, votre nom, votre adresse e-mail et votre message sont stockés dans notre base de données afin que nous puissions les lire et répondre à votre demande. Ces données sont uniquement accessibles au propriétaire du site et ne sont jamais partagées avec des tiers. Vous pouvez demander la suppression de votre message à tout moment en écrivant à support@wordizy.com.",
    349→   349→      },
    350→   350→      {
    351→   351→        heading: "Cookies et publicité",
@@ -353,11 +353,11 @@
    353→   353→      },
    354→   354→      {
    355→   355→        heading: "Vos droits",
-   356→   356→        body: "Comme nous ne collectons pas de données personnelles et ne créons pas de comptes, aucun profil n'est associé à vous. Vous n'êtes pas suivi entre vos visites. Si vous avez envoyé un message via le formulaire de contact et souhaitez le faire supprimer, contactez-nous à info.wordizy@proton.me et nous le supprimerons rapidement.",
+   356→   356→        body: "Comme nous ne collectons pas de données personnelles et ne créons pas de comptes, aucun profil n'est associé à vous. Vous n'êtes pas suivi entre vos visites. Si vous avez envoyé un message via le formulaire de contact et souhaitez le faire supprimer, contactez-nous à support@wordizy.com et nous le supprimerons rapidement.",
    357→   357→      },
    358→   358→      {
    359→   359→        heading: "Contact",
-   360→   360→        body: "Des questions sur cette politique ? Écrivez-nous à info.wordizy@proton.me et nous nous ferons un plaisir de vous aider.",
+   360→   360→        body: "Des questions sur cette politique ? Écrivez-nous à support@wordizy.com et nous nous ferons un plaisir de vous aider.",
    361→   361→      },
    362→   362→    ],
    363→   363→  },
@@ -466,7 +466,7 @@
    466→   466→      },
    467→   467→      {
    468→   468→        heading: "Envíos del formulario de contacto",
-   469→   469→        body: "Cuando envías el formulario de contacto, tu nombre, correo electrónico y mensaje se almacenan en nuestra base de datos para que podamos leer y responder a tu consulta. Estos datos solo son accesibles por el propietario del sitio y nunca se comparten con terceros. Puedes solicitar la eliminación de tu mensaje en cualquier momento escribiendo a info.wordizy@proton.me.",
+   469→   469→        body: "Cuando envías el formulario de contacto, tu nombre, correo electrónico y mensaje se almacenan en nuestra base de datos para que podamos leer y responder a tu consulta. Estos datos solo son accesibles por el propietario del sitio y nunca se comparten con terceros. Puedes solicitar la eliminación de tu mensaje en cualquier momento escribiendo a support@wordizy.com.",
    470→   470→      },
    471→   471→      {
    472→   472→        heading: "Cookies y publicidad",
@@ -474,11 +474,11 @@
    474→   474→      },
    475→   475→      {
    476→   476→        heading: "Tus derechos",
-   477→   477→        body: "Como no recopilamos datos personales ni creamos cuentas, no hay ningún perfil asociado a ti. No se te rastrea entre visitas. Si has enviado un mensaje mediante el formulario de contacto y deseas que se elimine, contáctanos en info.wordizy@proton.me y lo eliminaremos con prontitud.",
+   477→   477→        body: "Como no recopilamos datos personales ni creamos cuentas, no hay ningún perfil asociado a ti. No se te rastrea entre visitas. Si has enviado un mensaje mediante el formulario de contacto y deseas que se elimine, contáctanos en support@wordizy.com y lo eliminaremos con prontitud.",
    478→   478→      },
    479→   479→      {
    480→   480→        heading: "Contacto",
-   481→   481→        body: "¿Tienes preguntas sobre esta política? Escríbenos a info.wordizy@proton.me y estaremos encantados de ayudarte.",
+   481→   481→        body: "¿Tienes preguntas sobre esta política? Escríbenos a support@wordizy.com y estaremos encantados de ayudarte.",
    482→   482→      },
    483→   483→    ],
    484→   484→  },
