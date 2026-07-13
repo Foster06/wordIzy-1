@@ -74,7 +74,7 @@ export async function POST(request: Request) {
 
       // 🎯 ACTION B: DUAL-ROUTING (Send a separate structural copy instantly to your personal reader inbox)
       await resend.emails.send({
-        from: "wordIzy System <support@wordizy.com>",
+        from: "wordIzy System <support.wordizy.com>",
         to: "info.wordizy@proton.me", // 👈 Type your primary personal reader email address here!
         subject: `🔔 New Contact Form Submission from ${name}`,
         html: `

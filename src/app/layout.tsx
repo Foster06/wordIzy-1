@@ -48,6 +48,16 @@ const jsonLd = {
   ],
   inLanguage: ["en", "fr", "es", "it", "pt", "de", "nl", "ja", "zh"],
   publisher: { "@type": "Organization", name: "wordIzy" },
+  
+  // 🎯 ADDED: This enables the official Google Sitelinks Searchbox integration directly underneath your search rankings listing
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://wordizy.com{search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
 };
 
 export const metadata: Metadata = {
@@ -135,6 +145,7 @@ export default function RootLayout({
           </LanguageProvider>
         </ThemeProvider>
         <SonnerToaster position="top-center" richColors />
+        <Analytics />
       </body>
     </html>
   );
