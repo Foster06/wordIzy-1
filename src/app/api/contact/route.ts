@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend"; // 🎯 ADDED: Import the official Resend package
 import { db } from "@/lib/db";
+
+// Force runtime execution so environment variables load cleanly on Vercel
+export const dynamic = "force-dynamic";
 
 // Admin password for the inbox view (GET). Defaults to a simple value;
 // override with ADMIN_PASSWORD env var in production.
@@ -7,6 +11,19 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "wordizy-admin";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const LIMITS = { name: 120, email: 200, message: 5000 } as const;
+
+// 🎯 FIXED DYNAMIC INITIALIZATION ENGINE: Prevents 'next build' static data aggregation crashes
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey && process.env.NODE_ENV !== "production") {
+    return new Resend("re_mock_key_for_local_building_phase_only");
+  }
+  if (!apiKey) {
+    console.warn("Resend client skipped: Missing RESEND_API_KEY.");
+    return null;
+  }
+  return new Resend(apiKey);
+}
 
 function bad(msg: string, status = 400) {
   return NextResponse.json({ ok: false, error: msg }, { status });
@@ -43,10 +60,64 @@ export async function POST(req: Request) {
   const userAgent = headers.get("user-agent")?.slice(0, 300) ?? null;
 
   try {
+    // 1. First, store the submission inside your active Turso database
     const saved = await db.contactMessage.create({
       data: { name: cleanName, email: cleanEmail, message: cleanMessage, locale: cleanLocale, ip, userAgent },
       select: { id: true, createdAt: true },
     });
+
+    // 2. Next, safely initialize the Resend client on-demand at runtime
+    const resend = getResendClient();
+
+    if (resend) {
+      try {
+        // 🎯 ACTION A: Send the automatic stylized confirmation reply back to the user
+        await resend.emails.send({
+          from: "wordIzy <support@wordizy.com>", // Works instantly on root domain after Vercel DNS verification!
+          to: cleanEmail, 
+          subject: `Thank you for contacting wordIzy, ${cleanName}!`,
+          html: `
+            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+              <h2 style="color: #4f46e5; margin-top: 0;">We received your message!</h2>
+              <p>Hello ${cleanName},</p>
+              <p>Thank you for reaching out to wordIzy. This is an automated confirmation to let you know we've received your submission.</p>
+              <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
+              <p><strong>A copy of your message:</strong></p>
+              <blockquote style="font-style: italic; color: #555; background: #f9f9f9; padding: 15px; border-left: 4px solid #4f46e5; margin: 10px 0; border-radius: 4px;">
+                "${cleanMessage}"
+              </blockquote>
+              <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
+              <p>Best regards,<br /><strong>The wordIzy Team</strong></p>
+            </div>
+          `,
+        });
+
+        // 🎯 ACTION B: DUAL-ROUTING (Send a copy instantly to your personal reader inbox so you are instantly notified)
+        await resend.emails.send({
+          from: "wordIzy System <support@wordizy.com>",
+          to: "info.wordizy@proton.me", // 👈 This delivers a clean alert copy to you!
+          subject: `🔔 New Contact Form Submission from ${cleanName}`,
+          html: `
+            <div style="font-family: sans-serif; max-width: 600px; padding: 20px; border: 1px solid #eee; border-radius: 8px; color: #333; margin: 0 auto;">
+              <h2 style="color: #ea580c; border-bottom: 2px solid #ea580c; padding-bottom: 8px; margin-top: 0;">New Inbox Submission Received</h2>
+              <p><strong>Sender Name:</strong> ${cleanName}</p>
+              <p><strong>Sender Email:</strong> <a href="mailto:${cleanEmail}">${cleanEmail}</a></p>
+              <p><strong>Locale Code:</strong> ${cleanLocale}</p>
+              <p><strong>IP Location:</strong> ${ip || "Unknown"}</p>
+              <div style="background-color: #f9f9f9; padding: 15px; border-left: 4px solid #ea580c; margin-top: 15px; border-radius: 4px;">
+                <p style="margin: 0; font-style: italic; white-space: pre-wrap;">"${cleanMessage}"</p>
+              </div>
+            </div>
+          `,
+        });
+      } catch (emailErr) {
+        // Log email errors but don't crash the form return since the message was saved to the DB successfully
+        console.error("[/api/contact] Resend dispatch failed:", emailErr);
+      }
+    } else {
+      console.warn("Resend skipped: RESEND_API_KEY environment variable is not defined.");
+    }
+
     return NextResponse.json({ ok: true, id: saved.id, createdAt: saved.createdAt });
   } catch (err) {
     console.error("[/api/contact] DB insert failed:", err);
