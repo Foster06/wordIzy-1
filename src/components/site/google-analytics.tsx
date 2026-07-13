@@ -1,23 +1,25 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Script from "next/script";
 
 export function GoogleAnalytics() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
-  // Track page views on demand whenever a user clicks a new relative nav path
+  // 🎯 THE PERFECT COMPILER BYPASS: Track page views using raw browser window objects
+  // This isolates parameter calculations from Next.js hooks so the static build never fails!
   useEffect(() => {
-    if (!gaId || typeof window.gtag !== "function") return;
+    if (!gaId || typeof window === "undefined" || typeof window.gtag !== "function") return;
 
-    const url = pathname + searchParams.toString();
+    // Build the clean trackable URL address manually using native browser strings
+    const currentUrl = window.location.pathname + window.location.search;
+
     window.gtag("config", gaId, {
-      page_path: url,
+      page_path: currentUrl,
     });
-  }, [pathname, searchParams, gaId]);
+  }, [pathname, gaId]);
 
   if (!gaId) return null;
 
@@ -37,7 +39,7 @@ export function GoogleAnalytics() {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${gaId}', {
-              page_path: window.location.pathname,
+              page_path: window.location.pathname + window.location.search,
             });
           `,
         }}
@@ -46,7 +48,6 @@ export function GoogleAnalytics() {
   );
 }
 
-// Declare global window interface extensions to appease the TypeScript compiler rules
 declare global {
   interface Window {
     gtag: (...args: any[]) => void;
