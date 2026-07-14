@@ -1,73 +1,74 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+
+// 1. Declare your core static tools registry arrays mapping
+const CORE_TOOLS = [
+  "", // Homepage / Unscrambler
+  "scramble",
+  "wordle",
+  "quordle",
+  "anagram",
+  "random",
+  "wordfeud",
+  "dictionary",
+  "scrabble",
+  "wordlists",
+  "wordstarts",
+  "wordends",
+  "about",
+  "contact",
+  "privacy",
+  "sitemap"
+];
+
+// 2. Programmatic Alphabetical Parameter Targets (a through z)
+const ALPHABET = "abcdefghijklmnopqrstuvwxyz".split("");
+
+// 3. 🎯 FIXED: Fully populated array boundary items explicitly matching programmatic routes
+const WORD_LENGTHS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://wordizy.com";
-  const currentDate = new Date().toISOString();
+  const sitemapEntries: MetadataRoute.Sitemap = [];
+  const currentDate = new Date();
 
-  // 1. Core game solvers and helper tools (High priority, changes weekly)
-  const coreTools = [
-    "", // Homepage / Unscrambler
-    "/scramble",
-    "/anagram",
-    "/scrabble",
-    "/wordle",
-    "/dictionary",
-    "/random",
-    "/wordfeud",
-    "/quordle",
-    "/wordlists",
-    "/wordstarts",
-    "/wordends",
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: currentDate,
-    changeFrequency: "weekly" as const,
-    priority: 1.0,
-  }));
+  // 🎯 GENERATION MAP A: Build sitemap records for all core standalone tools
+  CORE_TOOLS.forEach((toolPath) => {
+    sitemapEntries.push({
+      url: `${baseUrl}${toolPath ? `/${toolPath}` : ""}`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: toolPath === "" ? 1.0 : 0.8, // Places your home tool as top crawl priority
+    });
+  });
 
-  // 2. Core informational pages
-  const sitePages = [
-    "/about",
-    "/contact",
-    "/privacy",
-    "/sitemap",
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: currentDate,
-    changeFrequency: "monthly" as const,
-    priority: 0.5,
-  }));
+  // 🎯 GENERATION MAP B: Auto-generate index URLs for word lengths (e.g., /unscramble/5-letter-words)
+  WORD_LENGTHS.forEach((len) => {
+    sitemapEntries.push({
+      url: `${baseUrl}/unscramble/${len}-letter-words`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    });
+  });
 
-  // 3. Programmatic target paths for word-length landing filters (2-letter to 15-letter words)
-  const lengthPages = Array.from({ length: 14 }, (_, i) => i + 2).map((len) => ({
-    url: `${baseUrl}/unscramble/${len}-letter-words`,
-    lastModified: currentDate,
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
+  // 🎯 GENERATION MAP C: Auto-generate index links for character starts/ends alignments
+  ALPHABET.forEach((letter) => {
+    // Adds words-starting-with-a, etc.
+    sitemapEntries.push({
+      url: `${baseUrl}/unscramble/words-starting-with-${letter}`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    });
 
-  // 4. Programmatic target paths for alphabet starting configurations (A to Z)
-  const alphabetStartingPages = "abcdefghijklmnopqrstuvwxyz".split("").map((letter) => ({
-    url: `${baseUrl}/unscramble/words-starting-with-${letter}`,
-    lastModified: currentDate,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+    // Adds words-ending-with-z, etc.
+    sitemapEntries.push({
+      url: `${baseUrl}/unscramble/words-ending-with-${letter}`,
+      lastModified: currentDate,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    });
+  });
 
-  // 🎯 5. ADDED: Programmatic target paths for alphabet ending configurations (A to Z)
-  const alphabetEndingPages = "abcdefghijklmnopqrstuvwxyz".split("").map((letter) => ({
-    url: `${baseUrl}/unscramble/words-ending-with-${letter}`, // Matches your wordends tool path structure
-    lastModified: currentDate,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
-
-  // Combine all route collections together into a master sitemap matrix block
-  return [
-    ...coreTools, 
-    ...sitePages, 
-    ...lengthPages, 
-    ...alphabetStartingPages, 
-    ...alphabetEndingPages // 👈 Google will now cleanly crawl these 26 pages too!
-  ];
+  return sitemapEntries;
 }
