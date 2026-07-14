@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     return bad("Invalid JSON body.");
   }
 
-  const { query, route, lang, resultCount } = (body || {}) as Record<string, unknown>;
+  const { query, route, lang, resultCount, eventType } = (body || {}) as Record<string, unknown>;
 
   if (typeof query !== "string" || !query.trim()) return bad("query is required.");
   if (typeof route !== "string" || !route.trim()) return bad("route is required.");
@@ -25,14 +25,15 @@ export async function POST(req: NextRequest) {
   const cleanRoute = route.trim().slice(0, 30);
   const cleanLang = typeof lang === "string" && lang.length <= 8 ? lang : "en";
   const count = typeof resultCount === "number" && resultCount >= 0 ? Math.min(resultCount, 1_000_000) : 0;
+  const cleanType = eventType === "copy" ? "copy" : "search"; // 🎯 Standardize event types safely
 
   try {
     await db.searchEvent.create({
-      data: { query: cleanQuery, route: cleanRoute, lang: cleanLang, resultCount: count },
+      data: { query: cleanQuery, route: cleanRoute, lang: cleanLang, resultCount: count, eventType: cleanType },
     });
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("[/api/analytics] insert failed:", err);
+    console.error("[/api/analytics] Private insert failed:", err);
     return NextResponse.json({ ok: true });
   }
 }

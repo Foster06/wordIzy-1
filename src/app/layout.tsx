@@ -8,7 +8,7 @@ import { CookieConsent } from "@/components/site/cookie-consent";
 import { WebVitals } from "@/components/site/web-vitals";
 import { DictionaryWarmer } from "@/components/site/dictionary-warmer";
 import { Analytics } from "@vercel/analytics/next";
-import { GoogleAnalytics } from "@/components/site/google-analytics"; // 🎯 IMPORTED: Dynamic analytics tracking wrapper
+//import { GoogleAnalytics } from "@/components/site/google-analytics"; // 🎯 IMPORTED: Dynamic analytics tracking wrapper
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -140,7 +140,6 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true}>
           <LanguageProvider>
             {/* 🎯 PLACED: Embedded cleanly at the root level of providers layout layer streams */}
-            <GoogleAnalytics />
             
             {children}
             <CookieConsent />

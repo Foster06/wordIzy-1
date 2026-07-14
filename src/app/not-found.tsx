@@ -1,9 +1,8 @@
 "use client";
 
-import { Suspense } from "react";
 import Link from "next/link";
 
-function NotFoundContent() {
+export default function NotFound() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4 space-y-4">
       <h1 className="text-4xl font-extrabold tracking-tight text-brand">404</h1>
@@ -18,15 +17,5 @@ function NotFoundContent() {
         Return to Word Tools
       </Link>
     </div>
-  );
-}
-
-// 🎯 THE COMPILER FIX: Exporting the layout inside a root-level Suspense component
-// clears out the missing-suspense-with-csr-bailout crash instantly!
-export default function NotFound() {
-  return (
-    <Suspense fallback={null}>
-      <NotFoundContent />
-    </Suspense>
   );
 }

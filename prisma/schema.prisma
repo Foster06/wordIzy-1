@@ -61,6 +61,7 @@ model SearchEvent {
   lang        String   @default("en")
   /// Number of results returned (0 if none)
   resultCount Int      @default(0)
+  eventType   String   @default("search") // 🎯 ADDED: Distinguishes "search" vs "copy"
   createdAt   DateTime @default(now())
 
   @@index([route])

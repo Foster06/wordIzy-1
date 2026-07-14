@@ -7,6 +7,7 @@ import type { LanguageDef } from "@/lib/languages";
 import { GlassCard } from "./glass-card";
 import { Button } from "@/components/ui/button";
 import type { Translation } from "@/components/i18n/translations";
+import { logPrivateEvent } from "@/lib/private-tracker"; // 🎯 IMPORTED: Your private data dispatcher utility
 
 interface WordListProps {
   words: SolvedWord[];
@@ -14,24 +15,24 @@ interface WordListProps {
   t: Translation;
   emptyMessage?: string;
   pageSize?: number;
-  maxVisible?: number; // 👈 1. Added optional configuration type flag
+  maxVisible?: number;
 }
 
 /** Flat list of solved words as text (Bree Serif) in a 4-col grid.
  *  Paginates at 50 words per page with prev/next. */
 export function WordList({ 
-  words: initialWords, // Rename incoming array to manipulate it safely
+  words: initialWords, 
   lang, 
   t, 
   emptyMessage, 
   pageSize = 50,
-  maxVisible // 👈 2. Destructure the property here
+  maxVisible
 }: WordListProps) {
   void lang;
   const [page, setPage] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [copiedCell, setCopiedCell] = useState<string | null>(null);
 
-  // 3. Slice the word array if maxVisible constraint property was supplied by parent
   const words = maxVisible ? initialWords.slice(0, maxVisible) : initialWords;
 
   if (words.length === 0) {
@@ -46,11 +47,29 @@ export function WordList({
   const start = page * pageSize;
   const shown = words.slice(start, start + pageSize);
 
+  // 🎯 GLOBAL LIST COPY TRIGGER: Tracks macro list data extraction
   const copyAll = () => {
     const text = words.map((w) => w.word.toUpperCase()).join("\n");
     navigator.clipboard?.writeText(text).then(() => {
       setCopied(true);
+      
+      // Log the macro snapshot under custom query keyword contexts
+      logPrivateEvent(`bulk_list_length_${words.length}`, "word-list-bulk", lang?.code || "en", "copy");
+      
       setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
+  // 🎯 SINGLE WORD CELL TRIGGER: Copies individual word on cell click and logs interaction parameters
+  const handleCellClick = (wordText: string) => {
+    const uppercaseWord = wordText.toUpperCase();
+    navigator.clipboard?.writeText(uppercaseWord).then(() => {
+      setCopiedCell(wordText);
+      
+      // Quietly write an analytics event directly to your own secure database
+      logPrivateEvent(wordText.toLowerCase(), "word-list-item", lang?.code || "en", "copy");
+      
+      setTimeout(() => setCopiedCell(null), 1500);
     });
   };
 
@@ -82,10 +101,19 @@ export function WordList({
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5 justify-items-center text-center">
         {shown.map((w) => (
-          <div key={w.word} className="word-cell flex items-center justify-center gap-1.5 rounded-md px-2 py-1 bg-white/[0.06] border border-white/[0.06] hover:bg-brand/10 hover:border-brand/30 transition-colors min-w-0 w-full" title={`${w.word.toUpperCase()} · ${w.score} ${t.common.points}`}>
-            <span className="word-item truncate uppercase tracking-wide !text-[15px] min-w-0">{w.word}</span>
-            <span className="text-[10px] font-bold text-brand tabular-nums shrink-0">{w.score}</span>
-          </div>
+          <button
+            key={w.word}
+            onClick={() => handleCellClick(w.word)}
+            className="word-cell flex items-center justify-center gap-1.5 rounded-md px-2 py-1 bg-white/[0.06] border border-white/[0.06] hover:bg-brand/10 hover:border-brand/30 transition-colors min-w-0 w-full cursor-pointer group"
+            title={`Click to copy: ${w.word.toUpperCase()} · ${w.score} ${t.common.points}`}
+          >
+            <span className="word-item truncate uppercase tracking-wide !text-[15px] min-w-0 group-hover:text-brand transition-colors">
+              {w.word}
+            </span>
+            <span className="text-[10px] font-bold text-brand tabular-nums shrink-0">
+              {copiedCell === w.word ? <Check className="h-3 w-3 text-green-500 animate-scale" /> : w.score}
+            </span>
+          </button>
         ))}
       </div>
       {totalPages > 1 && (

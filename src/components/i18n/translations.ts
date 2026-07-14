@@ -224,7 +224,7 @@ const en: Translation = {
    },
    {
     heading: "Cookies & Advertising",
-    body: "WordIzy displays ads through Google AdSense to keep the service free. AdSense may use cookies to serve relevant ads and measure ad performance. A cookie consent banner appears on your first visit, allowing you to accept or decline. You can manage or disable cookies in your browser settings, and opt out of personalised advertising via Google's Ads Settings. We do not set any first-party tracking cookies ourselves — only a single preference cookie to remember your consent choice and your selected language and theme.",
+    body: "WordIzy displays ads through Google AdSense to keep the service free. AdSense may use cookies to serve relevant ads and measure ad performance. A cookie consent banner appears on your first visit, allowing you to accept or decline. You can manage or disable cookies in your browser settings, and opt out of personalised advertising via Google's Ads Settings. We do not set any first-party tracking cookies ourselves — only a single preference cookie to remember your consent choice and your selected language and theme",
    },
    {
     heading: "Your Rights (GDPR & CCPA)",
