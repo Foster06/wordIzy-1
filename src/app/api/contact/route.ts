@@ -95,7 +95,7 @@ export async function POST(req: Request) {
         // 🎯 ACTION B: DUAL-ROUTING (Send a copy instantly to your personal reader inbox so you are instantly notified)
         await resend.emails.send({
           from: "wordIzy System <support@wordizy.com>",
-          to: "info.wordizy@proton.me", 
+          to: "dorciusforteson@gmail.com", 
           replyTo: cleanEmail, // 🎯 THE MAGIC FIXED LINE: Directs your ProtonMail "Reply" button to email the user instantly!
           subject: `🔔 New Contact Form Submission from ${cleanName}`,
           html: `

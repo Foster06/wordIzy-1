@@ -234,7 +234,7 @@ ADMIN_PASSWORD="your-strong-password-here"
 # Send an email notification when the contact form is submitted.
 # Uses Resend (https://resend.com) — free tier: 100 emails/day.
 #RESEND_API_KEY="re_xxxxxxxxxxxxxxxxxxxx"
-#NOTIFY_EMAIL="info.wordizy@proton.me"
+#NOTIFY_EMAIL="dorciusforteson@gmail.com"
 ```
 
 ---
@@ -326,7 +326,7 @@ The `.env` file will NOT be pushed (it's in `.gitignore`).
 | `TURSO_AUTH_TOKEN` | Your Turso auth token | ✅ Yes (for Vercel) |
 | `NEXT_PUBLIC_ADSENSE_CLIENT` | `ca-pub-XXXXXXXXXXXXXXXX` | ❌ Optional |
 | `RESEND_API_KEY` | `re_xxxxxxxxxxxx` | ❌ Optional |
-| `NOTIFY_EMAIL` | `info.wordizy@proton.me` | ❌ Optional |
+| `NOTIFY_EMAIL` | `dorciusforteson@gmail.com` | ❌ Optional |
 
 5. Click **Deploy**
 6. Wait 2–3 minutes for the build to complete

@@ -20,7 +20,7 @@ NEXT_PUBLIC_ADSENSE_CLIENT="ca-pub-XXXXXXXXXXXXXXXX"
 # Email notifications for contact form (optional — uses Resend)
 # Get a free API key at https://resend.com
 RESEND_API_KEY=""
-NOTIFY_EMAIL="info.wordizy@proton.me"
+NOTIFY_EMAIL="dorciusforteson@gmail.com"
 ```
 
 ### 2. Database
