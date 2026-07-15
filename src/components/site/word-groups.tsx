@@ -7,6 +7,8 @@ import type { LanguageDef } from "@/lib/languages";
 import type { Translation } from "@/components/i18n/translations";
 import { GlassCard } from "./glass-card";
 import { Button } from "@/components/ui/button";
+// 🎯 IMPORT THE LOCAL STORAGE HOOK LAYER
+import { useWordVault } from "@/hooks/use-word-vault";
 
 const PAGE_SIZE = 50;
 
@@ -39,6 +41,9 @@ export function WordGroups({ groups, t, lang, emptyMessage }: WordGroupsProps) {
 }
 
 function LengthGroupCard({ group, t }: { group: LengthGroup; t: Translation }) {
+  // 🎯 CONNECT THE FAVORITES ENGINE LOOPS
+  const { favorites, toggleFavorite } = useWordVault();
+  
   const [page, setPage] = useState(0);
   const [copied, setCopied] = useState(false);
   const totalPages = Math.max(1, Math.ceil(group.words.length / PAGE_SIZE));
@@ -78,25 +83,54 @@ function LengthGroupCard({ group, t }: { group: LengthGroup; t: Translation }) {
           {totalPages > 1 && <span className="ml-2 tabular-nums">{page + 1}/{totalPages}</span>}
         </span>
         <div className="ml-auto flex items-center gap-1.5">
-          <button onClick={shareAll} className="text-muted-foreground hover:text-brand transition-colors" title="Share" aria-label="Share results">
+          <button onClick={shareAll} className="text-muted-foreground hover:text-brand transition-colors cursor-pointer" title="Share" aria-label="Share results">
             <Share2 className="h-3.5 w-3.5" />
           </button>
-          <button onClick={copyAll} className="text-muted-foreground hover:text-brand transition-colors" title={t.common.copy} aria-label={t.common.copy}>
+          <button onClick={copyAll} className="text-muted-foreground hover:text-brand transition-colors cursor-pointer" title={t.common.copy} aria-label={t.common.copy}>
             {copied ? <Check className="h-3.5 w-3.5 text-brand" /> : <Copy className="h-3.5 w-3.5" />}
           </button>
         </div>
       </div>
+      
+      {/* Dynamic layout grids housing text columns */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5 justify-items-center text-center">
-        {visible.map((w) => (
-          <div
-            key={w.word}
-            className="word-cell flex items-center justify-center gap-1.5 rounded-md px-2 py-1 bg-white/[0.06] border border-white/[0.06] hover:bg-brand/10 hover:border-brand/30 transition-colors min-w-0 w-full"
-            title={`${w.word.toUpperCase()} · ${w.score} ${t.common.points}`}
-          >
-            <span className="word-item truncate uppercase tracking-wide !text-[15px] min-w-0">{w.word}</span>
-            <span className="text-[10px] font-bold text-brand tabular-nums shrink-0">{w.score}</span>
-          </div>
-        ))}
+        {visible.map((w) => {
+          // Normalize formatting to track bookmark statuses matching casing structures
+          const cleanWord = w.word.toUpperCase();
+          const isFavorited = favorites.includes(cleanWord);
+
+          return (
+            <div
+              key={w.word}
+              className="word-cell flex items-center justify-between gap-1.5 rounded-md px-3 py-1 bg-white/[0.06] border border-white/[0.06] hover:bg-brand/10 hover:border-brand/30 transition-colors group/item min-w-0 w-full"
+              title={`${cleanWord} · {w.score} {t.common.points}`}
+            >
+              <div className="flex items-center gap-2 min-w-0">
+                {/* 🎯 STAR FAVORITE TOGGLE TRIGGER BUTTON */}
+                <button
+                  type="button"
+                  onClick={() => toggleFavorite(cleanWord)}
+                  aria-label={`Bookmark ${cleanWord}`}
+                  className={`text-sm shrink-0 select-none transition-transform active:scale-75 focus:outline-none cursor-pointer ${
+                    isFavorited 
+                      ? "text-amber-500 scale-105" 
+                      : "text-muted-foreground/20 group-hover/item:text-muted-foreground/50 hover:text-amber-500/80"
+                  }`}
+                >
+                  {isFavorited ? "★" : "☆"}
+                </button>
+
+                <span className="word-item truncate uppercase tracking-wide !text-[15px] min-w-0 text-left">
+                  {w.word}
+                </span>
+              </div>
+              
+              <span className="text-[10px] font-bold text-brand tabular-nums shrink-0 pl-1">
+                {w.score}
+              </span>
+            </div>
+          );
+        })}
       </div>
 
       {totalPages > 1 && (
