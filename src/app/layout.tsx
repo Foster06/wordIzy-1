@@ -95,7 +95,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     images: [
       {
-        url: "/og-image.svg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "wordIzy — Word Unscrambler & Anagram Solver",
@@ -107,7 +107,7 @@ export const metadata: Metadata = {
     title: "wordIzy — Word Unscrambler & Solver",
     description:
       "Free word unscrambler, anagram solver, Wordle & Quordle solver with multi-language dictionaries. No sign up.",
-    images: ["/og-image.svg"],
+    images: ["/og-image.png"],
   },
 };
 
