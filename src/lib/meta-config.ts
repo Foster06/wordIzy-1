@@ -24,5 +24,11 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     title: "Quordle Solver — Advanced 4-in-1 Word Game Helper",
     description: "Solve all four grid puzzles simultaneously. Our interactive Quordle solver tracks complex character rules to isolate valid game choices instantly.",
     keywords: ["quordle solver", "quordle helper", "quordle cheat", "quordle answer"]
+  },
+ // 🎯 ADD THIS GAME REGISTRY BLOCK:
+  "blitz": {
+    title: "Anagram Blitz — 60-Second Word Unscramble Game",
+    description: "Test your word puzzle skills with Anagram Blitz! Unscramble as many word combinations as you can in 60 seconds and beat your high score.",
+    keywords: ["word game", "anagram blitz", "unscramble game", "free word puzzle"]
   }
 };

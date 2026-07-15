@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { MainToolView } from "@/components/site/main-tool-view";
 import { TOOL_METADATA_REGISTRY } from "@/lib/meta-config";
 
+
 interface PageProps {
   params: Promise<{ tool?: string[] }>;
 }

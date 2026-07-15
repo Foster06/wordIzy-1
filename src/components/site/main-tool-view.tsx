@@ -24,6 +24,7 @@ import { AboutView, ContactView, PrivacyView, SitemapView } from "@/components/t
 import { InboxView } from "@/components/tools/inbox-view";
 import { DashboardView } from "@/components/tools/dashboard-view";
 import { ProgrammaticSEOView } from "@/components/site/programmatic-seo-view";
+import { AnagramBlitz } from "@/components/tools/anagram-blitz";
 
 interface MainToolViewProps {
   params: Promise<{ tool?: string[] }>;
@@ -71,6 +72,16 @@ export function MainToolView({ params }: MainToolViewProps) {
               <UnscramblerTool />
             </ErrorBoundary>
           </>
+        );
+         // 🎯 ADD THIS NEW CASE BLOCK FOR YOUR GAME:
+      case "blitz":
+      case "game":
+        return (
+          <ErrorBoundary label="Anagram Blitz Game">
+            <div className="py-6 sm:py-10">
+              <AnagramBlitz />
+            </div>
+          </ErrorBoundary>
         );
       case "scramble":
         return <ErrorBoundary label="Scramble Solver"><ScrambleTool /></ErrorBoundary>;

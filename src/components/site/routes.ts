@@ -8,7 +8,8 @@ export type RouteId =
 
   | "home" | "scramble" | "anagram" | "wordle" | "quordle" | "scrabble"
   | "random" | "wordfeud" | "dictionary" | "wordlists" | "wordstarts" | "wordends"
-  | "about" | "contact" | "privacy" | "sitemap" | "inbox" | "dashboard";
+  | "about" | "contact" | "privacy" | "sitemap" | "inbox" | "dashboard"
+  | "blitz"; // 🎯 ADDED: Type protection for the new game engine
 
 export type RouteGroup = "solvers" | "tools" | "site";
 export type DesktopNavSlot = "inline" | "tools" | "wordlab" | "site";
@@ -32,26 +33,32 @@ export const ROUTES: RouteDef[] = [
   { id: "scrabble", hash: "/scrabble", icon: "Trophy", labelKey: "scrabble", group: "solvers", desktop: "inline" },
   { id: "wordle", hash: "/wordle", icon: "Grid3x3", labelKey: "wordle", group: "solvers", desktop: "inline" },
   { id: "dictionary", hash: "/dictionary", icon: "BookOpen", labelKey: "dictionary", group: "tools", desktop: "inline" },
+  
   // Tools dropdown
   { id: "random", hash: "/random", icon: "Dices", labelKey: "random", group: "tools", desktop: "tools" },
   { id: "wordfeud", hash: "/wordfeud", icon: "Gamepad2", labelKey: "wordfeud", group: "tools", desktop: "tools" },
   { id: "quordle", hash: "/quordle", icon: "LayoutGrid", labelKey: "quordle", group: "solvers", desktop: "tools" },
+  
+  // 🎯 ADDED: Places the game right inside your visible Tools section dropdown and footer columns
+  { id: "blitz", hash: "/blitz", icon: "Zap", labelKey: "blitz", group: "tools", desktop: "tools" },
+
   // Word Lab dropdown
   { id: "wordlists", hash: "/wordlists", icon: "List", labelKey: "wordlists", group: "tools", desktop: "wordlab" },
   { id: "wordstarts", hash: "/wordstarts", icon: "ArrowDownToLine", labelKey: "wordstarts", group: "tools", desktop: "wordlab" },
   { id: "wordends", hash: "/wordends", icon: "ArrowUpFromLine", labelKey: "wordends", group: "tools", desktop: "wordlab" },
+  
   // Site
   { id: "about", hash: "/about", icon: "Info", labelKey: "about", group: "site", desktop: "site" },
   { id: "contact", hash: "/contact", icon: "Mail", labelKey: "contact", group: "site", desktop: "site" },
   { id: "privacy", hash: "/privacy", icon: "Shield", labelKey: "privacy", group: "site", desktop: "site" },
   { id: "sitemap", hash: "/sitemap", icon: "Map", labelKey: "sitemap", group: "site", desktop: "site" },
+  
   // Hidden — owner-only inbox for contact form submissions. Access via /inbox
   { id: "inbox", hash: "/inbox", icon: "Inbox", labelKey: "inbox", group: "site", desktop: "site", hidden: true },
   // Hidden — owner-only analytics dashboard. Access via /dashboard
   { id: "dashboard", hash: "/dashboard", icon: "BarChart3", labelKey: "dashboard", group: "site", desktop: "site", hidden: true },
 ];
 
-// 🎯 UPDATED: Map routes directly by their clean ID string to guarantee fast lookups
 export const ROUTE_MAP: Record<string, RouteDef> = Object.fromEntries(
   ROUTES.map((r) => [r.id, r])
 );
@@ -67,7 +74,6 @@ export const DESKTOP_DROPDOWNS: { slot: "tools" | "wordlab" | "site"; labelKey: 
   { slot: "site", labelKey: "more" },
 ];
 
-// 🎯 UPDATED: Clean the string input parameter context to safely fallback to home route
 export function routeFromHash(hash: string): RouteDef {
   const clean = hash.replace(/^\//, "").replace(/^#/, "") || "home";
   return ROUTE_MAP[clean] ?? ROUTES[0];

@@ -10,7 +10,7 @@ export type Translation = {
   scrabble: string; wordlists: string; wordstarts: string; wordends: string; about: string; contact: string;
   privacy: string; sitemap: string; tools: string; more: string;
   solvers: string; site: string; wordlab: string; inbox: string;
-  dashboard: string;
+  dashboard: string; blitz: string;
  };
  brand: { name: string; tagline: string };
  common: {
@@ -86,7 +86,7 @@ const en: Translation = {
   wordfeud: "Wordfeud", dictionary: "Dictionary", scrabble: "Duplicate",
   wordlists: "Word Lists", wordstarts: "Word Starts By", wordends: "Word Ends By", about: "About", contact: "Contact", privacy: "Privacy",
   sitemap: "Sitemap", tools: "Tools", more: "More", solvers: "Solvers", site: "Site", wordlab: "Word Lab", inbox: "Inbox",
-  dashboard: "Dashboard",
+  dashboard: "Dashboard", blitz: "Anagram Blitz"
  },
  brand: { name: "wordIzy", tagline: "Unscramble. Solve. Win." },
  common: {
@@ -342,7 +342,7 @@ const fr: Translation = {
   wordfeud: "Wordfeud", dictionary: "Dictionnaire", scrabble: "Duplicate",
   wordlists: "Listes de Mots", wordstarts: "Mots Commencent Par", wordends: "Mots Finissent Par", about: "À propos", contact: "Contact", privacy: "Confidentialité",
   sitemap: "Plan du site", tools: "Outils", more: "Plus", solvers: "Solveurs", site: "Site", wordlab: "Labo des Mots", inbox: "Boîte de réception",
-  dashboard: "Tableau de bord",
+  dashboard: "Tableau de bord", blitz: "⚡ Anagram Blitz"
  },
  brand: { name: "wordIzy", tagline: "Anagrammez. Résolvez. Gagnez." },
  common: {
@@ -553,7 +553,7 @@ const es: Translation = {
   wordfeud: "Wordfeud", dictionary: "Diccionario", scrabble: "Duplicate",
   wordlists: "Listas de Palabras", wordstarts: "Palabras Empiezan Por", wordends: "Palabras Terminan En", about: "Acerca de", contact: "Contacto", privacy: "Privacidad",
   sitemap: "Mapa del sitio", tools: "Herramientas", more: "Más", solvers: "Solucionadores", site: "Sitio", wordlab: "Lab de Palabras", inbox: "Bandeja de entrada",
-  dashboard: "Panel",
+  dashboard: "Panel", blitz: "⚡ Anagram Blitz"
  },
  brand: { name: "wordIzy", tagline: "Desordena. Resuelve. Gana." },
  common: {
@@ -737,7 +737,7 @@ const de: Translation = {
   wordfeud: "Wordfeud", dictionary: "Wörterbuch", scrabble: "Duplicate",
   wordlists: "Wortlisten", wordstarts: "Wörter Beginnen Mit", wordends: "Wörter Enden Mit", about: "Über", contact: "Kontakt", privacy: "Datenschutz",
   sitemap: "Sitemap", tools: "Werkzeuge", more: "Mehr", solvers: "Löser", site: "Seite", wordlab: "Wort-Labor", inbox: "Posteingang",
-  dashboard: "Dashboard",
+  dashboard: "Dashboard", blitz:"Anagramm-Blitz"
  },
  brand: { name: "wordIzy", tagline: "Entwirren. Lösen. Gewinnen." },
  common: {
@@ -921,7 +921,7 @@ const it: Translation = {
   wordfeud: "Wordfeud", dictionary: "Verifica Diz.", scrabble: "Duplicate",
   wordlists: "Liste Parole", wordstarts: "Parole Iniziano Per", wordends: "Parole Finiscono Per", about: "Info", contact: "Contatti", privacy: "Privacy",
   sitemap: "Mappa", tools: "Strumenti", more: "Altro", solvers: "Risolutori", site: "Sito", wordlab: "Lab delle Parole", inbox: "Posta in arrivo",
-  dashboard: "Cruscotto",
+  dashboard: "Cruscotto",blitz: "⚡ Anagramma Blitz"
  },
  brand: { name: "wordIzy", tagline: "Riordina. Risolvi. Vinci." },
  common: {
@@ -1105,7 +1105,7 @@ const pt: Translation = {
   wordfeud: "Wordfeud", dictionary: "Verificar Dicio.", scrabble: "Duplicate",
   wordlists: "Listas de Palavras", wordstarts: "Palavras Começam Por", wordends: "Palavras Terminam Em", about: "Sobre", contact: "Contato", privacy: "Privacidade",
   sitemap: "Mapa do site", tools: "Ferramentas", more: "Mais", solvers: "Solucionadores", site: "Site", wordlab: "Lab de Palavras", inbox: "Caixa de entrada",
-  dashboard: "Painel",
+  dashboard: "Painel", blitz: "Anagrama blitz"
  },
  brand: { name: "wordIzy", tagline: "Descodifica. Resolve. Vence." },
  common: {
@@ -1289,7 +1289,7 @@ const nl: Translation = {
   wordfeud: "Wordfeud", dictionary: "Woordenboek", scrabble: "Duplicate",
   wordlists: "Woordlijsten", wordstarts: "Woorden Beginnen Met", wordends: "Woorden Eindigen Op", about: "Over", contact: "Contact", privacy: "Privacy",
   sitemap: "Sitemap", tools: "Hulpmiddelen", more: "Meer", solvers: "Oplossers", site: "Site", wordlab: "Woord-Lab", inbox: "Postvak IN",
-  dashboard: "Dashboard",
+  dashboard: "Dashboard", blitz: "⚡ Anagram Blitz"
  },
  brand: { name: "wordIzy", tagline: "Ontwar. Los op. Win." },
  common: {
@@ -1474,7 +1474,7 @@ const ja: Translation = {
   wordfeud: "Wordfeud", dictionary: "辞書", scrabble: "Duplicate",
   wordlists: "単語リスト", wordstarts: "単語 始まる", wordends: "単語 終わる", about: "概要", contact: "お問い合わせ", privacy: "プライバシー",
   sitemap: "サイトマップ", tools: "ツール", more: "その他", solvers: "ソルバー", site: "サイト", wordlab: "ワードラボ", inbox: "受信箱",
-  dashboard: "ダッシュボード",
+  dashboard: "ダッシュボード", blitz:"アナグラム・ブリッツ"
  },
  brand: { name: "wordIzy", tagline: "解き、勝つ。" },
  common: {
@@ -1661,7 +1661,7 @@ const zh: Translation = {
   wordfeud: "Wordfeud", dictionary: "词典", scrabble: "Duplicate",
   wordlists: "单词表", wordstarts: "单词 开头", wordends: "单词 结尾", about: "关于", contact: "联系", privacy: "隐私",
   sitemap: "网站地图", tools: "工具", more: "更多", solvers: "求解器", site: "站点", wordlab: "词汇实验室", inbox: "收件箱",
-  dashboard: "仪表盘",
+  dashboard: "仪表盘", blitz:"字谜闪击"
  },
  brand: { name: "wordIzy", tagline: "重组。求解。获胜。" },
  common: {
