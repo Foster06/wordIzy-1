@@ -158,3 +158,58 @@ export function getDict(lang: LanguageCode): DictStore {
 export function dictSize(lang: LanguageCode): number {
   return getDict(lang).entries.length;
 }
+
+// ──────────────────────────────────────────────────────────────
+// WORDLE-SPECIFIC DICTIONARY
+// Separate from the Scrabble dictionary. For English, uses a curated
+// Wordle word list (5-7 letter words from NWL2023 + CSW21). For other
+// languages, falls back to the Scrabble dictionary (since official
+// Wordle word lists don't exist for other languages).
+// ──────────────────────────────────────────────────────────────
+
+const wordleCache = new Map<LanguageCode, DictStore>();
+
+export function getWordleDict(lang: LanguageCode): DictStore {
+  const cached = wordleCache.get(lang);
+  if (cached) return cached;
+
+  // For English: load the dedicated Wordle word list
+  if (lang === "en") {
+    const wordleWords = loadOfficialFile("EN_WORDLE.txt", false);
+    if (wordleWords.size > 0) {
+      // Also get the display words from the raw npm list
+      const rawByNorm = new Map<string, string>();
+      const raw = loadRaw("en");
+      for (const w of raw) {
+        const norm = normalizeWord(w);
+        if (norm && norm.length >= 2 && norm.length <= 15 && /^[a-zñç]+$/.test(norm)) {
+          if (!rawByNorm.has(norm)) rawByNorm.set(norm, w);
+        }
+      }
+
+      const entries: WordEntry[] = [];
+      const byLength = new Map<number, WordEntry[]>();
+      const seen = new Set<string>();
+
+      for (const norm of wordleWords) {
+        if (seen.has(norm)) continue;
+        seen.add(norm);
+        const display = rawByNorm.get(norm) ?? norm;
+        const entry: WordEntry = { word: display, norm, len: norm.length };
+        entries.push(entry);
+        const bucket = byLength.get(entry.len);
+        if (bucket) bucket.push(entry);
+        else byLength.set(entry.len, [entry]);
+      }
+
+      const store: DictStore = { entries, byLength };
+      wordleCache.set(lang, store);
+      return store;
+    }
+  }
+
+  // For other languages: use the Scrabble dictionary (no official Wordle lists exist)
+  const scrabbleDict = getDict(lang);
+  wordleCache.set(lang, scrabbleDict);
+  return scrabbleDict;
+}

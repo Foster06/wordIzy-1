@@ -2,11 +2,11 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link"; // 🎯 Intercepts links cleanly for Next.js routing
+import Link from "next/link"; 
 import {
   Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2,
   BookOpen, Trophy, List, Info, Mail, Shield, Map, Menu, ChevronDown,
-  ArrowDownToLine, ArrowUpFromLine,
+  ArrowDownToLine, ArrowUpFromLine, Star
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ROUTES, DESKTOP_DROPDOWNS, GROUP_ORDER, GROUP_LABELS, type RouteDef } from "./routes";
@@ -16,6 +16,8 @@ import { LanguageSelector } from "./language-selector";
 import { ThemeToggle } from "./theme-toggle";
 import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
+import { FavoritesDrawer } from "./favorites-drawer";
+import { useWordVault } from "@/hooks/use-word-vault";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2,
@@ -31,10 +33,14 @@ export function SiteHeader() {
   const router = useRouter();
   const { route } = useHashRoute();
   const { t } = useLanguage();
+  
+  // 🎯 UNCONDITIONAL TOGGLE COUPLING: Direct, self-contained layout tracking
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  
+  const { favorites } = useWordVault();
   const [mobileOpen, setMobileOpen] = useState(false);
   const isActive = (r: RouteDef) => route.id === r.id;
 
-  // 🎯 THE PERMANENT ROUTING FIX: Ensures relative paths work on localhost and Vercel
   const go = (hash: string) => { 
     setMobileOpen(false); 
     let cleanPath = hash.replace("/#", "").replace("#", "");
@@ -61,6 +67,9 @@ export function SiteHeader() {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
+
+  // Safe fallback to prevent counting crash states if vault fails to sync
+  const favoriteCount = favorites && Array.isArray(favorites) ? favorites.length : 0;
 
   return (
     <>
@@ -119,16 +128,40 @@ export function SiteHeader() {
               })}
             </nav>
 
-            {/* Right: language + theme */}
+            {/* Right Side Control Banks */}
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              
+              {/* 🎯 FORCE TOGGLE ACTION ANCHOR */}
+              <button
+                onClick={() => {
+                  console.log("Vault Button Tapped Status:", !isDrawerOpen);
+                  setIsDrawerOpen(true);
+                }}
+                type="button"
+                className="relative p-2 rounded-lg bg-white/[0.02] border border-white/5 text-muted-foreground hover:text-amber-500 hover:bg-white/[0.06] transition-all cursor-pointer flex items-center justify-center h-9 w-9"
+                style={{ cursor: "pointer" }}
+                aria-label="Open Saved Word Vault"
+              >
+                <Star className={`h-4 w-4 ${favoriteCount > 0 ? "text-amber-500 fill-amber-500" : ""}`} />
+                
+                {favoriteCount > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-amber-500 px-1 text-[9px] font-bold text-black tabular-nums">
+                    {favoriteCount}
+                  </span>
+                )}
+              </button>
+
               <LanguageSelector compact />
               <ThemeToggle />
             </div>
           </div>
         </div>
+
+        {/* 🎯 MOUNTED VIA LOCAL COMPONENT BASE LAYERS BLOCK */}
+        <FavoritesDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       </header>
 
-      {/* Mobile left drawer — starts below navbar, doesn't overlay it */}
+      {/* Mobile left drawer */}
       {mobileOpen && (
         <>
           <div
@@ -162,7 +195,7 @@ export function SiteHeader() {
                       <NavIcon name={r.icon} className="h-4 w-4 opacity-80" />
                       <span className="!text-[16px]">{t.nav[r.labelKey]}</span>
                     </button>
-                  ))}
+                    ))}
                 </div>
               ))}
             </div>
@@ -173,7 +206,6 @@ export function SiteHeader() {
   );
 }
 
-/** Hover/click dropdown — pops up on hover, stays until click-outside or item select. */
 function HoverDropdown({
   label, active, routes, isActive, t, onGo,
 }: {

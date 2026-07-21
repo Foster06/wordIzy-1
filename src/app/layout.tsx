@@ -8,7 +8,7 @@ import { CookieConsent } from "@/components/site/cookie-consent";
 import { WebVitals } from "@/components/site/web-vitals";
 import { DictionaryWarmer } from "@/components/site/dictionary-warmer";
 import { Analytics } from "@vercel/analytics/next";
-//import { GoogleAnalytics } from "@/components/site/google-analytics"; // 🎯 IMPORTED: Dynamic analytics tracking wrapper
+import { WordVaultProvider } from "@/hooks/use-word-vault";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -49,8 +49,6 @@ const jsonLd = {
   ],
   inLanguage: ["en", "fr", "es", "it", "pt", "de", "nl", "ja", "zh"],
   publisher: { "@type": "Organization", name: "wordIzy" },
-  
-  // 🎯 FIXED: Dynamic endpoint format tracking parameter restored for Google Sitelinks structures
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
@@ -119,7 +117,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Force favicon refresh — cache-busting query param */}
         <link rel="icon" type="image/png" href="/logo.png?v=2" />
         <link rel="apple-touch-icon" href="/logo.png?v=2" />
         <script
@@ -139,12 +136,13 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true}>
           <LanguageProvider>
-            {/* 🎯 PLACED: Embedded cleanly at the root level of providers layout layer streams */}
-            
-            {children}
-            <CookieConsent />
-            <WebVitals />
-            <DictionaryWarmer />
+            {/* 🎯 WRAPPED: Activated global data state provider cleanly at the layout root */}
+            <WordVaultProvider>
+              {children}
+              <CookieConsent />
+              <WebVitals />
+              <DictionaryWarmer />
+            </WordVaultProvider>
           </LanguageProvider>
         </ThemeProvider>
         <SonnerToaster position="top-center" richColors />

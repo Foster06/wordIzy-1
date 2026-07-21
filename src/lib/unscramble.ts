@@ -3,7 +3,7 @@
 
 import type { LanguageCode } from "./languages";
 import { scoreWord, normalizeWord } from "./languages";
-import { getDict, type WordEntry } from "./dictionary";
+import { getDict, getWordleDict, type WordEntry } from "./dictionary";
 
 export interface SolveFilters {
   startsWith?: string;
@@ -166,7 +166,7 @@ export function wordleSolve(c: WordleConstraint, lang: LanguageCode): SolvedWord
     if (ch && /[a-zñç]/.test(ch)) placed.push({ pos: i, ch });
   }
 
-  const dict = getDict(lang);
+  const dict = getWordleDict(lang);
   const bucket = dict.byLength.get(len);
   if (!bucket) return [];
 
