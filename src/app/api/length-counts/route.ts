@@ -4,6 +4,10 @@ import { getDict } from "@/lib/dictionary";
 
 export const runtime = "nodejs";
 
+const CACHE_HEADERS = {
+  "Cache-Control": "public, s-maxage=86400",
+};
+
 /** Returns word counts per length (2-7) for a given language and optional letter/mode. */
 export async function GET(req: NextRequest) {
   const lang = (req.nextUrl.searchParams.get("lang") || "en") as LanguageCode;
@@ -12,16 +16,31 @@ export async function GET(req: NextRequest) {
 
   const dict = getDict(lang);
   const counts: Record<string, number> = {};
+  const useLetter = letter && /[a-zñç]/.test(letter);
 
   for (let l = 2; l <= 7; l++) {
-    const bucket = dict.byLength.get(l) ?? [];
-    if (letter && /[a-zñç]/.test(letter)) {
-      if (mode === "starts") counts[l] = bucket.filter((e) => e.norm.startsWith(letter)).length;
-      else counts[l] = bucket.filter((e) => e.norm.endsWith(letter)).length;
+    const bucket = dict.byLength.get(l);
+    if (!bucket) {
+      counts[l] = 0;
+      continue;
+    }
+    if (useLetter) {
+      // Manual count loop — avoids allocating an intermediate filtered array.
+      let n = 0;
+      if (mode === "starts") {
+        for (let i = 0; i < bucket.length; i++) {
+          if (bucket[i].norm.startsWith(letter)) n++;
+        }
+      } else {
+        for (let i = 0; i < bucket.length; i++) {
+          if (bucket[i].norm.endsWith(letter)) n++;
+        }
+      }
+      counts[l] = n;
     } else {
       counts[l] = bucket.length;
     }
   }
 
-  return NextResponse.json({ counts });
+  return NextResponse.json({ counts }, { headers: CACHE_HEADERS });
 }

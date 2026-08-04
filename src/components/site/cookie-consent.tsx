@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Cookie, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/site/glass-card";
@@ -14,10 +14,12 @@ type StoredValue = "accepted" | "declined";
 /**
  * Cookie consent banner. Shows after a 1.5s delay on the first visit only.
  * Accept/Decline both persist the choice to localStorage and hide the banner.
+ * The X dismiss button also persists "declined" so the banner doesn't reappear.
  */
 export function CookieConsent() {
   const { navigate } = useHashRoute();
   const [visible, setVisible] = useState(false);
+  const acceptBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout> | undefined;
@@ -33,6 +35,25 @@ export function CookieConsent() {
     };
   }, []);
 
+  // Move focus to the "Accept" button when the banner appears.
+  useEffect(() => {
+    if (visible && acceptBtnRef.current) {
+      acceptBtnRef.current.focus();
+    }
+  }, [visible]);
+
+  // Escape key dismisses the banner (persists as "declined").
+  useEffect(() => {
+    if (!visible) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        decide("declined");
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [visible]);
+
   const decide = (value: StoredValue) => {
     try {
       localStorage.setItem(STORAGE_KEY, value);
@@ -42,17 +63,23 @@ export function CookieConsent() {
     setVisible(false);
   };
 
-  const dismiss = () => setVisible(false);
+  // X dismiss button persists choice (same as Decline) so banner doesn't reappear.
+  const dismiss = () => decide("declined");
 
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[60] px-3 pb-3 sm:px-6 sm:pb-6 pointer-events-none">
+    <div aria-live="polite" className="fixed inset-x-0 bottom-0 z-[60] px-3 pb-3 sm:px-6 sm:pb-6 pointer-events-none">
       <GlassCard
         strong
         className="pointer-events-auto mx-auto max-w-3xl p-4 sm:p-5 shadow-2xl"
       >
-        <div className="flex items-start gap-3">
+        <div
+          className="flex items-start gap-3"
+          role="dialog"
+          aria-modal="false"
+          aria-label="Cookie consent"
+        >
           <div className="hidden sm:flex shrink-0 h-10 w-10 items-center justify-center rounded-lg bg-brand/15 border border-brand/30 text-brand">
             <Cookie className="h-5 w-5" />
           </div>
@@ -73,6 +100,7 @@ export function CookieConsent() {
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <Button
+                ref={acceptBtnRef}
                 onClick={() => decide("accepted")}
                 className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold rounded-lg"
                 size="sm"

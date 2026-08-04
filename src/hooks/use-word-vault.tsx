@@ -28,7 +28,7 @@ export function WordVaultProvider({ children }: { children: React.ReactNode }) {
           setFavorites(parsed);
         }
       } catch (e) {
-        console.error("Failed parsing favorites cache");
+        console.error("Failed parsing favorites cache", e);
       }
     } else if (favorites.length > 0) {
       setFavorites([]);
@@ -41,7 +41,7 @@ export function WordVaultProvider({ children }: { children: React.ReactNode }) {
           setHistory(parsed);
         }
       } catch (e) {
-        console.error("Failed parsing history cache");
+        console.error("Failed parsing history cache", e);
       }
     }
   };

@@ -4,6 +4,10 @@ import { getDict } from "@/lib/dictionary";
 
 export const runtime = "nodejs";
 
+const CACHE_HEADERS = {
+  "Cache-Control": "public, s-maxage=86400",
+};
+
 /** Returns word counts per letter for a given mode and length.
  *  Optimized: single pass through the dictionary. */
 export async function GET(req: NextRequest) {
@@ -34,5 +38,5 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  return NextResponse.json({ counts });
+  return NextResponse.json({ counts }, { headers: CACHE_HEADERS });
 }

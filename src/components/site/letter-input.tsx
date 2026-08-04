@@ -32,7 +32,7 @@ export function LetterInput({
         onKeyDown={onKeyDown}
         placeholder={placeholder ?? t.common.yourLetters}
         maxLength={maxLength}
-        className="h-12 text-lg font-semibold tracking-[0.2em] uppercase glass-soft border-white/10 search-amber focus-visible:border-brand focus-visible:ring-brand/30 placeholder:text-muted-foreground/50 placeholder:tracking-normal placeholder:font-normal placeholder:normal-case"
+        className="h-12 text-lg font-semibold tracking-[0.2em] uppercase glass-soft border-white/10 search-amber focus-visible:border-brand focus-visible:ring-brand/30 placeholder:text-muted-foreground/70 placeholder:tracking-normal placeholder:font-normal placeholder:normal-case"
         autoComplete="off"
         spellCheck={false}
       />

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { X, Trash2, Copy, Check, Star } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useWordVault } from "@/hooks/use-word-vault";
 
 interface FavoritesDrawerProps {
@@ -12,20 +13,8 @@ interface FavoritesDrawerProps {
 export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
   const { favorites, toggleFavorite, reloadFavorites } = useWordVault();
   const [copiedWord, setCopiedWord] = useState<string | null>(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const checkTheme = () => {
-      const hasDarkClass = document.documentElement.classList.contains("dark");
-      setIsDarkMode(hasDarkClass);
-    };
-    checkTheme();
-
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
-  }, []);
+  const { resolvedTheme } = useTheme();
+  const isDarkMode = resolvedTheme === "dark";
 
   useEffect(() => {
     if (!isOpen) return;

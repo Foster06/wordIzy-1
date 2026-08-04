@@ -41,6 +41,10 @@ export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const isActive = (r: RouteDef) => route.id === r.id;
 
+  // Refs for mobile drawer focus trap.
+  const hamburgerBtnRef = useRef<HTMLButtonElement>(null);
+  const mobileDrawerRef = useRef<HTMLDivElement>(null);
+
   const go = (hash: string) => { 
     setMobileOpen(false); 
     let cleanPath = hash.replace("/#", "").replace("#", "");
@@ -68,6 +72,57 @@ export function SiteHeader() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
+  // Focus trap for the mobile drawer: on open, move focus into the drawer;
+  // on close, restore focus to the hamburger button.
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const drawer = mobileDrawerRef.current;
+    if (!drawer) return;
+
+    const getFocusable = (): HTMLElement[] => {
+      const selectors =
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+      return Array.from(drawer.querySelectorAll<HTMLElement>(selectors)).filter(
+        (el) => el.offsetParent !== null || el.getClientRects().length > 0
+      );
+    };
+
+    // Move focus into the drawer on open.
+    const focusables = getFocusable();
+    if (focusables.length > 0) {
+      focusables[0].focus();
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const items = getFocusable();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (e.shiftKey) {
+        if (active === first || !drawer.contains(active)) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (active === last || !drawer.contains(active)) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    drawer.addEventListener("keydown", handleKeyDown);
+    return () => {
+      drawer.removeEventListener("keydown", handleKeyDown);
+      // Restore focus to the hamburger button when the drawer closes.
+      hamburgerBtnRef.current?.focus();
+    };
+  }, [mobileOpen]);
+
   // Safe fallback to prevent counting crash states if vault fails to sync
   const favoriteCount = favorites && Array.isArray(favorites) ? favorites.length : 0;
 
@@ -79,6 +134,7 @@ export function SiteHeader() {
             {/* Left: hamburger (mobile) + logo */}
             <div className="flex items-center gap-2.5">
               <Button
+                ref={hamburgerBtnRef}
                 variant="ghost"
                 size="icon"
                 onClick={() => setMobileOpen((v) => !v)}
@@ -140,7 +196,7 @@ export function SiteHeader() {
                 type="button"
                 className="relative p-2 rounded-lg bg-white/[0.02] border border-white/5 text-muted-foreground hover:text-amber-500 hover:bg-white/[0.06] transition-all cursor-pointer flex items-center justify-center h-9 w-9"
                 style={{ cursor: "pointer" }}
-                aria-label="Open Saved Word Vault"
+                aria-label={favoriteCount > 0 ? `Open Saved Word Vault (${favoriteCount} words)` : "Open Saved Word Vault"}
               >
                 <Star className={`h-4 w-4 ${favoriteCount > 0 ? "text-amber-500 fill-amber-500" : ""}`} />
                 
@@ -171,6 +227,7 @@ export function SiteHeader() {
             aria-hidden
           />
           <div
+            ref={mobileDrawerRef}
             className="lg:hidden fixed left-0 top-16 bottom-0 w-[320px] z-50 bg-background border-r border-white/10 flex flex-col"
             role="dialog"
             aria-modal="true"
@@ -243,6 +300,8 @@ function HoverDropdown({
     <div ref={containerRef} className="relative shrink-0" onMouseEnter={enter} onMouseLeave={leave}>
       <button
         onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
         className={cn(
           "nav-item !text-[14px] px-2 py-2 rounded-md transition-colors flex items-center gap-1 whitespace-nowrap",
           active || open ? "text-brand" : "text-foreground/80 hover:text-brand"

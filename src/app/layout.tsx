@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Lora, Inter, Bree_Serif, Roboto_Slab } from "next/font/google";
 import "./globals.css";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
@@ -47,7 +47,7 @@ const jsonLd = {
     "Random Word Generator",
     "Multi-language Word Lists",
   ],
-  inLanguage: ["en", "fr", "es", "it", "pt", "de", "nl", "ja", "zh"],
+  inLanguage: "en", // SSR is English-only; client-side language toggle does not change URL.
   publisher: { "@type": "Organization", name: "wordIzy" },
   "potentialAction": {
     "@type": "SearchAction",
@@ -61,7 +61,10 @@ const jsonLd = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "wordIzy — Word Unscrambler, Anagram & Wordle Solver",
+  title: {
+    default: "wordIzy — Word Unscrambler, Anagram & Wordle Solver",
+    template: "%s | wordIzy",
+  },
   description:
     "wordIzy is a free word unscrambler and solver. Unscramble letters, solve anagrams, Wordle, Quordle, Scrabble, Wordfeud and browse multi-language word lists. No sign up.",
   keywords: [
@@ -81,7 +84,7 @@ export const metadata: Metadata = {
       { url: "/logo.png", type: "image/png" },
       { url: "/favicon.ico", type: "image/x-icon" },
     ],
-    apple: "/logo.png",
+    apple: "/apple-touch-icon.png",
   },
   robots: { index: true, follow: true },
   openGraph: {
@@ -91,6 +94,7 @@ export const metadata: Metadata = {
     siteName: "wordIzy",
     type: "website",
     url: SITE_URL,
+    locale: "en_US",
     images: [
       {
         url: "/og-image.png",
@@ -109,6 +113,12 @@ export const metadata: Metadata = {
   },
 };
 
+// Next.js 16 requires themeColor / colorScheme in a separate viewport export.
+export const viewport: Viewport = {
+  themeColor: "#f5a623",
+  colorScheme: "dark light",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -117,8 +127,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" type="image/png" href="/logo.png?v=2" />
-        <link rel="apple-touch-icon" href="/logo.png?v=2" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

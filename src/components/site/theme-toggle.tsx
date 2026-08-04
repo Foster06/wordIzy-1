@@ -40,7 +40,7 @@ export function ThemeToggle({ compact = false, className }: { compact?: boolean;
         compact && "h-8 w-8",
         className
       )}
-      aria-label={`Theme: ${currentTheme}`}
+      aria-label={mounted ? `Theme: ${currentTheme}` : "Toggle theme"}
       title={`Theme: ${currentTheme} (click to cycle)`}
     >
       {mounted ? <Icon className="h-4 w-4 text-brand" /> : <Sun className="h-4 w-4 text-brand" />}

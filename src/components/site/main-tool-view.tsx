@@ -132,11 +132,15 @@ export function MainToolView({ params }: MainToolViewProps) {
   return (
     <div className="min-h-screen flex flex-col">
       <RouteSeo route={route} />
-      <SiteHeader />
-      <main className="flex-1 mx-auto w-full max-w-7xl px-4 sm:px-6 py-6 sm:py-8">
+      <ErrorBoundary label="Site Header">
+        <SiteHeader />
+      </ErrorBoundary>
+      <main className="flex-1 mx-auto w-full max-w-7xl px-4 sm:px-6 py-6 sm:py-8 overflow-x-hidden">
         {renderView()}
       </main>
-      <SiteFooter />
+      <ErrorBoundary label="Site Footer">
+        <SiteFooter />
+      </ErrorBoundary>
     </div>
   );
 }

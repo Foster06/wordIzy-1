@@ -1,8 +1,11 @@
 # Allow all crawlers full access
 User-agent: *
 Allow: /
-Allow: /ads.txt 
+
+# Owner-only pages — never index
 Disallow: /api/
+Disallow: /inbox
+Disallow: /dashboard
 
 # Sitemap
 Sitemap: https://wordizy.com/sitemap.xml

@@ -52,10 +52,12 @@ export function WordleTool() {
             <div className="space-y-4">
               <div className="space-y-1.5">
                 <Label className="text-xs text-muted-foreground">{t.wordle.length}</Label>
-                <div className="flex gap-2">
+                <div role="radiogroup" aria-label={t.wordle.length} className="flex gap-2">
                   {LENGTHS.map((l) => (
                     <button
                       key={l}
+                      role="radio"
+                      aria-checked={length === l}
                       onClick={() => setLength(l)}
                       className={`h-9 w-9 rounded-md text-sm font-semibold transition-colors ${length === l ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand"}`}
                     >

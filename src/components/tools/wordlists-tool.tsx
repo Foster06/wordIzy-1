@@ -6,6 +6,7 @@ import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
 import { PageHeader } from "@/components/site/page-header";
 import { WordBucket, ALPHABET, LENGTHS } from "@/components/site/word-bucket";
+import { ReturnButton } from "@/components/site/back-button";
 import { useLanguage } from "@/components/i18n/language-provider";
 import type { LanguageCode } from "@/lib/languages";
 import { LANGUAGES } from "@/lib/languages";
@@ -31,6 +32,7 @@ export function WordlistsTool() {
 
   return (
     <>
+      <ReturnButton />
       <PageHeader badge={t.nav.wordlists} title={t.wordlists.title} subtitle={t.wordlists.subtitle} icon={<List className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
         <GlassCard strong className="p-5">
@@ -118,6 +120,9 @@ export function WordlistsTool() {
         <p className="text-center text-xs text-muted-foreground">
           {def.flag} {def.nativeName} — official Scrabble dictionary filter applied
         </p>
+        <div className="flex justify-center pt-2">
+          <ReturnButton variant="button" label="Return to previous page" />
+        </div>
       </div>
     </>
   );

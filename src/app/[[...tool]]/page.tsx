@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     return {
-      title: `${cleanTitle} | wordIzy`,
+      title: cleanTitle,
       description: `Browse valid, dictionary-verified solutions matching ${cleanTitle.toLowerCase()} constraints. Optimized scoring data layouts built for competitive word plays.`,
     };
   }
@@ -35,13 +35,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const metaConfig = TOOL_METADATA_REGISTRY[activeToolSlug];
   if (metaConfig) {
     return {
-      title: `${metaConfig.title} | wordIzy`,
+      title: metaConfig.title,
       description: metaConfig.description,
       keywords: metaConfig.keywords,
       openGraph: {
         title: metaConfig.title,
         description: metaConfig.description,
-        url: `https://wordizy.com{resolvedParams.tool ? activeToolSlug : ""}`,
+        url: `https://wordizy.com${resolvedParams.tool ? `/${activeToolSlug}` : ""}`,
       }
     };
   }
