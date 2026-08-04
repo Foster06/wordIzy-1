@@ -1,28 +1,24 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
-import { GlassCard } from "@/components/site/glass-card";
 import { useLanguage } from "@/components/i18n/language-provider";
 
 interface HubSearchBarProps {
-  /** "starts" | "ends" | "length" — determines where to navigate. */
   mode: "starts" | "ends" | "length";
-  /** "scrabble" | "wordle" — which dictionary to browse. */
   dict?: "scrabble" | "wordle";
-  /** Placeholder text. */
   placeholder?: string;
 }
 
 /**
- * Search bar on hub pages. For starts/ends mode, typing letters a-z filters
- * the prefix — when the user types 1+ letters and presses Enter (or clicks
- * Browse), navigates to the dedicated page for the FIRST letter.
+ * Search bar on hub pages. For starts/ends mode, typing letters a-z and
+ * pressing Enter (or clicking Browse) navigates to the dedicated page for
+ * the first letter typed. For length mode, typing a number 2-15 navigates
+ * to /unscramble-{n}-letter-words.
  *
- * The input now allows multiple letters (no maxLength=1 restriction) so users
- * can type "CA" and it will navigate to /words-starts-with-c. The input is
- * NOT reset on navigation so focus is preserved.
+ * The input allows multiple letters (no maxLength restriction) and preserves
+ * focus across re-renders via a controlled state + ref.
  */
 export function HubSearchBar({ mode, dict = "scrabble", placeholder }: HubSearchBarProps) {
   const { t } = useLanguage();
@@ -30,13 +26,7 @@ export function HubSearchBar({ mode, dict = "scrabble", placeholder }: HubSearch
   const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Preserve focus across re-renders (was the "reclick after each letter" bug).
-  useEffect(() => {
-    // intentionally empty — ref stays mounted. This effect exists so React
-    // knows we depend on the input being present.
-  }, []);
-
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const raw = value.trim().toLowerCase();
     if (!raw) return;
@@ -47,7 +37,6 @@ export function HubSearchBar({ mode, dict = "scrabble", placeholder }: HubSearch
         router.push(`/unscramble-${n}-letter-words`);
       }
     } else {
-      // starts / ends — use the first letter typed
       const letter = raw[0];
       if (/^[a-z]$/.test(letter)) {
         let prefix: string;
@@ -59,8 +48,6 @@ export function HubSearchBar({ mode, dict = "scrabble", placeholder }: HubSearch
         router.push(`${prefix}${letter}`);
       }
     }
-    // Do NOT reset the input — preserve focus and value so the user can
-    // continue typing or edit. The page will navigate away anyway.
   };
 
   const defaultPlaceholder =
@@ -75,10 +62,10 @@ export function HubSearchBar({ mode, dict = "scrabble", placeholder }: HubSearch
           : t.hubPages.searchPlaceholderEnds;
 
   return (
-    <GlassCard soft className="p-3 sm:p-4 max-w-2xl mx-auto">
-      <form onSubmit={handleSearch} className="flex items-center gap-2 relative z-10">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" aria-hidden />
+    <div className="max-w-2xl mx-auto rounded-xl border border-white/10 bg-white/[0.04] p-3 sm:p-4">
+      <form onSubmit={handleSearch} className="flex items-center gap-2">
+        <div className="relative flex-1 min-w-0">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" aria-hidden />
           <input
             ref={inputRef}
             name="q"
@@ -89,17 +76,17 @@ export function HubSearchBar({ mode, dict = "scrabble", placeholder }: HubSearch
             value={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder={placeholder ?? defaultPlaceholder}
-            className="w-full h-11 pl-9 pr-3 rounded-md glass-soft border border-white/10 bg-transparent text-sm uppercase tracking-wider placeholder:normal-case placeholder:tracking-normal focus-visible:border-brand focus:outline-none"
+            className="w-full h-11 pl-9 pr-3 rounded-md bg-transparent border border-white/10 text-sm uppercase tracking-wider placeholder:normal-case placeholder:tracking-normal focus-visible:border-brand focus:outline-none relative z-20"
             aria-label={placeholder ?? defaultPlaceholder}
           />
         </div>
         <button
           type="submit"
-          className="h-11 px-4 rounded-md bg-brand text-background font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer shrink-0"
+          className="h-11 px-4 rounded-md bg-brand text-background font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer shrink-0 relative z-30"
         >
           {t.hubPages.browseBtn}
         </button>
       </form>
-    </GlassCard>
+    </div>
   );
 }

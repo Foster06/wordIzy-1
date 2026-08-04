@@ -134,6 +134,7 @@ export function ScrabbleTool() {
         </section>
 
         <TipsSection title={t.faq.title} items={t.faq.scrabble} />
+        <TipsSection title="Save Vault — How to use it" items={t.faq.vault} />
         <AdSlot format="horizontal" />
       </div>
     </>

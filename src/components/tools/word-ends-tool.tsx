@@ -43,6 +43,7 @@ export function WordEndsTool() {
         </GlassCard>
 
         <TipsSection title={t.faq.title} items={t.faq.wordends} />
+        <TipsSection title="Save Vault — How to use it" items={t.faq.vault} />
         <AdSlot format="horizontal" />
 
         <div className="flex justify-center pt-2">

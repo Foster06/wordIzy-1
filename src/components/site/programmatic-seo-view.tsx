@@ -44,14 +44,16 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
   const [words, setWords] = useState<ApiWord[]>([]);
   const [total, setTotal] = useState(0);
   const [lengthCounts, setLengthCounts] = useState<Record<number, number>>({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);  // only for the INITIAL load (full-page spinner)
   const [loadingMore, setLoadingMore] = useState(false);
+  const [filtering, setFiltering] = useState(false);  // for search/length filter changes (no full-page spinner)
   const [error, setError] = useState<string | null>(null);
   const [activeLength, setActiveLength] = useState<number | "all">("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [offset, setOffset] = useState(0);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const isFirstLoad = useRef(true);
 
   // Debounce the search query so we don't fetch on every keystroke.
   // This preserves input focus — previously every keystroke triggered a
@@ -79,7 +81,15 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
   // Fetch words from the API with server-side pagination + filtering.
   const fetchWords = useCallback(async (reset: boolean) => {
     if (reset) {
-      setLoading(true);
+      // Only show the full-page spinner on the very first load.
+      // On search/length filter changes, use `filtering` instead so the
+      // search input stays mounted and focused.
+      if (isFirstLoad.current) {
+        setLoading(true);
+        isFirstLoad.current = false;
+      } else {
+        setFiltering(true);
+      }
       setOffset(0);
     } else {
       setLoadingMore(true);
@@ -113,6 +123,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
     } finally {
       setLoading(false);
       setLoadingMore(false);
+      setFiltering(false);
     }
   }, [slug, lang, activeLength, debouncedSearch, offset]);
 

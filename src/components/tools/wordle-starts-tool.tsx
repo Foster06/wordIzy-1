@@ -43,6 +43,7 @@ export function WordleStartsTool() {
         </GlassCard>
 
         <TipsSection title={t.faq.title} items={t.faq.wordle} />
+        <TipsSection title="Save Vault — How to use it" items={t.faq.vault} />
         <AdSlot format="horizontal" />
 
         <div className="flex justify-center pt-2">

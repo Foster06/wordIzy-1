@@ -41,7 +41,12 @@ export function TipsSection({ title, items }: { title: string; items: FaqItem[] 
   );
 }
 
-/** Standard FAQ block for the home/unscrambler page. */
+/** Standard FAQ block for the home/unscrambler page. Includes the vault FAQ. */
 export function HomeFaq({ t }: { t: Translation }) {
-  return <TipsSection title={t.faq.title} items={t.faq.unscrambler} />;
+  return (
+    <>
+      <TipsSection title={t.faq.title} items={t.faq.unscrambler} />
+      <TipsSection title="Save Vault — How to use it" items={t.faq.vault} />
+    </>
+  );
 }

@@ -124,6 +124,7 @@ export function RandomTool() {
         </section>
 
         <TipsSection title={t.faq.title} items={t.faq.random} />
+        <TipsSection title="Save Vault — How to use it" items={t.faq.vault} />
         <AdSlot format="horizontal" />
       </div>
     </>

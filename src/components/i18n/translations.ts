@@ -74,6 +74,7 @@ export type Translation = {
   unscrambler: FaqItemT[]; scramble: FaqItemT[]; wordle: FaqItemT[]; quordle: FaqItemT[];
   anagram: FaqItemT[]; random: FaqItemT[]; wordfeud: FaqItemT[]; dictionary: FaqItemT[];
   scrabble: FaqItemT[]; wordlists: FaqItemT[]; wordstarts: FaqItemT[]; wordends: FaqItemT[];
+  vault: FaqItemT[];
  };
  hubPages: {
   // Subtitles
@@ -386,6 +387,12 @@ const en: Translation = {
    { q: "How is this useful for Scrabble?", a: "Ending letters matter for hooks — if there's an S on the board, knowing all words ending in S lets you pluralize or extend plays. Similarly, knowing words ending in D, ED, ING helps you build off common suffixes. This page is a powerful study tool for competitive play." },
    { q: "Why paginate at 50 words?", a: "Some letters (like E, S, D) have thousands of ending words. To keep pages fast and readable, results paginate at 50 words per page with prev/next buttons. Each page shows the page number and total pages so you know where you are." },
   ],
+  vault: [
+   { q: "What is the Save Vault?", a: "The Save Vault is your personal word bookmark list. Click the star icon next to any word to save it. Click the star icon in the header (top-right) to open the vault drawer and see all your saved words. Your vault is stored locally in your browser — no account needed." },
+   { q: "How do I save a word to the vault?", a: "Click the star (☆) icon next to any word in the results. The star turns amber (★) when a word is saved. Click it again to remove the word from your vault." },
+   { q: "How do I view my saved words?", a: "Click the star icon in the site header (top-right corner). A drawer slides in from the right showing all your saved words. You can copy individual words, copy the entire list, or clear the vault." },
+   { q: "Is my vault synced across devices?", a: "No — the vault is stored in your browser's localStorage, so it's per-device. If you clear your browser data or use a different device, your vault won't transfer. No account is needed and no data leaves your device." },
+  ],
  },
  hubPages: {
   startsSubtitle: "Browse every valid Scrabble word that starts with each letter of the alphabet, from 2 to 15 letters.",
@@ -643,6 +650,12 @@ const fr: Translation = {
    { q: "En quoi cela sert-il au Scrabble ?", a: "Les lettres finales comptent pour les accroches — s'il y a un S sur le plateau, connaître tous les mots finissant par S permet de pluraliser ou prolonger un coup. De même, connaître les mots finissant par D, ED, ING aide à s'appuyer sur les suffixes courants. Cette page est un puissant outil d'étude pour la compétition." },
    { q: "Pourquoi paginer à 50 mots ?", a: "Certaines lettres (E, S, D) ont des milliers de mots finissant par elles. Pour garder les pages rapides et lisibles, les résultats paginent à 50 mots par page avec des boutons précédent/suivant. Chaque page indique son numéro et le total pour vous repérer." },
   ],
+  vault: [
+   { q: "Qu'est-ce que le Coffre-fort ?", a: "Le Coffre-fort est votre liste personnelle de mots favoris. Cliquez sur l'icône étoile à côté d'un mot pour l'enregistrer. Cliquez sur l'icône étoile dans l'en-tête (en haut à droite) pour ouvrir le panneau et voir tous vos mots enregistrés. Votre coffre-fort est stocké localement dans votre navigateur — aucun compte nécessaire." },
+   { q: "Comment enregistrer un mot dans le coffre-fort ?", a: "Cliquez sur l'icône étoile (☆) à côté d'un mot dans les résultats. L'étoile devient ambre (★) lorsqu'un mot est enregistré. Cliquez à nouveau pour retirer le mot de votre coffre-fort." },
+   { q: "Comment voir mes mots enregistrés ?", a: "Cliquez sur l'icône étoile dans l'en-tête du site (coin haut droit). Un panneau s'ouvre depuis la droite affichant tous vos mots enregistrés. Vous pouvez copier des mots individuels, copier toute la liste, ou vider le coffre-fort." },
+   { q: "Mon coffre-fort est-il synchronisé entre appareils ?", a: "Non — le coffre-fort est stocké dans le localStorage de votre navigateur, donc il est propre à chaque appareil. Si vous effacez les données de votre navigateur ou utilisez un autre appareil, votre coffre-fort ne sera pas transféré. Aucun compte n'est nécessaire et aucune donnée ne quitte votre appareil." },
+  ],
  },
  hubPages: {
   startsSubtitle: "Parcourez tous les mots Scrabble valides commençant par chaque lettre de l'alphabet, de 2 à 15 lettres.",
@@ -872,6 +885,12 @@ const es: Translation = {
    { q: "¿Cómo uso los selectores de longitud y letra?", a: "Primero, elige una letra de la fila A-Z — eso fija la letra final. Luego usa la fila de longitud (2-7 o Todas) para filtrar por longitud. Cada sección muestra todas las palabras que terminan con la letra elegida, ordenadas alfabéticamente. Haz clic en «Todas» en cualquiera de las filas para quitar ese filtro." },
    { q: "¿En qué ayuda esto para Scrabble?", a: "Las letras finales importan para los enganches — si hay una S en el tablero, conocer todas las palabras terminadas en S te permite pluralizar o extender jugadas. Igualmente, conocer las palabras terminadas en D, ED, ING ayuda a apoyarte en sufijos comunes. Esta página es una poderosa herramienta de estudio para juego competitivo." },
    { q: "¿Por qué paginar a 50 palabras?", a: "Algunas letras (como E, S, D) tienen miles de palabras que terminan con ellas. Para mantener las páginas rápidas y legibles, los resultados se paginan a 50 palabras por página con botones anterior/siguiente. Cada página indica su número y el total para que sepas dónde estás." },
+  ],
+  vault: [
+   { q: "¿Qué es la Bóveda de guardado?", a: "La Bóveda de guardado es su lista personal de palabras marcadas. Haga clic en el icono de estrella junto a cualquier palabra para guardarla. Haga clic en el icono de estrella en el encabezado (arriba a la derecha) para abrir el panel y ver todas sus palabras guardadas. Su bóveda se almacena localmente en su navegador — no se necesita cuenta." },
+   { q: "¿Cómo guardo una palabra en la bóveda?", a: "Haga clic en el icono de estrella (☆) junto a cualquier palabra en los resultados. La estrella se vuelve ámbar (★) cuando una palabra está guardada. Haga clic de nuevo para eliminar la palabra de su bóveda." },
+   { q: "¿Cómo veo mis palabras guardadas?", a: "Haga clic en el icono de estrella en el encabezado del sitio (esquina superior derecha). Se abre un panel desde la derecha mostrando todas sus palabras guardadas. Puede copiar palabras individuales, copiar toda la lista, o vaciar la bóveda." },
+   { q: "¿Se sincroniza mi bóveda entre dispositivos?", a: "No — la bóveda se almacena en el localStorage de su navegador, por lo que es por dispositivo. Si borra los datos de su navegador o usa un dispositivo diferente, su bóveda no se transferirá. No se necesita cuenta y ningún dato sale de su dispositivo." },
   ],
  },
  hubPages: {
@@ -1103,6 +1122,12 @@ const de: Translation = {
    { q: "Wie ist das für Scrabble nützlich?", a: "Endbuchstaben zählen für Anknüpfungen — ist ein S auf dem Brett, hilft es, alle Wörter auf S zu kennen, um zu pluralisieren oder Züge zu erweitern. Ebenso helfen Wörter auf D, ED, ING, um an häufige Suffixe anzudocken. Diese Seite ist ein mächtiges Trainingswerkzeug für den Wettkampf." },
    { q: "Warum bei 50 Wörtern paginieren?", a: "Manche Buchstaben (wie E, S, D) haben Tausende Endwörter. Damit die Seiten schnell und lesbar bleiben, paginieren die Ergebnisse mit 50 Wörtern pro Seite und Vor-/Zurück-Schaltflächen. Jede Seite zeigt Seitennummer und Gesamtseiten, damit du weißt, wo du bist." },
   ],
+  vault: [
+   { q: "Was ist der Speichertresor?", a: "Der Speichertresor ist Ihre persönliche Lesezeichenliste für Wörter. Klicken Sie auf das Sternsymbol neben einem Wort, um es zu speichern. Klicken Sie auf das Sternsymbol in der Kopfzeile (oben rechts), um die Schublade zu öffnen und alle gespeicherten Wörter zu sehen. Ihr Tresor wird lokal in Ihrem Browser gespeichert — kein Konto erforderlich." },
+   { q: "Wie speichere ich ein Wort im Tresor?", a: "Klicken Sie auf das Sternsymbol (☆) neben einem Wort in den Ergebnissen. Der Stern wird bernsteinfarben (★), wenn ein Wort gespeichert ist. Klicken Sie erneut, um das Wort aus Ihrem Tresor zu entfernen." },
+   { q: "Wie sehe ich meine gespeicherten Wörter?", a: "Klicken Sie auf das Sternsymbol in der Kopfzeile der Website (obere rechte Ecke). Eine Schublade öffnet sich von rechts und zeigt alle Ihre gespeicherten Wörter. Sie können einzelne Wörter kopieren, die gesamte Liste kopieren oder den Tresor leeren." },
+   { q: "Wird mein Tresor zwischen Geräten synchronisiert?", a: "Nein — der Tresor wird im localStorage Ihres Browsers gespeichert, also gerätespezifisch. Wenn Sie Ihre Browserdaten löschen oder ein anderes Gerät verwenden, wird Ihr Tresor nicht übertragen. Kein Konto erforderlich und keine Daten verlassen Ihr Gerät." },
+  ],
  },
  hubPages: {
   startsSubtitle: "Durchsuchen Sie jedes gültige Scrabble-Wort, das mit jedem Buchstaben des Alphabets beginnt, von 2 bis 15 Buchstaben.",
@@ -1332,6 +1357,12 @@ const it: Translation = {
    { q: "Come uso i selettori di lunghezza e lettera?", a: "Prima, scegli una lettera dalla riga A-Z — questo fissa la lettera finale. Poi usa la riga di lunghezza (2-7 o Tutte) per filtrare per lunghezza. Ogni sezione mostra tutte le parole che finiscono con la lettera scelta, ordinate alfabeticamente. Clicca su «Tutte» in una delle righe per rimuovere quel filtro." },
    { q: "In che modo è utile per Scrabble?", a: "Le lettere finali contano per gli agganci — se c'è una S sul tabellone, conoscere tutte le parole in S ti permette di pluralizzare o estendere giocate. Allo stesso modo, conoscere le parole in D, ED, ING aiuta ad appoggiarti sui suffissi comuni. Questa pagina è un potente strumento di studio per il gioco agonistico." },
    { q: "Perché impaginare a 50 parole?", a: "Alcune lettere (come E, S, D) hanno migliaia di parole finali. Per mantenere le pagine veloci e leggibili, i risultati impaginano a 50 parole per pagina con pulsanti precedente/successivo. Ogni pagina indica il numero e il totale per orientarti." },
+  ],
+  vault: [
+   { q: "Cos'è il Salvavault?", a: "Il Salvavault è la tua lista personale di parole preferite. Clicca sull'icona a stella accanto a qualsiasi parola per salvarla. Clicca sull'icona a stella nell'intestazione (in alto a destra) per aprire il pannello e vedere tutte le parole salvate. Il tuo vault è memorizzato localmente nel tuo browser — nessun account necessario." },
+   { q: "Come salvo una parola nel vault?", a: "Clicca sull'icona a stella (☆) accanto a qualsiasi parola nei risultati. La stella diventa ambra (★) quando una parola è salvata. Clicca di nuovo per rimuovere la parola dal tuo vault." },
+   { q: "Come vedo le mie parole salvate?", a: "Clicca sull'icona a stella nell'intestazione del sito (angolo in alto a destra). Si apre un pannello da destra che mostra tutte le tue parole salvate. Puoi copiare singole parole, copiare l'intera lista, o svuotare il vault." },
+   { q: "Il mio vault è sincronizzato tra dispositivi?", a: "No — il vault è memorizzato nel localStorage del tuo browser, quindi è per dispositivo. Se cancelli i dati del browser o usi un dispositivo diverso, il tuo vault non verrà trasferito. Non serve alcun account e nessun dato lascia il tuo dispositivo." },
   ],
  },
  hubPages: {
@@ -1563,6 +1594,12 @@ const pt: Translation = {
    { q: "Como isto ajuda no Scrabble?", a: "As letras finais importam para os engates — se há um S no tabuleiro, conhecer todas as palavras terminadas em S permite-te pluralizar ou estender jogadas. Do mesmo modo, conhecer palavras terminadas em D, ED, ING ajuda a apoiar-te em sufixos comuns. Esta página é uma poderosa ferramenta de estudo para jogo competitivo." },
    { q: "Por que paginar a 50 palavras?", a: "Algumas letras (como E, S, D) têm milhares de palavras finais. Para manter as páginas rápidas e legíveis, os resultados paginam a 50 palavras por página com botões anterior/seguinte. Cada página indica o número e o total para te localizares." },
   ],
+  vault: [
+   { q: "O que é o Cofre de salvamento?", a: "O Cofre de salvamento é sua lista pessoal de palavras favoritas. Clique no ícone de estrela ao lado de qualquer palavra para salvá-la. Clique no ícone de estrela no cabeçalho (canto superior direito) para abrir a gaveta e ver todas as suas palavras salvas. Seu cofre é armazenado localmente no seu navegador — sem necessidade de conta." },
+   { q: "Como salvo uma palavra no cofre?", a: "Clique no ícone de estrela (☆) ao lado de qualquer palavra nos resultados. A estrela fica âmbar (★) quando uma palavra é salva. Clique novamente para remover a palavra do seu cofre." },
+   { q: "Como vejo minhas palavras salvas?", a: "Clique no ícone de estrela no cabeçalho do site (canto superior direito). Uma gaveta desliza da direita mostrando todas as suas palavras salvas. Você pode copiar palavras individuais, copiar toda a lista, ou limpar o cofre." },
+   { q: "Meu cofre é sincronizado entre dispositivos?", a: "Não — o cofre é armazenado no localStorage do seu navegador, então é por dispositivo. Se você limpar os dados do navegador ou usar um dispositivo diferente, seu cofre não será transferido. Nenhuma conta é necessária e nenhum dado sai do seu dispositivo." },
+  ],
  },
  hubPages: {
   startsSubtitle: "Navegue por todas as palavras válidas de Scrabble que começam com cada letra do alfabeto, de 2 a 15 letras.",
@@ -1792,6 +1829,12 @@ const nl: Translation = {
    { q: "Hoe gebruik ik de lengte- en letter-selectors?", a: "Kies eerst een letter uit de A-Z-rij — dat stelt de eindletter in. Gebruik dan de lengte-rij (2-7 of Alle) om op woordlengte te filteren. Elke lengtesectie toont alle woorden die op de gekozen letter eindigen, alfabetisch gesorteerd. Klik op »Alle« in een van de rijen om dat filter te verwijderen." },
    { q: "Hoe is dit nuttig voor Scrabble?", a: "Eindletters doen ertoe voor aansluitingen — als er een S op het bord ligt, helpt het kennen van alle woorden op S om te pluraliseren of zetten uit te breiden. Evenzo helpt het kennen van woorden op D, ED, ING om aan te haken op veelvoorkomende achtervoegsels. Deze pagina is een krachtige studie-tool voor competitief spel." },
    { q: "Waarom pagineren op 50 woorden?", a: "Sommige letters (zoals E, S, D) hebben duizenden eindwoorden. Om pagina's snel en leesbaar te houden, pagineren de resultaten met 50 woorden per pagina en vorige/volgende-knoppen. Elke pagina toont het paginanummer en het totaal, zodat je weet waar je bent." },
+  ],
+  vault: [
+   { q: "Wat is de Opslagkluis?", a: "De Opslagkluis is uw persoonlijke woordenbladwijzerlijst. Klik op het sterpictogram naast een woord om het op te slaan. Klik op het sterpictogram in de koptekst (rechtsboven) om de lade te openen en al uw opgeslagen woorden te zien. Uw kluis wordt lokaal in uw browser opgeslagen — geen account nodig." },
+   { q: "Hoe sla ik een woord op in de kluis?", a: "Klik op het sterpictogram (☆) naast een woord in de resultaten. De ster wordt amberkleurig (★) wanneer een woord is opgeslagen. Klik opnieuw om het woord uit uw kluis te verwijderen." },
+   { q: "Hoe zie ik mijn opgeslagen woorden?", a: "Klik op het sterpictogram in de koptekst van de site (rechtsboven). Een lade schuift vanaf rechts open met al uw opgeslagen woorden. U kunt afzonderlijke woorden kopiëren, de hele lijst kopiëren, of de kluis legen." },
+   { q: "Wordt mijn kluis gesynchroniseerd tussen apparaten?", a: "Nee — de kluis wordt opgeslagen in de localStorage van uw browser, dus het is per apparaat. Als u uw browsergegevens wist of een ander apparaat gebruikt, wordt uw kluis niet overgedragen. Geen account nodig en geen gegevens verlaten uw apparaat." },
   ],
  },
  hubPages: {
@@ -2026,6 +2069,12 @@ const ja: Translation = {
    { q: "スクラブルにどう役立つ？", a: "末尾文字は引っ掛けに重要——盤面にSがあれば、Sで終わる単語を知ることで複数形や手の延長が可能です。同様に、D、ED、INGで終わる単語を知ることで、よくある接尾辞に繋げやすくなります。このページは競技プレイのための強力な学習ツールです。" },
    { q: "なぜ50単語でページ分割？", a: "E、S、Dなどの文字には何千もの末尾単語があります。ページを高速で読みやすく保つため、結果は50単語ごとにページ分割され、前/次ボタンが付きます。各ページにページ番号と総ページ数が表示され、現在地が分かります。" },
   ],
+  vault: [
+   { q: "保存ボールトとは何ですか？", a: "保存ボールトは、単語の個人ブックマークリストです。単語の横の星アイコンをクリックして保存します。ヘッダー（右上）の星アイコンをクリックしてドロワーを開き、保存したすべての単語を表示します。ボールトはブラウザにローカル保存されます — アカウント不要です。" },
+   { q: "単語をボールトに保存するには？", a: "結果の単語の横の星アイコン（☆）をクリックします。保存されると星が琥珀色（★）になります。もう一度クリックすると単語がボールトから削除されます。" },
+   { q: "保存した単語を表示するには？", a: "サイトヘッダー（右上隅）の星アイコンをクリックします。右からドロワーが開き、保存したすべての単語が表示されます。個別の単語をコピー、リスト全体をコピー、ボールトを空にすることができます。" },
+   { q: "ボールトはデバイス間で同期されますか？", a: "いいえ — ボールトはブラウザのlocalStorageに保存されるため、デバイスごとです。ブラウザデータを消去したり別のデバイスを使用したりすると、ボールトは転送されません。アカウント不要で、データはデバイスから外部に送信されません。" },
+  ],
  },
  hubPages: {
   startsSubtitle: "アルファベットの各文字で始まる、2〜15文字のすべての有効なScrabble単語を閲覧できます。",
@@ -2258,6 +2307,12 @@ const zh: Translation = {
    { q: "如何使用长度和字母选择器？", a: "先从A-Z行选一个字母——设定结尾字母。然后用长度行（2-7或全部）按长度筛选。每个长度部分显示所有以所选字母结尾的单词，按字母顺序排序。在任一行点「全部」可移除该筛选。" },
    { q: "这对Scrabble有何帮助？", a: "结尾字母对接续很重要——如果棋盘上有S，了解所有以S结尾的单词可让你复数化或扩展玩法。同样，了解以D、ED、ING结尾的单词有助于借助常见后缀。此页面是竞技对局的强力学习工具。" },
    { q: "为什么按50个单词分页？", a: "有些字母（如E、S、D）有数千个结尾单词。为保持页面快速可读，结果按每页50个单词分页，配以上/下一页按钮。每页显示页码和总页数，便于了解当前位置。" },
+  ],
+  vault: [
+   { q: "什么是保存库？", a: "保存库是您的个人单词书签列表。点击任意单词旁边的星形图标来保存它。点击页眉（右上角）中的星形图标打开抽屉查看所有已保存的单词。您的保存在浏览器本地 — 无需账户。" },
+   { q: "如何将单词保存到库中？", a: "点击结果中任意单词旁边的星形图标（☆）。保存单词时星形变为琥珀色（★）。再次点击可从库中删除该单词。" },
+   { q: "如何查看我保存的单词？", a: "点击网站页眉（右上角）中的星形图标。右侧滑出抽屉显示所有已保存的单词。您可以复制单个单词、复制整个列表或清空库。" },
+   { q: "我的库会在设备间同步吗？", a: "不会 — 库存储在浏览器的localStorage中，因此是按设备的。如果您清除浏览器数据或使用其他设备，您的库不会被转移。无需账户，数据不会离开您的设备。" },
   ],
  },
  hubPages: {

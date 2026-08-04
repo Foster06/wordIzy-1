@@ -47,6 +47,7 @@ export function WordlistsTool() {
         </GlassCard>
 
         <TipsSection title={t.faq.title} items={t.faq.wordlists} />
+        <TipsSection title="Save Vault — How to use it" items={t.faq.vault} />
         <AdSlot format="horizontal" />
         <p className="text-center text-xs text-muted-foreground">{t.hubPages.footerNote}</p>
 
