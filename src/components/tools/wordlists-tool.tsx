@@ -7,6 +7,7 @@ import { AdSlot } from "@/components/site/ad-slot";
 import { PageHeader } from "@/components/site/page-header";
 import { TipsSection } from "@/components/site/tips-section";
 import { ReturnButton } from "@/components/site/back-button";
+import { HubSearchBar } from "@/components/site/hub-search-bar";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { WORD_LIST_LENGTHS } from "@/lib/word-list-urls";
 import { cn } from "@/lib/utils";
@@ -24,6 +25,7 @@ export function WordlistsTool() {
       <ReturnButton />
       <PageHeader badge={t.nav.wordlists} title={t.wordlists.title} subtitle="Browse every valid Scrabble word by length, from 2 to 15 letters. Each length has its own dedicated page." icon={<List className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
+        <HubSearchBar mode="length" />
         <AdSlot format="horizontal" />
 
         <GlassCard strong className="p-5 sm:p-6">
