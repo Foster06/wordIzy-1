@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { WordList } from "@/components/site/word-list";
 import { ReturnButton } from "@/components/site/back-button";
 import { useLanguage } from "@/components/i18n/language-provider";
-import { getProgrammaticWordList } from "@/app/actions/dictionary-seo";
 import {
   parseWordListSlug,
   buildWordListTitle,
@@ -28,25 +27,39 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
   const [dbWords, setDbWords] = useState<{ word: string; score: number }[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     async function loadWords() {
       setLoading(true);
-      const res = await getProgrammaticWordList(config!.type, String(config!.value), lang as LanguageCode);
-      if (cancelled) return;
-      if (res && res.words) {
-        setDbWords(res.words);
-        setTotal(res.total);
-      } else {
-        setDbWords([]);
-        setTotal(0);
+      setError(null);
+      try {
+        const res = await fetch(`/api/word-list?slug=${encodeURIComponent(slug)}&lang=${encodeURIComponent(lang as string)}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (cancelled) return;
+        if (data && Array.isArray(data.words)) {
+          setDbWords(data.words);
+          setTotal(data.total ?? data.words.length);
+        } else {
+          setDbWords([]);
+          setTotal(0);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          console.error("Failed to load words:", err);
+          setError("Failed to load words. Please refresh.");
+          setDbWords([]);
+          setTotal(0);
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-      setLoading(false);
     }
     loadWords();
     return () => { cancelled = true; };
-  }, [slug, lang, config?.type, config?.value]);
+  }, [slug, lang]);
 
   const titleText = buildWordListTitle(config!);
   const siblings = buildWordListSiblingLinks(config!);
@@ -66,6 +79,15 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
       <div className="space-y-6 max-w-5xl mx-auto">
         <ReturnButton href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
         <div className="text-center text-sm py-12 text-muted-foreground animate-pulse">Loading verified word lists…</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="space-y-6 max-w-5xl mx-auto">
+        <ReturnButton href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
+        <div className="text-center text-sm py-12 text-rose-300">{error}</div>
       </div>
     );
   }
