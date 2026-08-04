@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { notFound } from "next/navigation";
 import { Search, X, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { WordList } from "@/components/site/word-list";
@@ -49,7 +49,19 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
   const [error, setError] = useState<string | null>(null);
   const [activeLength, setActiveLength] = useState<number | "all">("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [offset, setOffset] = useState(0);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Debounce the search query so we don't fetch on every keystroke.
+  // This preserves input focus — previously every keystroke triggered a
+  // fetch + re-render which stole focus from the input.
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   const titleText = buildWordListTitle(config!);
   const siblings = buildWordListSiblingLinks(config!);
@@ -82,7 +94,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
         offset: reset ? "0" : String(offset),
       });
       if (activeLength !== "all") params.set("length", String(activeLength));
-      if (searchQuery.trim()) params.set("q", searchQuery.trim());
+      if (debouncedSearch.trim()) params.set("q", debouncedSearch.trim());
 
       const res = await fetch(`/api/word-list?${params.toString()}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -97,17 +109,19 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
       setLengthCounts(data.lengthCounts ?? {});
     } catch (err) {
       console.error("Failed to load words:", err);
-      setError("Failed to load words. Please refresh.");
+      setError(t.wordListPage.error);
     } finally {
       setLoading(false);
       setLoadingMore(false);
     }
-  }, [slug, lang, activeLength, searchQuery, offset]);
+  }, [slug, lang, activeLength, debouncedSearch, offset]);
 
   // Initial load + reload when filters change.
+  // IMPORTANT: we depend on debouncedSearch (not searchQuery) so the fetch
+  // only fires after the user stops typing for 300ms. This preserves input focus.
   useEffect(() => {
     fetchWords(true);
-  }, [slug, lang, activeLength, searchQuery, fetchWords]);
+  }, [slug, lang, activeLength, debouncedSearch, fetchWords]);
 
   const canLoadMore = words.length < total;
 
@@ -117,7 +131,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
         <ReturnButton href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
         <div role="status" aria-live="polite" className="text-center text-sm py-12 text-muted-foreground animate-pulse flex items-center justify-center gap-2">
           <Loader2 className="h-4 w-4 animate-spin" />
-          Loading verified word lists…
+          {t.wordListPage.loading}
         </div>
       </div>
     );
@@ -139,7 +153,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
       <header className="border-b border-white/5 pb-4 space-y-2">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-brand">{titleText}</h1>
         <p className="text-sm text-muted-foreground">
-          {total.toLocaleString()} words
+          {total.toLocaleString()} {t.wordListPage.wordsCount}
           {def ? ` · ${def.flag} ${def.nativeName}` : ""}
         </p>
         <p className="text-sm text-muted-foreground">{descriptionText}</p>
@@ -150,22 +164,24 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
         <div className="flex items-center gap-2 rounded-md glass-soft border border-white/10 px-3 py-2">
           <Search className="h-4 w-4 text-muted-foreground shrink-0" aria-hidden />
           <input
+            ref={searchInputRef}
+            key="word-filter-input"
             type="search"
             inputMode="search"
             autoComplete="off"
             spellCheck={false}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Filter words…"
+            placeholder={t.wordListPage.filterPlaceholder}
             className="flex-1 h-8 bg-transparent text-sm outline-none uppercase tracking-wider placeholder:normal-case placeholder:tracking-normal"
-            aria-label="Filter words"
+            aria-label={t.wordListPage.filterLabel}
           />
           {searchQuery && (
             <button
               type="button"
               onClick={() => setSearchQuery("")}
               className="p-1 rounded hover:bg-white/10 text-muted-foreground hover:text-foreground cursor-pointer"
-              aria-label="Clear filter"
+              aria-label={t.wordListPage.clearFilter}
             >
               <X className="h-4 w-4" />
             </button>
@@ -175,7 +191,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
 
       {/* Length filter buttons (only on starts/ends pages) */}
       {config!.type !== "length" && (
-        <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by word length">
+        <div className="flex flex-wrap gap-2" role="group" aria-label={t.wordListPage.filterByLength}>
           <button
             type="button"
             onClick={() => setActiveLength("all")}
@@ -185,7 +201,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
               activeLength === "all" ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand"
             )}
           >
-            All
+            {t.wordListPage.allLengths}
           </button>
           {WORD_LIST_LENGTHS.map((n) => {
             const count = lengthCounts[n] ?? 0;
@@ -222,7 +238,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
         words={words as any}
         lang={def as any}
         t={t as Translation}
-        emptyMessage={searchQuery || activeLength !== "all" ? "No words match your filter." : "No words found."}
+        emptyMessage={searchQuery || activeLength !== "all" ? t.wordListPage.noMatch : t.wordListPage.noWords}
       />
 
       {/* Load more button — fetches the next page from the server */}
@@ -237,11 +253,11 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
             {loadingMore ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                Loading…
+                {t.common.loading}
               </>
             ) : (
               <>
-                Load more ({(total - words.length).toLocaleString()} remaining)
+                {t.wordListPage.loadMore} ({(total - words.length).toLocaleString()} {t.wordListPage.remaining})
                 <ChevronRight className="h-4 w-4" />
               </>
             )}
@@ -278,13 +294,12 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
       </div>
 
       <section className="text-xs text-muted-foreground leading-relaxed pt-4">
-        <h2 className="text-sm font-semibold text-foreground mb-2">About this word list</h2>
+        <h2 className="text-sm font-semibold text-foreground mb-2">{t.wordListPage.aboutTitle}</h2>
         <p>
-          Browse verified, dictionary-checked words for Scrabble, Wordle, and anagram puzzles.
-          Use the length filter and search box to narrow results. Click any word to copy it.
+          {t.wordListPage.aboutBody}
         </p>
         <p className="mt-2">
-          Canonical URL: <code className="text-brand">wordizy.com{canonical}</code>
+          {t.wordListPage.canonicalUrl} <code className="text-brand">wordizy.com{canonical}</code>
         </p>
       </section>
     </div>

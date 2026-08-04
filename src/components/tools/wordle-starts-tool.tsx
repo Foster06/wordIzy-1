@@ -17,7 +17,7 @@ export function WordleStartsTool() {
   return (
     <>
       <ReturnButton />
-      <PageHeader badge="Wordle Starts" title="Wordle Words Starting With A-Z" subtitle="Browse every valid Wordle word that starts with each letter of the alphabet. Perfect for finding the best starting words and narrowing down your daily puzzle." icon={<Grid3x3 className="h-6 w-6" />} />
+      <PageHeader badge={t.hubPages.wordleStartsBadge} title={t.hubPages.wordleStartsTitle} subtitle={t.hubPages.wordleStartsSubtitle} icon={<Grid3x3 className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
         <HubSearchBar mode="starts" dict="wordle" />
         <AdSlot format="horizontal" />
@@ -25,9 +25,9 @@ export function WordleStartsTool() {
         <GlassCard strong className="p-5 sm:p-6">
           <h3 className="section-label !text-[14px] mb-4 text-brand flex items-center gap-2">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
-            Wordle Words Starting With — A to Z
+            {t.hubPages.wordleStartsHeading}
           </h3>
-          <p className="text-xs text-muted-foreground mb-4">Click a letter to browse all Wordle words starting with that letter on a dedicated page.</p>
+          <p className="text-xs text-muted-foreground mb-4">{t.hubPages.clickLetterWordleStarts}</p>
           <div className="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-13 gap-2">
             {ALPHABET_LOWER.map((letter, i) => (
               <Link
@@ -46,7 +46,7 @@ export function WordleStartsTool() {
         <AdSlot format="horizontal" />
 
         <div className="flex justify-center pt-2">
-          <ReturnButton variant="button" label="Return to home" />
+          <ReturnButton variant="button" label={t.hubPages.returnHome} />
         </div>
       </div>
     </>

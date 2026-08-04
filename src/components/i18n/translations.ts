@@ -75,6 +75,60 @@ export type Translation = {
   anagram: FaqItemT[]; random: FaqItemT[]; wordfeud: FaqItemT[]; dictionary: FaqItemT[];
   scrabble: FaqItemT[]; wordlists: FaqItemT[]; wordstarts: FaqItemT[]; wordends: FaqItemT[];
  };
+ hubPages: {
+  // Subtitles
+  startsSubtitle: string;
+  endsSubtitle: string;
+  lengthSubtitle: string;
+  wordleStartsSubtitle: string;
+  wordleEndsSubtitle: string;
+  // Section headings
+  startsHeading: string;
+  endsHeading: string;
+  lengthHeading: string;
+  wordleStartsHeading: string;
+  wordleEndsHeading: string;
+  // Helper text
+  clickLetterStarts: string;
+  clickLetterEnds: string;
+  clickLength: string;
+  clickLetterWordleStarts: string;
+  clickLetterWordleEnds: string;
+  // Badges
+  wordleStartsBadge: string;
+  wordleEndsBadge: string;
+  // Titles
+  wordleStartsTitle: string;
+  wordleEndsTitle: string;
+  // Return button
+  returnHome: string;
+  // Footer note
+  footerNote: string;
+  // Search bar
+  searchPlaceholderStarts: string;
+  searchPlaceholderEnds: string;
+  searchPlaceholderLength: string;
+  searchPlaceholderWordleStarts: string;
+  searchPlaceholderWordleEnds: string;
+  browseBtn: string;
+ };
+ wordListPage: {
+  loading: string;
+  filterPlaceholder: string;
+  filterLabel: string;
+  clearFilter: string;
+  loadMore: string;
+  remaining: string;
+  allLengths: string;
+  filterByLength: string;
+  aboutTitle: string;
+  aboutBody: string;
+  canonicalUrl: string;
+  noMatch: string;
+  noWords: string;
+  wordsCount: string;
+  error: string;
+ };
 };
 
 type FaqItemT = { q: string; a: string };
@@ -333,6 +387,52 @@ const en: Translation = {
    { q: "Why paginate at 50 words?", a: "Some letters (like E, S, D) have thousands of ending words. To keep pages fast and readable, results paginate at 50 words per page with prev/next buttons. Each page shows the page number and total pages so you know where you are." },
   ],
  },
+ hubPages: {
+  startsSubtitle: "Browse every valid Scrabble word that starts with each letter of the alphabet, from 2 to 15 letters.",
+  endsSubtitle: "Browse every valid Scrabble word that ends with each letter of the alphabet, from 2 to 15 letters.",
+  lengthSubtitle: "Browse every valid Scrabble word by length, from 2 to 15 letters. Each length has its own dedicated page.",
+  wordleStartsSubtitle: "Browse every valid Wordle word that starts with each letter of the alphabet. Perfect for finding the best starting words and narrowing down your daily puzzle.",
+  wordleEndsSubtitle: "Browse every valid Wordle word that ends with each letter of the alphabet. Perfect for finding hooks, suffixes, and narrowing down your daily puzzle.",
+  startsHeading: "Words Starting With — A to Z",
+  endsHeading: "Words Ending With — A to Z",
+  lengthHeading: "Unscramble by Word Length (2–15 letters)",
+  wordleStartsHeading: "Wordle Words Starting With — A to Z",
+  wordleEndsHeading: "Wordle Words Ending With — A to Z",
+  clickLetterStarts: "Click a letter to browse all words starting with that letter on a dedicated page.",
+  clickLetterEnds: "Click a letter to browse all words ending with that letter on a dedicated page.",
+  clickLength: "Click a number to browse all words of that length on a dedicated page.",
+  clickLetterWordleStarts: "Click a letter to browse all Wordle words starting with that letter on a dedicated page.",
+  clickLetterWordleEnds: "Click a letter to browse all Wordle words ending with that letter on a dedicated page.",
+  wordleStartsBadge: "Wordle Starts",
+  wordleEndsBadge: "Wordle Ends",
+  wordleStartsTitle: "Wordle Words Starting With A-Z",
+  wordleEndsTitle: "Wordle Words Ending With A-Z",
+  returnHome: "Return to home",
+  footerNote: "All words filtered through official Scrabble dictionaries.",
+  searchPlaceholderStarts: "Type a letter A-Z to browse words starting with it…",
+  searchPlaceholderEnds: "Type a letter A-Z to browse words ending with it…",
+  searchPlaceholderLength: "Type a number 2-15 to browse by length…",
+  searchPlaceholderWordleStarts: "Type a letter A-Z to browse Wordle words starting with it…",
+  searchPlaceholderWordleEnds: "Type a letter A-Z to browse Wordle words ending with it…",
+  browseBtn: "Browse",
+ },
+ wordListPage: {
+  loading: "Loading verified word lists…",
+  filterPlaceholder: "Filter words…",
+  filterLabel: "Filter words",
+  clearFilter: "Clear filter",
+  loadMore: "Load more",
+  remaining: "remaining",
+  allLengths: "All",
+  filterByLength: "Filter by word length",
+  aboutTitle: "About this word list",
+  aboutBody: "Browse verified, dictionary-checked words for Scrabble, Wordle, and anagram puzzles. Use the length filter and search box to narrow results. Click any word to copy it.",
+  canonicalUrl: "Canonical URL:",
+  noMatch: "No words match your filter.",
+  noWords: "No words found.",
+  wordsCount: "words",
+  error: "Failed to load words. Please refresh.",
+ },
 };
 
 const fr: Translation = {
@@ -544,6 +644,52 @@ const fr: Translation = {
    { q: "Pourquoi paginer à 50 mots ?", a: "Certaines lettres (E, S, D) ont des milliers de mots finissant par elles. Pour garder les pages rapides et lisibles, les résultats paginent à 50 mots par page avec des boutons précédent/suivant. Chaque page indique son numéro et le total pour vous repérer." },
   ],
  },
+ hubPages: {
+  startsSubtitle: "Parcourez tous les mots Scrabble valides commençant par chaque lettre de l'alphabet, de 2 à 15 lettres.",
+  endsSubtitle: "Parcourez tous les mots Scrabble valides se terminant par chaque lettre de l'alphabet, de 2 à 15 lettres.",
+  lengthSubtitle: "Parcourez tous les mots Scrabble valides par longueur, de 2 à 15 lettres. Chaque longueur possède sa propre page dédiée.",
+  wordleStartsSubtitle: "Parcourez tous les mots Wordle valides commençant par chaque lettre de l'alphabet. Idéal pour trouver les meilleurs mots de départ et affiner votre puzzle quotidien.",
+  wordleEndsSubtitle: "Parcourez tous les mots Wordle valides se terminant par chaque lettre de l'alphabet. Idéal pour trouver les crochets, suffixes et affiner votre puzzle quotidien.",
+  startsHeading: "Mots commençant par — A à Z",
+  endsHeading: "Mots se terminant par — A à Z",
+  lengthHeading: "Mots par longueur (2–15 lettres)",
+  wordleStartsHeading: "Mots Wordle commençant par — A à Z",
+  wordleEndsHeading: "Mots Wordle se terminant par — A à Z",
+  clickLetterStarts: "Cliquez sur une lettre pour parcourir tous les mots commençant par cette lettre sur une page dédiée.",
+  clickLetterEnds: "Cliquez sur une lettre pour parcourir tous les mots se terminant par cette lettre sur une page dédiée.",
+  clickLength: "Cliquez sur un nombre pour parcourir tous les mots de cette longueur sur une page dédiée.",
+  clickLetterWordleStarts: "Cliquez sur une lettre pour parcourir tous les mots Wordle commençant par cette lettre sur une page dédiée.",
+  clickLetterWordleEnds: "Cliquez sur une lettre pour parcourir tous les mots Wordle se terminant par cette lettre sur une page dédiée.",
+  wordleStartsBadge: "Wordle commence par",
+  wordleEndsBadge: "Wordle se termine par",
+  wordleStartsTitle: "Mots Wordle commençant par A-Z",
+  wordleEndsTitle: "Mots Wordle se terminant par A-Z",
+  returnHome: "Retour à l'accueil",
+  footerNote: "Tous les mots sont filtrés selon les dictionnaires officiels du Scrabble.",
+  searchPlaceholderStarts: "Tapez une lettre A-Z pour parcourir les mots qui commencent par elle…",
+  searchPlaceholderEnds: "Tapez une lettre A-Z pour parcourir les mots qui se terminent par elle…",
+  searchPlaceholderLength: "Tapez un nombre 2-15 pour parcourir par longueur…",
+  searchPlaceholderWordleStarts: "Tapez une lettre A-Z pour parcourir les mots Wordle commençant par elle…",
+  searchPlaceholderWordleEnds: "Tapez une lettre A-Z pour parcourir les mots Wordle se terminant par elle…",
+  browseBtn: "Parcourir",
+ },
+ wordListPage: {
+  loading: "Chargement des listes de mots vérifiées…",
+  filterPlaceholder: "Filtrer les mots…",
+  filterLabel: "Filtrer les mots",
+  clearFilter: "Effacer le filtre",
+  loadMore: "Charger plus",
+  remaining: "restants",
+  allLengths: "Tous",
+  filterByLength: "Filtrer par longueur de mot",
+  aboutTitle: "À propos de cette liste de mots",
+  aboutBody: "Parcourez des mots vérifiés et validés par le dictionnaire pour le Scrabble, Wordle et les anagrammes. Utilisez le filtre de longueur et la zone de recherche pour affiner les résultats. Cliquez sur un mot pour le copier.",
+  canonicalUrl: "URL canonique :",
+  noMatch: "Aucun mot ne correspond à votre filtre.",
+  noWords: "Aucun mot trouvé.",
+  wordsCount: "mots",
+  error: "Échec du chargement des mots. Veuillez rafraîchir la page.",
+ },
 };
 
 const es: Translation = {
@@ -727,6 +873,52 @@ const es: Translation = {
    { q: "¿En qué ayuda esto para Scrabble?", a: "Las letras finales importan para los enganches — si hay una S en el tablero, conocer todas las palabras terminadas en S te permite pluralizar o extender jugadas. Igualmente, conocer las palabras terminadas en D, ED, ING ayuda a apoyarte en sufijos comunes. Esta página es una poderosa herramienta de estudio para juego competitivo." },
    { q: "¿Por qué paginar a 50 palabras?", a: "Algunas letras (como E, S, D) tienen miles de palabras que terminan con ellas. Para mantener las páginas rápidas y legibles, los resultados se paginan a 50 palabras por página con botones anterior/siguiente. Cada página indica su número y el total para que sepas dónde estás." },
   ],
+ },
+ hubPages: {
+  startsSubtitle: "Explore todas las palabras válidas de Scrabble que comienzan con cada letra del alfabeto, de 2 a 15 letras.",
+  endsSubtitle: "Explore todas las palabras válidas de Scrabble que terminan con cada letra del alfabeto, de 2 a 15 letras.",
+  lengthSubtitle: "Explore todas las palabras válidas de Scrabble por longitud, de 2 a 15 letras. Cada longitud tiene su propia página dedicada.",
+  wordleStartsSubtitle: "Explore todas las palabras válidas de Wordle que comienzan con cada letra del alfabeto. Perfecto para encontrar las mejores palabras iniciales y acotar su puzzle diario.",
+  wordleEndsSubtitle: "Explore todas las palabras válidas de Wordle que terminan con cada letra del alfabeto. Perfecto para encontrar ganchos, sufijos y acotar su puzzle diario.",
+  startsHeading: "Palabras que comienzan con — A a Z",
+  endsHeading: "Palabras que terminan con — A a Z",
+  lengthHeading: "Desordenar por longitud de palabra (2–15 letras)",
+  wordleStartsHeading: "Palabras de Wordle que comienzan con — A a Z",
+  wordleEndsHeading: "Palabras de Wordle que terminan con — A a Z",
+  clickLetterStarts: "Haga clic en una letra para explorar todas las palabras que comienzan con esa letra en una página dedicada.",
+  clickLetterEnds: "Haga clic en una letra para explorar todas las palabras que terminan con esa letra en una página dedicada.",
+  clickLength: "Haga clic en un número para explorar todas las palabras de esa longitud en una página dedicada.",
+  clickLetterWordleStarts: "Haga clic en una letra para explorar todas las palabras de Wordle que comienzan con esa letra en una página dedicada.",
+  clickLetterWordleEnds: "Haga clic en una letra para explorar todas las palabras de Wordle que terminan con esa letra en una página dedicada.",
+  wordleStartsBadge: "Wordle comienza",
+  wordleEndsBadge: "Wordle termina",
+  wordleStartsTitle: "Palabras de Wordle que comienzan con A-Z",
+  wordleEndsTitle: "Palabras de Wordle que terminan con A-Z",
+  returnHome: "Volver al inicio",
+  footerNote: "Todas las palabras se filtran a través de diccionarios oficiales de Scrabble.",
+  searchPlaceholderStarts: "Escriba una letra A-Z para explorar palabras que comienzan con ella…",
+  searchPlaceholderEnds: "Escriba una letra A-Z para explorar palabras que terminan con ella…",
+  searchPlaceholderLength: "Escriba un número 2-15 para explorar por longitud…",
+  searchPlaceholderWordleStarts: "Escriba una letra A-Z para explorar palabras de Wordle que comienzan con ella…",
+  searchPlaceholderWordleEnds: "Escriba una letra A-Z para explorar palabras de Wordle que terminan con ella…",
+  browseBtn: "Explorar",
+ },
+ wordListPage: {
+  loading: "Cargando listas de palabras verificadas…",
+  filterPlaceholder: "Filtrar palabras…",
+  filterLabel: "Filtrar palabras",
+  clearFilter: "Borrar filtro",
+  loadMore: "Cargar más",
+  remaining: "restantes",
+  allLengths: "Todos",
+  filterByLength: "Filtrar por longitud de palabra",
+  aboutTitle: "Acerca de esta lista de palabras",
+  aboutBody: "Explore palabras verificadas y revisadas por diccionario para Scrabble, Wordle y puzzles de anagramas. Use el filtro de longitud y el cuadro de búsqueda para acotar los resultados. Haga clic en cualquier palabra para copiarla.",
+  canonicalUrl: "URL canónica:",
+  noMatch: "Ninguna palabra coincide con su filtro.",
+  noWords: "No se encontraron palabras.",
+  wordsCount: "palabras",
+  error: "Error al cargar las palabras. Por favor, refresque la página.",
  },
 };
 
@@ -912,6 +1104,52 @@ const de: Translation = {
    { q: "Warum bei 50 Wörtern paginieren?", a: "Manche Buchstaben (wie E, S, D) haben Tausende Endwörter. Damit die Seiten schnell und lesbar bleiben, paginieren die Ergebnisse mit 50 Wörtern pro Seite und Vor-/Zurück-Schaltflächen. Jede Seite zeigt Seitennummer und Gesamtseiten, damit du weißt, wo du bist." },
   ],
  },
+ hubPages: {
+  startsSubtitle: "Durchsuchen Sie jedes gültige Scrabble-Wort, das mit jedem Buchstaben des Alphabets beginnt, von 2 bis 15 Buchstaben.",
+  endsSubtitle: "Durchsuchen Sie jedes gültige Scrabble-Wort, das mit jedem Buchstaben des Alphabets endet, von 2 bis 15 Buchstaben.",
+  lengthSubtitle: "Durchsuchen Sie jedes gültige Scrabble-Wort nach Länge, von 2 bis 15 Buchstaben. Jede Länge hat ihre eigene dedizierte Seite.",
+  wordleStartsSubtitle: "Durchsuchen Sie jedes gültige Wordle-Wort, das mit jedem Buchstaben des Alphabets beginnt. Perfekt, um die besten Startwörter zu finden und Ihr tägliches Puzzle einzugrenzen.",
+  wordleEndsSubtitle: "Durchsuchen Sie jedes gültige Wordle-Wort, das mit jedem Buchstaben des Alphabets endet. Perfekt, um Haken, Suffixe zu finden und Ihr tägliches Puzzle einzugrenzen.",
+  startsHeading: "Wörter, die beginnen mit — A bis Z",
+  endsHeading: "Wörter, die enden mit — A bis Z",
+  lengthHeading: "Entschlüsseln nach Wortlänge (2–15 Buchstaben)",
+  wordleStartsHeading: "Wordle-Wörter, die beginnen mit — A bis Z",
+  wordleEndsHeading: "Wordle-Wörter, die enden mit — A bis Z",
+  clickLetterStarts: "Klicken Sie auf einen Buchstaben, um alle Wörter, die mit diesem Buchstaben beginnen, auf einer dedizierten Seite zu durchsuchen.",
+  clickLetterEnds: "Klicken Sie auf einen Buchstaben, um alle Wörter, die mit diesem Buchstaben enden, auf einer dedizierten Seite zu durchsuchen.",
+  clickLength: "Klicken Sie auf eine Zahl, um alle Wörter dieser Länge auf einer dedizierten Seite zu durchsuchen.",
+  clickLetterWordleStarts: "Klicken Sie auf einen Buchstaben, um alle Wordle-Wörter, die mit diesem Buchstaben beginnen, auf einer dedizierten Seite zu durchsuchen.",
+  clickLetterWordleEnds: "Klicken Sie auf einen Buchstaben, um alle Wordle-Wörter, die mit diesem Buchstaben enden, auf einer dedizierten Seite zu durchsuchen.",
+  wordleStartsBadge: "Wordle beginnt",
+  wordleEndsBadge: "Wordle endet",
+  wordleStartsTitle: "Wordle-Wörter, die beginnen mit A-Z",
+  wordleEndsTitle: "Wordle-Wörter, die enden mit A-Z",
+  returnHome: "Zurück zur Startseite",
+  footerNote: "Alle Wörter werden durch offizielle Scrabble-Wörterbücher gefiltert.",
+  searchPlaceholderStarts: "Tippen Sie einen Buchstaben A-Z, um Wörter, die damit beginnen, zu durchsuchen…",
+  searchPlaceholderEnds: "Tippen Sie einen Buchstaben A-Z, um Wörter, die damit enden, zu durchsuchen…",
+  searchPlaceholderLength: "Tippen Sie eine Zahl 2-15, um nach Länge zu durchsuchen…",
+  searchPlaceholderWordleStarts: "Tippen Sie einen Buchstaben A-Z, um Wordle-Wörter, die damit beginnen, zu durchsuchen…",
+  searchPlaceholderWordleEnds: "Tippen Sie einen Buchstaben A-Z, um Wordle-Wörter, die damit enden, zu durchsuchen…",
+  browseBtn: "Durchsuchen",
+ },
+ wordListPage: {
+  loading: "Verifizierte Wortlisten werden geladen…",
+  filterPlaceholder: "Wörter filtern…",
+  filterLabel: "Wörter filtern",
+  clearFilter: "Filter löschen",
+  loadMore: "Mehr laden",
+  remaining: "verbleibend",
+  allLengths: "Alle",
+  filterByLength: "Nach Wortlänge filtern",
+  aboutTitle: "Über diese Wortliste",
+  aboutBody: "Durchsuchen Sie verifizierte, wörterbuchgeprüfte Wörter für Scrabble, Wordle und Anagramm-Puzzles. Verwenden Sie den Längenfilter und das Suchfeld, um die Ergebnisse einzugrenzen. Klicken Sie auf ein Wort, um es zu kopieren.",
+  canonicalUrl: "Canonical URL:",
+  noMatch: "Keine Wörter entsprechen Ihrem Filter.",
+  noWords: "Keine Wörter gefunden.",
+  wordsCount: "Wörter",
+  error: "Wörter konnten nicht geladen werden. Bitte aktualisieren Sie die Seite.",
+ },
 };
 
 const it: Translation = {
@@ -1095,6 +1333,52 @@ const it: Translation = {
    { q: "In che modo è utile per Scrabble?", a: "Le lettere finali contano per gli agganci — se c'è una S sul tabellone, conoscere tutte le parole in S ti permette di pluralizzare o estendere giocate. Allo stesso modo, conoscere le parole in D, ED, ING aiuta ad appoggiarti sui suffissi comuni. Questa pagina è un potente strumento di studio per il gioco agonistico." },
    { q: "Perché impaginare a 50 parole?", a: "Alcune lettere (come E, S, D) hanno migliaia di parole finali. Per mantenere le pagine veloci e leggibili, i risultati impaginano a 50 parole per pagina con pulsanti precedente/successivo. Ogni pagina indica il numero e il totale per orientarti." },
   ],
+ },
+ hubPages: {
+  startsSubtitle: "Sfogli tutte le parole Scrabble valide che iniziano con ogni lettera dell'alfabeto, da 2 a 15 lettere.",
+  endsSubtitle: "Sfogli tutte le parole Scrabble valide che terminano con ogni lettera dell'alfabeto, da 2 a 15 lettere.",
+  lengthSubtitle: "Sfogli tutte le parole Scrabble valide per lunghezza, da 2 a 15 lettere. Ogni lunghezza ha la propria pagina dedicata.",
+  wordleStartsSubtitle: "Sfogli tutte le parole Wordle valide che iniziano con ogni lettera dell'alfabeto. Perfetto per trovare le migliori parole iniziali e restringere il puzzle giornaliero.",
+  wordleEndsSubtitle: "Sfogli tutte le parole Wordle valide che terminano con ogni lettera dell'alfabeto. Perfetto per trovare ganci, suffissi e restringere il puzzle giornaliero.",
+  startsHeading: "Parole che iniziano con — A a Z",
+  endsHeading: "Parole che terminano con — A a Z",
+  lengthHeading: "Riordina per lunghezza parola (2–15 lettere)",
+  wordleStartsHeading: "Parole Wordle che iniziano con — A a Z",
+  wordleEndsHeading: "Parole Wordle che terminano con — A a Z",
+  clickLetterStarts: "Clicchi su una lettera per sfogliare tutte le parole che iniziano con quella lettera in una pagina dedicata.",
+  clickLetterEnds: "Clicchi su una lettera per sfogliare tutte le parole che terminano con quella lettera in una pagina dedicata.",
+  clickLength: "Clicchi su un numero per sfogliare tutte le parole di quella lunghezza in una pagina dedicata.",
+  clickLetterWordleStarts: "Clicchi su una lettera per sfogliare tutte le parole Wordle che iniziano con quella lettera in una pagina dedicata.",
+  clickLetterWordleEnds: "Clicchi su una lettera per sfogliare tutte le parole Wordle che terminano con quella lettera in una pagina dedicata.",
+  wordleStartsBadge: "Wordle inizia",
+  wordleEndsBadge: "Wordle termina",
+  wordleStartsTitle: "Parole Wordle che iniziano con A-Z",
+  wordleEndsTitle: "Parole Wordle che terminano con A-Z",
+  returnHome: "Torna alla home",
+  footerNote: "Tutte le parole sono filtrate attraverso dizionari ufficiali di Scrabble.",
+  searchPlaceholderStarts: "Digiti una lettera A-Z per sfogliare le parole che iniziano con essa…",
+  searchPlaceholderEnds: "Digiti una lettera A-Z per sfogliare le parole che terminano con essa…",
+  searchPlaceholderLength: "Digiti un numero 2-15 per sfogliare per lunghezza…",
+  searchPlaceholderWordleStarts: "Digiti una lettera A-Z per sfogliare le parole Wordle che iniziano con essa…",
+  searchPlaceholderWordleEnds: "Digiti una lettera A-Z per sfogliare le parole Wordle che terminano con essa…",
+  browseBtn: "Sfoglia",
+ },
+ wordListPage: {
+  loading: "Caricamento delle liste di parole verificate…",
+  filterPlaceholder: "Filtra parole…",
+  filterLabel: "Filtra parole",
+  clearFilter: "Cancella filtro",
+  loadMore: "Carica altro",
+  remaining: "rimanenti",
+  allLengths: "Tutti",
+  filterByLength: "Filtra per lunghezza parola",
+  aboutTitle: "Informazioni su questa lista di parole",
+  aboutBody: "Sfogli parole verificate e controllate col dizionario per Scrabble, Wordle e puzzle di anagrammi. Usi il filtro per lunghezza e la casella di ricerca per restringere i risultati. Clicchi su una parola per copiarla.",
+  canonicalUrl: "URL canonico:",
+  noMatch: "Nessuna parola corrisponde al filtro.",
+  noWords: "Nessuna parola trovata.",
+  wordsCount: "parole",
+  error: "Caricamento delle parole non riuscito. Aggiorni la pagina.",
  },
 };
 
@@ -1280,6 +1564,52 @@ const pt: Translation = {
    { q: "Por que paginar a 50 palavras?", a: "Algumas letras (como E, S, D) têm milhares de palavras finais. Para manter as páginas rápidas e legíveis, os resultados paginam a 50 palavras por página com botões anterior/seguinte. Cada página indica o número e o total para te localizares." },
   ],
  },
+ hubPages: {
+  startsSubtitle: "Navegue por todas as palavras válidas de Scrabble que começam com cada letra do alfabeto, de 2 a 15 letras.",
+  endsSubtitle: "Navegue por todas as palavras válidas de Scrabble que terminam com cada letra do alfabeto, de 2 a 15 letras.",
+  lengthSubtitle: "Navegue por todas as palavras válidas de Scrabble por comprimento, de 2 a 15 letras. Cada comprimento tem sua própria página dedicada.",
+  wordleStartsSubtitle: "Navegue por todas as palavras válidas de Wordle que começam com cada letra do alfabeto. Perfeito para encontrar as melhores palavras iniciais e refinar o puzzle diário.",
+  wordleEndsSubtitle: "Navegue por todas as palavras válidas de Wordle que terminam com cada letra do alfabeto. Perfeito para encontrar ganchos, sufixos e refinar o puzzle diário.",
+  startsHeading: "Palavras que começam com — A a Z",
+  endsHeading: "Palavras que terminam com — A a Z",
+  lengthHeading: "Desembaralhar por comprimento da palavra (2–15 letras)",
+  wordleStartsHeading: "Palavras de Wordle que começam com — A a Z",
+  wordleEndsHeading: "Palavras de Wordle que terminam com — A a Z",
+  clickLetterStarts: "Clique numa letra para navegar por todas as palavras que começam com essa letra numa página dedicada.",
+  clickLetterEnds: "Clique numa letra para navegar por todas as palavras que terminam com essa letra numa página dedicada.",
+  clickLength: "Clique num número para navegar por todas as palavras desse comprimento numa página dedicada.",
+  clickLetterWordleStarts: "Clique numa letra para navegar por todas as palavras de Wordle que começam com essa letra numa página dedicada.",
+  clickLetterWordleEnds: "Clique numa letra para navegar por todas as palavras de Wordle que terminam com essa letra numa página dedicada.",
+  wordleStartsBadge: "Wordle começa",
+  wordleEndsBadge: "Wordle termina",
+  wordleStartsTitle: "Palavras de Wordle que começam com A-Z",
+  wordleEndsTitle: "Palavras de Wordle que terminam com A-Z",
+  returnHome: "Voltar ao início",
+  footerNote: "Todas as palavras são filtradas através de dicionários oficiais de Scrabble.",
+  searchPlaceholderStarts: "Digite uma letra A-Z para navegar pelas palavras que começam com ela…",
+  searchPlaceholderEnds: "Digite uma letra A-Z para navegar pelas palavras que terminam com ela…",
+  searchPlaceholderLength: "Digite um número 2-15 para navegar por comprimento…",
+  searchPlaceholderWordleStarts: "Digite uma letra A-Z para navegar pelas palavras de Wordle que começam com ela…",
+  searchPlaceholderWordleEnds: "Digite uma letra A-Z para navegar pelas palavras de Wordle que terminam com ela…",
+  browseBtn: "Navegar",
+ },
+ wordListPage: {
+  loading: "Carregando listas de palavras verificadas…",
+  filterPlaceholder: "Filtrar palavras…",
+  filterLabel: "Filtrar palavras",
+  clearFilter: "Limpar filtro",
+  loadMore: "Carregar mais",
+  remaining: "restantes",
+  allLengths: "Todos",
+  filterByLength: "Filtrar por comprimento da palavra",
+  aboutTitle: "Sobre esta lista de palavras",
+  aboutBody: "Navegue por palavras verificadas e checadas em dicionário para Scrabble, Wordle e puzzles de anagramas. Use o filtro de comprimento e a caixa de pesquisa para refinar os resultados. Clique em qualquer palavra para copiá-la.",
+  canonicalUrl: "URL canônica:",
+  noMatch: "Nenhuma palavra corresponde ao seu filtro.",
+  noWords: "Nenhuma palavra encontrada.",
+  wordsCount: "palavras",
+  error: "Falha ao carregar palavras. Atualize a página.",
+ },
 };
 
 const nl: Translation = {
@@ -1463,6 +1793,52 @@ const nl: Translation = {
    { q: "Hoe is dit nuttig voor Scrabble?", a: "Eindletters doen ertoe voor aansluitingen — als er een S op het bord ligt, helpt het kennen van alle woorden op S om te pluraliseren of zetten uit te breiden. Evenzo helpt het kennen van woorden op D, ED, ING om aan te haken op veelvoorkomende achtervoegsels. Deze pagina is een krachtige studie-tool voor competitief spel." },
    { q: "Waarom pagineren op 50 woorden?", a: "Sommige letters (zoals E, S, D) hebben duizenden eindwoorden. Om pagina's snel en leesbaar te houden, pagineren de resultaten met 50 woorden per pagina en vorige/volgende-knoppen. Elke pagina toont het paginanummer en het totaal, zodat je weet waar je bent." },
   ],
+ },
+ hubPages: {
+  startsSubtitle: "Doorzoek elk geldig Scrabble-woord dat begint met elke letter van het alfabet, van 2 tot 15 letters.",
+  endsSubtitle: "Doorzoek elk geldig Scrabble-woord dat eindigt op elke letter van het alfabet, van 2 tot 15 letters.",
+  lengthSubtitle: "Doorzoek elk geldig Scrabble-woord op lengte, van 2 tot 15 letters. Elke lengte heeft een eigen speciale pagina.",
+  wordleStartsSubtitle: "Doorzoek elk geldig Wordle-woord dat begint met elke letter van het alfabet. Perfect om de beste beginwoorden te vinden en uw dagelijkse puzzle te verfijnen.",
+  wordleEndsSubtitle: "Doorzoek elk geldig Wordle-woord dat eindigt op elke letter van het alfabet. Perfect om haken, achtervoegsels te vinden en uw dagelijkse puzzle te verfijnen.",
+  startsHeading: "Woorden die beginnen met — A tot Z",
+  endsHeading: "Woorden die eindigen op — A tot Z",
+  lengthHeading: "Ontcijfer op woordlengte (2–15 letters)",
+  wordleStartsHeading: "Wordle-woorden die beginnen met — A tot Z",
+  wordleEndsHeading: "Wordle-woorden die eindigen op — A tot Z",
+  clickLetterStarts: "Klik op een letter om alle woorden die met die letter beginnen te doorzoeken op een speciale pagina.",
+  clickLetterEnds: "Klik op een letter om alle woorden die op die letter eindigen te doorzoeken op een speciale pagina.",
+  clickLength: "Klik op een getal om alle woorden van die lengte te doorzoeken op een speciale pagina.",
+  clickLetterWordleStarts: "Klik op een letter om alle Wordle-woorden die met die letter beginnen te doorzoeken op een speciale pagina.",
+  clickLetterWordleEnds: "Klik op een letter om alle Wordle-woorden die op die letter eindigen te doorzoeken op een speciale pagina.",
+  wordleStartsBadge: "Wordle begint",
+  wordleEndsBadge: "Wordle eindigt",
+  wordleStartsTitle: "Wordle-woorden die beginnen met A-Z",
+  wordleEndsTitle: "Wordle-woorden die eindigen op A-Z",
+  returnHome: "Terug naar home",
+  footerNote: "Alle woorden zijn gefilterd via officiële Scrabble-woordenboeken.",
+  searchPlaceholderStarts: "Typ een letter A-Z om woorden die ermee beginnen te doorzoeken…",
+  searchPlaceholderEnds: "Typ een letter A-Z om woorden die erop eindigen te doorzoeken…",
+  searchPlaceholderLength: "Typ een getal 2-15 om op lengte te doorzoeken…",
+  searchPlaceholderWordleStarts: "Typ een letter A-Z om Wordle-woorden die ermee beginnen te doorzoeken…",
+  searchPlaceholderWordleEnds: "Typ een letter A-Z om Wordle-woorden die erop eindigen te doorzoeken…",
+  browseBtn: "Doorzoeken",
+ },
+ wordListPage: {
+  loading: "Geverifieerde woordenlijsten worden geladen…",
+  filterPlaceholder: "Woorden filteren…",
+  filterLabel: "Woorden filteren",
+  clearFilter: "Filter wissen",
+  loadMore: "Meer laden",
+  remaining: "resterend",
+  allLengths: "Alle",
+  filterByLength: "Filteren op woordlengte",
+  aboutTitle: "Over deze woordenlijst",
+  aboutBody: "Doorzoek geverifieerde, woordenboekgecontroleerde woorden voor Scrabble, Wordle en anagrampuzzles. Gebruik het lengtefilter en het zoekvak om resultaten te verfijnen. Klik op een woord om het te kopiëren.",
+  canonicalUrl: "Canonical URL:",
+  noMatch: "Geen woorden komen overeen met uw filter.",
+  noWords: "Geen woorden gevonden.",
+  wordsCount: "woorden",
+  error: "Woorden laden mislukt. Vernieuw de pagina.",
  },
 };
 
@@ -1651,6 +2027,52 @@ const ja: Translation = {
    { q: "なぜ50単語でページ分割？", a: "E、S、Dなどの文字には何千もの末尾単語があります。ページを高速で読みやすく保つため、結果は50単語ごとにページ分割され、前/次ボタンが付きます。各ページにページ番号と総ページ数が表示され、現在地が分かります。" },
   ],
  },
+ hubPages: {
+  startsSubtitle: "アルファベットの各文字で始まる、2〜15文字のすべての有効なScrabble単語を閲覧できます。",
+  endsSubtitle: "アルファベットの各文字で終わる、2〜15文字のすべての有効なScrabble単語を閲覧できます。",
+  lengthSubtitle: "長さ2〜15文字ごとのすべての有効なScrabble単語を閲覧できます。各長さには専用のページがあります。",
+  wordleStartsSubtitle: "アルファベットの各文字で始まる、すべての有効なWordle単語を閲覧できます。最適な最初の単語を見つけ、毎日のパズルを絞り込むのに役立ちます。",
+  wordleEndsSubtitle: "アルファベットの各文字で終わる、すべての有効なWordle単語を閲覧できます。フック、接尾辞を見つけ、毎日のパズルを絞り込むのに役立ちます。",
+  startsHeading: "各文字で始まる単語 — A から Z",
+  endsHeading: "各文字で終わる単語 — A から Z",
+  lengthHeading: "単語の長さでアナグラム解除（2〜15文字）",
+  wordleStartsHeading: "各文字で始まるWordle単語 — A から Z",
+  wordleEndsHeading: "各文字で終わるWordle単語 — A から Z",
+  clickLetterStarts: "文字をクリックすると、その文字で始まるすべての単語を専用ページで閲覧できます。",
+  clickLetterEnds: "文字をクリックすると、その文字で終わるすべての単語を専用ページで閲覧できます。",
+  clickLength: "数字をクリックすると、その長さのすべての単語を専用ページで閲覧できます。",
+  clickLetterWordleStarts: "文字をクリックすると、その文字で始まるすべてのWordle単語を専用ページで閲覧できます。",
+  clickLetterWordleEnds: "文字をクリックすると、その文字で終わるすべてのWordle単語を専用ページで閲覧できます。",
+  wordleStartsBadge: "Wordle 始まり",
+  wordleEndsBadge: "Wordle 終わり",
+  wordleStartsTitle: "各文字で始まるWordle単語 A-Z",
+  wordleEndsTitle: "各文字で終わるWordle単語 A-Z",
+  returnHome: "ホームに戻る",
+  footerNote: "すべての単語は公式Scrabble辞書でフィルタリングされています。",
+  searchPlaceholderStarts: "A-Zの文字を入力して、その文字で始まる単語を閲覧…",
+  searchPlaceholderEnds: "A-Zの文字を入力して、その文字で終わる単語を閲覧…",
+  searchPlaceholderLength: "2-15の数字を入力して、長さで閲覧…",
+  searchPlaceholderWordleStarts: "A-Zの文字を入力して、その文字で始まるWordle単語を閲覧…",
+  searchPlaceholderWordleEnds: "A-Zの文字を入力して、その文字で終わるWordle単語を閲覧…",
+  browseBtn: "閲覧",
+ },
+ wordListPage: {
+  loading: "確認済みの単語リストを読み込み中…",
+  filterPlaceholder: "単語を絞り込む…",
+  filterLabel: "単語を絞り込む",
+  clearFilter: "絞り込みをクリア",
+  loadMore: "もっと読み込む",
+  remaining: "件残り",
+  allLengths: "すべて",
+  filterByLength: "単語の長さで絞り込む",
+  aboutTitle: "この単語リストについて",
+  aboutBody: "Scrabble、Wordle、アナグラムパズル用の、確認済みで辞書チェック済みの単語を閲覧できます。長さフィルターと検索ボックスを使って結果を絞り込みます。単語をクリックするとコピーされます。",
+  canonicalUrl: "正規URL:",
+  noMatch: "絞り込み条件に一致する単語はありません。",
+  noWords: "単語が見つかりませんでした。",
+  wordsCount: "単語",
+  error: "単語の読み込みに失敗しました。更新してください。",
+ },
 };
 
 const zh: Translation = {
@@ -1837,6 +2259,52 @@ const zh: Translation = {
    { q: "这对Scrabble有何帮助？", a: "结尾字母对接续很重要——如果棋盘上有S，了解所有以S结尾的单词可让你复数化或扩展玩法。同样，了解以D、ED、ING结尾的单词有助于借助常见后缀。此页面是竞技对局的强力学习工具。" },
    { q: "为什么按50个单词分页？", a: "有些字母（如E、S、D）有数千个结尾单词。为保持页面快速可读，结果按每页50个单词分页，配以上/下一页按钮。每页显示页码和总页数，便于了解当前位置。" },
   ],
+ },
+ hubPages: {
+  startsSubtitle: "浏览以字母表中每个字母开头的所有有效 Scrabble 单词，长度从 2 到 15 个字母。",
+  endsSubtitle: "浏览以字母表中每个字母结尾的所有有效 Scrabble 单词，长度从 2 到 15 个字母。",
+  lengthSubtitle: "按长度浏览所有有效的 Scrabble 单词，长度从 2 到 15 个字母。每个长度都有独立的专属页面。",
+  wordleStartsSubtitle: "浏览以字母表中每个字母开头的所有有效 Wordle 单词。非常适合寻找最佳起始单词并缩小每日谜题范围。",
+  wordleEndsSubtitle: "浏览以字母表中每个字母结尾的所有有效 Wordle 单词。非常适合寻找接续、后缀并缩小每日谜题范围。",
+  startsHeading: "以…开头的单词 — A 到 Z",
+  endsHeading: "以…结尾的单词 — A 到 Z",
+  lengthHeading: "按单词长度解谜（2–15 个字母）",
+  wordleStartsHeading: "以…开头的 Wordle 单词 — A 到 Z",
+  wordleEndsHeading: "以…结尾的 Wordle 单词 — A 到 Z",
+  clickLetterStarts: "点击字母即可在专属页面浏览以该字母开头的所有单词。",
+  clickLetterEnds: "点击字母即可在专属页面浏览以该字母结尾的所有单词。",
+  clickLength: "点击数字即可在专属页面浏览该长度的所有单词。",
+  clickLetterWordleStarts: "点击字母即可在专属页面浏览以该字母开头的所有 Wordle 单词。",
+  clickLetterWordleEnds: "点击字母即可在专属页面浏览以该字母结尾的所有 Wordle 单词。",
+  wordleStartsBadge: "Wordle 开头",
+  wordleEndsBadge: "Wordle 结尾",
+  wordleStartsTitle: "以 A-Z 开头的 Wordle 单词",
+  wordleEndsTitle: "以 A-Z 结尾的 Wordle 单词",
+  returnHome: "返回首页",
+  footerNote: "所有单词均通过官方 Scrabble 词典筛选。",
+  searchPlaceholderStarts: "输入 A-Z 中的字母以浏览以该字母开头的单词…",
+  searchPlaceholderEnds: "输入 A-Z 中的字母以浏览以该字母结尾的单词…",
+  searchPlaceholderLength: "输入 2-15 之间的数字以按长度浏览…",
+  searchPlaceholderWordleStarts: "输入 A-Z 中的字母以浏览以该字母开头的 Wordle 单词…",
+  searchPlaceholderWordleEnds: "输入 A-Z 中的字母以浏览以该字母结尾的 Wordle 单词…",
+  browseBtn: "浏览",
+ },
+ wordListPage: {
+  loading: "正在加载已验证的单词列表…",
+  filterPlaceholder: "筛选单词…",
+  filterLabel: "筛选单词",
+  clearFilter: "清除筛选",
+  loadMore: "加载更多",
+  remaining: "剩余",
+  allLengths: "全部",
+  filterByLength: "按单词长度筛选",
+  aboutTitle: "关于此单词列表",
+  aboutBody: "浏览为 Scrabble、Wordle 和易位词谜题验证并经词典核查的单词。使用长度筛选和搜索框缩小结果范围。点击任意单词即可复制。",
+  canonicalUrl: "规范 URL：",
+  noMatch: "没有单词符合您的筛选条件。",
+  noWords: "未找到单词。",
+  wordsCount: "个单词",
+  error: "加载单词失败，请刷新。",
  },
 };
 

@@ -18,7 +18,7 @@ export function WordlistsTool() {
   return (
     <>
       <ReturnButton />
-      <PageHeader badge={t.nav.wordlists} title={t.wordlists.title} subtitle="Browse every valid Scrabble word by length, from 2 to 15 letters. Each length has its own dedicated page." icon={<List className="h-6 w-6" />} />
+      <PageHeader badge={t.nav.wordlists} title={t.wordlists.title} subtitle={t.hubPages.lengthSubtitle} icon={<List className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
         <HubSearchBar mode="length" />
         <AdSlot format="horizontal" />
@@ -26,9 +26,9 @@ export function WordlistsTool() {
         <GlassCard strong className="p-5 sm:p-6">
           <h3 className="section-label !text-[14px] mb-4 text-brand flex items-center gap-2">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
-            Unscramble by Word Length (2–15 letters)
+            {t.hubPages.lengthHeading}
           </h3>
-          <p className="text-xs text-muted-foreground mb-4">Click a number to browse all words of that length on a dedicated page.</p>
+          <p className="text-xs text-muted-foreground mb-4">{t.hubPages.clickLength}</p>
           <div className="flex flex-wrap gap-2">
             {WORD_LIST_LENGTHS.map((n) => (
               <Link
@@ -48,10 +48,10 @@ export function WordlistsTool() {
 
         <TipsSection title={t.faq.title} items={t.faq.wordlists} />
         <AdSlot format="horizontal" />
-        <p className="text-center text-xs text-muted-foreground">All words filtered through official Scrabble dictionaries.</p>
+        <p className="text-center text-xs text-muted-foreground">{t.hubPages.footerNote}</p>
 
         <div className="flex justify-center pt-2">
-          <ReturnButton variant="button" label="Return to home" />
+          <ReturnButton variant="button" label={t.hubPages.returnHome} />
         </div>
       </div>
     </>
