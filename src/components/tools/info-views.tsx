@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Info, Mail, Shield, Map, Send, Check, Loader2, AlertCircle, Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2, BookOpen, Trophy, List, ArrowDownToLine, ArrowUpFromLine, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,9 +10,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
 import { PageHeader } from "@/components/site/page-header";
-import { useHashRoute } from "@/components/site/use-hash-route";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { ROUTES, GROUP_ORDER, GROUP_LABELS, type RouteGroup } from "@/components/site/routes";
+import { WORD_LIST_LENGTHS, ALPHABET_LOWER, ALPHABET_UPPER } from "@/lib/word-list-urls";
 import { toast } from "sonner";
 
 const SITEMAP_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -242,11 +243,11 @@ export function PrivacyView() {
 
 export function SitemapView() {
   const { t } = useLanguage();
-  const { navigate } = useHashRoute();
   return (
     <>
       <PageHeader badge={t.nav.sitemap} title={t.sitemap.title} subtitle={t.sitemap.body} icon={<Map className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
+        {/* Core tools */}
         {GROUP_ORDER.map((group: RouteGroup) => {
           const groupRoutes = ROUTES.filter((r) => r.group === group && !r.hidden);
           const labelKey = GROUP_LABELS[group];
@@ -260,9 +261,9 @@ export function SitemapView() {
                 {groupRoutes.map((r) => {
                   const Icon = SITEMAP_ICONS[r.icon] ?? Shuffle;
                   return (
-                    <button
+                    <Link
                       key={r.id}
-                      onClick={() => navigate(r.hash)}
+                      href={r.hash}
                       className="group flex items-center gap-3 rounded-xl px-4 py-3 bg-white/[0.04] border border-white/[0.08] hover:bg-brand/10 hover:border-brand/30 transition-all text-left shadow-sm hover:shadow-md"
                     >
                       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand/10 border border-brand/20 group-hover:bg-brand/20 transition-colors">
@@ -272,13 +273,70 @@ export function SitemapView() {
                         {t.nav[r.labelKey]}
                       </span>
                       <ChevronRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-0.5 transition-all shrink-0" />
-                    </button>
+                    </Link>
                   );
                 })}
               </div>
             </GlassCard>
           );
         })}
+
+        {/* Programmatic: Unscramble by Length (2-15) */}
+        <GlassCard className="p-5 sm:p-6 result-card">
+          <h2 className="section-label !text-[14px] mb-4 text-brand flex items-center gap-2">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
+            Unscramble by Length
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {WORD_LIST_LENGTHS.map((n) => (
+              <Link
+                key={n}
+                href={`/unscramble-${n}-letter-words`}
+                className="h-11 w-14 flex items-center justify-center rounded-md glass-soft text-foreground/80 hover:bg-brand hover:text-background transition-colors text-sm font-semibold tabular-nums"
+              >
+                {n}
+              </Link>
+            ))}
+          </div>
+        </GlassCard>
+
+        {/* Programmatic: Words Starts By A-Z */}
+        <GlassCard className="p-5 sm:p-6 result-card">
+          <h2 className="section-label !text-[14px] mb-4 text-brand flex items-center gap-2">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
+            Words Starts With A-Z
+          </h2>
+          <div className="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-13 gap-2">
+            {ALPHABET_LOWER.map((letter, i) => (
+              <Link
+                key={letter}
+                href={`/words-starts-by-${letter}`}
+                className="h-11 w-full flex items-center justify-center rounded-md glass-soft text-foreground/80 hover:bg-brand hover:text-background transition-colors text-sm font-semibold"
+              >
+                {ALPHABET_UPPER[i]}
+              </Link>
+            ))}
+          </div>
+        </GlassCard>
+
+        {/* Programmatic: Words Ends By A-Z */}
+        <GlassCard className="p-5 sm:p-6 result-card">
+          <h2 className="section-label !text-[14px] mb-4 text-brand flex items-center gap-2">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
+            Words Ends With A-Z
+          </h2>
+          <div className="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-13 gap-2">
+            {ALPHABET_LOWER.map((letter, i) => (
+              <Link
+                key={letter}
+                href={`/words-ends-by-${letter}`}
+                className="h-11 w-full flex items-center justify-center rounded-md glass-soft text-foreground/80 hover:bg-brand hover:text-background transition-colors text-sm font-semibold"
+              >
+                {ALPHABET_UPPER[i]}
+              </Link>
+            ))}
+          </div>
+        </GlassCard>
       </div>
     </>
   );

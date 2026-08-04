@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Cookie, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/site/glass-card";
+import { useRouter } from "next/navigation";
 import { useHashRoute } from "./use-hash-route";
 
 const STORAGE_KEY = "wordizy-cookie-consent";
@@ -17,7 +18,8 @@ type StoredValue = "accepted" | "declined";
  * The X dismiss button also persists "declined" so the banner doesn't reappear.
  */
 export function CookieConsent() {
-  const { navigate } = useHashRoute();
+  const router = useRouter();
+  const navigate = (href: string) => router.push(href);
   const [visible, setVisible] = useState(false);
   const acceptBtnRef = useRef<HTMLButtonElement>(null);
 

@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { GlassCard } from "@/components/site/glass-card";
 import { PageHeader } from "@/components/site/page-header";
 import { useLanguage } from "@/components/i18n/language-provider";
+import { useRouter } from "next/navigation";
 import { useHashRoute } from "@/components/site/use-hash-route";
 
 type TopQuery = { query: string; count: number };
@@ -39,7 +40,8 @@ const TIME_RANGES: { label: string; days: number }[] = [
 
 export function DashboardView() {
   const { t } = useLanguage();
-  const { navigate } = useHashRoute();
+  const router = useRouter();
+  const navigate = (href: string) => router.push(href);
   const [key, setKey] = useState<string>("");
   const [unlocked, setUnlocked] = useState(false);
   const [loading, setLoading] = useState(false);
