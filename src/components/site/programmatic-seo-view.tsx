@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { notFound } from "next/navigation";
-import { Search, X } from "lucide-react";
+import { Search, X, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { WordList } from "@/components/site/word-list";
 import { ReturnButton } from "@/components/site/back-button";
+import { GlassCard } from "@/components/site/glass-card";
+import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/i18n/language-provider";
 import {
   parseWordListSlug,
@@ -21,72 +23,33 @@ interface ProgrammaticSEOViewProps {
   slug: string;
 }
 
+interface ApiWord { word: string; score: number; }
+interface ApiResponse {
+  title: string;
+  words: ApiWord[];
+  total: number;
+  offset: number;
+  limit: number;
+  lengthCounts: Record<number, number>;
+}
+
+const PAGE_SIZE = 50;
+
 export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
   const config = parseWordListSlug(slug);
   if (!config) notFound();
 
   const { t, lang } = useLanguage();
   const def = LANGUAGES[lang as LanguageCode];
-  const [dbWords, setDbWords] = useState<{ word: string; score: number }[]>([]);
+  const [words, setWords] = useState<ApiWord[]>([]);
   const [total, setTotal] = useState(0);
+  const [lengthCounts, setLengthCounts] = useState<Record<number, number>>({});
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeLength, setActiveLength] = useState<number | "all">("all");
   const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    let cancelled = false;
-    async function loadWords() {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch(`/api/word-list?slug=${encodeURIComponent(slug)}&lang=${encodeURIComponent(lang as string)}`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        if (cancelled) return;
-        if (data && Array.isArray(data.words)) {
-          setDbWords(data.words);
-          setTotal(data.total ?? data.words.length);
-        } else {
-          setDbWords([]);
-          setTotal(0);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          console.error("Failed to load words:", err);
-          setError("Failed to load words. Please refresh.");
-          setDbWords([]);
-          setTotal(0);
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-    loadWords();
-    return () => { cancelled = true; };
-  }, [slug, lang]);
-
-  // Length counts for the filter buttons (only show on starts/ends pages)
-  const lengthCounts = useMemo<Record<number, number>>(() => {
-    const counts: Record<number, number> = {};
-    if (!config || config.type === "length") return counts;
-    for (const w of dbWords) {
-      const len = w.word.length;
-      if (len >= 2 && len <= 15) counts[len] = (counts[len] ?? 0) + 1;
-    }
-    return counts;
-  }, [dbWords, config]);
-
-  // Filtered words: apply length filter + search query
-  const displayedWords = useMemo(() => {
-    let list = dbWords;
-    if (config && config.type !== "length" && activeLength !== "all") {
-      list = list.filter((w) => w.word.length === activeLength);
-    }
-    const q = searchQuery.trim().toLowerCase();
-    if (q) list = list.filter((w) => w.word.toLowerCase().includes(q));
-    return list;
-  }, [dbWords, activeLength, searchQuery, config]);
+  const [offset, setOffset] = useState(0);
 
   const titleText = buildWordListTitle(config!);
   const siblings = buildWordListSiblingLinks(config!);
@@ -101,11 +64,61 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
     descriptionText = `Discover verified Scrabble words that end with the letter "${String(config!.value).toUpperCase()}". Filter by length and find hooks.`;
   }
 
+  // Fetch words from the API with server-side pagination + filtering.
+  const fetchWords = useCallback(async (reset: boolean) => {
+    if (reset) {
+      setLoading(true);
+      setOffset(0);
+    } else {
+      setLoadingMore(true);
+    }
+    setError(null);
+
+    try {
+      const params = new URLSearchParams({
+        slug,
+        lang: String(lang),
+        limit: String(PAGE_SIZE),
+        offset: reset ? "0" : String(offset),
+      });
+      if (activeLength !== "all") params.set("length", String(activeLength));
+      if (searchQuery.trim()) params.set("q", searchQuery.trim());
+
+      const res = await fetch(`/api/word-list?${params.toString()}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data: ApiResponse = await res.json();
+
+      if (reset) {
+        setWords(data.words);
+      } else {
+        setWords((prev) => [...prev, ...data.words]);
+      }
+      setTotal(data.total);
+      setLengthCounts(data.lengthCounts ?? {});
+    } catch (err) {
+      console.error("Failed to load words:", err);
+      setError("Failed to load words. Please refresh.");
+    } finally {
+      setLoading(false);
+      setLoadingMore(false);
+    }
+  }, [slug, lang, activeLength, searchQuery, offset]);
+
+  // Initial load + reload when filters change.
+  useEffect(() => {
+    fetchWords(true);
+  }, [slug, lang, activeLength, searchQuery, fetchWords]);
+
+  const canLoadMore = words.length < total;
+
   if (loading) {
     return (
       <div className="space-y-6 max-w-5xl mx-auto">
         <ReturnButton href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
-        <div className="text-center text-sm py-12 text-muted-foreground animate-pulse">Loading verified word lists…</div>
+        <div className="text-center text-sm py-12 text-muted-foreground animate-pulse flex items-center justify-center gap-2">
+          <Loader2 className="h-4 w-4 animate-spin" />
+          Loading verified word lists…
+        </div>
       </div>
     );
   }
@@ -132,7 +145,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
         <p className="text-sm text-muted-foreground">{descriptionText}</p>
       </header>
 
-      {/* Search bar — filter words by substring */}
+      {/* Search bar — server-side filter */}
       <div className="sticky top-16 z-20 -mx-2 px-2 py-2 bg-background/80 backdrop-blur-md">
         <div className="flex items-center gap-2 rounded-md glass-soft border border-white/10 px-3 py-2">
           <Search className="h-4 w-4 text-muted-foreground shrink-0" aria-hidden />
@@ -160,7 +173,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
         </div>
       </div>
 
-      {/* Length filter buttons (only on starts/ends pages, not length pages) */}
+      {/* Length filter buttons (only on starts/ends pages) */}
       {config!.type !== "length" && (
         <div className="flex flex-wrap gap-2">
           <button
@@ -201,20 +214,44 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
         </div>
       )}
 
-      {/* Word list with page-size toggle */}
+      {/* Word list (only the currently-fetched page) */}
       <WordList
-        words={displayedWords as any}
+        words={words as any}
         lang={def as any}
         t={t as Translation}
         emptyMessage={searchQuery || activeLength !== "all" ? "No words match your filter." : "No words found."}
-        showPageSizeToggle
       />
 
-      {/* Prev / next navigation */}
+      {/* Load more button — fetches the next page from the server */}
+      {canLoadMore && (
+        <div className="flex justify-center">
+          <Button
+            onClick={() => fetchWords(false)}
+            disabled={loadingMore}
+            variant="ghost"
+            className="gap-2 glass-soft rounded-md h-10 px-6"
+          >
+            {loadingMore ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Loading…
+              </>
+            ) : (
+              <>
+                Load more ({(total - words.length).toLocaleString()} remaining)
+                <ChevronRight className="h-4 w-4" />
+              </>
+            )}
+          </Button>
+        </div>
+      )}
+
+      {/* Prev / next sibling navigation */}
       <nav className="flex items-center justify-between gap-3 pt-4 border-t border-white/5" aria-label="Pagination">
         {siblings.prev ? (
           <a href={siblings.prev.href} className="inline-flex items-center gap-2 px-3 py-2 rounded-md glass-soft text-sm hover:text-brand transition-colors">
-            ← <span>{siblings.prev.label}</span>
+            <ChevronLeft className="h-4 w-4" />
+            <span>{siblings.prev.label}</span>
           </a>
         ) : (
           <span />
@@ -224,7 +261,8 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
         </a>
         {siblings.next ? (
           <a href={siblings.next.href} className="inline-flex items-center gap-2 px-3 py-2 rounded-md glass-soft text-sm hover:text-brand transition-colors">
-            <span>{siblings.next.label}</span> →
+            <span>{siblings.next.label}</span>
+            <ChevronRight className="h-4 w-4" />
           </a>
         ) : (
           <span />
