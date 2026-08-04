@@ -39,7 +39,6 @@ export function SiteFooter() {
                 <ul className="space-y-1.5 sm:space-y-2">
                   {groupRoutes.map((r) => (
                     <li key={r.id}>
-                      {/* 🎯 FIXED: Replaced legacy button/navigate with pure Next.js Link elements */}
                       <Link
                         href={r.hash}
                         className="font-bree !text-[15px] text-muted-foreground hover:text-brand transition-colors text-left break-words block cursor-pointer"
@@ -52,6 +51,18 @@ export function SiteFooter() {
               </div>
             );
           })}
+        </div>
+
+        {/* Guides section — visible in footer so users can discover content */}
+        <div className="mb-6">
+          <h3 className="font-bree !text-[15px] !font-semibold uppercase tracking-wider mb-2 sm:mb-3 text-brand">Guides</h3>
+          <ul className="space-y-1.5 sm:space-y-2">
+            <li>
+              <Link href="/guides/best-wordle-starter-words" className="font-bree !text-[15px] text-muted-foreground hover:text-brand transition-colors block cursor-pointer">
+                Best Wordle Starter Words
+              </Link>
+            </li>
+          </ul>
         </div>
 
         <div className="mb-6">

@@ -10,6 +10,8 @@ import { GlassCard } from "@/components/site/glass-card";
 import { ErrorBoundary } from "@/components/site/error-boundary";
 import { RouteSeo } from "@/components/site/route-seo";
 import { UnscramblerTool } from "@/components/tools/unscrambler-tool";
+import Link from "next/link";
+import { BookOpen, ChevronRight } from "lucide-react";
 import { isWordListPage } from "@/lib/word-list-urls";
 
 const ScrambleTool = dynamic(
@@ -152,6 +154,20 @@ export function MainToolView({ params }: MainToolViewProps) {
             <ErrorBoundary label="Unscrambler">
               <UnscramblerTool />
             </ErrorBoundary>
+            {/* Featured guide — visible on homepage so users can discover content */}
+            <div className="mt-8 rounded-xl border border-white/10 bg-white/[0.04] p-5 sm:p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <BookOpen className="h-5 w-5 text-brand" />
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-brand">Featured Guide</h3>
+              </div>
+              <Link href="/guides/best-wordle-starter-words" className="group flex items-center justify-between gap-3">
+                <div>
+                  <h4 className="text-lg font-bold text-foreground group-hover:text-brand transition-colors">Best Wordle Starter Words: Top Strategy Combinations to Win Daily</h4>
+                  <p className="text-xs text-muted-foreground mt-1">Discover the mathematically optimal opening words, 3 winning strategies, and a proven second-guess framework for every scenario.</p>
+                </div>
+                <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-all shrink-0" />
+              </Link>
+            </div>
           </>
         );
          // 🎯 ADD THIS NEW CASE BLOCK FOR YOUR GAME:
@@ -209,6 +225,19 @@ export function MainToolView({ params }: MainToolViewProps) {
             <ErrorBoundary label="Unscrambler">
               <UnscramblerTool />
             </ErrorBoundary>
+            <div className="mt-8 rounded-xl border border-white/10 bg-white/[0.04] p-5 sm:p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <BookOpen className="h-5 w-5 text-brand" />
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-brand">Featured Guide</h3>
+              </div>
+              <Link href="/guides/best-wordle-starter-words" className="group flex items-center justify-between gap-3">
+                <div>
+                  <h4 className="text-lg font-bold text-foreground group-hover:text-brand transition-colors">Best Wordle Starter Words: Top Strategy Combinations to Win Daily</h4>
+                  <p className="text-xs text-muted-foreground mt-1">Discover the mathematically optimal opening words, 3 winning strategies, and a proven second-guess framework for every scenario.</p>
+                </div>
+                <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-all shrink-0" />
+              </Link>
+            </div>
           </>
         );
     }
