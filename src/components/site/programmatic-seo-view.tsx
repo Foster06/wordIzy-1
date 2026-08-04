@@ -64,7 +64,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
   if (loading) {
     return (
       <div className="space-y-6 max-w-5xl mx-auto">
-        <ReturnButton fallbackHref={siblings.indexHref} />
+        <ReturnButton href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
         <div className="text-center text-sm py-12 text-muted-foreground animate-pulse">Loading verified word lists…</div>
       </div>
     );
@@ -72,7 +72,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
-      <ReturnButton fallbackHref={siblings.indexHref} />
+      <ReturnButton href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
 
       <header className="border-b border-white/5 pb-4 space-y-2">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-brand">{titleText}</h1>
@@ -114,7 +114,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
 
       {/* Return button at bottom */}
       <div className="flex justify-center pt-2">
-        <ReturnButton variant="button" fallbackHref={siblings.indexHref} label="Return to previous page" />
+        <ReturnButton variant="button" href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
       </div>
 
       <section className="text-xs text-muted-foreground leading-relaxed pt-4">

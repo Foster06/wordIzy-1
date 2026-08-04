@@ -4,31 +4,37 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, CornerUpLeft } from "lucide-react";
 
 interface ReturnButtonProps {
-  /** Where to navigate to if there's no browser history (e.g. user landed directly). */
-  fallbackHref?: string;
+  /** Where to navigate to. On programmatic pages, this should be the hub page
+   *  (e.g. /wordstarts, /wordends, /wordlists) so users always return to the
+   *  hub — not to Google/wherever they came from. */
+  href?: string;
   /** Label shown on the button. */
   label?: string;
   /** Visual variant — "link" is the compact inline style, "button" is a prominent pill. */
   variant?: "link" | "button";
+  /** If true, use browser history.back() instead of a fixed href. Defaults to false
+   *  so the button always goes to a known destination (better UX for SEO landing pages). */
+  useHistoryBack?: boolean;
 }
 
 /**
- * "Return" button — uses browser history.back() so users go back to wherever
- * they came from (homepage, another hub, a programmatic page, etc.). Falls back
- * to `fallbackHref` if there's no previous history entry (direct landing / new tab).
+ * "Return" button — navigates to a fixed `href` (default: "/") so users always
+ * land on a known page. Set `useHistoryBack={true}` to use browser history.back()
+ * instead (falls back to `href` if there's no history).
  */
 export function ReturnButton({
-  fallbackHref = "/",
+  href = "/",
   label = "Return",
   variant = "link",
+  useHistoryBack = false,
 }: ReturnButtonProps) {
   const router = useRouter();
 
   const handleClick = () => {
-    if (typeof window !== "undefined" && window.history.length > 1) {
+    if (useHistoryBack && typeof window !== "undefined" && window.history.length > 1) {
       router.back();
     } else {
-      router.push(fallbackHref);
+      router.push(href);
     }
   };
 
