@@ -11,7 +11,7 @@ interface PuzzleState {
 }
 
 export function AnagramBlitz() {
-  const { lang } = useLanguage(); 
+  const { t, lang } = useLanguage();
   const [isInfiniteMode, setIsInfiniteMode] = useState(false);
   const [currentPuzzle, setCurrentPuzzle] = useState<PuzzleState | null>(null);
   const [input, setInput] = useState("");
@@ -30,7 +30,7 @@ export function AnagramBlitz() {
       const todayStr = new Date().toDateString();
       const lastPlayedDate = localStorage.getItem("izy_blitz_last_played");
       const dailyHighScore = localStorage.getItem("izy_blitz_high_score");
-      
+
       if (lastPlayedDate === todayStr) {
         setHasPlayedToday(true);
         if (dailyHighScore) setScore(parseInt(dailyHighScore, 10));
@@ -53,6 +53,7 @@ export function AnagramBlitz() {
     if (isPlaying && timeLeft === 0) {
       handleStopGame();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft, isPlaying]);
 
   const fetchWordFromDictionary = async (modeType: "daily" | "infinite") => {
@@ -61,21 +62,20 @@ export function AnagramBlitz() {
       const activeLang = lang && lang.trim() ? lang.toLowerCase() : "en";
       const origin = typeof window !== "undefined" ? window.location.origin : "https://wordizy.com";
       const targetUrl = `${origin}/api/game/random-word?mode=${modeType}&lang=${activeLang}&t=${Date.now()}`;
-      
+
       const res = await fetch(targetUrl);
       if (!res.ok) throw new Error(`HTTP Error Status: ${res.status}`);
       const data = await res.json();
-      
+
       if (data && data.scrambled) {
-        // 🎯 SAVES BOTH STRINGS LOCKED TOGETHER INSTANTLY
         setCurrentPuzzle({
           scrambled: data.scrambled,
           answer: data.answer,
-          hint: data.hint
+          hint: data.hint,
         });
       }
     } catch (e) {
-      console.error("Fetch pipeline anomaly managed safely", e);
+      console.error("Fetch failed:", e);
     } finally {
       setFetchingWord(false);
     }
@@ -88,12 +88,12 @@ export function AnagramBlitz() {
     if (input.toUpperCase().trim() === currentPuzzle.answer) {
       setScore((prev) => prev + 20);
       setInput("");
-      setRevealMessage("✨ Perfect! Correct Answer!");
-      
+      setRevealMessage(t.blitz.correct);
+
       if (isInfiniteMode) {
         setTimeLeft((prev) => prev + 10);
       }
-      
+
       setTimeout(async () => {
         setRevealMessage("");
         await fetchWordFromDictionary("infinite");
@@ -103,12 +103,11 @@ export function AnagramBlitz() {
 
   const handleGiveUpAndSolve = () => {
     if (!currentPuzzle || fetchingWord || !!revealMessage) return;
-    
-    // 🎯 REVEALS THE EXACT ANSWER TIED TO THIS SINGLE DATA OBJECT
-    setRevealMessage(`The answer was: ${currentPuzzle.answer}`);
+
+    setRevealMessage(`${t.blitz.answerWas} ${currentPuzzle.answer}`);
     setInput("");
     setScore((prev) => Math.max(0, prev - 5));
-    
+
     setTimeout(async () => {
       setRevealMessage("");
       await fetchWordFromDictionary("infinite");
@@ -154,16 +153,16 @@ export function AnagramBlitz() {
   };
 
   if (loading) {
-    return <GlassCard className="p-6 text-center max-w-md mx-auto text-xs text-muted-foreground">Loading Puzzle Engine...</GlassCard>;
+    return <GlassCard className="p-6 text-center max-w-md mx-auto text-xs text-muted-foreground">{t.blitz.loadingEngine}</GlassCard>;
   }
 
   if (hasPlayedToday && !isPlaying && !isGameOver) {
     return (
       <GlassCard className="p-6 text-center max-w-md mx-auto border-emerald-500/20 bg-emerald-500/[0.02]">
-        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 uppercase tracking-wider">Completed</span>
-        <h3 className="text-xl font-bold mt-2 mb-1">📅 Today's Puzzle Solved!</h3>
-        <p className="text-muted-foreground text-xs mb-4">You have already used your daily attempt! Come back tomorrow at midnight for a brand-new challenge.</p>
-        <button onClick={startInfinitePractice} className="px-4 py-2 bg-brand text-white rounded-lg text-xs font-semibold cursor-pointer shadow-md">Play Infinite Practice Mode</button>
+        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 uppercase tracking-wider">{t.blitz.completed}</span>
+        <h3 className="text-xl font-bold mt-2 mb-1">{t.blitz.todaysPuzzleSolved}</h3>
+        <p className="text-muted-foreground text-xs mb-4">{t.blitz.alreadyPlayed}</p>
+        <button onClick={startInfinitePractice} className="px-4 py-2 bg-brand text-white rounded-lg text-xs font-semibold cursor-pointer shadow-md">{t.blitz.playInfinite}</button>
       </GlassCard>
     );
   }
@@ -172,11 +171,11 @@ export function AnagramBlitz() {
     return (
       <GlassCard className="p-6 text-center max-w-md mx-auto">
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand/10 text-brand uppercase tracking-wider">New Daily Challenge Live</span>
-        <h3 className="text-xl font-bold mt-2 mb-1">⚡ Anagram Blitz Challenge</h3>
-        <p className="text-muted-foreground text-xs mb-4">Unscramble words under a 60-second time limit from our Scrabble dictionaries.</p>
+        <h3 className="text-xl font-bold mt-2 mb-1">{t.blitz.challengeTitle}</h3>
+        <p className="text-muted-foreground text-xs mb-4">{t.blitz.challengeDesc}</p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
-          <button onClick={startDailyChallenge} className="w-full sm:w-auto px-4 py-2 bg-brand text-white rounded-lg text-xs font-semibold cursor-pointer">Start Today's Puzzle</button>
-          <button onClick={startInfinitePractice} className="w-full sm:w-auto px-4 py-2 bg-muted hover:bg-muted/80 text-foreground rounded-lg text-xs font-semibold cursor-pointer">Play Infinite Practice</button>
+          <button onClick={startDailyChallenge} className="w-full sm:w-auto px-4 py-2 bg-brand text-white rounded-lg text-xs font-semibold cursor-pointer">{t.blitz.startToday}</button>
+          <button onClick={startInfinitePractice} className="w-full sm:w-auto px-4 py-2 bg-muted hover:bg-muted/80 text-foreground rounded-lg text-xs font-semibold cursor-pointer">{t.blitz.playInfiniteBtn}</button>
         </div>
       </GlassCard>
     );
@@ -185,21 +184,21 @@ export function AnagramBlitz() {
   if (isGameOver && !isPlaying) {
     return (
       <GlassCard className="p-6 text-center max-w-md mx-auto">
-        <h4 className="text-lg font-bold">⏱️ Time's Up! Game Over</h4>
-        <p className="text-sm my-2">Final Score: <span className="font-bold text-brand">{score}</span> points.</p>
-        
+        <h4 className="text-lg font-bold">{t.blitz.timesUp}</h4>
+        <p className="text-sm my-2">{t.blitz.finalScore} <span className="font-bold text-brand">{score}</span> {t.blitz.points}</p>
+
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-2">
           {isInfiniteMode ? (
             <button onClick={startInfinitePractice} className="w-full sm:w-auto px-4 py-2 bg-brand text-white rounded-lg text-xs font-medium cursor-pointer">
-              🔄 Play Practice Again
+              {t.blitz.playAgain}
             </button>
           ) : (
             <p className="text-xs text-muted-foreground bg-emerald-500/5 border border-emerald-500/10 p-2 rounded-lg w-full">
-              Your daily attempt is locked. See you tomorrow!
+              {t.blitz.dailyLocked}
             </p>
           )}
           <button onClick={() => { setIsGameOver(false); setScore(0); }} className="w-full sm:w-auto px-4 py-2 bg-muted rounded-lg text-xs font-medium cursor-pointer">
-            Return to Menu
+            {t.blitz.returnMenu}
           </button>
         </div>
       </GlassCard>
@@ -209,58 +208,59 @@ export function AnagramBlitz() {
   return (
     <GlassCard className="p-6 text-center max-w-md mx-auto">
       <div className="flex justify-between items-center text-xs text-muted-foreground mb-4 gap-2">
-        <span className="font-mono tabular-nums shrink-0">⏱️ {timeLeft}s</span>
-        <span className="font-mono tabular-nums shrink-0 min-w-[80px] text-right">🏆 {score} pts</span>
+        <span className="font-mono tabular-nums shrink-0">⏱️ {timeLeft}{t.blitz.timeLeft}</span>
+        <span className="font-mono tabular-nums shrink-0 min-w-[80px] text-right">🏆 {score} {t.blitz.totalScore}</span>
       </div>
       <div className="space-y-4">
-        
+
         {fetchingWord || !currentPuzzle ? (
           <div className="h-[76px] flex items-center justify-center text-xs text-muted-foreground tracking-widest uppercase font-mono animate-pulse">
-            🎲 Generating Word...
+            {t.blitz.generating}
           </div>
         ) : (
           <>
             <div className="text-3xl font-extrabold tracking-widest text-gradient-brand my-4 uppercase font-mono">
               {currentPuzzle.scrambled}
             </div>
-            
+
             <p className="text-xs text-muted-foreground bg-white/[0.03] py-1.5 px-3 rounded-lg border border-white/5 max-w-xs mx-auto">
-              💡 Hint: {currentPuzzle.hint}
+              {t.blitz.hint} {currentPuzzle.hint}
             </p>
           </>
         )}
-        
+
         {revealMessage ? (
           <p className="text-xs font-bold text-amber-500 h-9 flex items-center justify-center">{revealMessage}</p>
         ) : (
           <form onSubmit={handleSubmit}>
-            <input 
-              type="text" 
+            <input
+              type="text"
               disabled={fetchingWord}
-              value={input} 
-              onChange={(e) => setInput(e.target.value)} 
-              className="w-full text-center p-2 rounded-lg bg-background border text-sm h-9 uppercase tracking-wider font-mono font-bold border-brand/20 focus:border-brand disabled:opacity-40" 
-              placeholder={fetchingWord ? "Waiting..." : "Type word..."} 
-              autoFocus 
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="w-full text-center p-2 rounded-lg bg-background border text-sm h-9 uppercase tracking-wider font-mono font-bold border-brand/20 focus:border-brand disabled:opacity-40"
+              placeholder={fetchingWord ? t.blitz.waiting : t.blitz.typeWord}
+              autoFocus
+              aria-label={t.blitz.typeWord}
             />
           </form>
         )}
 
         <div className="flex items-center gap-2 max-w-xs mx-auto pt-1">
-          <button 
+          <button
             onClick={handleGiveUpAndSolve}
             type="button"
             disabled={!!revealMessage || fetchingWord}
             className="flex-1 py-1.5 px-2 bg-amber-500/10 text-amber-500 hover:bg-amber-500/20 border border-amber-500/20 text-[11px] font-semibold rounded-md transition-colors cursor-pointer disabled:opacity-40"
           >
-            🏳️ Skip &amp; Reveal
+            {t.blitz.skipReveal}
           </button>
           <button
             onClick={handleStopGame}
             type="button"
             className="py-1.5 px-3 bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/30 text-[11px] font-bold rounded-md transition-all shadow-lg shadow-black/40 hover:shadow-black/60 active:scale-95 cursor-pointer shrink-0"
           >
-            🛑 Stop Game
+            {t.blitz.stopGame}
           </button>
         </div>
       </div>
