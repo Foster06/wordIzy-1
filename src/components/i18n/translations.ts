@@ -84,7 +84,7 @@ const en: Translation = {
   unscrambler: "Unscrambler", scramble: "Scramble", wordle: "Wordle",
   quordle: "Quordle", anagram: "Anagram", random: "Random Word",
   wordfeud: "Wordfeud", dictionary: "Dictionary", scrabble: "Duplicate",
-  wordlists: "Word Lists", wordstarts: "Word Starts By", wordends: "Word Ends By", about: "About", contact: "Contact", privacy: "Privacy",
+  wordlists: "Unscramble by Length", wordstarts: "Words Starts With A-Z", wordends: "Words Ends With A-Z", about: "About", contact: "Contact", privacy: "Privacy",
   sitemap: "Sitemap", tools: "Tools", more: "More", solvers: "Solvers", site: "Site", wordlab: "Word Lab", inbox: "Inbox",
   dashboard: "Dashboard", blitz: "Anagram Blitz"
  },
@@ -146,8 +146,8 @@ const en: Translation = {
   rack: "Your rack", board: "Board letters (optional)", btn: "Find best words", hint: "Wildcards supported. Results are ranked by score.",
  },
  wordlists: {
-  title: "Word Lists", subtitle: "Browse every 2- to 7-letter word. Choose a view, a length and a letter to explore the dictionary A–Z.",
-  allWords: "All words", startsBy: "Starts by A–Z", endsBy: "Ends by A–Z", letter: "Letter", selectLength: "Length", selectLetter: "Letter", browse: "Browse",
+  title: "Unscramble by Length", subtitle: "Browse every valid Scrabble word by length, from 2 to 7 letters.",
+  allWords: "All words", startsBy: "Words Starts With A-Z", endsBy: "Words Ends With A-Z", letter: "Letter", selectLength: "Length", selectLetter: "Letter", browse: "Browse",
  },
  about: {
   title: "About WordIzy",

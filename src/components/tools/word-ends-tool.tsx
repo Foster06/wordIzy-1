@@ -29,7 +29,7 @@ export function WordEndsTool() {
   return (
     <>
       <ReturnButton />
-      <PageHeader badge={t.nav.wordends} title={t.wordlists.endsBy} subtitle={t.wordlists.subtitle} icon={<ArrowUpFromLine className="h-6 w-6" />} />
+      <PageHeader badge={t.nav.wordends} title={t.wordlists.endsBy} subtitle="Browse every valid Scrabble word that ends with each letter of the alphabet, from 2 to 7 letters." icon={<ArrowUpFromLine className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
         <GlassCard strong className="p-5">
           {/* Length sort row (2-7) with counts — ABOVE the A-Z letters */}
@@ -78,9 +78,6 @@ export function WordEndsTool() {
         <AdSlot format="horizontal" />
 
         <div className="space-y-4">
-          <h2 className="yellow-heading text-brand">
-            {t.wordlists.endsBy} "{letter}" — {length === "all" ? `${LENGTHS[0]}–${LENGTHS[LENGTHS.length - 1]}` : `${length}`} {t.common.length}
-          </h2>
           <div className={cn("grid gap-4", length === "all" ? "lg:grid-cols-2" : "lg:grid-cols-1")}>
             {visibleLengths.map((l) => (
               <WordBucket key={l} lang={lang as LanguageCode} mode="ends" length={l} letter={letter} title={`…${letter} · ${l} ${t.common.length}`} />

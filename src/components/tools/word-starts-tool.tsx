@@ -29,7 +29,7 @@ export function WordStartsTool() {
   return (
     <>
       <ReturnButton />
-      <PageHeader badge={t.nav.wordstarts} title={t.wordlists.startsBy} subtitle={t.wordlists.subtitle} icon={<ArrowDownToLine className="h-6 w-6" />} />
+      <PageHeader badge={t.nav.wordstarts} title={t.wordlists.startsBy} subtitle="Browse every valid Scrabble word that starts with each letter of the alphabet, from 2 to 7 letters." icon={<ArrowDownToLine className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
         <GlassCard strong className="p-5">
           {/* Length sort row (2-7) with counts — ABOVE the A-Z letters */}
@@ -78,9 +78,6 @@ export function WordStartsTool() {
         <AdSlot format="horizontal" />
 
         <div className="space-y-4">
-          <h2 className="yellow-heading text-brand">
-            {t.wordlists.startsBy} "{letter}" — {length === "all" ? `${LENGTHS[0]}–${LENGTHS[LENGTHS.length - 1]}` : `${length}`} {t.common.length}
-          </h2>
           <div className={cn("grid gap-4", length === "all" ? "lg:grid-cols-2" : "lg:grid-cols-1")}>
             {visibleLengths.map((l) => (
               <WordBucket key={l} lang={lang as LanguageCode} mode="starts" length={l} letter={letter} title={`${letter}… · ${l} ${t.common.length}`} />

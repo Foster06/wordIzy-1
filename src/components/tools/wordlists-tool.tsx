@@ -33,7 +33,7 @@ export function WordlistsTool() {
   return (
     <>
       <ReturnButton />
-      <PageHeader badge={t.nav.wordlists} title={t.wordlists.title} subtitle={t.wordlists.subtitle} icon={<List className="h-6 w-6" />} />
+      <PageHeader badge={t.nav.wordlists} title={t.wordlists.title} subtitle="Browse every valid Scrabble word by length, from 2 to 7 letters." icon={<List className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
         <GlassCard strong className="p-5">
           <div className="space-y-5">
