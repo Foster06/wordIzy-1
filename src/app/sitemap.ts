@@ -15,6 +15,8 @@ const CORE_TOOLS = [
   "wordlists",
   "wordstarts",
   "wordends",
+  "wordle-starts",
+  "wordle-ends",
   "about",
   "contact",
   "privacy",
@@ -57,23 +59,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   });
 
-  // GENERATION MAP C: Programmatic starts/ends pages (/words-starts-by-X, /words-ends-by-X)
+  // GENERATION MAP C: Programmatic Scrabble starts/ends pages
   ALPHABET.forEach((letter) => {
     sitemapEntries.push({
-      url: `${baseUrl}/words-starts-by-${letter}`,
+      url: `${baseUrl}/words-starts-with-${letter}`,
       lastModified: LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.5,
     });
     sitemapEntries.push({
-      url: `${baseUrl}/words-ends-by-${letter}`,
+      url: `${baseUrl}/words-ends-with-${letter}`,
       lastModified: LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.5,
     });
   });
 
-  // 🎯 GENERATION MAP D: Editorial guide pages
+  // GENERATION MAP C2: Programmatic Wordle starts/ends pages
+  ALPHABET.forEach((letter) => {
+    sitemapEntries.push({
+      url: `${baseUrl}/wordle-words-starts-with-${letter}`,
+      lastModified: LAST_MODIFIED,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    });
+    sitemapEntries.push({
+      url: `${baseUrl}/wordle-words-ends-with-${letter}`,
+      lastModified: LAST_MODIFIED,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    });
+  });
+
+  // GENERATION MAP D: Editorial guide pages
   GUIDES.forEach((guideSlug) => {
     sitemapEntries.push({
       url: `${baseUrl}/guides/${guideSlug}`,

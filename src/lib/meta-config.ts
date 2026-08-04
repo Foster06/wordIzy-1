@@ -65,6 +65,16 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     description: "Browse all valid Scrabble words that end with each letter A-Z. Filter by word length 2-15. Find hooks, suffixes, and high-scoring endings for Scrabble.",
     keywords: ["words ends with", "words ending in", "words that end with", "scrabble words by ending"]
   },
+  "wordlestarts": {
+    title: "Wordle Words Starting With A-Z — Best Starting Words",
+    description: "Browse all valid Wordle words that start with each letter A-Z. Find the best Wordle starting words, filter by length, and narrow down your daily puzzle.",
+    keywords: ["wordle words starting with", "wordle starting words", "best wordle starts", "wordle words by letter"]
+  },
+  "wordleends": {
+    title: "Wordle Words Ending With A-Z — Hooks & Suffixes",
+    description: "Browse all valid Wordle words that end with each letter A-Z. Find hooks, suffixes, and ending patterns to narrow down your daily Wordle puzzle.",
+    keywords: ["wordle words ending with", "wordle ending words", "wordle words by ending", "wordle hooks"]
+  },
   "about": {
     title: "About wordIzy — Free Word Tools & Unscrambler",
     description: "wordIzy is a free, privacy-friendly suite of word tools: unscrambler, anagram solver, Wordle & Quordle solvers, Scrabble helper, and more. No sign-up required.",

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDict } from "@/lib/dictionary";
+import { getDict, getWordleDict } from "@/lib/dictionary";
 import { scoreWord } from "@/lib/languages";
 import type { LanguageCode } from "@/lib/languages";
 import { parseWordListSlug } from "@/lib/word-list-urls";
@@ -22,11 +22,13 @@ function getCachedList(slug: string, lang: LanguageCode) {
   const config = parseWordListSlug(slug);
   if (!config) return null;
 
-  const dict = getDict(lang);
+  // Use Wordle dictionary for Wordle slugs, Scrabble dictionary otherwise.
+  const dict = config.dict === "wordle" ? getWordleDict(lang) : getDict(lang);
   const matched: { word: string; score: number; len: number }[] = [];
   const lengthCounts: Record<number, number> = {};
   for (let n = 2; n <= 15; n++) lengthCounts[n] = 0;
   let title = "";
+  const dictPrefix = config.dict === "wordle" ? "Wordle " : "";
 
   if (config.type === "length") {
     const targetLength = config.value as number;
@@ -40,8 +42,8 @@ function getCachedList(slug: string, lang: LanguageCode) {
   } else if (config.type === "starts" || config.type === "ends") {
     const letter = String(config.value).toLowerCase();
     title = config.type === "starts"
-      ? `Words Starting With "${letter.toUpperCase()}"`
-      : `Words Ending With "${letter.toUpperCase()}"`;
+      ? `${dictPrefix}Words Starting With "${letter.toUpperCase()}"`
+      : `${dictPrefix}Words Ending With "${letter.toUpperCase()}"`;
     const check = config.type === "starts"
       ? (norm: string) => norm.startsWith(letter)
       : (norm: string) => norm.endsWith(letter);
@@ -93,6 +95,9 @@ export async function GET(req: NextRequest) {
   if (!config) {
     return NextResponse.json({ error: "Invalid slug" }, { status: 400 });
   }
+
+  // Use Wordle dictionary if the slug is a Wordle slug, otherwise Scrabble.
+  const useWordleDict = config.dict === "wordle";
 
   try {
     const cached = getCachedList(slug, lang);

@@ -7,16 +7,17 @@ import { GlassCard } from "@/components/site/glass-card";
 interface HubSearchBarProps {
   /** "starts" | "ends" | "length" — determines where to navigate. */
   mode: "starts" | "ends" | "length";
+  /** "scrabble" | "wordle" — which dictionary to browse. */
+  dict?: "scrabble" | "wordle";
   /** Placeholder text. */
   placeholder?: string;
 }
 
 /**
  * Search bar on hub pages. For starts/ends mode, typing a single letter a-z
- * navigates to /words-starts-by-{letter} or /words-ends-by-{letter}. For length
- * mode, typing a number 2-15 navigates to /unscramble-{n}-letter-words.
+ * navigates to the dedicated page. For length mode, typing a number 2-15.
  */
-export function HubSearchBar({ mode, placeholder }: HubSearchBarProps) {
+export function HubSearchBar({ mode, dict = "scrabble", placeholder }: HubSearchBarProps) {
   const router = useRouter();
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,10 +33,14 @@ export function HubSearchBar({ mode, placeholder }: HubSearchBarProps) {
         form.reset();
       }
     } else {
-      // starts / ends — accept single letter or first letter of typed string
       const letter = raw[0];
       if (/^[a-z]$/.test(letter)) {
-        const prefix = mode === "starts" ? "/words-starts-by-" : "/words-ends-by-";
+        let prefix: string;
+        if (dict === "wordle") {
+          prefix = mode === "starts" ? "/wordle-words-starts-with-" : "/wordle-words-ends-with-";
+        } else {
+          prefix = mode === "starts" ? "/words-starts-with-" : "/words-ends-with-";
+        }
         router.push(`${prefix}${letter}`);
         form.reset();
       }
@@ -45,13 +50,17 @@ export function HubSearchBar({ mode, placeholder }: HubSearchBarProps) {
   const defaultPlaceholder =
     mode === "length"
       ? "Type a number 2-15 to browse by length…"
-      : mode === "starts"
-        ? "Type a letter A-Z to browse words starting with it…"
-        : "Type a letter A-Z to browse words ending with it…";
+      : dict === "wordle"
+        ? mode === "starts"
+          ? "Type a letter A-Z to browse Wordle words starting with it…"
+          : "Type a letter A-Z to browse Wordle words ending with it…"
+        : mode === "starts"
+          ? "Type a letter A-Z to browse words starting with it…"
+          : "Type a letter A-Z to browse words ending with it…";
 
   return (
     <GlassCard soft className="p-3 sm:p-4 max-w-2xl mx-auto">
-      <form onSubmit={handleSearch} className="flex items-center gap-2">
+      <form onSubmit={handleSearch} className="flex items-center gap-2 relative z-10">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" aria-hidden />
           <input
@@ -68,7 +77,7 @@ export function HubSearchBar({ mode, placeholder }: HubSearchBarProps) {
         </div>
         <button
           type="submit"
-          className="h-11 px-4 rounded-md bg-brand text-background font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer"
+          className="h-11 px-4 rounded-md bg-brand text-background font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer shrink-0"
         >
           Browse
         </button>

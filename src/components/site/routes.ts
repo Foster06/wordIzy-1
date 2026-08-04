@@ -8,8 +8,9 @@ export type RouteId =
 
   | "home" | "scramble" | "anagram" | "wordle" | "quordle" | "scrabble"
   | "random" | "wordfeud" | "dictionary" | "wordlists" | "wordstarts" | "wordends"
+  | "wordle-starts" | "wordle-ends"
   | "about" | "contact" | "privacy" | "sitemap" | "inbox" | "dashboard"
-  | "blitz"; // 🎯 ADDED: Type protection for the new game engine
+  | "blitz";
 
 export type RouteGroup = "solvers" | "tools" | "site";
 export type DesktopNavSlot = "inline" | "tools" | "wordlab" | "site";
@@ -46,6 +47,8 @@ export const ROUTES: RouteDef[] = [
   { id: "wordlists", hash: "/wordlists", icon: "List", labelKey: "wordlists", group: "tools", desktop: "wordlab" },
   { id: "wordstarts", hash: "/wordstarts", icon: "ArrowDownToLine", labelKey: "wordstarts", group: "tools", desktop: "wordlab" },
   { id: "wordends", hash: "/wordends", icon: "ArrowUpFromLine", labelKey: "wordends", group: "tools", desktop: "wordlab" },
+  { id: "wordle-starts", hash: "/wordle-starts", icon: "Grid3x3", labelKey: "wordlestarts", group: "tools", desktop: "wordlab" },
+  { id: "wordle-ends", hash: "/wordle-ends", icon: "Grid3x3", labelKey: "wordleends", group: "tools", desktop: "wordlab" },
   
   // Site
   { id: "about", hash: "/about", icon: "Info", labelKey: "about", group: "site", desktop: "site" },

@@ -32,7 +32,7 @@ export function WordEndsTool() {
             {ALPHABET_LOWER.map((letter, i) => (
               <Link
                 key={letter}
-                href={`/words-ends-by-${letter}`}
+                href={`/words-ends-with-${letter}`}
                 className="alpha-button h-11 w-full flex items-center justify-center rounded-md glass-soft text-foreground/80 hover:bg-brand hover:text-background transition-colors cursor-pointer"
                 aria-label={`Browse words ending with ${ALPHABET_UPPER[i]}`}
               >

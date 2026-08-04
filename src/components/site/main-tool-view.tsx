@@ -56,6 +56,14 @@ const WordEndsTool = dynamic(
   () => import("@/components/tools/word-ends-tool").then((m) => m.WordEndsTool),
   { ssr: false },
 );
+const WordleStartsTool = dynamic(
+  () => import("@/components/tools/wordle-starts-tool").then((m) => m.WordleStartsTool),
+  { ssr: false },
+);
+const WordleEndsTool = dynamic(
+  () => import("@/components/tools/wordle-ends-tool").then((m) => m.WordleEndsTool),
+  { ssr: false },
+);
 const AboutView = dynamic(
   () => import("@/components/tools/info-views").then((m) => m.AboutView),
   { ssr: false },
@@ -175,9 +183,13 @@ export function MainToolView({ params }: MainToolViewProps) {
       case "wordlists":
         return <ErrorBoundary label="Word Lists"><WordlistsTool /></ErrorBoundary>;
       case "wordstarts":
-        return <ErrorBoundary label="Word Starts By"><WordStartsTool /></ErrorBoundary>;
+        return <ErrorBoundary label="Words Starts With"><WordStartsTool /></ErrorBoundary>;
       case "wordends":
-        return <ErrorBoundary label="Word Ends By"><WordEndsTool /></ErrorBoundary>;
+        return <ErrorBoundary label="Words Ends With"><WordEndsTool /></ErrorBoundary>;
+      case "wordle-starts":
+        return <ErrorBoundary label="Wordle Starts"><WordleStartsTool /></ErrorBoundary>;
+      case "wordle-ends":
+        return <ErrorBoundary label="Wordle Ends"><WordleEndsTool /></ErrorBoundary>;
       case "about":
         return <ErrorBoundary label="About"><AboutView /></ErrorBoundary>;
       case "contact":
