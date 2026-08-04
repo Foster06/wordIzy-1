@@ -25,6 +25,7 @@ import { InboxView } from "@/components/tools/inbox-view";
 import { DashboardView } from "@/components/tools/dashboard-view";
 import { ProgrammaticSEOView } from "@/components/site/programmatic-seo-view";
 import { AnagramBlitz } from "@/components/tools/anagram-blitz";
+import { isWordListPage } from "@/lib/word-list-urls";
 
 interface MainToolViewProps {
   params: Promise<{ tool?: string[] }>;
@@ -55,9 +56,19 @@ export function MainToolView({ params }: MainToolViewProps) {
     const primaryRoute = toolSegments[0] || "home";
     const subRoute = toolSegments[1] || "";
 
-    if (primaryRoute === "unscramble" && subRoute) {
+    // Single-segment programmatic page: /words-starts-by-c, /unscramble-5-letter-words, etc.
+    if (isWordListPage(primaryRoute)) {
       return (
-        <ErrorBoundary label="Programmatic Word Lists">
+        <ErrorBoundary label="Word List">
+          <ProgrammaticSEOView slug={primaryRoute} />
+        </ErrorBoundary>
+      );
+    }
+
+    // Legacy two-segment path: /unscramble/<slug>
+    if (primaryRoute === "unscramble" && subRoute && isWordListPage(subRoute)) {
+      return (
+        <ErrorBoundary label="Word List">
           <ProgrammaticSEOView slug={subRoute} />
         </ErrorBoundary>
       );

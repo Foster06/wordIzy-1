@@ -1,93 +1,54 @@
 "use client";
 
-import { useState } from "react";
 import { ArrowDownToLine } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
 import { PageHeader } from "@/components/site/page-header";
-import { WordBucket, ALPHABET, LENGTHS } from "@/components/site/word-bucket";
 import { TipsSection } from "@/components/site/tips-section";
 import { ReturnButton } from "@/components/site/back-button";
 import { useLanguage } from "@/components/i18n/language-provider";
-import { LANGUAGES, type LanguageCode } from "@/lib/languages";
+import { ALPHABET_LOWER, ALPHABET_UPPER, WORD_LIST_LENGTHS } from "@/lib/word-list-urls";
 import { cn } from "@/lib/utils";
-import { useLetterAvailability } from "@/components/site/use-letter-availability";
-import { useLengthCounts } from "@/components/site/use-length-counts";
 
 export function WordStartsTool() {
-  const { t, lang } = useLanguage();
-  const def = LANGUAGES[lang as LanguageCode];
-  const [letter, setLetter] = useState("A");
-  const [length, setLength] = useState<number | "all">("all");
+  const { t } = useLanguage();
+  const router = useRouter();
 
-  const numLength = length === "all" ? undefined : length;
-  const { available: availableLetters } = useLetterAvailability(lang as LanguageCode, "starts", numLength);
-  const lengthCounts = useLengthCounts(lang as LanguageCode, "starts", letter);
-
-  const visibleLengths = length === "all" ? LENGTHS : [length];
+  const go = (letter: string) => {
+    router.push(`/words-starts-by-${letter.toLowerCase()}`);
+  };
 
   return (
     <>
       <ReturnButton />
-      <PageHeader badge={t.nav.wordstarts} title={t.wordlists.startsBy} subtitle="Browse every valid Scrabble word that starts with each letter of the alphabet, from 2 to 7 letters." icon={<ArrowDownToLine className="h-6 w-6" />} />
+      <PageHeader badge={t.nav.wordstarts} title={t.wordlists.startsBy} subtitle="Browse every valid Scrabble word that starts with each letter of the alphabet, from 2 to 15 letters." icon={<ArrowDownToLine className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
-        <GlassCard strong className="p-5">
-          {/* Length sort row (2-7) with counts — ABOVE the A-Z letters */}
-          <div className="mb-5">
-            <p className="section-label !text-[14px] mb-2.5 text-muted-foreground">{t.wordlists.selectLength}</p>
-            <div className="flex flex-wrap gap-2">
-              <button onClick={() => setLength("all")} className={cn("h-14 px-4 rounded-md flex flex-col items-center justify-center gap-0.5 transition-colors", length === "all" ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand")}>
-                <span className="nav-item !text-[14px]">{t.common.allWords}</span>
+        <AdSlot format="horizontal" />
+
+        <GlassCard strong className="p-5 sm:p-6">
+          <h3 className="section-label !text-[14px] mb-4 text-brand flex items-center gap-2">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
+            Words Starting With — A to Z
+          </h3>
+          <p className="text-xs text-muted-foreground mb-4">Click a letter to browse all words starting with that letter on a dedicated page.</p>
+          <div className="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-13 gap-2">
+            {ALPHABET_LOWER.map((letter, i) => (
+              <button
+                key={letter}
+                onClick={() => go(letter)}
+                className="alpha-button h-11 w-full flex items-center justify-center rounded-md glass-soft text-foreground/80 hover:bg-brand hover:text-background transition-colors cursor-pointer"
+                aria-label={`Browse words starting with ${ALPHABET_UPPER[i]}`}
+              >
+                {ALPHABET_UPPER[i]}
               </button>
-              {LENGTHS.map((l) => {
-                const count = lengthCounts[l] ?? 0;
-                return (
-                  <button key={l} onClick={() => setLength(l)} className={cn("h-14 w-14 rounded-md flex flex-col items-center justify-center gap-0.5 transition-colors", length === l ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand")}>
-                    <span className="num-button">{l}</span>
-                    {count > 0 && <span className="text-[9px] font-bold tabular-nums opacity-70">{count}</span>}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-          {/* A-Z letter row */}
-          <div>
-            <p className="section-label !text-[14px] mb-2.5 text-muted-foreground">{t.wordlists.letter}</p>
-            <div className="flex flex-wrap gap-2">
-              {ALPHABET.map((l) => {
-                const isAvailable = availableLetters.has(l);
-                return (
-                  <button
-                    key={l}
-                    onClick={() => isAvailable && setLetter(l)}
-                    disabled={!isAvailable}
-                    className={cn(
-                      "h-11 w-11 rounded-md flex items-center justify-center transition-colors",
-                      !isAvailable && "opacity-25 cursor-not-allowed",
-                      letter === l && isAvailable ? "bg-brand text-background" : isAvailable ? "glass-soft text-foreground/80 hover:text-brand" : "glass-soft text-muted-foreground"
-                    )}
-                  >
-                    <span className="alpha-button">{l}</span>
-                  </button>
-                );
-              })}
-            </div>
+            ))}
           </div>
         </GlassCard>
 
-        <AdSlot format="horizontal" />
-
-        <div className="space-y-4">
-          <div className={cn("grid gap-4", length === "all" ? "lg:grid-cols-2" : "lg:grid-cols-1")}>
-            {visibleLengths.map((l) => (
-              <WordBucket key={l} lang={lang as LanguageCode} mode="starts" length={l} letter={letter} title={`${letter}… · ${l} ${t.common.length}`} />
-            ))}
-          </div>
-        </div>
-
         <TipsSection title={t.faq.title} items={t.faq.wordstarts} />
         <AdSlot format="horizontal" />
-        <p className="text-center text-xs text-muted-foreground">{def.flag} {def.nativeName} — official Scrabble dictionary filter applied</p>
+
         <div className="flex justify-center pt-2">
           <ReturnButton variant="button" label="Return to previous page" />
         </div>

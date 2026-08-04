@@ -47,29 +47,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   });
 
-  // 🎯 GENERATION MAP B: Auto-generate index URLs for word lengths (e.g., /unscramble/5-letter-words)
+  // GENERATION MAP B: Programmatic word-length pages (/unscramble-N-letter-words)
   WORD_LENGTHS.forEach((len) => {
     sitemapEntries.push({
-      url: `${baseUrl}/unscramble/${len}-letter-words`,
+      url: `${baseUrl}/unscramble-${len}-letter-words`,
       lastModified: LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.6,
     });
   });
 
-  // 🎯 GENERATION MAP C: Auto-generate index links for character starts/ends alignments
+  // GENERATION MAP C: Programmatic starts/ends pages (/words-starts-by-X, /words-ends-by-X)
   ALPHABET.forEach((letter) => {
-    // Adds words-starting-with-a, etc.
     sitemapEntries.push({
-      url: `${baseUrl}/unscramble/words-starting-with-${letter}`,
+      url: `${baseUrl}/words-starts-by-${letter}`,
       lastModified: LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.5,
     });
-
-    // Adds words-ending-with-z, etc.
     sitemapEntries.push({
-      url: `${baseUrl}/unscramble/words-ending-with-${letter}`,
+      url: `${baseUrl}/words-ends-by-${letter}`,
       lastModified: LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.5,

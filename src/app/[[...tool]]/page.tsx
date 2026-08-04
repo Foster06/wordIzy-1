@@ -1,59 +1,88 @@
 import type { Metadata } from "next";
 import { MainToolView } from "@/components/site/main-tool-view";
 import { TOOL_METADATA_REGISTRY } from "@/lib/meta-config";
-
+import {
+  isWordListPage,
+  parseWordListSlug,
+  buildWordListTitle,
+  buildCanonicalWordListUrl,
+} from "@/lib/word-list-urls";
 
 interface PageProps {
   params: Promise<{ tool?: string[] }>;
 }
 
-// 🎯 SERVER-SIDE METADATA ENGINE: Delivers unique descriptions to Google bots automatically
+// SERVER-SIDE METADATA ENGINE: unique titles/descriptions for Google bots.
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const toolSegments = resolvedParams.tool || [];
   const activeToolSlug = toolSegments[0] || "unscrambler";
   const subRoute = toolSegments[1] || "";
 
-  // 1. Check if it's a programmatic landing page
-  if (activeToolSlug === "unscramble" && subRoute) {
-    let cleanTitle = "Word List Matrix";
-    if (subRoute.endsWith("-letter-words")) {
-      cleanTitle = `${subRoute.replace("-letter-words", "")}-Letter Words`;
-    } else if (subRoute.startsWith("words-starting-with-")) {
-      cleanTitle = `Words Starting With "${subRoute.replace("words-starting-with-", "").toUpperCase()}"`;
-    } else if (subRoute.startsWith("words-ending-with-")) {
-      cleanTitle = `Words Ending In "${subRoute.replace("words-ending-with-", "").toUpperCase()}"`;
+  // 1. Single-segment programmatic page: /words-starts-by-c, /unscramble-5-letter-words, etc.
+  if (isWordListPage(activeToolSlug)) {
+    const config = parseWordListSlug(activeToolSlug)!;
+    const title = buildWordListTitle(config);
+    const canonical = buildCanonicalWordListUrl(config);
+    let description = "";
+    if (config.type === "length") {
+      description = `Browse all ${config.value}-letter words for Scrabble, Wordle, and anagram puzzles. Filtered by official Scrabble dictionaries, sorted by score.`;
+    } else if (config.type === "starts") {
+      description = `Explore verified Scrabble words that start with the letter "${String(config.value).toUpperCase()}". Filter by length and score.`;
+    } else {
+      description = `Discover verified Scrabble words that end with the letter "${String(config.value).toUpperCase()}". Filter by length and find hooks.`;
     }
-
     return {
-      title: cleanTitle,
-      description: `Browse valid, dictionary-verified solutions matching ${cleanTitle.toLowerCase()} constraints. Optimized scoring data layouts built for competitive word plays.`,
+      title,
+      description,
+      alternates: { canonical },
+      openGraph: {
+        title,
+        description,
+        url: `https://wordizy.com${canonical}`,
+        siteName: "wordIzy",
+        type: "website",
+      },
     };
   }
 
-  // 2. Check if it's a core game tool
+  // 2. Legacy two-segment path: /unscramble/<slug>
+  if (activeToolSlug === "unscramble" && subRoute && isWordListPage(subRoute)) {
+    const config = parseWordListSlug(subRoute)!;
+    const title = buildWordListTitle(config);
+    const canonical = buildCanonicalWordListUrl(config);
+    return {
+      title,
+      description: `Browse valid, dictionary-verified words matching ${title.toLowerCase()}.`,
+      alternates: { canonical },
+    };
+  }
+
+  // 3. Core game/tool pages
   const metaConfig = TOOL_METADATA_REGISTRY[activeToolSlug];
   if (metaConfig) {
     return {
       title: metaConfig.title,
       description: metaConfig.description,
       keywords: metaConfig.keywords,
+      alternates: { canonical: activeToolSlug === "unscrambler" ? "/" : `/${activeToolSlug}` },
       openGraph: {
         title: metaConfig.title,
         description: metaConfig.description,
         url: `https://wordizy.com${resolvedParams.tool ? `/${activeToolSlug}` : ""}`,
-      }
+      },
     };
   }
 
-  // Fallback defaults
+  // Fallback
   return {
     title: "wordIzy — Multi-Language Word Unscrambler & Anagram Solver",
-    description: "Free word unscrambler, anagram solver, Wordle & Quordle helper with multi-language official Scrabble dictionaries."
+    description: "Free word unscrambler, anagram solver, Wordle & Quordle helper with multi-language official Scrabble dictionaries.",
   };
 }
 
-// 🎯 THE ROUTER JUNCTION: Keeps your folder structure identical and passes control to the client layout
+// ROUTER JUNCTION: detects programmatic word-list slugs and passes them to
+// MainToolView for client-side rendering via ProgrammaticSEOView.
 export default function Page({ params }: PageProps) {
   return <MainToolView params={params} />;
 }
