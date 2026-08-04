@@ -208,9 +208,9 @@ export function AnagramBlitz() {
 
   return (
     <GlassCard className="p-6 text-center max-w-md mx-auto">
-      <div className="flex justify-between text-xs text-muted-foreground mb-4">
-        <span className="font-mono tabular-nums">⏱️ Time Left: {timeLeft}s</span>
-        <span className="font-mono tabular-nums">🏆 Total Score: {score}</span>
+      <div className="flex justify-between items-center text-xs text-muted-foreground mb-4 gap-2">
+        <span className="font-mono tabular-nums shrink-0">⏱️ {timeLeft}s</span>
+        <span className="font-mono tabular-nums shrink-0 min-w-[80px] text-right">🏆 {score} pts</span>
       </div>
       <div className="space-y-4">
         

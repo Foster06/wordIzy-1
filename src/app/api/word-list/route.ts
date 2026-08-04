@@ -5,7 +5,10 @@ import type { LanguageCode } from "@/lib/languages";
 import { parseWordListSlug } from "@/lib/word-list-urls";
 
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+// Cache responses for 1 hour on CDN, serve stale while revalidating for 24h.
+// Word lists are deterministic (same slug+lang always returns same words), so
+// caching is safe and dramatically speeds up page loads.
+export const revalidate = 3600;
 
 /**
  * GET /api/word-list?slug=words-starts-by-c&lang=en
@@ -69,11 +72,18 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Unknown type" }, { status: 400 });
     }
 
-    return NextResponse.json({
-      title,
-      words: out,
-      total: out.length,
-    });
+    return NextResponse.json(
+      {
+        title,
+        words: out,
+        total: out.length,
+      },
+      {
+        headers: {
+          "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+        },
+      }
+    );
   } catch (err) {
     console.error("[/api/word-list] fetch failed:", err);
     return NextResponse.json({ error: "Failed to load words" }, { status: 500 });

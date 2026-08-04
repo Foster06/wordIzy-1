@@ -21,15 +21,10 @@ interface WordListProps {
 }
 
 function fontSizeForLen(len: number): string {
-  // Fluid responsive: font scales with viewport so words always fit the container.
-  // Mobile (2-col): smaller base; Desktop (4-col): larger. Uses clamp() so the
-  // size transitions smoothly. The cell also has overflow:hidden + ellipsis as
-  // a backstop for very long words.
-  if (len <= 4) return "!text-[clamp(13px,3.5vw,16px)]";
-  if (len <= 7) return "!text-[clamp(12px,3.2vw,15px)]";
-  if (len <= 10) return "!text-[clamp(11px,2.9vw,14px)]";
-  if (len <= 13) return "!text-[clamp(10px,2.6vw,13px)]";
-  return "!text-[clamp(9px,2.3vw,12px)]";
+  // Fixed 15px for all word lengths — consistent, readable, fits container.
+  // The container has overflow:hidden + text-ellipsis as a backstop for very long words.
+  void len;
+  return "!text-[15px]";
 }
 
 /** Flat list of solved words as Scrabble tiles in a 4-col grid.
