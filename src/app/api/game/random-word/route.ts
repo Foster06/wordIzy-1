@@ -1,11 +1,6 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-// Module-level cache: load the dictionary file ONCE per language, not on every request.
-// This was the main source of lag — each /api/game/random-word call was re-reading
-// a 1-5MB file from disk and parsing ~280k lines.
-const dictCache = new Map<string, string[]>();
+import { getDict } from "@/lib/dictionary";
+import type { LanguageCode } from "@/lib/languages";
 
 function getDailySeedIndex(arrayLength: number): number {
   const today = new Date();
@@ -22,70 +17,6 @@ function scrambleString(str: string): string {
   }
   const result = arr.join("");
   return result === str.toUpperCase() ? scrambleString(str) : result;
-}
-
-/** Load and cache the dictionary for a given language. Returns 5-8 letter words. */
-function getDictionary(lang: string): string[] {
-  const cached = dictCache.get(lang);
-  if (cached) return cached;
-
-  const LEXICON_MAPPING: Record<string, string[]> = {
-    en: ["CSW21.txt", "NWL2023.txt"],
-    de: ["DE_FILTERED.txt"],
-    es: ["FISE.txt"],
-    fr: ["ODS9.txt"],
-    nl: ["OpenTaal.txt"],
-    pt: ["PT_FILTERED.txt"],
-    it: ["ZINGA.txt"],
-  };
-
-  const targetedFiles = LEXICON_MAPPING[lang] || ["CSW21.txt"];
-  const rootDir = process.cwd();
-  let dictPath = "";
-
-  for (const fileName of targetedFiles) {
-    const checkPath = path.resolve(rootDir, "data", "scrabble", fileName);
-    if (fs.existsSync(checkPath)) {
-      dictPath = checkPath;
-      break;
-    }
-  }
-
-  const fallbackDictionary = [
-    "AWESOME", "MYSTERY", "SHUFFLE", "DYNAMIC", "SOLVER", "BLITZ",
-    "PUZZLE", "VICTORY", "WORDSMITH", "ALPHABET", "CREATIVE", "MATRIX",
-  ];
-
-  let words: string[] = [];
-
-  if (dictPath) {
-    try {
-      let fileContent = fs.readFileSync(dictPath, "utf-8");
-      if (fileContent.charCodeAt(0) === 0xfeff) {
-        fileContent = fileContent.substr(1);
-      }
-      const lines = fileContent.split(/\r?\n/);
-      for (const rawLine of lines) {
-        const line = rawLine.trim();
-        if (!line) continue;
-        const tokens = line.split(/[\s\t]+/);
-        if (!tokens || tokens.length === 0) continue;
-        const cleanWord = tokens[0].replace(/[^a-zA-Z]/g, "").trim().toUpperCase();
-        if (cleanWord.length >= 5 && cleanWord.length <= 8) {
-          words.push(cleanWord);
-        }
-      }
-    } catch (fileError) {
-      console.error("File error:", fileError);
-    }
-  }
-
-  if (!words || words.length === 0) {
-    words = fallbackDictionary;
-  }
-
-  dictCache.set(lang, words);
-  return words;
 }
 
 /** Generate a real definition-style hint from the word itself (no external API call). */
@@ -148,7 +79,27 @@ export async function GET(req: Request) {
     const mode = searchParams.get("mode") || "infinite";
     const lang = rawLang && rawLang.trim() ? rawLang.toLowerCase() : "en";
 
-    const words = getDictionary(lang);
+    // Pull 5-8 letter words from the shared, lazily-cached dictionary store.
+    // Replaces the per-route dictCache Map + getDictionary() that re-read the
+    // Scrabble files on every request — the shared getDict() loads each
+    // language once and exposes entries bucketed by normalized length.
+    const dict = getDict(lang as LanguageCode);
+    const words: string[] = [];
+    for (let l = 5; l <= 8; l++) {
+      const bucket = dict.byLength.get(l) ?? [];
+      for (const entry of bucket) {
+        words.push(entry.word.toUpperCase());
+      }
+    }
+
+    const fallbackDictionary = [
+      "AWESOME", "MYSTERY", "SHUFFLE", "DYNAMIC", "SOLVER", "BLITZ",
+      "PUZZLE", "VICTORY", "WORDSMITH", "ALPHABET", "CREATIVE", "MATRIX",
+    ];
+
+    if (words.length === 0) {
+      words.push(...fallbackDictionary);
+    }
 
     const targetIndex = mode === "daily" ? getDailySeedIndex(words.length) : Math.floor(Math.random() * words.length);
     const targetWord = words[targetIndex]!.trim().toUpperCase();

@@ -115,7 +115,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
     return (
       <div className="space-y-6 max-w-5xl mx-auto">
         <ReturnButton href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
-        <div className="text-center text-sm py-12 text-muted-foreground animate-pulse flex items-center justify-center gap-2">
+        <div role="status" aria-live="polite" className="text-center text-sm py-12 text-muted-foreground animate-pulse flex items-center justify-center gap-2">
           <Loader2 className="h-4 w-4 animate-spin" />
           Loading verified word lists…
         </div>
@@ -127,7 +127,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
     return (
       <div className="space-y-6 max-w-5xl mx-auto">
         <ReturnButton href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
-        <div className="text-center text-sm py-12 text-rose-300">{error}</div>
+        <div role="alert" aria-live="assertive" className="text-center text-sm py-12 text-rose-300">{error}</div>
       </div>
     );
   }
@@ -175,10 +175,11 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
 
       {/* Length filter buttons (only on starts/ends pages) */}
       {config!.type !== "length" && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by word length">
           <button
             type="button"
             onClick={() => setActiveLength("all")}
+            aria-pressed={activeLength === "all"}
             className={cn(
               "h-10 px-3 rounded-md flex items-center justify-center text-sm font-semibold transition-colors cursor-pointer",
               activeLength === "all" ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand"
@@ -195,6 +196,8 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
                 type="button"
                 tabIndex={disabled ? -1 : 0}
                 disabled={disabled}
+                aria-pressed={activeLength === n}
+                aria-disabled={disabled}
                 onClick={() => !disabled && setActiveLength(n)}
                 className={cn(
                   "h-10 w-12 rounded-md flex flex-col items-center justify-center gap-0.5 transition-colors",

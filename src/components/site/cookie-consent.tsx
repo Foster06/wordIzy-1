@@ -5,7 +5,6 @@ import { Cookie, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/site/glass-card";
 import { useRouter } from "next/navigation";
-import { useHashRoute } from "./use-hash-route";
 
 const STORAGE_KEY = "wordizy-cookie-consent";
 const SHOW_DELAY_MS = 1500;
@@ -19,9 +18,22 @@ type StoredValue = "accepted" | "declined";
  */
 export function CookieConsent() {
   const router = useRouter();
-  const navigate = (href: string) => router.push(href);
   const [visible, setVisible] = useState(false);
   const acceptBtnRef = useRef<HTMLButtonElement>(null);
+
+  // Persist the choice and hide the banner. Declared ABOVE the effects that
+  // reference it (fixes ESLint react-hooks/immutability error).
+  const decide = (value: StoredValue) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, value);
+    } catch {
+      /* ignore */
+    }
+    setVisible(false);
+  };
+
+  // X dismiss button persists choice (same as Decline).
+  const dismiss = () => decide("declined");
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout> | undefined;
@@ -56,18 +68,6 @@ export function CookieConsent() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [visible]);
 
-  const decide = (value: StoredValue) => {
-    try {
-      localStorage.setItem(STORAGE_KEY, value);
-    } catch {
-      /* ignore */
-    }
-    setVisible(false);
-  };
-
-  // X dismiss button persists choice (same as Decline) so banner doesn't reappear.
-  const dismiss = () => decide("declined");
-
   if (!visible) return null;
 
   return (
@@ -92,7 +92,7 @@ export function CookieConsent() {
               <button
                 onClick={() => {
                   dismiss();
-                  navigate("/privacy");
+                  router.push("/privacy");
                 }}
                 className="text-brand hover:underline font-medium"
               >

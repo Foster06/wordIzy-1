@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { heavyLimiter, getClientIp } from "@/lib/rate-limit";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
 
@@ -9,6 +10,9 @@ function bad(msg: string, status = 400) {
 
 /** POST — anonymous search event (no PII, fire-and-forget from the client). */
 export async function POST(req: NextRequest) {
+  if (heavyLimiter.hit(getClientIp(req))) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
   let body: unknown;
   try {
     body = await req.json();

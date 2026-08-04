@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend"; // 🎯 Import the official Resend package
 import { db } from "@/lib/db";
+import { contactLimiter, getClientIp } from "@/lib/rate-limit";
 
 // Force runtime execution so environment variables load cleanly on Vercel
 export const dynamic = "force-dynamic";
 
-// Admin password for the inbox view (GET). Defaults to a simple value;
-// override with ADMIN_PASSWORD env var in production.
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "wordizy-admin";
+// Admin password for the inbox view (GET). No default — must be set via env.
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const LIMITS = { name: 120, email: 200, message: 5000 } as const;
@@ -31,6 +31,9 @@ function bad(msg: string, status = 400) {
 
 /** POST — public submission endpoint (used by the Contact form). */
 export async function POST(req: Request) {
+  if (contactLimiter.hit(getClientIp(req))) {
+    return NextResponse.json({ ok: false, error: "Too many submissions. Please try again later." }, { status: 429 });
+  }
   let body: unknown;
   try {
     body = await req.json();

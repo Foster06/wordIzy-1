@@ -1,7 +1,7 @@
 "use client";
 
 import { List } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
 import { PageHeader } from "@/components/site/page-header";
@@ -14,11 +14,6 @@ import { cn } from "@/lib/utils";
 
 export function WordlistsTool() {
   const { t } = useLanguage();
-  const router = useRouter();
-
-  const go = (n: number) => {
-    router.push(`/unscramble-${n}-letter-words`);
-  };
 
   return (
     <>
@@ -36,9 +31,9 @@ export function WordlistsTool() {
           <p className="text-xs text-muted-foreground mb-4">Click a number to browse all words of that length on a dedicated page.</p>
           <div className="flex flex-wrap gap-2">
             {WORD_LIST_LENGTHS.map((n) => (
-              <button
+              <Link
                 key={n}
-                onClick={() => go(n)}
+                href={`/unscramble-${n}-letter-words`}
                 className={cn(
                   "num-button h-14 w-14 rounded-md flex items-center justify-center transition-colors cursor-pointer",
                   "glass-soft text-foreground/80 hover:bg-brand hover:text-background"
@@ -46,7 +41,7 @@ export function WordlistsTool() {
                 aria-label={`Browse ${n}-letter words`}
               >
                 {n}
-              </button>
+              </Link>
             ))}
           </div>
         </GlassCard>
@@ -56,7 +51,7 @@ export function WordlistsTool() {
         <p className="text-center text-xs text-muted-foreground">All words filtered through official Scrabble dictionaries.</p>
 
         <div className="flex justify-center pt-2">
-          <ReturnButton variant="button" label="Return to previous page" />
+          <ReturnButton variant="button" label="Return to home" />
         </div>
       </div>
     </>

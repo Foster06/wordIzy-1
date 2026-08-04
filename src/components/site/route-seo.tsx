@@ -9,6 +9,8 @@ import type { RouteDef } from "./routes";
  * flicker, no duplicate source-of-truth). Kept as a placeholder so existing
  * call sites in `MainToolView` do not need to change.
  */
-export function RouteSeo(_props: { route: RouteDef }) {
+// Accept a wide prop type — useHashRoute() returns {id, slug, query} which is
+// a subset of RouteDef. We only need the route to exist; we don't read any field.
+export function RouteSeo(_props: { route: { id: string } | RouteDef }) {
   return null;
 }

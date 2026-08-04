@@ -3,6 +3,7 @@ import { getDict } from "@/lib/dictionary";
 import { scoreWord } from "@/lib/languages";
 import type { LanguageCode } from "@/lib/languages";
 import { parseWordListSlug } from "@/lib/word-list-urls";
+import { solverLimiter, getClientIp } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const revalidate = 3600;
@@ -74,6 +75,9 @@ function getCachedList(slug: string, lang: LanguageCode) {
  *   { title, words: [{word, score}], total, offset, limit, lengthCounts }
  */
 export async function GET(req: NextRequest) {
+  if (solverLimiter.hit(getClientIp(req))) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
   const slug = req.nextUrl.searchParams.get("slug") || "";
   const lang = (req.nextUrl.searchParams.get("lang") || "en") as LanguageCode;
   const lengthFilter = req.nextUrl.searchParams.get("length");

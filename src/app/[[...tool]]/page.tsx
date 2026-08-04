@@ -13,6 +13,10 @@ interface PageProps {
 }
 
 // SERVER-SIDE METADATA ENGINE: unique titles/descriptions for Google bots.
+// NOTE: We do NOT return partial `openGraph` objects here — Next.js shallow-
+// merges OG and would drop `og:image`, `og:site_name`, `og:type`, `og:locale`
+// from the root layout. Instead we set only `title` + `description` + `alternates`
+// and let the root layout's `openGraph` inherit (with image).
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const toolSegments = resolvedParams.tool || [];
@@ -39,9 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       openGraph: {
         title,
         description,
-        url: `https://wordizy.com${canonical}`,
-        siteName: "wordIzy",
-        type: "website",
+        images: [{ url: "/og-image.png", width: 1200, height: 630, alt: title }],
       },
     };
   }
@@ -55,6 +57,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description: `Browse valid, dictionary-verified words matching ${title.toLowerCase()}.`,
       alternates: { canonical },
+      openGraph: {
+        title,
+        description: `Browse valid, dictionary-verified words matching ${title.toLowerCase()}.`,
+        images: [{ url: "/og-image.png", width: 1200, height: 630, alt: title }],
+      },
     };
   }
 
@@ -69,14 +76,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       openGraph: {
         title: metaConfig.title,
         description: metaConfig.description,
-        url: `https://wordizy.com${resolvedParams.tool ? `/${activeToolSlug}` : ""}`,
+        images: [{ url: "/og-image.png", width: 1200, height: 630, alt: metaConfig.title }],
       },
     };
   }
 
-  // Fallback
+  // Fallback — omit title so root layout's default is used
   return {
-    title: "wordIzy — Multi-Language Word Unscrambler & Anagram Solver",
     description: "Free word unscrambler, anagram solver, Wordle & Quordle helper with multi-language official Scrabble dictionaries.",
   };
 }

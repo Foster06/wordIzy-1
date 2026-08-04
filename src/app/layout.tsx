@@ -53,7 +53,7 @@ const jsonLd = {
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "https://wordizy.com{search_term_string}"
+      "urlTemplate": "https://wordizy.com/?letters={search_term_string}"
     },
     "query-input": "required name=search_term_string"
   }

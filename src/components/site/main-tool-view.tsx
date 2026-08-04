@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { use } from "react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
@@ -9,23 +10,84 @@ import { GlassCard } from "@/components/site/glass-card";
 import { ErrorBoundary } from "@/components/site/error-boundary";
 import { RouteSeo } from "@/components/site/route-seo";
 import { UnscramblerTool } from "@/components/tools/unscrambler-tool";
-import { ScrambleTool } from "@/components/tools/scramble-tool";
-import { WordleTool } from "@/components/tools/wordle-tool";
-import { QuordleTool } from "@/components/tools/quordle-tool";
-import { AnagramTool } from "@/components/tools/anagram-tool";
-import { RandomTool } from "@/components/tools/random-tool";
-import { WordfeudTool } from "@/components/tools/wordfeud-tool";
-import { DictionaryTool } from "@/components/tools/dictionary-tool";
-import { ScrabbleTool } from "@/components/tools/scrabble-tool";
-import { WordlistsTool } from "@/components/tools/wordlists-tool";
-import { WordStartsTool } from "@/components/tools/word-starts-tool";
-import { WordEndsTool } from "@/components/tools/word-ends-tool";
-import { AboutView, ContactView, PrivacyView, SitemapView } from "@/components/tools/info-views";
-import { InboxView } from "@/components/tools/inbox-view";
-import { DashboardView } from "@/components/tools/dashboard-view";
-import { ProgrammaticSEOView } from "@/components/site/programmatic-seo-view";
-import { AnagramBlitz } from "@/components/tools/anagram-blitz";
 import { isWordListPage } from "@/lib/word-list-urls";
+
+const ScrambleTool = dynamic(
+  () => import("@/components/tools/scramble-tool").then((m) => m.ScrambleTool),
+  { ssr: false },
+);
+const WordleTool = dynamic(
+  () => import("@/components/tools/wordle-tool").then((m) => m.WordleTool),
+  { ssr: false },
+);
+const QuordleTool = dynamic(
+  () => import("@/components/tools/quordle-tool").then((m) => m.QuordleTool),
+  { ssr: false },
+);
+const AnagramTool = dynamic(
+  () => import("@/components/tools/anagram-tool").then((m) => m.AnagramTool),
+  { ssr: false },
+);
+const RandomTool = dynamic(
+  () => import("@/components/tools/random-tool").then((m) => m.RandomTool),
+  { ssr: false },
+);
+const WordfeudTool = dynamic(
+  () => import("@/components/tools/wordfeud-tool").then((m) => m.WordfeudTool),
+  { ssr: false },
+);
+const DictionaryTool = dynamic(
+  () => import("@/components/tools/dictionary-tool").then((m) => m.DictionaryTool),
+  { ssr: false },
+);
+const ScrabbleTool = dynamic(
+  () => import("@/components/tools/scrabble-tool").then((m) => m.ScrabbleTool),
+  { ssr: false },
+);
+const WordlistsTool = dynamic(
+  () => import("@/components/tools/wordlists-tool").then((m) => m.WordlistsTool),
+  { ssr: false },
+);
+const WordStartsTool = dynamic(
+  () => import("@/components/tools/word-starts-tool").then((m) => m.WordStartsTool),
+  { ssr: false },
+);
+const WordEndsTool = dynamic(
+  () => import("@/components/tools/word-ends-tool").then((m) => m.WordEndsTool),
+  { ssr: false },
+);
+const AboutView = dynamic(
+  () => import("@/components/tools/info-views").then((m) => m.AboutView),
+  { ssr: false },
+);
+const ContactView = dynamic(
+  () => import("@/components/tools/info-views").then((m) => m.ContactView),
+  { ssr: false },
+);
+const PrivacyView = dynamic(
+  () => import("@/components/tools/info-views").then((m) => m.PrivacyView),
+  { ssr: false },
+);
+const SitemapView = dynamic(
+  () => import("@/components/tools/info-views").then((m) => m.SitemapView),
+  { ssr: false },
+);
+const InboxView = dynamic(
+  () => import("@/components/tools/inbox-view").then((m) => m.InboxView),
+  { ssr: false },
+);
+const DashboardView = dynamic(
+  () => import("@/components/tools/dashboard-view").then((m) => m.DashboardView),
+  { ssr: false },
+);
+const ProgrammaticSEOView = dynamic(
+  () => import("@/components/site/programmatic-seo-view").then((m) => m.ProgrammaticSEOView),
+  { ssr: false },
+);
+const AnagramBlitz = dynamic(
+  () => import("@/components/tools/anagram-blitz").then((m) => m.AnagramBlitz),
+  { ssr: false },
+);
 
 interface MainToolViewProps {
   params: Promise<{ tool?: string[] }>;

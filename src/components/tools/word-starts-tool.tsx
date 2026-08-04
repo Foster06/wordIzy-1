@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowDownToLine } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
 import { PageHeader } from "@/components/site/page-header";
@@ -10,15 +10,9 @@ import { ReturnButton } from "@/components/site/back-button";
 import { HubSearchBar } from "@/components/site/hub-search-bar";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { ALPHABET_LOWER, ALPHABET_UPPER } from "@/lib/word-list-urls";
-import { cn } from "@/lib/utils";
 
 export function WordStartsTool() {
   const { t } = useLanguage();
-  const router = useRouter();
-
-  const go = (letter: string) => {
-    router.push(`/words-starts-by-${letter.toLowerCase()}`);
-  };
 
   return (
     <>
@@ -36,14 +30,14 @@ export function WordStartsTool() {
           <p className="text-xs text-muted-foreground mb-4">Click a letter to browse all words starting with that letter on a dedicated page.</p>
           <div className="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-13 gap-2">
             {ALPHABET_LOWER.map((letter, i) => (
-              <button
+              <Link
                 key={letter}
-                onClick={() => go(letter)}
+                href={`/words-starts-by-${letter}`}
                 className="alpha-button h-11 w-full flex items-center justify-center rounded-md glass-soft text-foreground/80 hover:bg-brand hover:text-background transition-colors cursor-pointer"
                 aria-label={`Browse words starting with ${ALPHABET_UPPER[i]}`}
               >
                 {ALPHABET_UPPER[i]}
-              </button>
+              </Link>
             ))}
           </div>
         </GlassCard>
@@ -52,7 +46,7 @@ export function WordStartsTool() {
         <AdSlot format="horizontal" />
 
         <div className="flex justify-center pt-2">
-          <ReturnButton variant="button" label="Return to previous page" />
+          <ReturnButton variant="button" label="Return to home" />
         </div>
       </div>
     </>

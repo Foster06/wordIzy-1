@@ -190,7 +190,6 @@ export function SiteHeader() {
               {/* 🎯 FORCE TOGGLE ACTION ANCHOR */}
               <button
                 onClick={() => {
-                  console.log("Vault Button Tapped Status:", !isDrawerOpen);
                   setIsDrawerOpen(true);
                 }}
                 type="button"

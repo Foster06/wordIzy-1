@@ -21,10 +21,9 @@ interface WordListProps {
 }
 
 function fontSizeForLen(len: number): string {
-  // Fixed 15px for all word lengths — consistent, readable, fits container.
-  // The container has overflow:hidden + text-ellipsis as a backstop for very long words.
+  // Fixed 16px for all word lengths — consistent, readable, fits container.
   void len;
-  return "!text-[15px]";
+  return "!text-[16px]";
 }
 
 /** Flat list of solved words as Scrabble tiles in a 4-col grid.
