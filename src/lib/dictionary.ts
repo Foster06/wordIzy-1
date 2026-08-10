@@ -53,20 +53,31 @@ function loadOfficialFile(filename: string, extractFirst: boolean): Set<string> 
   return result;
 }
 
-/** Official Scrabble word sets (loaded lazily, cached). */
-let officialCache: Partial<Record<LanguageCode, Set<string>>> | null = null;
+/** Official Scrabble word sets (loaded lazily per-language, cached). */
+const officialCache: Partial<Record<LanguageCode, Set<string>>> = {};
 function getOfficial(lang: LanguageCode): Set<string> | null {
-  if (!officialCache) {
-    officialCache = {
-      en: new Set([
+  if (officialCache[lang]) return officialCache[lang]!;
+  switch (lang) {
+    case "en":
+      officialCache.en = new Set([
         ...loadOfficialFile("NWL2023.txt", true),
         ...loadOfficialFile("CSW21.txt", true),
-      ]),
-      fr: loadOfficialFile("ODS9.txt", false),
-      es: loadOfficialFile("FISE.txt", false),
-      it: loadOfficialFile("ZINGA.txt", false),
-      nl: loadOfficialFile("OpenTaal.txt", false),
-    };
+      ]);
+      break;
+    case "fr":
+      officialCache.fr = loadOfficialFile("ODS9.txt", false);
+      break;
+    case "es":
+      officialCache.es = loadOfficialFile("FISE.txt", false);
+      break;
+    case "it":
+      officialCache.it = loadOfficialFile("ZINGA.txt", false);
+      break;
+    case "nl":
+      officialCache.nl = loadOfficialFile("OpenTaal.txt", false);
+      break;
+    default:
+      return null;
   }
   return officialCache[lang] ?? null;
 }

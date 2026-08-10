@@ -4,12 +4,12 @@ import type { LanguageCode } from "@/lib/languages";
 
 export const runtime = "nodejs";
 
-/** Pre-warm dictionary cache for all languages on first call. */
+/**
+ * Pre-warm dictionary cache for English only (the most common language).
+ * Other languages load lazily on first request for that language.
+ * English is ~280k words and takes ~3-5s to parse on first load.
+ */
 export async function GET() {
-  const langs: LanguageCode[] = ["en", "fr", "es", "it", "nl", "de", "pt"];
-  const sizes: Record<string, number> = {};
-  for (const lang of langs) {
-    sizes[lang] = getDict(lang).entries.length;
-  }
-  return NextResponse.json({ warmed: true, sizes });
+  const enSize = getDict("en").entries.length;
+  return NextResponse.json({ warmed: true, en: enSize });
 }
