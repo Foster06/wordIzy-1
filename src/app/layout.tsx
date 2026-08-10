@@ -131,6 +131,38 @@ export const viewport: Viewport = {
   colorScheme: "dark light",
 };
 
+// ──────────────────────────────────────────────────────────────
+// SERVER-SIDE DICTIONARY PRE-WARM
+// Kick off async dictionary load at module-eval time (server boot).
+// This shaves ~900ms off the first word-list request by ensuring the
+// dictionary is already loaded by the time the first /words-starts-with-*
+// request arrives. Fire-and-forget — does NOT block rendering or other
+// imports. The Promise resolves in the background; if it fails, the
+// per-request path will retry synchronously.
+// ──────────────────────────────────────────────────────────────
+if (typeof window === "undefined" && process.env.NODE_ENV === "production") {
+  void import("@/lib/dictionary").then(({ getDict }) => {
+    try {
+      getDict("en");
+    } catch {
+      /* ignore — per-request path will retry */
+    }
+  }).catch(() => {
+    /* ignore — module load failure is non-fatal */
+  });
+}
+
+// Preconnect hints for third-party origins — saves DNS + TLS round-trips
+// when AdSense / Google Fonts / Vercel Analytics load.
+const preconnectTags = (
+  <>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+    <link rel="preconnect" href="https://va.vercel-scripts.com" />
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+  </>
+);
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -139,6 +171,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {preconnectTags}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

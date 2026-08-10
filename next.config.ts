@@ -25,9 +25,42 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
   },
 
-  // Security headers applied to every route.
+  // Security + cache headers applied to every route.
   async headers() {
+    const cacheHeaders = [
+      {
+        key: "Cache-Control",
+        value: "public, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    ];
     return [
+      // Programmatic word-list pages: HTML is deterministic per (slug, lang).
+      // Cache at the CDN for 1 hour, allow serving stale for up to 24h while
+      // revalidating. Repeat visits become instant (no server round-trip).
+      {
+        source: "/words-starts-with-:letter",
+        headers: cacheHeaders,
+      },
+      {
+        source: "/words-ends-with-:letter",
+        headers: cacheHeaders,
+      },
+      {
+        source: "/wordle-words-starts-with-:letter",
+        headers: cacheHeaders,
+      },
+      {
+        source: "/wordle-words-ends-with-:letter",
+        headers: cacheHeaders,
+      },
+      {
+        source: "/unscramble-:n-letter-words",
+        headers: cacheHeaders,
+      },
+      {
+        source: "/unscramble/:slug",
+        headers: cacheHeaders,
+      },
       {
         source: "/(.*)",
         headers: [

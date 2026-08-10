@@ -9,10 +9,15 @@ import { useLanguage } from "@/components/i18n/language-provider";
 import { GlassCard } from "@/components/site/glass-card";
 import { ErrorBoundary } from "@/components/site/error-boundary";
 import { RouteSeo } from "@/components/site/route-seo";
-import { UnscramblerTool } from "@/components/tools/unscrambler-tool";
+import { isWordListPage } from "@/lib/word-list-urls";
+// Lazy-load UnscramblerTool — it's only needed on the home route, but eager
+// import would force every visitor (including word-list pages) to download
+// and parse it. Dynamic import means it only loads when the home route renders.
+const UnscramblerTool = dynamic(
+  () => import("@/components/tools/unscrambler-tool").then((m) => m.UnscramblerTool),
+);
 import Link from "next/link";
 import { BookOpen, ChevronRight } from "lucide-react";
-import { isWordListPage } from "@/lib/word-list-urls";
 
 const ScrambleTool = dynamic(
   () => import("@/components/tools/scramble-tool").then((m) => m.ScrambleTool),

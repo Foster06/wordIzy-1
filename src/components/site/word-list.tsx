@@ -18,6 +18,10 @@ interface WordListProps {
   pageSize?: number;
   maxVisible?: number;
   showPageSizeToggle?: boolean;
+  // When true, the per-word "save to vault" star button is NOT rendered.
+  // This significantly reduces HTML size (50 inline SVGs ≈ 25KB) on
+  // programmatic SEO pages where users are browsing, not saving.
+  hideFavoriteButton?: boolean;
 }
 
 function fontSizeForLen(len: number): string {
@@ -36,6 +40,7 @@ export function WordList({
   pageSize: initialPageSize = 50,
   maxVisible,
   showPageSizeToggle = false,
+  hideFavoriteButton = false,
 }: WordListProps & { showPageSizeToggle?: boolean }) {
   void lang;
   const [page, setPage] = useState(0);
@@ -168,7 +173,7 @@ export function WordList({
                 <span className="text-[10px] font-bold text-brand tabular-nums shrink-0">
                   {copiedCell === w.word ? <Check className="h-3 w-3 text-green-500 animate-scale" /> : w.score}
                 </span>
-                {toggleFavorite && (
+                {toggleFavorite && !hideFavoriteButton && (
                   <button
                     type="button"
                     onClick={() => toggleFavorite(cleanWord)}

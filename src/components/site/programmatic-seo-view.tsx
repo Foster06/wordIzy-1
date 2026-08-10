@@ -340,6 +340,7 @@ export function ProgrammaticSEOView({ slug, initialData }: ProgrammaticSEOViewPr
         lang={def as any}
         t={t as Translation}
         pageSize={words.length}
+        hideFavoriteButton
         emptyMessage={searchQuery || activeLength !== "all" ? t.wordListPage.noMatch : t.wordListPage.noWords}
       />
 
