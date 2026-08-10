@@ -170,7 +170,7 @@ export function AnagramBlitz() {
   if (!isPlaying && !isGameOver) {
     return (
       <GlassCard className="p-6 text-center max-w-md mx-auto">
-        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand/10 text-brand uppercase tracking-wider">New Daily Challenge Live</span>
+        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand/10 text-brand uppercase tracking-wider">{t.ui.newDailyChallenge}</span>
         <h3 className="text-xl font-bold mt-2 mb-1">{t.blitz.challengeTitle}</h3>
         <p className="text-muted-foreground text-xs mb-4">{t.blitz.challengeDesc}</p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2">

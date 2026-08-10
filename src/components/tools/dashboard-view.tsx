@@ -173,7 +173,7 @@ export function DashboardView() {
                   required
                   autoFocus
                   className="glass-soft border-white/10 search-amber"
-                  placeholder="Enter password"
+                  placeholder={t.ui.enterPassword}
                 />
               </div>
               {error && (
@@ -287,24 +287,24 @@ export function DashboardView() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
               <SummaryCard
                 icon={<Search className="h-4 w-4" />}
-                label="Total searches"
+                label={t.ui.totalSearches}
                 value={data.total.toLocaleString()}
               />
               <SummaryCard
                 icon={<TrendingUp className="h-4 w-4" />}
-                label="Top query"
+                label={t.ui.topQuery}
                 value={topQuery?.query ?? "—"}
                 hint={topQuery ? `${topQuery.count}×` : undefined}
               />
               <SummaryCard
                 icon={<BarChart3 className="h-4 w-4" />}
-                label="Top tool"
+                label={t.ui.topTool}
                 value={topRoute?.route ?? "—"}
                 hint={topRoute ? `${topRoute.count}×` : undefined}
               />
               <SummaryCard
                 icon={<Globe className="h-4 w-4" />}
-                label="Top language"
+                label={t.ui.topLanguage}
                 value={topLang?.lang ?? "—"}
                 hint={topLang ? `${topLang.count}×` : undefined}
               />

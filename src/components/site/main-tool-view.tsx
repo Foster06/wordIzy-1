@@ -123,6 +123,7 @@ export function MainToolView({ params }: MainToolViewProps) {
   const resolvedParams = use(params);
   const toolSegments = resolvedParams.tool || [];
   const { route } = useHashRoute();
+  const { t } = useLanguage();
 
   const renderView = () => {
     const primaryRoute = toolSegments[0] || "home";
@@ -158,7 +159,7 @@ export function MainToolView({ params }: MainToolViewProps) {
             <div className="mt-8 rounded-xl border border-white/10 bg-white/[0.04] p-5 sm:p-6">
               <div className="flex items-center gap-2 mb-3">
                 <BookOpen className="h-5 w-5 text-brand" />
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-brand">Featured Guide</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-brand">{t.ui.featuredGuide}</h3>
               </div>
               <Link href="/guides/best-wordle-starter-words" className="group flex items-center justify-between gap-3">
                 <div>
@@ -228,7 +229,7 @@ export function MainToolView({ params }: MainToolViewProps) {
             <div className="mt-8 rounded-xl border border-white/10 bg-white/[0.04] p-5 sm:p-6">
               <div className="flex items-center gap-2 mb-3">
                 <BookOpen className="h-5 w-5 text-brand" />
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-brand">Featured Guide</h3>
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-brand">{t.ui.featuredGuide}</h3>
               </div>
               <Link href="/guides/best-wordle-starter-words" className="group flex items-center justify-between gap-3">
                 <div>

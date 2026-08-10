@@ -5,15 +5,24 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
 
-  // Pre-existing TS errors in legacy files (dictionary-seo, programmatic-seo-view, etc.)
-  // — fix incrementally. Do not block builds.
+  // TypeScript errors now block builds — keep them clean.
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
 
   experimental: {
     // Tree-shake large icon/UI libraries to cut client bundle.
     optimizePackageImports: ["lucide-react", "date-fns"],
+  },
+
+  // Modern image formats for next/image optimization.
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
+
+  // Strip console.* in production builds (keep console.error for debugging).
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
   },
 
   // Security headers applied to every route.
@@ -35,7 +44,7 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com",
+              "script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",
               "img-src 'self' data: https:",

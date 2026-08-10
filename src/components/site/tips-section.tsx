@@ -46,7 +46,7 @@ export function HomeFaq({ t }: { t: Translation }) {
   return (
     <>
       <TipsSection title={t.faq.title} items={t.faq.unscrambler} />
-      <TipsSection title="Save Vault — How to use it" items={t.faq.vault} />
+      <TipsSection title={t.ui.saveVaultFaqTitle} items={t.faq.vault} />
     </>
   );
 }

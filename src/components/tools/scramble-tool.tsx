@@ -93,7 +93,7 @@ export function ScrambleTool() {
               </li>
               <li className="flex gap-2">
                 <span className="text-brand shrink-0">•</span>
-                <span>Use the "Scramble a word" feature below to create your own jumble puzzles.</span>
+                <span>{t.ui.scrambleFeatureHint}</span>
               </li>
             </ul>
           </GlassCard>
@@ -140,7 +140,7 @@ export function ScrambleTool() {
         </section>
 
         <TipsSection title={t.faq.title} items={t.faq.scramble} />
-        <TipsSection title="Save Vault — How to use it" items={t.faq.vault} />
+        <TipsSection title={t.ui.saveVaultFaqTitle} items={t.faq.vault} />
         <AdSlot format="horizontal" />
       </div>
     </>

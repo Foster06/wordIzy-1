@@ -30,15 +30,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const canonical = buildCanonicalWordListUrl(config);
     let description = "";
     if (config.type === "length") {
-      description = `Browse all ${config.value}-letter words for Scrabble, Wordle, and anagram puzzles. Filtered by official Scrabble dictionaries, sorted by score.`;
+      description = `Complete list of ${config.value}-letter words for Scrabble, Wordle, Words with Friends, and anagram puzzles. Official Scrabble dictionary, sorted by score. Browse ${config.value}-letter word lists, find high-scoring plays, and study word patterns.`;
     } else if (config.type === "starts") {
-      description = `Explore verified Scrabble words that start with the letter "${String(config.value).toUpperCase()}". Filter by length and score.`;
+      const letter = String(config.value).toUpperCase();
+      description = `Browse all valid Scrabble and Wordle words starting with "${letter}". Filter by length 2-15, sorted by score. Find words beginning with ${letter} for Scrabble, Words with Friends, crossword puzzles, and anagram games.`;
     } else {
-      description = `Discover verified Scrabble words that end with the letter "${String(config.value).toUpperCase()}". Filter by length and find hooks.`;
+      const letter = String(config.value).toUpperCase();
+      description = `Browse all valid Scrabble and Wordle words ending with "${letter}". Filter by length 2-15, find hooks and suffixes. Words ending in ${letter} for Scrabble, Words with Friends, crossword puzzles, and word game strategy.`;
     }
+    const keywords = config.type === "length"
+      ? [`${config.value} letter words`, `${config.value}-letter words`, `words with ${config.value} letters`, `scrabble ${config.value} letter words`, `wordle ${config.value} letter words`, `${config.value} letter word list`, `${config.value} letter scrabble words`, `words ${config.value} letters long`, `${config.value} letter words for scrabble`, `${config.value} letter words for wordle`, `${config.value} letter anagram words`, `${config.value} letter words with friends`, `list of ${config.value} letter words`, `${config.value} letter word finder`, `${config.value} letter word generator`]
+      : config.type === "starts"
+        ? [`words starting with ${String(config.value).toLowerCase()}`, `words beginning with ${String(config.value).toLowerCase()}`, `words that start with ${String(config.value).toLowerCase()}`, `scrabble words starting with ${String(config.value).toLowerCase()}`, `wordle words starting with ${String(config.value).toLowerCase()}`, `words starting with ${String(config.value).toLowerCase()} for scrabble`, `${String(config.value).toLowerCase()} words`, `words starting with ${String(config.value).toLowerCase()} wordle`, `words that begin with ${String(config.value).toLowerCase()}`, `scrabble words beginning with ${String(config.value).toLowerCase()}`, `word list starting with ${String(config.value).toLowerCase()}`, `words starting with letter ${String(config.value).toLowerCase()}`, `${String(config.value).toLowerCase()} starting words`, `words starting with ${String(config.value).toLowerCase()} for words with friends`, `find words starting with ${String(config.value).toLowerCase()}`]
+        : [`words ending with ${String(config.value).toLowerCase()}`, `words ending in ${String(config.value).toLowerCase()}`, `words that end with ${String(config.value).toLowerCase()}`, `scrabble words ending with ${String(config.value).toLowerCase()}`, `wordle words ending with ${String(config.value).toLowerCase()}`, `words ending with ${String(config.value).toLowerCase()} for scrabble`, `${String(config.value).toLowerCase()} ending words`, `words that end in ${String(config.value).toLowerCase()}`, `scrabble words ending in ${String(config.value).toLowerCase()}`, `word list ending with ${String(config.value).toLowerCase()}`, `words ending with letter ${String(config.value).toLowerCase()}`, `${String(config.value).toLowerCase()} ending words wordle`, `words ending with ${String(config.value).toLowerCase()} for words with friends`, `find words ending with ${String(config.value).toLowerCase()}`, `words ending in ${String(config.value).toLowerCase()} word list`];
     return {
       title,
       description,
+      keywords,
       alternates: { canonical },
       openGraph: {
         title,

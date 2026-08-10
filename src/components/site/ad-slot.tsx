@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/components/i18n/language-provider";
 
 interface AdSlotProps {
   /** ad format hint */
@@ -14,6 +15,7 @@ interface AdSlotProps {
  * production the <ins class="adsbygoogle"> markup would be injected here.
  */
 export function AdSlot({ format = "responsive", className, label }: AdSlotProps) {
+  const { t } = useLanguage();
   const heightClass =
     format === "horizontal"
       ? "min-h-[90px] md:min-h-[100px]"
@@ -34,7 +36,7 @@ export function AdSlot({ format = "responsive", className, label }: AdSlotProps)
       role="complementary"
     >
       <div className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground/70">
-        {label ?? "Advertisement"}
+        {label ?? t.ui.advertisement}
       </div>
       {/* In production: <ins className="adsbygoogle" style={{display:'block'}} data-ad-client="ca-pub-xxx" data-ad-slot="xxx" data-ad-format="auto" /> */}
     </div>

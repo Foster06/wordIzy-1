@@ -1,30 +1,19 @@
 "use client";
-
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 type LogoSize = "sm" | "md" | "lg";
-
-const sizeMap: Record<LogoSize, { box: string }> = {
-  sm: { box: "h-8 w-8" },
-  md: { box: "h-9 w-9" },
-  lg: { box: "h-12 w-12" },
+const sizeMap: Record<LogoSize, { box: string; img: number }> = {
+  sm: { box: "h-8 w-8", img: 32 },
+  md: { box: "h-9 w-9", img: 36 },
+  lg: { box: "h-12 w-12", img: 48 },
 };
 
-/** wordIzy logo — a flat 2D amber square with a bold white "W" in Roboto Slab. */
 export function Logo({ size = "md", className }: { size?: LogoSize; className?: string }) {
   const s = sizeMap[size];
   return (
-    <span
-      className={cn("relative inline-flex items-center justify-center rounded-md", s.box, className)}
-      style={{ backgroundColor: "#f59e0b" }}
-      aria-label="wordIzy logo"
-    >
-      <span
-        className="font-bold leading-none select-none text-white"
-        style={{ fontFamily: "var(--font-roboto-slab), Georgia, serif", fontSize: "1.25em", fontWeight: 700 }}
-      >
-        W
-      </span>
+    <span className={cn("relative inline-flex items-center justify-center", s.box, className)} aria-label="wordIzy logo">
+      <Image src="/logo.png" alt="wordIzy logo" width={s.img} height={s.img} className="h-full w-full object-contain" priority />
     </span>
   );
 }

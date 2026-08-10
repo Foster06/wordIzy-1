@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { X, Trash2, Copy, Check, Star } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useWordVault } from "@/hooks/use-word-vault";
+import { useLanguage } from "@/components/i18n/language-provider";
 
 interface FavoritesDrawerProps {
   isOpen: boolean;
@@ -15,6 +16,7 @@ export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
   const [copiedWord, setCopiedWord] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === "dark";
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -128,7 +130,7 @@ export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
                   onClick={() => {
                     const textBlock = favorites.map((w: string) => w.toUpperCase()).join("\n");
                     navigator.clipboard?.writeText(textBlock);
-                    alert("All words copied successfully!");
+                    alert(t.ui.allCopied);
                   }}
                   className="text-brand hover:underline cursor-pointer font-medium"
                 >

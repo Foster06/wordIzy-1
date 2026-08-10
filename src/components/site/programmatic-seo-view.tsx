@@ -14,6 +14,8 @@ import {
   buildWordListSiblingLinks,
   buildCanonicalWordListUrl,
   WORD_LIST_LENGTHS,
+  ALPHABET_LOWER,
+  ALPHABET_UPPER,
 } from "@/lib/word-list-urls";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import type { Translation } from "@/components/i18n/translations";
@@ -52,8 +54,11 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [offset, setOffset] = useState(0);
+  const [sortMode, setSortMode] = useState<"alpha" | "score">("alpha");
+  const [jumpLetter, setJumpLetter] = useState<string | "all">("all");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const isFirstLoad = useRef(true);
+  const wordsRef = useRef<ApiWord[]>([]);
 
   // Debounce the search query so we don't fetch on every keystroke.
   // This preserves input focus — previously every keystroke triggered a
@@ -97,12 +102,19 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
     setError(null);
 
     try {
+      // Use the ref length so we always know the true current offset,
+      // even when "Load more" is clicked before the next render flushes.
+      // Previously this read the `offset` state, which was still 0 on the
+      // first load-more click — causing the same first page to be re-fetched.
+      const currentOffset = reset ? 0 : wordsRef.current.length;
       const params = new URLSearchParams({
         slug,
         lang: String(lang),
         limit: String(PAGE_SIZE),
-        offset: reset ? "0" : String(offset),
+        offset: String(currentOffset),
       });
+      params.set("sort", sortMode);
+      if (config!.type === "length" && jumpLetter !== "all") params.set("startsWith", jumpLetter);
       if (activeLength !== "all") params.set("length", String(activeLength));
       if (debouncedSearch.trim()) params.set("q", debouncedSearch.trim());
 
@@ -112,8 +124,12 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
 
       if (reset) {
         setWords(data.words);
+        wordsRef.current = data.words;
       } else {
-        setWords((prev) => [...prev, ...data.words]);
+        const combined = [...wordsRef.current, ...data.words];
+        setWords(combined);
+        wordsRef.current = combined;
+        setOffset(combined.length);
       }
       setTotal(data.total);
       setLengthCounts(data.lengthCounts ?? {});
@@ -125,14 +141,14 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
       setLoadingMore(false);
       setFiltering(false);
     }
-  }, [slug, lang, activeLength, debouncedSearch, offset]);
+  }, [slug, lang, activeLength, debouncedSearch, sortMode, jumpLetter]);
 
   // Initial load + reload when filters change.
   // IMPORTANT: we depend on debouncedSearch (not searchQuery) so the fetch
   // only fires after the user stops typing for 300ms. This preserves input focus.
   useEffect(() => {
     fetchWords(true);
-  }, [slug, lang, activeLength, debouncedSearch, fetchWords]);
+  }, [slug, lang, activeLength, debouncedSearch, sortMode, jumpLetter, fetchWords]);
 
   const canLoadMore = words.length < total;
 
@@ -244,11 +260,69 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
         </div>
       )}
 
+      {/* Sort toggle: A→Z / Score */}
+      <div className="flex items-center gap-2" role="group" aria-label="Sort">
+        <button
+          type="button"
+          onClick={() => setSortMode("alpha")}
+          aria-pressed={sortMode === "alpha"}
+          className={cn(
+            "h-8 px-3 rounded-md text-xs font-semibold transition-colors cursor-pointer",
+            sortMode === "alpha" ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand"
+          )}
+        >
+          A→Z
+        </button>
+        <button
+          type="button"
+          onClick={() => setSortMode("score")}
+          aria-pressed={sortMode === "score"}
+          className={cn(
+            "h-8 px-3 rounded-md text-xs font-semibold transition-colors cursor-pointer",
+            sortMode === "score" ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand"
+          )}
+        >
+          Score
+        </button>
+      </div>
+
+      {/* Alphabet jump bar (only on length pages) */}
+      {config!.type === "length" && (
+        <div className="flex flex-wrap gap-1" role="group" aria-label="Filter by starting letter">
+          <button
+            type="button"
+            onClick={() => setJumpLetter("all")}
+            aria-pressed={jumpLetter === "all"}
+            className={cn(
+              "h-8 px-2 rounded-md text-xs font-semibold transition-colors cursor-pointer",
+              jumpLetter === "all" ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand"
+            )}
+          >
+            All
+          </button>
+          {ALPHABET_LOWER.map((letter, i) => (
+            <button
+              key={letter}
+              type="button"
+              onClick={() => setJumpLetter(letter)}
+              aria-pressed={jumpLetter === letter}
+              className={cn(
+                "h-8 w-7 rounded-md text-xs font-semibold transition-colors cursor-pointer uppercase",
+                jumpLetter === letter ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand"
+              )}
+            >
+              {ALPHABET_UPPER[i]}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Word list (only the currently-fetched page) */}
       <WordList
         words={words as any}
         lang={def as any}
         t={t as Translation}
+        pageSize={words.length}
         emptyMessage={searchQuery || activeLength !== "all" ? t.wordListPage.noMatch : t.wordListPage.noWords}
       />
 

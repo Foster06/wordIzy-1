@@ -217,7 +217,7 @@ export function InboxView() {
                   required
                   autoFocus
                   className="glass-soft border-white/10 search-amber"
-                  placeholder="Enter password"
+                  placeholder={t.ui.enterPassword}
                 />
               </div>
               {error && (
@@ -347,7 +347,7 @@ export function InboxView() {
                           onClick={() => setExpandedId(expanded ? null : msg.id)}
                           className="text-xs text-brand hover:underline mt-1"
                         >
-                          {expanded ? "Show less" : "Show more"}
+                          {expanded ? t.ui.showLess : t.ui.showMore}
                         </button>
                       )}
                     </div>

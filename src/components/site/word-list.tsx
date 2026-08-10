@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Copy, Check, Share2, Star } from "lucide-react";
 import type { SolvedWord } from "@/lib/unscramble";
 import type { LanguageDef } from "@/lib/languages";
@@ -40,6 +40,16 @@ export function WordList({
   void lang;
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState<number>(initialPageSize);
+  // Sync internal pagination whenever the parent passes a new pageSize
+  // (e.g. when the loaded word count changes). Wrapped in Promise.resolve
+  // so the state update happens in a microtask — avoiding sync re-renders
+  // during the parent's render phase.
+  useEffect(() => {
+    Promise.resolve().then(() => {
+      setPageSize(initialPageSize);
+      setPage(0);
+    });
+  }, [initialPageSize]);
   const [copied, setCopied] = useState(false);
   const [copiedCell, setCopiedCell] = useState<string | null>(null);
   const { favorites, toggleFavorite } = useWordVault();
