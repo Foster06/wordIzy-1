@@ -16,87 +16,66 @@ import { isWordListPage } from "@/lib/word-list-urls";
 
 const ScrambleTool = dynamic(
   () => import("@/components/tools/scramble-tool").then((m) => m.ScrambleTool),
-  { ssr: false },
 );
 const WordleTool = dynamic(
   () => import("@/components/tools/wordle-tool").then((m) => m.WordleTool),
-  { ssr: false },
 );
 const QuordleTool = dynamic(
   () => import("@/components/tools/quordle-tool").then((m) => m.QuordleTool),
-  { ssr: false },
 );
 const AnagramTool = dynamic(
   () => import("@/components/tools/anagram-tool").then((m) => m.AnagramTool),
-  { ssr: false },
 );
 const RandomTool = dynamic(
   () => import("@/components/tools/random-tool").then((m) => m.RandomTool),
-  { ssr: false },
 );
 const WordfeudTool = dynamic(
   () => import("@/components/tools/wordfeud-tool").then((m) => m.WordfeudTool),
-  { ssr: false },
 );
 const DictionaryTool = dynamic(
   () => import("@/components/tools/dictionary-tool").then((m) => m.DictionaryTool),
-  { ssr: false },
 );
 const ScrabbleTool = dynamic(
   () => import("@/components/tools/scrabble-tool").then((m) => m.ScrabbleTool),
-  { ssr: false },
 );
 const WordlistsTool = dynamic(
   () => import("@/components/tools/wordlists-tool").then((m) => m.WordlistsTool),
-  { ssr: false },
 );
 const WordStartsTool = dynamic(
   () => import("@/components/tools/word-starts-tool").then((m) => m.WordStartsTool),
-  { ssr: false },
 );
 const WordEndsTool = dynamic(
   () => import("@/components/tools/word-ends-tool").then((m) => m.WordEndsTool),
-  { ssr: false },
 );
 const WordleStartsTool = dynamic(
   () => import("@/components/tools/wordle-starts-tool").then((m) => m.WordleStartsTool),
-  { ssr: false },
 );
 const WordleEndsTool = dynamic(
   () => import("@/components/tools/wordle-ends-tool").then((m) => m.WordleEndsTool),
-  { ssr: false },
 );
 const AboutView = dynamic(
   () => import("@/components/tools/info-views").then((m) => m.AboutView),
-  { ssr: false },
 );
 const ContactView = dynamic(
   () => import("@/components/tools/info-views").then((m) => m.ContactView),
-  { ssr: false },
 );
 const PrivacyView = dynamic(
   () => import("@/components/tools/info-views").then((m) => m.PrivacyView),
-  { ssr: false },
 );
 const SitemapView = dynamic(
   () => import("@/components/tools/info-views").then((m) => m.SitemapView),
-  { ssr: false },
 );
 const InboxView = dynamic(
   () => import("@/components/tools/inbox-view").then((m) => m.InboxView),
-  { ssr: false },
 );
 const DashboardView = dynamic(
   () => import("@/components/tools/dashboard-view").then((m) => m.DashboardView),
-  { ssr: false },
 );
 const ProgrammaticSEOView = dynamic(
   () => import("@/components/site/programmatic-seo-view").then((m) => m.ProgrammaticSEOView),
-  { ssr: false },
 );
 const AnagramBlitz = dynamic(
   () => import("@/components/tools/anagram-blitz").then((m) => m.AnagramBlitz),
-  { ssr: false },
 );
 
 interface MainToolViewProps {
