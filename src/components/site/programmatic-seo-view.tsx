@@ -20,9 +20,14 @@ import {
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import type { Translation } from "@/components/i18n/translations";
 import { cn } from "@/lib/utils";
+import type { InitialWordListPage } from "@/lib/word-list-data";
 
 interface ProgrammaticSEOViewProps {
   slug: string;
+  // Server-fetched initial page (50 words, alpha sort). When provided, the
+  // view renders immediately WITHOUT a loading spinner — the words are already
+  // in the SSR'd HTML. The client only fetches for "Load more" / filter changes.
+  initialData?: InitialWordListPage | null;
 }
 
 interface ApiWord { word: string; score: number; }
@@ -37,7 +42,7 @@ interface ApiResponse {
 
 const PAGE_SIZE = 50;
 
-export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
+export function ProgrammaticSEOView({ slug, initialData }: ProgrammaticSEOViewProps) {
   const config = parseWordListSlug(slug);
 
   if (!config) {
@@ -51,10 +56,16 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
 
   const { t, lang } = useLanguage();
   const def = LANGUAGES[lang as LanguageCode];
-  const [words, setWords] = useState<ApiWord[]>([]);
-  const [total, setTotal] = useState(0);
-  const [lengthCounts, setLengthCounts] = useState<Record<number, number>>({});
-  const [loading, setLoading] = useState(true);  // only for the INITIAL load (full-page spinner)
+  // SSR seed: if the server pre-rendered the first 50 words, use them as the
+  // initial state. This eliminates the loading spinner on first paint.
+  const hasInitialData = !!initialData && initialData.words.length > 0;
+  const [words, setWords] = useState<ApiWord[]>(hasInitialData ? initialData!.words : []);
+  const [total, setTotal] = useState<number>(hasInitialData ? initialData!.total : 0);
+  const [lengthCounts, setLengthCounts] = useState<Record<number, number>>(
+    hasInitialData ? initialData!.lengthCounts : {},
+  );
+  // Only show the spinner if the server did NOT provide initial data.
+  const [loading, setLoading] = useState(!hasInitialData);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeLength, setActiveLength] = useState<number | "all">("all");
@@ -64,7 +75,9 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
   const [sortMode, setSortMode] = useState<"alpha" | "score">("alpha");
   const [jumpLetter, setJumpLetter] = useState<string | "all">("all");
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const wordsRef = useRef<ApiWord[]>([]);
+  // Initialize wordsRef with SSR data so "Load more" starts at offset 50
+  // (not 0) when the server already pre-rendered the first page.
+  const wordsRef = useRef<ApiWord[]>(hasInitialData ? initialData!.words : []);
 
   // Debounce the search query so we don't fetch on every keystroke.
   // This preserves input focus — previously every keystroke triggered a
@@ -140,7 +153,17 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
   }, [slug, lang, activeLength, debouncedSearch, sortMode, jumpLetter, t]);
 
   // Initial load + reload when filters change.
+  // On the very first mount, if SSR provided initialData AND the user's
+  // selected language matches the SSR data's language (English), we skip the
+  // fetch — the words are already in state. If the user has a different
+  // language selected (read from localStorage after hydration), we refetch.
+  const isFirstRender = useRef(true);
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      // SSR data is always English. Skip the refetch only if the user is on English.
+      if (hasInitialData && lang === "en") return;
+    }
     fetchWords(true);
   }, [slug, lang, activeLength, debouncedSearch, sortMode, jumpLetter]);
 

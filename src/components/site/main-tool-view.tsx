@@ -76,8 +76,13 @@ const AnagramBlitz = dynamic(
   () => import("@/components/tools/anagram-blitz").then((m) => m.AnagramBlitz),
 );
 
+// Server-fetched initial word-list data (for SSR — first 50 words are
+// pre-rendered so users see them immediately on page load, no spinner).
+import type { InitialWordListPage } from "@/lib/word-list-data";
+
 interface MainToolViewProps {
   params: Promise<{ tool?: string[] }>;
+  initialWordListData?: InitialWordListPage | null;
 }
 
 function HomeHero() {
@@ -96,7 +101,7 @@ function HomeHero() {
   );
 }
 
-export function MainToolView({ params }: MainToolViewProps) {
+export function MainToolView({ params, initialWordListData }: MainToolViewProps) {
   const resolvedParams = use(params);
   const toolSegments = resolvedParams.tool || [];
   const { route } = useHashRoute();
@@ -110,7 +115,7 @@ export function MainToolView({ params }: MainToolViewProps) {
     if (isWordListPage(primaryRoute)) {
       return (
         <ErrorBoundary label="Word List">
-          <ProgrammaticSEOView slug={primaryRoute} />
+          <ProgrammaticSEOView slug={primaryRoute} initialData={initialWordListData} />
         </ErrorBoundary>
       );
     }
@@ -119,7 +124,7 @@ export function MainToolView({ params }: MainToolViewProps) {
     if (primaryRoute === "unscramble" && subRoute && isWordListPage(subRoute)) {
       return (
         <ErrorBoundary label="Word List">
-          <ProgrammaticSEOView slug={subRoute} />
+          <ProgrammaticSEOView slug={subRoute} initialData={initialWordListData} />
         </ErrorBoundary>
       );
     }

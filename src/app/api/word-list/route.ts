@@ -1,70 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDict, getWordleDict } from "@/lib/dictionary";
-import { scoreWord } from "@/lib/languages";
+import { getCachedList } from "@/lib/word-list-data";
 import type { LanguageCode } from "@/lib/languages";
 import { parseWordListSlug } from "@/lib/word-list-urls";
 import { solverLimiter, getClientIp } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const revalidate = 3600;
-
-// Module-level cache: the filtered+sorted word list for a (slug, lang) pair is
-// deterministic, so we compute it ONCE and reuse. Without this, every paginated
-// request re-scanned all 14 length buckets (25k+ entries for popular letters).
-const listCache = new Map<string, { title: string; words: { word: string; score: number; len: number }[]; lengthCounts: Record<number, number> }>();
-
-/** Build (or fetch from cache) the full filtered+sorted list for a slug+lang. */
-function getCachedList(slug: string, lang: LanguageCode) {
-  const cacheKey = `${slug}:${lang}`;
-  const cached = listCache.get(cacheKey);
-  if (cached) return cached;
-
-  const config = parseWordListSlug(slug);
-  if (!config) return null;
-
-  // Use Wordle dictionary for Wordle slugs, Scrabble dictionary otherwise.
-  const dict = config.dict === "wordle" ? getWordleDict(lang) : getDict(lang);
-  const matched: { word: string; score: number; len: number }[] = [];
-  const lengthCounts: Record<number, number> = {};
-  for (let n = 2; n <= 15; n++) lengthCounts[n] = 0;
-  let title = "";
-  const dictPrefix = config.dict === "wordle" ? "Wordle " : "";
-
-  if (config.type === "length") {
-    const targetLength = config.value as number;
-    title = `${targetLength}-Letter Words`;
-    const bucket = dict.byLength.get(targetLength) ?? [];
-    lengthCounts[targetLength] = bucket.length;
-    for (const entry of bucket) {
-      matched.push({ word: entry.word, score: scoreWord(entry.word, lang), len: entry.len });
-    }
-    matched.sort((a, b) => b.score - a.score || a.word.localeCompare(b.word));
-  } else if (config.type === "starts" || config.type === "ends") {
-    const letter = String(config.value).toLowerCase();
-    title = config.type === "starts"
-      ? `${dictPrefix}Words Starting With "${letter.toUpperCase()}"`
-      : `${dictPrefix}Words Ending With "${letter.toUpperCase()}"`;
-    const check = config.type === "starts"
-      ? (norm: string) => norm.startsWith(letter)
-      : (norm: string) => norm.endsWith(letter);
-    for (let l = 2; l <= 15; l++) {
-      const bucket = dict.byLength.get(l) ?? [];
-      for (const entry of bucket) {
-        if (check(entry.norm)) {
-          lengthCounts[l]++;
-          matched.push({ word: entry.word, score: scoreWord(entry.word, lang), len: entry.len });
-        }
-      }
-    }
-    matched.sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
-  } else {
-    return null;
-  }
-
-  const result = { title, words: matched, lengthCounts };
-  listCache.set(cacheKey, result);
-  return result;
-}
 
 /**
  * GET /api/word-list?slug=words-starts-by-c&lang=en&length=5&q=cat&offset=0&limit=50
@@ -97,9 +38,6 @@ export async function GET(req: NextRequest) {
   if (!config) {
     return NextResponse.json({ error: "Invalid slug" }, { status: 400 });
   }
-
-  // Use Wordle dictionary if the slug is a Wordle slug, otherwise Scrabble.
-  const useWordleDict = config.dict === "wordle";
 
   try {
     const cached = getCachedList(slug, lang);
@@ -156,4 +94,3 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Failed to load words" }, { status: 500 });
   }
 }
-

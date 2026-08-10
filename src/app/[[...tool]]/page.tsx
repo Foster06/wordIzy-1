@@ -7,6 +7,7 @@ import {
   buildWordListTitle,
   buildCanonicalWordListUrl,
 } from "@/lib/word-list-urls";
+import { getInitialWordListPage, type InitialWordListPage } from "@/lib/word-list-data";
 
 interface PageProps {
   params: Promise<{ tool?: string[] }>;
@@ -97,6 +98,32 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 // ROUTER JUNCTION: detects programmatic word-list slugs and passes them to
 // MainToolView for client-side rendering via ProgrammaticSEOView.
-export default function Page({ params }: PageProps) {
-  return <MainToolView params={params} />;
+//
+// SERVER-SIDE DATA FETCH: For word-list slugs we pre-render the first 50 words
+// on the server so users see them immediately when the page loads — no spinner,
+// no client round-trip on initial page load. The client takes over for
+// pagination ("Load more"), filter changes, and sort toggles.
+export default async function Page({ params }: PageProps) {
+  const resolvedParams = await params;
+  const toolSegments = resolvedParams.tool || [];
+  const activeToolSlug = toolSegments[0] || "";
+  const subRoute = toolSegments[1] || "";
+
+  let initialWordListData: InitialWordListPage | null = null;
+
+  // Try single-segment programmatic slug
+  if (isWordListPage(activeToolSlug)) {
+    initialWordListData = getInitialWordListPage(activeToolSlug, "en", 50);
+  }
+  // Try legacy two-segment path: /unscramble/<slug>
+  else if (activeToolSlug === "unscramble" && subRoute && isWordListPage(subRoute)) {
+    initialWordListData = getInitialWordListPage(subRoute, "en", 50);
+  }
+
+  return (
+    <MainToolView
+      params={params}
+      initialWordListData={initialWordListData}
+    />
+  );
 }
