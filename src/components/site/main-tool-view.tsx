@@ -71,9 +71,7 @@ const InboxView = dynamic(
 const DashboardView = dynamic(
   () => import("@/components/tools/dashboard-view").then((m) => m.DashboardView),
 );
-const ProgrammaticSEOView = dynamic(
-  () => import("@/components/site/programmatic-seo-view").then((m) => m.ProgrammaticSEOView),
-);
+import { ProgrammaticSEOView } from "@/components/site/programmatic-seo-view";
 const AnagramBlitz = dynamic(
   () => import("@/components/tools/anagram-blitz").then((m) => m.AnagramBlitz),
 );

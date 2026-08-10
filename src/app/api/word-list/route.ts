@@ -84,6 +84,8 @@ export async function GET(req: NextRequest) {
   const lang = (req.nextUrl.searchParams.get("lang") || "en") as LanguageCode;
   const lengthFilter = req.nextUrl.searchParams.get("length");
   const q = (req.nextUrl.searchParams.get("q") || "").toLowerCase().trim();
+  const startsWith = (req.nextUrl.searchParams.get("startsWith") || "").toLowerCase().trim();
+  const sort = req.nextUrl.searchParams.get("sort") || "alpha";
   const offset = Math.max(0, Number(req.nextUrl.searchParams.get("offset")) || 0);
   const limit = Math.min(500, Math.max(1, Number(req.nextUrl.searchParams.get("limit")) || 50));
 
@@ -117,6 +119,18 @@ export async function GET(req: NextRequest) {
     // Apply optional search query filter.
     if (q) {
       filtered = filtered.filter((w) => w.word.toLowerCase().includes(q));
+    }
+
+    // Apply optional startsWith filter (alphabet jump bar on length pages).
+    if (startsWith) {
+      filtered = filtered.filter((w) => w.word.toLowerCase().startsWith(startsWith));
+    }
+
+    // Apply sort: alpha (A->Z) or score (highest first).
+    if (sort === "score") {
+      filtered = [...filtered].sort((a, b) => b.score - a.score || a.word.localeCompare(b.word));
+    } else {
+      filtered = [...filtered].sort((a, b) => a.word.toLowerCase().localeCompare(b.word.toLowerCase()));
     }
 
     const total = filtered.length;

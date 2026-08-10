@@ -1,7 +1,7 @@
 "use client";
 
+
 import { useEffect, useState, useCallback, useRef } from "react";
-import { notFound } from "next/navigation";
 import { Search, X, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { WordList } from "@/components/site/word-list";
 import { ReturnButton } from "@/components/site/back-button";
@@ -39,7 +39,15 @@ const PAGE_SIZE = 50;
 
 export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
   const config = parseWordListSlug(slug);
-  if (!config) notFound();
+
+  if (!config) {
+    return (
+      <div className="space-y-6 max-w-5xl mx-auto">
+        <ReturnButton href="/" label="Back to Home" />
+        <div className="text-center text-sm py-12 text-muted-foreground">Word list not found.</div>
+      </div>
+    );
+  }
 
   const { t, lang } = useLanguage();
   const def = LANGUAGES[lang as LanguageCode];
@@ -48,7 +56,6 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
   const [lengthCounts, setLengthCounts] = useState<Record<number, number>>({});
   const [loading, setLoading] = useState(true);  // only for the INITIAL load (full-page spinner)
   const [loadingMore, setLoadingMore] = useState(false);
-  const [filtering, setFiltering] = useState(false);  // for search/length filter changes (no full-page spinner)
   const [error, setError] = useState<string | null>(null);
   const [activeLength, setActiveLength] = useState<number | "all">("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -57,7 +64,6 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
   const [sortMode, setSortMode] = useState<"alpha" | "score">("alpha");
   const [jumpLetter, setJumpLetter] = useState<string | "all">("all");
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const isFirstLoad = useRef(true);
   const wordsRef = useRef<ApiWord[]>([]);
 
   // Debounce the search query so we don't fetch on every keystroke.
@@ -70,31 +76,22 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const titleText = buildWordListTitle(config!);
-  const siblings = buildWordListSiblingLinks(config!);
-  const canonical = buildCanonicalWordListUrl(config!);
+  const titleText = buildWordListTitle(config);
+  const siblings = buildWordListSiblingLinks(config);
+  const canonical = buildCanonicalWordListUrl(config);
 
   let descriptionText = "";
-  if (config!.type === "length") {
-    descriptionText = `Browse all ${config!.value}-letter words for Scrabble, Wordle, and anagram puzzles. Filtered by official Scrabble dictionaries, sorted by score.`;
-  } else if (config!.type === "starts") {
-    descriptionText = `Explore verified Scrabble words that start with the letter "${String(config!.value).toUpperCase()}". Filter by length and score.`;
+  if (config.type === "length") {
+    descriptionText = `Browse all ${config.value}-letter words for Scrabble, Wordle, and anagram puzzles. Filtered by official Scrabble dictionaries, sorted by score.`;
+  } else if (config.type === "starts") {
+    descriptionText = `Explore verified Scrabble words that start with the letter "${String(config.value).toUpperCase()}". Filter by length and score.`;
   } else {
-    descriptionText = `Discover verified Scrabble words that end with the letter "${String(config!.value).toUpperCase()}". Filter by length and find hooks.`;
+    descriptionText = `Discover verified Scrabble words that end with the letter "${String(config.value).toUpperCase()}". Filter by length and find hooks.`;
   }
 
-  // Fetch words from the API with server-side pagination + filtering.
   const fetchWords = useCallback(async (reset: boolean) => {
     if (reset) {
-      // Only show the full-page spinner on the very first load.
-      // On search/length filter changes, use `filtering` instead so the
-      // search input stays mounted and focused.
-      if (isFirstLoad.current) {
-        setLoading(true);
-        isFirstLoad.current = false;
-      } else {
-        setFiltering(true);
-      }
+      setLoading(true);
       setOffset(0);
     } else {
       setLoadingMore(true);
@@ -114,7 +111,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
         offset: String(currentOffset),
       });
       params.set("sort", sortMode);
-      if (config!.type === "length" && jumpLetter !== "all") params.set("startsWith", jumpLetter);
+      if (config.type === "length" && jumpLetter !== "all") params.set("startsWith", jumpLetter);
       if (activeLength !== "all") params.set("length", String(activeLength));
       if (debouncedSearch.trim()) params.set("q", debouncedSearch.trim());
 
@@ -139,16 +136,13 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
     } finally {
       setLoading(false);
       setLoadingMore(false);
-      setFiltering(false);
     }
-  }, [slug, lang, activeLength, debouncedSearch, sortMode, jumpLetter]);
+  }, [slug, lang, activeLength, debouncedSearch, sortMode, jumpLetter, t]);
 
   // Initial load + reload when filters change.
-  // IMPORTANT: we depend on debouncedSearch (not searchQuery) so the fetch
-  // only fires after the user stops typing for 300ms. This preserves input focus.
   useEffect(() => {
     fetchWords(true);
-  }, [slug, lang, activeLength, debouncedSearch, sortMode, jumpLetter, fetchWords]);
+  }, [slug, lang, activeLength, debouncedSearch, sortMode, jumpLetter]);
 
   const canLoadMore = words.length < total;
 
@@ -217,7 +211,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
       </div>
 
       {/* Length filter buttons (only on starts/ends pages) */}
-      {config!.type !== "length" && (
+      {config.type !== "length" && (
         <div className="flex flex-wrap gap-2" role="group" aria-label={t.wordListPage.filterByLength}>
           <button
             type="button"
@@ -287,7 +281,7 @@ export function ProgrammaticSEOView({ slug }: ProgrammaticSEOViewProps) {
       </div>
 
       {/* Alphabet jump bar (only on length pages) */}
-      {config!.type === "length" && (
+      {config.type === "length" && (
         <div className="flex flex-wrap gap-1" role="group" aria-label="Filter by starting letter">
           <button
             type="button"
