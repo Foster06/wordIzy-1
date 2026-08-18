@@ -1,0 +1,582 @@
+     1→# wordIzy
+     2→
+     3→> Free word unscrambler & anagram solver with 9-language official Scrabble dictionaries. 12 tools, no sign-up, no tracking. Built with Next.js 16, Prisma, and Tailwind CSS.
+     4→
+     5→A privacy-first word puzzle platform built for word game enthusiasts, students, and language lovers worldwide. Whether you're stuck on a Wordle puzzle, looking for the best Scrabble play, or exploring a new language, wordIzy gives you the answers without friction, sign-ups, or paywalls.
+     6→
+     7→---
+     8→
+     9→## Table of Contents
+    10→
+    11→- [Features](#features)
+    12→  - [12 Word Tools](#12-word-tools)
+    13→  - [Official Scrabble Dictionaries](#official-scrabble-dictionaries)
+    14→  - [9 Languages](#9-languages)
+    15→  - [Smart Features](#smart-features)
+    16→  - [Privacy & Security](#privacy--security)
+    17→  - [Performance](#performance)
+    18→  - [Accessibility](#accessibility)
+    19→  - [SEO](#seo)
+    20→- [Tech Stack](#tech-stack)
+    21→- [Quick Start](#quick-start)
+    22→  - [Prerequisites](#prerequisites)
+    23→  - [Installation](#installation)
+    24→  - [Environment Configuration](#environment-configuration)
+    25→- [Database](#database)
+    26→  - [Local SQLite (Development)](#local-sqlite-development)
+    27→  - [Turso (Production)](#turso-production)
+    28→  - [Database Schema](#database-schema)
+    29→- [Deployment](#deployment-vercel)
+    30→  - [Step 1: Create Turso Database](#step-1-create-turso-database)
+    31→  - [Step 2: Push to GitHub](#step-2-push-to-github)
+    32→  - [Step 3: Deploy on Vercel](#step-3-deploy-on-vercel)
+    33→  - [Step 4: Post-Deployment Verification](#step-4-post-deployment-verification)
+    34→  - [Step 5: Optional — Add AdSense](#step-5-optional--add-adsense)
+    35→  - [Step 6: Optional — Email Notifications](#step-6-optional--email-notifications)
+    36→- [Project Structure](#project-structure)
+    37→- [API Reference](#api-reference)
+    38→- [Owner Pages](#owner-pages)
+    39→- [Internationalization](#internationalization)
+    40→- [Theming](#theming)
+    41→- [Scripts](#scripts)
+    42→- [Known Limitations](#known-limitations)
+    43→- [License](#license)
+    44→- [Contact](#contact)
+    45→
+    46→---
+    47→
+    48→## Features
+    49→
+    50→### 12 Word Tools
+    51→
+    52→| Tool | Description |
+    53→|------|-------------|
+    54→| **Word Unscrambler** | Enter scrambled letters (e.g., `SRAABLC`), find every valid dictionary word. Supports wildcards (`?` and `*`), advanced filters (starts with, ends with, must include), and groups results by length with Scrabble scores. |
+    55→| **Scramble Solver** | Solve scrambled word puzzles. Enter any jumble of letters and get all valid words that can be formed. |
+    56→| **Anagram Solver** | Find all anagrams from any set of letters. Perfect for anagram puzzles and word games. |
+    57→| **Wordle Solver** | Enter your green/yellow/grey clues (placed letters, valid letters, excluded letters) and get every possible Wordle answer. Supports 5–7 letter words. |
+    58→| **Quordle Solver** | Solve 4 Wordles simultaneously. Add multiple boards with independent clue sets and find words that match all boards. |
+    59→| **Scrabble Duplicate** | Duplicate Scrabble gives every player the same rack. Enter your 7 letters (plus any board letters already placed) and find the highest-scoring plays, ranked by score. |
+    60→| **Dictionary Checker** | Verify whether a word exists in the official Scrabble dictionary, see its Scrabble point value, and read a definition (pulled from Free Dictionary API and Wiktionary). |
+    61→| **Random Word Generator** | Generate random valid words by length (2–7 letters) and count. Great for games, naming, and vocabulary practice. |
+    62→| **Wordfeud Helper** | Find the best Wordfeud words from your tiles. Supports wildcards and all 9 language dictionaries. |
+    63→| **Word Lists** | Browse every 2–7 letter word. Filter by length and starting/ending letter. Alphabetical, paginated, with live word counts on each length button. |
+    64→| **Word Starts By** | Browse all words that start with a specific letter, filtered by length (2–7). Per-length word counts shown on number buttons. |
+    65→| **Word Ends By** | Browse all words that end with a specific letter, filtered by length (2–7). Per-length word counts shown on number buttons. |
+    66→
+    67→### Official Scrabble Dictionaries
+    68→
+    69→wordIzy uses authoritative tournament word lists as the primary source — the same words accepted in official Scrabble competition play:
+    70→
+    71→| Language | Dictionary | Word Count |
+    72→|----------|-----------|------------|
+    73→| English | NWL2023 + CSW21 (Collins) | ~475,000 |
+    74→| French | ODS9 (2024) | ~412,000 |
+    75→| Spanish | FISE | ~637,000 |
+    76→| Italian | Zingarelli | ~662,000 |
+    77→| Dutch | OpenTaal | ~414,000 |
+    78→| German | Curated Scrabble-filtered list | ~105,000 |
+    79→| Portuguese | Curated Scrabble-filtered list | ~179,000 |
+    80→| Japanese | Romaji word list (curated) | ~700 |
+    81→| Mandarin | Pinyin word list (curated) | ~1,800 |
+    82→
+    83→> **Total**: 3.4+ million words across 9 languages, loaded server-side and cached in memory.
+    84→
+    85→The German and Portuguese official Scrabble lists are proprietary and not freely redistributable. For these languages, wordIzy uses curated lists filtered from comprehensive dictionaries using Scrabble-validity rules (including the official 2-letter word lists for each language, proper noun filtering, length validation, and blocklist of non-Scrabble forms).
+    86→
+    87→### 9 Languages
+    88→
+    89→The entire interface is fully translated into 9 languages:
+    90→
+    91→| Code | Language | Native Name |
+    92→|------|----------|-------------|
+    93→| `en` | English | English |
+    94→| `fr` | French | Français |
+    95→| `es` | Spanish | Español |
+    96→| `de` | German | Deutsch |
+    97→| `it` | Italian | Italiano |
+    98→| `pt` | Portuguese | Português |
+    99→| `nl` | Dutch | Nederlands |
+   100→| `ja` | Japanese | 日本語 (Romaji) |
+   101→| `zh` | Chinese | 中文 (Pinyin) |
+   102→
+   103→This includes navigation labels, tool pages, FAQ/tips sections, About page (8 sections), Privacy Policy (8 sections + third-party services), footer, cookie consent banner, and contact form — all 1,845 lines of translations.
+   104→
+   105→Switch languages at any time using the selector in the navigation bar. The selection persists in `localStorage` and the entire interface, FAQ tips, and underlying dictionary change instantly.
+   106→
+   107→### Smart Features
+   108→
+   109→- **Copy to clipboard** — One-click "Copy all" button on every result card copies the full word list (uppercase, newline-separated) to your clipboard with a "Copied!" confirmation
+   110→- **Recent searches** — Your last 10 searches are saved locally (in `localStorage`) and appear as clickable chips below the search input for quick re-running
+   111→- **Loading skeletons** — Shimmer-animated skeleton placeholders match the result grid layout for a smooth perceived loading experience (instead of a plain spinner)
+   112→- **Progressive Web App** — Installable on phone or desktop via `manifest.json`. Full-screen, app-like experience with the wordIzy icon on your home screen
+   113→- **Word counts on buttons** — The number buttons (2–7) on Word Lists, Word Starts By, and Word Ends By pages show live word counts per length, fetched from `/api/length-counts`
+   114→- **Dictionary pre-warming** — On app load, a fire-and-forget request to `/api/warmup` pre-loads all 9 dictionaries into server memory so the first real search is fast
+   115→- **Error boundaries** — Every tool is wrapped in a React error boundary so a crash in one tool doesn't break the whole page
+   116→
+   117→### Privacy & Security
+   118→
+   119→- **No accounts** — Nothing to sign up for, no login, no profile
+   120→- **No cross-site tracking** — No fingerprinting, no tracking pixels, no cross-site cookies
+   121→- **Anonymous search analytics** — Only the query string, tool used, language, and result count are recorded. No IP address, no user ID, no browser fingerprint
+   122→- **Cookie consent banner** — Appears on first visit with Accept/Decline buttons. Choice stored in `localStorage`
+   123→- **Contact form rate limiting** — Maximum 5 submissions per hour per IP address (in-memory, per-instance)
+   124→- **Contact form data** — Name, email, and message stored in the database. Only accessible to the site owner via the password-gated inbox. Never shared with third parties
+   125→- **GDPR & CCPA compliant** — Right to access, rectify, and erase personal data. No data sold or shared
+   126→
+   127→### Performance
+   128→
+   129→- **In-memory dictionary caching** — Dictionaries are loaded once and cached in a `Map` on the server. Subsequent searches are instant
+   130→- **Per-length indexing** — Words are indexed by length (`byLength: Map<number, WordEntry[]>`) for O(1) length-based lookups
+   131→- **Dictionary pre-warming** — All 9 dictionaries pre-loaded on server startup via `/api/warmup`
+   132→- **Skeleton loading states** — Animated placeholders instead of spinners for better perceived performance
+   133→- **Lazy loading** — Dictionaries load lazily on first use, then cached for all subsequent requests
+   134→
+   135→### Accessibility
+   136→
+   137→- **Semantic HTML** — Uses `<main>`, `<header>`, `<nav>`, `<footer>`, `<section>`, `<article>`
+   138→- **ARIA labels** — All icon buttons have descriptive `aria-label`s
+   139→- **`aria-current="page"`** — Active navigation items are marked for screen readers
+   140→- **Keyboard navigation** — All interactive elements are keyboard accessible
+   141→- **Focus visible** — Focus rings on all focusable elements
+   142→- **Screen reader friendly** — `sr-only` class for screen reader-only content
+   143→
+   144→### SEO
+   145→
+   146→- **Per-route metadata** — Each of the 18 routes has a unique `<title>` and `<meta description>` that update on navigation
+   147→- **JSON-LD structured data** — `WebApplication` schema in `<head>` with feature list, supported languages, and pricing
+   148→- **Open Graph + Twitter cards** — `og:image` (1200×630 SVG), `og:title`, `og:description`, Twitter `summary_large_image` card
+   149→- **`robots.txt`** — Allows all crawlers, blocks `/api/` and private pages
+   150→- **`sitemap.xml`** — Lists the home page and all site pages with priority and changefreq
+   151→- **`manifest.json`** — PWA manifest with app name, theme color, icons, and display mode
+   152→
+   153→---
+   154→
+   155→## Tech Stack
+   156→
+   157→| Layer | Technology | Details |
+   158→|-------|-----------|---------|
+   159→| Framework | Next.js 16 | App Router, Turbopack, server-side rendering |
+   160→| Language | TypeScript 5 | Strict typing throughout |
+   161→| Styling | Tailwind CSS 4 | Custom theme variables, glass morphism utilities |
+   162→| UI Components | shadcn/ui (New York) | Radix UI primitives, Lucide icons |
+   163→| Database ORM | Prisma 6 | Schema-first, type-safe queries |
+   164→| Database (dev) | SQLite | Local file at `db/custom.db` |
+   165→| Database (prod) | Turso | Hosted SQLite via `@prisma/adapter-libsql` |
+   166→| Fonts | Google Fonts | Inter (UI), Bree Serif (words), Roboto Slab 700 (brand) |
+   167→| Icons | Lucide React | Consistent icon set throughout |
+   168→| State | React hooks + Context | `LanguageProvider`, `ThemeProvider` |
+   169→| Routing | Hash-based client router | Single `/` route, 18 hash routes |
+   170→| Analytics | Custom (Prisma) | Anonymous search event tracking |
+   171→| Notifications | Sonner | Toast notifications |
+   172→| Deployment | Vercel | Auto-deploy from GitHub |
+   173→
+   174→---
+   175→
+   176→## Quick Start
+   177→
+   178→### Prerequisites
+   179→
+   180→- [Node.js](https://nodejs.org/) 18+ or [Bun](https://bun.sh/)
+   181→- A [Turso](https://turso.tech) account (free tier) — for production database
+   182→- A [Vercel](https://vercel.com) account — for deployment
+   183→- A [GitHub](https://github.com) account — for code hosting
+   184→
+   185→### Installation
+   186→
+   187→```bash
+   188→# Clone the repo
+   189→git clone https://github.com/YOUR-USERNAME/wordizy.git
+   190→cd wordizy
+   191→
+   192→# Install dependencies
+   193→bun install
+   194→
+   195→# Create .env file (see Environment Configuration below)
+   196→touch .env
+   197→# Then edit .env with your values
+   198→
+   199→# Generate Prisma client
+   200→bunx prisma generate
+   201→
+   202→# Push database schema (creates tables in local SQLite)
+   203→bun run db:push
+   204→
+   205→# Start the development server
+   206→bun run dev
+   207→```
+   208→
+   209→Open http://localhost:3000 in your browser.
+   210→
+   211→### Environment Configuration
+   212→
+   213→Create a `.env` file in the project root. **This file is in `.gitignore` and will never be pushed to GitHub.**
+   214→
+   215→```env
+   216→# ─── DATABASE (required) ──────────────────────────────────────
+   217→# Local development: SQLite file in the project folder
+   218→DATABASE_URL="file:./db/custom.db"
+   219→
+   220→# Production (Vercel): Turso hosted SQLite
+   221→# Create a free database at https://turso.tech
+   222→#TURSO_DATABASE_URL="libsql://wordizy-xxx.turso.io"
+   223→#TURSO_AUTH_TOKEN="your-turso-auth-token"
+   224→
+   225→# ─── ADMIN PASSWORD (required — change this!) ────────────────
+   226→# Password for the owner-only inbox (#/inbox) and dashboard (#/dashboard)
+   227→ADMIN_PASSWORD="your-strong-password-here"
+   228→
+   229→# ─── GOOGLE ADSENSE (optional) ───────────────────────────────
+   230→# Your AdSense publisher ID. Leave commented to show placeholder ad slots.
+   231→#NEXT_PUBLIC_ADSENSE_CLIENT="ca-pub-XXXXXXXXXXXXXXXX"
+   232→
+   233→# ─── EMAIL NOTIFICATIONS (optional) ──────────────────────────
+   234→# Send an email notification when the contact form is submitted.
+   235→# Uses Resend (https://resend.com) — free tier: 100 emails/day.
+   236→#RESEND_API_KEY="re_xxxxxxxxxxxxxxxxxxxx"
+   237→#NOTIFY_EMAIL="dorciusforteson@gmail.com"
+   238→```
+   239→
+   240→---
+   241→
+   242→## Database
+   243→
+   244→### Local SQLite (Development)
+   245→
+   246→For local development, wordIzy uses a SQLite file at `db/custom.db`. This requires no setup beyond running `bun run db:push` after creating your `.env` file.
+   247→
+   248→### Turso (Production)
+   249→
+   250→Vercel's filesystem is ephemeral — local SQLite files get wiped on every deploy. For production, use [Turso](https://turso.tech) (hosted SQLite). The `db.ts` file automatically detects Turso when `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` are set, and falls back to local SQLite when they're not.
+   251→
+   252→### Database Schema
+   253→
+   254→The database has 4 tables (2 active, 2 legacy from template):
+   255→
+   256→| Table | Purpose | Active? |
+   257→|-------|---------|---------|
+   258→| `ContactMessage` | Contact form submissions (name, email, message, locale, handled, IP, userAgent) | ✅ Yes |
+   259→| `SearchEvent` | Anonymous search analytics (query, route, lang, resultCount) | ✅ Yes |
+   260→| `User` | Legacy template table | ❌ No |
+   261→| `Post` | Legacy template table | ❌ No |
+   262→
+   263→**Indexes**: `ContactMessage` is indexed on `handled` and `createdAt`. `SearchEvent` is indexed on `route`, `lang`, `createdAt`, and `query`.
+   264→
+   265→---
+   266→
+   267→## Deployment (Vercel)
+   268→
+   269→### Step 1: Create Turso Database
+   270→
+   271→```bash
+   272→# Install Turso CLI (if you don't have it)
+   273→curl -sSfL https://get.tur.so/install.sh | bash
+   274→
+   275→# Log in (opens browser)
+   276→turso auth login
+   277→
+   278→# Create database
+   279→turso db create wordizy
+   280→
+   281→# Get the connection URL (copy this)
+   282→turso db show wordizy --url
+   283→# → libsql://wordizy-xxx.turso.io
+   284→
+   285→# Get the auth token (copy this)
+   286→turso db tokens create wordizy
+   287→# → eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9...
+   288→
+   289→# Create all tables in Turso
+   290→turso db shell wordizy < schema.sql
+   291→```
+   292→
+   293→Alternatively, you can push the schema using Prisma:
+   294→```bash
+   295→# Set Turso env vars in .env first, then:
+   296→TURSO_DATABASE_URL="libsql://wordizy-xxx.turso.io" \
+   297→TURSO_AUTH_TOKEN="your-token" \
+   298→bun run db:push
+   299→```
+   300→
+   301→### Step 2: Push to GitHub
+   302→
+   303→```bash
+   304→git init
+   305→git add .
+   306→git commit -m "wordIzy — ready for deployment"
+   307→git branch -M main
+   308→git remote add origin https://github.com/YOUR-USERNAME/wordizy.git
+   309→git push -u origin main
+   310→```
+   311→
+   312→The `.env` file will NOT be pushed (it's in `.gitignore`).
+   313→
+   314→### Step 3: Deploy on Vercel
+   315→
+   316→1. Go to [vercel.com/new](https://vercel.com/new)
+   317→2. Click **"Import Git Repository"**
+   318→3. Select your `wordizy` repo
+   319→4. In the **Environment Variables** section, add:
+   320→
+   321→| Name | Value | Required? |
+   322→|------|-------|-----------|
+   323→| `DATABASE_URL` | `file:./db/custom.db` | ✅ Yes |
+   324→| `ADMIN_PASSWORD` | Your strong password | ✅ Yes |
+   325→| `TURSO_DATABASE_URL` | `libsql://wordizy-xxx.turso.io` | ✅ Yes (for Vercel) |
+   326→| `TURSO_AUTH_TOKEN` | Your Turso auth token | ✅ Yes (for Vercel) |
+   327→| `NEXT_PUBLIC_ADSENSE_CLIENT` | `ca-pub-XXXXXXXXXXXXXXXX` | ❌ Optional |
+   328→| `RESEND_API_KEY` | `re_xxxxxxxxxxxx` | ❌ Optional |
+   329→| `NOTIFY_EMAIL` | `dorciusforteson@gmail.com` | ❌ Optional |
+   330→
+   331→5. Click **Deploy**
+   332→6. Wait 2–3 minutes for the build to complete
+   333→
+   334→### Step 4: Post-Deployment Verification
+   335→
+   336→Visit your deployed Vercel URL and verify:
+   337→
+   338→- [ ] Home page loads
+   339→- [ ] Search works (type `SRAABLC`, click Unscramble)
+   340→- [ ] Copy button works on result cards
+   341→- [ ] Recent searches appear after clearing input
+   342→- [ ] Language selector works (switch to French, then back)
+   343→- [ ] Theme toggle works (Light → Dark → System)
+   344→- [ ] Contact form works (submit a test message)
+   345→- [ ] Inbox at `yoursite.com/#/inbox` works (enter your `ADMIN_PASSWORD`)
+   346→- [ ] Dashboard at `yoursite.com/#/dashboard` works
+   347→- [ ] About page renders (8 sections)
+   348→- [ ] Privacy page renders (8 sections + third-party services with clickable links)
+   349→- [ ] Sitemap page renders (stylish cards with icons)
+   350→- [ ] Cookie consent banner appears on first visit
+   351→- [ ] `yoursite.com/robots.txt` is accessible
+   352→- [ ] `yoursite.com/sitemap.xml` is accessible
+   353→- [ ] `yoursite.com/manifest.json` is accessible
+   354→- [ ] PWA installable on mobile (Add to Home Screen)
+   355→
+   356→### Step 5: Optional — Add AdSense
+   357→
+   358→1. Get your Google AdSense publisher ID (format: `ca-pub-XXXXXXXXXXXXXXXX`)
+   359→2. Add it to Vercel: Settings → Environment Variables → `NEXT_PUBLIC_ADSENSE_CLIENT`
+   360→3. Redeploy
+   361→
+   362→### Step 6: Optional — Email Notifications
+   363→
+   364→1. Create a free account at [Resend](https://resend.com)
+   365→2. Get your API key (format: `re_xxxxxxxxxxxx`)
+   366→3. Add to Vercel: `RESEND_API_KEY` and `NOTIFY_EMAIL`
+   367→4. Redeploy
+   368→
+   369→---
+   370→
+   371→## Project Structure
+   372→
+   373→```
+   374→wordizy/
+   375→├── prisma/
+   376→│   └── schema.prisma              # Prisma schema (ContactMessage, SearchEvent, User, Post)
+   377→├── public/
+   378→│   ├── robots.txt                 # Crawler rules (allows all, blocks /api/)
+   379→│   ├── sitemap.xml                # XML sitemap
+   380→│   ├── manifest.json              # PWA manifest (name, icons, theme color)
+   381→│   ├── og-image.svg               # 1200×630 social preview image
+   382→│   └── logo.svg                   # Favicon (amber square with white W)
+   383→├── data/
+   384→│   └── scrabble/                  # Official Scrabble dictionary files
+   385→│       ├── NWL2023.txt            # English (North American)
+   386→│       ├── CSW21.txt              # English (Collins, international)
+   387→│       ├── ODS9.txt               # French
+   388→│       ├── FISE.txt               # Spanish
+   389→│       ├── ZINGA.txt              # Italian (Zingarelli)
+   390→│       ├── OpenTaal.txt           # Dutch
+   391→│       ├── DE_FILTERED.txt        # German (curated, Scrabble-filtered)
+   392→│       └── PT_FILTERED.txt        # Portuguese (curated, Scrabble-filtered)
+   393→├── src/
+   394→│   ├── app/
+   395→│   │   ├── layout.tsx             # Root layout (fonts, JSON-LD, AdSense, cookies, web vitals)
+   396→│   │   ├── page.tsx               # Single-page app with hash router + ErrorBoundary
+   397→│   │   ├── globals.css            # Theme variables, typography, glass utilities, skeletons
+   398→│   │   └── api/                   # 16 API route handlers
+   399→│   │       ├── contact/           # Contact form (POST) + inbox (GET/PATCH/DELETE)
+   400→│   │       ├── analytics/         # Search analytics (POST + GET summary)
+   401→│   │       ├── warmup/            # Pre-warm all 9 dictionaries on server startup
+   402→│   │       ├── unscramble/        # Word unscrambling with filters
+   403→│   │       ├── anagram/           # Anagram solving
+   404→│   │       ├── scramble/          # Scramble solving
+   405→│   │       ├── wordle/            # Wordle solver
+   406→│   │       ├── quordle/           # Quordle solver
+   407→│   │       ├── check/             # Dictionary word checker
+   408→│   │       ├── define/            # Word definitions (Free Dictionary API + Wiktionary)
+   409→│   │       ├── synonyms/          # Synonyms (Datamuse + OpenThesaurus)
+   410→│   │       ├── random/            # Random word generator
+   411→│   │       ├── wordlists/         # Word list browsing (by length + letter)
+   412→│   │       ├── length-counts/     # Word counts per length (for number buttons)
+   413→│   │       ├── letter-counts/     # Letter availability counts
+   414→│   │       └── dict-info/         # Dictionary metadata (size, language)
+   415→│   ├── components/
+   416→│   │   ├── site/                  # 30+ shared components
+   417→│   │   │   ├── site-header.tsx    # Sticky navbar (mobile drawer + desktop inline + dropdowns)
+   418→│   │   │   ├── site-footer.tsx    # 3-column footer + copyright + disclaimer
+   419→│   │   │   ├── language-selector.tsx  # Dropdown with 9 languages (2-letter codes)
+   420→│   │   │   ├── theme-toggle.tsx   # Light → Dark → System cycle button
+   421→│   │   │   ├── routes.ts          # Route registry (18 routes, hidden flag)
+   422→│   │   │   ├── use-hash-route.ts  # SSR-safe hash-based router hook
+   423→│   │   │   ├── word-groups.tsx    # Results grouped by length + copy + pagination
+   424→│   │   │   ├── word-list.tsx      # Flat word list + copy + pagination
+   425→│   │   │   ├── word-bucket.tsx    # Word bucket for Lists/Starts/Ends
+   426→│   │   │   ├── tips-section.tsx   # FAQ accordion (hydrated after mount)
+   427→│   │   │   ├── cookie-consent.tsx # GDPR cookie banner
+   428→│   │   │   ├── error-boundary.tsx # React error boundary with fallback UI
+   429→│   │   │   ├── route-seo.tsx      # Per-route title + description updates
+   430→│   │   │   ├── web-vitals.tsx     # LCP/CLS/FID tracking (production only)
+   431→│   │   │   ├── dictionary-warmer.tsx  # Fires /api/warmup on app load
+   432→│   │   │   ├── result-skeleton.tsx # Shimmer loading placeholder
+   433→│   │   │   └── ...                # Glass card, page header, ad slot, logo, etc.
+   434→│   │   ├── tools/                 # Tool-specific components
+   435→│   │   │   ├── unscrambler-tool.tsx   # Main unscrambler with advanced filters
+   436→│   │   │   ├── scrabble-tool.tsx      # Scrabble Duplicate with top plays
+   437→│   │   │   ├── letters-solver.tsx     # Shared solver (anagram, scramble, wordfeud)
+   438→│   │   │   ├── wordle-tool.tsx        # Wordle solver
+   439→│   │   │   ├── quordle-tool.tsx       # Quordle multi-board solver
+   440→│   │   │   ├── dictionary-tool.tsx    # Dictionary checker + definitions
+   441→│   │   │   ├── random-tool.tsx        # Random word generator
+   442→│   │   │   ├── wordlists-tool.tsx     # Word Lists browser
+   443→│   │   │   ├── word-starts-tool.tsx   # Word Starts By browser
+   444→│   │   │   ├── word-ends-tool.tsx     # Word Ends By browser
+   445→│   │   │   ├── info-views.tsx         # About, Contact, Privacy, Sitemap views
+   446→│   │   │   ├── inbox-view.tsx         # Owner inbox (password-gated)
+   447→│   │   │   └── dashboard-view.tsx     # Analytics dashboard (password-gated)
+   448→│   │   └── i18n/
+   449→│   │       ├── translations.ts    # All 9 languages (1,845 lines)
+   450→│   │       └── language-provider.tsx  # Context provider + localStorage persistence
+   451→│   └── lib/
+   452→│       ├── db.ts                  # Prisma client (auto-detects Turso vs local SQLite)
+   453→│       ├── dictionary.ts          # Dictionary loading + caching + per-length indexing
+   454→│       ├── unscramble.ts          # Word unscrambling algorithm
+   455→│       ├── languages.ts           # Language metadata + Scrabble tile values
+   456→│       ├── scrabble-filter.ts     # Scrabble-validity filtering (2-letter word lists)
+   457→│       ├── analytics.ts           # Fire-and-forget search tracking
+   458→│       ├── seo.ts                 # Per-route SEO metadata
+   459→│       └── utils.ts               # cn() class merge utility
+   460→├── schema.sql                     # SQL schema for Turso setup
+   461→├── .env                           # Environment variables (NOT committed)
+   462→├── .gitignore                     # Includes .env*
+   463→├── next.config.ts                 # Next.js config (standalone output)
+   464→├── package.json                   # Dependencies + scripts
+   465→└── README.md                      # This file
+   466→```
+   467→
+   468→---
+   469→
+   470→## API Reference
+   471→
+   472→### Public Endpoints
+   473→
+   474→| Method | Endpoint | Description |
+   475→|--------|----------|-------------|
+   476→| `GET` | `/api/unscramble?letters=SRAABLC&lang=en` | Unscramble letters, returns words grouped by length |
+   477→| `GET` | `/api/anagram?letters=LISTEN&lang=en` | Find all anagrams |
+   478→| `GET` | `/api/scramble?letters=SRAABLC&lang=en` | Solve scramble |
+   479→| `GET` | `/api/wordle?length=5&placed=___l&valid=aeiou&excluded=bcdfg&lang=en` | Wordle solver |
+   480→| `GET` | `/api/quordle?...` | Quordle solver (multi-board) |
+   481→| `GET` | `/api/check?word=HELLO&lang=en` | Check if word is valid |
+   482→| `GET` | `/api/define?word=hello&lang=en` | Get word definition |
+   483→| `GET` | `/api/synonyms?word=happy&lang=en` | Get synonyms |
+   484→| `GET` | `/api/random?length=5&count=10&lang=en` | Generate random words |
+   485→| `GET` | `/api/wordlists?lang=en&mode=all&length=5&letter=A&offset=0&limit=200` | Browse word lists |
+   486→| `GET` | `/api/length-counts?lang=en&mode=all` | Word counts per length (2–7) |
+   487→| `GET` | `/api/letter-counts?lang=en&mode=starts` | Letter availability counts |
+   488→| `GET` | `/api/dict-info?lang=en` | Dictionary metadata (size) |
+   489→| `GET` | `/api/warmup` | Pre-warm all 9 dictionaries |
+   490→| `POST` | `/api/contact` | Submit contact form (rate-limited: 5/hour/IP) |
+   491→| `POST` | `/api/analytics` | Record anonymous search event |
+   492→
+   493→### Auth-Gated Endpoints (require `?key=ADMIN_PASSWORD`)
+   494→
+   495→| Method | Endpoint | Description |
+   496→|--------|----------|-------------|
+   497→| `GET` | `/api/contact?key=PASSWORD` | List all contact form submissions |
+   498→| `PATCH` | `/api/contact?key=PASSWORD` | Mark message as read/unread |
+   499→| `DELETE` | `/api/contact?key=PASSWORD&id=ID` | Delete a message |
+   500→| `GET` | `/api/analytics?key=PASSWORD&days=7` | Analytics summary (top queries, routes, languages) |
+   501→
+   502→---
+   503→
+   504→## Owner Pages
+   505→
+   506→| Page | URL | Auth | Description |
+   507→|------|-----|------|-------------|
+   508→| Inbox | `/#/inbox` | `ADMIN_PASSWORD` | Read, mark as read/unread, and delete contact form submissions |
+   509→| Dashboard | `/#/dashboard` | `ADMIN_PASSWORD` | View search analytics: total searches, top queries (bar chart), top tools, top languages, zero-result searches (content gaps), time range selector (24h/7d/30d) |
+   510→
+   511→Both pages are hidden from navigation and the footer. They use `sessionStorage` for session-based auth (cleared when the browser closes).
+   512→
+   513→---
+   514→
+   515→## Internationalization
+   516→
+   517→All UI text is driven by `src/components/i18n/translations.ts` (1,845 lines). The `LanguageProvider` context loads the saved language from `localStorage` on mount and falls back to English.
+   518→
+   519→To add a new language:
+   520→1. Add the language code to `LanguageCode` in `src/lib/languages.ts`
+   521→2. Add the language definition (flag, native name, letter values, tile counts) to the `LANGUAGES` object
+   522→3. Add the full translation block to `translations.ts`
+   523→4. Add the language to the `LANGUAGE_LIST` export
+   524→
+   525→---
+   526→
+   527→## Theming
+   528→
+   529→wordIzy supports three themes via [next-themes](https://github.com/pacocoursey/next-themes):
+   530→
+   531→| Theme | Icon | Description |
+   532→|-------|------|-------------|
+   533→| Dark | Moon | Dark background (`#0d0d0f`), light text |
+   534→| Light | Sun | Cream background (`#f7f4ec`), dark text |
+   535→| System | Monitor | Follows the OS preference |
+   536→
+   537→The toggle button cycles: Dark → System → Light → Dark. The choice persists in `localStorage`.
+   538→
+   539→Theme variables are defined in `globals.css` as CSS custom properties (`:root` for light, `.dark` for dark) and consumed by Tailwind via `@theme inline`.
+   540→
+   541→---
+   542→
+   543→## Scripts
+   544→
+   545→| Command | Description |
+   546→|---------|-------------|
+   547→| `bun run dev` | Start development server (port 3000) |
+   548→| `bun run build` | Production build |
+   549→| `bun run start` | Start production server |
+   550→| `bun run lint` | Run ESLint |
+   551→| `bun run db:push` | Push Prisma schema to database |
+   552→| `bun run db:generate` | Generate Prisma client |
+   553→| `bun run db:migrate` | Create a database migration |
+   554→| `bun run db:reset` | Reset database (delete all data) |
+   555→
+   556→---
+   557→
+   558→## Known Limitations
+   559→
+   560→- **Hash-based routing** — Search engines see only one URL. Per-route meta tags update client-side via JavaScript. If SEO is critical, consider migrating to App Router pages with real URLs.
+   561→- **German & Portuguese dictionaries** — Use curated filtered lists, not official Scrabble lists (which are proprietary). Some words may differ from tournament play.
+   562→- **Inbox & Dashboard auth** — Shared password gate, not real authentication. Don't use for sensitive data without upgrading to NextAuth.js.
+   563→- **Rate limiting** — In-memory, per-instance. In a multi-instance deployment, each instance has its own counter. Use Upstash Redis for global rate limiting.
+   564→- **Analytics storage** — Stored in the same SQLite/Turso database. For high-traffic sites, consider a dedicated analytics service.
+   565→
+   566→---
+   567→
+   568→## License
+   569→
+   570→This project is for personal use. The official Scrabble dictionary files in `data/scrabble/` are proprietary and not freely redistributable.
+   571→
+   572→---
+   573→
+   574→## Contact
+   575→
+   576→- **Email**: [support@wordizy.com](mailto:support@wordizy.com)
+   577→- **Contact form**: Visit `/#/contact` on the site
+   578→
+   579→---
+   580→
+   581→*For entertainment & word games. Not affiliated with Scrabble or Wordle.*
+   582→

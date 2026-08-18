@@ -1,0 +1,302 @@
+   200→  error: "Something went wrong. Please try again.",
+   201→  another: "Send another",
+   202→  note: "Your message is sent directly to our inbox — you stay right here on the site.",
+   203→ },
+   204→ privacy: {
+   205→  title: "Privacy Policy",
+   206→  intro: "Your privacy is fundamental to how WordIzy operates. This policy explains, in plain language, what data we process, why we process it, and the choices you have. We are committed to full transparency and compliance with the GDPR (EU) and CCPA (California).",
+   207→  lastUpdated: "Last updated: July 2026",
+   208→  sections: [
+   209→   {
+   210→    heading: "Data We Collect",
+   211→    body: "WordIzy does not require an account and does not collect personal data such as your name, email, or browsing history (except when you voluntarily submit the contact form — see below). We do not use fingerprinting, third-party tracking pixels, or cross-site tracking. The only information we process is what you actively type into our tools, plus anonymous usage statistics (see below).",
+   212→   },
+   213→   {
+   214→    heading: "Anonymous Search Analytics",
+   215→    body: "When you perform a search, we anonymously record the query string, the tool you used, your selected language, and the number of results returned. No IP address, no user ID, no browser fingerprint, and no personal information is stored with this data. This helps us understand which searches are popular and identify content gaps. You cannot be identified from this data.",
+   216→   },
+   217→   {
+   218→    heading: "How We Process Your Input",
+   219→    body: "Every query — letters to unscramble, a Wordle pattern, a dictionary word to check — is processed server-side using dictionaries held in memory. Your input is used solely to generate results and is discarded immediately after the response is sent. The search terms themselves are stored anonymously in our analytics (see above) but are not linked to you in any way.",
+   220→   },
+   221→   {
+   222→    heading: "Contact Form Submissions",
+   223→    body: "When you submit the contact form, your name, email address, and message are stored in our database so that we can read and respond to your inquiry. This data is only accessible to the site owner and is never shared with third parties. You may request deletion of your submission at any time by emailing support@wordizy.com. To prevent spam, contact form submissions are rate-limited to 5 per hour per IP address.",
+   224→   },
+   225→   {
+   226→    heading: "Cookies & Advertising",
+   227→    body: "WordIzy displays ads through Google AdSense to keep the service free. AdSense may use cookies to serve relevant ads and measure ad performance. A cookie consent banner appears on your first visit, allowing you to accept or decline. You can manage or disable cookies in your browser settings, and opt out of personalised advertising via Google's Ads Settings. We do not set any first-party tracking cookies ourselves — only a single preference cookie to remember your consent choice and your selected language and theme",
+   228→   },
+   229→   {
+   230→    heading: "Your Rights (GDPR & CCPA)",
+   231→    body: "Because we do not create accounts or link analytics to individuals, there is no personal profile associated with you. You are not tracked across visits. If you have submitted a contact form message and wish to have it deleted, contact us at support@wordizy.com and we will remove it promptly. Under the GDPR (EU residents) you have the right to access, rectify, or erase any personal data we hold about you. Under the CCPA (California residents) you have the right to know what personal information is collected, request deletion, and opt out of the sale of personal information — we do not sell your information.",
+   232→   },
+   233→   {
+   234→    heading: "Contact",
+   235→    body: "Questions about this policy? Email us at support@wordizy.com and we will be happy to help. You can also use the Contact form on this site to send us a message directly.",
+   236→   },
+   237→  ],
+   238→  thirdPartyServices: [
+   239→    {
+   240→      name: "Google AdSense",
+   241→      description: "Serves advertisements. AdSense may use cookies to display relevant ads and measure performance. You can opt out of personalised advertising via Google's Ads Settings.",
+   242→      url: "https://policies.google.com/technologies/ads",
+   243→    },
+   244→    {
+   245→      name: "Turso",
+   246→      description: "Hosts our SQLite database that stores contact form submissions and anonymous search analytics. Data is stored on Turso's servers.",
+   247→      url: "https://turso.tech/privacy",
+   248→    },
+   249→    {
+   250→      name: "Google Fonts",
+   251→      description: "Serves the Inter, Bree Serif, and Roboto Slab fonts used on this site. Google may log the request for your IP address temporarily.",
+   252→      url: "https://policies.google.com/fonts",
+   253→    },
+   254→  ],
+   255→ },
+   256→ sitemap: { title: "Sitemap", body: "All pages on WordIzy." },
+   257→ footer: { rights: "All rights reserved.", madeWith: "Built for word lovers.", links: "Quick links", desc: "Free word unscrambler, anagram & puzzle solvers in 9 languages. No sign-up.", disclaimer: "For entertainment & word games. Not affiliated with Scrabble or Wordle." },
+   258→ faq: {
+   259→  title: "How to use & FAQ",
+   260→  unscrambler: [
+   261→   { q: "What is a Word Unscrambler and how do I use it?", a: "A word unscrambler takes a jumble of letters — like a Scrabble rack (e.g. SRAABLC) — and finds every valid dictionary word that can be spelled from those letters. Type your letters into the 'Your Letters' box, then click Unscramble. Results appear grouped by word length (longest first), each word showing its Scrabble point value. It's ideal for Scrabble, Words With Friends, Wordfeud, crosswords, and anagram puzzles." },
+   262→   { q: "How do wildcards (? and *) work?", a: "Use ? or * as a wildcard to represent any unknown letter. For example, entering 'QUER?Y' tells WordIzy to find all words matching 'QUER' + any single letter + 'Y'. Each wildcard acts as a blank tile (scoring 0 points). You can use multiple wildcards at once — 'A??LE' matches APPLE, ADDLE, AGILE, and more." },
+   263→   { q: "How do I use the Advanced Filters?", a: "Click 'Advanced Filters' to reveal three optional fields. 'Starts with' limits results to words beginning with given letters (e.g. 'AB' → only words starting with AB). 'Ends with' does the same for suffixes (e.g. 'ED' → only words ending in ED). 'Must include' guarantees certain letters appear in every result, in any position. Combine all three with wildcards for precise control." },
+   264→   { q: "How are words scored?", a: "Each word is scored using the official Scrabble letter values for the selected language. For English: A/E/I/O/U = 1pt, D/G = 2pt, B/C/M/P = 3pt, F/H/V/W/Y = 4pt, K = 5pt, J/X = 8pt, Q/Z = 10pt. Wildcards (? *) score 0. The total is shown next to each word, and results are sorted by score within each length group so the highest-scoring plays appear first." },
+   265→   { q: "Which dictionaries are available?", a: "WordIzy supports 9 languages: English (NWL2023 + CSW21), French (ODS9 2024), Spanish (FISE), Italian (Zingarelli), Portuguese, German, Dutch (OpenTaal), plus Japanese (romaji) and Mandarin (pinyin). All words are filtered against the official Scrabble dictionary for each language. Switch languages using the language selector in the navbar." },
+   266→   { q: "Why are results grouped by length?", a: "Grouping by word length makes it easy to find the type of play you need. In Scrabble, longer words generally score higher, but sometimes a shorter word fits the board better. The longest words appear at the top, descending to 2-letter words. Within each group, words are sorted by Scrabble score so you can quickly spot the best play." },
+   267→  ],
+   268→  scramble: [
+   269→   { q: "What is the Scramble / Descrambler for?", a: "This tool solves jumble puzzles — where letters are scrambled and you must find the original word(s). Enter the scrambled letters (e.g. RBOLENW) and click Descramble to see all real words that can be formed. It's perfect for newspaper jumble puzzles, anagram games, and word-scramble challenges." },
+   270→   { q: "How is this different from the Unscrambler?", a: "The Descrambler uses the same engine as the Unscrambler but is focused on solving scrambled-word puzzles rather than finding every possible word from a rack. You can also use the 'Scramble a word' feature below the input to jumble a word into random variants — useful for creating your own puzzles." },
+   271→   { q: "Can I use wildcards?", a: "Yes. Use ? or * to represent unknown letters. For example, if a jumble puzzle has a missing letter, enter the known letters plus a ? and WordIzy will fill in the blank with every valid letter combination." },
+   272→   { q: "How do I create my own scrambled word?", a: "Use the 'Scramble a word' card below the main input. Type any word (e.g. 'scrabble') and click Generate — WordIzy produces several randomized scrambles of that word. Use these to create puzzles for friends or practice unscrambling." },
+   273→  ],
+   274→  wordle: [
+   275→   { q: "How does the Wordle Solver work?", a: "The Wordle Solver narrows down today's Wordle answer using your game feedback. Enter the information you've gathered from your guesses: green letters (correct position), yellow letters (in the word but wrong position), and gray letters (not in the word). The solver returns all valid words that match your constraints." },
+   276→   { q: "How do I enter placed (green) letters?", a: "In the 'Placed letters (green)' field, type the letters you know are in the correct position, using . or _ for empty slots. For example, if you know the word is A _ _ L E, enter 'A..LE'. The solver only returns words matching this exact pattern." },
+   277→   { q: "What are valid (yellow) and excluded (gray) letters?", a: "Valid letters (yellow) are letters you know are IN the word but not in the position you guessed — enter them all in the 'Valid letters' field (e.g. 'RST'). Excluded letters (gray) are letters confirmed NOT in the word — enter them in 'Excluded letters' (e.g. 'BXF'). The solver filters out any word containing excluded letters." },
+   278→   { q: "What word length should I use?", a: "Select the length of today's Wordle (default 5). WordIzy supports 4- to 8-letter words, so it works for Wordle variants like Quordle, Octordle, and custom-length games too." },
+   279→   { q: "Any tips for choosing the next guess?", a: "Pick a word from the results that uses common letters you haven't tested yet (like R, T, S, L, N). This maximizes information gain. If the list is long, choose a word that eliminates the most possibilities. The solver shows each word's Scrabble score — higher scores often mean rarer letters that can help narrow things down." },
+   280→  ],
+   281→  quordle: [
+   282→   { q: "What is the Quordle Solver?", a: "Quordle is a game where you solve four Wordle puzzles simultaneously. This solver lets you enter constraints for up to 4 boards at once and returns candidate words for each. Each board keeps its own placed (green), valid (yellow), and excluded (gray) letters." },
+   283→   { q: "How do I use multiple boards?", a: "Fill in what you know for each board. Board 1's constraints only affect Board 1's results. Click 'Add board' to add up to 4 boards. Use the X button to remove a board. When ready, click Solve to get candidate words for all boards at once." },
+   284→   { q: "Should I share letters between boards?", a: "Yes — a key Quordle strategy is using one guess to gather information across multiple boards. If a letter is green on Board 1, it's likely in the same position on other boards too. Enter shared constraints on each board to cross-pollinate information and narrow down all four answers faster." },
+   285→   { q: "Any strategy tips for Quordle?", a: "Start with a word rich in common letters (like CRANE or SLATE) to gather information across all boards. Focus on the board with the most constraints first — solving it frees up mental space. Use the solver after 2-3 guesses when you have enough info to narrow each board to a manageable list." },
+   286→  ],
+   287→  anagram: [
+   288→   { q: "What is an anagram?", a: "An anagram is a word or phrase formed by rearranging all the letters of another word. For example, LISTEN and SILENT are anagrams — same letters, different order. The Anagram Solver finds every word that uses exactly all the letters you provide." },
+   289→   { q: "How is this different from the Unscrambler?", a: "The Unscrambler finds words of ANY length that can be formed from your letters (including shorter words). The Anagram Solver only finds words that use ALL your letters — the full-length anagrams. For example, with 'CHIEN', the anagram solver returns CHIEN, CHINE, NICHE (all 5 letters), while the unscrambler would also return shorter words like ICE, IN, HE." },
+   290→   { q: "Can I use wildcards?", a: "Yes. Use ? or * as wildcards to fill remaining slots. For example, entering 'CAT??' finds all 5-letter anagrams where CAT is combined with any two letters. Wildcards score 0 points (like blank tiles)." },
+   291→   { q: "What are anagrams useful for?", a: "Anagrams are used in word games, puzzles, cryptography, and linguistics. In Scrabble, finding anagrams of your rack helps you spot bingos (using all 7 tiles for a 50-point bonus). They're also popular in crossword clues, trivia, and brain teasers." },
+   292→  ],
+   293→  random: [
+   294→   { q: "What does the Random Word Generator do?", a: "It generates random real words from the selected dictionary, with optional filters. You can specify word length, starting letters, ending letters, or letters the word must contain. Use it for games, creative writing, naming, vocabulary practice, or generating passwords with real words." },
+   295→   { q: "How do I filter the random words?", a: "Set 'Length' to a specific number (2-12) or leave it as 'Any'. 'Starts with' limits words to those beginning with given letters. 'Ends with' limits to words ending with given letters. 'Contains' requires the word to include certain letters anywhere. 'How many' controls the number of words generated (1-200)." },
+   296→   { q: "Are the words valid Scrabble words?", a: "Yes. All generated words come from the official Scrabble dictionary for the selected language (NWL2023/CSW21 for English, ODS9 for French, etc.). Every word is playable in Scrabble and other word games." },
+   297→   { q: "Can I use this for word games?", a: "Absolutely. Generate random words for Pictionary, charades, word association games, or vocabulary quizzes. For password generation, combine 3-4 random words of different lengths — this creates memorable yet secure passphrases." },
+   298→  ],
+   299→  wordfeud: [
+   300→   { q: "What is the Wordfeud Helper?", a: "Wordfeud is a popular mobile word game similar to Scrabble. This helper finds the best words you can play from your rack. Enter your 7 letters (plus any board letters already placed) and WordIzy returns all playable words, sorted by Scrabble score." },
+   301→   { q: "How do I enter my rack?", a: "Type your 7 tile letters into the 'Your Letters' box. Use ? or * for blank tiles (which can represent any letter but score 0 points). If there are letters already on the board you want to build off, add them too — WordIzy will find words that can be formed from the combined pool." },
+   302→   { q: "Which dictionary should I use?", a: "Wordfeud supports multiple dictionaries depending on your region. English Wordfeud uses a Scrabble-like list, so English (NWL2023/CSW21) works well. For other languages, select the matching one (French ODS9, Spanish FISE, etc.) from the language selector." },
+   303→   { q: "How are scores calculated?", a: "Scores use the official Scrabble letter values for the selected language. Note that Wordfeud's actual scoring may differ slightly (it has bonus squares and its own tile distribution). Use the scores as a guide to identify high-value plays — the word with the most points from your rack is usually your best move." },
+   304→  ],
+   305→  dictionary: [
+   306→   { q: "What does Check Dictionary do?", a: "Enter any word to verify whether it's valid in the official Scrabble dictionary for the selected language. The tool shows the word as Scrabble tiles, a valid/invalid badge, the Scrabble score, word length, letter tiles, a dictionary definition, and synonyms (where available)." },
+   307→   { q: "Where do definitions come from?", a: "Definitions are sourced from multiple references: the Free Dictionary API (for English, French, Spanish, German, Italian, Portuguese), Wiktionary (all languages as a fallback), and an AI assistant for any remaining gaps. The source is labeled next to each definition." },
+   308→   { q: "Where do synonyms come from?", a: "Synonyms come from Datamuse (for English, Spanish, French, Italian, Portuguese) and OpenThesaurus (for German). Only synonyms that are themselves valid Scrabble words are shown — click any synonym to check it instantly." },
+   309→   { q: "Why might a common word be invalid?", a: "Scrabble dictionaries are strict — they exclude proper nouns, abbreviations, hyphenated words, and words requiring apostrophes. For example, 'BRUNCH' is valid but 'BRUNCH'S' may not be. If a word seems missing, it may be a capitalized proper noun or a recent addition not yet in the official list. Switch languages to check the word in a different dictionary." },
+   310→  ],
+   311→  scrabble: [
+   312→   { q: "What is Scrabble Duplicate?", a: "Duplicate Scrabble is a variant where every player receives the same rack and must find the best possible play. It's used in tournaments and training to test skill without luck. This tool helps you find the highest-scoring words from your rack — enter your 7 letters and optionally any board letters, then click 'Find best words'." },
+   313→   { q: "How do I enter board letters?", a: "If there are letters already on the board that you can build off, type them in the 'Board letters (optional)' field along with your rack letters. WordIzy treats the combined pool as available letters. This helps find words that hook onto existing plays — essential for maximizing score in real games." },
+   314→   { q: "How are the top plays ranked?", a: "Words are sorted by Scrabble score (highest first). The top 10 plays appear in a highlighted list at the top. Remember: actual game scores also depend on bonus squares (double/triple letter/word) and bingos (50-point bonus for using all 7 tiles). Use the tool's scores as a baseline, then factor in board positioning." },
+   315→   { q: "What's a bingo and how do I find one?", a: "A bingo is playing all 7 tiles in one turn for a 50-point bonus. To find bingos, enter your full 7-letter rack and look at the 7-letter results group. If any words appear, those are potential bingos. Wildcards (? *) can represent the blank tiles in your rack." },
+   316→  ],
+   317→  wordlists: [
+   318→   { q: "What is the Word Lists page?", a: "Word Lists lets you browse every valid Scrabble word from 2 to 7 letters. Words are grouped by length, then by ending letter (A-Z), so you can explore the dictionary systematically. Use it to study, find words for games, or expand your vocabulary." },
+   319→   { q: "How do I filter by length?", a: "Use the length selector (2-7) at the top. Click 'All' to see every length stacked (2-letter words on top, 7-letter at the bottom), or click a specific number to see only that length. Each length section shows 26 containers (one per ending letter A-Z)." },
+   320→   { q: "How do I filter by letter?", a: "Use the A-Z letter row below the length selector. Click a letter to show only words ending with that letter, or 'All' to show every letter. This is useful for finding words that hook onto a specific letter already on the board." },
+   321→   { q: "Why are words shown in uppercase?", a: "Scrabble tiles are uppercase, so words are displayed in uppercase to match. Each word shows its Scrabble point value next to it. Words within each letter container are sorted alphabetically (A-Z) for easy scanning." },
+   322→  ],
+   323→  wordstarts: [
+   324→   { q: "What is the Word Starts By page?", a: "This page lets you browse all valid Scrabble words that START with a specific letter. Select a letter (A-Z) and WordIzy shows every word beginning with that letter, grouped by length (2-7 letters). It's perfect for studying openings and finding words to build off a starting letter on the board." },
+   325→   { q: "How do I use the length and letter selectors?", a: "First, pick a letter from the A-Z row — this sets the starting letter. Then use the length row (2-7 or All) to filter by word length. Each length section shows all words starting with your chosen letter, sorted alphabetically. Click 'All' in either row to remove that filter." },
+   326→   { q: "How is this useful for Scrabble?", a: "Knowing words that start with each letter helps you plan openings and hooks. If you have a Q, knowing all Q-starting words (QI, QAT, QUAD...) helps you play it effectively. The page is also valuable for crosswords, where clues often specify 'starts with...'." },
+   327→   { q: "Why paginate at 50 words?", a: "Some letters (like S, A, E) have thousands of starting words. To keep pages fast and readable, results paginate at 50 words per page with prev/next buttons. Each page shows the page number and total pages so you know where you are." },
+   328→  ],
+   329→  wordends: [
+   330→   { q: "What is the Word Ends By page?", a: "This page lets you browse all valid Scrabble words that END with a specific letter. Select a letter (A-Z) and WordIzy shows every word ending with that letter, grouped by length (2-7 letters). It's ideal for finding words to hook onto an existing letter on the board." },
+   331→   { q: "How do I use the length and letter selectors?", a: "First, pick a letter from the A-Z row — this sets the ending letter. Then use the length row (2-7 or All) to filter by word length. Each length section shows all words ending with your chosen letter, sorted alphabetically. Click 'All' in either row to remove that filter." },
+   332→   { q: "How is this useful for Scrabble?", a: "Ending letters matter for hooks — if there's an S on the board, knowing all words ending in S lets you pluralize or extend plays. Similarly, knowing words ending in D, ED, ING helps you build off common suffixes. This page is a powerful study tool for competitive play." },
+   333→   { q: "Why paginate at 50 words?", a: "Some letters (like E, S, D) have thousands of ending words. To keep pages fast and readable, results paginate at 50 words per page with prev/next buttons. Each page shows the page number and total pages so you know where you are." },
+   334→  ],
+   335→ },
+   336→};
+   337→
+   338→const fr: Translation = {
+   339→ nav: {
+   340→  unscrambler: "Anagrammeur", scramble: "Mélange", wordle: "Wordle",
+   341→  quordle: "Quordle", anagram: "Anagrammes", random: "Mot Aléatoire",
+   342→  wordfeud: "Wordfeud", dictionary: "Dictionnaire", scrabble: "Duplicate",
+   343→  wordlists: "Listes de Mots", wordstarts: "Mots Commencent Par", wordends: "Mots Finissent Par", wordlestarts: "Wordle Commence A-Z", wordleends: "Wordle Finit A-Z", about: "À propos", contact: "Contact", privacy: "Confidentialité",
+   344→  sitemap: "Plan du site", tools: "Outils", more: "Plus", solvers: "Solveurs", site: "Site", wordlab: "Labo des Mots", inbox: "Boîte de réception",
+   345→  dashboard: "Tableau de bord", blitz: "⚡ Anagram Blitz"
+   346→ },
+   347→ brand: { name: "wordIzy", tagline: "Anagrammez. Résolvez. Gagnez." },
+   348→ common: {
+   349→  yourLetters: "Vos lettres", unscramble: "Anagrammer", clear: "Effacer", advancedFilters: "Filtres avancés",
+   350→  startsWith: "Commence par", endsWith: "Finit par", mustInclude: "Doit contenir", dictionaryLabel: "Dictionnaire",
+   351→  results: "Résultats", noResults: "Aucun mot trouvé. Essayez d'autres lettres ou ajoutez des jokers (? ou *).",
+   352→  wordsFound: "mots trouvés", points: "pts", length: "lettres", loading: "Chargement…", search: "Rechercher",
+   353→  copy: "Copier", copied: "Copié !", tryExamples: "Essayer :", tipsTitle: "Astuces & fonctionnement",
+   354→  tileValues: "Valeurs des tuiles Scrabble", blanks: "Jokers", languageLabel: "Langue",
+   355→  showMore: "Afficher plus", showLess: "Afficher moins", allWords: "Tous les mots", perGroup: "par groupe",
+   356→  wordsCount: "mots", reset: "Réinitialiser", apply: "Appliquer", solve: "Résoudre", generate: "Générer",
+   357→  check: "Vérifier", example: "Exemple", none: "Aucun", optional: "optionnel",
+   358→ },
+   359→ home: {
+   360→  title: "Anagrammeur de Mots", subtitle: "Saisissez vos lettres mélangées, ajoutez des jokers avec ? ou *, et trouvez tous les mots jouables — groupés par longueur et triés par score Scrabble.",
+   361→  heroBadge: "Gratuit • Sans inscription • 9 langues",
+   362→  faqTitle: "Questions fréquentes",
+   363→  q1: "À quoi sert un anagrammeur ?",
+   364→  a1: "Un anagrammeur prend un mélange de lettres (comme un chevalet Scrabble) et trouve tous les mots valides du dictionnaire que l'on peut écrire avec ces lettres. Idéal pour Scrabble, Wordfeud, mots croisés et puzzles d'anagrammes — les meilleurs coups instantanément.",
+   365→  q2: "Comment utiliser les options avancées ?",
+   366→  a2: "Après avoir saisi vos lettres, ouvrez les Filtres avancés. « Commence par » limite aux mots commençant par ces lettres, « Finit par » fait de même pour les suffixes, et « Doit contenir » garantit que certaines lettres apparaissent dans chaque résultat. Combinez-les avec des jokers (? ou *) pour remplacer une lettre inconnue.",
+   367→  q3: "Comment ça marche ?",
+   368→  a3: "WordIzy compare votre pool de lettres à un dictionnaire complet en mémoire pour la langue choisie. Il vérifie quels mots peuvent être formés (? et * comme jokers), applique vos filtres, score chaque mot avec les valeurs Scrabble officielles, puis regroupe les résultats par longueur — les plus longs d'abord.",
+   369→  q4: "Quelles langues sont prises en charge ?",
+   370→  a4: "Anglais, français, espagnol, italien, portugais, allemand, néerlandais, plus japonais (romaji) et mandarin (pinyin). Changez le dictionnaire depuis le sélecteur de langue.",
+   371→ },
+   372→ scramble: {
+   373→  title: "Mélangeur / Démêleur de mots", subtitle: "Bloqué sur une anagramme ? Saisissez les lettres mélangées et nous les démêlerons en vrais mots.",
+   374→  inputLabel: "Lettres mélangées", btn: "Démêler", solutionLabel: "Solutions possibles", hint: "Utilisez ? ou * pour les lettres inconnues.",
+   375→ },
+   376→ wordle: {
+   377→  title: "Solveur Wordle", subtitle: "Réduisez le Wordle du jour. Saisissez les lettres vertes à leur place, les lettres jaunes connues, et les lettres grises à exclure.",
+   378→  length: "Longueur du mot", placed: "Lettres placées (vert)", valid: "Lettres valides (jaune)", excluded: "Lettres exclues (gris)", btn: "Résoudre", hint: "Utilisez . ou _ pour les cases vides, ex. A..LE",
+   379→ },
+   380→ quordle: {
+   381→  title: "Solveur Quordle", subtitle: "Résolvez jusqu'à quatre Wordle à la fois. Chaque plateau garde ses contraintes ; les lettres valides/exclues sont partagées.",
+   382→  board: "Plateau", addBoard: "Ajouter un plateau", hint: "Remplissez ce que vous savez pour chaque plateau, puis résolvez.",
+   383→ },
+   384→ anagram: {
+   385→  title: "Solveur d'Anagrammes", subtitle: "Trouvez toutes les anagrammes de vos lettres — les mots qui utilisent exactement toutes les lettres fournies.",
+   386→  btn: "Trouver les anagrammes", hint: "Les jokers (? *) complètent les lettres manquantes.",
+   387→ },
+   388→ random: {
+   389→  title: "Générateur de Mots Aléatoires", subtitle: "Générez des mots réels aléatoires avec filtres de longueur, préfixe, suffixe et contenu.",
+   390→  length: "Longueur", any: "Toutes", count: "Combien", btn: "Générer",
+   391→ },
+   392→ wordfeud: {
+   393→  title: "Aide Wordfeud", subtitle: "Trouvez les meilleurs mots Wordfeud depuis votre chevalet. Wordfeud utilise les mêmes dictionnaires multilingues — choisissez le vôtre.",
+   394→  btn: "Trouver des mots", hint: "Ajoutez ? ou * pour les tuiles vierges.",
+   395→ },
+   396→ dictionary: {
+   397→  title: "Vérifier le Dictionnaire", subtitle: "Vérifiez si un mot existe dans le dictionnaire choisi, voyez son score Scrabble et lisez une définition.",
+   398→  btn: "Vérifier", exists: "est un mot valide", notExists: "introuvable dans le dictionnaire", definition: "Définition", score: "Score Scrabble", tiles: "Tuiles de lettres",
+   399→ },
+   400→ scrabble: {
+   401→  title: "Scrabble Duplicate", subtitle: "Le Scrabble duplicate donne le même chevalet à tous. Saisissez vos 7 lettres (plus les lettres déjà posées) et trouvez les coups les plus forts.",
+   402→  rack: "Votre chevalet", board: "Lettres du plateau (optionnel)", btn: "Trouver les meilleurs mots", hint: "Jokers autorisés. Résultats classés par score.",
+   403→ },
+   404→ wordlists: {
+   405→  title: "Listes de Mots", subtitle: "Parcourez tous les mots de 2 à 7 lettres. Choisissez une vue, une longueur et une lettre pour explorer le dictionnaire de A à Z.",
+   406→  allWords: "Tous les mots", startsBy: "Commence par A–Z", endsBy: "Finit par A–Z", letter: "Lettre", selectLength: "Longueur", selectLetter: "Lettre", browse: "Parcourir",
+   407→ },
+   408→ about: {
+   409→  title: "À propos de WordIzy",
+   410→  intro: "WordIzy est une plateforme gratuite de jeux de mots axée sur la confidentialité, conçue pour les amateurs de jeux de mots, les étudiants et les passionnés de langues du monde entier. Notre mission est simple : fournir des outils linguistiques rapides, précis et financés par la publicité qui respectent votre vie privée — aucun compte requis, aucune donnée personnelle collectée.",
+   411→  sections: [
+   412→   { heading: "Notre mission", body: "Nous pensons que les outils linguistiques doivent être instantanés, précis et accessibles à tous. Que vous soyez bloqué sur une énigme Wordle, à la recherche du meilleur coup au Scrabble, ou en train d'explorer une nouvelle langue, WordIzy vous donne les réponses sans friction, sans inscription et sans paywall." },
+   413→   { heading: "Ce que nous offrons", body: "WordIzy comprend douze outils dédiés : un Désordre de mots, un Solveur de brouillage, un Solveur d'anagrammes, un Aide au Scrabble Duplicate, un Solveur Wordle, un Solveur Quordle, un Aide Wordfeud, un Générateur de mots aléatoires, un Vérificateur de dictionnaire, des Listes de mots, des Mots commençant par et des Mots finissant par. Chaque outil s'exécute entièrement dans votre navigateur — les résultats apparaissent dès que vous soumettez vos lettres." },
+   414→   { heading: "Dictionnaires officiels de Scrabble", body: "Nous utilisons des listes de mots de tournoi faisant autorité comme source principale : NWL2023 et CSW21 pour l'anglais, ODS9 pour le français, FISE pour l'espagnol, Zingarelli pour l'italien, OpenTaal pour le néerlandais, et des listes filtrées Scrabble soigneusement sélectionnées pour l'allemand et le portugais. Cela signifie que les mots que vous trouvez ici sont les mêmes que ceux acceptés lors des compétitions officielles de Scrabble." },
+   415→   { heading: "Neuf langues prises en charge", body: "WordIzy fonctionne en anglais, français, espagnol, italien, portugais, allemand, néerlandais, japonais (romaji) et chinois mandarin (pinyin). Changez de langue à tout moment à l'aide du sélecteur dans la barre de navigation — toute l'interface, les astuces de la FAQ et le dictionnaire sous-jacent changent instantanément." },
+   416→   { heading: "Fonctionnalités intelligentes", body: "Copiez n'importe quelle liste de mots dans votre presse-papiers en un seul clic. Vos recherches récentes sont enregistrées localement pour une réutilisation rapide. Les squelettes de chargement offrent une expérience fluide pendant le chargement des dictionnaires. Et l'ensemble du site est une Progressive Web App — installez-la sur votre téléphone ou votre ordinateur pour un accès plein écran, semblable à une application." },
+   417→   { heading: "Confidentialité par conception", body: "Pas de comptes. Pas de suivi intersites. Pas d'empreinte numérique. Chaque requête est traitée côté serveur à l'aide de dictionnaires conservés en mémoire. Nous collectons uniquement des statistiques de recherche anonymes (la chaîne de requête, l'outil utilisé et le nombre de résultats — pas d'adresse IP, pas d'identifiant utilisateur) pour nous aider à nous améliorer. Une bannière de consentement aux cookies apparaît lors de votre première visite, et vous pouvez gérer les cookies dans les paramètres de votre navigateur à tout moment." },
+   418→   { heading: "Thèmes et accessibilité", body: "Choisissez entre les thèmes Clair, Sombre ou Système — la commande parcourt les trois en un seul clic. L'interface utilise du HTML sémantique, des libellés ARIA pour les lecteurs d'écran et une navigation conviviale au clavier partout. Les éléments de navigation actifs sont marqués avec aria-current pour les technologies d'assistance." },
+   419→   { heading: "Contactez-nous", body: "Vous avez trouvé un bug, avez une suggestion ou souhaitez demander une nouvelle fonctionnalité ? Visitez notre page Contact et envoyez-nous un message directement — nous lisons chaque soumission et répondons à autant que possible. Votre message est stocké en toute sécurité et n'est jamais partagé avec des tiers." },
+   420→  ],
+   421→ },
+   422→ contact: {
+   423→  title: "Contact",
+   424→  body: "Une suggestion ou un bug ? Envoyez-nous un message.",
+   425→  name: "Nom",
+   426→  email: "E-mail",
+   427→  message: "Message",
+   428→  send: "Envoyer",
+   429→  sending: "Envoi…",
+   430→  success: "Message envoyé !",
+   431→  successDesc: "Merci de nous avoir contactés. Nous répondrons à l'adresse e-mail indiquée.",
+   432→  error: "Une erreur est survenue. Veuillez réessayer.",
+   433→  another: "Envoyer un autre message",
+   434→  note: "Votre message est envoyé directement dans notre boîte de réception — vous restez sur le site.",
+   435→ },
+   436→ privacy: {
+   437→  title: "Politique de confidentialité",
+   438→  intro: "Votre vie privée est fondamentale pour le fonctionnement de WordIzy. Cette politique explique, en termes clairs, quelles données nous traitons, pourquoi nous les traitons et les choix dont vous disposez. Nous nous engageons à une transparence totale et à la conformité au GDPR (UE) et au CCPA (Californie).",
+   439→  lastUpdated: "Dernière mise à jour : juillet 2026",
+   440→  sections: [
+   441→   { heading: "Données que nous collectons", body: "WordIzy ne nécessite pas de compte et ne collecte pas de données personnelles telles que votre nom, votre e-mail ou votre historique de navigation (sauf lorsque vous soumettez volontairement le formulaire de contact — voir ci-dessous). Nous n'utilisons pas d'empreinte numérique, de pixels de suivi tiers ou de suivi intersites. Les seules informations que nous traitons sont ce que vous tapez activement dans nos outils, plus des statistiques d'utilisation anonymes (voir ci-dessous)." },
+   442→   { heading: "Statistiques de recherche anonymes", body: "Lorsque vous effectuez une recherche, nous enregistrons de manière anonyme la chaîne de requête, l'outil que vous avez utilisé, la langue sélectionnée et le nombre de résultats renvoyés. Aucune adresse IP, aucun identifiant utilisateur, aucune empreinte de navigateur et aucune information personnelle ne sont stockés avec ces données. Cela nous aide à comprendre quelles recherches sont populaires et à identifier les lacunes de contenu. Vous ne pouvez pas être identifié à partir de ces données." },
+   443→   { heading: "Comment nous traitons vos saisies", body: "Chaque requête — lettres à désordonner, un motif Wordle, un mot de dictionnaire à vérifier — est traitée côté serveur à l'aide de dictionnaires conservés en mémoire. Votre saisie est utilisée uniquement pour générer des résultats et est immédiatement supprimée après l'envoi de la réponse. Les termes de recherche eux-mêmes sont stockés de manière anonyme dans nos statistiques (voir ci-dessus) mais ne vous sont en aucun cas liés." },
+   444→   { heading: "Soumissions de formulaire de contact", body: "Lorsque vous soumettez le formulaire de contact, votre nom, votre adresse e-mail et votre message sont stockés dans notre base de données afin que nous puissions lire et répondre à votre demande. Ces données sont uniquement accessibles au propriétaire du site et ne sont jamais partagées avec des tiers. Vous pouvez demander la suppression de votre soumission à tout moment en écrivant à support@wordizy.com. Pour éviter le spam, les soumissions du formulaire de contact sont limitées à 5 par heure et par adresse IP." },
+   445→   { heading: "Cookies et publicité", body: "WordIzy affiche des annonces via Google AdSense pour rester gratuit. AdSense peut utiliser des cookies pour diffuser des annonces pertinentes et mesurer les performances publicitaires. Une bannière de consentement aux cookies apparaît lors de votre première visite, vous permettant d'accepter ou de refuser. Vous pouvez gérer ou désactiver les cookies dans les paramètres de votre navigateur, et désactiver la publicité personnalisée via les paramètres publicitaires de Google. Nous ne définissons aucun cookie de suivi propriétaire nous-mêmes — seulement un cookie de préférence unique pour mémoriser votre choix de consentement ainsi que la langue et le thème sélectionnés." },
+   446→   { heading: "Vos droits (GDPR et CCPA)", body: "Comme nous ne créons pas de comptes et ne relions pas les statistiques à des individus, aucun profil personnel n'est associé à vous. Vous n'êtes pas suivi d'une visite à l'autre. Si vous avez soumis un message via le formulaire de contact et souhaitez le faire supprimer, contactez-nous à support@wordizy.com et nous le supprimerons rapidement. Dans le cadre du GDPR (résidents de l'UE), vous avez le droit d'accéder, de rectifier ou d'effacer toutes les données personnelles que nous détenons à votre sujet. Dans le cadre du CCPA (résidents de Californie), vous avez le droit de savoir quelles informations personnelles sont collectées, d'en demander la suppression et de vous opposer à la vente d'informations personnelles — nous ne vendons pas vos informations." },
+   447→   { heading: "Contact", body: "Des questions sur cette politique ? Écrivez-nous à support@wordizy.com et nous serons ravis de vous aider. Vous pouvez également utiliser le formulaire de Contact sur ce site pour nous envoyer un message directement." },
+   448→  ],
+   449→  thirdPartyServices: [
+   450→    {
+   451→      name: "Google AdSense",
+   452→      description: "Diffuse des publicités. AdSense peut utiliser des cookies pour afficher des annonces pertinentes et mesurer les performances. Vous pouvez désactiver la publicité personnalisée via les paramètres publicitaires de Google.",
+   453→      url: "https://policies.google.com/technologies/ads",
+   454→    },
+   455→    {
+   456→      name: "Turso",
+   457→      description: "Héberge notre base de données SQLite qui stocke les soumissions du formulaire de contact et les statistiques de recherche anonymes. Les données sont stockées sur les serveurs de Turso.",
+   458→      url: "https://turso.tech/privacy",
+   459→    },
+   460→    {
+   461→      name: "Google Fonts",
+   462→      description: "Diffuse les polices Inter, Bree Serif et Roboto Slab utilisées sur ce site. Google peut enregistrer temporairement la demande de votre adresse IP.",
+   463→      url: "https://policies.google.com/fonts",
+   464→    },
+   465→  ],
+   466→ },
+   467→ sitemap: { title: "Plan du site", body: "Toutes les pages de WordIzy." },
+   468→ footer: { rights: "Tous droits réservés.", madeWith: "Conçu pour les amoureux des mots.", links: "Liens rapides", desc: "Anagrammeur et solveurs de puzzles gratuits en 9 langues. Sans inscription.", disclaimer: "Pour le divertissement et les jeux de mots. Non affilié au Scrabble ou au Wordle." },
+   469→ faq: {
+   470→  title: "Mode d'emploi & FAQ",
+   471→  unscrambler: [
+   472→   { q: "Qu'est-ce qu'un anagrammeur et comment l'utiliser ?", a: "Un anagrammeur prend un mélange de lettres — comme un chevalet Scrabble (ex. SRAABLC) — et trouve tous les mots valides du dictionnaire écrivables avec ces lettres. Saisissez vos lettres dans la case « Vos lettres », puis cliquez sur Anagrammer. Les résultats apparaissent groupés par longueur (les plus longs d'abord), chaque mot affichant sa valeur Scrabble. Idéal pour Scrabble, Words With Friends, Wordfeud, mots croisés et puzzles d'anagrammes." },
+   473→   { q: "Comment fonctionnent les jokers (? et *) ?", a: "Utilisez ? ou * comme joker pour représenter une lettre inconnue. Par exemple, saisir « QUER?Y » demande à WordIzy de trouver tous les mots correspondant à « QUER » + n'importe quelle lettre + « Y ». Chaque joker agit comme une tuile vierge (0 point). Vous pouvez utiliser plusieurs jokers à la fois — « A??LE » correspond à APPLE, ADDLE, AGILE, et d'autres." },
+   474→   { q: "Comment utiliser les Filtres avancés ?", a: "Cliquez sur « Filtres avancés » pour afficher trois champs facultatifs. « Commence par » limite les résultats aux mots commençant par les lettres indiquées (ex. « AB » → uniquement les mots commençant par AB). « Finit par » fait de même pour les suffixes (ex. « ED » → uniquement les mots finissant par ED). « Doit contenir » garantit que certaines lettres apparaissent dans chaque résultat, à n'importe quelle position. Combinez les trois avec des jokers pour un contrôle précis." },
+   475→   { q: "Comment les mots sont-ils scorés ?", a: "Chaque mot est scoré avec les valeurs officielles Scrabble pour la langue choisie. Pour l'anglais : A/E/I/O/U = 1 pt, D/G = 2 pt, B/C/M/P = 3 pt, F/H/V/W/Y = 4 pt, K = 5 pt, J/X = 8 pt, Q/Z = 10 pt. Les jokers (? *) valent 0. Le total est affiché à côté de chaque mot, et les résultats sont triés par score au sein de chaque groupe de longueur afin que les meilleurs coups apparaissent en premier." },
+   476→   { q: "Quels dictionnaires sont disponibles ?", a: "WordIzy prend en charge 9 langues : anglais (NWL2023 + CSW21), français (ODS9 2024), espagnol (FISE), italien (Zingarelli), portugais, allemand, néerlandais (OpenTaal), plus japonais (romaji) et mandarin (pinyin). Tous les mots sont filtrés selon le dictionnaire Scrabble officiel de chaque langue. Changez de langue via le sélecteur dans la barre de navigation." },
+   477→   { q: "Pourquoi les résultats sont-ils groupés par longueur ?", a: "Le regroupement par longueur facilite la recherche du type de coup dont vous avez besoin. Au Scrabble, les mots longs marquent généralement plus, mais parfois un mot plus court s'intègre mieux au plateau. Les mots les plus longs apparaissent en haut, jusqu'aux mots de 2 lettres. Au sein de chaque groupe, les mots sont triés par score Scrabble afin de repérer rapidement le meilleur coup." },
+   478→  ],
+   479→  scramble: [
+   480→   { q: "À quoi sert le Mélangeur / Démêleur ?", a: "Cet outil résout les puzzles d'anagrammes — où les lettres sont mélangées et vous devez retrouver le ou les mots d'origine. Saisissez les lettres mélangées (ex. RBOLENW) et cliquez sur Démêler pour voir tous les vrais mots formables. Parfait pour les anagrammes de journal, les jeux de lettres et les défis de mots mélangés." },
+   481→   { q: "Quelle est la différence avec l'Anagrammeur ?", a: "Le Démêleur utilise le même moteur que l'Anagrammeur, mais se concentre sur la résolution de puzzles de mots mélangés plutôt que sur la recherche de tous les mots possibles d'un chevalet. Vous pouvez aussi utiliser la fonction « Mélanger un mot » sous la saisie pour transformer un mot en variantes aléatoires — utile pour créer vos propres puzzles." },
+   482→   { q: "Puis-je utiliser des jokers ?", a: "Oui. Utilisez ? ou * pour représenter les lettres inconnues. Par exemple, si un puzzle a une lettre manquante, saisissez les lettres connues plus un ? et WordIzy remplira le blanc avec toutes les combinaisons valides." },
+   483→   { q: "Comment créer mon propre mot mélangé ?", a: "Utilisez la carte « Mélanger un mot » sous la saisie principale. Tapez n'importe quel mot (ex. « scrabble ») et cliquez sur Générer — WordIzy produit plusieurs mélanges aléatoires de ce mot. Utilisez-les pour créer des puzzles pour vos amis ou vous entraîner." },
+   484→  ],
+   485→  wordle: [
+   486→   { q: "Comment fonctionne le Solveur Wordle ?", a: "Le Solveur Wordle réduit les possibilités du Wordle du jour en utilisant les retours de votre partie. Saisissez les informations collectées : lettres vertes (bonne position), lettres jaunes (dans le mot mais mauvaise position) et lettres grises (absentes du mot). Le solveur renvoie tous les mots valides correspondant à vos contraintes." },
+   487→   { q: "Comment saisir les lettres placées (vertes) ?", a: "Dans le champ « Lettres placées (vert) », tapez les lettres dont vous savez qu'elles sont à la bonne position, en utilisant . ou _ pour les cases vides. Par exemple, si vous savez que le mot est A _ _ L E, saisissez « A..LE ». Le solveur ne renvoie que les mots correspondant exactement à ce motif." },
+   488→   { q: "Que sont les lettres valides (jaunes) et exclues (grises) ?", a: "Les lettres valides (jaunes) sont les lettres que vous savez DANS le mot, mais pas à la position devinée — saisissez-les toutes dans le champ « Lettres valides » (ex. « RST »). Les lettres exclues (grises) sont les lettres confirmées ABSENTES du mot — saisissez-les dans « Lettres exclues » (ex. « BXF »). Le solveur filtre tout mot contenant une lettre exclue." },
+   489→   { q: "Quelle longueur de mot utiliser ?", a: "Sélectionnez la longueur du Wordle du jour (par défaut 5). WordIzy prend en charge les mots de 4 à 8 lettres, donc il fonctionne aussi pour les variantes comme Quordle, Octordle et les parties à longueur personnalisée." },
+   490→   { q: "Des astuces pour choisir la prochaine tentative ?", a: "Choisissez dans les résultats un mot utilisant des lettres courantes non encore testées (R, T, S, L, N). Cela maximise le gain d'information. Si la liste est longue, choisissez un mot qui élimine le plus de possibilités. Le solveur affiche le score Scrabble de chaque mot — les scores élevés indiquent souvent des lettres rares qui aident à cerner la solution." },
+   491→  ],
+   492→  quordle: [
+   493→   { q: "Qu'est-ce que le Solveur Quordle ?", a: "Quordle est un jeu où vous résolvez quatre Wordle simultanément. Ce solveur vous permet de saisir les contraintes jusqu'à 4 plateaux à la fois et renvoie des mots candidats pour chacun. Chaque plateau conserve ses propres lettres placées (vertes), valides (jaunes) et exclues (grises)." },
+   494→   { q: "Comment utiliser plusieurs plateaux ?", a: "Remplissez ce que vous savez pour chaque plateau. Les contraintes du plateau 1 n'affectent que ses propres résultats. Cliquez sur « Ajouter un plateau » pour aller jusqu'à 4 plateaux. Utilisez le bouton X pour retirer un plateau. Quand vous êtes prêt, cliquez sur Résoudre pour obtenir les mots candidats de tous les plateaux." },
+   495→   { q: "Faut-il partager les lettres entre plateaux ?", a: "Oui — une stratégie clé de Quordle consiste à utiliser une tentative pour récolter de l'information sur plusieurs plateaux. Si une lettre est verte au plateau 1, elle est probablement à la même position sur les autres. Saisissez les contraintes partagées sur chaque plateau pour croiser les informations et réduire plus vite les quatre réponses." },
+   496→   { q: "Des astuces stratégiques pour Quordle ?", a: "Commencez par un mot riche en lettres courantes (comme CRANE ou SLATE) pour récolter de l'info sur tous les plateaux. Concentrez-vous d'abord sur le plateau le plus contraint — le résoudre libère de l'espace mental. Utilisez le solveur après 2-3 tentatives, quand vous avez assez d'infos pour ramener chaque plateau à une liste gérable." },
+   497→  ],
+   498→  anagram: [
+   499→   { q: "Qu'est-ce qu'une anagramme ?", a: "Une anagramme est un mot ou une expression formé en réarrangeant toutes les lettres d'un autre mot. Par exemple, LISTEN et SILENT sont des anagrammes — mêmes lettres, ordre différent. Le Solveur d'Anagrammes trouve tous les mots qui utilisent exactement toutes les lettres fournies." },
+
+[showing lines 200-499 of 1846; use offset=500 with limit to continue reading]
