@@ -61,8 +61,12 @@ export function AnagramBlitz() {
     setFetchingWord(true);
     try {
       const activeLang = lang && lang.trim() ? lang.toLowerCase() : "en";
-      const origin = typeof window !== "undefined" ? window.location.origin : "https://wordizy.com";
-      const targetUrl = `${origin}/api/game/random-word?mode=${modeType}&lang=${activeLang}&t=${Date.now()}`;
+      // Use relative URL — works in both dev and production, avoids
+      // window.location.origin access which can cause hydration mismatches.
+      // The cache-busting param `t` is only needed for infinite mode (daily
+      // mode returns the same word all day anyway).
+      const cacheBust = modeType === "infinite" ? `&t=${Date.now()}` : "";
+      const targetUrl = `/api/game/random-word?mode=${modeType}&lang=${activeLang}${cacheBust}`;
 
       const res = await fetch(targetUrl);
       if (!res.ok) throw new Error(`HTTP Error Status: ${res.status}`);

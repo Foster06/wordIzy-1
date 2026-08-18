@@ -256,10 +256,13 @@ export function randomWords(opts: RandomWordOptions): SolvedWord[] {
 
   if (filtered.length === 0) return [];
 
-  // shuffle
+  // Partial Fisher-Yates shuffle: only shuffle the first `count` elements
+  // instead of the entire array. This is O(count) instead of O(N) when
+  // count << filtered.length (e.g. picking 12 words from 200k entries).
   const shuffled = [...filtered];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+  const limit = Math.min(count, shuffled.length);
+  for (let i = 0; i < limit; i++) {
+    const j = i + Math.floor(Math.random() * (shuffled.length - i));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
   return shuffled.slice(0, count).map((e) => toSolved(e, opts.lang));
@@ -276,11 +279,9 @@ export interface CheckResult {
 export function checkWord(word: string, lang: LanguageCode): CheckResult {
   const norm = normalizeWord(word);
   const dict = getDict(lang);
-  let exists = false;
-  const bucket = dict.byLength.get(norm.length);
-  if (bucket) {
-    exists = bucket.some((e) => e.norm === norm);
-  }
+  // O(1) Set lookup — previously this did a linear scan of the length
+  // bucket (up to ~12k iterations for common word lengths like 5).
+  const exists = dict.normSet.has(norm);
   const tiles = word
     .toUpperCase()
     .split("")

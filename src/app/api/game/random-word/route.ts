@@ -72,6 +72,57 @@ function buildHint(word: string): string {
 
 export const runtime = "nodejs";
 
+// ───────────────────────────────────────────────────────────────────────
+// CACHED GAME WORD POOL
+// Build the 5-8 letter word array ONCE per language and cache it.
+// Previously this rebuilt a 30k+ element array on EVERY request, which
+// added ~50-100ms of unnecessary work per call. Now it's O(1) after
+// the first build.
+// ───────────────────────────────────────────────────────────────────────
+const gameWordPoolCache = new Map<LanguageCode, string[]>();
+
+function getGameWordPool(lang: LanguageCode): string[] {
+  const cached = gameWordPoolCache.get(lang);
+  if (cached) return cached;
+
+  const dict = getDict(lang);
+  const words: string[] = [];
+  for (let l = 5; l <= 8; l++) {
+    const bucket = dict.byLength.get(l) ?? [];
+    for (const entry of bucket) {
+      words.push(entry.word.toUpperCase());
+    }
+  }
+
+  const fallbackDictionary = [
+    "AWESOME", "MYSTERY", "SHUFFLE", "DYNAMIC", "SOLVER", "BLITZ",
+    "PUZZLE", "VICTORY", "WORDSMITH", "ALPHABET", "CREATIVE", "MATRIX",
+  ];
+
+  if (words.length === 0) {
+    words.push(...fallbackDictionary);
+  }
+
+  gameWordPoolCache.set(lang, words);
+  return words;
+}
+
+// Pre-warm the English game word pool on module load (server boot).
+// This ensures the first /api/game/random-word request doesn't pay
+// the ~1s dictionary load + ~50ms array build cost. Fire-and-forget.
+if (typeof window === "undefined") {
+  void import("@/lib/dictionary").then(({ getDict }) => {
+    try {
+      getDict("en"); // loads dictionary
+      getGameWordPool("en"); // builds + caches game word pool
+    } catch {
+      /* ignore — per-request path will retry */
+    }
+  }).catch(() => {
+    /* ignore */
+  });
+}
+
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
@@ -79,27 +130,8 @@ export async function GET(req: Request) {
     const mode = searchParams.get("mode") || "infinite";
     const lang = rawLang && rawLang.trim() ? rawLang.toLowerCase() : "en";
 
-    // Pull 5-8 letter words from the shared, lazily-cached dictionary store.
-    // Replaces the per-route dictCache Map + getDictionary() that re-read the
-    // Scrabble files on every request — the shared getDict() loads each
-    // language once and exposes entries bucketed by normalized length.
-    const dict = getDict(lang as LanguageCode);
-    const words: string[] = [];
-    for (let l = 5; l <= 8; l++) {
-      const bucket = dict.byLength.get(l) ?? [];
-      for (const entry of bucket) {
-        words.push(entry.word.toUpperCase());
-      }
-    }
-
-    const fallbackDictionary = [
-      "AWESOME", "MYSTERY", "SHUFFLE", "DYNAMIC", "SOLVER", "BLITZ",
-      "PUZZLE", "VICTORY", "WORDSMITH", "ALPHABET", "CREATIVE", "MATRIX",
-    ];
-
-    if (words.length === 0) {
-      words.push(...fallbackDictionary);
-    }
+    // Use the cached game word pool — O(1) after first build per language.
+    const words = getGameWordPool(lang as LanguageCode);
 
     const targetIndex = mode === "daily" ? getDailySeedIndex(words.length) : Math.floor(Math.random() * words.length);
     const targetWord = words[targetIndex]!.trim().toUpperCase();
@@ -128,3 +160,4 @@ export async function GET(req: Request) {
     return NextResponse.json({ scrambled: "PUZZLE", answer: "PUZZLE", hint: "A 6-letter fallback word." });
   }
 }
+

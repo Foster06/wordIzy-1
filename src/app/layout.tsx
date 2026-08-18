@@ -134,13 +134,13 @@ export const viewport: Viewport = {
 // ──────────────────────────────────────────────────────────────
 // SERVER-SIDE DICTIONARY PRE-WARM
 // Kick off async dictionary load at module-eval time (server boot).
-// This shaves ~900ms off the first word-list request by ensuring the
-// dictionary is already loaded by the time the first /words-starts-with-*
-// request arrives. Fire-and-forget — does NOT block rendering or other
-// imports. The Promise resolves in the background; if it fails, the
-// per-request path will retry synchronously.
+// This shaves ~1s off the first word-related request (unscramble,
+// game, word-list) by ensuring the dictionary is already loaded.
+// Works in BOTH dev and production — previously dev mode was excluded,
+// causing every first request in dev to pay the ~1s load cost.
+// Fire-and-forget — does NOT block rendering or other imports.
 // ──────────────────────────────────────────────────────────────
-if (typeof window === "undefined" && process.env.NODE_ENV === "production") {
+if (typeof window === "undefined") {
   void import("@/lib/dictionary").then(({ getDict }) => {
     try {
       getDict("en");

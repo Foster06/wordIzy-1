@@ -31,6 +31,10 @@ const ZH_PINYIN = [
 type DictStore = {
   entries: WordEntry[];
   byLength: Map<number, WordEntry[]>;
+  // O(1) lookup set of all normalized words — used by checkWord()
+  // Previously checkWord() did a linear scan of the length bucket
+  // (up to ~12k iterations for common lengths). Now it's Set.has().
+  normSet: Set<string>;
 };
 
 const cache = new Map<LanguageCode, DictStore>();
@@ -161,7 +165,7 @@ export function getDict(lang: LanguageCode): DictStore {
     }
   }
 
-  const store: DictStore = { entries, byLength };
+  const store: DictStore = { entries, byLength, normSet: seen };
   cache.set(lang, store);
   return store;
 }
@@ -213,7 +217,7 @@ export function getWordleDict(lang: LanguageCode): DictStore {
         else byLength.set(entry.len, [entry]);
       }
 
-      const store: DictStore = { entries, byLength };
+      const store: DictStore = { entries, byLength, normSet: seen };
       wordleCache.set(lang, store);
       return store;
     }

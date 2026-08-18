@@ -94,21 +94,42 @@ const WIKT_LANGS: Record<LanguageCode, string> = {
 };
 
 /** Fetch a definition: try Free Dictionary API, then Wiktionary, then LLM. */
+// Module-level cache for definition lookups. External API calls can take
+// up to 24s worst-case (3 sequential 8s-timeout fetches). Without this
+// cache, every identical word lookup re-hits the network. Cache for 1 hour.
+const definitionCache = new Map<string, DefinitionResult & { _ts: number }>();
+const DEFINITION_CACHE_TTL = 60 * 60 * 1000; // 1 hour
+
 export async function getDefinition(word: string, lang: LanguageCode): Promise<DefinitionResult> {
   const clean = word.trim();
   if (!clean) return { definition: "", source: "" };
+
+  // Check cache first — avoids re-fetching from external APIs.
+  const cacheKey = `${lang}:${clean.toLowerCase()}`;
+  const cached = definitionCache.get(cacheKey);
+  if (cached && Date.now() - cached._ts < DEFINITION_CACHE_TTL) {
+    return { definition: cached.definition, partOfSpeech: cached.partOfSpeech, phonetic: cached.phonetic, source: cached.source };
+  }
 
   // 1. Free Dictionary API
   const dl = DICT_API_LANGS[lang];
   if (dl) {
     const r = await freeDictionaryApi(clean, dl);
-    if (r.definition) return r;
+    if (r.definition) {
+      definitionCache.set(cacheKey, { ...r, _ts: Date.now() });
+      return r;
+    }
   }
   // 2. Wiktionary
   const w = await wiktionary(clean, WIKT_LANGS[lang]);
-  if (w.definition) return w;
+  if (w.definition) {
+    definitionCache.set(cacheKey, { ...w, _ts: Date.now() });
+    return w;
+  }
   // 3. LLM fallback (best-effort concise definition)
-  return llmDefinition(clean, lang);
+  const llm = await llmDefinition(clean, lang);
+  definitionCache.set(cacheKey, { ...llm, _ts: Date.now() });
+  return llm;
 }
 
 async function freeDictionaryApi(word: string, lang: string): Promise<DefinitionResult> {
