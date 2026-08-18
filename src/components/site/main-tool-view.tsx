@@ -165,6 +165,34 @@ export function MainToolView({ params, initialWordListData }: MainToolViewProps)
           <ErrorBoundary label="Anagram Blitz Game">
             <div className="py-6 sm:py-10">
               <AnagramBlitz />
+              {/* SEO content — visible to crawlers and users below the game card.
+                  Rich descriptive text helps Google understand the page is a
+                  real word game, not a thin "Loading..." shell. */}
+              <section className="mt-10 max-w-2xl mx-auto space-y-4 text-sm text-muted-foreground leading-relaxed">
+                <h2 className="text-lg font-bold text-foreground">How to Play Anagram Blitz</h2>
+                <p>
+                  Anagram Blitz is a fast-paced 60-second word unscramble game. You are given a
+                  scrambled set of letters and must rearrange them to form a valid dictionary word.
+                  Each correct answer earns 20 points; each skip costs 5 points. Beat your high
+                  score and climb the daily leaderboard.
+                </p>
+                <h3 className="text-base font-semibold text-foreground pt-2">Game Modes</h3>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li><strong className="text-foreground">Daily Challenge</strong> — One puzzle per day. Play once and lock in your score for the leaderboard.</li>
+                  <li><strong className="text-foreground">Infinite Practice</strong> — Unlimited puzzles. Each correct answer adds 10 bonus seconds to the clock.</li>
+                </ul>
+                <h3 className="text-base font-semibold text-foreground pt-2">Tips & Strategy</h3>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>Look for common prefixes and suffixes (RE-, -ING, -ED, -LY).</li>
+                  <li>Vowels (A, E, I, O, U) usually anchor the word — place them first.</li>
+                  <li>Use the hint to narrow down the word theme before typing.</li>
+                  <li>Skip difficult puzzles quickly to preserve time for easier ones.</li>
+                </ul>
+                <p className="text-xs pt-2">
+                  Anagram Blitz uses official Scrabble dictionaries (NWL2023 + CSW21 for English)
+                  with multi-language support across 9 languages. Play free, no sign-up required.
+                </p>
+              </section>
             </div>
           </ErrorBoundary>
         );

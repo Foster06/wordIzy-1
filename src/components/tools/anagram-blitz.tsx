@@ -20,13 +20,16 @@ export function AnagramBlitz() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [revealMessage, setRevealMessage] = useState("");
   const [hasPlayedToday, setHasPlayedToday] = useState(false);
-  const [loading, setLoading] = useState(true);
+  // SSR-friendly: default to NOT loading so the start menu renders during SSR.
+  // The daily-status check runs in useEffect (client-only) and updates
+  // hasPlayedToday after hydration. This means the SSR HTML contains the
+  // game title, description, and buttons — critical for SEO.
+  const [loading, setLoading] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [fetchingWord, setFetchingWord] = useState(false);
 
   useEffect(() => {
     const checkDailyStatus = async () => {
-      setLoading(true);
       const todayStr = new Date().toDateString();
       const lastPlayedDate = localStorage.getItem("izy_blitz_last_played");
       const dailyHighScore = localStorage.getItem("izy_blitz_high_score");
@@ -34,10 +37,8 @@ export function AnagramBlitz() {
       if (lastPlayedDate === todayStr) {
         setHasPlayedToday(true);
         if (dailyHighScore) setScore(parseInt(dailyHighScore, 10));
-        setLoading(false);
-      } else {
-        setLoading(false);
       }
+      // No setLoading(false) needed — we default to false.
     };
 
     checkDailyStatus();
