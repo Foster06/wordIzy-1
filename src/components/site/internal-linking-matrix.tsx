@@ -7,7 +7,7 @@ import { useLanguage } from "@/components/i18n/language-provider";
 import {
   ALPHABET_LOWER,
   WORD_LIST_LENGTHS,
-  buildCanonicalWordListSlug,
+  buildCanonicalWordListUrl,
   type WordListType,
 } from "@/lib/word-list-urls";
 import { GlassCard } from "@/components/site/glass-card";
@@ -25,7 +25,7 @@ function HubSearchBar({ type }: { type: WordListType }) {
     e.preventDefault();
     const letter = q.trim().toLowerCase().slice(0, 1);
     if (!letter || !/^[a-z]$/.test(letter)) return;
-    navigateTo(router, buildCanonicalWordListSlug({ type, value: letter }));
+    navigateTo(router, buildCanonicalWordListUrl({ type, value: letter }));
     setQ("");
   };
 
@@ -37,8 +37,8 @@ function HubSearchBar({ type }: { type: WordListType }) {
         value={q}
         onChange={(e) => setQ(e.target.value)}
         maxLength={2}
-        aria-label={(t.wordPages?.letterFilter as string) ?? "Letter filter"}
-        placeholder={(t.wordPages?.letterFilter as string) ?? "A"}
+        aria-label="Letter filter"
+        placeholder="A"
         className="h-10 w-full rounded-md border border-white/10 bg-background/60 pl-9 pr-9 text-sm uppercase tracking-wider font-mono outline-none focus-visible:ring-2 focus-visible:ring-brand placeholder:text-muted-foreground/50 placeholder:normal-case placeholder:font-sans"
       />
       {q && (
@@ -58,8 +58,8 @@ function HubSearchBar({ type }: { type: WordListType }) {
 function WordsStartingByMatrix() {
   const { t } = useLanguage();
   const router = useRouter();
-  const title = (t.wordPages?.matrixStartsTitle as string) ?? "Words Starting With";
-  const desc = (t.wordPages?.matrixStartsDesc as string) ?? "Browse every Scrabble word that begins with a letter.";
+  const title = "Words Starting With";
+  const desc = "Browse every Scrabble word that begins with a letter.";
   return (
     <GlassCard className="p-5 sm:p-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
@@ -73,7 +73,7 @@ function WordsStartingByMatrix() {
         {ALPHABET_LOWER.map((l) => (
           <button
             key={l}
-            onClick={() => navigateTo(router, buildCanonicalWordListSlug({ type: "starts", value: l }))}
+            onClick={() => navigateTo(router, buildCanonicalWordListUrl({ type: "starts", value: l }))}
             className="h-10 w-10 rounded-md flex items-center justify-center glass-soft text-foreground/80 hover:text-brand hover:border-brand/30 transition-colors uppercase font-bree text-lg"
           >
             {l}
@@ -87,8 +87,8 @@ function WordsStartingByMatrix() {
 function WordsEndingByMatrix() {
   const { t } = useLanguage();
   const router = useRouter();
-  const title = (t.wordPages?.matrixEndsTitle as string) ?? "Words Ending With";
-  const desc = (t.wordPages?.matrixEndsDesc as string) ?? "Browse every Scrabble word that ends with a letter.";
+  const title = "Words Ending With";
+  const desc = "Browse every Scrabble word that ends with a letter.";
   return (
     <GlassCard className="p-5 sm:p-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
@@ -102,7 +102,7 @@ function WordsEndingByMatrix() {
         {ALPHABET_LOWER.map((l) => (
           <button
             key={l}
-            onClick={() => navigateTo(router, buildCanonicalWordListSlug({ type: "ends", value: l }))}
+            onClick={() => navigateTo(router, buildCanonicalWordListUrl({ type: "ends", value: l }))}
             className="h-10 w-10 rounded-md flex items-center justify-center glass-soft text-foreground/80 hover:text-brand hover:border-brand/30 transition-colors uppercase font-bree text-lg"
           >
             {l}
@@ -113,11 +113,11 @@ function WordsEndingByMatrix() {
   );
 }
 
-function UnscrambleByLengthMatrix() {
+export function UnscrambleByLengthMatrix() {
   const { t } = useLanguage();
   const router = useRouter();
-  const title = (t.wordPages?.matrixLengthsTitle as string) ?? "Unscramble by Length";
-  const desc = (t.wordPages?.matrixLengthsDesc as string) ?? "Browse words by length, 2 to 15 letters.";
+  const title = "Unscramble by Length";
+  const desc = "Browse words by length, 2 to 15 letters.";
   return (
     <GlassCard className="p-5 sm:p-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
@@ -131,7 +131,7 @@ function UnscrambleByLengthMatrix() {
         {WORD_LIST_LENGTHS.map((n) => (
           <button
             key={n}
-            onClick={() => navigateTo(router, buildCanonicalWordListSlug({ type: "length", value: n }))}
+            onClick={() => navigateTo(router, buildCanonicalWordListUrl({ type: "length", value: n }))}
             className="h-10 min-w-10 px-3 rounded-md flex items-center justify-center glass-soft text-foreground/80 hover:text-brand hover:border-brand/30 transition-colors font-bree text-sm tabular-nums"
           >
             {n}

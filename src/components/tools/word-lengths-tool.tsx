@@ -10,11 +10,11 @@ import { useLanguage } from "@/components/i18n/language-provider";
 
 export function WordLengthsTool() {
   const { t } = useLanguage();
-  const title = (t.wordPages?.lengthsTitle as string) ?? "Unscramble by Length";
-  const subtitle = (t.wordPages?.lengthsSubtitle as string) ?? "Browse every valid Scrabble word from 2 to 15 letters.";
+  const title = "Unscramble by Length";
+  const subtitle = "Browse every valid Scrabble word from 2 to 15 letters.";
   return (
     <>
-      <PageHeader badge={t.nav.wordlengths as string} title={title} subtitle={subtitle} icon={<Ruler className="h-6 w-6" />} />
+      <PageHeader badge={t.nav.wordlists as string} title={title} subtitle={subtitle} icon={<Ruler className="h-6 w-6" />} />
       <div className="mt-6 space-y-6">
         <GlassCard strong className="p-4 sm:p-5">
           <UnscrambleByLengthMatrix />

@@ -41,7 +41,7 @@ export const ROUTES: RouteDef[] = [
   { id: "quordle", hash: "/quordle", icon: "LayoutGrid", labelKey: "quordle", group: "solvers", desktop: "tools" },
   
   // 🎯 ADDED: Places the game right inside your visible Tools section dropdown and footer columns
-  { id: "blitz", hash: "/blitz", icon: "Zap", labelKey: "blitz", group: "tools", desktop: "tools", hidden: true }, // Hidden from nav but still routable. Can be accessed via /blitz or via the "Play Now" button in the Unscrambler tool.
+  { id: "blitz", hash: "/blitz", icon: "Zap", labelKey: "blitz", group: "tools", desktop: "tools" },
 
   // Word Lab dropdown
   { id: "wordlists", hash: "/wordlists", icon: "List", labelKey: "wordlists", group: "tools", desktop: "wordlab" },
