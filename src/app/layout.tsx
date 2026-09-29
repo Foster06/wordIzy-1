@@ -199,22 +199,10 @@ if (typeof window === "undefined") {
   });
 }
 
-// Preconnect hints — only for origins the browser will ACTUALLY connect to.
-// Note: fonts.googleapis.com and fonts.gstatic.com are NOT preconnected because
-// next/font/google self-hosts the fonts at build time — the browser never
-// connects to Google's font servers. Preconnecting to them would waste a DNS
-// lookup + TLS handshake for nothing (Lighthouse flags this as "unused preconnect").
-// va.vercel-scripts.com is only preconnected if Vercel Analytics is active.
-const preconnectTags = (
-  <>
-    {/* Prefetch high-traffic internal pages — when the browser is idle, it
-        fetches these pages in the background so they load instantly on click. */}
-    <link rel="prefetch" href="/blitz" as="document" />
-    <link rel="prefetch" href="/wordstarts" as="document" />
-    <link rel="prefetch" href="/wordends" as="document" />
-    <link rel="prefetch" href="/wordlists" as="document" />
-  </>
-);
+// Prefetch hints removed — on mobile/slow connections, prefetching 4 pages
+// competes with the main page load for bandwidth, causing LCP to spike.
+// The pages are already statically generated and load in <5ms when clicked.
+const preconnectTags = null;
 
 // Trusted Types policy — must run BEFORE any other script. Creates a permissive
 // default policy so that third-party libraries (AdSense, Next.js hydration)
@@ -249,7 +237,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         {trustedTypesPolicy}
-        {preconnectTags}
+        {null /* preconnectTags removed for mobile performance */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
