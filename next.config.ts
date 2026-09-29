@@ -91,23 +91,23 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com",
+              // AdSense needs multiple domains: the main script, the funding
+              // choices messages domain, and doubleclick for ad frames.
+              "script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com https://fundingchoicesmessages.google.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",
               "img-src 'self' data: https:",
-              "connect-src 'self' https://pagead2.googlesyndication.com",
+              "connect-src 'self' https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com",
               "frame-src https://googleads.g.doubleclick.net",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
               "frame-ancestors 'none'",
               "upgrade-insecure-requests",
-              // Trusted Types — enforces that all DOM sinks (innerHTML, etc.)
-              // go through a named policy, mitigating DOM-based XSS.
-              // The 'default' policy is created in layout.tsx and passes
-              // strings through unchanged (permissive) so third-party libs
-              // like AdSense and Next.js hydration still work.
-              "trusted-types default",
+              // Trusted Types — allow the 'default' policy (created in layout.tsx)
+              // AND the 'goog#html' policy that AdSense creates internally.
+              // Without 'goog#html', AdSense throws console errors and ads fail.
+              "trusted-types default goog#html",
               "require-trusted-types-for 'script'",
             ].join("; "),
           },

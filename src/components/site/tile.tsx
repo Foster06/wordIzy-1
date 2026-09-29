@@ -29,6 +29,9 @@ export function Tile({ letter, value = 0, size = "md", blank = false, className,
       className={cn("scrab-tile", sizeMap[size], blank && "scrab-tile-blank", className)}
       style={width ? { width: `${width}px`, height: `${width}px`, fontSize: `${width * 0.5}px` } : undefined}
       data-value={value > 0 ? value : ""}
+      // role="img" makes the aria-label valid — without a role, ARIA spec
+      // says aria-label on a generic <span> is not permitted.
+      role="img"
       aria-label={`${letter || "blank"} ${value}`}
     >
       {display}
