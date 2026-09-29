@@ -103,6 +103,46 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // on the server so users see them immediately when the page loads — no spinner,
 // no client round-trip on initial page load. The client takes over for
 // pagination ("Load more"), filter changes, and sort toggles.
+//
+// STATIC GENERATION: The most popular word-list pages (A-Z starts/ends, 5-7
+// letter words) are pre-rendered at build time via generateStaticParams.
+// This allows CDN caching and instant delivery — no server computation on
+// each request. Less popular pages (8-15 letter, wordle starts/ends) are
+// server-rendered on demand.
+const ALPHABET = "abcdefghijklmnopqrstuvwxyz".split("");
+const POPULAR_LENGTHS = ["5", "6", "7"]; // Most searched lengths
+
+export async function generateStaticParams() {
+  // Pre-generate the most popular word-list pages at build time:
+  // - 26 starts-with pages (words-starts-with-a through words-starts-with-z)
+  // - 26 ends-with pages (words-ends-with-a through words-ends-with-z)
+  // - 3 length pages (5, 6, 7 letter words — most common Wordle lengths)
+  // Total: 55 static pages (the rest render on-demand)
+  const params: { tool: string[] }[] = [];
+
+  for (const letter of ALPHABET) {
+    params.push({ tool: [`words-starts-with-${letter}`] });
+    params.push({ tool: [`words-ends-with-${letter}`] });
+  }
+  for (const len of POPULAR_LENGTHS) {
+    params.push({ tool: [`unscramble-${len}-letter-words`] });
+  }
+
+  // Also pre-generate the core tool routes so they're cached at the CDN
+  const coreTools = ["", "blitz", "scramble", "anagram", "wordle", "dictionary", "wordstarts", "wordends", "wordlists"];
+  for (const tool of coreTools) {
+    if (tool === "") {
+      params.push({ tool: [] }); // homepage
+    } else {
+      params.push({ tool: [tool] });
+    }
+  }
+
+  return params;
+}
+
+export const dynamicParams = true; // Allow on-demand rendering for non-static pages
+
 export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;
   const toolSegments = resolvedParams.tool || [];

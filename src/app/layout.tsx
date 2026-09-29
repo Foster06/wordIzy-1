@@ -10,12 +10,55 @@ import { DictionaryWarmer } from "@/components/site/dictionary-warmer";
 import { Analytics } from "@vercel/analytics/next";
 import { WordVaultProvider } from "@/hooks/use-word-vault";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const lora = Lora({ variable: "--font-serif", subsets: ["latin"], weight: ["600", "700"] });
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
-const breeSerif = Bree_Serif({ variable: "--font-bree-serif", subsets: ["latin"], weight: ["400"] });
-const robotoSlab = Roboto_Slab({ variable: "--font-roboto-slab", subsets: ["latin"], weight: ["600", "700", "800"] });
+// Font configuration — next/font/google self-hosts and auto-adds font-display: swap.
+// We explicitly set display: "swap" + preload for critical fonts (body + headings).
+// Non-critical fonts (mono, serif) skip preload to reduce initial request count.
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  fallback: ["system-ui", "Segoe UI", "Roboto", "sans-serif"],
+});
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false, // mono is used less, skip preload
+  fallback: ["ui-monospace", "Menlo", "Consolas", "monospace"],
+});
+const lora = Lora({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  display: "swap",
+  preload: false,
+  fallback: ["Georgia", "Times New Roman", "serif"],
+});
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: true,
+  fallback: ["system-ui", "Segoe UI", "Roboto", "sans-serif"],
+});
+const breeSerif = Bree_Serif({
+  variable: "--font-bree-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+  preload: false,
+  fallback: ["Georgia", "serif"],
+});
+const robotoSlab = Roboto_Slab({
+  variable: "--font-roboto-slab",
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  display: "swap",
+  preload: true, // used for headings/logo
+  fallback: ["Roboto", "Georgia", "serif"],
+});
 
 const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 const showAdsense =
@@ -93,10 +136,14 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
-      { url: "/logo.png", type: "image/png" },
+      // WebP icons — 95% smaller than PNG, served to modern browsers
+      { url: "/favicon-32.webp", type: "image/webp", sizes: "32x32" },
+      { url: "/favicon-16.webp", type: "image/webp", sizes: "16x16" },
+      // PNG fallback for older browsers
+      { url: "/logo.png", type: "image/png", sizes: "1254x1254" },
       { url: "/favicon.ico", type: "image/x-icon" },
     ],
-    apple: "/logo.png",
+    apple: "/apple-touch-icon.webp",
   },
   robots: { index: true, follow: true },
   openGraph: {
@@ -154,12 +201,20 @@ if (typeof window === "undefined") {
 
 // Preconnect hints for third-party origins — saves DNS + TLS round-trips
 // when AdSense / Google Fonts / Vercel Analytics load.
+// Also includes prefetch hints for the most-visited internal pages so they
+// load instantly when users click them.
 const preconnectTags = (
   <>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
     <link rel="preconnect" href="https://va.vercel-scripts.com" />
     <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+    {/* Prefetch high-traffic internal pages — when the browser is idle, it
+        fetches these pages in the background so they load instantly on click. */}
+    <link rel="prefetch" href="/blitz" as="document" />
+    <link rel="prefetch" href="/wordstarts" as="document" />
+    <link rel="prefetch" href="/wordends" as="document" />
+    <link rel="prefetch" href="/wordlists" as="document" />
   </>
 );
 

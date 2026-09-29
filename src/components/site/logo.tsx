@@ -13,7 +13,18 @@ export function Logo({ size = "md", className }: { size?: LogoSize; className?: 
   const s = sizeMap[size];
   return (
     <span className={cn("relative inline-flex items-center justify-center", s.box, className)} aria-label="wordIzy logo">
-      <Image src="/logo.png" alt="wordIzy logo" width={s.img} height={s.img} className="h-full w-full object-contain" priority />
+      {/* next/image automatically serves WebP/AVIF to supporting browsers.
+          The PNG fallback ensures compatibility with older browsers.
+          priority=true for LCP (logo is in the header, above the fold). */}
+      <Image
+        src="/logo.png"
+        alt="wordIzy logo"
+        width={s.img}
+        height={s.img}
+        className="h-full w-full object-contain"
+        priority
+        sizes={`${s.img}px`}
+      />
     </span>
   );
 }
