@@ -156,6 +156,20 @@ export type Translation = {
   stopGame: string;
   correct: string;
   answerWas: string;
+  // SEO content section (below the game card) — translated per language
+  howToPlayTitle: string;
+  howToPlayDesc: string;
+  gameModesTitle: string;
+  dailyModeName: string;
+  dailyModeDesc: string;
+  infiniteModeName: string;
+  infiniteModeDesc: string;
+  tipsTitle: string;
+  tip1: string;
+  tip2: string;
+  tip3: string;
+  tip4: string;
+  blitzFooter: string;
  };
  ui: {
   advertisement: string;
@@ -470,6 +484,20 @@ const en: Translation = {
   stopGame: "🛑 Stop Game",
   correct: "✨ Perfect! Correct Answer!",
   answerWas: "The answer was:",
+  // SEO content section (below the game card)
+  howToPlayTitle: "How to Play Anagram Blitz",
+  howToPlayDesc: "Anagram Blitz is a fast-paced 60-second word unscramble game. You are given a scrambled set of letters and must rearrange them to form a valid dictionary word. Each correct answer earns 20 points; each skip costs 5 points. Beat your high score and climb the daily leaderboard.",
+  gameModesTitle: "Game Modes",
+  dailyModeName: "Daily Challenge",
+  dailyModeDesc: "One puzzle per day. Play once and lock in your score for the leaderboard.",
+  infiniteModeName: "Infinite Practice",
+  infiniteModeDesc: "Unlimited puzzles. Each correct answer adds 10 bonus seconds to the clock.",
+  tipsTitle: "Tips & Strategy",
+  tip1: "Look for common prefixes and suffixes (RE-, -ING, -ED, -LY).",
+  tip2: "Vowels (A, E, I, O, U) usually anchor the word — place them first.",
+  tip3: "Use the hint to narrow down the word theme before typing.",
+  tip4: "Skip difficult puzzles quickly to preserve time for easier ones.",
+  blitzFooter: "Anagram Blitz uses official Scrabble dictionaries (NWL2023 + CSW21 for English) with multi-language support across 9 languages. Play free, no sign-up required.",
  },
  ui: {
   advertisement: "Advertisement",
@@ -783,6 +811,20 @@ const fr: Translation = {
   stopGame: "🛑 Arrêter",
   correct: "✨ Parfait ! Bonne réponse !",
   answerWas: "La réponse était :",
+  // Section contenu SEO (sous la carte du jeu)
+  howToPlayTitle: "Comment jouer à Anagram Blitz",
+  howToPlayDesc: "Anagram Blitz est un jeu d'anagrammes rapide de 60 secondes. Vous recevez un ensemble de lettres mélangées et devez les réarranger pour former un mot valide du dictionnaire. Chaque bonne réponse rapporte 20 points ; chaque skip coûte 5 points. Battez votre meilleur score et grimpez dans le classement quotidien.",
+  gameModesTitle: "Modes de jeu",
+  dailyModeName: "Défi quotidien",
+  dailyModeDesc: "Une énigme par jour. Jouez une fois et enregistrez votre score pour le classement.",
+  infiniteModeName: "Pratique infinie",
+  infiniteModeDesc: "Énigmes illimitées. Chaque bonne réponse ajoute 10 secondes bonus au chronomètre.",
+  tipsTitle: "Conseils et stratégie",
+  tip1: "Cherchez les préfixes et suffixes courants (RE-, -ING, -É, -MENT).",
+  tip2: "Les voyelles (A, E, I, O, U, Y) ancrent généralement le mot — placez-les en premier.",
+  tip3: "Utilisez l'indice pour cerner le thème du mot avant de taper.",
+  tip4: "Passez les énigmes difficiles rapidement pour préserver le temps pour les plus faciles.",
+  blitzFooter: "Anagram Blitz utilise les dictionnaires officiels du Scrabble (ODS9 pour le français, NWL2023 + CSW21 pour l'anglais) avec un support multilingue pour 9 langues. Jouez gratuitement, sans inscription.",
  },
  ui: {
   advertisement: "Publicité",
@@ -1069,6 +1111,20 @@ const es: Translation = {
   stopGame: "🛑 Detener",
   correct: "✨ ¡Perfecto! ¡Respuesta correcta!",
   answerWas: "La respuesta era:",
+  // Sección de contenido SEO (debajo de la tarjeta del juego)
+  howToPlayTitle: "Cómo jugar a Anagram Blitz",
+  howToPlayDesc: "Anagram Blitz es un juego rápido de anagramas de 60 segundos. Recibe un conjunto de letras mezcladas y debe reordenarlas para formar una palabra válida del diccionario. Cada respuesta correcta gana 20 puntos; cada omisión cuesta 5 puntos. Supere su mejor puntuación y suba en la clasificación diaria.",
+  gameModesTitle: "Modos de juego",
+  dailyModeName: "Desafío diario",
+  dailyModeDesc: "Un acertijo por día. Juegue una vez y asegure su puntuación para la clasificación.",
+  infiniteModeName: "Práctica infinita",
+  infiniteModeDesc: "Acertijos ilimitados. Cada respuesta correcta añade 10 segundos extra al reloj.",
+  tipsTitle: "Consejos y estrategia",
+  tip1: "Busque prefijos y sufijos comunes (RE-, -AR, -ER, -IR, -MENTE).",
+  tip2: "Las vocales (A, E, I, O, U) suelen anclar la palabra — colóquelas primero.",
+  tip3: "Use la pista para reducir el tema de la palabra antes de escribir.",
+  tip4: "Omita los acertijos difíciles rápidamente para preservar tiempo para los más fáciles.",
+  blitzFooter: "Anagram Blitz utiliza diccionarios oficiales de Scrabble (FISE para el español, NWL2023 + CSW21 para el inglés) con soporte multilingüe para 9 idiomas. Juegue gratis, sin necesidad de registrarse.",
  },
  ui: {
   advertisement: "Anuncio",
@@ -1355,6 +1411,20 @@ const de: Translation = {
   stopGame: "🛑 Stopp",
   correct: "✨ Perfekt! Richtige Antwort!",
   answerWas: "Die Antwort war:",
+  // SEO-Inhaltsabschnitt (unter der Spielkarte)
+  howToPlayTitle: "So spielen Sie Anagram Blitz",
+  howToPlayDesc: "Anagram Blitz ist ein schnelles 60-Sekunden-Anagramm-Spiel. Sie erhalten ein durcheinandergebrachtes Buchstaben-Set und müssen diese neu anordnen, um ein gültiges Wörterbuchwort zu bilden. Jede richtige Antwort bringt 20 Punkte; jedes Überspringen kostet 5 Punkte. Schlagen Sie Ihren Highscore und steigen Sie in der täglichen Rangliste auf.",
+  gameModesTitle: "Spielmodi",
+  dailyModeName: "Tägliche Herausforderung",
+  dailyModeDesc: "Ein Rätsel pro Tag. Spielen Sie einmal und sichern Sie Ihre Punktzahl für die Rangliste.",
+  infiniteModeName: "Endlose Übung",
+  infiniteModeDesc: "Unbegrenzte Rätsel. Jede richtige Antwort fügt der Uhr 10 Bonussekunden hinzu.",
+  tipsTitle: "Tipps & Strategie",
+  tip1: "Suchen Sie nach häufigen Präfixen und Suffixen (RE-, -EN, -ER, -UNG).",
+  tip2: "Vokale (A, E, I, O, U, Ä, Ö, Ü) verankern meist das Wort — platzieren Sie sie zuerst.",
+  tip3: "Nutzen Sie den Hinweis, um das Wortthema einzugrenzen, bevor Sie tippen.",
+  tip4: "Überspringen Sie schwierige Rätsel schnell, um Zeit für einfachere zu sparen.",
+  blitzFooter: "Anagram Blitz verwendet offizielle Scrabble-Wörterbücher (DE_FILTERED für Deutsch, NWL2023 + CSW21 für Englisch) mit Mehrsprachunterstützung für 9 Sprachen. Kostenlos spielen, keine Anmeldung erforderlich.",
  },
  ui: {
   advertisement: "Werbung",
@@ -1641,6 +1711,20 @@ const it: Translation = {
   stopGame: "🛑 Ferma",
   correct: "✨ Perfetto! Risposta corretta!",
   answerWas: "La risposta era:",
+  // Sezione contenuto SEO (sotto la carta del gioco)
+  howToPlayTitle: "Come giocare ad Anagram Blitz",
+  howToPlayDesc: "Anagram Blitz è un gioco di anagrammi veloce di 60 secondi. Ricevi un insieme di lettere mescolate e devi riordinarle per formare una parola valida del dizionario. Ogni risposta corretta guadagna 20 punti; ogni salto costa 5 punti. Supera il tuo punteggio migliore e sali nella classifica giornaliera.",
+  gameModesTitle: "Modalità di gioco",
+  dailyModeName: "Sfida quotidiana",
+  dailyModeDesc: "Un indovinello al giorno. Gioca una volta e blocca il tuo punteggio per la classifica.",
+  infiniteModeName: "Pratica infinita",
+  infiniteModeDesc: "Indovinelli illimitati. Ogni risposta corretta aggiunge 10 secondi bonus al cronometro.",
+  tipsTitle: "Consigli e strategia",
+  tip1: "Cerca prefissi e suffissi comuni (RI-, -ARE, -ERE, -IRE, -MENTE).",
+  tip2: "Le vocali (A, E, I, O, U) di solito ancorano la parola — posizionale prima.",
+  tip3: "Usa l'indizio per restringere il tema della parola prima di digitare.",
+  tip4: "Salta gli indovinelli difficili velocemente per preservare tempo per quelli più facili.",
+  blitzFooter: "Anagram Blitz utilizza dizionari ufficiali di Scarabeo (Zingarelli per l'italiano, NWL2023 + CSW21 per l'inglese) con supporto multilingua per 9 lingue. Gioca gratis, senza registrazione.",
  },
  ui: {
   advertisement: "Pubblicità",
@@ -1927,6 +2011,20 @@ const pt: Translation = {
   stopGame: "🛑 Parar",
   correct: "✨ Perfeito! Resposta correta!",
   answerWas: "A resposta era:",
+  // Seção de conteúdo SEO (abaixo do cartão do jogo)
+  howToPlayTitle: "Como jogar Anagram Blitz",
+  howToPlayDesc: "Anagram Blitz é um jogo de anagramas rápido de 60 segundos. Você recebe um conjunto de letras embaralhadas e deve reorganizá-las para formar uma palavra válida do dicionário. Cada resposta correta ganha 20 pontos; cada salto custa 5 pontos. Supere sua melhor pontuação e suba na classificação diária.",
+  gameModesTitle: "Modos de jogo",
+  dailyModeName: "Desafio diário",
+  dailyModeDesc: "Um enigma por dia. Jogue uma vez e fixe sua pontuação para a classificação.",
+  infiniteModeName: "Prática infinita",
+  infiniteModeDesc: "Enigmas ilimitados. Cada resposta correta adiciona 10 segundos bônus ao relógio.",
+  tipsTitle: "Dicas e estratégia",
+  tip1: "Procure prefixos e sufixos comuns (RE-, -AR, -ER, -IR, -MENTE).",
+  tip2: "As vogais (A, E, I, O, U) geralmente ancoram a palavra — coloque-as primeiro.",
+  tip3: "Use a dica para reduzir o tema da palavra antes de digitar.",
+  tip4: "Salte os enigmas difíceis rapidamente para preservar tempo para os mais fáceis.",
+  blitzFooter: "Anagram Blitz usa dicionários oficiais de Scrabble (PT_FILTERED para português, NWL2023 + CSW21 para inglês) com suporte multilíngue para 9 idiomas. Jogue grátis, sem necessidade de cadastro.",
  },
  ui: {
   advertisement: "Anúncio",
@@ -2213,6 +2311,20 @@ const nl: Translation = {
   stopGame: "🛑 Stoppen",
   correct: "✨ Perfect! Goed antwoord!",
   answerWas: "Het antwoord was:",
+  // SEO-inhoud sectie (onder de spelkaart)
+  howToPlayTitle: "Hoe Anagram Blitz te spelen",
+  howToPlayDesc: "Anagram Blitz is een snel 60-seconden anagramspel. U ontvangt een door elkaar gehusselde set letters en moet deze herschikken om een geldig woordenboekwoord te vormen. Elk juist antwoord levert 20 punten op; elke overslaing kost 5 punten. Versla uw highscore en klim in het dagelijkse klassement.",
+  gameModesTitle: "Spelmodi",
+  dailyModeName: "Dagelijkse uitdaging",
+  dailyModeDesc: "Eén puzzel per dag. Speel één keer en vergrendel uw score voor het klassement.",
+  infiniteModeName: "Oneindige oefening",
+  infiniteModeDesc: "Onbeperkte puzzels. Elk juist antwoord voegt 10 bonusseconden toe aan de klok.",
+  tipsTitle: "Tips en strategie",
+  tip1: "Zoek naar veelvoorkomende voorvoegsels en achtervoegsels (RE-, -EN, -ER, -ING).",
+  tip2: "Klinkers (A, E, I, O, U) verankeren meestal het woord — plaats ze eerst.",
+  tip3: "Gebruik de hint om het woordthema te verfijnen voordat u typt.",
+  tip4: "Sla moeilijke puzzels snel over om tijd te besparen voor makkelijkere.",
+  blitzFooter: "Anagram Blitz gebruikt officiële Scrabble-woordenboeken (OpenTaal voor Nederlands, NWL2023 + CSW21 voor Engels) met meertalige ondersteuning voor 9 talen. Speel gratis, geen registratie vereist.",
  },
  ui: {
   advertisement: "Advertentie",
@@ -2502,6 +2614,20 @@ const ja: Translation = {
   stopGame: "🛑 停止",
   correct: "✨ 完璧！正解！",
   answerWas: "答えは：",
+  // SEOコンテンツセクション（ゲームカードの下）
+  howToPlayTitle: "アナグラム・ブリッツの遊び方",
+  howToPlayDesc: "アナグラム・ブリッツは60秒の高速アナグラムゲームです。シャッフルされた文字のセットが与えられ、辞書の有効な単語になるように並べ替える必要があります。正解ごとに20ポイント獲得、スキップごとに5ポイント失います。ハイスコアを更新してデイリーリーダーボードを登りましょう。",
+  gameModesTitle: "ゲームモード",
+  dailyModeName: "デイリーチャレンジ",
+  dailyModeDesc: "1日1パズル。1回プレイしてリーダーボード用のスコアを確定します。",
+  infiniteModeName: "無限プラクティス",
+  infiniteModeDesc: "無制限のパズル。正解ごとに時計に10秒のボーナスが追加されます。",
+  tipsTitle: "ヒントと戦略",
+  tip1: "一般的な接頭辞と接尾辞を探しましょう（お-, -ING、-ED、-LY など）。",
+  tip2: "母音（A、E、I、O、U）が通常単語の核となります — 最初に配置しましょう。",
+  tip3: "タイプする前にヒントを使って単語のテーマを絞り込みましょう。",
+  tip4: "難しいパズルはすぐにスキップして、簡単なパズルに時間を残しましょう。",
+  blitzFooter: "アナグラム・ブリッツは公式スクラブル辞書（英語はNWL2023 + CSW21、日本語ローマ字辞書）を使用し、9言語の多言語サポートを提供します。無料で遊べ、登録不要です。",
  },
  ui: {
   advertisement: "広告",
@@ -2791,6 +2917,20 @@ const zh: Translation = {
   stopGame: "🛑 停止",
   correct: "✨ 完美！回答正确！",
   answerWas: "答案是：",
+  // SEO内容部分（游戏卡片下方）
+  howToPlayTitle: "如何玩字谜闪击",
+  howToPlayDesc: "字谜闪击是一款快节奏的60秒字谜重排游戏。你会收到一组打乱的字母，必须重新排列以组成一个有效的词典单词。每个正确答案获得20分；每次跳过扣5分。刷新你的高分纪录，登上每日排行榜。",
+  gameModesTitle: "游戏模式",
+  dailyModeName: "每日挑战",
+  dailyModeDesc: "每天一个谜题。玩一次并锁定你的排行榜分数。",
+  infiniteModeName: "无限练习",
+  infiniteModeDesc: "无限谜题。每个正确答案为时钟增加10秒奖励时间。",
+  tipsTitle: "提示和策略",
+  tip1: "寻找常见的前缀和后缀（前-、-ING、-ED、-LY 等）。",
+  tip2: "元音字母（A、E、I、O、U）通常是单词的核心 — 优先放置它们。",
+  tip3: "在输入前利用提示缩小单词主题范围。",
+  tip4: "快速跳过难题，为更简单的谜题保留时间。",
+  blitzFooter: "字谜闪击使用官方拼字游戏词典（英语为NWL2023 + CSW21，中文拼音词典）并提供9种语言的多语言支持。免费游玩，无需注册。",
  },
  ui: {
   advertisement: "广告",

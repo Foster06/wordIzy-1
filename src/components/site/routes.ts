@@ -40,7 +40,9 @@ export const ROUTES: RouteDef[] = [
   { id: "wordfeud", hash: "/wordfeud", icon: "Gamepad2", labelKey: "wordfeud", group: "tools", desktop: "tools" },
   { id: "quordle", hash: "/quordle", icon: "LayoutGrid", labelKey: "quordle", group: "solvers", desktop: "tools" },
   
-  // 🎯 ADDED: Places the game right inside your visible Tools section dropdown and footer columns
+  // 🎯 ADDED: Places the game right inside your visible Tools section dropdown and footer columns.
+  // NOT in inline nav — tested and confirmed it causes overflow in 7 of 9 languages
+  // (FR, ES, DE, IT, PT, NL, JA). Only EN and ZH would fit. Keeping in Tools dropdown.
   { id: "blitz", hash: "/blitz", icon: "Zap", labelKey: "blitz", group: "tools", desktop: "tools" },
 
   // Word Lab dropdown

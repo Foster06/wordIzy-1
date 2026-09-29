@@ -167,31 +167,24 @@ export function MainToolView({ params, initialWordListData }: MainToolViewProps)
               <AnagramBlitz />
               {/* SEO content — visible to crawlers and users below the game card.
                   Rich descriptive text helps Google understand the page is a
-                  real word game, not a thin "Loading..." shell. */}
+                  real word game, not a thin "Loading..." shell.
+                  Content is translated per language via t.blitz.* keys. */}
               <section className="mt-10 max-w-2xl mx-auto space-y-4 text-sm text-muted-foreground leading-relaxed">
-                <h2 className="text-lg font-bold text-foreground">How to Play Anagram Blitz</h2>
-                <p>
-                  Anagram Blitz is a fast-paced 60-second word unscramble game. You are given a
-                  scrambled set of letters and must rearrange them to form a valid dictionary word.
-                  Each correct answer earns 20 points; each skip costs 5 points. Beat your high
-                  score and climb the daily leaderboard.
-                </p>
-                <h3 className="text-base font-semibold text-foreground pt-2">Game Modes</h3>
+                <h2 className="text-lg font-bold text-foreground">{t.blitz.howToPlayTitle}</h2>
+                <p>{t.blitz.howToPlayDesc}</p>
+                <h3 className="text-base font-semibold text-foreground pt-2">{t.blitz.gameModesTitle}</h3>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li><strong className="text-foreground">Daily Challenge</strong> — One puzzle per day. Play once and lock in your score for the leaderboard.</li>
-                  <li><strong className="text-foreground">Infinite Practice</strong> — Unlimited puzzles. Each correct answer adds 10 bonus seconds to the clock.</li>
+                  <li><strong className="text-foreground">{t.blitz.dailyModeName}</strong> — {t.blitz.dailyModeDesc}</li>
+                  <li><strong className="text-foreground">{t.blitz.infiniteModeName}</strong> — {t.blitz.infiniteModeDesc}</li>
                 </ul>
-                <h3 className="text-base font-semibold text-foreground pt-2">Tips & Strategy</h3>
+                <h3 className="text-base font-semibold text-foreground pt-2">{t.blitz.tipsTitle}</h3>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>Look for common prefixes and suffixes (RE-, -ING, -ED, -LY).</li>
-                  <li>Vowels (A, E, I, O, U) usually anchor the word — place them first.</li>
-                  <li>Use the hint to narrow down the word theme before typing.</li>
-                  <li>Skip difficult puzzles quickly to preserve time for easier ones.</li>
+                  <li>{t.blitz.tip1}</li>
+                  <li>{t.blitz.tip2}</li>
+                  <li>{t.blitz.tip3}</li>
+                  <li>{t.blitz.tip4}</li>
                 </ul>
-                <p className="text-xs pt-2">
-                  Anagram Blitz uses official Scrabble dictionaries (NWL2023 + CSW21 for English)
-                  with multi-language support across 9 languages. Play free, no sign-up required.
-                </p>
+                <p className="text-xs pt-2">{t.blitz.blitzFooter}</p>
               </section>
             </div>
           </ErrorBoundary>
