@@ -27,23 +27,21 @@ export interface RouteDef {
 }
 
 export const ROUTES: RouteDef[] = [
-  // Inline (desktop navbar)
+  // Inline (desktop navbar) — 6 solvers/tools + Blitz
   { id: "home", hash: "/", icon: "Shuffle", labelKey: "unscrambler", group: "solvers", desktop: "inline" },
   { id: "scramble", hash: "/scramble", icon: "RotateCw", labelKey: "scramble", group: "solvers", desktop: "inline" },
   { id: "anagram", hash: "/anagram", icon: "Repeat", labelKey: "anagram", group: "solvers", desktop: "inline" },
   { id: "scrabble", hash: "/scrabble", icon: "Trophy", labelKey: "scrabble", group: "solvers", desktop: "inline" },
   { id: "wordle", hash: "/wordle", icon: "Grid3x3", labelKey: "wordle", group: "solvers", desktop: "inline" },
   { id: "dictionary", hash: "/dictionary", icon: "BookOpen", labelKey: "dictionary", group: "tools", desktop: "inline" },
-  
+  // Blitz in inline nav — uses the short "Blitz" label (same in all languages) to avoid overflow.
+  // The full "Anagram Blitz" label is too long for 7 of 9 languages.
+  { id: "blitz", hash: "/blitz", icon: "Zap", labelKey: "blitzShort", group: "tools", desktop: "inline" },
+
   // Tools dropdown
   { id: "random", hash: "/random", icon: "Dices", labelKey: "random", group: "tools", desktop: "tools" },
   { id: "wordfeud", hash: "/wordfeud", icon: "Gamepad2", labelKey: "wordfeud", group: "tools", desktop: "tools" },
   { id: "quordle", hash: "/quordle", icon: "LayoutGrid", labelKey: "quordle", group: "solvers", desktop: "tools" },
-  
-  // 🎯 ADDED: Places the game right inside your visible Tools section dropdown and footer columns.
-  // NOT in inline nav — tested and confirmed it causes overflow in 7 of 9 languages
-  // (FR, ES, DE, IT, PT, NL, JA). Only EN and ZH would fit. Keeping in Tools dropdown.
-  { id: "blitz", hash: "/blitz", icon: "Zap", labelKey: "blitz", group: "tools", desktop: "tools" },
 
   // Word Lab dropdown
   { id: "wordlists", hash: "/wordlists", icon: "List", labelKey: "wordlists", group: "tools", desktop: "wordlab" },
@@ -51,13 +49,14 @@ export const ROUTES: RouteDef[] = [
   { id: "wordends", hash: "/wordends", icon: "ArrowUpFromLine", labelKey: "wordends", group: "tools", desktop: "wordlab" },
   { id: "wordle-starts", hash: "/wordle-starts", icon: "Grid3x3", labelKey: "wordlestarts", group: "tools", desktop: "wordlab" },
   { id: "wordle-ends", hash: "/wordle-ends", icon: "Grid3x3", labelKey: "wordleends", group: "tools", desktop: "wordlab" },
-  
-  // Site
+
+  // Site links — NO "More" dropdown in navbar (removed to make room for Blitz).
+  // These items are accessible via the footer's SITE column.
   { id: "about", hash: "/about", icon: "Info", labelKey: "about", group: "site", desktop: "site" },
   { id: "contact", hash: "/contact", icon: "Mail", labelKey: "contact", group: "site", desktop: "site" },
   { id: "privacy", hash: "/privacy", icon: "Shield", labelKey: "privacy", group: "site", desktop: "site" },
   { id: "sitemap", hash: "/sitemap", icon: "Map", labelKey: "sitemap", group: "site", desktop: "site" },
-  
+
   // Hidden — owner-only inbox for contact form submissions. Access via /inbox
   { id: "inbox", hash: "/inbox", icon: "Inbox", labelKey: "inbox", group: "site", desktop: "site", hidden: true },
   // Hidden — owner-only analytics dashboard. Access via /dashboard
@@ -73,10 +72,12 @@ export const GROUP_LABELS: Record<RouteGroup, "solvers" | "tools" | "site"> = {
   solvers: "solvers", tools: "tools", site: "site",
 };
 
-export const DESKTOP_DROPDOWNS: { slot: "tools" | "wordlab" | "site"; labelKey: "tools" | "wordlab" | "more" }[] = [
+// Only 2 dropdowns in the navbar now — "Tools" and "Word Lab".
+// The "More" dropdown was removed to make room for "Blitz" in the inline nav.
+// Site links (About, Contact, Privacy, Sitemap) remain accessible via the footer.
+export const DESKTOP_DROPDOWNS: { slot: "tools" | "wordlab"; labelKey: "tools" | "wordlab" }[] = [
   { slot: "tools", labelKey: "tools" },
   { slot: "wordlab", labelKey: "wordlab" },
-  { slot: "site", labelKey: "more" },
 ];
 
 export function routeFromHash(hash: string): RouteDef {
