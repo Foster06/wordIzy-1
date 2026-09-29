@@ -49,6 +49,7 @@ interface TileRackProps {
 /** A frosted rack displaying a sequence of letters as Scrabble tiles. Wraps to fit any word length. */
 export function TileRack({ letters, values, size = "md", className, fit }: TileRackProps) {
   const chars = (letters || "").split("");
+  const isEmpty = chars.length === 0;
   return (
     <div
       className={cn(
@@ -57,10 +58,10 @@ export function TileRack({ letters, values, size = "md", className, fit }: TileR
         className
       )}
       role="img"
-      aria-label={`Tile rack: ${letters}`}
+      aria-label={isEmpty ? "Tile rack is empty — enter letters above" : `Tile rack showing ${letters.length} letters: ${letters}`}
     >
-      {chars.length === 0 ? (
-        <span className="text-sm text-muted-foreground px-2 py-1">—</span>
+      {isEmpty ? (
+        <span className="text-sm text-muted-foreground px-2 py-1" aria-hidden="true">—</span>
       ) : (
         chars.map((ch, i) => {
           const isWildcard = ch === "?" || ch === "*";

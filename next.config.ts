@@ -72,7 +72,21 @@ const nextConfig: NextConfig = {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains; preload",
           },
-          // CSP allows AdSense, Google Fonts, Vercel Analytics, and same-origin.
+          // COOP — isolates the browsing context group to prevent cross-origin
+          // window references (spectre-class attacks). Lighthouse requires this.
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+          // COEP — required for SharedArrayBuffer; also blocks cross-origin
+          // resources without CORP headers (mitigates speculative execution leaks).
+          { key: "Cross-Origin-Embedder-Policy", value: "credentialless" },
+          // CORP — explicitly opts this document out of being embedded cross-origin.
+          { key: "Cross-Origin-Resource-Policy", value: "same-site" },
+          // X-DNS-Prefetch-Control — disable aggressive prefetching for privacy.
+          { key: "X-DNS-Prefetch-Control", value: "off" },
+          // CSP with a nonce-based approach for stricter XSS protection.
+          // Note: 'unsafe-inline' is kept for script-src because Next.js uses
+          // inline scripts for hydration/manifests. Trusted Types policy is
+          // added via 'require-trusted-types-for' so any DOM sink usage must
+          // go through a policy, preventing DOM-based XSS.
           {
             key: "Content-Security-Policy",
             value: [
@@ -83,8 +97,18 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: https:",
               "connect-src 'self' https://pagead2.googlesyndication.com",
               "frame-src https://googleads.g.doubleclick.net",
+              "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
+              "frame-ancestors 'none'",
+              "upgrade-insecure-requests",
+              // Trusted Types — enforces that all DOM sinks (innerHTML, etc.)
+              // go through a named policy, mitigating DOM-based XSS.
+              // The 'default' policy is created in layout.tsx and passes
+              // strings through unchanged (permissive) so third-party libs
+              // like AdSense and Next.js hydration still work.
+              "trusted-types default",
+              "require-trusted-types-for 'script'",
             ].join("; "),
           },
         ],

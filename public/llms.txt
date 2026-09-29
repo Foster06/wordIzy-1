@@ -1,0 +1,40 @@
+# wordIzy
+
+> Free word unscrambler, anagram solver, Wordle & Quordle solver with multi-language official Scrabble dictionaries. No sign-up required.
+
+wordIzy is a comprehensive word game helper and solver platform supporting 9 languages. It uses official Scrabble dictionaries (NWL2023, CSW21, ODS9, FISE, Zingarelli, OpenTaal) as authoritative word sources. All word-list pages are server-side rendered for fast loading and SEO.
+
+## Core Tools
+
+- [Word Unscrambler](https://wordizy.com/): Enter scrambled letters and find every playable word, grouped by length and sorted by Scrabble score. Supports wildcards (? and *).
+- [Anagram Solver](https://wordizy.com/anagram): Find exact anagrams using all provided letters.
+- [Wordle Solver](https://wordizy.com/wordle): Solve Wordle puzzles with pattern matching and letter constraints.
+- [Quordle Solver](https://wordizy.com/quordle): Solve 4 Wordle puzzles simultaneously.
+- [Scrabble Duplicate](https://wordizy.com/scrabble): Find the best playable word from a Scrabble rack.
+- [Wordfeud Helper](https://wordizy.com/wordfeud): Word finder optimized for Wordfeud tile values.
+- [Random Word Generator](https://wordizy.com/random): Generate random valid Scrabble words with filters.
+- [Dictionary Lookup](https://wordizy.com/dictionary): Check word validity, get definitions, phonetics, and Scrabble scores.
+- [Anagram Blitz Game](https://wordizy.com/blitz): 60-second word unscramble game with daily challenges and infinite practice mode.
+
+## Word Lists
+
+- [Words Starts With A-Z](https://wordizy.com/wordstarts): Browse all Scrabble words starting with each letter.
+- [Words Ends With A-Z](https://wordizy.com/wordends): Browse all Scrabble words ending with each letter.
+- [Unscramble by Length](https://wordizy.com/wordlists): Browse words by length, 2 to 15 letters.
+- [Wordle Words Starts A-Z](https://wordizy.com/wordle-starts): Browse Wordle words starting with each letter.
+- [Wordle Words Ends A-Z](https://wordizy.com/wordle-ends): Browse Wordle words ending with each letter.
+
+## Guides
+
+- [Best Wordle Starter Words](https://wordizy.com/guides/best-wordle-starter-words): Mathematically optimal opening words, strategies, and a second-guess framework.
+
+## Languages Supported
+
+English, French, Spanish, Italian, Portuguese, German, Dutch, Japanese (Romaji), Chinese (Pinyin)
+
+## Optional
+
+- [Sitemap](https://wordizy.com/sitemap.xml): XML sitemap for search engines.
+- [About](https://wordizy.com/about): About wordIzy.
+- [Contact](https://wordizy.com/contact): Contact form.
+- [Privacy Policy](https://wordizy.com/privacy): Privacy policy.

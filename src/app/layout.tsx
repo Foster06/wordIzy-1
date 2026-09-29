@@ -163,6 +163,30 @@ const preconnectTags = (
   </>
 );
 
+// Trusted Types policy — must run BEFORE any other script. Creates a permissive
+// default policy so that third-party libraries (AdSense, Next.js hydration)
+// that use DOM sinks (innerHTML, etc.) still work. The CSP enforces
+// `require-trusted-types-for 'script'` so without this policy, those libs
+// would throw. The policy simply passes strings through unchanged.
+const trustedTypesPolicy = (
+  <script
+    dangerouslySetInnerHTML={{
+      __html: `
+        try {
+          if (window.trustedTypes && !window.trustedTypes._policyCreated) {
+            window.trustedTypes.createPolicy('default', {
+              createHTML: function(s) { return s; },
+              createScript: function(s) { return s; },
+              createScriptURL: function(s) { return s; }
+            });
+            window.trustedTypes._policyCreated = true;
+          }
+        } catch(e) { /* policy already exists */ }
+      `,
+    }}
+  />
+);
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -171,6 +195,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {trustedTypesPolicy}
         {preconnectTags}
         <script
           type="application/ld+json"
