@@ -18,7 +18,6 @@ import { useRecentSearches } from "@/components/site/use-recent-searches";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import type { SolveResult } from "@/lib/unscramble";
-import { AnagramBlitz } from "./anagram-blitz";
 
 const EXAMPLES = ["SRAABLC", "QUERLY", "TNIARG", "ZLAEMO", "RDOEWL", "HEOLLO"];
 
@@ -183,15 +182,6 @@ export function UnscramblerTool() {
           </GlassCard>
         )}
       </section>
-      
-      <section className="pt-6 border-t border-white/5">
-        <div className="text-center mb-4">
-          <h2 className="text-lg font-semibold tracking-tight">Bored of Unscrambling?</h2>
-          <p className="text-xs text-muted-foreground">Put your skills to the test in our fast-paced daily minigame.</p>
-        </div>
-        <AnagramBlitz />
-      </section>
-      
 
       <HomeFaq t={t} />
 
