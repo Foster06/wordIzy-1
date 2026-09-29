@@ -27,16 +27,15 @@ export interface RouteDef {
 }
 
 export const ROUTES: RouteDef[] = [
-  // Inline (desktop navbar) — 6 solvers/tools + Blitz
+  // Inline (desktop navbar) — Blitz placed 2nd (after Unscrambler) for maximum visibility
   { id: "home", hash: "/", icon: "Shuffle", labelKey: "unscrambler", group: "solvers", desktop: "inline" },
+  // Blitz moved here (between Unscrambler and Scramble) so users can easily find and play the game.
+  { id: "blitz", hash: "/blitz", icon: "Zap", labelKey: "blitzShort", group: "tools", desktop: "inline" },
   { id: "scramble", hash: "/scramble", icon: "RotateCw", labelKey: "scramble", group: "solvers", desktop: "inline" },
   { id: "anagram", hash: "/anagram", icon: "Repeat", labelKey: "anagram", group: "solvers", desktop: "inline" },
   { id: "scrabble", hash: "/scrabble", icon: "Trophy", labelKey: "scrabble", group: "solvers", desktop: "inline" },
   { id: "wordle", hash: "/wordle", icon: "Grid3x3", labelKey: "wordle", group: "solvers", desktop: "inline" },
   { id: "dictionary", hash: "/dictionary", icon: "BookOpen", labelKey: "dictionary", group: "tools", desktop: "inline" },
-  // Blitz in inline nav — uses the short "Blitz" label (same in all languages) to avoid overflow.
-  // The full "Anagram Blitz" label is too long for 7 of 9 languages.
-  { id: "blitz", hash: "/blitz", icon: "Zap", labelKey: "blitzShort", group: "tools", desktop: "inline" },
 
   // Tools dropdown
   { id: "random", hash: "/random", icon: "Dices", labelKey: "random", group: "tools", desktop: "tools" },
