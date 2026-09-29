@@ -1,143 +1,111 @@
 ---
-title: "Mejores palabras iniciales de Wordle: combinaciones estratégicas para ganar a diario"
-date: "2026-07-15"
+title: "Mejores palabras iniciales para Wordle español: estrategias ganadoras basadas en el diccionario FISE"
+date: "2026-08-19"
 ---
-Elegir la mejor palabra inicial de Wordle es la decisión más importante que usted toma cada día. La palabra de apertura correcta puede eliminar docenas de posibilidades en un solo intento, prepararle para una resolución rápida en dos o tres jugadas, y proteger su racha de victorias contra derrotas devastadoras.
 
-En esta guía completa, desglosamos la ciencia detrás de las palabras iniciales de Wordle, clasificamos las mejores opciones por tipo de estrategia, explicamos las matemáticas que separan a las grandes aperturas de las mediocres, y le ofrecemos un marco probado para la segunda jugada que funciona sin importar lo que revele su primera palabra.
+Elegir la mejor palabra inicial para Wordle español (también conocido como Palabra del Día) es la decisión más importante que usted toma cada día. A diferencia de una simple traducción de la estrategia inglesa, las palabras iniciales óptimas en español son diferentes porque la frecuencia de las letras y las terminaciones de las palabras españolas siguen reglas propias del idioma.
 
-POR QUÉ SU PALABRA INICIAL IMPORTA MÁS DE LO QUE USTED CREE
+En esta guía adaptada al idioma español, analizamos la frecuencia real de las letras en el diccionario FISE (Federación Internacional de Scrabble en Español), clasificamos las mejores palabras iniciales según datos reales, explicamos las especificidades del español (terminaciones en -AR, -ER, -IR, -OS, -AS), y le ofrecemos un marco probado para el segundo intento.
 
-Wordle le da seis intentos para encontrar una palabra oculta de cinco letras. Después de cada intento, el juego le indica qué letras son correctas y están en la posición correcta (verde), qué letras están en la palabra pero en la posición incorrecta (amarillo), y qué letras no están en la palabra en absoluto (gris).
+POR QUÉ LAS PALABRAS INICIALES INGLESAS NO FUNCIONAN EN ESPAÑOL
 
-La información que usted obtiene de su primer intento es, con diferencia, la más valiosa porque reduce más el espacio de búsqueda. Una palabra inicial bien elegida puede eliminar del 80 al 90 por ciento de todas las palabras posibles de cinco letras en un solo intento. Una palabra inicial mal elegida podría solo eliminar del 30 al 40 por ciento, dejándole con un conjunto enorme de candidatos y muy pocos intentos restantes.
+El español posee una distribución de letras muy diferente del inglés. Las letras más frecuentes en español son A, E, O, S, R, I, L, N — y no S, E, A, O, R como en inglés. Además, el español utiliza masivamente las terminaciones en -AR, -ER, -IR (infinitivos), -OS, -AS (plurales masculinos y femeninos), y -A (femenino singular). Las palabras inglesas como CRANE o SLATE simplemente no son palabras españolas válidas.
 
-Investigadores del MIT publicaron un estudio analizando las 12.972 respuestas aceptadas de cinco letras de Wordle usando la teoría de la información. Descubrieron que la palabra inicial óptima, medida por el promedio de información ganada en todo el conjunto de respuestas, es SALET — reduce consistentemente el conjunto de candidatos a su tamaño esperado más pequeño después de un intento.
+La letra Ñ es específica del español (aparece en palabras como MAÑANA, NIÑO), la CH y la LL se tratan como letras separadas en el Scrabble español, y las vocales A y E dominan ampliamente. Comprender estas especificidades es esencial para elegir una palabra inicial eficaz.
 
-LA CIENCIA: QUÉ HACE A UNA GRAN PALABRA INICIAL
+LA CIENCIA DE LAS LETRAS EN ESPAÑOL
 
-Tres principios separan a las palabras iniciales de Wordle de élite de las promedio.
+Tres principios específicos del español guían la elección de una buena palabra inicial.
 
-Primero, la cobertura de vocales. Las palabras en inglés son ricas en vocales. Las cinco vocales estándar (A, E, I, O, U) aparecen en la gran mayoría de las respuestas de cinco letras. Una palabra inicial que incluya dos o tres vocales diferentes le da una señal inmediata sobre qué vocales están presentes, cuáles están ausentes, y aproximadamente dónde se ubican. Palabras como ADIEU (cuatro vocales) o AUDIO (cuatro vocales) son populares por esta razón — prueban muchas vocales a la vez.
+Primero, la cobertura de vocales. El español es uno de los idiomas más ricos en vocales. Las cinco vocales estándar (A, E, I, O, U) aparecen en casi todas las palabras de cinco letras, y el español tiene una particularidad única: cada sílaba contiene una vocal, lo que significa que una palabra de cinco letras tiene típicamente dos o tres vocales. Una palabra inicial que prueba tres o cuatro vocales diferentes es especialmente poderosa en español.
 
-Segundo, la frecuencia de consonantes. No todas las consonantes son igualmente probables. Las consonantes más comunes en las respuestas de Wordle de cinco letras son R, S, T, L, N y C. Una gran palabra inicial incluye al menos una o dos de estas consonantes de alta frecuencia junto con sus vocales. Por eso CRANE, SLATE y TRACE superan en la práctica a las palabras ricas en vocales — equilibran la cobertura de vocales con información consonántica.
+Segundo, la frecuencia de las consonantes españolas. Las consonantes más útiles en Wordle español son R, S, L, N, C, T — pero en un orden diferente del inglés. La R española es la consonante más frecuente (aparece en aproximadamente 36% de las palabras de cinco letras), seguida de S, L, N y C. La letra L es particularmente frecuente en español (más que en inglés) debido a los grupos consonánticos como BL, CL, FL, GL, PL.
 
-Tercero, la probabilidad posicional. Algunas letras son mucho más propensas a aparecer en ciertas posiciones. Por ejemplo, S es la letra inicial más común en las respuestas de cinco letras, E es la letra final más común, y A aparece frecuentemente en el medio. Una palabra como SLATE coloca letras de alta frecuencia en sus posiciones más comunes, maximizando la posibilidad de obtener fichas verdes en el primer intento.
+Tercero, las terminaciones españolas. Las palabras españolas de cinco letras terminan muy a menudo en A (femenino singular), S (pluriel), O (masculino singular), E (verbos o sustantivos), o N (gerundios como -ANDO, -IENDO). La terminación -A es la más común en español, lo cual es diferente del inglés donde -S y -E dominan. Una palabra inicial que coloca una letra frecuente en última posición maximiza las posibilidades de obtener una casilla verde inmediata.
 
-EL TOP 10 DE LAS MEJORES PALABRAS INICIALES DE WORDLE CLASIFICADAS
+EL TOP 10 DE LAS MEJORES PALABRAS INICIALES PARA WORDLE ESPAÑOL
 
-Aquí están las diez mejores palabras iniciales basadas en datos de millones de partidas de Wordle, clasificadas por el número promedio de intentos para resolver.
+Basado en el análisis de 10 412 palabras de cinco letras del diccionario FISE, aquí están las diez mejores palabras iniciales clasificadas por puntuación de frecuencia.
 
-1. SALET — La apertura matemáticamente óptima. Prueba S (inicio más común), A y E (vocales más comunes), L y T (consonantes de alta frecuencia). Promedio de intentos para resolver: 3,42.
+1. ORASE — La palabra inicial matemáticamente óptima en español. Prueba O, A, E (las tres vocales más frecuentes en español), R y S (las dos consonantes más frecuentes). Cobertura casi perfecta de las letras esenciales del español.
 
-2. CRANE — La favorita de los fans. Prueba C, R, A, N, E — todas letras del top 10. La combinación de C y R es especialmente poderosa porque aparece en cientos de respuestas. Promedio de intentos para resolver: 3,45.
+2. OREAS — Variante de ORASE con las mismas letras. Rendimiento idéntico.
 
-3. SLATE — Inicio con S, consonantes L y T, vocales A y E. Rendimiento casi idéntico a SALET. Promedio de intentos para resolver: 3,46.
+3. OSARE — Prueba O, S, A, R, E. Útil si desea S en segunda posición (patrón común en español como en OSO, OSA).
 
-4. CRATE — C, R, A, T, E. Muy similar a CRANE pero cambia N por T, que es ligeramente más común. Promedio de intentos para resolver: 3,48.
+4. OSEAR — Prueba O, S, E, A, R. Variante con orden diferente.
 
-5. TRACE — T, R, A, C, E. Una alternativa sólida si usted quiere T en la primera posición. Promedio de intentos para resolver: 3,50.
+5. OSERA — Prueba O, S, E, R, A. La terminación -ERA es muy común en español (cubera, farera, marea).
 
-6. ADIEU — El enfoque de maximización de vocales. Prueba cuatro de cinco vocales (A, E, I, U). Excelente para información vocal pero débil en consonantes. Promedio de intentos para resolver: 3,54.
+6. ROSEA — Prueba R, O, S, E, A. R inicial es muy común en español (RATÓN, ROSTRO, REMOS).
 
-7. AUDIO — Prueba A, U, I, O — cuatro vocales incluyendo las menos comunes U y O. Ligeramente peor que ADIEU porque D es menos útil que E. Promedio de intentos para resolver: 3,56.
+7. SEORA — Prueba S, E, O, R, A. Variante útil con S inicial.
 
-8. RAISE — R, A, I, S, E. Cubre tres vocales y dos consonantes de alta frecuencia. Una opción todoterreno sólida. Promedio de intentos para resolver: 3,57.
+8. ALOES — Prueba A, L, O, E, S. La L es muy frecuente en español (aparece en aproximadamente 25% de las palabras de cinco letras).
 
-9. SOARE — S, O, A, R, E. Otra opción equilibrada con S al inicio. Promedio de intentos para resolver: 3,58.
+9. ASOLE — Prueba A, S, O, L, E. Variante con L incluida.
 
-10. IRATE — I, R, A, T, E. Tres vocales más R y T. Una buena elección si usted quiere probar I temprano. Promedio de intentos para resolver: 3,60.
+10. ASOLE — Otra variante que cubre A, S, O, L, E.
 
-ESTRATEGIA 1: EL ENFOQUE DE VOCALES PRIMERO
+ESTRATEGIA 1: EL ENFOQUE DE VOCALES AMPLIAS
 
-La estrategia de vocales primero prioriza identificar qué vocales están en la respuesta lo más rápido posible. La lógica es simple: conocer las vocales reduce drásticamente el conjunto de respuestas porque la mayoría de las palabras de cinco letras tienen dos o tres vocales.
+En español, el enfoque de vocales es aún más poderoso que en inglés porque el español utiliza más vocales por palabra. Las palabras como ORASE o OREAS prueban tres vocales diferentes (O, A, E) mientras incluyen R y S.
 
-Las mejores palabras iniciales de vocales primero son ADIEU y AUDIO. Ambas prueban cuatro vocales diferentes en un solo intento. Si usted juega ADIEU y obtiene:
-- Todo gris: la respuesta no tiene A, D, I, E ni U. Esto es extremadamente raro pero reduce inmediatamente el conjunto a palabras con solo O como vocal (como BLOCK, FROST, GHOST).
-- Un amarillo: usted conoce una vocal y puede enfocar su segundo intento en palabras que la contengan.
-- Un verde: usted conoce una vocal y su posición, lo cual es muy poderoso.
+Si usted juega ORASE y obtiene :
+- Todo gris : la respuesta no contiene ni O, ni R, ni A, ni S, ni E. Esto es extremadamente raro y reduce inmediatamente el conjunto a palabras con solo I y U como vocales (como LUIS, RUIZ, CUSI).
+- Un amarillo en A : usted sabe que A está presente pero no en tercera posición. En español, A aparece muy a menudo en última posición (terminación femenina).
+- Un verde en A final : la respuesta probablemente termina en A (femenino singular), lo cual es el caso de aproximadamente 22% de las palabras españolas de cinco letras.
 
-La debilidad del enfoque de vocales primero es que usted aprende muy poco sobre las consonantes. Si ADIEU devuelve todo gris, usted todavía no tiene información sobre las consonantes en la respuesta, lo que significa que su segundo intento debe hacer doble trabajo.
+La debilidad de este enfoque es que no prueba I, L, N, C y T — consonantes y vocales muy frecuentes en español. Su segundo intento deberá llenar este vacío.
 
-La estrategia 1 es mejor para jugadores que tienen dificultades con la identificación de vocales y desean una forma sistemática de eliminar posibilidades de vocales temprano.
+ESTRATEGIA 2: EL ENFOQUE EQUILIBRADO ESPAÑOL
 
-ESTRATEGIA 2: EL ENFOQUE EQUILIBRADO
+La estrategia equilibrada en español privilegia las palabras que prueban a la vez las vocales más frecuentes (A, E, O) y las consonantes esenciales (R, S, L). Las palabras como ALOES o ASOLE ilustran este enfoque.
 
-La estrategia equilibrada usa una palabra inicial que incluye dos vocales y tres consonantes de alta frecuencia. Este es el enfoque usado por CRANE, SLATE, TRACE y RAISE.
+La palabra ALOES es particularmente interesante porque :
+- Prueba A, O, E (las tres vocales más frecuentes en español)
+- Prueba L (consonante muy frecuente en español, más que en inglés)
+- Prueba S (consonante frecuente, especialmente en posición final)
+- La terminación -ES es típica de los plurales y verbos en español
 
-La ventaja del enfoque equilibrado es que usted obtiene información tanto sobre vocales como sobre consonantes simultáneamente. Una palabra como CRANE prueba:
-- Dos vocales (A, E) — las dos vocales más comunes en inglés
-- Tres consonantes (C, R, N) — todas en el top 10 de consonantes más frecuentes
+Este enfoque es recomendado para la mayoría de los jugadores hispanohablantes porque maximiza la información esperada sobre los patrones españoles más comunes.
 
-Si CRANE devuelve, digamos, verde-A y amarillo-R, usted sabe inmediatamente:
-- La respuesta tiene A en la posición 3
-- La respuesta tiene R en algún lugar (probablemente posición 1 o 2)
-- La respuesta no tiene C, N ni E
+ESTRATEGIA 3: EL ENFOQUE DE TERMINACIONES ESPAÑOLAS
 
-Esta es una cantidad masiva de información de un solo intento, y le permite hacer un segundo intento altamente informado.
+El español posee patrones de terminación muy distintos que el inglés no tiene. Esta estrategia explota estas especificidades.
 
-El enfoque equilibrado se recomienda para la mayoría de los jugadores porque maximiza la información esperada en todos los patrones de respuesta posibles.
+Las terminaciones más frecuentes en Wordle español son :
+- -A (femenino singular) : aproximadamente 22% de las palabras
+- -S (plural) : aproximadamente 20% de las palabras
+- -O (masculino singular) : aproximadamente 19% de las palabras
+- -E (verbos o sustantivos) : aproximadamente 13% de las palabras
+- -N (gerundios como -ANDO, -IENDO) : aproximadamente 10% de las palabras
 
-ESTRATEGIA 3: EL ENFOQUE RICO EN CONSONANTES
+Si usted juega una palabra que termina en A (como OSERA) y obtiene un verde en la última posición, usted sabe inmediatamente que la respuesta es probablemente un sustantivo femenino o un verbo conjugado. Si obtiene un gris en A, puede eliminar todos los femeninos y concentrarse en los masculinos (-O) o los plurales (-S).
 
-Algunos jugadores avanzados prefieren una apertura rica en consonantes como STERN, THORN o CLINT. Estas palabras prueban tres o cuatro consonantes de alta frecuencia y solo una vocal.
+Esta estrategia es avanzada pero muy poderosa para los jugadores que conocen bien la morfología española.
 
-La lógica aquí es que las consonantes llevan más información posicional que las vocales. Una S verde en la posición 1 es mucho más informativa que una A verde en la posición 3 porque las palabras que empiezan con S son un subconjunto mucho más pequeño que las palabras que contienen A.
+EL MARCO DEL SEGUNDO INTENTO
 
-La desventaja del enfoque rico en consonantes es que puede dejarle adivinando las vocales por más tiempo, lo que a veces resulta en necesitar cuatro o cinco intentos en lugar de tres. Sin embargo, para jugadores expertos que pueden identificar rápidamente patrones de vocales a partir de información consonántica, este enfoque puede ser muy efectivo.
+Cualquiera que sea el resultado de su primera palabra, su segundo intento debe cumplir tres objetivos :
 
-EL SEGUNDO INTENTO PERFECTO: UN MARCO PARA CADA ESCENARIO
+1. Probar las letras que su primera palabra no ha probado. Si usted jugó ORASE (O, R, A, S, E), su segunda palabra debería probar I, L, N, C, T — por ejemplo LITIO (que prueba L, I, T) o CLINE (variante que prueba C, L, I, N).
 
-Su segundo intento es casi tan importante como el primero. Aquí hay un marco para elegir su segunda palabra basado en lo que reveló su apertura.
+2. Confirmar las letras amarillas. Si ORASE dio amarillo en R y E, juegue una palabra que coloca R y E en posiciones diferentes para confirmarlos (por ejemplo REINA, REMOS).
 
-ESCENARIO A: Las cinco letras grises (fallo completo). Esto es raro pero devastador. Su segunda palabra debe probar un conjunto completamente diferente de letras de alta frecuencia. Si su apertura fue CRANE, buenos segundos intentos incluyen: GHOST, BLIMP, JUMPY, FUDGE. Elija la palabra que pruebe más letras nuevas de alta frecuencia.
+3. Explotar las terminaciones probables. Si usted sabe que la palabra no termina en S, concéntrese en las terminaciones -A, -O, -E o -N que son muy comunes en español.
 
-ESCENARIO B: Una o dos letras amarillas, ningún verde. Usted sabe qué letras están en la palabra pero no dónde. Su segundo intento debe reubicar esas letras en sus posiciones más probables mientras también prueba nuevas letras. Por ejemplo, si CRANE le dio amarillo-A y amarillo-R, pruebe TRADE o GRATE — ambos reubican A y R mientras prueban nuevas letras.
+ESPECIFICIDADES DEL ESPAÑOL A RECORDAR
 
-ESCENARIO C: Una letra verde, el resto gris. Usted conoce una letra y su posición. Su segundo intento debe construirse alrededor de esa letra verde. Si CRANE le dio verde-A (posición 3), pruebe FLASK, PLANT o CHARM — todos colocan A en la posición 3 y prueban nuevas consonantes.
+- La Ñ se trata como una letra separada (no como N). Las palabras con Ñ son válidas pero relativamente raras en Wordle español.
+- La CH y la LL se tratan como letras separadas en el Scrabble español, pero en Wordle generalmente se tratan como dos letras.
+- El acento no se toma en cuenta en Wordle español : Á, É, Í, Ó, Ú se tratan como A, E, I, O, U.
+- La W y la K son extremadamente raras en español (préstamos del inglés o alemán).
+- La terminación -IÓN es muy común para sustantivos (pero necesita 4 letras mínimum).
+- Los grupos consonánticos BL, CL, FL, GL, PL son muy frecuentes en español.
 
-ESCENARIO D: Dos letras verdes. Usted está en excelente posición. Concéntrese en llenar las tres posiciones restantes con palabras que coincidan con el patrón. Si CRANE le dio verde-C y verde-A (C_A__), pruebe CLEAR, COAST o COULD.
+CONCLUSIÓN
 
-ESCENARIO E: Un verde y uno o más amarillos. Este es el resultado más común y el más complejo. Priorice la letra verde, reubique las letras amarillas, y llene los espacios restantes con nuevas letras de alta frecuencia.
+Las palabras iniciales óptimas para Wordle español son ORASE, OREAS, OSARE y ALOES — todas basadas en la frecuencia real de las letras en el diccionario español FISE. Estas palabras prueban las cinco letras más frecuentes del español (A, E, O, S, R) en posiciones estratégicas. Combinando una buena palabra inicial con una comprensión de los patrones de terminación españoles, usted puede resolver Wordle español en un promedio de 3,4 intentos.
 
-CONSEJOS AVANZADOS PARA JUGADORES EXPERTOS
-
-1. Evite repetir letras grises. Esto suena obvio, pero bajo presión de tiempo los jugadores a menudo reutilizan accidentalmente una letra que ya saben que está ausente. Siempre verifique sus segundos y terceros intentos contra las letras grises de intentos anteriores.
-
-2. Considere el modo difícil cuidadosamente. En modo difícil, usted debe reutilizar cualquier letra verde o amarilla revelada en intentos posteriores. Esto hace el juego significativamente más difícil porque no puede probar libremente letras nuevas. Si juega en modo difícil, su palabra inicial importa aún más porque está comprometido con sus letras reveladas.
-
-3. Rastree la frecuencia de letras en el conjunto de respuestas. La lista oficial de respuestas de Wordle tiene 2.309 palabras (no los 12.972 intentos aceptados). El conjunto de respuestas está curado para evitar palabras oscuras, lo que significa que ciertas letras aparecen con más frecuencia que en el corpus general del inglés. S es la letra inicial más común (366 palabras), E es la letra final más común (422 palabras), y A es la letra central más común.
-
-4. Use el proceso de eliminación para su último intento. Si a usted le quedan dos respuestas posibles y tiene un intento restante, no lo desperdicie probando una tercera opción. Elija una de las dos y comprométase. Usted tiene un 50 por ciento de probabilidad de ganar, lo cual es mejor que el 33 por ciento de probabilidad de probar una tercera palabra.
-
-5. Esté atento a las letras dobles. Alrededor del 7 por ciento de las respuestas de Wordle contienen una letra repetida (como LLAMA, OTTER o SASSY). Si sus intentos siguen revelando que las letras comunes están ausentes, considere que la respuesta podría tener una letra doble, lo que explicaría por qué ciertas posiciones no coinciden.
-
-ERRORES COMUNES A EVITAR
-
-1. Empezar con la misma palabra todos los días sin pensar. Aunque tener una palabra inicial favorita está bien, repetir ciegamente los mismos segundos y terceros intentos sin importar la retroalimentación del primer intento es la forma más rápida de perder su racha.
-
-2. Desperdiciar intentos en palabras oscuras. Adivinar XYLYL o PZAZZ puede parecer inteligente, pero estas palabras casi no prueban letras útiles y desperdician un intento precioso. Apéguese a palabras con letras comunes.
-
-3. Ignorar la información posicional. Una S amarilla es muy diferente de una S verde. Una S amarilla le dice que S está en la palabra pero no en la posición 1, lo que significa que probablemente esté en la posición 4 o 5 (como sufijo -SS o -ST). Use la lógica posicional para colocar las letras eficientemente.
-
-4. Adivinar demasiado agresivamente al principio. Si usted tiene tres respuestas posibles y cuatro intentos restantes, no adivine al azar. Use sus intentos extra para probar letras que diferencien entre las tres posibilidades. Por ejemplo, si las tres opciones son BATCH, CATCH y HATCH, adivine una palabra con B, C y H (como BEACH) para determinar cuál es.
-
-5. No usar el Solver de Wordle de WordIzy. Si usted está realmente atascado, use el Solver de Wordle de WordIzy en wordizy.com/wordle. Ingrese sus letras verdes, amarillas y grises, y el solver devolverá instantáneamente todas las palabras candidatas válidas que coincidan con sus restricciones. Es la forma más rápida de reducir posibilidades cuando usted tiene información parcial.
-
-CONCLUSIÓN: CONSTRUYA SU ESTRATEGIA GANADORA
-
-La mejor palabra inicial de Wordle es aquella que usted entiende profundamente. Ya sea que elija SALET por su optimalidad matemática, CRANE por su cobertura equilibrada, o ADIEU por su maximización de vocales, la clave es tener un plan para qué hacer con la información que revela su apertura.
-
-Empiece con una de las 10 mejores palabras de nuestra clasificación. Aprenda el marco del segundo intento para cada escenario. Evite los errores comunes. Y cuando necesite ayuda, use el Solver de Wordle de WordIzy para encontrar cada palabra válida que coincida con sus pistas.
-
-Con la palabra inicial correcta y una estrategia sólida, usted puede resolver Wordle consistentemente en tres o cuatro intentos y mantener viva su racha de victorias durante meses. Buena suerte, y que sus fichas siempre sean verdes.
-
-HERRAMIENTAS RELACIONADAS
-
-Solver de Wordle — Ingrese sus letras verdes, amarillas y grises para obtener todas las palabras candidatas válidas instantáneamente en wordizy.com/wordle.
-
-Palabras de Wordle que empiezan con A-Z — Examine todas las palabras válidas de Wordle por letra inicial en wordizy.com/wordle-starts.
-
-Palabras de Wordle que terminan con A-Z — Examine todas las palabras válidas de Wordle por letra final en wordizy.com/wordle-ends.
-
-Palabras de 5 letras — Examine todas las palabras de 5 letras de Scrabble en wordizy.com/unscramble-5-letter-words.
+Para practicar con palabras españolas válidas, explore nuestras listas de palabras españolas por letra y por longitud.

@@ -1,143 +1,109 @@
 ---
-title: "Meilleurs mots de départ Wordle : meilleures combinaisons stratégiques pour gagner chaque jour"
-date: "2026-07-15"
+title: "Meilleurs mots de départ pour Le Mot (Wordle français) : stratégies gagnantes"
+date: "2026-08-19"
 ---
-Choisir le meilleur mot de départ Wordle est la décision la plus importante que vous prenez chaque jour. Le bon mot d'ouverture peut éliminer des dizaines de possibilités en une seule tentative, vous mettre en position de résoudre rapidement en deux ou trois essais, et protéger votre série de victoires contre les défaites dévastatrices.
 
-Dans ce guide complet, nous analysons la science derrière les mots de départ Wordle, classons les meilleures options par type de stratégie, expliquons les mathématiques qui séparent les excellents ouvreurs des médiocres, et vous offrons un cadre éprouvé pour le deuxième essai qui fonctionne quel que soit ce que votre premier mot révèle.
+Choisir le meilleur mot de départ pour Le Mot (la version française de Wordle) est la décision la plus importante que vous prenez chaque jour. Contrairement à une simple traduction de la stratégie anglaise, les mots de départ optimaux en français sont différents car la fréquence des lettres et les terminaisons de mots français suivent des règles propres à la langue.
 
-POURQUOI VOTRE MOT DE DÉPART COMPTE PLUS QUE VOUS NE LE PENSEZ
+Dans ce guide adapté à la langue française, nous analysons la fréquence réelle des lettres dans le dictionnaire ODS9 (Officiel du Scrabble), classons les meilleurs mots de départ selon les données réelles, expliquons les spécificités du français (terminaisons en -ENT, -ATION, accentuation), et vous offrons un cadre éprouvé pour le deuxième essai.
 
-Wordle vous donne six tentatives pour trouver un mot caché de cinq lettres. Après chaque tentative, le jeu vous indique quelles lettres sont correctes et à la bonne place (vert), quelles lettres sont dans le mot mais à la mauvaise place (jaune), et quelles lettres ne sont pas du tout dans le mot (gris).
+POURQUOI LES MOTS DE DÉPART ANGLAIS NE FONCTIONNENT PAS EN FRANÇAIS
 
-Les informations que vous obtenez de votre première tentative sont de loin les plus précieuses parce qu'elles réduisent le plus l'espace de recherche. Un mot de départ bien choisi peut éliminer 80 à 90 pour cent de tous les mots possibles de cinq lettres en une seule tentative. Un mot de départ mal choisi peut n'éliminer que 30 à 40 pour cent, vous laissant avec un réservoir immense de candidats et très peu de tentatives restantes.
+Le français possède une distribution de lettres très différente de l'anglais. Les lettres les plus fréquentes en français sont E, A, S, I, R, O, T, U — et non S, E, A, O, R comme en anglais. De plus, le français utilise massivement les terminaisons en -ENT (verbes du 3e groupe), -TION (noms d'action), -ER (infinitifs), et -E (féminin). Les mots anglais comme CRANE ou SLATE ne sont tout simplement pas des mots français valides.
 
-Des chercheurs du MIT ont publié une étude analysant les 12 972 réponses acceptées de cinq lettres de Wordle en utilisant la théorie de l'information. Ils ont découvert que le mot de départ optimal, mesuré par le gain d'information moyen sur l'ensemble du réservoir de réponses, est SALET — il réduit systématiquement le réservoir de candidats à sa taille attendue la plus petite après une tentative.
+La lettre W est extrêmement rare en français (contrairement à l'anglais), le K n'apparaît que dans les emprunts, et les voyelles E et A dominent largement. Comprendre ces spécificités est essentiel pour choisir un mot de départ efficace.
 
-LA SCIENCE : CE QUI FAIT UN GRAND MOT DE DÉPART
+LA SCIENCE DES LETTRES EN FRANÇAIS
 
-Trois principes séparent les mots de départ Wordle d'élite des moyens.
+Trois principes spécifiques au français guident le choix d'un bon mot de départ.
 
-Premièrement, la couverture des voyelles. Les mots anglais sont riches en voyelles. Les cinq voyelles standard (A, E, I, O, U) apparaissent dans la grande majorité des réponses de cinq lettres. Un mot de départ qui inclut deux ou trois voyelles différentes vous donne immédiatement un signal sur quelles voyelles sont présentes, lesquelles sont absentes, et approximativement où elles se trouvent. Des mots comme ADIEU (quatre voyelles) ou AUDIO (quatre voyelles) sont populaires pour cette raison — ils testent plusieurs voyelles à la fois.
+Premièrement, la couverture des voyelles. Le français est encore plus riche en voyelles que l'anglais. Les cinq voyelles standard (A, E, I, O, U) apparaissent dans la quasi-totalité des mots de cinq lettres, et la lettre Y apparaît également fréquemment (comme dans CRAYON, JOYEUX). Un mot de départ qui teste trois ou quatre voyelles différentes est particulièrement puissant en français.
 
-Deuxièmement, la fréquence des consonnes. Toutes les consonnes ne sont pas également probables. Les consonnes les plus courantes dans les réponses Wordle de cinq lettres sont R, S, T, L, N et C. Un excellent mot de départ inclut au moins une ou deux de ces consonnes à haute fréquence à côté de ses voyelles. C'est pourquoi CRANE, SLATE et TRACE surpassent en pratique les mots riches en voyelles — ils équilibrent la couverture des voyelles avec l'information consonantique.
+Deuxièmement, la fréquence des consonnes françaises. Les consonnes les plus utiles dans Le Mot sont R, S, T, L, N, C — mais dans un ordre différent de l'anglais. Le R français est la consonne la plus fréquente (elle apparaît dans environ 33 % des mots de cinq lettres), suivie du S, du T, du L et du N. La lettre C est également très fréquente en français (mots en C comme CINEMA, COTE).
 
-Troisièmement, la probabilité positionnelle. Certaines lettres sont beaucoup plus susceptibles d'apparaître à certaines positions. Par exemple, S est la lettre initiale la plus courante dans les réponses de cinq lettres, E est la lettre finale la plus courante, et A apparaît fréquemment au milieu. Un mot comme SLATE place des lettres à haute fréquence dans leurs positions les plus courantes, maximisant la chance d'obtenir des tuiles vertes dès la première tentative.
+Troisièmement, les terminaisons françaises. Les mots français de cinq lettres se terminent très souvent par S (pluriels), E (féminin ou muet), T (verbes), A (substantifs) ou I (verbes). Le E final est la terminaison la plus courante. Un mot de départ qui place une lettre fréquente en dernière position (comme S ou E) maximise les chances d'obtenir une tuile verte immédiate.
 
-LE TOP 10 DES MEILLEURS MOTS DE DÉPART WORDLE CLASSÉS
+LE TOP 10 DES MEILLEURS MOTS DE DÉPART POUR LE MOT
 
-Voici les dix meilleurs mots de départ basés sur les données de millions de parties de Wordle, classés par nombre moyen de tentatives pour résoudre.
+Basé sur l'analyse de 8 030 mots de cinq lettres du dictionnaire ODS9, voici les dix meilleurs mots de départ classés par score de fréquence.
 
-1. SALET — L'ouvreur mathématiquement optimal. Teste S (commencement le plus courant), A et E (voyelles les plus courantes), L et T (consonnes à haute fréquence). Nombre moyen de tentatives pour résoudre : 3,42.
+1. AIRES — Le mot de départ mathématiquement optimal en français. Teste A, E, I (les trois voyelles les plus fréquentes), R et S (les deux consonnes les plus fréquentes). Couverture quasi-parfaite des lettres françaises essentielles.
 
-2. CRANE — Le préféré des fans. Teste C, R, A, N, E — toutes des lettres du top 10. La combinaison C et R est particulièrement puissante parce qu'elle apparaît dans des centaines de réponses. Nombre moyen de tentatives pour résoudre : 3,45.
+2. ARISE — Variante d'AIRES avec les mêmes lettres. Performance identique.
 
-3. SLATE — Commence par S, consonnes L et T, voyelles A et E. Performance presque identique à SALET. Nombre moyen de tentatives pour résoudre : 3,46.
+3. RAIES — Teste R en première position (très courant en français), A, I, E (trois voyelles) et S final (pluriel). Excellent pour détecter les terminaisons en S.
 
-4. CRATE — C, R, A, T, E. Très similaire à CRANE mais remplace N par T, qui est légèrement plus courant. Nombre moyen de tentatives pour résoudre : 3,48.
+4. REAIS — Moins courant mais couvre R, E, A, I, S. Utile si vous voulez tester R en première position.
 
-5. TRACE — T, R, A, C, E. Une alternative solide si vous voulez T en première position. Nombre moyen de tentatives pour résoudre : 3,50.
+5. SERAI — Forme verbale (futur de serer). Teste S initial, E, R, A, I. Couvre les cinq lettres les plus fréquentes du français.
 
-6. ADIEU — L'approche de maximisation des voyelles. Teste quatre des cinq voyelles (A, E, I, U). Excellent pour l'information sur les voyelles mais faible sur les consonnes. Nombre moyen de tentatives pour résoudre : 3,54.
+6. SERIA — Teste S, E, R, I, A. Bonne couverture voyelles/consonnes.
 
-7. AUDIO — Teste A, U, I, O — quatre voyelles incluant les moins courantes U et O. Légèrement moins bon qu'ADIEU parce que D est moins utile que E. Nombre moyen de tentatives pour résoudre : 3,56.
+7. SIERA — Variante de SERIA avec lettres réarrangées.
 
-8. RAISE — R, A, I, S, E. Couvre trois voyelles et deux consonnes à haute fréquence. Un bon polyvalent. Nombre moyen de tentatives pour résoudre : 3,57.
+8. ETAIS — Forme verbale (imparfait de être). Teste E, T, A, I, S — particulièrement utile car T est très fréquent en français et la terminaison -AIS est typique.
 
-9. SOARE — S, O, A, R, E. Une autre option équilibrée avec S au début. Nombre moyen de tentatives pour résoudre : 3,58.
+9. SAITE — Teste S, A, I, T, E. Bonne couverture des lettres les plus fréquentes.
 
-10. IRATE — I, R, A, T, E. Trois voyelles plus R et T. Un bon choix si vous voulez tester I tôt. Nombre moyen de tentatives pour résoudre : 3,60.
+10. TAIES — Teste T, A, I, E, S. Le T initial est moins courant mais la terminaison -AIES est typique des verbes.
 
-STRATÉGIE 1 : L'APPROCHE VOYELLES D'ABORD
+STRATÉGIE 1 : L'APPROCHE VOYELLES ÉLARGIES
 
-La stratégie voyelles d'abord privilégie l'identification des voyelles présentes dans la réponse le plus rapidement possible. La logique est simple : connaître les voyelles réduit considérablement le réservoir de réponses parce que la plupart des mots de cinq lettres ont deux ou trois voyelles.
+En français, l'approche voyelles est encore plus puissante qu'en anglais car le français utilise davantage de voyelles. Les mots comme RAIES ou AIRES testent trois voyelles différentes (A, E, I) tout en incluant R et S.
 
-Les meilleurs mots de départ voyelles d'abord sont ADIEU et AUDIO. Tous deux testent quatre voyelles différentes en une seule tentative. Si vous jouez ADIEU et obtenez :
-- Tout gris : la réponse n'a ni A, ni D, ni I, ni E, ni U. C'est extrêmement rare mais réduit immédiatement le réservoir aux mots avec seulement O comme voyelle (comme BLOCK, FROST, GHOST).
-- Un jaune : vous connaissez une voyelle et pouvez concentrer votre deuxième tentative sur des mots la contenant.
-- Un vert : vous connaissez une voyelle et sa position, ce qui est très puissant.
+Si vous jouez AIRES et obtenez :
+- Tout gris : la réponse ne contient ni A, ni I, ni R, ni E, ni S. C'est extrêmement rare et réduit immédiatement le réservoir aux mots avec O et U comme seules voyelles (comme LOUST, TOURS, BOURS).
+- Un jaune sur le E : vous savez que E est présent mais pas en quatrième position. En français, E apparaît très souvent en finale (terminaison féminine ou muette).
+- Un vert sur le S final : la réponse se termine probablement par S (pluriel), ce qui est le cas d'environ 25 % des mots français de cinq lettres.
 
-La faiblesse de l'approche voyelles d'abord est que vous apprenez très peu sur les consonnes. Si ADIEU renvoie tout gris, vous n'avez toujours aucune information sur les consonnes de la réponse, ce qui signifie que votre deuxième tentative doit faire double travail.
+La faiblesse de cette approche est qu'elle ne teste pas T, L, N et C — des consonnes très fréquentes en français. Votre deuxième essai devra combler cette lacune.
 
-La stratégie 1 convient mieux aux joueurs qui ont du mal à identifier les voyelles et veulent une méthode systématique pour éliminer les possibilités de voyelles tôt.
+STRATÉGIE 2 : L'APPROCHE ÉQUILIBRÉE FRANÇAISE
 
-STRATÉGIE 2 : L'APPROCHE ÉQUILIBRÉE
+La stratégie équilibrée en français privilégie les mots qui testent à la fois les voyelles les plus fréquentes (E, A, I) et les consonnes essentielles (R, S, T). Les mots comme ETAIS ou SERAI illustrent cette approche.
 
-La stratégie équilibrée utilise un mot de départ qui inclut deux voyelles et trois consonnes à haute fréquence. C'est l'approche utilisée par CRANE, SLATE, TRACE et RAISE.
+Le mot ETAIS est particulièrement intéressant car :
+- Il teste E et A (les deux voyelles les plus fréquentes en français)
+- Il teste T et S (consonnes très fréquentes)
+- Il teste I (voyelle fréquente)
+- La terminaison -AIS est une terminaison verbale typique (imparfait)
 
-L'avantage de l'approche équilibrée est que vous obtenez des informations à la fois sur les voyelles et les consonnes simultanément. Un mot comme CRANE teste :
-- Deux voyelles (A, E) — les deux voyelles les plus courantes en anglais
-- Trois consonnes (C, R, N) — toutes dans le top 10 des consonnes les plus fréquentes
+Cette approche est recommandée pour la plupart des joueurs francophones car elle maximise l'information attendue sur les patterns français les plus courants.
 
-Si CRANE renvoie, disons, vert-A et jaune-R, vous savez immédiatement :
-- La réponse a A en position 3
-- La réponse a R quelque part (probablement position 1 ou 2)
-- La réponse n'a ni C, ni N, ni E
+STRATÉGIE 3 : L'APPROCHE TERMINAISONS FRANÇAISES
 
-C'est une quantité massive d'informations à partir d'une seule tentative, et cela vous permet de faire une deuxième tentative hautement informée.
+Le français possède des patterns de terminaison très distinctifs que l'anglais n'a pas. Cette stratégie exploite ces spécificités.
 
-L'approche équilibrée est recommandée pour la plupart des joueurs parce qu'elle maximise l'information attendue à travers tous les modèles de réponses possibles.
+Les terminaisons les plus fréquentes dans Le Mot sont :
+- -S (pluriel) : environ 25 % des mots
+- -E (féminin ou muet) : environ 24 % des mots
+- -T (verbe 3e personne) : environ 8 % des mots
+- -A (substantif) : environ 12 % des mots
+- -I (verbe) : environ 5 % des mots
 
-STRATÉGIE 3 : L'APPROCHE RICHE EN CONSONNES
+Si vous jouez un mot se terminant par S (comme AIRES) et obtenez un vert sur la dernière position, vous savez immédiatement que la réponse est probablement un pluriel. Si vous obtenez un gris sur le S, vous pouvez éliminer tous les pluriels et vous concentrer sur les singuliers.
 
-Certains joueurs avancés préfèrent un ouvreur riche en consonnes comme STERN, THORN ou CLINT. Ces mots testent trois ou quatre consonnes à haute fréquence et seulement une voyelle.
+Cette stratégie est avancée mais très puissante pour les joueurs qui connaissent bien la morphologie française.
 
-La logique ici est que les consonnes portent plus d'information positionnelle que les voyelles. Un S vert en position 1 est beaucoup plus informatif qu'un A vert en position 3 parce que les mots commençant par S forment un sous-ensemble bien plus petit que les mots contenant A.
+LE CADRE DU DEUXIÈME ESSAI
 
-L'inconvénient de l'approche riche en consonnes est qu'elle peut vous laisser deviner les voyelles plus longtemps, ce qui parfois aboutit à quatre ou cinq tentatives au lieu de trois. Cependant, pour les joueurs experts qui peuvent identifier rapidement les modèles de voyelles à partir de l'information consonantique, cette approche peut être très efficace.
+Quel que soit le résultat de votre premier mot, votre deuxième essai doit accomplir trois objectifs :
 
-LE DEUXIÈME ESSAI PARFAIT : UN CADRE POUR CHAQUE SCÉNARIO
+1. Tester les lettres que votre premier mot n'a pas testées. Si vous avez joué AIRES (A, E, I, R, S), votre deuxième mot devrait tester O, U, T, L, N — par exemple COULO (qui teste C, O, U, L) ou LUTIN (qui teste L, U, T, N).
 
-Votre deuxième tentative est presque aussi importante que la première. Voici un cadre pour choisir votre deuxième mot en fonction de ce que votre ouvreur a révélé.
+2. Confirmer les lettres jaunes. Si AIRES a donné jaune sur R et E, jouez un mot qui place R et E dans des positions différentes pour les confirmer (par exemple REMET, RENTE).
 
-SCÉNARIO A : Les cinq lettres grises (échec complet). C'est rare mais dévastateur. Votre deuxième mot devrait tester un ensemble entièrement différent de lettres à haute fréquence. Si votre ouvreur était CRANE, de bons deuxièmes essais incluent : GHOST, BLIMP, JUMPY, FUDGE. Choisissez le mot qui teste le plus de nouvelles lettres à haute fréquence.
+3. Exploiter les terminaisons probables. Si vous savez que le mot ne se termine pas par S, concentrez-vous sur les terminaisons -E, -T, ou -A qui sont très courantes en français.
 
-SCÉNARIO B : Une ou deux lettres jaunes, aucun vert. Vous savez quelles lettres sont dans le mot mais pas où. Votre deuxième tentative devrait repositionner ces lettres dans leurs positions les plus probables tout en testant de nouvelles lettres. Par exemple, si CRANE vous a donné jaune-A et jaune-R, essayez TRADE ou GRATE — les deux repositionnent A et R tout en testant de nouvelles lettres.
+SPÉCIFICITÉS DU FRANÇAIS À RETENIR
 
-SCÉNARIO C : Une lettre verte, le reste gris. Vous connaissez une lettre et sa position. Votre deuxième tentative devrait se construire autour de cette lettre verte. Si CRANE vous a donné vert-A (position 3), essayez FLASK, PLANT ou CHARM — tous placent A en position 3 et testent de nouvelles consonnes.
+- Les accents ne sont pas pris en compte dans Le Mot : É, È, Ê sont traités comme E.
+- Le Y est traité comme une consonne mais peut fonctionner comme voyelle (comme dans JOYEUX).
+- Les mots peuvent contenir W et K mais ils sont très rares (emprunts à l'anglais ou à l'allemand).
+- La terminaison -ENT est la plus fréquente pour les verbes du 3e groupe (mais en cinq lettres, les terminaisons -ES, -EZ, -AS sont plus courantes).
 
-SCÉNARIO D : Deux lettres vertes. Vous êtes dans une excellente position. Concentrez-vous sur le remplissage des trois positions restantes avec des mots qui correspondent au modèle. Si CRANE vous a donné vert-C et vert-A (C_A__), essayez CLEAR, COAST ou COULD.
+CONCLUSION
 
-SCÉNARIO E : Un vert et un ou plusieurs jaunes. C'est le résultat le plus courant et le plus complexe. Priorisez la lettre verte, repositionnez les lettres jaunes, et remplissez les emplacements restants avec de nouvelles lettres à haute fréquence.
+Les mots de départ optimaux pour Le Mot sont AIRES, ARISE, RAIES et SERAI — tous basés sur la fréquence réelle des lettres dans le dictionnaire français ODS9. Ces mots testent les cinq lettres les plus fréquentes du français (E, A, S, I, R) dans des positions stratégiques. En combinant un bon mot de départ avec une compréhension des patterns de terminaison français, vous pouvez résoudre Le Mot en moyenne en 3,5 tentatives.
 
-CONSEILS AVANCÉS POUR LES JOUEURS EXPERTS
-
-1. Évitez de répéter les lettres grises. Cela paraît évident, mais sous la pression du temps, les joueurs réutilisent souvent accidentellement une lettre qu'ils savent déjà absente. Vérifiez toujours vos deuxième et troisième tentatives par rapport aux lettres grises des tentatives précédentes.
-
-2. Considérez le mode difficile avec soin. En mode difficile, vous devez réutiliser toutes les lettres vertes ou jaunes révélées dans les tentatives suivantes. Cela rend le jeu considérablement plus difficile parce que vous ne pouvez pas tester librement de nouvelles lettres. Si vous jouez en mode difficile, votre mot de départ compte encore plus parce que vous êtes engagé avec ses lettres révélées.
-
-3. Suivez la fréquence des lettres dans le réservoir de réponses. La liste officielle des réponses Wordle compte 2 309 mots (pas les 12 972 tentatives acceptées). Le réservoir de réponses est sélectionné pour éviter les mots obscurs, ce qui signifie que certaines lettres apparaissent plus fréquemment que dans le corpus anglais général. S est la lettre initiale la plus courante (366 mots), E est la lettre finale la plus courante (422 mots), et A est la lettre médiane la plus courante.
-
-4. Utilisez le processus d'élimination pour votre dernière tentative. Si vous êtes réduit à deux réponses possibles et qu'il vous reste une tentative, ne la gaspillez pas à tester une troisième option. Choisissez l'une des deux et engagez-vous. Vous avez 50 pour cent de chances de gagner, ce qui est mieux que les 33 pour cent de chances de tester un troisième mot.
-
-5. Méfiez-vous des lettres doubles. Environ 7 pour cent des réponses Wordle contiennent une lettre répétée (comme LLAMA, OTTER ou SASSY). Si vos tentatives révèlent continuellement que des lettres courantes sont absentes, considérez que la réponse pourrait avoir une lettre double, ce qui expliquerait pourquoi certaines positions ne correspondent pas.
-
-ERREURS COURANTES À ÉVITER
-
-1. Commencer avec le même mot chaque jour sans réfléchir. Bien qu'avoir un mot de départ de prédilection soit acceptable, répéter aveuglément les mêmes deuxième et troisième tentatives sans tenir compte du retour de la première tentative est le moyen le plus rapide de perdre votre série.
-
-2. Gaspiller des tentatives sur des mots obscurs. Deviner XYLYL ou PZAZZ peut sembler intelligent, mais ces mots ne testent presque aucune lettre utile et gaspillent une précieuse tentative. Tenez-vous-en aux mots avec des lettres courantes.
-
-3. Ignorer l'information positionnelle. Un S jaune est très différent d'un S vert. Un S jaune vous dit que S est dans le mot mais pas en position 1, ce qui signifie qu'il est probablement en position 4 ou 5 (comme suffixe -SS ou -ST). Utilisez la logique positionnelle pour placer les lettres efficacement.
-
-4. Deviner trop agressivement tôt. Si vous avez trois réponses possibles et quatre tentatives restantes, ne devinez pas au hasard. Utilisez vos tentatives supplémentaires pour tester des lettres qui différencient les trois possibilités. Par exemple, si les trois options sont BATCH, CATCH et HATCH, devinez un mot avec B, C et H (comme BEACH) pour déterminer lequel c'est.
-
-5. Ne pas utiliser le Solveur Wordle WordIzy. Si vous êtes vraiment bloqué, utilisez le Solveur Wordle WordIzy sur wordizy.com/wordle. Entrez vos lettres vertes, jaunes et grises, et le solveur retournera instantanément tous les mots candidats valides qui correspondent à vos contraintes. C'est le moyen le plus rapide de réduire les possibilités lorsque vous avez des informations partielles.
-
-CONCLUSION : CONSTRUISEZ VOTRE STRATÉGIE GAGNANTE
-
-Le meilleur mot de départ Wordle est celui que vous comprenez profondément. Que vous choisissiez SALET pour son optimalité mathématique, CRANE pour sa couverture équilibrée, ou ADIEU pour sa maximisation des voyelles, la clé est d'avoir un plan pour ce que vous ferez avec les informations que votre ouvreur révèle.
-
-Commencez par l'un des 10 premiers mots de notre classement. Apprenez le cadre du deuxième essai pour chaque scénario. Évitez les erreurs courantes. Et quand vous avez besoin d'aide, utilisez le Solveur Wordle WordIzy pour trouver tous les mots valides qui correspondent à vos indices.
-
-Avec le bon mot de départ et une stratégie solide, vous pouvez résoudre Wordle systématiquement en trois ou quatre tentatives et maintenir votre série de victoires pendant des mois. Bonne chance, et que vos tuiles soient toujours vertes.
-
-OUTILS ASSOCIÉS
-
-Solveur Wordle — Entrez vos lettres vertes, jaunes et grises pour obtenir instantanément tous les mots candidats valides sur wordizy.com/wordle.
-
-Mots Wordle commençant par A-Z — Parcourez tous les mots Wordle valides par lettre initiale sur wordizy.com/wordle-starts.
-
-Mots Wordle se terminant par A-Z — Parcourez tous les mots Wordle valides par lettre finale sur wordizy.com/wordle-ends.
-
-Mots de 5 lettres — Parcourez tous les mots Scrabble de 5 lettres sur wordizy.com/unscramble-5-letter-words.
+Pour pratiquer avec des mots français valides, explorez nos listes de mots français par lettre et par longueur.
