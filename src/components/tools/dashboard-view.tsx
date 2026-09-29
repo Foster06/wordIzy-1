@@ -327,7 +327,7 @@ export function DashboardView() {
                       </span>
                       <div className="flex-1 h-5 rounded-md bg-white/5 overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-brand to-brand-soft rounded-md transition-all"
+                          className="h-full bg-gradient-to-r from-brand to-brand-soft rounded-md transition-colors transition-transform"
                           style={{ width: `${maxQueryCount ? (q.count / maxQueryCount) * 100 : 0}%` }}
                         />
                       </div>

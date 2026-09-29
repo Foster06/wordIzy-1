@@ -199,16 +199,14 @@ if (typeof window === "undefined") {
   });
 }
 
-// Preconnect hints for third-party origins — saves DNS + TLS round-trips
-// when AdSense / Google Fonts / Vercel Analytics load.
-// Also includes prefetch hints for the most-visited internal pages so they
-// load instantly when users click them.
+// Preconnect hints — only for origins the browser will ACTUALLY connect to.
+// Note: fonts.googleapis.com and fonts.gstatic.com are NOT preconnected because
+// next/font/google self-hosts the fonts at build time — the browser never
+// connects to Google's font servers. Preconnecting to them would waste a DNS
+// lookup + TLS handshake for nothing (Lighthouse flags this as "unused preconnect").
+// va.vercel-scripts.com is only preconnected if Vercel Analytics is active.
 const preconnectTags = (
   <>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-    <link rel="preconnect" href="https://va.vercel-scripts.com" />
-    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
     {/* Prefetch high-traffic internal pages — when the browser is idle, it
         fetches these pages in the background so they load instantly on click. */}
     <link rel="prefetch" href="/blitz" as="document" />

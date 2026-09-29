@@ -1,0 +1,17 @@
+# Browserslist — targets modern browsers that support Baseline features.
+# This prevents Next.js/SWC from transpiling/polyfilling features like
+# Array.prototype.at, flat, flatMap, Object.fromEntries, Object.hasOwn,
+# String.prototype.trimStart/trimEnd — all of which are Widely Available
+# and don't need polyfills in modern browsers.
+#
+# This reduces the JS bundle by ~14 KiB (per Lighthouse).
+
+last 2 versions
+not dead
+not op_mini all
+chrome >= 100
+firefox >= 100
+edge >= 100
+safari >= 15
+ios >= 15
+not ie > 0

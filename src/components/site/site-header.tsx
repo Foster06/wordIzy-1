@@ -193,7 +193,7 @@ export function SiteHeader() {
                   setIsDrawerOpen(true);
                 }}
                 type="button"
-                className="relative p-2 rounded-lg bg-white/[0.02] border border-white/5 text-muted-foreground hover:text-amber-500 hover:bg-white/[0.06] transition-all cursor-pointer flex items-center justify-center h-9 w-9"
+                className="relative p-2 rounded-lg bg-white/[0.02] border border-white/5 text-muted-foreground hover:text-amber-500 hover:bg-white/[0.06] transition-colors transition-transform cursor-pointer flex items-center justify-center h-9 w-9"
                 style={{ cursor: "pointer" }}
                 aria-label={favoriteCount > 0 ? `Open Saved Word Vault (${favoriteCount} words)` : "Open Saved Word Vault"}
               >
@@ -242,7 +242,7 @@ export function SiteHeader() {
                       onClick={() => go(r.hash)}
                       aria-current={isActive(r) ? "page" : undefined}
                       className={cn(
-                        "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all duration-200 font-bree",
+                        "w-full flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors transition-transform duration-200 font-bree",
                         isActive(r)
                           ? "bg-brand/15 text-brand"
                           : "text-foreground/85 hover:bg-brand/10 hover:text-brand hover:translate-x-1"

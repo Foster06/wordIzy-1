@@ -263,7 +263,7 @@ export function AnagramBlitz() {
           <button
             onClick={handleStopGame}
             type="button"
-            className="py-1.5 px-3 bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/30 text-[11px] font-bold rounded-md transition-all shadow-lg shadow-black/40 hover:shadow-black/60 active:scale-95 cursor-pointer shrink-0"
+            className="py-1.5 px-3 bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/30 text-[11px] font-bold rounded-md transition-colors transition-transform shadow-lg shadow-black/40 hover:shadow-black/60 active:scale-95 cursor-pointer shrink-0"
           >
             {t.blitz.stopGame}
           </button>

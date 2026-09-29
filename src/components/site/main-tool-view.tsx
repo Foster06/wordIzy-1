@@ -153,7 +153,7 @@ export function MainToolView({ params, initialWordListData }: MainToolViewProps)
                   <h4 className="text-lg font-bold text-foreground group-hover:text-brand transition-colors">Best Wordle Starter Words: Top Strategy Combinations to Win Daily</h4>
                   <p className="text-xs text-muted-foreground mt-1">Discover the mathematically optimal opening words, 3 winning strategies, and a proven second-guess framework for every scenario.</p>
                 </div>
-                <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-all shrink-0" />
+                <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-colors transition-transform shrink-0" />
               </Link>
             </div>
           </>
@@ -244,7 +244,7 @@ export function MainToolView({ params, initialWordListData }: MainToolViewProps)
                   <h4 className="text-lg font-bold text-foreground group-hover:text-brand transition-colors">Best Wordle Starter Words: Top Strategy Combinations to Win Daily</h4>
                   <p className="text-xs text-muted-foreground mt-1">Discover the mathematically optimal opening words, 3 winning strategies, and a proven second-guess framework for every scenario.</p>
                 </div>
-                <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-all shrink-0" />
+                <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-colors transition-transform shrink-0" />
               </Link>
             </div>
           </>

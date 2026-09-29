@@ -264,7 +264,7 @@ export function SitemapView() {
                     <Link
                       key={r.id}
                       href={r.hash}
-                      className="group flex items-center gap-3 rounded-xl px-4 py-3 bg-white/[0.04] border border-white/[0.08] hover:bg-brand/10 hover:border-brand/30 transition-all text-left shadow-sm hover:shadow-md"
+                      className="group flex items-center gap-3 rounded-xl px-4 py-3 bg-white/[0.04] border border-white/[0.08] hover:bg-brand/10 hover:border-brand/30 transition-colors transition-transform text-left shadow-sm hover:shadow-md"
                     >
                       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand/10 border border-brand/20 group-hover:bg-brand/20 transition-colors">
                         <Icon className="h-4 w-4 text-brand" />
@@ -272,7 +272,7 @@ export function SitemapView() {
                       <span className="flex-1 text-sm font-medium text-foreground/80 group-hover:text-brand transition-colors truncate">
                         {t.nav[r.labelKey]}
                       </span>
-                      <ChevronRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-0.5 transition-all shrink-0" />
+                      <ChevronRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-0.5 transition-colors transition-transform shrink-0" />
                     </Link>
                   );
                 })}
@@ -347,7 +347,7 @@ export function SitemapView() {
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <Link
               href="/guides/best-wordle-starter-words"
-              className="group flex items-center gap-3 rounded-xl px-4 py-3 bg-white/[0.04] border border-white/[0.08] hover:bg-brand/10 hover:border-brand/30 transition-all text-left shadow-sm hover:shadow-md"
+              className="group flex items-center gap-3 rounded-xl px-4 py-3 bg-white/[0.04] border border-white/[0.08] hover:bg-brand/10 hover:border-brand/30 transition-colors transition-transform text-left shadow-sm hover:shadow-md"
             >
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand/10 border border-brand/20 group-hover:bg-brand/20 transition-colors">
                 <BookOpen className="h-4 w-4 text-brand" />
@@ -355,7 +355,7 @@ export function SitemapView() {
               <span className="flex-1 text-sm font-medium text-foreground/80 group-hover:text-brand transition-colors truncate">
                 Best Wordle Starter Words
               </span>
-              <ChevronRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-0.5 transition-all shrink-0" />
+              <ChevronRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-0.5 transition-colors transition-transform shrink-0" />
             </Link>
           </div>
         </GlassCard>

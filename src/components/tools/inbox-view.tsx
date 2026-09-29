@@ -309,7 +309,7 @@ export function InboxView() {
               return (
                 <GlassCard
                   key={msg.id}
-                  className={`p-4 transition-all ${msg.handled ? "opacity-60" : "border-brand/30"}`}
+                  className={`p-4 transition-colors transition-transform ${msg.handled ? "opacity-60" : "border-brand/30"}`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0 flex-1">

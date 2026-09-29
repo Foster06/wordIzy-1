@@ -1,0 +1,1072 @@
+Découvrez l'expérience de vos utilisateurs
+
+Aucune donnée
+
+￼
+Analysez les problèmes de performances
+
+96
+Performances
+
+96
+Accessibilité
+
+92
+Bonnes pratiques
+
+100
+SEO
+
+2/4
+Navigation agentique
+
+96
+FCP
++10
+LCP
++22
+TBT
++30
+CLS
++25
+SI
++9
+Performances
+Les valeurs sont estimées et peuvent varier. Le calcul du score lié aux performances repose directement sur ces statistiques.Affichez la calculatrice.
+0–49 50–89 90–100
+
+￼
+
+STATISTIQUES
+Développer la vue
+
+First Contentful Paint
+0,6 s
+
+Largest Contentful Paint
+1,3 s
+
+Total Blocking Time
+80 ms
+
+Cumulative Layout Shift
+0
+
+Speed Index
+1,2 s
+* Captured at 29 sept. 2026 à 14:09 UTC−4
+* Émulation (ordinateur) with Lighthouse 13.5.0
+* Session avec consultation d'une seule page
+* Chargement de page initial
+* Limitation personnalisée
+* Using HeadlessChromium 153.0.8010.36 with lr
+Consultez la carte proportionnelle
+￼
+￼
+￼
+￼
+￼
+￼
+￼
+￼
+Afficher les audits pertinents pour :
+
+All
+
+FCP
+
+LCP
+
+TBT
+
+CLS
+INSIGHTS
+
+Requêtes de blocage du rendu Économies estimées : 380 ms
+
+Les requêtes bloquent le rendu initial de la page, ce qui peut causer un retard LCP. Le report ou l'intégration de ces requêtes réseau peut les écarter du chemin critique.LCPFCPNon noté
+
+URL	Taille de transfert	Durée
+wordizy.com Propriétaire
+28,5 KiB	420 ms	
+…chunks/2yfoe801qbjt8.css(wordizy.com)	4,3 KiB	80 ms
+…chunks/3z-ii7pfsx1ys.css(wordizy.com)	24,2 KiB	330 ms
+Utiliser des durées de mise en cache efficaces Économies estimées : 16 Kio
+
+Une longue durée de vie du cache peut accélérer les visites répétées sur votre page. En savoir plus sur la mise en cacheLCPFCPNon noté
+
+Requête	Cache de la valeur TTL	Taille de transfert
+Google/Doubleclick Ads Ad
+	163 KiB	
+…m202…/show_ads_impl_fy2021.js(pagead2.googlesyndication.com)	14j	163 KiB
+Arborescence du réseau
+
+Évitez les chaînes de requêtes critiques en réduisant la longueur des chaînes ou la taille de téléchargement des ressources, ou en reportant le téléchargement de ressources inutiles, afin d'améliorer le chargement des pages.LCPNon noté
+
+Latence de chemin d'accès critique maximale : 1 049 ms
+Navigation initiale
+
+
+
+https://wordizy.com - 309 ms, 12,70 KiB
+
+
+
+
+
+…chunks/2yfoe801qbjt8.css(wordizy.com) - 819 ms, 4,32 KiB
+
+
+
+
+
+
+
+…media/96c7a40e75a59a4c.3xh0ghbqi5a86.woff2(wordizy.com) - 1 020 ms, 11,63 KiB
+
+
+
+
+
+
+
+…media/797e433ab948586e.0r6juujl39pe6.woff2(wordizy.com) - 1 049 ms, 24,08 KiB
+
+
+
+
+
+
+
+…media/8c2eb9ceedecfc8e.23aeddxv5enbo.woff2(wordizy.com) - 1 020 ms, 38,42 KiB
+
+
+
+
+
+…chunks/3z-ii7pfsx1ys.css(wordizy.com) - 554 ms, 24,20 KiB
+Origines préconnectées
+Les hints de préconnexion aident le navigateur à établir une connexion plus tôt dans le chargement de page, ce qui permet de gagner du temps lors de la première requête pour cette origine. Voici les origines auxquelles la page s'est préconnectée.
+Origine	Source
+https://fonts.googleapis.com/	head > link
+<link rel="preconnect" href="https://fonts.googleapis.com">
+Préconnexion inutilisée. N'utilisez preconnect que pour les origines que la page est susceptible de demander.	
+https://fonts.gstatic.com/	head > link
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+Préconnexion inutilisée. N'utilisez preconnect que pour les origines que la page est susceptible de demander.	
+https://va.vercel-scripts.com/	head > link
+<link rel="preconnect" href="https://va.vercel-scripts.com">
+Préconnexion inutilisée. N'utilisez preconnect que pour les origines que la page est susceptible de demander.	
+Candidats pour la préconnexion
+Ajoutez des hints de préconnexion à vos origines les plus importantes, mais essayez de ne pas en utiliser plus de quatre.
+Aucune autre origine n'est un bon candidat pour la préconnexion
+
+Ancien JavaScript Économies estimées : 14 Kio
+
+Les polyfills et les transformations permettent aux navigateurs plus anciens d'utiliser les nouvelles fonctionnalités JavaScript. Dans la majorité des cas cependant, ils ne sont pas nécessaires aux navigateurs récents. Envisagez de modifier votre processus de compilation JavaScript pour ne pas transpiler les fonctionnalités Baseline, sauf si vous savez que vous devez prendre en charge les navigateurs plus anciens. Découvrez pourquoi la plupart des sites peuvent déployer du code ES6+ sans transpiler.LCPFCPNon noté
+
+URL		Octets perdus
+wordizy.com Propriétaire
+	13,9 KiB	
+…chunks/0iec5q4ack_04.js(wordizy.com)		13,9 KiB
+…chunks/0iec5q4ack_04.js:1:6432(wordizy.com)
+Array.prototype.at		
+…chunks/0iec5q4ack_04.js:1:5820(wordizy.com)
+Array.prototype.flat		
+…chunks/0iec5q4ack_04.js:1:5933(wordizy.com)
+Array.prototype.flatMap		
+…chunks/0iec5q4ack_04.js:1:6309(wordizy.com)
+Object.fromEntries		
+…chunks/0iec5q4ack_04.js:1:6567(wordizy.com)
+Object.hasOwn		
+…chunks/0iec5q4ack_04.js:1:5562(wordizy.com)
+String.prototype.trimEnd		
+…chunks/0iec5q4ack_04.js:1:5477(wordizy.com)
+String.prototype.trimStart		
+Causes des décalages de mise en page
+
+Les décalages de mise en page se produisent lorsque des éléments se déplacent sans aucune interaction de l'utilisateur. Étudiez les causes des décalages de mise en page, comme l'ajout ou la suppression d'éléments, ou le changement de polices lors du chargement de la page.CLSNon noté
+
+Élément	Score de décalage de mise en page
+Total	0,000
+Unscrambler
+<span class="text-gradient-brand">	0,000
+…media/797e433ab948586e.0r6juujl39pe6.woff2(wordizy.com)	Police Web
+Element	Layout shift score
+Total	0,001
+::after
+<::after>	0,001
+Répartition du LCP
+
+Chaque sous-partie comporte des stratégies d'amélioration spécifiques. Idéalement, la plupart du temps LCP devrait être consacré au chargement des ressources et non aux délais.LCPNon noté
+
+Sous-partie	Durée
+Time to First Byte	0 ms
+Délai d'affichage de l'élément	1 500 ms
+
+Word Unscrambler
+<h1 class="page-title tracking-tight">
+
+Tiers
+
+Le code tiers peut affecter considérablement les performances de chargement des pages. Réduisez et différez le chargement du code tiers pour donner la priorité au contenu de votre page.Non noté
+
+Tiers	Taille de transfert	Temps d'exécution sur le thread principal
+Google/Doubleclick Ads Ad
+220 KiB	157 ms	
+…m202…/show_ads_impl_fy2021.js(pagead2.googlesyndication.com)	163 KiB	80 ms
+…js/adsbygoogle.js?client=ca-pub-767…(pagead2.googlesyndication.com)	57 KiB	77 ms
+Ces insights sont également disponibles dans le panneau "Performances" des Outils pour les développeurs Chrome. Enregistrez une trace pour afficher des informations plus détaillées.
+DIAGNOSTIC
+
+Réduisez les ressources JavaScript inutilisées Économies estimées : 189 Kio
+
+Réduisez les ressources JavaScript inutilisées et différez le chargement des scripts tant qu'ils ne sont pas requis afin de réduire la quantité d'octets consommés par l'activité réseau. Découvrez comment réduire les ressources JavaScript inutilisées.LCPFCPNon noté
+
+Afficher les ressources tierces (2)
+URL	Taille de transfert	Économies estimées
+Google/Doubleclick Ads Ad
+218,7 KiB	166,3 KiB	
+…m202…/show_ads_impl_fy2021.js(pagead2.googlesyndication.com)	162,6 KiB	136,0 KiB
+…js/adsbygoogle.js?client=ca-pub-767…(pagead2.googlesyndication.com)	56,1 KiB	30,2 KiB
+wordizy.com Propriétaire
+70,5 KiB	22,6 KiB	
+…chunks/0iec5q4ack_04.js(wordizy.com)	70,5 KiB	22,6 KiB
+Évitez les tâches longues dans le thread principal 3 tâches longues trouvées
+
+Indique les tâches les plus longues du thread principal, ce qui est utile pour identifier celles qui entraînent le plus de retard. Découvrez comment éviter les longues tâches du thread principal.TBTNon noté
+
+Afficher les ressources tierces (2)
+URL	Heure de début	Durée
+Google/Doubleclick Ads Ad
+	192 ms	
+…m202…/show_ads_impl_fy2021.js(pagead2.googlesyndication.com)	863 ms	115 ms
+…js/adsbygoogle.js?client=ca-pub-767…(pagead2.googlesyndication.com)	506 ms	77 ms
+wordizy.com Propriétaire
+	50 ms	
+…chunks/turbopack-2hf59mdqtzk1d.js(wordizy.com)	996 ms	50 ms
+Éviter les animations non composées 1 élément animé trouvé
+
+Les animations non composées peuvent être lentes et augmenter le CLS. Découvrez comment éviter les animations non composées.CLSNon noté
+
+Élément	Nom
+Accept
+<button data-slot="button" class="inline-flex items-center justify-center whitespace-nowrap text-sm transiti…">	
+Propriété CSS incompatible : outline-width	outline-width
+Propriété CSS incompatible : border-bottom-color	border-bottom-color
+Propriété CSS incompatible : border-left-color	border-left-color
+Propriété CSS incompatible : box-shadow	box-shadow
+Propriété CSS incompatible : border-right-color	border-right-color
+Propriété CSS incompatible : border-top-color	border-top-color
+Plus d'informations sur les performances de votre application. Ces chiffres n'ont pas d'incidence directe sur le score lié aux performances.
+AUDITS RÉUSSIS (17)
+Masquer
+
+Latence de la demande de document
+
+Votre première requête réseau est la plus importante. Réduisez sa latence en évitant les redirections, en assurant une réponse rapide du serveur et en activant la compression de texte.LCPFCPNon noté
+
+* Pas de redirections
+* Le serveur répond rapidement (2 ms observées)
+* Applique la compression de texte
+
+Optimiser la taille du DOM
+
+Un grand DOM peut allonger la durée des calculs de style et des ajustements de la mise en page, ce qui impacte la réactivité de la page. Un grand DOM sollicite davantage la mémoire. Découvrez comment éviter une taille de DOM excessive.Non noté
+
+Statistique	Élément	Valeur
+Nombre total d'éléments		354
+Profondeur DOM	div.flex > button.inline-flex > svg.lucide > path
+<path d="m18 14 4 4-4 4">	11
+La plupart des enfants	body.geist_edd96c6a-module__FTRCtq__variable
+<body class="geist_edd96c6a-module__FTRCtq__variable geist_mono_a1454855-module__5kxOzW…">	22
+JavaScript en double
+
+Supprimez les modules JavaScript volumineux et en double de vos bundles pour réduire les débits d'octets superflus sur le réseau.LCPFCPNon noté
+
+
+Affichage de la police
+
+Envisagez de définir font-display sur swap ou optional pour vous assurer que le texte est toujours visible. swap peut être encore optimisé pour atténuer les décalages de mise en page avec des remplacements de métriques de police.Non noté
+
+
+Ajustement forcé de la mise en page
+
+Un ajustement de la mise en page forcé se produit lorsque JavaScript interroge des propriétés géométriques (comme offsetWidth) après que les styles ont été invalidés par une modification de l'état du DOM. Cela peut entraîner de mauvaises performances. En savoir plus sur les ajustements de la mise en page forcés et les stratégies d'atténuation possiblesNon noté
+
+
+
+Améliorer l'affichage des images
+
+Réduire le temps de téléchargement des images peut améliorer le temps de chargement perçu de la page et le LCP. En savoir plus sur l'optimisation de la taille des imagesLCPFCPNon noté
+
+
+Répartition INP
+
+Commencez par étudier la sous-partie la plus longue pour déterminer comment améliorer l'INP.Non noté
+
+
+Détection de la requête LCP
+
+Optimisez le LCP en rendant l'image LCP visible immédiatement à partir du code HTML et en évitant le chargement différéNon noté
+
+
+Optimiser la fenêtre d'affichage pour les mobiles
+
+Les interactions tactiles peuvent être retardées jusqu'à 300 ms si la fenêtre d'affichage n'est pas optimisée pour les mobiles.Non noté
+
+
+head > meta
+<meta name="viewport" content="width=device-width, initial-scale=1">
+Réduisez la taille des ressources CSS
+
+La minimisation des fichiers CSS peut réduire la taille des charges utiles de réseau. Découvrez comment minimiser des fichiers CSS.LCPFCPNon noté
+
+
+Réduisez la taille des ressources JavaScript
+
+La minimisation des fichiers JavaScript peut réduire la taille des charges utiles et la durée d'analyse des scripts. Découvrez comment les minimiser.LCPFCPNon noté
+
+
+Réduisez les ressources CSS inutilisées
+
+Réduisez les règles inutilisées des feuilles de style et différez les ressources CSS non utilisées pour le contenu au-dessus de la ligne de flottaison afin de réduire la quantité d'octets consommés par l'activité réseau. Découvrez comment réduire les ressources CSS non utilisées.LCPFCPNon noté
+
+
+Éviter d'énormes charges utiles de réseau La taille totale était de 940 Kio
+
+Les charges utiles des grands réseaux coûtent de l'argent réel aux utilisateurs et sont fortement corrélées aux délais de chargement interminables. Découvrez comment réduire la taille des charges utiles.Non noté
+
+Afficher les ressources tierces (2)
+URL	Taille de transfert
+wordizy.com Propriétaire
+412,3 KiB	
+…chunks/402gx9lum53-5.js(wordizy.com)	124,7 KiB
+…chunks/0iec5q4ack_04.js(wordizy.com)	72,1 KiB
+…media/83afe278b6a6bb3c.p.2bn3s6zvc0dyp.woff2(wordizy.com)	48,8 KiB
+…chunks/0mk1g55o6kl1e.js(wordizy.com)	39,1 KiB
+…media/8c2eb9ceedecfc8e.23aeddxv5enbo.woff2(wordizy.com)	38,4 KiB
+…media/5cf8828ea9d4dda3.p.05uz1l1tir_-_.woff2(wordizy.com)	34,9 KiB
+…media/caa3a2e1cccd8315.p.0wgildi0cnwt9.woff2(wordizy.com)	30,1 KiB
+…chunks/3z-ii7pfsx1ys.css(wordizy.com)	24,2 KiB
+Google/Doubleclick Ads Ad
+220,3 KiB	
+…m202…/show_ads_impl_fy2021.js(pagead2.googlesyndication.com)	163,4 KiB
+…js/adsbygoogle.js?client=ca-pub-767…(pagead2.googlesyndication.com)	56,9 KiB
+Marques et mesures du temps utilisateur
+
+Envisagez de doter votre appli de l'API User Timing pour mesurer ses performances réelles lors d'expériences utilisateur clés. En savoir plus sur les marques User TimingNon noté
+
+
+Délai d'exécution de JavaScript 0,4 s
+
+Envisagez de réduire le temps consacré à l'analyse, la compilation et l'exécution de JavaScript. La livraison de charges utiles JavaScript plus petites peut vous aider. Découvrez comment réduire le temps d'exécution de JavaScript.TBTNon noté
+
+Afficher les ressources tierces (2)
+URL	Temps CPU total	Évaluation des scripts	Analyse des scripts
+wordizy.com Propriétaire
+385 ms	206 ms	22 ms	
+…chunks/0iec5q4ack_04.js(wordizy.com)	218 ms	161 ms	13 ms
+https://wordizy.com	113 ms	5 ms	2 ms
+…chunks/0mk1g55o6kl1e.js(wordizy.com)	54 ms	40 ms	7 ms
+Google/Doubleclick Ads Ad
+195 ms	83 ms	107 ms	
+…m202…/show_ads_impl_fy2021.js(pagead2.googlesyndication.com)	115 ms	43 ms	69 ms
+…js/adsbygoogle.js?client=ca-pub-767…(pagead2.googlesyndication.com)	80 ms	39 ms	39 ms
+Non attribuable
+64 ms	7 ms	0 ms	
+Unattributable	64 ms	7 ms	0 ms
+Réduire le travail du thread principal 0,7 s
+
+Envisagez de réduire le temps consacré à l'analyse, la compilation et l'exécution de JavaScript. La livraison de charges utiles JavaScript plus petites peut vous aider. Découvrez comment réduire le travail du thread principal.TBTNon noté
+
+Catégorie	Temps passé
+Script Evaluation	357 ms
+Script Parsing & Compilation	167 ms
+Other	96 ms
+Style & Layout	88 ms
+Rendering	19 ms
+Garbage Collection	15 ms
+Parse HTML & CSS	9 ms
+Les éléments d'image possèdent une width et une height explicites
+
+Indiquez une largeur et une hauteur explicites sur les éléments d'image afin de réduire les décalages de mise en page et d'améliorer le CLS. Découvrez comment définir les dimensions de l'image.CLSNon noté
+
+
+96
+Accessibilité
+Ces vérifications permettent de connaître les possibilités d'amélioration de l'accessibilité de votre application Web. La détection automatique ne peut détecter qu'une partie des problèmes et ne garantit pas l'accessibilité de votre application Web. Il est donc conseillé d'effectuer également un test manuel.
+ARIA
+
+Des éléments utilisent des attributs ARIA interdits
+
+L'utilisation d'attributs ARIA dans des rôles où ils sont interdits peut empêcher de communiquer des informations importantes aux utilisateurs de technologies d'assistance. En savoir plus sur les rôles ARIA interdits
+
+Éléments non conformes
+? 0
+<span class="scrab-tile h-7 w-7 text-base rounded scrab-tile-blank" data-value="" aria-label="? 0">
+Servez-vous de ces indications pour améliorer l'utilisation des éléments ARIA dans votre application et ainsi optimiser l'expérience des utilisateurs de technologies d'assistance, comme les lecteurs d'écran.
+AUTRES ÉLÉMENTS À VÉRIFIER MANUELLEMENT (10)
+Masquer
+
+Interactive controls are keyboard focusable
+
+Custom interactive controls are keyboard focusable and display a focus indicator. Learn how to make custom controls focusable.Non noté
+
+
+Interactive elements indicate their purpose and state
+
+Interactive elements, such as links and buttons, should indicate their state and be distinguishable from non-interactive elements. Learn how to decorate interactive elements with affordance hints.Non noté
+
+
+The page has a logical tab order
+
+Tabbing through the page follows the visual layout. Users cannot focus elements that are offscreen. Learn more about logical tab ordering.Non noté
+
+
+Visual order on the page follows DOM order
+
+DOM order matches the visual order, improving navigation for assistive technology. Learn more about DOM and visual ordering.Non noté
+
+
+User focus is not accidentally trapped in a region
+
+A user can tab into and out of any control or region without accidentally trapping their focus. Learn how to avoid focus traps.Non noté
+
+
+The user's focus is directed to new content added to the page
+
+If new content, such as a dialog, is added to the page, the user's focus is directed to it. Learn how to direct focus to new content.Non noté
+
+
+HTML5 landmark elements are used to improve navigation
+
+Landmark elements (<main>, <nav>, etc.) are used to improve the keyboard navigation of the page for assistive technology. Learn more about landmark elements.Non noté
+
+
+Offscreen content is hidden from assistive technology
+
+Offscreen content is hidden with display: none or aria-hidden=true. Learn how to properly hide offscreen content.Non noté
+
+
+Custom controls have associated labels
+
+Custom interactive controls have associated labels, provided by aria-label or aria-labelledby. Learn more about custom controls and labels.Non noté
+
+
+Custom controls have ARIA roles
+
+Custom interactive controls have appropriate ARIA roles. Learn how to add roles to custom controls.Non noté
+
+Ces éléments concernent des zones qu'un outil de test automatique ne peut pas couvrir. Consultez notre guide sur la réalisation d'un examen d'accessibilité.
+AUDITS RÉUSSIS (26)
+Masquer
+
+Les attributs [aria-*] correspondent à leurs rôles
+
+Chaque role ARIA est rattaché à un sous-ensemble spécifique d'attributs aria-*. S'ils ne sont pas correctement associés, les attributs aria-* ne seront pas valides. Découvrez comment rattacher les attributs ARIA à leurs rôles.
+
+
+[aria-hidden="true"] ne figure pas sur le document <body>
+
+Les technologies d'assistance, telles que les lecteurs d'écran, présentent un fonctionnement irrégulier lorsque aria-hidden="true" est défini sur l'élément <body> du document. Découvrez comment aria-hidden affecte le corps du document.
+
+
+Tous les éléments [role] contiennent les attributs [aria-*] requis
+
+Certains rôles ARIA ont des attributs obligatoires qui décrivent l'état de l'élément aux lecteurs d'écran. En savoir plus sur les rôles et les attributs obligatoires
+
+
+Les valeurs [role] sont valides
+
+Les rôles ARIA doivent comporter des valeurs valides afin de remplir correctement leurs fonctions d'accessibilité. En savoir plus sur les rôles ARIA valides
+
+
+Les attributs [aria-*] ont des valeurs valides
+
+Les technologies d'assistance telles que les lecteurs d'écran ne peuvent pas interpréter les attributs ARIA si leurs valeurs ne sont pas valides. En savoir plus sur les valeurs valides des attributs ARIA
+
+
+Les attributs [aria-*] sont valides et correctement orthographiés
+
+Les technologies d'assistance telles que les lecteurs d'écran ne peuvent pas interpréter les attributs ARIA si leurs noms ne sont pas valides. En savoir plus sur les attributs ARIA valides
+
+
+Les boutons ont un nom accessible
+
+Lorsqu'un bouton n'a pas de nom accessible, les lecteurs d'écran annoncent simplement qu'il s'agit d'un "bouton", ce qui le rend inutilisable pour les personnes qui se servent de tels outils. Découvrez comment rendre les boutons plus accessibles.
+
+
+Les éléments d'image possèdent des attributs [alt]
+
+Les éléments informatifs doivent contenir un texte de substitution court et descriptif. L'attribut alt peut rester vide pour les éléments décoratifs. En savoir plus sur l'attribut alt
+
+
+Les éléments de formulaire sont associés à des libellés
+
+Les libellés permettent de s'assurer que les éléments de contrôle des formulaires sont énoncés correctement par les technologies d'assistance, comme les lecteurs d'écran. En savoir plus sur les libellés d'éléments de formulaires
+
+
+[user-scalable="no"] n'est pas utilisé dans l'élément <meta name="viewport">, et l'attribut [maximum-scale] n'est pas inférieur à 5.
+
+Désactiver le zoom est problématique pour les utilisateurs malvoyants qui ont besoin d'agrandir le contenu d'une page Web pour le voir correctement. En savoir plus sur la balise Meta viewport
+
+
+Les attributs ARIA sont utilisés comme indiqué pour le rôle de l'élément
+
+Certains attributs ARIA ne sont autorisés sur un élément que sous certaines conditions. En savoir plus sur les attributs ARIA conditionnels
+
+
+Les éléments comportant role="dialog" ou role="alertdialog" ont des noms accessibles.
+
+Les éléments de boîte de dialogue ARIA sans nom accessible peuvent empêcher les utilisateurs de lecteurs d'écran de comprendre la fonction de ces éléments. Découvrez comment rendre les éléments de boîte de dialogue ARIA plus accessibles.
+
+
+Les éléments [aria-hidden="true"] ne contiennent pas de descendants sélectionnables
+
+La présence de descendants sélectionnables dans un élément [aria-hidden="true"] empêche les utilisateurs de technologies d'assistance, telles que des lecteurs d'écran, de se servir de ces éléments interactifs. Découvrez comment aria-hidden affecte les éléments sélectionnables.
+
+
+Les couleurs d'arrière-plan et de premier plan sont suffisamment contrastées
+
+Un texte faiblement contrasté est difficile, voire impossible à lire pour de nombreux utilisateurs. Découvrez comment fournir un contraste suffisant des couleurs.
+
+
+Le document contient un élément <title>
+
+Le titre donne aux utilisateurs de lecteurs d'écran un aperçu de la page. En outre, les moteurs de recherche s'appuient principalement sur ce dernier pour déterminer la pertinence du contenu proposé. En savoir plus sur le titre des documents
+
+
+L'élément <html> contient un attribut [lang]
+
+Lorsqu'une page ne spécifie pas d'attribut lang, les lecteurs d'écran considèrent qu'elle est rédigée dans la langue par défaut sélectionnée au moment de leur configuration par l'utilisateur. Si la page n'est pas rédigée dans cette langue par défaut, les lecteurs d'écran risquent de ne pas énoncer correctement son contenu. En savoir plus sur l'attribut lang
+
+
+La valeur de l'attribut [lang] de l'élément <html> est valide
+
+Le fait de spécifier une langue BCP 47 valide permet d'aider les lecteurs d'écran à énoncer correctement le texte. Découvrez comment utiliser l'attribut lang.
+
+
+Les liens ont un nom visible
+
+Rédigez du texte visible et unique pour les liens (et pour le texte de substitution des images, si vous vous en servez dans des liens), afin que les utilisateurs de lecteurs d'écran puissent facilement positionner le curseur dessus et bénéficient d'une meilleure expérience de navigation. Découvrez comment rendre les liens accessibles.
+
+
+Les listes contiennent uniquement des éléments <li> et des éléments de type script (<script> et <template>).
+
+Les lecteurs d'écran ont une façon spécifique d'énoncer les listes. Pour leur permettre de donner de bons résultats, pensez à bien structurer ces dernières. En savoir plus sur la bonne structuration des listes
+
+
+Les éléments de liste (<li>) sont inclus dans des éléments parents <ul>, <ol> ou <menu>
+
+Les lecteurs d'écran requièrent que les éléments de liste (<li>) soient contenus dans un élément parent <ul>, <ol> ou <menu> pour les énoncer correctement. En savoir plus sur la bonne structuration des listes
+
+
+Aucun élément n'a de valeur [tabindex] supérieure à 0
+
+Une valeur supérieure à 0 implique un ordre de navigation explicite. Bien que cela soit valide d'un point de vue technique, cela crée souvent une expérience frustrante pour les utilisateurs qui s'appuient sur des technologies d'assistance. En savoir plus sur l'attribut tabindex
+
+
+La taille et l'espacement des zones cibles tactiles sont suffisants.
+
+Les zones cibles tactiles dont la taille et l'espacement sont suffisants aident les utilisateurs qui peuvent avoir des difficultés à se servir de petites commandes à activer les zones cibles. En savoir plus sur les zones cibles tactiles
+
+
+Les éléments d'en-tête sont classés séquentiellement par ordre décroissant
+
+Les en-têtes correctement classés qui respectent les niveaux transmettent la structure sémantique de la page, ce qui garantit une navigation plus aisée et permet d'identifier plus facilement dans quels cas utiliser les technologies d'assistance. En savoir plus sur l'ordre des titres
+
+
+Le document contient un repère principal
+
+L'un des repères principaux permet aux utilisateurs de lecteurs d'écran de naviguer sur une page Web. En savoir plus sur les repères
+
+
+Les rôles ARIA obsolètes n'ont pas été utilisés
+
+Il est possible que les rôles ARIA obsolètes ne soient pas correctement traités par les technologies d'assistance. En savoir plus sur les rôles ARIA obsolètes
+
+
+Les attributs autocomplete sont utilisés correctement
+
+Les valeurs de l'attribut autocomplete doivent être valides et correctement appliquées pour que les lecteurs d'écran fonctionnent correctement. En savoir plus sur les valeurs de saisie semi-automatique valides
+
+NON APPLICABLE (36)
+Masquer
+
+Les valeurs [accesskey] sont uniques
+
+Les clés d'accès permettent aux utilisateurs de positionner rapidement le curseur dans une partie spécifique de la page. Pour les aider à naviguer correctement, pensez à définir des clés d'accès uniques. En savoir plus sur les clés d'accèsNon noté
+
+
+Les éléments button, link et menuitem ont des noms accessibles
+
+Lorsqu'un élément n'a pas de nom accessible, les lecteurs d'écran l'annoncent avec un nom générique, ce qui le rend inutilisable pour les personnes qui se servent de tels outils. Découvrez comment rendre les éléments de commande plus accessibles.Non noté
+
+
+Les champs de saisie ARIA ont des noms accessibles
+
+Lorsqu'un champ de saisie n'a pas de nom accessible, les lecteurs d'écran l'annoncent avec un nom générique, ce qui le rend inutilisable pour les personnes qui se servent de tels outils. En savoir plus sur le libellé des champs de saisieNon noté
+
+
+Les éléments ARIA meter ont des noms accessibles
+
+Lorsqu'un élément outil de mesure n'a pas de nom accessible, les lecteurs d'écran l'annoncent avec un nom générique, ce qui le rend inutilisable pour les personnes qui se servent de tels outils. Découvrez comment nommer des éléments meter.Non noté
+
+
+Les éléments ARIA progressbar ont des noms accessibles
+
+Lorsqu'un élément progressbar n'a pas de nom accessible, les lecteurs d'écran l'annoncent avec un nom générique, ce qui le rend inutilisable pour les personnes qui se servent de tels outils. Découvrez comment ajouter des libellés aux éléments progressbar.Non noté
+
+
+Les éléments ayant un [role] ARIA, qui exigent que les enfants incluent un [role] spécifique, possèdent tous les enfants requis.
+
+Certains rôles ARIA parents doivent contenir des rôles enfants spécifiques afin de remplir correctement leurs fonctions d'accessibilité. En savoir plus sur les rôles et les éléments enfants requisNon noté
+
+
+Les éléments [role] sont inclus dans l'élément parent approprié
+
+Certains rôles ARIA enfants doivent être inclus dans un rôle parent spécifique afin de remplir correctement leurs fonctions d'accessibilité. En savoir plus sur les rôles ARIA et l'élément parent requisNon noté
+
+
+Les éléments comportant l'attribut role=text n'ont pas de descendants sélectionnables.
+
+L'ajout de role=text autour d'un nœud de texte divisé par le balisage permet à VoiceOver de le traiter comme une seule expression, mais les descendants sélectionnables de l'élément ne seront pas annoncés. En savoir plus sur l'attribut role=textNon noté
+
+
+Les champs d'activation/de désactivation ARIA ont des noms accessibles
+
+Lorsqu'un champ d'activation/de désactivation n'a pas de nom accessible, les lecteurs d'écran l'annoncent avec un nom générique, ce qui le rend inutilisable pour les personnes qui se servent de tels outils. En savoir plus sur les champs d'activation/de désactivationNon noté
+
+
+Les éléments ARIA tooltip ont des noms accessibles
+
+Lorsqu'un élément info-bulle n'a pas de nom accessible, les lecteurs d'écran l'annoncent avec un nom générique, ce qui le rend inutilisable pour les personnes qui se servent de tels outils. Découvrez comment nommer des éléments tooltip.Non noté
+
+
+Les éléments ARIA treeitem ont des noms accessibles
+
+Lorsqu'un élément treeitem n'a pas de nom accessible, les lecteurs d'écran l'annoncent avec un nom générique, ce qui le rend inutilisable pour les personnes qui se servent de tels outils. En savoir plus sur l'ajout de libellé aux éléments treeitemNon noté
+
+
+La page contient un titre, un lien "Ignorer" ou un point de repère
+
+En ajoutant des méthodes pour contourner les contenus répétitifs, vous permettez aux internautes qui utilisent un clavier de naviguer plus efficacement sur la page. En savoir plus sur les blocs de contournementNon noté
+
+
+Les éléments <dl> ne contiennent que des groupes <dt> et <dd> ainsi que des éléments <script>, <template> ou <div> dans le bon ordre.
+
+Si les listes de définition ne sont pas correctement balisées, les lecteurs d'écran risquent de donner des résultats confus ou imprécis. Découvrez comment structurer correctement les listes de définition.Non noté
+
+
+Les éléments de liste de définition sont encapsulés dans des éléments <dl>
+
+Les éléments de liste de définition (<dt> et <dd>) doivent être encapsulés dans un élément <dl> parent afin que les lecteurs d'écran puissent les énoncer correctement. Découvrez comment structurer correctement les listes de définition.Non noté
+
+
+Les ID ARIA sont uniques
+
+La valeur d'un ID ARIA doit être unique afin que les différentes instances soient toutes prises en compte par les technologies d'assistance. Découvrez comment résoudre les problèmes d'ID ARIA en double.Non noté
+
+
+Aucun champ de formulaire ne comporte plusieurs libellés
+
+Les champs de formulaire comprenant plusieurs libellés peuvent être annoncés par les technologies d'assistance comme des lecteurs d'écran utilisant le premier, le dernier ou tous les libellés, ce qui peut prêter à confusion. Découvrez comment utiliser les libellés de formulaires.Non noté
+
+
+Les éléments <frame> ou <iframe> ont un titre
+
+Les lecteurs d'écran s'appuient sur le titre des frames pour décrire le contenu de ces derniers aux utilisateurs. En savoir plus sur le titre des framesNon noté
+
+
+L'élément <html> comporte un attribut [xml:lang] avec la même langue de base que l'attribut [lang].
+
+Si la langue de la page Web n'est pas spécifiée de manière cohérente, le lecteur d'écran risque de ne pas énoncer correctement le texte de la page. En savoir plus sur l'attribut langNon noté
+
+
+Les boutons d'entrée contiennent du texte visible.
+
+Ajouter un texte visible et accessible aux boutons d'entrée peut aider les utilisateurs de lecteurs d'écran à comprendre la fonction de ces boutons d'entrée. En savoir plus sur les boutons d'entréeNon noté
+
+
+Les éléments <input type="image"> contiennent du texte [alt]
+
+Lorsqu'une image est utilisée comme bouton <input>, vous pouvez aider les utilisateurs de lecteurs d'écran à comprendre son utilité en ajoutant un texte de substitution. En savoir plus sur le texte de substitution d'une image d'entréeNon noté
+
+
+Les liens sont identifiables sans se baser sur la couleur.
+
+Un texte faiblement contrasté est difficile, voire impossible à lire pour de nombreux utilisateurs. Un texte de lien visible permet d'améliorer l'expérience des personnes malvoyantes. Découvrez comment rendre les liens identifiables.Non noté
+
+
+Le document n'utilise pas de balise Meta <meta http-equiv="refresh">
+
+Les utilisateurs ne s'attendent pas à ce qu'une page s'actualise automatiquement. De plus, lorsque cela se produit, le curseur est aussitôt repositionné en haut de la page. Cela peut générer de la frustration et perturber l'expérience utilisateur. En savoir plus sur la balise Meta refreshNon noté
+
+
+Les éléments <object> contiennent du texte de substitution
+
+Les lecteurs d'écran ne peuvent pas traduire les contenus non textuels. En ajoutant un texte de substitution aux éléments <object>, vous aiderez les lecteurs d'écran à transmettre votre message aux utilisateurs. En savoir plus sur le texte de substitution aux éléments objectNon noté
+
+
+Certains éléments sont associés à des éléments de libellé.
+
+Les éléments de formulaire sans libellé efficace peuvent créer une expérience frustrante pour les utilisateurs de lecteurs d'écran. En savoir plus sur l'élément selectNon noté
+
+
+Les liens d'ancrage sont sélectionnables.
+
+Ajouter un lien d'ancrage permet aux utilisateurs de passer plus rapidement au contenu principal. En savoir plus sur les liens d'ancrageNon noté
+
+
+Les cellules d'un élément <table> qui utilisent l'attribut [headers] font référence à des cellules figurant dans le même tableau.
+
+Les lecteurs d'écran proposent des fonctionnalités qui permettent de naviguer plus simplement dans les tableaux. En vous assurant que les cellules <td> qui comportent l'attribut [headers] fassent référence à d'autres cellules dans le même tableau uniquement, vous pourrez améliorer l'expérience des utilisateurs de lecteurs d'écran. En savoir plus sur l'attribut headersNon noté
+
+
+Les éléments <th> et ceux portant l'attribut [role="columnheader"/"rowheader"] décrivent des cellules de données.
+
+Les lecteurs d'écran proposent des fonctionnalités qui permettent de naviguer plus simplement dans les tableaux. En vous assurant que les en-têtes de tableaux fassent toujours référence à un ensemble de cellules spécifique, vous pourrez améliorer l'expérience des utilisateurs de lecteurs d'écran. En savoir plus sur les en-têtes de tableauxNon noté
+
+
+Les attributs [lang] ont une valeur valide
+
+Le fait de spécifier une langue BCP 47 valide pour les éléments permet de s'assurer que le texte sera prononcé correctement par les lecteurs d'écran. Découvrez comment utiliser l'attribut lang.Non noté
+
+
+Les éléments <video> contiennent un élément <track> avec [kind="captions"]
+
+Le fait d'ajouter des sous-titres à une vidéo rend celle-ci plus accessible aux personnes sourdes et malentendantes. En savoir plus sur les sous-titres de vidéosNon noté
+
+
+Les éléments comportant role="none" ou role="presentation" ne présentent pas de conflits
+
+Dans certains cas, le rôle sémantique d'un élément comportant role="none" ou role="presentation" ne correspond pas à "none" ou "presentation". Pour vous assurer que l'élément reste supprimé de l'arborescence d'accessibilité, vous ne devez pas ajouter d'attributs ARIA globaux à l'élément ni le rendre sélectionnable. En savoir plus sur les conflits de rôles de présentationNon noté
+
+
+Les éléments SVG comportant un rôle img ont un texte alternatif accessible
+
+S'assure que les éléments SVG comportant un rôle img, graphics-document ou graphics-symbol disposent d'un texte alternatif accessible. En savoir plus sur le texte alternatif SVGNon noté
+
+
+Le contenu des tables dans l'attribut "summary" et dans <caption> est différent.
+
+L'attribut "summary" doit décrire la structure de la table, tandis que <caption> doit spécifier le titre à l'écran. Un balisage de table précis aide les utilisateurs de lecteur d'écran. En savoir plus sur les attributs "summary" et "caption"Non noté
+
+
+Tous les éléments de titre ont du contenu.
+
+Un titre sans contenu ni texte inaccessible empêche les utilisateurs de lecteurs d'écran d'accéder aux informations sur la structure de la page. En savoir plus sur les titresNon noté
+
+
+N'utilise des rôles ARIA que sur des éléments compatibles
+
+De nombreux éléments HTML ne peuvent être associés qu'à certains rôles ARIA. L'utilisation de rôles ARIA lorsqu'ils ne sont pas autorisés peut affecter l'accessibilité de la page Web. En savoir plus sur les rôles ARIANon noté
+
+
+Les éléments d'image ne comportent pas d'attributs [alt] correspondant à du texte redondant.
+
+Les éléments informatifs doivent contenir un texte de substitution court et descriptif. Un texte de substitution identique au texte situé à côté du lien ou de l'image peut prêter à confusion pour les utilisateurs se servant d'un lecteur d'écran, car le texte est lu deux fois. En savoir plus sur l'attribut altNon noté
+
+
+Les liens identiques ont la même fonction.
+
+Les liens vers une même destination doivent avoir une description identique pour que les internautes comprennent la fonction du lien et décident de le suivre ou non. En savoir plus sur les liens identiquesNon noté
+
+
+92
+Bonnes pratiques
+
+GÉNÉRAL
+
+Les erreurs de navigateur ont été enregistrées dans la console
+
+Les erreurs enregistrées dans la console indiquent des problèmes non résolus. Ceux-ci peuvent être dus à des requêtes réseau qui ont échoué et à d'autres problèmes du navigateur. En savoir plus sur ces erreurs dans l'audit de diagnostic de la console
+
+Source	Description
+Google/Doubleclick Ads Ad
+	
+…js/adsbygoogle.js?client=ca-pub-767…:41:95(pagead2.googlesyndication.com)	Creating a TrustedTypePolicy named 'goog#html' violates the following Content Security policy directive: "trusted-types default". The action has been blocked.
+…m202…/show_ads_impl_fy2021.js:72:209(pagead2.googlesyndication.com)	Creating a TrustedTypePolicy named 'goog#html' violates the following Content Security policy directive: "trusted-types default". The action has been blocked.
+…m202…/show_ads_impl_fy2021.js:318:937(pagead2.googlesyndication.com)	Loading the script 'https://fundingchoicesmessages.google.com/i/ca-pub-7679007277033188?href=https%3A%2F%2Fwordizy.com&ers=2' violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.
+Des problèmes ont été enregistrés dans le panneau Issues des outils de développement Chrome
+
+Les problèmes enregistrés dans le panneau Issues des outils de développement Chrome indiquent des problèmes non résolus. Ceux-ci peuvent être dus à des requêtes réseau qui ont échoué, à des contrôles de sécurité insuffisants ou à d'autres problèmes du navigateur. Ouvrez le panneau "Issues" dans les outils de développement Chrome pour en savoir plus sur chaque problème.
+
+Type de problème
+Content security policy
+/i/ca-pub-76…?href=https%3A%2F%2Fwordizy.com&ers=2(fundingchoicesmessages.google.com)
+FIABILITÉ ET SÉCURITÉ
+
+Garantir l'efficacité de la CSP contre les attaques XSS
+
+Une CSP (Content Security Policy) efficace réduit considérablement le risque d'attaques de script intersites (XSS). Découvrez comment utiliser une CSP pour empêcher les attaques XSS.Non noté
+
+Description	Directive	Gravité
+Les listes d'autorisation des hôtes peuvent souvent être contournées. Envisagez plutôt d'utiliser des nonces ou hachages CSP, ainsi que `'strict-dynamic'` (si nécessaire).	script-src	Élevée
+`'unsafe-inline'` permet l'exécution de gestionnaires d'événements et de scripts non sécurisés sur la page. Envisagez d'utiliser des nonces ou hachages CSP pour autoriser les scripts un à un.	script-src	Élevée
+COMPATIBILITÉ DU NAVIGATEUR
+
+Fonctionnalités Baseline
+
+Répertorie les fonctionnalités Web utilisées sur la page et leur état Baseline au 2026-09-17. En savoir plus sur BaselineNon noté
+
+Afficher les ressources tierces (1)
+Fonctionnalités Web	État Baseline	Source
+wordizy.com Propriétaire
+		
+background-clip-text	Limited Availability	https://wordizy.com:-1:-2
+layout-instability	Limited Availability	…chunks/0m4lg_yvd7_os.js:1:54742(wordizy.com)
+referencetarget	Limited Availability	…chunks/0iec5q4ack_04.js:1:212107(wordizy.com)
+field-sizing	Newly Available (2026-06-16)	https://wordizy.com:-1:-2
+scrollbar-color	Newly Available (2025-12-12)	https://wordizy.com:-1:-2
+scrollend	Newly Available (2025-12-12)	…chunks/0iec5q4ack_04.js:1:163473(wordizy.com)
+scrollbar-width	Newly Available (2024-12-11)	https://wordizy.com:-1:-2
+fetch-priority	Newly Available (2024-10-29)	https://wordizy.com:-1:-2
+text-wrap	Newly Available (2024-10-17)	https://wordizy.com:-1:-2
+relative-color	Newly Available (2024-09-16)	https://wordizy.com:-1:-2
+backdrop-filter	Newly Available (2024-09-16)	https://wordizy.com:-1:-2
+registered-custom-properties	Newly Available (2024-07-09)	https://wordizy.com:-1:-2
+gradient-interpolation	Newly Available (2024-06-11)	https://wordizy.com:-1:-2
+avif	Widely Available (2024-01-25)	https://wordizy.com:-1:-2
+has	Widely Available (2023-12-19)	https://wordizy.com:-1:-2
+aria-attribute-reflection	Widely Available (2023-10-24)	…chunks/0iec5q4ack_04.js:1:211886(wordizy.com)
+contain-intrinsic-size	Widely Available (2023-09-18)	https://wordizy.com:-1:-2
+lab	Widely Available (2023-05-09)	https://wordizy.com:-1:-2
+color-mix	Widely Available (2023-05-09)	https://wordizy.com:-1:-2
+outline	Widely Available (2023-03-27)	…chunks/0m4lg_yvd7_os.js:1:23486(wordizy.com)
+forced-colors	Widely Available (2022-09-12)	https://wordizy.com:-1:-2
+individual-transforms	Widely Available (2022-08-05)	…chunks/1wjp1j482_7q9.js:1:11428(wordizy.com)
+cascade-layers	Widely Available (2022-03-14)	https://wordizy.com:-1:-2
+focus-visible	Widely Available (2022-03-14)	https://wordizy.com:-1:-2
+appearance	Widely Available (2022-03-14)	https://wordizy.com:-1:-2
+color-scheme	Widely Available (2022-02-03)	https://wordizy.com:12:1711
+logical-properties	Widely Available (2021-09-20)	https://wordizy.com:-1:-2
+aspect-ratio	Widely Available (2021-09-20)	https://wordizy.com:-1:-2
+file-selector-button	Widely Available (2021-04-26)	https://wordizy.com:-1:-2
+where	Widely Available (2021-01-21)	https://wordizy.com:-1:-2
+is	Widely Available (2021-01-21)	https://wordizy.com:-1:-2
+not	Widely Available (2021-01-21)	https://wordizy.com:-1:-2
+clip-path	Widely Available (2021-01-21)	https://wordizy.com:-1:-2
+text-underline-offset	Widely Available (2020-11-19)	https://wordizy.com:-1:-2
+logical-assignments	Widely Available (2020-09-16)	https://wordizy.com:1:0
+nullish-coalescing	Widely Available (2020-09-16)	https://wordizy.com:1:0
+intersection-observer	Widely Available (2019-03-25)	…chunks/0mk1g55o6kl1e.js:1:66003(wordizy.com)
+aborting	Widely Available (2019-03-25)	…chunks/0iec5q4ack_04.js:1:51543(wordizy.com)
+grid	Widely Available (2017-10-17)	https://wordizy.com:-1:-2
+template	Widely Available (2015-11-12)	https://wordizy.com:-1:-2
+flexbox	Widely Available (2015-09-30)	https://wordizy.com:-1:-2
+request-animation-frame	Widely Available (2015-07-29)	https://wordizy.com:12:5280
+text-indent	Widely Available (2015-07-29)	https://wordizy.com:-1:-2
+Google/Doubleclick Ads Ad
+		
+ua-client-hints	Limited Availability	…js/adsbygoogle.js?client=ca-pub-767…:189:846(pagead2.googlesyndication.com)
+Non attribuable
+		
+referrer-policy	Widely Available (2021-09-20)	
+AUDITS RÉUSSIS (11)
+Masquer
+
+Requêtes HTTPS
+
+Tous les sites doivent être protégés par le protocole HTTPS, même ceux qui ne traitent pas de données sensibles. Par conséquent, vous devez éviter le contenu mixte, qui provoque le chargement de certaines ressources sur HTTP bien que la demande initiale soit diffusée via HTTPS. Le protocole HTTPS empêche les intrus de détourner ou d’écouter passivement les communications entre votre appli et les utilisateurs. Il constitue également une condition préalable à l'utilisation de HTTP/2 et de nombreuses nouvelles API de plates-formes Web. En savoir plus sur le protocole HTTPS
+
+
+La page n'utilise pas d'API obsolètes
+
+Les API obsolètes seront finalement supprimées du navigateur. En savoir plus sur les API obsolètes
+
+
+Évite les cookies tiers
+
+Les cookies tiers peuvent être bloqués dans certains contextes. Découvrez comment vous préparer aux restrictions concernant les cookies tiers.
+
+
+Autoriser les utilisateurs à coller du texte dans les champs de saisie
+
+Empêcher la saisie par collage est une mauvaise pratique pour l'expérience utilisateur qui affaiblit la sécurité en bloquant les gestionnaires de mots de passe.En savoir plus sur les champs de saisie faciles à utiliser
+
+
+Aucune autorisation de géolocalisation n'est demandée au chargement de la page
+
+Les utilisateurs se méfient des sites qui demandent leur position sans contexte. Envisagez plutôt d'associer la demande à une action de l'utilisateur. En savoir plus sur l'autorisation de géolocalisation Vous pouvez aussi envisager d'utiliser l‘élément <geolocation>.
+
+
+Aucune autorisation d'envoi de notifications n'est demandée au chargement de la page
+
+Les utilisateurs se méfient des sites qui demandent à envoyer des notifications sans contexte. Envisagez plutôt d'associer la demande à des gestes de l'utilisateur. Découvrez comment obtenir de façon responsable une autorisation pour les notifications.
+
+
+Images affichées au bon format
+
+Les dimensions d'affichage des images doivent correspondre au format naturel. En savoir plus sur le format de l'image
+
+
+Images diffusées dans la résolution appropriée
+
+Pour que la clarté de l'image soit optimale, ses dimensions naturelles doivent être proportionnelles à la taille d'affichage et au taux de pixels. Découvrez comment fournir des images responsives.
+
+
+La page n'a pas d'attribut doctype HTML
+
+La spécification d'un attribut doctype empêche le navigateur de passer en mode quirks. En savoir plus sur la déclaration d'un attribut doctype
+
+
+Le charset est défini correctement
+
+La déclaration d'encodage des caractères est obligatoire. Elle peut être effectuée avec une balise <meta> dans les 1 024 premiers octets du code HTML, ou dans l'en-tête de réponse HTTP Content-Type. Découvrez comment déclarer l'encodage des caractères.
+
+
+La page contient des mappages source valides
+
+Les mappages source traduisent le code minimisé pour obtenir le code source d'origine. Ce processus aide les développeurs à effectuer le débogage en phase de production. De plus, Lighthouse est en mesure de fournir d'autres renseignements. Envisagez de déployer des mappages source pour profiter de ces avantages. En savoir plus sur les mappages sourceNon noté
+
+NON APPLICABLE (6)
+Masquer
+
+Trafic HTTP redirigé vers HTTPS
+
+Veillez à rediriger tout le trafic HTTP vers HTTPS afin de proposer des fonctionnalités Web sûres à tous vos utilisateurs. En savoir plusNon noté
+
+
+Utiliser une règle HSTS efficace
+
+Le déploiement de l'en-tête HSTS réduit considérablement le risque d'attaques par écoute et par rétrogradation en connexion HTTP. Nous vous recommandons un déploiement par étapes, en commençant par un max-age faible. En savoir plus sur l'utilisation d'une règle HSTS efficaceNon noté
+
+
+Assurez l'isolation appropriée de l'origine avec COOP
+
+La règle COOP (Cross-Origin-Opener-Policy) peut être utilisée pour séparer la fenêtre de premier niveau des autres documents, comme les pop-ups. En savoir plus sur le déploiement de l'en-tête COOPNon noté
+
+
+Limiter le clickjacking avec XFO ou CSP
+
+L'en-tête X-Frame-Options (XFO) ou la directive frame-ancestors dans l'en-tête Content-Security-Policy (CSP) contrôlent où une page peut être intégrée. Ils peuvent limiter les attaques de clickjacking en bloquant l'intégration de la page sur certains ou tous les sites. En savoir plus sur la prévention du clickjackingNon noté
+
+
+Atténuer les attaques XSS basées sur le DOM avec les Trusted Types
+
+La directive require-trusted-types-for dans l'en-tête Content-Security-Policy (CSP) indique aux user-agents de contrôler les données transmises aux fonctions de récepteur XSS basées sur le DOM. En savoir plus sur l'atténuation des attaques XSS basées sur le DOM avec les Trusted TypesNon noté
+
+
+Bibliothèques JavaScript détectées
+
+Toutes les bibliothèques JavaScript frontales détectées sur la page. En savoir plus sur cet audit de diagnostic lié à la détection de bibliothèques JavaScriptNon noté
+
+
+100
+SEO
+Ces vérifications garantissent que votre page suit les conseils de base concernant le référencement naturel. De nombreux facteurs supplémentaires ne sont pas évalués par Lighthouse ici, mais peuvent affecter votre classement dans les résultats de recherche, y compris vos performances concernant les Core Web Vitals. En savoir plus sur les Essentiels de la recherche Google
+AUTRES ÉLÉMENTS À VÉRIFIER MANUELLEMENT (1)
+Masquer
+
+Les données structurées sont valides
+
+Exécutez l‘outil de test des données structurées pour valider les données structurées. En savoir plus sur les données structuréesNon noté
+
+Exécutez ces outils de validation supplémentaires sur votre site pour vérifier les bonnes pratiques de SEO complémentaires.
+AUDITS RÉUSSIS (10)
+Afficher
+
+L'indexation de cette page n'est pas bloquée
+
+Les moteurs de recherche ne peuvent pas inclure vos pages dans les résultats de recherche s'ils ne sont pas autorisés à les explorer. En savoir plus sur les instructions liées au robot d'exploration
+
+
+Le document contient un élément <title>
+
+Le titre donne aux utilisateurs de lecteurs d'écran un aperçu de la page. En outre, les moteurs de recherche s'appuient principalement sur ce dernier pour déterminer la pertinence du contenu proposé. En savoir plus sur le titre des documents
+
+
+Le document contient un attribut "meta description"
+
+Les résultats de recherche peuvent inclure des attributs "meta description" pour résumer de façon concise le contenu de la page. En savoir plus sur la meta description
+
+
+La page renvoie un code d'état HTTP de réussite
+
+Les pages renvoyant des codes d'état HTTP d'échec peuvent ne pas être indexées correctement. En savoir plus sur les codes d'état HTTP
+
+
+Les liens contiennent un texte descriptif
+
+Le texte descriptif d'un lien aide les moteurs de recherche à comprendre votre contenu. Découvrez comment rendre les liens plus accessibles.
+
+
+Les liens peuvent être explorés
+
+Les moteurs de recherche peuvent utiliser les attributs href des liens pour explorer les sites Web. Assurez-vous que l'attribut href des éléments d'ancrage pointe vers une destination appropriée, pour que davantage de pages du site puissent être détectées. Découvrez comment rendre les liens explorables.
+
+
+Le fichier robots.txt est valide
+
+Si votre fichier robots.txt n'est pas créé correctement, il se peut que les robots d'exploration ne puissent pas comprendre comment votre site Web doit être exploré ou indexé. En savoir plus sur les fichiers robots.txt
+
+
+Les éléments d'image possèdent des attributs [alt]
+
+Les éléments informatifs doivent contenir un texte de substitution court et descriptif. L'attribut alt peut rester vide pour les éléments décoratifs. En savoir plus sur l'attribut alt
+
+
+L'attribut hreflang du document est valide
+
+Les liens hreflang indiquent aux moteurs de recherche la version de la page qu'ils doivent présenter dans les résultats de recherche pour une page ou une région donnée. En savoir plus sur hreflang
+
+
+L'attribut rel=canonical du document est valide
+
+Les liens canoniques suggèrent l'URL à afficher dans les résultats de recherche. En savoir plus sur les liens canoniques
+
+
+2/4
+Navigation agentique
+Ces vérifications garantissent des sites Web de haute qualité et consultables pour les agents IA, et valident l'exactitude des intégrations WebMCP. Cette catégorie est encore en cours de développement et susceptible d'être modifiée.
+ACCESSIBILITÉ POUR LES AGENTS
+
+L'arborescence d'accessibilité n'est pas bien formée
+
+Une arborescence d'accessibilité bien formée aide les agents IA à naviguer sur la page et à interagir avec elle.
+
+Audits ayant échoué
+Description	Élément causant l'échec
+Elements must only use permitted ARIA attributes	? 0
+<span class="scrab-tile h-7 w-7 text-base rounded scrab-tile-blank" data-value="" aria-label="? 0">
+Ces audits mettent en évidence les bonnes pratiques visant à améliorer l'accessibilité du site Web pour les agents IA.
+VISIBILITÉ PAR LES AGENTS
+
+Le schéma ai-catalog.json n'est pas valide
+
+Des fichiers manifestes ai-catalog.json valides sont requis pour que les agents IA autonomes et les registres découvrent et valident vos ressources. En savoir plus sur la spécification ARD
+
+Élément	Problème	Gravité
+Root	Malformed JSON in manifest: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON	Erreur
+Ces audits vérifient que les sites Web présentent des ressources, de la documentation et des catalogues visibles pour les agents IA.
+AUDITS RÉUSSIS (2)
+Masquer
+
+Cumulative Layout Shift 0
+
+Cumulative Layout Shift mesure le mouvement des éléments visibles dans la fenêtre d'affichage. En savoir plus sur cette métrique
+
+
+llms.txt suit les recommandations
+
+Si votre fichier llms.txt ne suit pas les recommandations, il se peut que les grands modèles de langage ne comprennent pas comment votre site Web doit être exploré ou utilisé pour l'entraînement. Le fichier llms.txt doit être un fichier Markdown contenant au moins un en-tête H1. En savoir plus sur l'audit llms.txt
+
+NON APPLICABLE (3)
+Masquer
+
+Couverture du formulaire WebMCP
+
+Envisagez d'ajouter des annotations WebMCP aux formulaires listés ci-dessous. Cela aide les agents IA à les identifier et à interagir avec ces formulaires de manière plus fiable.Non noté
+
+
+Outils WebMCP enregistrés
+
+Liste les outils WebMCP enregistrés au moment de l'analyse.Non noté
+
+
+Les schémas WebMCP sont valides
+
+Des schémas WebMCP valides sont nécessaires pour que les agents IA comprennent les outils et interagissent correctement avec eux. Veuillez corriger les erreurs ou les avertissements signalés par le navigateur.Non noté
+

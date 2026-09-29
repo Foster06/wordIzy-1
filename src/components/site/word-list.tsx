@@ -180,7 +180,7 @@ export function WordList({
                     aria-label={isFav ? `Remove ${cleanWord} from vault` : `Save ${cleanWord} to vault`}
                     aria-pressed={isFav}
                     title={isFav ? "Saved" : "Save to vault"}
-                    className={`shrink-0 p-0 rounded transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 ${
+                    className={`shrink-0 p-0 rounded transition-colors transition-transform cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 ${
                       isFav
                         ? "text-amber-500"
                         : "text-muted-foreground/60 group-hover:text-muted-foreground/60 hover:text-amber-500"

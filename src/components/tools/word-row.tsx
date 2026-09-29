@@ -12,7 +12,7 @@ export function WordRow({ word, score }: WordRowProps) {
   const isFavorited = favorites.includes(word);
 
   return (
-    <div className="flex items-center justify-between p-2.5 rounded-lg bg-background/40 hover:bg-background/80 border border-border/50 transition-all group">
+    <div className="flex items-center justify-between p-2.5 rounded-lg bg-background/40 hover:bg-background/80 border border-border/50 transition-colors transition-transform group">
       <div className="flex items-center space-x-3">
         {/* 🎯 THE FAVORITE TOGGLE BUTTON */}
         <button

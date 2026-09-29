@@ -115,7 +115,7 @@ export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
                 onClick={onClose}
                 type="button"
                 style={{ color: "text-neutral-400" }}
-                className="p-1.5 rounded-lg transition-all cursor-pointer hover:opacity-70"
+                className="p-1.5 rounded-lg transition-colors transition-transform cursor-pointer hover:opacity-70"
                 aria-label="Close Vault"
               >
                 <X className="h-4 w-4" />
@@ -160,7 +160,7 @@ export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
                       border: `1px solid ${itemBorderColor}`,
                       color: containerTextColor
                     }}
-                    className="flex items-center justify-between p-2.5 rounded-lg transition-all"
+                    className="flex items-center justify-between p-2.5 rounded-lg transition-colors transition-transform"
                   >
                     <span className="font-mono text-sm font-semibold tracking-wide uppercase truncate">
                       {word}

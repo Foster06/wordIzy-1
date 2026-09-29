@@ -70,7 +70,7 @@ export function ShareButtons({ title, url, className }: ShareButtonsProps) {
             aria-label={`Share on ${link.name}`}
             title={`Share on ${link.name}`}
             className={cn(
-              "flex h-8 w-8 items-center justify-center rounded-lg glass-soft border border-white/10 text-muted-foreground transition-all hover:scale-105",
+              "flex h-8 w-8 items-center justify-center rounded-lg glass-soft border border-white/10 text-muted-foreground transition-colors transition-transform hover:scale-105",
               link.color
             )}
           >
@@ -83,7 +83,7 @@ export function ShareButtons({ title, url, className }: ShareButtonsProps) {
         aria-label="Copy link"
         title="Copy link"
         className={cn(
-          "flex h-8 w-8 items-center justify-center rounded-lg glass-soft border border-white/10 text-muted-foreground transition-all hover:scale-105",
+          "flex h-8 w-8 items-center justify-center rounded-lg glass-soft border border-white/10 text-muted-foreground transition-colors transition-transform hover:scale-105",
           copied
             ? "text-emerald-400 border-emerald-400/40"
             : "hover:text-brand hover:border-brand/40"
