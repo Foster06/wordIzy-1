@@ -154,6 +154,7 @@ export type Translation = {
   typeWord: string;
   skipReveal: string;
   stopGame: string;
+  play: string;
   correct: string;
   answerWas: string;
   // SEO content section (below the game card) — translated per language
@@ -482,6 +483,7 @@ const en: Translation = {
   typeWord: "Type word...",
   skipReveal: "🏳️ Skip & Reveal",
   stopGame: "🛑 Stop Game",
+  play: "▶ Play",
   correct: "✨ Perfect! Correct Answer!",
   answerWas: "The answer was:",
   // SEO content section (below the game card)
@@ -809,6 +811,7 @@ const fr: Translation = {
   typeWord: "Tapez le mot...",
   skipReveal: "🏳️ Passer & Révéler",
   stopGame: "🛑 Arrêter",
+  play: "▶ Jouer",
   correct: "✨ Parfait ! Bonne réponse !",
   answerWas: "La réponse était :",
   // Section contenu SEO (sous la carte du jeu)
@@ -1109,6 +1112,7 @@ const es: Translation = {
   typeWord: "Escribe la palabra...",
   skipReveal: "🏳️ Saltar y revelar",
   stopGame: "🛑 Detener",
+  play: "▶ Jugar",
   correct: "✨ ¡Perfecto! ¡Respuesta correcta!",
   answerWas: "La respuesta era:",
   // Sección de contenido SEO (debajo de la tarjeta del juego)
@@ -1409,6 +1413,7 @@ const de: Translation = {
   typeWord: "Wort eingeben...",
   skipReveal: "🏳️ Überspringen & Aufdecken",
   stopGame: "🛑 Stopp",
+  play: "▶ Spielen",
   correct: "✨ Perfekt! Richtige Antwort!",
   answerWas: "Die Antwort war:",
   // SEO-Inhaltsabschnitt (unter der Spielkarte)
@@ -1709,6 +1714,7 @@ const it: Translation = {
   typeWord: "Scrivi parola...",
   skipReveal: "🏳️ Salta e rivela",
   stopGame: "🛑 Ferma",
+  play: "▶ Gioca",
   correct: "✨ Perfetto! Risposta corretta!",
   answerWas: "La risposta era:",
   // Sezione contenuto SEO (sotto la carta del gioco)
@@ -2009,6 +2015,7 @@ const pt: Translation = {
   typeWord: "Digite a palavra...",
   skipReveal: "🏳️ Pular e revelar",
   stopGame: "🛑 Parar",
+  play: "▶ Jogar",
   correct: "✨ Perfeito! Resposta correta!",
   answerWas: "A resposta era:",
   // Seção de conteúdo SEO (abaixo do cartão do jogo)
@@ -2309,6 +2316,7 @@ const nl: Translation = {
   typeWord: "Typ woord...",
   skipReveal: "🏳️ Overslaan & onthullen",
   stopGame: "🛑 Stoppen",
+  play: "▶ Spelen",
   correct: "✨ Perfect! Goed antwoord!",
   answerWas: "Het antwoord was:",
   // SEO-inhoud sectie (onder de spelkaart)
@@ -2612,6 +2620,7 @@ const ja: Translation = {
   typeWord: "単語を入力...",
   skipReveal: "🏳️ スキップ＆表示",
   stopGame: "🛑 停止",
+  play: "▶ プレイ",
   correct: "✨ 完璧！正解！",
   answerWas: "答えは：",
   // SEOコンテンツセクション（ゲームカードの下）
@@ -2915,6 +2924,7 @@ const zh: Translation = {
   typeWord: "输入单词...",
   skipReveal: "🏳️ 跳过并显示",
   stopGame: "🛑 停止",
+  play: "▶ 播放",
   correct: "✨ 完美！回答正确！",
   answerWas: "答案是：",
   // SEO内容部分（游戏卡片下方）

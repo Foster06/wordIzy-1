@@ -237,17 +237,24 @@ export function AnagramBlitz() {
         {revealMessage ? (
           <p className="text-xs font-bold text-amber-500 h-9 flex items-center justify-center">{revealMessage}</p>
         ) : (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="flex gap-2">
             <input
               type="text"
               disabled={fetchingWord}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="w-full text-center p-2 rounded-lg bg-background border text-sm h-9 uppercase tracking-wider font-mono font-bold border-brand/20 focus:border-brand disabled:opacity-40"
+              className="flex-1 text-center p-2 rounded-lg bg-background border text-sm h-9 uppercase tracking-wider font-mono font-bold border-brand/20 focus:border-brand disabled:opacity-40"
               placeholder={fetchingWord ? t.blitz.waiting : t.blitz.typeWord}
               autoFocus
               aria-label={t.blitz.typeWord}
             />
+            <button
+              type="submit"
+              disabled={fetchingWord || !input.trim()}
+              className="px-4 py-2 bg-brand text-white rounded-lg text-xs font-bold cursor-pointer transition-colors transition-transform hover:bg-brand/90 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+            >
+              {t.blitz.play}
+            </button>
           </form>
         )}
 
