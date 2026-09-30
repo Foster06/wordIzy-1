@@ -91,6 +91,7 @@ export function AnagramBlitz() {
     if (!currentPuzzle || fetchingWord || !!revealMessage) return;
 
     if (input.toUpperCase().trim() === currentPuzzle.answer) {
+      // CORRECT answer — show success message, add points, load next word
       setScore((prev) => prev + 20);
       setInput("");
       setRevealMessage(t.blitz.correct);
@@ -99,10 +100,20 @@ export function AnagramBlitz() {
         setTimeLeft((prev) => prev + 10);
       }
 
+      // After 1.2s, clear message and fetch a new word
       setTimeout(async () => {
         setRevealMessage("");
         await fetchWordFromDictionary("infinite");
       }, 1200);
+    } else {
+      // WRONG answer — show error message, clear input, let user try again
+      setRevealMessage(t.blitz.wrong);
+      setInput("");
+
+      // After 1s, clear the error message so the user can try again
+      setTimeout(() => {
+        setRevealMessage("");
+      }, 1000);
     }
   };
 

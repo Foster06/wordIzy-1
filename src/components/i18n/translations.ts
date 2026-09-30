@@ -156,6 +156,7 @@ export type Translation = {
   stopGame: string;
   play: string;
   correct: string;
+  wrong: string;
   answerWas: string;
   // SEO content section (below the game card) — translated per language
   howToPlayTitle: string;
@@ -485,6 +486,7 @@ const en: Translation = {
   stopGame: "🛑 Stop Game",
   play: "▶ Play",
   correct: "✨ Perfect! Correct Answer!",
+  wrong: "❌ Wrong answer! Try again.",
   answerWas: "The answer was:",
   // SEO content section (below the game card)
   howToPlayTitle: "How to Play Anagram Blitz",
@@ -813,6 +815,7 @@ const fr: Translation = {
   stopGame: "🛑 Arrêter",
   play: "▶ Jouer",
   correct: "✨ Parfait ! Bonne réponse !",
+  wrong: "❌ Mauvaise réponse ! Essayez encore.",
   answerWas: "La réponse était :",
   // Section contenu SEO (sous la carte du jeu)
   howToPlayTitle: "Comment jouer à Anagram Blitz",
@@ -1113,6 +1116,7 @@ const es: Translation = {
   skipReveal: "🏳️ Saltar y revelar",
   stopGame: "🛑 Detener",
   play: "▶ Jugar",
+  wrong: "❌ ¡Respuesta incorrecta! Inténtalo de nuevo.",
   correct: "✨ ¡Perfecto! ¡Respuesta correcta!",
   answerWas: "La respuesta era:",
   // Sección de contenido SEO (debajo de la tarjeta del juego)
@@ -1413,6 +1417,7 @@ const de: Translation = {
   typeWord: "Wort eingeben...",
   skipReveal: "🏳️ Überspringen & Aufdecken",
   stopGame: "🛑 Stopp",
+  wrong: "❌ Falsche Antwort! Versuche es noch einmal.",
   play: "▶ Spielen",
   correct: "✨ Perfekt! Richtige Antwort!",
   answerWas: "Die Antwort war:",
@@ -1713,6 +1718,7 @@ const it: Translation = {
   waiting: "In attesa...",
   typeWord: "Scrivi parola...",
   skipReveal: "🏳️ Salta e rivela",
+  wrong: "❌ Risposta sbagliata! Riprova.",
   stopGame: "🛑 Ferma",
   play: "▶ Gioca",
   correct: "✨ Perfetto! Risposta corretta!",
@@ -2013,6 +2019,7 @@ const pt: Translation = {
   hint: "💡 Dica:",
   waiting: "Aguardando...",
   typeWord: "Digite a palavra...",
+  wrong: "❌ Resposta errada! Tente novamente.",
   skipReveal: "🏳️ Pular e revelar",
   stopGame: "🛑 Parar",
   play: "▶ Jogar",
@@ -2313,6 +2320,7 @@ const nl: Translation = {
   generating: "🎲 Woord genereren...",
   hint: "💡 Hint:",
   waiting: "Wachten...",
+  wrong: "❌ Fout antwoord! Probeer het opnieuw.",
   typeWord: "Typ woord...",
   skipReveal: "🏳️ Overslaan & onthullen",
   stopGame: "🛑 Stoppen",
@@ -2616,6 +2624,7 @@ const ja: Translation = {
   totalScore: "pt",
   generating: "🎲 単語を生成中...",
   hint: "💡 ヒント：",
+  wrong: "❌ 不正解！もう一度お試しください。",
   waiting: "待機中...",
   typeWord: "単語を入力...",
   skipReveal: "🏳️ スキップ＆表示",
@@ -2919,6 +2928,7 @@ const zh: Translation = {
   timeLeft: "秒",
   totalScore: "分",
   generating: "🎲 正在生成单词...",
+  wrong: "❌ 回答错误！再试一次。",
   hint: "💡 提示：",
   waiting: "等待中...",
   typeWord: "输入单词...",
