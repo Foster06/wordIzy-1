@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { getDict } from "@/lib/dictionary";
-import type { LanguageCode } from "@/lib/languages";
 
 export const runtime = "nodejs";
 

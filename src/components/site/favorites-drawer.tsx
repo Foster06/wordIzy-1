@@ -12,7 +12,7 @@ interface FavoritesDrawerProps {
 }
 
 export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
-  const { favorites, toggleFavorite, reloadFavorites } = useWordVault();
+  const { favorites, toggleFavorite } = useWordVault();
   const [copiedWord, setCopiedWord] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === "dark";

@@ -15,9 +15,16 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["lucide-react", "date-fns"],
   },
 
-  // Modern image formats for next/image optimization.
+  // Modern image formats for next/image optimization. remotePatterns is
+  // intentionally permissive so any future remote <Image> usage doesn't need
+  // a redeploy to add a new hostname.
   images: {
     formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      // Allow https remote images of any hostname (CSP img-src still gates
+      // the actual fetch at the browser level).
+      { protocol: "https", hostname: "**" },
+    ],
   },
 
   // Strip console.* in production builds (keep console.error for debugging).
@@ -92,7 +99,8 @@ const nextConfig: NextConfig = {
             value: [
               "default-src 'self'",
               // AdSense needs multiple domains: the main script, the funding
-              // choices messages domain, and doubleclick for ad frames.
+              // choices messages domain, doubleclick for ad frames, AND
+              // tpc.googlesyndication.com (image / video ad creatives).
               // analytics.ahrefs.com — Ahrefs Web Analytics: the loader script
               // AND its beacon endpoints (/api/event, /api/error) are all on
               // this single origin.
@@ -100,13 +108,21 @@ const nextConfig: NextConfig = {
               // eval-based source maps (devtool: 'eval-source-map'). Production
               // bundles contain no eval, so it is never added there.
               `script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com https://fundingchoicesmessages.google.com https://analytics.ahrefs.com${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "font-src 'self' https://fonts.gstatic.com data:",
+              // style-src — 'unsafe-inline' is required by Next.js (inline
+              // hydration styles) + Tailwind. We self-host all fonts via
+              // next/font/google so no googleapis.com allowlist is needed.
+              "style-src 'self' 'unsafe-inline'",
+              // font-src — next/font/google self-hosts WOFF2 in /_next/static.
+              // 'data:' covers inline SVG fonts / fallbacks.
+              "font-src 'self' data:",
               "img-src 'self' data: https:",
               // Ahrefs Web Analytics sends events via sendBeacon/XMLHttpRequest
               // POST to https://analytics.ahrefs.com/api/event (+ /api/error).
               "connect-src 'self' https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://analytics.ahrefs.com",
-              "frame-src https://googleads.g.doubleclick.net",
+              // frame-src — AdSense serves creatives from doubleclick AND
+              // tpc.googlesyndication.com (image/video ad iframes). Without
+              // tpc here, real ad impressions trigger CSP frame-src violations.
+              "frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",

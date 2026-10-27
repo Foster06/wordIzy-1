@@ -79,12 +79,12 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     description: "Browse all valid Scrabble words that end with each letter A-Z. Filter by word length 2-15. Find hooks, suffixes, and high-scoring endings for Scrabble. Free word lists.",
     keywords: ["words ends with","words ending in","words that end with","scrabble words by ending","ending letter word list","words ending with e","words ending with s","words ending with z","words ending with d","scrabble suffix words","word list by ending letter","words ending in a","words that end in","words that end with letter","scrabble words ending with","words ending with ing","words ending with ed","words ending with er","words that end with a to z"]
   },
-  "wordlestarts": {
+  "wordle-starts": {
     title: "Wordle Words Starting With A-Z — Best Starting Words",
     description: "Browse all valid Wordle words that start with each letter A-Z. Find the best Wordle starting words, filter by length, and narrow down your daily puzzle. Free Wordle word lists.",
     keywords: ["wordle words starting with","wordle starting words","best wordle starts","wordle words by letter","wordle words that start with","wordle starting word list","best wordle starting words","wordle words beginning with","wordle word list by letter","wordle words starting with a","wordle words starting with s","wordle words starting with t","wordle opening words","wordle first word","wordle words a to z","wordle starter words","wordle words by starting letter","wordle starting letters","best wordle first words"]
   },
-  "wordleends": {
+  "wordle-ends": {
     title: "Wordle Words Ending With A-Z — Hooks & Suffixes",
     description: "Browse all valid Wordle words that end with each letter A-Z. Find hooks, suffixes, and ending patterns to narrow down your daily Wordle puzzle. Free Wordle word lists.",
     keywords: ["wordle words ending with","wordle ending words","wordle words by ending","wordle hooks","wordle words that end with","wordle ending word list","wordle words ending in","wordle word list by ending letter","wordle words ending with e","wordle words ending with s","wordle words ending with y","wordle suffix words","wordle words ending in a","wordle ending letters","wordle words a to z ending","wordle last letter words","wordle words by ending","wordle ending patterns","wordle words ending with d"]

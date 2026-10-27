@@ -16,6 +16,12 @@ interface ActionButtonsProps {
   clearLabel?: string;
   t: Translation;
   className?: string;
+  /**
+   * Legacy boolean attribute still passed by letters-solver / wordle-tool /
+   * quordle-tool callers. Intentionally not destructured — the responsive
+   * flex layout below handles width automatically, so this prop has no effect.
+   * Kept on the interface for back-compat so existing call sites keep compiling.
+   */
   fullWidth?: boolean;
 }
 
@@ -26,7 +32,7 @@ interface ActionButtonsProps {
  * Clear button: 30% width, h-12, eraser icon, glass styling.
  */
 export function ActionButtons({
-  actionLabel, actionIcon: Icon, onAction, onClear, loading, disabled, clearLabel, t, className, fullWidth: _fullWidth,
+  actionLabel, actionIcon: Icon, onAction, onClear, loading, disabled, clearLabel, t, className,
 }: ActionButtonsProps) {
   return (
     <div className={cn("flex items-stretch gap-3 w-full", className)}>

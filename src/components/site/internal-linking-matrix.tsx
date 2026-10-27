@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X } from "lucide-react";
-import { useLanguage } from "@/components/i18n/language-provider";
 import {
   ALPHABET_LOWER,
   WORD_LIST_LENGTHS,
@@ -17,7 +16,6 @@ function navigateTo(router: ReturnType<typeof useRouter>, slug: string) {
 }
 
 function HubSearchBar({ type }: { type: WordListType }) {
-  const { t } = useLanguage();
   const router = useRouter();
   const [q, setQ] = useState("");
 
@@ -56,7 +54,6 @@ function HubSearchBar({ type }: { type: WordListType }) {
 }
 
 function WordsStartingByMatrix() {
-  const { t } = useLanguage();
   const router = useRouter();
   const title = "Words Starting With";
   const desc = "Browse every Scrabble word that begins with a letter.";
@@ -85,7 +82,6 @@ function WordsStartingByMatrix() {
 }
 
 function WordsEndingByMatrix() {
-  const { t } = useLanguage();
   const router = useRouter();
   const title = "Words Ending With";
   const desc = "Browse every Scrabble word that ends with a letter.";
@@ -114,7 +110,6 @@ function WordsEndingByMatrix() {
 }
 
 export function UnscrambleByLengthMatrix() {
-  const { t } = useLanguage();
   const router = useRouter();
   const title = "Unscramble by Length";
   const desc = "Browse words by length, 2 to 15 letters.";

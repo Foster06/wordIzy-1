@@ -30,7 +30,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   // hydrate from localStorage after mount (intentional setState-in-effect for SSR-safe localStorage read)
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLangState(detectInitial());
   }, []);
 

@@ -18,7 +18,6 @@ export function useRecentSearches() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setSearches(JSON.parse(saved));
       }
     } catch { /* ignore */ }

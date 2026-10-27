@@ -212,7 +212,6 @@ if (typeof window === "undefined") {
 // Prefetch hints removed — on mobile/slow connections, prefetching 4 pages
 // competes with the main page load for bandwidth, causing LCP to spike.
 // The pages are already statically generated and load in <5ms when clicked.
-const preconnectTags = null;
 
 // Trusted Types policy — must run BEFORE any other script. Creates a permissive
 // default policy so that third-party libraries (AdSense, Next.js hydration)
@@ -247,7 +246,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         {trustedTypesPolicy}
-        {null /* preconnectTags removed for mobile performance */}
+        {/* prefetch/preconnect hints intentionally removed for mobile perf */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
