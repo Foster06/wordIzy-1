@@ -96,7 +96,10 @@ const nextConfig: NextConfig = {
               // analytics.ahrefs.com — Ahrefs Web Analytics: the loader script
               // AND its beacon endpoints (/api/event, /api/error) are all on
               // this single origin.
-              "script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com https://fundingchoicesmessages.google.com https://analytics.ahrefs.com",
+              // 'unsafe-eval' is DEV-ONLY: next dev serves modules through
+              // eval-based source maps (devtool: 'eval-source-map'). Production
+              // bundles contain no eval, so it is never added there.
+              `script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com https://fundingchoicesmessages.google.com https://analytics.ahrefs.com${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",
               "img-src 'self' data: https:",
@@ -109,10 +112,13 @@ const nextConfig: NextConfig = {
               "form-action 'self'",
               "frame-ancestors 'none'",
               "upgrade-insecure-requests",
-              // Trusted Types — allow the 'default' policy (created in layout.tsx)
-              // AND the 'goog#html' policy that AdSense creates internally.
-              // Without 'goog#html', AdSense throws console errors and ads fail.
-              "trusted-types default goog#html",
+              // Trusted Types — allow the 'default' policy (created in layout.tsx),
+              // the 'goog#html' policy that AdSense creates internally, AND
+              // 'nextjs#bundler' which Next.js's webpack runtime REQUIRES for
+              // client chunk loading (output.trustedTypes = 'nextjs#bundler' is
+              // set for all client builds). Without it, policy creation throws
+              // and client-side hydration completely breaks.
+              "trusted-types default goog#html nextjs#bundler",
               "require-trusted-types-for 'script'",
             ].join("; "),
           },

@@ -676,3 +676,147 @@ Work Log:
 
 Stage Summary:
 - Ahrefs Web Analytics is installed site-wide: async loader in <head> of the root layout with the site data-key, and the strict CSP now whitelists analytics.ahrefs.com for both script loading and event beacons. Key is overridable via NEXT_PUBLIC_AHREFS_ANALYTICS_KEY without redeploying code changes.
+
+---
+Task ID: audit-a11y
+Agent: Explore agent (accessibility audit)
+Task: Read-only accessibility audit of wordIzy
+
+Work Log:
+- Read worklog.md for context (latest entries: amber-flow button migration, Ahrefs analytics).
+- Audited all in-scope components: letter-input, hub-search-bar, action-buttons, site-header (+HoverDropdown +mobile drawer), theme-toggle, language-selector, dictionary-select, word-list, word-bucket, word-groups, cookie-consent, favorites-drawer, anagram-blitz, wordle-tool, tile, main-tool-view, logo, back-button, share-buttons, ad-slot, page-header, result-skeleton.
+- Audited app shell: layout.tsx (skip link? html lang? landmarks), not-found.tsx, [[...tool]]/loading.tsx, [[...tool]]/page.tsx generateMetadata (page titles), site-footer.tsx.
+- Audited globals.css: color tokens (--brand #f5a623/#e8960f, --primary-foreground, --muted-foreground), .btn-amber-flow gradient + its single prefers-reduced-motion rule, .word-cell black-on-gold overrides, .scrab-tile, .search-amber focus shadows.
+- Verified cross-cutting behaviors: grep for aria-live/role=status/role=alert across src (found in word-list, programmatic-seo-view, cookie-consent, error-boundary, alert — NOT in tool result sections or blitz game), grep for skip-to-content (none found), LetterInput callers (none pass id/label), i18n language-provider DOES sync document.documentElement.lang client-side (corrected the task's assumption; SSR still always lang="en").
+- Computed WCAG contrast ratios by hand: white on #f5a623 = 2.03:1 (fail); #0d0d0f on #f5a623 = 9.6:1 (pass); light-mode --primary-foreground #fff on gradient = 2.0-3.2:1 (fail); light-mode --brand #e8960f text on #f7f4ec = 2.2:1 (fail); #a39d8f muted on #0d0d0f = 7.2:1 (pass); muted/60 ≈ 3.3:1 (fail); muted/70 ≈ 4.0:1 (fail as sole-label placeholder); word-cell score #8a5305 on gold ≈ 4.46:1 (borderline).
+- Traced keyboard/focus flows: mobile nav drawer (Tab trap present but no Escape, no in-drawer close button), HoverDropdown (mouse enter/leave + click, no Escape/arrow keys), favorites drawer (Escape yes, but no focus move/trap/restore, no accessible name), blitz reveal flow (form unmounts → focus lost to body), cookie consent (Escape + focus-to-accept + aria-live — good).
+- Compiled findings into a numbered report with severity, file:line evidence, WCAG SC mapping, and concrete fixes. No project source files were modified.
+
+Stage Summary:
+- CRITICAL: white text on amber .btn-amber-flow CTAs = ~2.0:1 contrast (1.4.3) — affects blitz buttons, home CTA, 404, and ALL primary Buttons in light mode (--primary-foreground #fff); dark #0d0d0f on amber = 9.6:1 passes, so fix is a token/class swap.
+- HIGH: No skip-to-content link anywhere (2.4.1); main letter input (LetterInput) has no label/aria-label — placeholder-only, used unlabeled by 4 tools (3.3.2/4.1.2).
+- HIGH: Mobile nav drawer traps Tab but has no Escape handler and no close button — keyboard users cannot dismiss it (2.1.2); FavoritesDrawer is aria-modal with zero focus management and no accessible name (2.4.3/4.1.2).
+- HIGH: Anagram Blitz reveals (correct/wrong/answer) are visual-only — no aria-live — and the focused input unmounts during reveal, dropping focus to <body>; timer/score/game-over never announced (4.1.3/2.4.3/2.2.1).
+- MEDIUM: Tool result sections (wordle, word-bucket, unscrambler groups) and pagination changes are not announced to screen readers (4.1.3) — only programmatic-seo-view has live regions.
+- MEDIUM: /blitz has no h1 (starts at h3, then h4, then an h2 SEO block below) (1.3.1/2.4.6); word-groups star toggle lacks aria-pressed, has focus:outline-none with no replacement indicator, 12-20px touch targets, and a broken literal "{w.score}" tooltip string.
+- MEDIUM: prefers-reduced-motion only covers .btn-amber-flow — animate-pulse, skeleton-shimmer, drawer slide-in animation, hover transforms are uncovered (2.3.3 advisory).
+- MEDIUM: light-mode --brand text (#e8960f on #f7f4ec ≈ 2.2:1) fails for all text-brand headings/labels when users pick the light theme; muted-foreground/60-70 variants ≈ 3.3-4.0:1 fail for 10-12px text.
+- LOW: title-only icon buttons in favorites drawer rows; silent no-op on invalid hub "length" input (3.3.1); unlabeled ⏱️🏆 emojis in blitz; cookie banner steals focus 1.5s after load without restore; theme/share/lang 32px and word-list star 12px touch targets (2.5.8 advisory).
+- POSITIVES: cookie-consent (Escape, live region, labels), tile.tsx (role="img" + labels), word-list (aria-pressed toggles, copy live region), Radix dropdown/select, PageHeader h1, back-button, logo alt, html lang client sync in language-provider.
+- Top 3 fixes: (1) dark-on-amber button text both themes; (2) skip link + Escape/close for mobile nav + focus management for favorites drawer; (3) labels for LetterInput + aria-live result/reveal announcements.
+
+---
+Task ID: audit-perf
+Agent: Explore agent (performance audit)
+Task: Read-only performance audit of wordIzy
+
+Work Log:
+- Read worklog.md tail for context (amber-flow buttons, Ahrefs analytics, fonts/console/caching config history).
+- FONTS: read src/app/layout.tsx (6 Google families, preload:false, display:swap); grepped every CSS variable (--font-geist-sans/mono, --font-serif, --font-inter, --font-bree-serif, --font-roboto-slab) + Tailwind font-mono/font-serif usages across globals.css & components; parsed built layout CSS to map @font-face → woff2 files and sizes (.next/static/media: 34 referenced woff2, 676KB total on disk; dev CSS declares all 6 families, multi-weight).
+- CLIENT COMPONENTS: counted "use client" files (103: ui=38, site=39, tools=21, i18n=1, hooks=2, lib/analytics+not-found=2); read main-tool-view.tsx — ALL 20 tool views are next/dynamic code-split; only ProgrammaticSEOView (+word-list chain) is eager; wrote orphan-detection script — ~24 never-imported files (16 shadcn/ui + word-lengths-tool, InternalLinkingMatrix, faq-content, use-length-counts, word-row, dictionary-select, share-buttons, result-skeleton, use-copy-clipboard, use-letter-availability) — tree-shaken, zero bundle cost.
+- DATA TRANSFER: read use-api.ts, word-list.tsx (paginated 50/page, optional All toggle — no virtualization), word-list-data.ts (module-level list cache), api/word-list (limit≤500), api/wordlists (limit≤2000, re-sorts bucket per request), api/unscramble (returns full match set); verified all client imports of dictionary/word-list-data are `import type` only — no dictionary data in client bundle.
+- DICTIONARY: read lib/dictionary.ts (lazy per-language module cache, EN pre-warm), measured data/scrabble (CSW21 12MB, NWL2023 7.3MB, ZINGA 7.3MB, FISE 6.8MB...; dead: NWL2020 6.5MB + ODS5 4MB unreferenced); warmup route + boot pre-warm confirmed; lib/unscramble.ts scans length buckets 2..N per request with Map-allocating canForm (EN ~280k entries).
+- IMAGES: only 1 next/image (logo.tsx, /logo.png 1.6MB source → 32-48px, priority, sizes ok); zero raw <img>; no hero images; public/: logo.png 1.6MB, og-image.png 912KB (crawler-only), icon-512 400KB; logo.avif/webp/svg exist but unused as the Image source.
+- API ROUTES: read unscramble (force-dynamic + s-maxage=600 SWR; JA/ZH have O(1) sorted-key index, EN does linear scan), word-list (re-sorts cached 25k list per request; s-maxage=3600), length-counts (manual count loop, s-maxage=86400), wordlists (sort per request, s-maxage=86400), game/random-word (cached word pool — good), analytics (DB write per copy/search event, rate-limited).
+- REACT PERF: anagram-blitz timer = setTimeout-per-tick but state is LOCAL (only game card re-renders, not page); WordVaultProvider context value NOT memoized (root of tree, new fns/object per render, JSON.stringify comparisons); language-provider value IS memoized but statically imports translations.ts = 385KB source / 9 languages into every client bundle; word-list/word-groups/word-bucket all have keys + 50/page pagination.
+- THIRD-PARTY: Ahrefs (async, head) + conditional AdSense (async; AdSlot renders placeholder only) + Vercel Analytics + WebVitals (console.log stripped in prod → dead observers); CookieConsent 1.5s delay; DictionaryWarmer fires /api/warmup per non-word-list page view (redundant with boot pre-warm).
+- CACHING: curl'd live dev server before it stopped: /blitz = 74,106 bytes, x-nextjs-prerender:1, x-nextjs-cache:HIT, Cache-Control: no-store, must-revalidate; 66 prerendered HTMLs in .next/server/app (55 word-list + 9 core tools + index); guides/[slug] has NO prerendered HTML — headers() in page.tsx forces dynamic (fs.readFileSync per request); next.config.ts CDN patterns cover only the 6 word-list patterns.
+- Dev server went down mid-audit; remaining sizes taken from .next build artifacts (dev build — production bundles will be smaller/minified; relative sizes still valid).
+
+Stage Summary:
+- 103 "use client" files, but tool views are properly code-split via next/dynamic; ~24 files are never-imported dead code (tree-shaken, no runtime cost).
+- No unused fonts, but 6 families ≈ 13 weight-files ≈ ~300KB prod font payload; Geist (sans) is ~redundant with Inter (only tile point-values + word-chips) and Geist Mono only backs font-mono — dropping both saves ~90-140KB + 4-6 requests.
+- BIGGEST WIN #1: core tool pages (/,/blitz,/wordle,...) are prerendered (static) but served Cache-Control: no-store — CDN can't cache them; adding them to the s-maxage=3600 header list makes most page views edge hits.
+- BIGGEST WIN #2: translations.ts (385KB source, all 9 languages) ships in EVERY page's client bundle via LanguageProvider — split per language (lazy import on switch) for ~60-100KB gz savings.
+- BIGGEST WIN #3: /api/unscramble does a full ~280k-entry bucket scan (Map alloc per word) per unique query with no in-memory result memoization — add LRU memo + sorted-key index like the existing JA/ZH engine.
+- Guides pages are accidentally dynamic (headers() for cookie lang detection) — fs markdown read per request; move detection client-side or force-static.
+- WordVaultProvider (root layout) creates a new context object every render — memoize value/callbacks to stop whole-tree consumer re-renders on favorite toggles.
+- word-list/wordlists APIs re-sort full cached lists (up to 25k) per request; word-list "All" toggle can render 25k unvirtualized cells.
+- Dictionary layer is solid: server-only, per-language module cache, boot pre-warm, zero client leakage; 11MB dead dictionary files (NWL2020, ODS5) in data/scrabble.
+- Images fine (1 next/image, no <img>, no hero images); logo source is a 1.6MB 1254px PNG rendered at 32-48px — swap to small webp/avif variant; og-image 912KB is crawler-only.
+
+---
+Task ID: audit-seo
+Agent: Explore agent (SEO code audit)
+Task: Read-only SEO code audit of wordIzy
+
+Work Log:
+- Read worklog.md in full (all task entries) for context: route registry evolution, meta-config blitz keyword expansion, route-seo.tsx turned into a no-op, dashboard/inbox additions, guides pipeline, prior perf audit.
+- Read the full audit scope: src/app/sitemap.ts, src/app/[[...tool]]/page.tsx, src/app/[[...tool]]/layout.tsx, src/lib/meta-config.ts, src/lib/seo.ts, src/lib/word-list-urls.ts, src/components/site/routes.ts, src/app/guides/[slug]/page.tsx, internal-linking-matrix.tsx, main-tool-view.tsx, use-hash-route.ts, page-header.tsx, route-seo.tsx, robots.txt, llms.txt, src/app/layout.tsx, not-found.tsx, ai-catalog.json route + public file, anagram-blitz.tsx headings.
+- Grepped src/ for notFound()/redirect() — ZERO matches (catch-all never 404s); grepped for /guides links (only the EN guide is linked: main-tool-view.tsx:178/269, info-views.tsx:349, site-footer.tsx:61).
+- Started dev server and live-verified with curl+python: /nonexistent-page-xyz, /Blitz, /wordle-starts, /wordle-ends, /wordlestarts, /blitz, /unscramble/xyzgarbage, /guides/best-wordle-starter-words-de, /guides/nonexistent-guide-abc, /game, /words-starts-with-a, / (title/canonical/robots/desc-length/lang/h1-count), sitemap.xml (138 URLs, guide coverage), hreflang absence on localized guide, JSON-LD @types on /.
+- Computed rendered title/description lengths for all 19 TOOL_METADATA_REGISTRY entries (incl. the "%s | wordIzy" +10 template), 15 ROUTE_META entries in seo.ts, and all 9 guide frontmatter titles.
+- Cross-referenced ROUTES (21 route IDs) vs registry keys vs sitemap CORE_TOOLS vs live behavior; confirmed seo.ts getRouteMetadata is dead code, InternalLinkingMatrix/WordLengthsTool never imported, and internal-linking-matrix navigateTo builds double-slash /unscramble// URLs.
+- No project source files modified; only this worklog entry appended.
+
+Stage Summary:
+- SOFT-404 ROOT CAUSE: the [[...tool]] catch-all never calls notFound() (zero matches in src/). Unknown/case-variant slugs fall through generateMetadata's word-list → /unscramble → registry cases to a bare fallback (page.tsx:118-121, no title/canonical), inherit the layout fallback title ("wordIzy — Multi-Language…"), and main-tool-view's switch default renders the FULL home page (h1 + Unscrambler) at the unknown URL → HTTP 200, index/follow, no canonical.
+- INFINITE INDEXABLE SPACE: (a) layout.tsx:17-31 stamps a generic "Word Directory List Matrix" title on EVERY /unscramble/<x> URL (page only handles valid word-list slugs) → /unscramble/<anything> = 200 + index,follow + no canonical; (b) guides/[slug]/page.tsx:143-155 renders "Guide not found." with 200 and generateMetadata self-canonicalizes ANY slug and applies the real guide's title.
+- wordle-starts/wordle-ends ROOT CAUSE: registry keys are "wordlestarts"/"wordleends" (meta-config.ts:82/87) but routes.ts, sitemap.ts, llms.txt and ai-catalog all use /wordle-starts & /wordle-ends → those live URLs serve default metadata with no canonical, while the good metadata is served at orphan URLs /wordlestarts + /wordleends that nothing links to or sitemaps.
+- /game is an uncanonicalized alias of /blitz (renders the game + VideoGame/Breadcrumb JSON-LD) with default metadata and no registry entry → duplicate content.
+- /blitz has no h1 (top headings h3/h4 in anagram-blitz.tsx, h2 start of SEO copy); rendered title 85 ch (template adds "| wordIzy"), description 317 ch; ALL 19 registry descriptions are 164-317 ch; the template also duplicates the brand ("Contact wordIzy | wordIzy").
+- Localized guides (8): missing from sitemap (only EN listed), no hreflang, html lang="en" hardcoded (layout.tsx:247), hardcoded English meta description, zero internal links (orphans), German title 117 ch; headers() cookie/Accept-Language detection also makes all guide pages dynamic (no prerender).
+- Sitemap: 138 URLs = 19 core + 14 length + 52 scrabble letters + 52 wordle letters + 1 guide; every URL shares one hardcoded lastModified (2026-08-04); contains the metadata-less /wordle-starts,/wordle-ends; localized guides + /wordlestarts orphan URLs absent.
+- JSON-LD: WebApplication SearchAction targets /?letters={search_term_string} which does not server-render results (invalid for sitelinks searchbox); inbox/dashboard are robots.txt-disallowed but still emit index,follow meta (should be noindex).
+- Inventory: 21 routes in ROUTES (+ /game alias + "unscrambler" phantom key); registry has 19 entries → 17 match live slugs, 2 mis-keyed, 0 for inbox/dashboard/game; 118 programmatic word-list URLs all correctly canonicalized; 9 guide files, 1 sitemapped.
+- Hygiene: three divergent metadata sources exist (registry + dead seo.ts ROUTE_META + no-op RouteSeo) and dual generateMetadata in [[...tool]] layout AND page; layout's /unscramble title patterns (words-starting-with-) never match the actual slug patterns (words-starts-with).
+
+---
+Task ID: audit-security
+Agent: Explore agent (security audit)
+Task: Read-only security audit of wordIzy
+
+Work Log:
+- Read worklog.md (context: strict CSP via next.config.ts already reviewed, hidden /inbox + /dashboard owner pages, dev server on :3000).
+- Read ALL 21 API route files in src/app/api/ + src/app/ai-catalog.json/route.ts, mapping methods, rate-limiter usage, input validation, and error handling per endpoint.
+- Read src/lib/rate-limit.ts (in-memory sliding-window, per-IP via x-forwarded-for first entry), src/lib/private-tracker.ts (analytics beacon only, not access control), src/lib/db.ts (Prisma+libSQL, env-driven Turso/local), prisma/schema.prisma (ContactMessage stores name/email/message/ip/userAgent; SearchEvent anonymous).
+- Read contact/analytics UI: inbox-view.tsx, dashboard-view.tsx (client-side password gate, sessionStorage persistence, "Default password is wordizy-admin" hint), info-views.tsx ContactView (posts to /api/contact).
+- LIVE VERIFICATION against http://localhost:3000:
+  * GET /api/contact?key= (empty) -> 200 with 12 real contact submissions (names, emails, messages, IPs); ?key=wordizy-admin -> 401; no key -> 401. Confirms empty-ADMIN_PASSWORD auth bypass on /api/contact GET/PATCH/DELETE and /api/analytics GET.
+  * Rate-limit test: 125x GET /api/wordle -> 429 after 120; then same request with "x-forwarded-for: 9.9.9.9" -> 200. Confirms XFF-spoof limiter bypass.
+  * POST /api/cleanup-analytics with NO key -> 200 (fails open when ADMIN_PASSWORD unset).
+  * POST /api (legacy src/app/api/route.ts) with {} -> 400 "Missing required fields" — endpoint is live, unrate-limited, weakly validated, returns full DB row.
+  * /custom.db, /db/custom.db, /prisma/custom.db, /.env all return the SPA HTML (catch-all) — DB files NOT web-served.
+  * /guides/..%2f traversal attempts -> "Guide not found" (path.join + .md suffix + Next normalization neutralize; no allowlist though).
+  * /inbox and /dashboard pages -> 200 to anyone (client-side gate only).
+- Secrets sweep: grep src/ + scripts/ + docs for API keys/tokens/passwords — all secrets are env-driven (RESEND_API_KEY, ADMIN_PASSWORD, TURSO_*); NEXT_PUBLIC_ADSENSE_CLIENT and NEXT_PUBLIC_AHREFS_ANALYTICS_KEY (fallback F87goBifqTaUBs3AbK3EWA) are public-by-design site keys; .env contains only a local DATABASE_URL file path and is NOT git-tracked.
+- dangerouslySetInnerHTML outside layout.tsx reviewed: chart.tsx (shadcn static CSS), favorites-drawer.tsx:79 (static keyframes), [[...tool]]/page.tsx:237/243 (static JSON-LD constants) — all static content, safe.
+- src/lib/external-words.ts reviewed: only fixed third-party hosts (datamuse, openthesaurus, dictionaryapi.dev, wiktionary), encodeURIComponent + 8s timeouts — no SSRF surface.
+- Prisma only (no raw SQL) → no SQL injection. API error handlers return generic messages (no stack traces to clients).
+- Git hygiene check: git ls-files shows custom.db, db/custom.db, prisma/custom.db ARE tracked; `git show HEAD:db/custom.db` contains 12 ContactMessage rows; remote https://github.com/Foster06/wordIzy-1 returns 200 unauthenticated (public repo) → user PII publicly downloadable.
+- Caddyfile reviewed: :81 handler proxies to localhost:{query.XTransformPort} — open local-port pivot if :81 exposed.
+- Client storage reviewed: use-word-vault.tsx (localStorage words/history only), cookie-consent.tsx (localStorage flag), wordizy-lang cookie (language code) — no sensitive data client-side except sessionStorage admin password.
+- Note: dev server crashed twice under burst testing (webpack + dictionary memory pressure); restarted it with `setsid bun run dev` (port 3000 healthy again). No project source files modified.
+
+Stage Summary:
+- CRITICAL: empty-key auth bypass — ADMIN_PASSWORD defaults to "" and `key !== ADMIN_PASSWORD` passes for `?key=`; verified live: /api/contact?key= and /api/analytics?key= return full data (12 contact messages w/ PII). Same pattern in contact GET/PATCH/DELETE + analytics GET.
+- CRITICAL: db/custom.db with 12 real ContactMessage rows (names, emails, messages, IPs) is committed at git HEAD and pushed to public repo github.com/Foster06/wordIzy-1 — PII publicly downloadable.
+- HIGH: rate limiter keyed on client-spoofable x-forwarded-for (first entry) — verified bypass via custom XFF header; affects all limiter-protected endpoints incl. contact spam + email dispatch.
+- HIGH: legacy POST /api route (src/app/api/route.ts) — no rate limit, presence-only validation, no length caps, leaks saved row (ip/userAgent) to submitter; duplicate of /api/contact with weaker checks.
+- HIGH: contact endpoints send a branded confirmation email to arbitrary attacker-supplied addresses with unescaped attacker HTML (open relay / phishing vector, Resend suspension risk).
+- MEDIUM: /api/cleanup-analytics fails OPEN (no auth at all when ADMIN_PASSWORD unset — verified 200); /api/analytics POST is an unauthenticated DB-write spigot (fake search events).
+- MEDIUM: "Default password is wordizy-admin" hint rendered to any visitor on /inbox + /dashboard; admin password also sent as URL query param (?key=) and stored in sessionStorage.
+- MEDIUM: Caddyfile :81 XTransformPort handler is an open reverse proxy to arbitrary localhost ports.
+- LOW: no rate limit on dict-info/letter-counts/length-counts/warmup/game/random-word (dictionary-load CPU/memory DoS vector); quordle POST board fields unclamped; random-word returns `answer` (game cheat by design); guide slug lacks explicit allowlist; shared "unknown" limiter bucket.
+- OK: no hardcoded secrets, no SSRF, no SQL injection, no stack-trace leaks, DB files not web-served, all non-layout dangerouslySetInnerHTML are static, client localStorage holds only non-sensitive word data, robots.txt hides but does not protect /inbox & /dashboard.
+- TOP 3 FIXES: (1) fail-closed auth (`if (!ADMIN_PASSWORD || key !== ADMIN_PASSWORD)`) + set strong ADMIN_PASSWORD + move key out of query string; (2) purge db/*.db from git history and add *.db to .gitignore; (3) fix IP extraction (last XFF hop / platform header) and delete the legacy /api route + escape email HTML.
+
+---
+Task ID: site-audit-synthesis
+Agent: main agent (Z.ai)
+Task: Full website audit (SEO, security, accessibility, performance, code health) + critical CSP fix
+
+Work Log:
+- Ran live SEO spot-check script (scripts/audit_seo.py) across 27 URLs: titles, descriptions, canonicals, h1 counts, OG, JSON-LD, HTTP statuses.
+- Browser pass via agent-browser found client-side hydration COMPLETELY BROKEN: theme toggle / game start did nothing; root cause = CSP `trusted-types default goog#html` missing Next.js's required `nextjs#bundler` policy (Next sets output.trustedTypes='nextjs#bundler' for ALL client builds per node_modules/next/dist/build/webpack-config.js:1847) AND dev-mode eval source maps blocked by missing `unsafe-eval`.
+- FIXED during audit (next.config.ts): added `nextjs#bundler` to trusted-types allowlist (all environments) + dev-only `unsafe-eval` in script-src. Verified in fresh browser: 0 page errors, HMR connected, theme toggle works, blitz game starts. eslint + tsc clean.
+- Launched 4 parallel Explore audit agents (audit-seo, audit-security, audit-a11y, audit-perf); all appended detailed reports to this worklog.
+- Dev server crashed twice during security agent's burst-load testing (memory pressure on first dictionary parse) — restarted, healthy.
+
+Stage Summary (synthesized findings — full detail in the 4 agent entries above):
+- FIXED: hydration broken by CSP trusted-types allowlist (was: every interactive feature dead in browser).
+- CRITICAL security: (1) empty-key auth bypass — /api/contact?key= and /api/analytics?key= return 200 with all 12 contact submissions (PII) when ADMIN_PASSWORD unset (fail-open); (2) SQLite db files with PII committed to PUBLIC GitHub repo (Foster06/wordIzy-1); (3) rate-limit bypass via first-entry x-forwarded-for (verified live).
+- CRITICAL SEO: catch-all never 404s (soft-404 + case-variant + /unscramble/* + /guides/* infinite indexable URL spaces); registry keys wordlestarts/wordleends don't match real slugs wordle-starts/wordle-ends; localized guides orphaned (not in sitemap, no hreflang, lang=en); /game uncannonical blitz duplicate; /blitz has no h1; all 19 meta descriptions 164-317 chars.
+- HIGH a11y: white-on-amber button text ~2.0:1 contrast (light mode); no skip link; letter input unlabeled; mobile drawer keyboard trap; no aria-live for game/results.
+- HIGH perf: 6 font families (~300KB, 2 redundant); translations.ts 385KB in every client bundle; SSG tool pages served no-store (no CDN cache); unscramble full-scan per query; guides accidentally dynamic; unmemoized root context.
+- Positives: next/dynamic code-splitting for all 20 tools, server-only dictionaries, strict CSP/HSTS/COOP/COEP, Prisma (no SQLi), SSRF-safe external fetches, sane API pagination, cookie-consent + tile.tsx a11y models.
