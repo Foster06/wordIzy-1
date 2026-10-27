@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/site/theme-provider";
 import { CookieConsent } from "@/components/site/cookie-consent";
 import { WebVitals } from "@/components/site/web-vitals";
 import { DictionaryWarmer } from "@/components/site/dictionary-warmer";
+import { AnalyticsScripts } from "@/components/site/analytics-scripts";
 import { Analytics } from "@vercel/analytics/next";
 import { WordVaultProvider } from "@/hooks/use-word-vault";
 
@@ -63,18 +64,12 @@ const robotoSlab = Roboto_Slab({
   fallback: ["Roboto", "Georgia", "serif"],
 });
 
-const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
-const showAdsense =
-  typeof adsenseClient === "string" &&
-  adsenseClient.length > 0 &&
-  !adsenseClient.includes("XXXXXXXX");
-
-// Ahrefs Web Analytics — public site data-key (safe to expose: it ships in the
-// HTML like the AdSense client id). Env-overridable, hardcoded fallback keeps
-// it working without any .env entry.
-const ahrefsAnalyticsKey =
-  process.env.NEXT_PUBLIC_AHREFS_ANALYTICS_KEY ?? "F87goBifqTaUBs3AbK3EWA";
-
+// AdSense + Ahrefs analytics are now gated behind cookie consent. The actual
+// <script> tags for these third-party trackers live in <AnalyticsScripts />
+// (a client component), which reads consent state from localStorage via
+// `useCookieConsent()` and only renders the scripts once the user has clicked
+// "Accept" in <CookieConsent />. Strictly-necessary scripts (trusted-types
+// policy, JSON-LD, Next.js hydration chunks) remain inline in <head> below.
 const SITE_URL = "https://wordizy.com";
 
 const jsonLd = {
@@ -251,24 +246,13 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {showAdsense && adsenseClient && (
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
-            crossOrigin="anonymous"
-          />
-        )}
-        {/* Ahrefs Web Analytics — visitor analytics. The script auto-tracks
-            pageviews + SPA navigations (popstate) and beacons events to
-            https://analytics.ahrefs.com/api/event. CSP-allowed in
-            next.config.ts (script-src + connect-src). */}
-        {ahrefsAnalyticsKey && (
-          <script
-            async
-            src="https://analytics.ahrefs.com/analytics.js"
-            data-key={ahrefsAnalyticsKey}
-          />
-        )}
+        {/*
+          Third-party tracking/advertising scripts (AdSense + Ahrefs) are
+          mounted by <AnalyticsScripts /> in the body, gated on cookie consent.
+          They are intentionally NOT inlined here so a brand-new visitor has
+          zero third-party trackers in their first paint (GDPR "prior consent").
+          See src/components/site/analytics-scripts.tsx + use-cookie-consent.ts.
+        */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} ${inter.variable} ${breeSerif.variable} ${robotoSlab.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}
@@ -278,7 +262,15 @@ export default function RootLayout({
             {/* 🎯 WRAPPED: Activated global data state provider cleanly at the layout root */}
             <WordVaultProvider>
               {children}
+              {/* Cookie consent banner — Accept/Decline writes to localStorage,
+                  which <AnalyticsScripts /> reads via useCookieConsent() to
+                  gate AdSense + Ahrefs scripts. Mounted once at the root so it
+                  appears on every route. */}
               <CookieConsent />
+              {/* Analytics scripts — gated on consent. Renders the AdSense +
+                  Ahrefs <script async src=...> tags via React once
+                  useCookieConsent() returns "accepted". */}
+              <AnalyticsScripts />
               <WebVitals />
               <DictionaryWarmer />
             </WordVaultProvider>

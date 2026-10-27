@@ -872,3 +872,43 @@ Stage Summary:
 - AdSense + Ahrefs integration upgraded: real `<ins>` markup ready to ship (pending user-supplied publisher ID), WebVitals now actually reports to /api/analytics.
 - CSP tightened: removed unused googleapis.com/gstatic.com allowlists, added tpc.googlesyndication.com so real AdSense creatives won't be CSP-blocked.
 - Codebase hygiene: 14 dead-code patterns removed, 3 stale eslint-disable directives cleaned.
+
+---
+Task ID: 15
+Agent: main
+Task: Tackle deferred audit items (GDPR cookie-consent gating, Cache-Control verification, unused-font scan) + push to GitHub
+
+Work Log:
+- Fix #16 [Medium] — GDPR cookie-consent gating for AdSense + Ahrefs scripts:
+  - Created `src/components/site/use-cookie-consent.ts` — `useCookieConsent()` hook reads `localStorage["wordizy-cookie-consent"]` ("accepted"|"declined"|null). Returns `null` on server (initial useState), updates on client mount. Re-reads on window focus so consent given in another tab activates scripts in this tab without a reload.
+  - Created `src/components/site/analytics-scripts.tsx` — `"use client"` component that returns `null` unless consent === "accepted". When accepted, renders `<script async src="...adsbygoogle.js?client=...">` (gated on `NEXT_PUBLIC_ADSENSE_CLIENT`) + `<script async src="https://analytics.ahrefs.com/analytics.js" data-key=...>` via React. Strict Mode-safe (no double-push — the actual `<ins>` push logic lives in `<AdSlot>` with its own ref guard).
+  - Rewired `src/app/layout.tsx`: removed the inline `adsenseClient`/`showAdsense`/`ahrefsAnalyticsKey` constants + the inline `<script>` tags for AdSense + Ahrefs. Trusted-types policy, JSON-LD, and Next.js hydration chunks remain inline in `<head>` (strictly-necessary). `<AnalyticsScripts />` + `<CookieConsent />` mounted in `<body>` so a brand-new visitor has ZERO third-party trackers in their first paint (GDPR "prior consent" rule).
+  - Verified in production: `curl -s http://127.0.0.1:3001/blitz | grep -oE '<script[^>]*analytics\.ahrefs\.com' | wc -l` → 0. Same for AdSense. JSON-LD count still 3. Trusted-types policy still inline.
+
+- Fix #17 [Low] — Cache-Control on word-list URLs:
+  - AUDIT WAS A FALSE POSITIVE. The dev server always returns `Cache-Control: no-store, must-revalidate` (Next.js dev-mode default for hot-reload reliability — not configurable).
+  - Verified in PRODUCTION mode: ran `bun run build && PORT=3001 bun start`. Curl confirms word-list URLs (`/words-starts-with-a`, `/words-ends-with-z`, `/unscramble-5-letter-words`) correctly serve `Cache-Control: public, s-maxage=3600, stale-while-revalidate=86400` from the `headers()` config in `next.config.ts`. Statically-generated pages (`/blitz`, `/`, `/wordle`) correctly serve `Cache-Control: s-maxage=31536000` from Next.js's static-generation default. No code change needed.
+
+- Fix #19 [Low] — Unused next/font/google families:
+  - AUDIT WAS A FALSE POSITIVE. Concrete grep of all CSS var references confirms all 6 font families ARE used:
+    - `--font-geist-sans`: used in `globals.css:9` (font-sans chain), `:272` (.scrab-tile::after), `:295` (.word-chip)
+    - `--font-geist-mono`: used in `globals.css:13` (font-mono)
+    - `--font-serif` (Lora): used in `globals.css:14, :257` (.scrab-tile font-family), plus as fallback after `--font-bree-serif` in `.alpha-button`/`.word-item`/`.page-title`
+    - `--font-inter`: heavily used — `.nav-item`, `.section-label`, `.num-button`, `.yellow-heading`, `.count-number`, `.count-text`, `.page-subtitle`, plus many component className usages
+    - `--font-bree-serif`: used in `.alpha-button`, `.word-item`, `.page-title`, plus `font-bree` class usages in internal-linking-matrix, site-footer, site-header
+    - `--font-roboto-slab`: used in `.tips-section`, `.favorites-drawer`, `.site-header` (logo), `.site-footer` (logo)
+  - No font removals performed — audit's flag was incorrect.
+
+- Build verification (production):
+  - `bun run build` completed in ~24s, exit 0. 87 static pages generated.
+  - `bun start` (prod server on :3001) confirmed all routes return 200:
+    - `/`, `/blitz`, `/wordle`, `/scramble`, `/about`, `/contact` — all 200
+    - `/wordle-starts`, `/wordle-ends` — 200 with correct SEO meta (was 500 in old build before re-rebuild — caused by stale build artifacts)
+    - `/words-starts-with-a` etc. — 200 with correct Cache-Control
+  - TypeScript: 0 errors. ESLint on all modified/new files: 0 errors, 0 warnings.
+
+Stage Summary:
+- 2 of 3 deferred items FIXED (GDPR gating live; cache verified non-issue in prod).
+- 1 deferred item (unused fonts) verified as audit false-positive — no action needed.
+- Production build clean. All audit fixes from task 14 + GDPR gating from task 15 are live.
+- Remaining: user needs to provide real AdSense publisher ID via `.env.local` (NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-XXXXXXXX) before ads will actually serve — code is ready, just needs the env var.
