@@ -143,6 +143,47 @@ export async function generateStaticParams() {
 
 export const dynamicParams = true; // Allow on-demand rendering for non-static pages
 
+// VideoGame structured data for the /blitz page — helps Google understand
+// this is a playable game and potentially show it in game-specific results.
+const blitzGameJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  name: "Anagram Blitz",
+  url: "https://wordizy.com/blitz",
+  description: "Free online word unscramble game. Race against the clock to unscramble as many words as you can in 60 seconds. Daily challenges and infinite practice mode. No download, no sign-up.",
+  genre: ["Word Game", "Puzzle", "Educational"],
+  gamePlatform: ["Web Browser", "Mobile", "Desktop"],
+  applicationCategory: "Game",
+  operatingSystem: "Any",
+  playMode: "SinglePlayer",
+  numberOfPlayers: { "@type": "QuantitativeValue", minValue: 1, maxValue: 1 },
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" },
+  publisher: { "@type": "Organization", name: "wordIzy", url: "https://wordizy.com" },
+  inLanguage: "en",
+  image: "https://wordizy.com/og-image.png",
+  screenshot: "https://wordizy.com/og-image.png",
+  datePublished: "2026-07-15",
+  features: [
+    "60-second timed rounds",
+    "Daily challenge mode",
+    "Infinite practice mode",
+    "Scoring system with skip penalties",
+    "Hint system",
+    "Multi-language support (9 languages)",
+  ],
+  aggregateRating: undefined, // Add when you have real user ratings
+};
+
+// Breadcrumb structured data for the /blitz page
+const blitzBreadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "wordIzy — Word Tools", item: "https://wordizy.com" },
+    { "@type": "ListItem", position: 2, name: "Anagram Blitz Game", item: "https://wordizy.com/blitz" },
+  ],
+};
+
 export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;
   const toolSegments = resolvedParams.tool || [];
@@ -160,10 +201,27 @@ export default async function Page({ params }: PageProps) {
     initialWordListData = getInitialWordListPage(subRoute, "en", 50);
   }
 
+  // Only render the game structured data on the /blitz page
+  const isBlitzPage = activeToolSlug === "blitz" || activeToolSlug === "game";
+
   return (
-    <MainToolView
-      params={params}
-      initialWordListData={initialWordListData}
-    />
+    <>
+      {isBlitzPage && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(blitzGameJsonLd) }}
+        />
+      )}
+      {isBlitzPage && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(blitzBreadcrumbJsonLd) }}
+        />
+      )}
+      <MainToolView
+        params={params}
+        initialWordListData={initialWordListData}
+      />
+    </>
   );
 }

@@ -91,6 +91,7 @@ const jsonLd = {
     "Scrabble Duplicate Solver",
     "Wordfeud Helper",
     "Random Word Generator",
+    "Anagram Blitz Game — 60-Second Word Unscramble Challenge",
     "Multi-language Word Lists",
   ],
   inLanguage: "en", // SSR is English-only; client-side language toggle does not change URL.

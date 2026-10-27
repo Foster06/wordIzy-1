@@ -96,8 +96,33 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["sitemap","wordizy sitemap","word unscrambler pages","scrabble solver index","word tools directory","word game tools list","scrabble word finder pages","wordle solver pages","anagram solver pages","word list pages","word unscrambler sitemap","scrabble helper pages","word finder directory","word solver tool list","word game solver index","all word tools","word unscrambler tools list","scrabble tools directory","wordle tools sitemap"]
   },
   "blitz": {
-    title: "Anagram Blitz — 60-Second Word Unscramble Game",
-    description: "Test your word puzzle skills with Anagram Blitz! Unscramble as many words as you can in 60 seconds. Free online word game with daily challenges. Beat your high score!",
-    keywords: ["word game","anagram blitz","unscramble game","free word puzzle","word racing game","anagram game online","word unscramble game","free word game online","anagram puzzle game","word speed game","scramble word game","word challenge game","daily word game","word puzzle game online","anagram blitz game","word unscrambler game","letter unscramble game","word game 60 seconds","free anagram game"]
+    title: "Anagram Blitz — Free Online Word Unscramble Game (Play 60-Second Challenge)",
+    description: "Play Anagram Blitz free! Race against the clock to unscramble words in 60 seconds. Daily challenges, infinite practice mode, official Scrabble dictionaries. No download, no sign-up — play instantly in your browser. Beat your high score!",
+    keywords: [
+      "anagram blitz",
+      "word unscramble game",
+      "free word game online",
+      "play word game free",
+      "anagram game online",
+      "unscramble words game",
+      "word puzzle game",
+      "60 second word game",
+      "daily word challenge",
+      "scramble word game",
+      "word racing game",
+      "free anagram game",
+      "word speed game",
+      "letter unscramble game",
+      "word unscrambler game",
+      "play anagram online",
+      "word game no download",
+      "word game no signup",
+      "browser word game",
+      "scrabble word game",
+      "word challenge game",
+      "fast word game",
+      "word puzzle challenge",
+      "unscramble letters game"
+    ]
   },
 };

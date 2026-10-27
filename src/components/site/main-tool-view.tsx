@@ -17,7 +17,7 @@ const UnscramblerTool = dynamic(
   () => import("@/components/tools/unscrambler-tool").then((m) => m.UnscramblerTool),
 );
 import Link from "next/link";
-import { BookOpen, ChevronRight } from "lucide-react";
+import { BookOpen, ChevronRight, Zap } from "lucide-react";
 
 const ScrambleTool = dynamic(
   () => import("@/components/tools/scramble-tool").then((m) => m.ScrambleTool),
@@ -139,6 +139,33 @@ export function MainToolView({ params, initialWordListData }: MainToolViewProps)
         return (
           <>
             <HomeHero />
+            {/* Featured Game — prominent call-to-action for Anagram Blitz */}
+            <div className="mb-6 rounded-xl border border-brand/20 bg-brand/[0.05] p-5 sm:p-6 relative overflow-hidden">
+              <div className="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-brand/10 blur-3xl pointer-events-none" />
+              <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex items-start gap-3">
+                  <div className="shrink-0 h-12 w-12 rounded-xl bg-brand/15 border border-brand/20 flex items-center justify-center">
+                    <Zap className="h-6 w-6 text-brand" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                      Play Anagram Blitz
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 uppercase tracking-wider">Free Game</span>
+                    </h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Race against the clock — unscramble as many words as you can in 60 seconds. Daily challenges + infinite practice. No sign-up needed.
+                    </p>
+                  </div>
+                </div>
+                <Link
+                  href="/blitz"
+                  className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-brand text-white rounded-lg text-sm font-bold hover:bg-brand/90 transition-colors transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-brand/20"
+                >
+                  <Zap className="h-4 w-4" />
+                  Play Now — It's Free
+                </Link>
+              </div>
+            </div>
             <ErrorBoundary label="Unscrambler">
               <UnscramblerTool />
             </ErrorBoundary>
