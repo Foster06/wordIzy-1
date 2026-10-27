@@ -448,8 +448,24 @@ input[type="number"] {
     0% { background-position: 0% 50%; }
     100% { background-position: 100% 50%; }
   }
+  /* 3-color variant (rose -> fuchsia -> violet). Same sliding animation as
+     .btn-rainbow — first and last stops repeat #f43f5e so the loop is
+     seamless. Used by the Anagram Blitz infinite-practice CTA. */
+  .btn-tricolor {
+    background-image: linear-gradient(
+      90deg,
+      #f43f5e 0%,
+      #d946ef 33%,
+      #a855f7 66%,
+      #f43f5e 100%
+    );
+    background-size: 300% 100%;
+    animation: rainbow-slide 6s linear infinite;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
   @media (prefers-reduced-motion: reduce) {
-    .btn-rainbow {
+    .btn-rainbow,
+    .btn-tricolor {
       animation: none;
     }
   }

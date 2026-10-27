@@ -625,3 +625,18 @@ Work Log:
 
 Stage Summary:
 - /blitz now has a colorful animated rainbow "Play Infinite Practice" CTA in all 3 game states (start menu, daily-completed, game-over replay) with an Infinity icon, and its metadata carries 86 high-traffic keywords plus googlebot max-preview directives and a game-specific Twitter card — verified rendering in the live dev server SSR output.
+
+---
+Task ID: blitz-button-color-split
+Agent: main agent (Z.ai)
+Task: Give Start Today's Puzzle button the animated gradient; reduce Play Infinite Practice button to 3 colors
+
+Work Log:
+- src/app/globals.css: added `.btn-tricolor` variant (rose #f43f5e → fuchsia #d946ef → violet #a855f7, first/last stops repeat #f43f5e for a seamless loop) reusing the same `rainbow-slide` 6s animation; extended the prefers-reduced-motion fallback to cover both `.btn-rainbow` and `.btn-tricolor`.
+- src/components/tools/anagram-blitz.tsx:
+  * "Start Today's Puzzle" (start menu, startDailyChallenge): replaced flat brand-amber styling with `.btn-rainbow` animated 5-color gradient + Zap icon (rotates on hover) + white border, fuchsia glow, hover scale — same treatment the infinite button previously had.
+  * "Play Infinite Practice" (start menu) / "Play Infinite Practice Mode" (daily-completed state) / "Play Practice Again" (game-over, infinite mode): switched from `.btn-rainbow` to `.btn-tricolor` (3 colors only). Infinity icon + hover effects unchanged.
+- Verified in live dev server SSR HTML: btn-rainbow + lucide-zap on the daily button, btn-tricolor on all 3 infinite-practice buttons; compiled layout.css contains the .btn-tricolor gradient rule and the shared reduced-motion rule. ESLint clean on the file; tsc --noEmit shows no errors in it.
+
+Stage Summary:
+- Daily challenge CTA now carries the full animated rainbow gradient; the infinite-practice CTAs use a calmer animated 3-color (rose/fuchsia/violet) gradient. Both share one animation and one reduced-motion fallback.
