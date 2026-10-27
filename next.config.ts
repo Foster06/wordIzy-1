@@ -93,11 +93,16 @@ const nextConfig: NextConfig = {
               "default-src 'self'",
               // AdSense needs multiple domains: the main script, the funding
               // choices messages domain, and doubleclick for ad frames.
-              "script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com https://fundingchoicesmessages.google.com",
+              // analytics.ahrefs.com — Ahrefs Web Analytics: the loader script
+              // AND its beacon endpoints (/api/event, /api/error) are all on
+              // this single origin.
+              "script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com https://fundingchoicesmessages.google.com https://analytics.ahrefs.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",
               "img-src 'self' data: https:",
-              "connect-src 'self' https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com",
+              // Ahrefs Web Analytics sends events via sendBeacon/XMLHttpRequest
+              // POST to https://analytics.ahrefs.com/api/event (+ /api/error).
+              "connect-src 'self' https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://analytics.ahrefs.com",
               "frame-src https://googleads.g.doubleclick.net",
               "object-src 'none'",
               "base-uri 'self'",

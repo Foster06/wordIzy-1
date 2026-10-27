@@ -660,3 +660,19 @@ Work Log:
 
 Stage Summary:
 - The whole site now uses ONE consistent animated amber gradient on every primary action button (shared Button default variant + all inline CTAs). Rainbow and 3-color variants are fully removed. Filter/selection chips keep static amber as state indicators.
+
+---
+Task ID: ahrefs-web-analytics
+Agent: main agent (Z.ai)
+Task: Add Ahrefs Web Analytics script (data-key F87goBifqTaUBs3AbK3EWA) to the site
+
+Work Log:
+- Inspected https://analytics.ahrefs.com/analytics.js (6.9KB) to determine CSP requirements: it reads data-key/data-domain/data-instance attributes, auto-tracks pageview/click/form/pagehide + popstate (SPA navigations), and beacons events via sendBeacon/XMLHttpRequest POST to its own origin — https://analytics.ahrefs.com/api/event and /api/error.
+- next.config.ts (CSP, applied to /(.*) route): added https://analytics.ahrefs.com to BOTH script-src (loader script) and connect-src (beacon endpoints). Without this the strict CSP would have blocked the script and its event posts.
+- src/app/layout.tsx: added `ahrefsAnalyticsKey` constant (env-overridable via NEXT_PUBLIC_AHREFS_ANALYTICS_KEY, hardcoded fallback F87goBifqTaUBs3AbK3EWA — public site key, ships in HTML like the AdSense client id) and rendered `<script async src="https://analytics.ahrefs.com/analytics.js" data-key=... />` in <head> right after the conditional AdSense script.
+- Restarted dev server (pkill next dev + rm -rf .next/cache + setsid bun run dev) because headers() changes require a full restart.
+- Verified live: /blitz and / return 200; SSR HTML contains `<script async="" src="https://analytics.ahrefs.com/analytics.js" data-key="F87goBifqTaUBs3AbK3EWA"></script>` inside <head> (position + JSON-LD + AdSense conditionality all intact); response CSP header shows analytics.ahrefs.com in script-src and connect-src; dev log has no errors.
+- Verification: `bunx eslint next.config.ts src/app/layout.tsx` → clean (exit 0); `bunx tsc --noEmit` → clean (exit 0).
+
+Stage Summary:
+- Ahrefs Web Analytics is installed site-wide: async loader in <head> of the root layout with the site data-key, and the strict CSP now whitelists analytics.ahrefs.com for both script loading and event beacons. Key is overridable via NEXT_PUBLIC_AHREFS_ANALYTICS_KEY without redeploying code changes.

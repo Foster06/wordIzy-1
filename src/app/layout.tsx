@@ -69,6 +69,12 @@ const showAdsense =
   adsenseClient.length > 0 &&
   !adsenseClient.includes("XXXXXXXX");
 
+// Ahrefs Web Analytics — public site data-key (safe to expose: it ships in the
+// HTML like the AdSense client id). Env-overridable, hardcoded fallback keeps
+// it working without any .env entry.
+const ahrefsAnalyticsKey =
+  process.env.NEXT_PUBLIC_AHREFS_ANALYTICS_KEY ?? "F87goBifqTaUBs3AbK3EWA";
+
 const SITE_URL = "https://wordizy.com";
 
 const jsonLd = {
@@ -251,6 +257,17 @@ export default function RootLayout({
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
             crossOrigin="anonymous"
+          />
+        )}
+        {/* Ahrefs Web Analytics — visitor analytics. The script auto-tracks
+            pageviews + SPA navigations (popstate) and beacons events to
+            https://analytics.ahrefs.com/api/event. CSP-allowed in
+            next.config.ts (script-src + connect-src). */}
+        {ahrefsAnalyticsKey && (
+          <script
+            async
+            src="https://analytics.ahrefs.com/analytics.js"
+            data-key={ahrefsAnalyticsKey}
           />
         )}
       </head>
