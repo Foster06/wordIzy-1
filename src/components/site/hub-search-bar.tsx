@@ -82,7 +82,7 @@ export function HubSearchBar({ mode, dict = "scrabble", placeholder }: HubSearch
         </div>
         <button
           type="submit"
-          className="h-11 px-4 rounded-md bg-brand text-background font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer shrink-0 relative z-30"
+          className="btn-amber-flow h-11 px-4 rounded-md text-background font-semibold text-sm hover:brightness-110 transition-transform cursor-pointer shrink-0 relative z-30"
         >
           {t.hubPages.browseBtn}
         </button>

@@ -229,7 +229,7 @@ export function InboxView() {
               <div className="flex gap-2">
                 <Button
                   type="submit"
-                  className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold rounded-lg"
+                  className="gap-2 font-semibold rounded-lg"
                 >
                   <Lock className="h-4 w-4" />
                   Unlock

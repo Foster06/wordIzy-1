@@ -149,7 +149,7 @@ export function ContactView() {
               <Button
                 type="submit"
                 disabled={status === "sending"}
-                className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold rounded-lg disabled:opacity-60"
+                className="gap-2 font-semibold rounded-lg disabled:opacity-60"
               >
                 {status === "sending" ? (
                   <>

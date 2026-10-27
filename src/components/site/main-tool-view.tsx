@@ -159,7 +159,7 @@ export function MainToolView({ params, initialWordListData }: MainToolViewProps)
                 </div>
                 <Link
                   href="/blitz"
-                  className="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-brand text-white rounded-lg text-sm font-bold hover:bg-brand/90 transition-colors transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-brand/20"
+                  className="btn-amber-flow shrink-0 inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg text-sm font-bold hover:brightness-110 transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-brand/30"
                 >
                   <Zap className="h-4 w-4" />
                   Play Now — It's Free

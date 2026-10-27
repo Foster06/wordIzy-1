@@ -21,7 +21,8 @@ interface ActionButtonsProps {
 
 /**
  * Standardized action + clear button pair.
- * Primary button: 70% width, h-12 (matches search bar), amber gradient.
+ * Primary button: 70% width, h-12 (matches search bar), animated amber gradient
+ * (inherits .btn-amber-flow from the Button default variant).
  * Clear button: 30% width, h-12, eraser icon, glass styling.
  */
 export function ActionButtons({
@@ -32,7 +33,7 @@ export function ActionButtons({
       <Button
         onClick={onAction}
         disabled={loading || disabled}
-        className="h-12 gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold hover:opacity-90 rounded-lg px-6 shadow-lg shadow-brand/20 flex-[7] min-w-0"
+        className="h-12 gap-2 font-semibold rounded-lg px-6 shadow-lg shadow-brand/20 flex-[7] min-w-0"
       >
         {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : Icon ? <Icon className="h-4 w-4" /> : null}
         <span className="truncate">{actionLabel}</span>

@@ -104,7 +104,7 @@ export function CookieConsent() {
               <Button
                 ref={acceptBtnRef}
                 onClick={() => decide("accepted")}
-                className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold rounded-lg"
+                className="gap-2 font-semibold rounded-lg"
                 size="sm"
               >
                 Accept

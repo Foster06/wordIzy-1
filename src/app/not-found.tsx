@@ -12,7 +12,7 @@ export default function NotFound() {
       </p>
       <Link 
         href="/" 
-        className="px-4 py-2 text-xs bg-brand text-white font-medium rounded-lg transition-opacity hover:opacity-90 block cursor-pointer"
+        className="btn-amber-flow px-4 py-2 text-xs text-white font-medium rounded-lg transition-transform hover:brightness-110 block cursor-pointer"
       >
         Return to Word Tools
       </Link>

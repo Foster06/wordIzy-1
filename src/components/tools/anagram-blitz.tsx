@@ -180,7 +180,7 @@ export function AnagramBlitz() {
         <p className="text-muted-foreground text-xs mb-4">{t.blitz.alreadyPlayed}</p>
         <button
           onClick={startInfinitePractice}
-          className="btn-tricolor group inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg text-xs font-bold cursor-pointer text-white border border-white/25 shadow-lg shadow-fuchsia-500/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-fuchsia-500/40 active:scale-95"
+          className="btn-amber-flow group inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg text-xs font-bold cursor-pointer text-white border border-white/25 shadow-lg shadow-brand/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-brand/50 hover:brightness-110 active:scale-95"
         >
           <InfinityIcon className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-180" aria-hidden="true" />
           {t.blitz.playInfinite}
@@ -198,14 +198,14 @@ export function AnagramBlitz() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
         <button
           onClick={startDailyChallenge}
-          className="btn-rainbow group w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg text-xs font-bold cursor-pointer text-white border border-white/25 shadow-lg shadow-fuchsia-500/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-fuchsia-500/40 active:scale-95"
+          className="btn-amber-flow group w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg text-xs font-bold cursor-pointer text-white border border-white/25 shadow-lg shadow-brand/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-brand/50 hover:brightness-110 active:scale-95"
         >
           <Zap className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-180" aria-hidden="true" />
           {t.blitz.startToday}
         </button>
         <button
           onClick={startInfinitePractice}
-          className="btn-tricolor group w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg text-xs font-bold cursor-pointer text-white border border-white/25 shadow-lg shadow-fuchsia-500/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-fuchsia-500/40 active:scale-95"
+          className="btn-amber-flow group w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-lg text-xs font-bold cursor-pointer text-white border border-white/25 shadow-lg shadow-brand/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-brand/50 hover:brightness-110 active:scale-95"
         >
           <InfinityIcon className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-180" aria-hidden="true" />
           {t.blitz.playInfiniteBtn}
@@ -223,7 +223,7 @@ export function AnagramBlitz() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-2">
           {isInfiniteMode ? (
-            <button onClick={startInfinitePractice} className="btn-tricolor w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-medium cursor-pointer text-white border border-white/25 shadow-lg shadow-fuchsia-500/25 transition-all duration-300 hover:scale-105 active:scale-95">
+            <button onClick={startInfinitePractice} className="btn-amber-flow w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-medium cursor-pointer text-white border border-white/25 shadow-lg shadow-brand/30 transition-all duration-300 hover:scale-105 hover:brightness-110 active:scale-95">
               {t.blitz.playAgain}
             </button>
           ) : (
@@ -280,7 +280,7 @@ export function AnagramBlitz() {
             <button
               type="submit"
               disabled={fetchingWord || !input.trim()}
-              className="px-4 py-2 bg-brand text-white rounded-lg text-xs font-bold cursor-pointer transition-colors transition-transform hover:bg-brand/90 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+              className="btn-amber-flow px-4 py-2 text-white rounded-lg text-xs font-bold cursor-pointer transition-transform hover:brightness-110 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
             >
               {t.blitz.play}
             </button>

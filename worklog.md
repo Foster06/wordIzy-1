@@ -640,3 +640,23 @@ Work Log:
 
 Stage Summary:
 - Daily challenge CTA now carries the full animated rainbow gradient; the infinite-practice CTAs use a calmer animated 3-color (rose/fuchsia/violet) gradient. Both share one animation and one reduced-motion fallback.
+
+---
+Task ID: amber-flow-site-wide
+Agent: main agent (Z.ai)
+Task: Remove rainbow/tricolor colors — amber-only animated gradient on all site buttons
+
+Work Log:
+- src/app/globals.css: replaced .btn-rainbow + .btn-tricolor with a single .btn-amber-flow class — amber-only gradient (#f5a623 → #e8960f → #d97706 → #e8960f → #f5a623, mirroring .text-gradient-brand's brand family) with renamed gradient-slide 6s seamless loop keyframes and prefers-reduced-motion fallback.
+- src/components/ui/button.tsx: default variant changed from "bg-primary ... hover:bg-primary/90" to "btn-amber-flow text-primary-foreground shadow-xs hover:brightness-110" — propagates the animated amber gradient to ALL default-variant Button usages site-wide (~39 usages / 19 files: unscrambler, tools, inbox, dashboard, cookie consent, error boundary, action buttons, etc.).
+- src/components/site/action-buttons.tsx: removed the static "bg-gradient-to-r from-brand to-brand-soft text-background hover:opacity-90" override on the primary Action button (main tool CTA) so it inherits the animated gradient.
+- Removed the same static-gradient override from 6 more default-variant Button usages: inbox-view.tsx (unlock), info-views.tsx (contact submit), dashboard-view.tsx (unlock), scramble-tool.tsx (generate), cookie-consent.tsx (accept), error-boundary.tsx (reload).
+- src/components/tools/anagram-blitz.tsx: all 5 buttons switched to btn-amber-flow (Start Today's Puzzle, Play Infinite Practice ×2 states, Play Practice Again, in-game Play submit); fuchsia shadows replaced with brand/amber shadows.
+- src/components/site/main-tool-view.tsx: homepage "Play Now — It's Free" CTA → btn-amber-flow.
+- src/components/site/hub-search-bar.tsx: word-list Browse/search button → btn-amber-flow.
+- src/app/not-found.tsx: 404 "Return to Word Tools" → btn-amber-flow.
+- Left untouched on purpose: selection-state chips/toggles that use bg-brand as an ACTIVE-state indicator (word-list pagination, programmatic-seo-view filter/sort/jump chips, wordle-tool length selector), the dictionary-tool validity badge, and dashboard chart bars — these are state indicators/data-viz, not action buttons.
+- Verified live: /blitz renders 2 amber-flow buttons in the start menu; / renders the CTA + main unscramble action button; /anagram renders its action button; compiled layout.css contains .btn-amber-flow + gradient-slide + reduced-motion rule; zero btn-rainbow/btn-tricolor references remain. ESLint clean on all 12 modified files; tsc --noEmit shows no errors in any modified file.
+
+Stage Summary:
+- The whole site now uses ONE consistent animated amber gradient on every primary action button (shared Button default variant + all inline CTAs). Rainbow and 3-color variants are fully removed. Filter/selection chips keep static amber as state indicators.

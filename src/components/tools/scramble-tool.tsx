@@ -109,7 +109,7 @@ export function ScrambleTool() {
               <Label htmlFor="word" className="text-xs text-muted-foreground">Word</Label>
               <Input id="word" value={word} onChange={(e) => setWord(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") scramble(); }} placeholder="scrabble" maxLength={15} className="h-10 uppercase glass-soft border-white/10 search-amber" autoComplete="off" />
             </div>
-            <Button onClick={scramble} disabled={scramLoading || !word.trim()} className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold rounded-lg">
+            <Button onClick={scramble} disabled={scramLoading || !word.trim()} className="gap-2 font-semibold rounded-lg">
               {scramLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Shuffle className="h-4 w-4" />}
               {t.common.generate}
             </Button>

@@ -79,7 +79,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             </Button>
             <Button
               onClick={this.handleReload}
-              className="gap-2 bg-gradient-to-r from-brand to-brand-soft text-background font-semibold rounded-lg"
+              className="gap-2 font-semibold rounded-lg"
             >
               Reload page
             </Button>
