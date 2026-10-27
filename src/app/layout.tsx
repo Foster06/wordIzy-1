@@ -64,12 +64,21 @@ const robotoSlab = Roboto_Slab({
   fallback: ["Roboto", "Georgia", "serif"],
 });
 
-// AdSense + Ahrefs analytics are now gated behind cookie consent. The actual
-// <script> tags for these third-party trackers live in <AnalyticsScripts />
-// (a client component), which reads consent state from localStorage via
-// `useCookieConsent()` and only renders the scripts once the user has clicked
-// "Accept" in <CookieConsent />. Strictly-necessary scripts (trusted-types
-// policy, JSON-LD, Next.js hydration chunks) remain inline in <head> below.
+// Ahrefs Web Analytics — public site data-key (safe to expose: it ships in the
+// HTML like the AdSense client id). Env-overridable, hardcoded fallback keeps
+// it working without any .env entry. Used by the inline Ahrefs loader snippet
+// below — Ahrefs is privacy-friendly (no cookies, no PII) so it loads
+// unconditionally, NOT gated behind cookie consent.
+const AHREFS_ANALYTICS_KEY =
+  process.env.NEXT_PUBLIC_AHREFS_ANALYTICS_KEY ?? "F87goBifqTaUBs3AbK3EWA";
+
+// AdSense is gated behind cookie consent (uses cookies for ad personalization —
+// GDPR/ePrivacy require opt-in). The actual AdSense <script> tag is rendered
+// by <AnalyticsScripts /> (a client component) which reads consent state from
+// localStorage via `useCookieConsent()` and only mounts the script after the
+// user clicks "Accept" in <CookieConsent />. Strictly-necessary scripts
+// (trusted-types policy, JSON-LD, Ahrefs, Next.js hydration chunks) remain
+// inline in <head> below.
 const SITE_URL = "https://wordizy.com";
 
 const jsonLd = {
@@ -247,7 +256,28 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {/*
-          Third-party tracking/advertising scripts (AdSense + Ahrefs) are
+          Ahrefs Web Analytics loader snippet — runs immediately on every page
+          load (not gated behind cookie consent because Ahrefs is privacy-first:
+          no cookies, no PII, just pageview counts). Uses the dynamic-create
+          pattern recommended by Ahrefs so the loader script is appended to
+          <head> and runs async. CSP allowlists analytics.ahrefs.com in both
+          script-src (loader) and connect-src (beacon endpoints /api/event
+          + /api/error). Trusted-types default policy allows the
+          document.createElement('script') sink. Key is env-overridable via
+          NEXT_PUBLIC_AHREFS_ANALYTICS_KEY; falls back to the hardcoded project
+          key when env is unset.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `var ahrefs_analytics_script = document.createElement('script');
+ahrefs_analytics_script.async = true;
+ahrefs_analytics_script.src = 'https://analytics.ahrefs.com/analytics.js';
+ahrefs_analytics_script.setAttribute('data-key', ${JSON.stringify(AHREFS_ANALYTICS_KEY)});
+document.getElementsByTagName('head')[0].appendChild(ahrefs_analytics_script);`,
+          }}
+        />
+        {/*
+          AdSense + other consent-gated trackers (e.g. Google Ads pixels) are
           mounted by <AnalyticsScripts /> in the body, gated on cookie consent.
           They are intentionally NOT inlined here so a brand-new visitor has
           zero third-party trackers in their first paint (GDPR "prior consent").

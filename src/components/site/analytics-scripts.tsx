@@ -11,19 +11,17 @@ const ADSENSE_ENABLED =
   ADSENSE_CLIENT.length > 0 &&
   !ADSENSE_CLIENT.includes("XXXXXXXX");
 
-const AHREFS_ANALYTICS_KEY =
-  process.env.NEXT_PUBLIC_AHREFS_ANALYTICS_KEY ?? "F87goBifqTaUBs3AbK3EWA";
-
 /**
  * Client-only component that renders third-party tracking/advertising scripts
- * (AdSense + Ahrefs Web Analytics) ONLY after the user has accepted cookie
- * consent. Scripts are gated because:
+ * that REQUIRE cookie consent (currently: AdSense). Gated because AdSense uses
+ * cookies for ad personalization — GDPR Article 5 + ePrivacy Directive require
+ * opt-in for non-essential cookies in the EU/EEA.
  *
- *  - AdSense uses cookies for ad personalization (GDPR Article 5 + ePrivacy
- *    Directive require opt-in for non-essential cookies in the EU/EEA).
- *  - Ahrefs Web Analytics is privacy-first (no cookies, no PII, just
- *    pageview counts), but is gated anyway for consistency — the same
- *    consent token controls every analytics/tracking beacon site-wide.
+ * NOTE: Ahrefs Web Analytics is NOT loaded here. Ahrefs is privacy-first
+ * (no cookies, no PII — just pageview counts) so it loads UNCONDITIONALLY via
+ * the inline loader snippet in `src/app/layout.tsx` <head>. This avoids
+ * double-loading and ensures Ahrefs tracks every visit even before the user
+ * has dismissed the cookie consent banner.
  *
  * If consent has not yet been given (null state — e.g. user just landed on
  * the site and the banner hasn't been dismissed), no scripts render. Once
@@ -31,15 +29,15 @@ const AHREFS_ANALYTICS_KEY =
  * hook's storage-sync logic re-renders this component and the scripts
  * activate immediately without a page reload.
  *
- * Strictly-necessary scripts (the trusted-types policy, JSON-LD, hydration
- * chunks) live in <head> directly in layout.tsx and are NOT gated by this
- * component — they are required for the site to function at all.
+ * Strictly-necessary scripts (the trusted-types policy, JSON-LD, Ahrefs,
+ * Next.js hydration chunks) live in <head> directly in layout.tsx and are
+ * NOT gated by this component — they are required for the site to function.
  */
 export function AnalyticsScripts() {
   const consent = useCookieConsent();
 
   // Until the user has explicitly chosen, render nothing. This means a
-  // brand-new visitor sees ZERO third-party trackers in their first paint,
+  // brand-new visitor sees ZERO consent-gated trackers in their first paint,
   // matching the GDPR "prior consent" rule.
   if (consent !== "accepted") return null;
 
@@ -50,13 +48,6 @@ export function AnalyticsScripts() {
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
           crossOrigin="anonymous"
-        />
-      )}
-      {AHREFS_ANALYTICS_KEY && (
-        <script
-          async
-          src="https://analytics.ahrefs.com/analytics.js"
-          data-key={AHREFS_ANALYTICS_KEY}
         />
       )}
     </>
