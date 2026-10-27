@@ -2,6 +2,20 @@ export interface ToolMeta {
   title: string;
   description: string;
   keywords: string[];
+  /** Extra robots directives emitted as `<meta name="googlebot">` content.
+   *  Used to unlock larger SERP real estate (bigger image previews, full
+   *  snippets) for pages that opt in. */
+  googleBot?: {
+    "max-image-preview"?: "none" | "standard" | "large";
+    "max-snippet"?: number;
+    "max-video-preview"?: number;
+  };
+  /** Twitter card copy. When present, generateMetadata emits a full twitter
+   *  card (card type, title, description, image) for the page. */
+  twitter?: {
+    title: string;
+    description: string;
+  };
 }
 
 export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
@@ -97,32 +111,116 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
   },
   "blitz": {
     title: "Anagram Blitz — Free Online Word Unscramble Game (Play 60-Second Challenge)",
-    description: "Play Anagram Blitz free! Race against the clock to unscramble words in 60 seconds. Daily challenges, infinite practice mode, official Scrabble dictionaries. No download, no sign-up — play instantly in your browser. Beat your high score!",
+    description: "Play Anagram Blitz free — the fast, fun word unscramble game! Race the clock to unscramble words in 60-second rounds. Daily word challenges, endless practice mode, brain-training vocabulary puzzles from official Scrabble dictionaries. No download, no sign-up — play instantly in your browser and beat your high score!",
+    // ~80 high-traffic search terms across the game / word-game / unscramble
+    // / anagram / jumble / brain-game query space. Grouped by intent so the
+    // list stays maintainable.
     keywords: [
+      // — Core game & brand —
       "anagram blitz",
-      "word unscramble game",
+      "anagram blitz game",
+      "anagram game",
+      "anagram games",
+      "anagram game online",
+      "free anagram game",
+      "play anagram online",
+      "play anagram game",
+      "anagram practice",
+      "anagram puzzle",
+      "anagram puzzle game",
+      "anagrams",
+      "anagram maker",
+      // — Word games (highest-traffic head terms) —
+      "word games",
+      "word games online",
+      "word games free",
+      "free word games",
+      "word games online free",
+      "free online word games",
+      "play word games",
+      "word games no download",
+      "word games for adults",
+      "word games for kids",
+      "fun word games",
+      "word game online",
       "free word game online",
       "play word game free",
-      "anagram game online",
-      "unscramble words game",
-      "word puzzle game",
-      "60 second word game",
-      "daily word challenge",
-      "scramble word game",
-      "word racing game",
-      "free anagram game",
-      "word speed game",
-      "letter unscramble game",
-      "word unscrambler game",
-      "play anagram online",
-      "word game no download",
-      "word game no signup",
       "browser word game",
+      "word game no signup",
+      "word game no login",
+      "mobile word game",
+      "word games in english",
+      // — Unscramble query space —
+      "word unscramble game",
+      "word unscrambler game",
+      "unscramble words game",
+      "unscramble words",
+      "word unscrambler",
+      "unscramble letters",
+      "unscramble letters game",
+      "letter unscramble game",
+      "word unscrambling practice",
+      "unscramble challenge",
+      "word unscramble challenge",
+      // — Scramble & jumble query space —
+      "word scramble",
+      "word scramble game",
+      "word scramble games",
+      "scramble word game",
+      "scrambled words",
+      "jumble game",
+      "word jumble",
+      "jumble word game",
+      "daily jumble game",
+      // — Speed / timed rounds —
+      "60 second word game",
+      "word game 60 seconds",
+      "1 minute word game",
+      "timed word game",
+      "word game with timer",
+      "word racing game",
+      "word speed game",
+      "speed word game",
+      "fast word game",
+      "quick word game",
+      "word sprint",
+      // — Daily-challenge traffic (Wordle-adjacent) —
+      "daily word challenge",
+      "daily word game",
+      "daily anagram",
+      "daily anagram challenge",
+      "word of the day game",
+      "daily puzzle game",
+      "games like wordle",
+      // — Brain / vocabulary / education —
+      "brain games",
+      "word brain games",
+      "vocabulary game",
+      "spelling game",
+      "typing word game",
+      "educational word games",
+      "word puzzle game",
+      "word puzzle games online",
+      "word puzzle challenge",
+      "letter game online",
+      "word builder game",
+      "word maker game",
+      "scrabble practice",
       "scrabble word game",
       "word challenge game",
-      "fast word game",
-      "word puzzle challenge",
-      "unscramble letters game"
-    ]
+      "word challenge online",
+    ],
+    // Unlock big image previews + full snippets in Google search results for
+    // the game page — improves CTR on high-traffic queries.
+    googleBot: {
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+    twitter: {
+      title: "Play Anagram Blitz — Free 60-Second Word Unscramble Game",
+      description:
+        "Race the clock to unscramble words! Free online anagram game with daily challenges and infinite practice mode. No download, no sign-up — play instantly.",
+    },
   },
 };

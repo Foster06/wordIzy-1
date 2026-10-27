@@ -604,3 +604,24 @@ Lint + type check:
 
 Stage Summary:
 - All 7 missing files recreated + 4 files updated. ErrorBoundary now wraps every view so render errors show a graceful fallback. RouteSeo keeps document.title + meta description in sync with hash-route changes. DashboardView mirrors InboxView's auth-gated pattern and surfaces /api/analytics data. Layout has full metadata (base URL, manifest, icons, OG, Twitter, JSON-LD, AdSense conditional), plus CookieConsent + WebVitals + DictionaryWarmer rendered inside providers. Routes registry + 9-language translations extended for the new hidden dashboard route.
+
+---
+Task ID: blitz-rainbow-cta-meta
+Agent: main agent (Z.ai)
+Task: Add colorful button for "Play Infinite Practice" + many high-traffic meta tags for Anagram Blitz (/blitz)
+
+Work Log:
+- Added `.btn-rainbow` utility to src/app/globals.css (@layer components): animated 5-color gradient (rose→amber→emerald→blue→violet), 300% background-size with `rainbow-slide` 6s infinite keyframe (seamless loop because gradient starts/ends with #f43f5e), text-shadow for contrast, and prefers-reduced-motion:reduce fallback that disables the animation.
+- Updated src/components/tools/anagram-blitz.tsx: imported `Infinity as InfinityIcon` from lucide-react. Replaced the plain gray `bg-muted` infinite-practice button in the start menu with the rainbow button (Infinity icon, hover scale/glow, fuchsia shadow, white border). Also applied rainbow styling to the "already played today" state button and the game-over "Play Practice Again" button for consistency. Removed a pre-existing unused eslint-disable directive (line 57) to make the file lint-clean.
+- Expanded src/lib/meta-config.ts blitz entry: keywords grew from 24 → 86 high-traffic terms, grouped by intent (core game/brand, word games head terms, unscramble space, scramble/jumble, speed/timed rounds, daily-challenge Wordle-adjacent, brain/vocabulary/education, scrabble practice). Rewrote description to be more keyword-rich. Added new optional `googleBot` field (max-image-preview:large, max-snippet:-1, max-video-preview:-1) and `twitter` field (game-specific title/description) to the ToolMeta interface.
+- Updated src/app/[[...tool]]/page.tsx generateMetadata (case 3, registry pages): when a ToolMeta opts in, emits a full robots object (index/follow + googleBot directives) and a full twitter card (summary_large_image + title/description + image). Both fully specified to survive Next.js shallow-merge.
+- Restarted dev server (old process was serving stale module cache; had to restart with setsid after background process died). Verified live on http://127.0.0.1:3000/blitz:
+  * <meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"> present
+  * twitter:card/title/description/image present with game copy
+  * keywords tag contains 86 terms (spot-checked: word games online free, brain games, games like wordle, daily jumble game, word sprint, scrabble practice...)
+  * og:title/og:description/og:image intact (not dropped by twitter override)
+  * btn-rainbow button + lucide-infinity SVG render in SSR HTML; compiled layout.css contains .btn-rainbow, @keyframes rainbow-slide, and the reduced-motion media query
+- Verification: `bunx eslint` on the 3 modified TS/TSX files → clean; `bunx tsc --noEmit` → no errors in modified files; pre-existing lint errors in unrelated files (scripts/*.js require imports, programmatic-seo-view.tsx rules-of-hooks, ui/chart.tsx Function type) were NOT touched.
+
+Stage Summary:
+- /blitz now has a colorful animated rainbow "Play Infinite Practice" CTA in all 3 game states (start menu, daily-completed, game-over replay) with an Infinity icon, and its metadata carries 86 high-traffic keywords plus googlebot max-preview directives and a game-specific Twitter card — verified rendering in the live dev server SSR output.

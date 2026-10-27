@@ -77,7 +77,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // 3. Core game/tool pages
   const metaConfig = TOOL_METADATA_REGISTRY[activeToolSlug];
   if (metaConfig) {
-    return {
+    const pageMeta: Metadata = {
       title: metaConfig.title,
       description: metaConfig.description,
       keywords: metaConfig.keywords,
@@ -88,6 +88,31 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         images: [{ url: "/og-image.png", width: 1200, height: 630, alt: metaConfig.title }],
       },
     };
+
+    // Extra high-traffic meta tags when the registry entry opts in.
+    // Both objects are FULLY specified (never partial) — Next.js replaces
+    // (not deep-merges) these fields vs. the root layout, so including
+    // images/flags here guarantees nothing is dropped from the defaults.
+    if (metaConfig.googleBot) {
+      // <meta name="robots"> + <meta name="googlebot"> with max-image-preview
+      // etc. — unlocks larger SERP previews for the game page.
+      pageMeta.robots = {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, ...metaConfig.googleBot },
+      };
+    }
+    if (metaConfig.twitter) {
+      // Page-specific Twitter summary card with game copy.
+      pageMeta.twitter = {
+        card: "summary_large_image",
+        title: metaConfig.twitter.title,
+        description: metaConfig.twitter.description,
+        images: ["/og-image.png"],
+      };
+    }
+
+    return pageMeta;
   }
 
   // Fallback — omit title so root layout's default is used
