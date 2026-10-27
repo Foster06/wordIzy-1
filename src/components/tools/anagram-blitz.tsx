@@ -1,9 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Infinity as InfinityIcon, Zap } from "lucide-react";
+import { Infinity as InfinityIcon, Zap, Share2 } from "lucide-react";
 import { GlassCard } from "@/components/site/glass-card";
 import { useLanguage } from "@/components/i18n/language-provider";
+import { useCopyClipboard } from "@/components/site/use-copy-clipboard";
+import { toast } from "sonner";
+
+// Constant URL used in the share text — kept out of i18n because it's
+// the same across every language and embedding it in 9 translation files
+// would just duplicate the same string.
+const BLITZ_URL = "https://wordizy.com/blitz";
 
 interface PuzzleState {
   scrambled: string;
@@ -13,6 +20,7 @@ interface PuzzleState {
 
 export function AnagramBlitz() {
   const { t, lang } = useLanguage();
+  const { copy } = useCopyClipboard();
   const [isInfiniteMode, setIsInfiniteMode] = useState(false);
   const [currentPuzzle, setCurrentPuzzle] = useState<PuzzleState | null>(null);
   const [input, setInput] = useState("");
@@ -231,6 +239,35 @@ export function AnagramBlitz() {
               {t.blitz.dailyLocked}
             </p>
           )}
+          {/* Challenge a Friend — appears in BOTH daily + infinite modes. On
+              mobile, opens the native Web Share sheet (WhatsApp/iMessage/etc.);
+              on desktop, falls back to clipboard + toast. Always shows even
+              when daily-locked so users can still brag about their daily score. */}
+          <button
+            type="button"
+            onClick={() => {
+              const text = t.blitz.challengeText.replace("{score}", String(score));
+              // Progressive enhancement: Web Share API on mobile → native sheet
+              // with WhatsApp / iMessage / etc. Desktop falls back to
+              // clipboard + toast.
+              if (typeof navigator !== "undefined" && navigator.share) {
+                navigator
+                  .share({ title: "wordIzy Anagram Blitz", text, url: BLITZ_URL })
+                  .catch(() => {
+                    /* user dismissed the sheet — no toast needed */
+                  });
+              } else {
+                void copy(text).then(() => {
+                  toast.success(t.ui.copiedToClipboard);
+                });
+              }
+            }}
+            className="btn-amber-flow w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold cursor-pointer text-white border border-white/25 shadow-lg shadow-brand/30 transition-all duration-300 hover:scale-105 hover:brightness-110 active:scale-95"
+            aria-label={t.blitz.challengeFriend}
+          >
+            <Share2 className="h-3.5 w-3.5" aria-hidden="true" />
+            {t.blitz.challengeFriend}
+          </button>
           <button onClick={() => { setIsGameOver(false); setScore(0); }} className="w-full sm:w-auto px-4 py-2 bg-muted rounded-lg text-xs font-medium cursor-pointer">
             {t.blitz.returnMenu}
           </button>

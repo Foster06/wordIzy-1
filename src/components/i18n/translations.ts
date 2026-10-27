@@ -158,6 +158,8 @@ export type Translation = {
   correct: string;
   wrong: string;
   answerWas: string;
+  challengeFriend: string;
+  challengeText: string;
   // SEO content section (below the game card) — translated per language
   howToPlayTitle: string;
   howToPlayDesc: string;
@@ -195,6 +197,7 @@ export type Translation = {
   newDailyChallenge: string;
   scrambleFeatureHint: string;
   wordList: string;
+  copiedToClipboard: string;
  };
 };
 
@@ -488,6 +491,8 @@ const en: Translation = {
   correct: "✨ Perfect! Correct Answer!",
   wrong: "❌ Wrong answer! Try again.",
   answerWas: "The answer was:",
+  challengeFriend: "Challenge a Friend",
+  challengeText: "I scored {score} on WordIzy Anagram Blitz — can you beat me? Play free: https://wordizy.com/blitz",
   // SEO content section (below the game card)
   howToPlayTitle: "How to Play Anagram Blitz",
   howToPlayDesc: "Anagram Blitz is a fast-paced 60-second word unscramble game. You are given a scrambled set of letters and must rearrange them to form a valid dictionary word. Each correct answer earns 20 points; each skip costs 5 points. Beat your high score and climb the daily leaderboard.",
@@ -525,6 +530,7 @@ const en: Translation = {
   newDailyChallenge: "New Daily Challenge Live",
   scrambleFeatureHint: "Use the Scramble a word feature below to create your own jumble puzzles.",
   wordList: "Word List",
+  copiedToClipboard: "Copied to clipboard!",
  },
  hubPages: {
   startsSubtitle: "Browse every valid Scrabble word that starts with each letter of the alphabet, from 2 to 15 letters.",
@@ -817,6 +823,8 @@ const fr: Translation = {
   correct: "✨ Parfait ! Bonne réponse !",
   wrong: "❌ Mauvaise réponse ! Essayez encore.",
   answerWas: "La réponse était :",
+  challengeFriend: "Défier un ami",
+  challengeText: "J'ai marqué {score} à Anagram Blitz sur WordIzy — peux-tu faire mieux ? Joue gratuitement : https://wordizy.com/blitz",
   // Section contenu SEO (sous la carte du jeu)
   howToPlayTitle: "Comment jouer à Anagram Blitz",
   howToPlayDesc: "Anagram Blitz est un jeu d'anagrammes rapide de 60 secondes. Vous recevez un ensemble de lettres mélangées et devez les réarranger pour former un mot valide du dictionnaire. Chaque bonne réponse rapporte 20 points ; chaque skip coûte 5 points. Battez votre meilleur score et grimpez dans le classement quotidien.",
@@ -854,6 +862,7 @@ const fr: Translation = {
   newDailyChallenge: "Nouveau défi quotidien",
   scrambleFeatureHint: "Utilisez la fonction Mélanger un mot ci-dessous pour créer vos propres puzzles.",
   wordList: "Liste de mots",
+  copiedToClipboard: "Copié dans le presse-papiens !",
  },
  hubPages: {
   startsSubtitle: "Parcourez tous les mots Scrabble valides commençant par chaque lettre de l'alphabet, de 2 à 15 lettres.",
@@ -1119,6 +1128,8 @@ const es: Translation = {
   wrong: "❌ ¡Respuesta incorrecta! Inténtalo de nuevo.",
   correct: "✨ ¡Perfecto! ¡Respuesta correcta!",
   answerWas: "La respuesta era:",
+  challengeFriend: "Reta a un amigo",
+  challengeText: "Puntué {score} en Anagram Blitz de WordIzy — ¿puedes superarme? Juega gratis: https://wordizy.com/blitz",
   // Sección de contenido SEO (debajo de la tarjeta del juego)
   howToPlayTitle: "Cómo jugar a Anagram Blitz",
   howToPlayDesc: "Anagram Blitz es un juego rápido de anagramas de 60 segundos. Recibe un conjunto de letras mezcladas y debe reordenarlas para formar una palabra válida del diccionario. Cada respuesta correcta gana 20 puntos; cada omisión cuesta 5 puntos. Supere su mejor puntuación y suba en la clasificación diaria.",
@@ -1156,6 +1167,7 @@ const es: Translation = {
   newDailyChallenge: "Nuevo desafío diario",
   scrambleFeatureHint: "Use la función Mezclar una palabra a continuación para crear sus propios puzzles.",
   wordList: "Lista de palabras",
+  copiedToClipboard: "¡Copiado al portapapeles!",
  },
  hubPages: {
   startsSubtitle: "Explore todas las palabras válidas de Scrabble que comienzan con cada letra del alfabeto, de 2 a 15 letras.",
@@ -1421,6 +1433,8 @@ const de: Translation = {
   play: "▶ Spielen",
   correct: "✨ Perfekt! Richtige Antwort!",
   answerWas: "Die Antwort war:",
+  challengeFriend: "Freund herausfordern",
+  challengeText: "Ich habe {score} Punkte bei WordIzy Anagram Blitz erzielt — schlägst du mich? Kostenlos spielen: https://wordizy.com/blitz",
   // SEO-Inhaltsabschnitt (unter der Spielkarte)
   howToPlayTitle: "So spielen Sie Anagram Blitz",
   howToPlayDesc: "Anagram Blitz ist ein schnelles 60-Sekunden-Anagramm-Spiel. Sie erhalten ein durcheinandergebrachtes Buchstaben-Set und müssen diese neu anordnen, um ein gültiges Wörterbuchwort zu bilden. Jede richtige Antwort bringt 20 Punkte; jedes Überspringen kostet 5 Punkte. Schlagen Sie Ihren Highscore und steigen Sie in der täglichen Rangliste auf.",
@@ -1458,6 +1472,7 @@ const de: Translation = {
   newDailyChallenge: "Neue tägliche Herausforderung",
   scrambleFeatureHint: "Verwenden Sie die Funktion Wort mischen unten, um eigene Rätsel zu erstellen.",
   wordList: "Wortliste",
+  copiedToClipboard: "In die Zwischenablage kopiert!",
  },
  hubPages: {
   startsSubtitle: "Durchsuchen Sie jedes gültige Scrabble-Wort, das mit jedem Buchstaben des Alphabets beginnt, von 2 bis 15 Buchstaben.",
@@ -1723,6 +1738,8 @@ const it: Translation = {
   play: "▶ Gioca",
   correct: "✨ Perfetto! Risposta corretta!",
   answerWas: "La risposta era:",
+  challengeFriend: "Sfida un amico",
+  challengeText: "Ho totalizzato {score} punti su WordIzy Anagram Blitz — mi batti? Gioca gratis: https://wordizy.com/blitz",
   // Sezione contenuto SEO (sotto la carta del gioco)
   howToPlayTitle: "Come giocare ad Anagram Blitz",
   howToPlayDesc: "Anagram Blitz è un gioco di anagrammi veloce di 60 secondi. Ricevi un insieme di lettere mescolate e devi riordinarle per formare una parola valida del dizionario. Ogni risposta corretta guadagna 20 punti; ogni salto costa 5 punti. Supera il tuo punteggio migliore e sali nella classifica giornaliera.",
@@ -1760,6 +1777,7 @@ const it: Translation = {
   newDailyChallenge: "Nuova sfida quotidiana",
   scrambleFeatureHint: "Usa la funzione Mescola una parola qui sotto per creare i tuoi puzzle.",
   wordList: "Lista parole",
+  copiedToClipboard: "Copiato negli appunti!",
  },
  hubPages: {
   startsSubtitle: "Sfogli tutte le parole Scrabble valide che iniziano con ogni lettera dell'alfabeto, da 2 a 15 lettere.",
@@ -2025,6 +2043,8 @@ const pt: Translation = {
   play: "▶ Jogar",
   correct: "✨ Perfeito! Resposta correta!",
   answerWas: "A resposta era:",
+  challengeFriend: "Desafie um amigo",
+  challengeText: "Marquei {score} no Anagram Blitz da WordIzy — consegue me superar? Jogue grátis: https://wordizy.com/blitz",
   // Seção de conteúdo SEO (abaixo do cartão do jogo)
   howToPlayTitle: "Como jogar Anagram Blitz",
   howToPlayDesc: "Anagram Blitz é um jogo de anagramas rápido de 60 segundos. Você recebe um conjunto de letras embaralhadas e deve reorganizá-las para formar uma palavra válida do dicionário. Cada resposta correta ganha 20 pontos; cada salto custa 5 pontos. Supere sua melhor pontuação e suba na classificação diária.",
@@ -2062,6 +2082,7 @@ const pt: Translation = {
   newDailyChallenge: "Novo desafio diário",
   scrambleFeatureHint: "Use a função Embaralhar uma palavra abaixo para criar seus próprios puzzles.",
   wordList: "Lista de palavras",
+  copiedToClipboard: "Copiado para a área de transferência!",
  },
  hubPages: {
   startsSubtitle: "Navegue por todas as palavras válidas de Scrabble que começam com cada letra do alfabeto, de 2 a 15 letras.",
@@ -2327,6 +2348,8 @@ const nl: Translation = {
   play: "▶ Spelen",
   correct: "✨ Perfect! Goed antwoord!",
   answerWas: "Het antwoord was:",
+  challengeFriend: "Daag een vriend uit",
+  challengeText: "Ik scoorde {score} op WordIzy Anagram Blitz — kun je me verslaan? Speel gratis: https://wordizy.com/blitz",
   // SEO-inhoud sectie (onder de spelkaart)
   howToPlayTitle: "Hoe Anagram Blitz te spelen",
   howToPlayDesc: "Anagram Blitz is een snel 60-seconden anagramspel. U ontvangt een door elkaar gehusselde set letters en moet deze herschikken om een geldig woordenboekwoord te vormen. Elk juist antwoord levert 20 punten op; elke overslaing kost 5 punten. Versla uw highscore en klim in het dagelijkse klassement.",
@@ -2364,6 +2387,7 @@ const nl: Translation = {
   newDailyChallenge: "Nieuwe dagelijkse uitdaging",
   scrambleFeatureHint: "Gebruik de functie Woord mengen hieronder om uw eigen puzzels te maken.",
   wordList: "Woordenlijst",
+  copiedToClipboard: "Naar klembord gekopieerd!",
  },
  hubPages: {
   startsSubtitle: "Doorzoek elk geldig Scrabble-woord dat begint met elke letter van het alfabet, van 2 tot 15 letters.",
@@ -2632,6 +2656,8 @@ const ja: Translation = {
   play: "▶ プレイ",
   correct: "✨ 完璧！正解！",
   answerWas: "答えは：",
+  challengeFriend: "友達を挑発する",
+  challengeText: "WordIzyアナグラムブリッツで{score}点獲得 — 負けられる？無料でプレイ: https://wordizy.com/blitz",
   // SEOコンテンツセクション（ゲームカードの下）
   howToPlayTitle: "アナグラム・ブリッツの遊び方",
   howToPlayDesc: "アナグラム・ブリッツは60秒の高速アナグラムゲームです。シャッフルされた文字のセットが与えられ、辞書の有効な単語になるように並べ替える必要があります。正解ごとに20ポイント獲得、スキップごとに5ポイント失います。ハイスコアを更新してデイリーリーダーボードを登りましょう。",
@@ -2669,6 +2695,7 @@ const ja: Translation = {
   newDailyChallenge: "本日の新しいチャレンジ",
   scrambleFeatureHint: "下の単語をシャッフル機能を使って、オリジナルのパズルを作成できます。",
   wordList: "単語リスト",
+  copiedToClipboard: "クリップボードにコピーしました！",
  },
  hubPages: {
   startsSubtitle: "アルファベットの各文字で始まる、2〜15文字のすべての有効なScrabble単語を閲覧できます。",
@@ -2937,6 +2964,8 @@ const zh: Translation = {
   play: "▶ 播放",
   correct: "✨ 完美！回答正确！",
   answerWas: "答案是：",
+  challengeFriend: "挑战好友",
+  challengeText: "我在 WordIzy 字谜闪击中得了 {score} 分 — 能超越我吗？免费游玩: https://wordizy.com/blitz",
   // SEO内容部分（游戏卡片下方）
   howToPlayTitle: "如何玩字谜闪击",
   howToPlayDesc: "字谜闪击是一款快节奏的60秒字谜重排游戏。你会收到一组打乱的字母，必须重新排列以组成一个有效的词典单词。每个正确答案获得20分；每次跳过扣5分。刷新你的高分纪录，登上每日排行榜。",
@@ -2974,6 +3003,7 @@ const zh: Translation = {
   newDailyChallenge: "每日新挑战",
   scrambleFeatureHint: "使用下方的打乱单词功能创建您自己的谜题。",
   wordList: "单词列表",
+  copiedToClipboard: "已复制到剪贴板！",
  },
  hubPages: {
   startsSubtitle: "浏览以字母表中每个字母开头的所有有效 Scrabble 单词，长度从 2 到 15 个字母。",
