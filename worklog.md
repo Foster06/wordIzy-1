@@ -912,3 +912,68 @@ Stage Summary:
 - 1 deferred item (unused fonts) verified as audit false-positive — no action needed.
 - Production build clean. All audit fixes from task 14 + GDPR gating from task 15 are live.
 - Remaining: user needs to provide real AdSense publisher ID via `.env.local` (NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-XXXXXXXX) before ads will actually serve — code is ready, just needs the env var.
+
+---
+Task ID: 16
+Agent: main
+Task: (1) Verify Ahrefs Web Analytics implementation, (2) Add "Challenge a Friend" share button to Anagram Blitz game-over card
+
+Work Log:
+
+## Part 1 — Ahrefs Web Analytics verification (✅ confirmed implemented)
+
+- Subagent audit confirmed all 6 dimensions pass:
+  - Script tag: `<script async src="https://analytics.ahrefs.com/analytics.js" data-key="F87goBifqTaUBs3AbK3EWA" />` rendered via `<AnalyticsScripts />` in layout.tsx. Async + non-blocking. Gated behind cookie consent (returns null unless `consent === "accepted"`).
+  - CSP allowlist: `https://analytics.ahrefs.com` whitelisted in BOTH `script-src` (line 110 of next.config.ts — loader script) AND `connect-src` (line 121 — beacon endpoints /api/event + /api/error). Verified live on dev server.
+  - Live HTTP: `/blitz` returns 200; CSP header contains ahrefs in both directives. SSR HTML contains ZERO ahrefs script tags (expected GDPR behavior — script mounts only after Accept click).
+  - data-key: `F87goBifqTaUBs3AbK3EWA` hardcoded fallback in effect (`NEXT_PUBLIC_AHREFS_ANALYTICS_KEY` env var is unset). User must confirm this matches their actual Ahrefs project key out-of-band.
+  - SPA tracking: Ahrefs mounted ONCE at the root layout via `<AnalyticsScripts />`. No per-page `next/script` re-mount (verified `rg "from 'next/script'"` returns no matches). Auto-tracks popstate SPA navigations.
+  - Consent flow: localStorage key `wordizy-cookie-consent` with values "accepted"|"declined"|null. Banner writes on Accept/Decline. `useCookieConsent()` also re-reads on window focus so consent given in another tab propagates without reload.
+
+## Part 2 — "Challenge a Friend" share button (✅ implemented + pushed)
+
+- Implementation map (subagent):
+  - Game-over card lives in `src/components/tools/anagram-blitz.tsx` lines 218-240.
+  - Score state at line 19 (`const [score, setScore] = useState(0)`).
+  - Existing `useCopyClipboard` hook at `src/components/site/use-copy-clipboard.ts` — returns `{ copy, copied }`. Reused.
+  - Sonner toast already mounted in layout.tsx with `position="top-center" richColors`. Import: `import { toast } from "sonner"`.
+  - Share2 icon is the established share convention (used in 3 word-list components). Added to lucide import in anagram-blitz.tsx.
+  - Translations file uses strict TS typing — adding keys to the `Translation` type but only to English would fail tsc for the other 8 languages. Solution: added all 3 keys × 9 languages (en/fr/es/de/it/pt/nl/ja/zh).
+
+- Code changes (`src/components/tools/anagram-blitz.tsx`):
+  - Added imports: `Share2` from lucide-react, `useCopyClipboard` hook, `toast` from sonner.
+  - Added `const { copy } = useCopyClipboard();` inside `AnagramBlitz()` body.
+  - Inserted new `<button>` between the `isInfiniteMode ? ... : ...` ternary and the Return-to-Menu button (so it appears in BOTH daily + infinite modes, even when daily is locked).
+  - onClick handler:
+    1. Build `text = t.blitz.challengeText.replace("{score}", String(score))`
+    2. Progressive enhancement: if `navigator.share` exists (mobile), call `navigator.share({ title, text, url })` → opens WhatsApp/iMessage/etc.
+    3. Fallback (desktop): `copy(text)` + `toast.success(t.ui.copiedToClipboard)`
+  - Styling matches the existing Play Again button exactly (`.btn-amber-flow` + same border + shadow + hover scale).
+
+- Translations added (`src/components/i18n/translations.ts`):
+  - Type definition: added `challengeFriend: string` + `challengeText: string` to blitz type after `answerWas`; added `copiedToClipboard: string` to ui type after `wordList`.
+  - All 9 language blocks: added the 3 keys with native translations (not just English fallback):
+    - en: "Challenge a Friend" / "I scored {score} on WordIzy Anagram Blitz — can you beat me? Play free: https://wordizy.com/blitz" / "Copied to clipboard!"
+    - fr: "Défier un ami" / "J'ai marqué {score} à Anagram Blitz sur WordIzy..." / "Copié dans le presse-papiers !"
+    - es: "Reta a un amigo" / "Puntué {score} en Anagram Blitz de WordIzy..." / "¡Copiado al portapapeles!"
+    - de: "Freund herausfordern" / "Ich habe {score} Punkte bei WordIzy Anagram Blitz erzielt..." / "In die Zwischenablage kopiert!"
+    - it: "Sfida un amico" / "Ho totalizzato {score} punti su WordIzy..." / "Copiato negli appunti!"
+    - pt: "Desafie um amigo" / "Marquei {score} no Anagram Blitz da WordIzy..." / "Copiado para a área de transferência!"
+    - nl: "Daag een vriend uit" / "Ik scoorde {score} op WordIzy Anagram Blitz..." / "Naar klembord gekopieerd!"
+    - ja: "友達を挑発する" / "WordIzyアナグラムブリッツで{score}点獲得..." / "クリップボードにコピーしました！"
+    - zh: "挑战好友" / "我在 WordIzy 字谜闪击中得了 {score} 分..." / "已复制到剪贴板！"
+
+- Verification:
+  - TypeScript: 0 errors.
+  - ESLint on both modified files: 0 errors, 0 warnings.
+  - Live chunk verification via curl: all 9 `challengeFriend` strings + `challengeText` English + `{score}` placeholder + all 9 `copiedToClipboard` strings confirmed in `/static/chunks/app/layout.js` chunk.
+  - Dev server healthy: `/blitz` returns 200.
+
+- Committed as `5f012a7` and pushed to `origin/main`:
+  - Commit message describes the retention strategy and implementation details.
+  - Live on GitHub at https://github.com/Foster06/wordIzy-1/commit/5f012a7
+
+Stage Summary:
+- Ahrefs Web Analytics verified as fully implemented and consent-gated. Only remaining step is user confirming the fallback data-key matches their Ahrefs project.
+- "Challenge a Friend" button live on the Blitz game-over card in all 9 languages. Uses progressive enhancement (native share sheet on mobile, clipboard + toast on desktop). Matches the established `.btn-amber-flow` styling of the existing Play Again button.
+- Total project state: 16 audit issues + GDPR gating + Blitz share feature all live on origin/main. Only outstanding item: drop real AdSense publisher ID into `.env.local` to fully activate ad slots.
