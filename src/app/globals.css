@@ -455,3 +455,47 @@ input[type="number"] {
     }
   }
 }
+
+/* ---------- Global button press animation (site-wide) ---------- */
+/* Adds a subtle press-down (scale 0.97) + smooth multi-property transition to
+   every <button>, [role="button"], and <input type="submit|button"> on the
+   site. Lives in @layer base so Tailwind utilities (e.g. `active:scale-95`,
+   `transition-all`, `hover:scale-105`) ALWAYS override when explicitly set
+   on a per-button basis — existing animations like the .btn-amber-flow CTA
+   on the blitz page keep their bespoke hover/active behavior untouched. */
+@layer base {
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    transition:
+      transform 150ms cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 200ms ease,
+      background-color 200ms ease,
+      border-color 200ms ease,
+      color 200ms ease;
+  }
+  button:active:not(:disabled),
+  [role="button"]:active:not(:disabled),
+  input[type="submit"]:active,
+  input[type="button"]:active {
+    transform: scale(0.97);
+  }
+  /* Accessibility: respect user's reduced-motion preference — kill the
+     press-down + transitions entirely for users who set OS-level
+     prefers-reduced-motion. */
+  @media (prefers-reduced-motion: reduce) {
+    button,
+    [role="button"],
+    input[type="submit"],
+    input[type="button"] {
+      transition: none !important;
+    }
+    button:active,
+    [role="button"]:active,
+    input[type="submit"]:active,
+    input[type="button"]:active {
+      transform: none !important;
+    }
+  }
+}
