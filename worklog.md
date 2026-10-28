@@ -1440,3 +1440,50 @@ User reported the preview sandbox was showing "not active" between commands. Dia
 - SSR curl /sitemap → 200. New Wordle sections present, all 4 guide links present, preferred `starts-with` URLs in use.
 - SSR curl /sitemap.xml → 200. /terms entry present (1), /guides/ entries (4), wordle-words entries (52), lastmod bumped to 2026-10-29.
 - SSR curl /contact → 200. `href="mailto:support@wordizy.com"` present (count: 1).
+
+## Task 25 (Oct 29 2026) — Blitz h1 fix, global button animation, Save Vault layout fixes
+
+Three independent fixes batched into one push.
+
+### Blitz page h1 tag (src/components/i18n/translations.ts + src/components/site/main-tool-view.tsx)
+Bing Webmaster Tools reported "H1 tag missing" on /blitz because the page's SEO content section started with an h2 ("How to Play Anagram Blitz") but had no h1 above it. Other pages (/privacy, /terms, /contact, /about, /sitemap) all use the PageHeader component which renders an h1, but /blitz's case branch in main-tool-view.tsx went straight to the AnagramBlitz game card + an h2-led SEO section, skipping the PageHeader.
+
+- Added `pageHeading: string` to the `blitz` Translation type definition (between `challengeText` and `howToPlayTitle`).
+- Added 9 translated values, one per language, each combining the universal brand name "Anagram Blitz" with a localized descriptive suffix:
+  - EN: "Play Anagram Blitz — Free 60-Second Word Game"
+  - FR: "Jouez à Anagram Blitz — Jeu de mots gratuit de 60 secondes"
+  - ES: "Juega a Anagram Blitz — Juego de palabras gratis de 60 segundos"
+  - DE: "Spiele Anagram Blitz — Gratis 60-Sekunden-Wortspiel"
+  - IT: "Gioca ad Anagram Blitz — Gioco di parole gratuito da 60 secondi"
+  - PT: "Jogue Anagram Blitz — Jogo de palavras grátis de 60 segundos"
+  - NL: "Speel Anagram Blitz — Gratis 60-seconden woordspel"
+  - JA: "Anagram Blitz をプレイ — 無料の60秒ワードゲーム"
+  - ZH: "玩 Anagram Blitz — 免费60秒单词游戏"
+- Added `<h1 className="text-2xl font-bold text-foreground">{t.blitz.pageHeading}</h1>` as the first child of the blitz SEO section in main-tool-view.tsx, above the existing `<h2>{t.blitz.howToPlayTitle}</h2>`. Now /blitz has exactly one descriptive h1 containing the primary keywords ("Anagram Blitz", "Free", "60-Second", "Word Game") matching the title tag. Bing's "H1 tag missing" warning will resolve on next crawl.
+
+### Global button animation (src/app/globals.css)
+Previous attempt used `scale(0.97)` (3% press) which was too subtle to see. User reported "I do not see the animations in unscramble, descramble, find anagram, find best words, solve, check, clear buttons". Bumped to visible values:
+
+- Hover lift: `transform: scale(1.03)` (+3%) on `:hover:not(:disabled)` — visible feedback when cursor enters
+- Active press: `transform: scale(0.94)` (-6%) on `:active:not(:disabled)` — obvious click feedback while held
+- Added `filter 200ms ease` to the transition list so the shadcn Button default variant's `hover:brightness-110` animates smoothly too (was instant before)
+- Transition duration bumped from 150ms → 200ms for transform (more noticeable)
+- Lives in `@layer base` so Tailwind utilities (`hover:scale-105`, `active:scale-95`, `transition-all`) always override per-button — the blitz start buttons keep their bespoke 5%/5% behavior untouched, while buttons WITHOUT bespoke scale utilities (unscramble / descramble / solve / check / clear / theme toggle / language selector / save-vault / mobile hamburger / etc.) now get the visible 3%-lift-on-hover + 6%-press-on-active animation
+- `prefers-reduced-motion: reduce` fallback kills all transitions + transforms for accessibility
+
+### Save Vault layout fixes (src/components/site/favorites-drawer.tsx)
+Three separate visual issues, fixed across two turns:
+
+1. **Horizontal misalignment** — header row had no horizontal padding, counts row had `px-1` (4px each side = 8px narrower than header), word rows container had `pr-1` (4px right = 4px narrower on right). Fixed: counts row → `px-0`, word rows container → `pr-0`. All three rows now share the same horizontal width.
+
+2. **Tight spacing below header border** — header row had `pb-4 mb-4` (32px total: 16px above border + 16px below). Fixed: → `pb-3 mb-2` (20px total: 12px above + 8px below). The border now feels attached to the content below instead of floating.
+
+3. **Big empty gap between word card and footer (the actual "gap between two bodies")** — the inner content canvas had `justifyContent: "space-between"` (sticky-footer pattern: header at top, footer at bottom, content scrolls in middle). With only 1 saved word, the content (header + counts + 1 word card) is short, so `space-between` created a HUGE empty gap between the word card and the footer. Fixed: → `justifyContent: "flex-start"`. Footer now sits right below the word cards (~16px gap from its natural `pt-4`), and any empty space lands below the footer at the bottom of the drawer (visually unobjectionable).
+
+### Verification
+- TypeScript: `bunx tsc --noEmit` — 0 errors
+- ESLint: `bunx eslint` on translations.ts, main-tool-view.tsx, favorites-drawer.tsx — 0 errors, 0 warnings (globals.css "file ignored" warning is normal)
+- Dev supervisor (pid 1245) still running, dev server healthy on :3000
+- SSR curl /blitz → 200, h1 count went 0 → 1, h1 content: "Play Anagram Blitz — Free 60-Second Word Game"
+- Compiled CSS contains `scale(1.03)` (hover lift), `scale(.94)` (active press), `button:hover:not(:disabled)`, `button:active:not(:disabled)`, `prefers-reduced-motion` (2 instances: existing btn-amber-flow + new rule), `filter 200ms ease` (added for brightness transition)
+- Save Vault source: `justifyContent: "flex-start"` confirmed on inner content canvas (line 104), `pb-3 mb-2` on header div, `px-0` on counts row, `pr-0` on word rows container
