@@ -1232,3 +1232,64 @@ Stage Summary:
 - All 24 non-English guide translations rewritten to be GENUINELY CONTEXTUALLY UNIQUE per language — each uses that language's actual Scrabble dictionary, 2-letter word list, suffix patterns, vowel frequencies, bingo examples, and crossword traditions; English-specific content (NWL2023, SLATE/STALE, NYT, ETUDE/OBOE/ALAI, etc.) does NOT appear in any non-English version
 - 27 audit checks all pass — TypeScript clean, ESLint clean, all routes 200, contextual uniqueness verified per language across all 3 guides
 - All previously-working features (FAQ expansion, 7-letter bingo, Featured Guides, footer, internal cross-links) remain functional
+
+---
+Task ID: 21
+Agent: main
+Task: Remove "About this word list" + canonical URL section everywhere; update About page with new copy + meta tags
+
+Work Log:
+- User request: remove the "About this word list" section (which appeared on every word-list page with the canonical URL display) everywhere it appears; update the About page (/about) with the user-provided new copy including meta title and meta description.
+
+- REMOVED "About this word list" + Canonical URL section:
+  - src/components/site/programmatic-seo-view.tsx: Removed the `<section>` block (lines 413-421) that rendered t.wordListPage.aboutTitle, t.wordListPage.aboutBody, and t.wordListPage.canonicalUrl with the canonical URL display
+  - Removed the now-unused `const canonical = buildCanonicalWordListUrl(config);` variable declaration (line 98)
+  - Removed the now-unused `buildCanonicalWordListUrl` import from `@/lib/word-list-urls`
+  - src/components/i18n/translations.ts: Removed the type declarations for `aboutTitle`, `aboutBody`, `canonicalUrl` from the `wordListPage` interface (lines 125-127 in the type block)
+  - Persisted a cleanup script at /home/z/my-project/scripts/remove_wordlist_about_fields.py per the Script Persistence Rule — ran it to remove all 27 lines (9 languages × 3 fields) of aboutTitle/aboutBody/canonicalUrl string definitions across the 9 language `wordListPage:` blocks
+  - Verified via curl: 0 occurrences of "About this word list" / "Canonical URL" / aboutTitle / canonicalUrl in the SSR HTML of /unscramble-7-letter-words, /words-starts-with-q, /unscramble-2-letter-words (all previously had this section)
+
+- UPDATED About page (/about) with new copy:
+  - English `about:` block in translations.ts (lines 276-297) fully replaced:
+    - title: "About wordIzy" (was "About WordIzy")
+    - intro: "Welcome to wordIzy, your premier destination for high-performance word game utilities..."
+    - 4 sections (was 8):
+      1. "Our Mission" — about helping players elevate vocabulary, train minds, resolve puzzle disputes; instant calculations, localized multi-language Scrabble dictionaries, intuitive custom filtering engines
+      2. "Why Choose wordIzy?" — intro line + 4 bullet items (• Comprehensive Dictionary Databases mentioning NWL2023, CSW21, French ODS9 / • Realistic Game Logic with blank tile zero-point values / • Innovative Educational Tools with Save Vault as flashcard manager / • Engaging Gameplay with Anagram Blitz)
+      3. "Our Commitment to Privacy" — local storage, no account, data stays on device
+      4. "Get in Touch" — feature requests, dictionary corrections, feedback via contact page
+    - Old sections removed: "What We Offer", "Official Scrabble Dictionaries", "Nine Languages Supported", "Smart Features", "Privacy by Design", "Themes & Accessibility"
+
+  - meta-config.ts (src/lib/meta-config.ts) About entry updated:
+    - title: "About Us — Our Mission & Word Game Tools" (without "| wordIzy" suffix since the layout.tsx template `"%s | wordIzy"` auto-appends it — initial attempt with suffix caused duplicate "wordIzy | wordIzy" in the rendered <title>; fixed by removing the suffix from the source)
+    - description: "Learn more about wordIzy, our mission to build fast, intuitive dictionary tools, and how we help players master Scrabble, Wordle, and crossword puzzles."
+
+  - 8 non-English `about:` blocks translated and updated (delegated to general-purpose subagent for parallelism):
+    - French (fr): "À propos de wordIzy" — mentions ODS9 (Officiel du Scrabble) prominently
+    - Spanish (es): "Acerca de wordIzy" — mentions FISE (Federación Internacional de Scrabble en Español)
+    - German (de): "Über wordIzy" — mentions Scrabble-Wörterbuch (Deutsch)
+    - Italian (it): "Informazioni su wordIzy" — mentions Zingarelli (italiano)
+    - Portuguese (pt): "Sobre o wordIzy" — mentions Léxico (português pt-BR)
+    - Dutch (nl): "Over wordIzy" — mentions OpenTaal (Nederlands)
+    - Japanese (ja): "wordIzyについて" — mentions 厳選された日本語ローマ字リスト
+    - Chinese (zh): "关于 wordIzy" — mentions 精心整理的中文拼音列表
+    - Brand terms (wordIzy, Anagram Blitz, Save Vault, NWL2023, CSW21) preserved in English across all languages
+
+- VERIFICATION (audit):
+  - TypeScript: 0 errors (bunx tsc --noEmit)
+  - ESLint: 0 new errors introduced (programmatic-seo-view.tsx still has 19 pre-existing react-hooks/rules-of-hooks errors per the codebase note "预存 lint 错误勿动"; translations.ts and meta-config.ts are clean)
+  - All 12 routes return HTTP 200: /, /about, /unscramble-7-letter-words, /unscramble-2-letter-words, /words-starts-with-q, /words-ends-with-a, /wordle-words-starts-with-q, /guides/best-wordle-starter-words, /guides/5-crossword-solving-tips-for-beginners, /guides/score-400-in-anagram-blitz, /guides/memorize-2-letter-scrabble-words, /blitz
+  - "About this word list" section verified REMOVED from all word-list pages (0 occurrences)
+  - About page (/about) SSR HTML verified to contain all 4 new sections (Welcome to wordIzy intro, Our Mission, Why Choose wordIzy?, Our Commitment to Privacy, Get in Touch) + all 4 bullet items (Comprehensive Dictionary Databases, Realistic Game Logic, Innovative Educational Tools, Engaging Gameplay) + 4 bullet characters (•)
+  - About page meta tags verified in SSR HTML: <title>About Us — Our Mission &amp; Word Game Tools | wordIzy</title>, meta description, og:title, og:description, canonical URL
+  - About page SSR HTML verified to contain 0 old sections (What We Offer / Official Scrabble Dictionaries / Nine Languages Supported / Smart Features / Privacy by Design / Themes & Accessibility — all 0 matches)
+  - All 9 language versions of `about:` block in translations.ts verified to contain the new title + 4 sections + localized dictionary reference in the "Comprehensive Dictionary Databases" bullet
+  - All 9 language versions verified to have 0 leftover old section headings (searches for translated "What We Offer" / "Official Scrabble Dictionaries" / "Themes & Accessibility" patterns returned 0 matches inside About blocks; the 11 matches for "Official Scrabble Dictionaries"-style phrases are all in FAQ answers and footer notes — different context, correctly preserved)
+
+- Git commit + push to follow.
+
+Stage Summary:
+- "About this word list" + canonical URL display section fully removed from all word-list pages (the section was redundant with the WordListArticle SEO content above it)
+- About page (/about) fully rewritten with the user-provided new copy: title, intro paragraph, 4 sections (Our Mission / Why Choose wordIzy? with 4 bullets / Our Commitment to Privacy / Get in Touch), and proper meta title + description
+- All 9 language versions of the About block updated with the new content; each non-English version mentions that language's primary Scrabble dictionary prominently in the "Comprehensive Dictionary Databases" bullet (French ODS9, Spanish FISE, German Scrabble-Wörterbuch, Italian Zingarelli, Portuguese Léxico, Dutch OpenTaal, Japanese romaji, Chinese pinyin)
+- Cleanup script persisted at /home/z/my-project/scripts/remove_wordlist_about_fields.py for recoverability

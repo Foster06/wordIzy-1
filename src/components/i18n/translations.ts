@@ -122,9 +122,6 @@ export type Translation = {
   remaining: string;
   allLengths: string;
   filterByLength: string;
-  aboutTitle: string;
-  aboutBody: string;
-  canonicalUrl: string;
   noMatch: string;
   noWords: string;
   wordsCount: string;
@@ -274,40 +271,24 @@ const en: Translation = {
   allWords: "All words", startsBy: "Words Starts With A-Z", endsBy: "Words Ends With A-Z", letter: "Letter", selectLength: "Length", selectLetter: "Letter", browse: "Browse",
  },
  about: {
-  title: "About WordIzy",
-  intro: "WordIzy is a free, privacy-first word puzzle platform built for word game enthusiasts, students, and language lovers worldwide. Our mission is simple: provide fast, accurate, and ad-supported word tools that respect your privacy — no account required, no personal data collected.",
+  title: "About wordIzy",
+  intro: "Welcome to wordIzy, your premier destination for high-performance word game utilities, anagram solvers, and educational puzzle resources. Built by a dedicated team of indie developers and lifelong word puzzle enthusiasts, wordIzy was designed from the ground up to be the fastest, cleanest, and most distraction-free dictionary tool set on the web.",
   sections: [
    {
     heading: "Our Mission",
-    body: "We believe word tools should be instant, accurate, and accessible to everyone. Whether you are stuck on a Wordle puzzle, looking for the best Scrabble play, or exploring a new language, WordIzy gives you the answers without friction, sign-ups, or paywalls.",
+    body: "Our mission is to help players elevate their vocabulary, train their minds, and resolve friendly puzzle disputes with absolute accuracy. We believe that word solvers shouldn't be cluttered with intrusive layouts, sluggish load times, or complicated setups. That is why wordIzy features instant calculations, localized multi-language Scrabble dictionaries, and intuitive custom filtering engines built for seamless everyday use.",
    },
    {
-    heading: "What We Offer",
-    body: "WordIzy includes twelve dedicated tools: a Word Unscrambler, Scramble Solver, Anagram Solver, Scrabble Duplicate helper, Wordle Solver, Quordle Solver, Wordfeud Helper, Random Word Generator, Dictionary Checker, Word Lists, Word Starts By, and Word Ends By. Every tool runs entirely in your browser — results appear the moment you submit your letters.",
+    heading: "Why Choose wordIzy?",
+    body: "Unlike basic, generic lookup tables, our tools are custom-tailored to match the exact mechanics of the world's most popular word games:\n• Comprehensive Dictionary Databases: We support 9 global languages, filtering your letters directly against official competition lexicons like NWL2023, CSW21, and French ODS9.\n• Realistic Game Logic: Our advanced wildcard filtering system recognizes rules like Scrabble blank tile distributions, assigning true zero-point values so you can plan precise tournament-level moves.\n• Innovative Educational Tools: Unique features like our locally saved Save Vault function as a personal companion flashcard manager, giving players an active environment to study word patterns, hooks, and extensions offline.\n• Engaging Gameplay: Beyond tools, we create custom experiences like Anagram Blitz to give word game lovers a fast-paced environment to test their speed and challenge their personal high scores.",
    },
    {
-    heading: "Official Scrabble Dictionaries",
-    body: "We use authoritative tournament word lists as our primary source: NWL2023 and CSW21 for English, ODS9 for French, FISE for Spanish, Zingarelli for Italian, OpenTaal for Dutch, and curated Scrabble-filtered lists for German and Portuguese. This means the words you find here are the same ones accepted in official Scrabble competition play.",
-   },
-   {
-    heading: "Nine Languages Supported",
-    body: "WordIzy operates in English, French, Spanish, Italian, Portuguese, German, Dutch, Japanese (romaji), and Mandarin Chinese (pinyin). Switch languages at any time using the selector in the navigation bar — the entire interface, the FAQ tips, and the underlying dictionary change instantly.",
-   },
-   {
-    heading: "Smart Features",
-    body: "Copy any word list to your clipboard with one click. Your recent searches are saved locally for quick re-running. Loading skeletons give you a smooth experience while dictionaries warm up. And the entire site is a Progressive Web App — install it on your phone or desktop for full-screen, app-like access.",
-   },
-   {
-    heading: "Privacy by Design",
-    body: "No accounts. No cross-site tracking. No fingerprinting. Every query is processed server-side using dictionaries held in memory. We collect only anonymous search analytics (the query string, tool used, and result count — no IP address, no user ID) to help us improve. A cookie consent banner appears on your first visit, and you can manage cookies in your browser settings at any time.",
-   },
-   {
-    heading: "Themes & Accessibility",
-    body: "Choose between Light, Dark, or System theme — the toggle cycles through all three with a single click. The interface uses semantic HTML, ARIA labels for screen readers, and keyboard-friendly navigation throughout. Active navigation items are marked with aria-current for assistive technology.",
+    heading: "Our Commitment to Privacy",
+    body: "We value your digital security and your system's performance. Advanced options like your word bookmark history are executed directly using your browser's local storage. This means your personal study lists never leave your device, no user account registrations are required, and your data remains completely private to you.",
    },
    {
     heading: "Get in Touch",
-    body: "Found a bug, have a suggestion, or want to request a new feature? Visit our Contact page and send us a message directly — we read every submission and respond to as many as we can. Your message is stored securely and never shared with third parties.",
+    body: "We are constantly working to improve our lookup algorithms, expand our databases, and design new game modes. If you have any feature requests, dictionary corrections, or general feedback, please reach out to us through our contact page. Thank you for making wordIzy a part of your daily gaming routine!",
    },
   ],
  },
@@ -570,9 +551,6 @@ const en: Translation = {
   remaining: "remaining",
   allLengths: "All",
   filterByLength: "Filter by word length",
-  aboutTitle: "About this word list",
-  aboutBody: "Browse verified, dictionary-checked words for Scrabble, Wordle, and anagram puzzles. Use the length filter and search box to narrow results. Click any word to copy it.",
-  canonicalUrl: "Canonical URL:",
   noMatch: "No words match your filter.",
   noWords: "No words found.",
   wordsCount: "words",
@@ -651,17 +629,25 @@ const fr: Translation = {
   allWords: "Tous les mots", startsBy: "Commence par A–Z", endsBy: "Finit par A–Z", letter: "Lettre", selectLength: "Longueur", selectLetter: "Lettre", browse: "Parcourir",
  },
  about: {
-  title: "À propos de WordIzy",
-  intro: "WordIzy est une plateforme gratuite de jeux de mots axée sur la confidentialité, conçue pour les amateurs de jeux de mots, les étudiants et les passionnés de langues du monde entier. Notre mission est simple : fournir des outils linguistiques rapides, précis et financés par la publicité qui respectent votre vie privée — aucun compte requis, aucune donnée personnelle collectée.",
+  title: "À propos de wordIzy",
+  intro: "Bienvenue sur wordIzy, votre destination de référence pour des utilitaires de jeux de mots performants, des solveurs d'anagrammes et des ressources éducatives pour casse-têtes. Conçu par une équipe dévouée de développeurs indépendants et de passionnés de casse-têtes lexicaux de longue date, wordIzy a été pensé dès le départ pour être l'ensemble d'outils de dictionnaire le plus rapide, le plus épuré et le plus exempt de distractions sur le Web.",
   sections: [
-   { heading: "Notre mission", body: "Nous pensons que les outils linguistiques doivent être instantanés, précis et accessibles à tous. Que vous soyez bloqué sur une énigme Wordle, à la recherche du meilleur coup au Scrabble, ou en train d'explorer une nouvelle langue, WordIzy vous donne les réponses sans friction, sans inscription et sans paywall." },
-   { heading: "Ce que nous offrons", body: "WordIzy comprend douze outils dédiés : un Désordre de mots, un Solveur de brouillage, un Solveur d'anagrammes, un Aide au Scrabble Duplicate, un Solveur Wordle, un Solveur Quordle, un Aide Wordfeud, un Générateur de mots aléatoires, un Vérificateur de dictionnaire, des Listes de mots, des Mots commençant par et des Mots finissant par. Chaque outil s'exécute entièrement dans votre navigateur — les résultats apparaissent dès que vous soumettez vos lettres." },
-   { heading: "Dictionnaires officiels de Scrabble", body: "Nous utilisons des listes de mots de tournoi faisant autorité comme source principale : NWL2023 et CSW21 pour l'anglais, ODS9 pour le français, FISE pour l'espagnol, Zingarelli pour l'italien, OpenTaal pour le néerlandais, et des listes filtrées Scrabble soigneusement sélectionnées pour l'allemand et le portugais. Cela signifie que les mots que vous trouvez ici sont les mêmes que ceux acceptés lors des compétitions officielles de Scrabble." },
-   { heading: "Neuf langues prises en charge", body: "WordIzy fonctionne en anglais, français, espagnol, italien, portugais, allemand, néerlandais, japonais (romaji) et chinois mandarin (pinyin). Changez de langue à tout moment à l'aide du sélecteur dans la barre de navigation — toute l'interface, les astuces de la FAQ et le dictionnaire sous-jacent changent instantanément." },
-   { heading: "Fonctionnalités intelligentes", body: "Copiez n'importe quelle liste de mots dans votre presse-papiers en un seul clic. Vos recherches récentes sont enregistrées localement pour une réutilisation rapide. Les squelettes de chargement offrent une expérience fluide pendant le chargement des dictionnaires. Et l'ensemble du site est une Progressive Web App — installez-la sur votre téléphone ou votre ordinateur pour un accès plein écran, semblable à une application." },
-   { heading: "Confidentialité par conception", body: "Pas de comptes. Pas de suivi intersites. Pas d'empreinte numérique. Chaque requête est traitée côté serveur à l'aide de dictionnaires conservés en mémoire. Nous collectons uniquement des statistiques de recherche anonymes (la chaîne de requête, l'outil utilisé et le nombre de résultats — pas d'adresse IP, pas d'identifiant utilisateur) pour nous aider à nous améliorer. Une bannière de consentement aux cookies apparaît lors de votre première visite, et vous pouvez gérer les cookies dans les paramètres de votre navigateur à tout moment." },
-   { heading: "Thèmes et accessibilité", body: "Choisissez entre les thèmes Clair, Sombre ou Système — la commande parcourt les trois en un seul clic. L'interface utilise du HTML sémantique, des libellés ARIA pour les lecteurs d'écran et une navigation conviviale au clavier partout. Les éléments de navigation actifs sont marqués avec aria-current pour les technologies d'assistance." },
-   { heading: "Contactez-nous", body: "Vous avez trouvé un bug, avez une suggestion ou souhaitez demander une nouvelle fonctionnalité ? Visitez notre page Contact et envoyez-nous un message directement — nous lisons chaque soumission et répondons à autant que possible. Votre message est stocké en toute sécurité et n'est jamais partagé avec des tiers." },
+   {
+    heading: "Notre mission",
+    body: "Notre mission est d'aider les joueurs à enrichir leur vocabulaire, à stimuler leur esprit et à résoudre les petites querelles de casse-têtes avec une précision absolue. Nous pensons que les solveurs de mots ne devraient pas être encombrés de mises en page intrusives, de temps de chargement lents ou de configurations compliquées. C'est pourquoi wordIzy propose des calculs instantanés, des dictionnaires de Scrabble localisés en plusieurs langues et des moteurs de filtrage personnalisés et intuitifs, conçus pour un usage quotidien sans accroc.",
+   },
+   {
+    heading: "Pourquoi choisir wordIzy ?",
+    body: "Contrairement aux simples tableaux de recherche génériques, nos outils sont taillés sur mesure pour correspondre aux mécaniques exactes des jeux de mots les plus populaires au monde :\n• Bases de données de dictionnaires complètes : Nous prenons en charge 9 langues, en filtrant vos lettres directement par rapport aux lexiques de compétition officiels comme ODS9 (Officiel du Scrabble), NWL2023 et CSW21.\n• Logique de jeu réaliste : Notre système de filtrage avancé des jokers reconnaît des règles telles que la distribution des tuiles vierges au Scrabble, en attribuant de vraies valeurs à zéro point pour que vous puissiez planifier des coups précis de niveau tournoi.\n• Outils éducatifs innovants : Des fonctionnalités uniques comme notre Save Vault enregistré localement fonctionnent comme un gestionnaire de cartes mémoire compagnon personnel, offrant aux joueurs un environnement actif pour étudier les modèles de mots, les crochets et les extensions hors ligne.\n• Jeu captivant : Au-delà des outils, nous créons des expériences personnalisées comme Anagram Blitz pour offrir aux amateurs de jeux de mots un environnement rapide pour tester leur vitesse et défier leurs meilleurs scores personnels.",
+   },
+   {
+    heading: "Notre engagement en matière de confidentialité",
+    body: "Nous attachons de l'importance à votre sécurité numérique et aux performances de votre système. Des options avancées comme l'historique de vos mots favoris sont exécutées directement via le stockage local de votre navigateur. Cela signifie que vos listes d'étude personnelles ne quittent jamais votre appareil, qu'aucune inscription de compte utilisateur n'est requise et que vos données restent entièrement privées.",
+   },
+   {
+    heading: "Contactez-nous",
+    body: "Nous travaillons sans cesse à améliorer nos algorithmes de recherche, à enrichir nos bases de données et à concevoir de nouveaux modes de jeu. Si vous avez des demandes de fonctionnalités, des corrections de dictionnaire ou des commentaires généraux, n'hésitez pas à nous contacter via notre page Contact. Merci de faire de wordIzy une part de votre routine de jeu quotidienne !",
+   },
   ],
  },
  contact: {
@@ -902,9 +888,6 @@ const fr: Translation = {
   remaining: "restants",
   allLengths: "Tous",
   filterByLength: "Filtrer par longueur de mot",
-  aboutTitle: "À propos de cette liste de mots",
-  aboutBody: "Parcourez des mots vérifiés et validés par le dictionnaire pour le Scrabble, Wordle et les anagrammes. Utilisez le filtre de longueur et la zone de recherche pour affiner les résultats. Cliquez sur un mot pour le copier.",
-  canonicalUrl: "URL canonique :",
   noMatch: "Aucun mot ne correspond à votre filtre.",
   noWords: "Aucun mot trouvé.",
   wordsCount: "mots",
@@ -956,17 +939,25 @@ const es: Translation = {
  scrabble: { title: "Scrabble Duplicate", subtitle: "El Scrabble duplicate da el mismo atril a todos. Introduce tus 7 letras (y las del tablero) y encuentra las mejores jugadas.", rack: "Tu atril", board: "Letras del tablero (opcional)", btn: "Buscar mejores palabras", hint: "Comodines permitidos. Resultados por puntuación." },
  wordlists: { title: "Listas de Palabras", subtitle: "Explora todas las palabras de 2 a 7 letras. Elige vista, longitud y letra para navegar A–Z.", allWords: "Todas las palabras", startsBy: "Empieza por A–Z", endsBy: "Termina en A–Z", letter: "Letra", selectLength: "Longitud", selectLetter: "Letra", browse: "Explorar" },
  about: {
-  title: "Acerca de WordIzy",
-  intro: "WordIzy es una plataforma gratuita de juegos de palabras centrada en la privacidad, creada para entusiastas de los juegos de palabras, estudiantes y amantes de los idiomas en todo el mundo. Nuestra misión es sencilla: ofrecer herramientas lingüísticas rápidas, precisas y financiadas con publicidad que respeten su privacidad — sin cuenta requerida, sin recopilación de datos personales.",
+  title: "Acerca de wordIzy",
+  intro: "Bienvenido a wordIzy, su destino principal para utilidades de juegos de palabras de alto rendimiento, solucionadores de anagramas y recursos educativos de acertijos. Creado por un equipo dedicado de desarrolladores independientes y entusiastas de los acertijos de palabras de toda la vida, wordIzy fue diseñado desde cero para ser el conjunto de herramientas de diccionario más rápido, limpio y libre de distracciones de la web.",
   sections: [
-   { heading: "Nuestra misión", body: "Creemos que las herramientas de palabras deben ser instantáneas, precisas y accesibles para todos. Ya sea que esté atascado en un acertijo de Wordle, buscando la mejor jugada de Scrabble o explorando un nuevo idioma, WordIzy le da las respuestas sin fricciones, sin registros ni muros de pago." },
-   { heading: "Lo que ofrecemos", body: "WordIzy incluye doce herramientas dedicadas: un Descodificador de palabras, un Solucionador de mezclas, un Solucionador de anagramas, un Ayudante de Scrabble Duplicate, un Solucionador de Wordle, un Solucionador de Quordle, un Ayudante de Wordfeud, un Generador de palabras aleatorias, un Comprobador de diccionario, Listas de palabras, Palabras que empiezan por y Palabras que terminan en. Cada herramienta se ejecuta completamente en su navegador — los resultados aparecen en el momento en que envía sus letras." },
-   { heading: "Diccionarios oficiales de Scrabble", body: "Utilizamos listas de palabras de torneo oficiales como fuente principal: NWL2023 y CSW21 para inglés, ODS9 para francés, FISE para español, Zingarelli para italiano, OpenTaal para neerlandés, y listas filtradas para Scrabble cuidadosamente seleccionadas para alemán y portugués. Esto significa que las palabras que encuentre aquí son las mismas que se aceptan en las competiciones oficiales de Scrabble." },
-   { heading: "Nueve idiomas disponibles", body: "WordIzy funciona en inglés, francés, español, italiano, portugués, alemán, neerlandés, japonés (romaji) y chino mandarín (pinyin). Cambie de idioma en cualquier momento usando el selector de la barra de navegación — toda la interfaz, las sugerencias de las preguntas frecuentes y el diccionario subyacente cambian al instante." },
-   { heading: "Funciones inteligentes", body: "Copie cualquier lista de palabras al portapapeles con un solo clic. Sus búsquedas recientes se guardan localmente para volver a ejecutarlas rápidamente. Los esqueletos de carga ofrecen una experiencia fluida mientras se cargan los diccionarios. Y todo el sitio es una Progressive Web App — instálela en su teléfono o escritorio para un acceso a pantalla completa, como una aplicación." },
-   { heading: "Privacidad por diseño", body: "Sin cuentas. Sin rastreo entre sitios. Sin huella digital. Cada consulta se procesa en el servidor usando diccionarios en memoria. Solo recopilamos estadísticas de búsqueda anónimas (la cadena de consulta, la herramienta utilizada y el número de resultados — sin dirección IP, sin identificador de usuario) para ayudarnos a mejorar. Aparece un banner de consentimiento de cookies en su primera visita, y puede gestionar las cookies en la configuración de su navegador en cualquier momento." },
-   { heading: "Temas y accesibilidad", body: "Elija entre el tema Claro, Oscuro o del Sistema — el conmutador recorre los tres con un solo clic. La interfaz utiliza HTML semántico, etiquetas ARIA para lectores de pantalla y navegación amigable con el teclado en toda la aplicación. Los elementos de navegación activos se marcan con aria-current para la tecnología de asistencia." },
-   { heading: "Póngase en contacto", body: "¿Ha encontrado un error, tiene una sugerencia o desea solicitar una nueva función? Visite nuestra página de Contacto y envíenos un mensaje directamente — leemos todos los envíos y respondemos a tantos como podemos. Su mensaje se almacena de forma segura y nunca se comparte con terceros." },
+   {
+    heading: "Nuestra misión",
+    body: "Nuestra misión es ayudar a los jugadores a elevar su vocabulario, entrenar su mente y resolver disputas amistosas de acertijos con absoluta precisión. Creemos que los solucionadores de palabras no deberían estar llenos de diseños intrusivos, tiempos de carga lentos o configuraciones complicadas. Por eso wordIzy ofrece cálculos instantáneos, diccionarios de Scrabble localizados en varios idiomas y motores de filtrado personalizado intuitivos, diseñados para un uso diario sin fisuras.",
+   },
+   {
+    heading: "¿Por qué elegir wordIzy?",
+    body: "A diferencia de las tablas de búsqueda genéricas y básicas, nuestras herramientas están hechas a medida para coincidir con las mecánicas exactas de los juegos de palabras más populares del mundo:\n• Bases de datos de diccionarios completas: Ofrecemos 9 idiomas, filtrando sus letras directamente con los léxicos de competición oficiales como FISE (Federación Internacional de Scrabble en Español), NWL2023 y CSW21.\n• Lógica de juego realista: Nuestro sistema avanzado de filtrado de comodines reconoce reglas como las distribuciones de fichas en blanco de Scrabble, asignando verdaderos valores de cero puntos para que pueda planificar jugadas precisas de nivel torneo.\n• Herramientas educativas innovadoras: Funciones únicas como nuestra Save Vault guardada localmente funcionan como un gestor personal de tarjetas de estudio complementario, ofreciendo a los jugadores un entorno activo para estudiar patrones de palabras, ganchos y extensiones sin conexión.\n• Juego atractivo: Más allá de las herramientas, creamos experiencias personalizadas como Anagram Blitz para ofrecer a los amantes de los juegos de palabras un entorno rápido donde poner a prueba su velocidad y desafiar sus máximas puntuaciones personales.",
+   },
+   {
+    heading: "Nuestro compromiso con la privacidad",
+    body: "Valoramos su seguridad digital y el rendimiento de su sistema. Opciones avanzadas como el historial de sus palabras marcadas se ejecutan directamente usando el almacenamiento local de su navegador. Esto significa que sus listas de estudio personales nunca abandonan su dispositivo, no se requiere ningún registro de cuenta de usuario y sus datos permanecen completamente privados.",
+   },
+   {
+    heading: "Póngase en contacto",
+    body: "Trabajamos constantemente para mejorar nuestros algoritmos de búsqueda, ampliar nuestras bases de datos y diseñar nuevos modos de juego. Si tiene alguna petición de función, corrección de diccionario o comentario general, póngase en contacto con nosotros a través de nuestra página de Contacto. ¡Gracias por hacer de wordIzy parte de su rutina diaria de juego!",
+   },
   ],
  },
  contact: {
@@ -1207,9 +1198,6 @@ const es: Translation = {
   remaining: "restantes",
   allLengths: "Todos",
   filterByLength: "Filtrar por longitud de palabra",
-  aboutTitle: "Acerca de esta lista de palabras",
-  aboutBody: "Explore palabras verificadas y revisadas por diccionario para Scrabble, Wordle y puzzles de anagramas. Use el filtro de longitud y el cuadro de búsqueda para acotar los resultados. Haga clic en cualquier palabra para copiarla.",
-  canonicalUrl: "URL canónica:",
   noMatch: "Ninguna palabra coincide con su filtro.",
   noWords: "No se encontraron palabras.",
   wordsCount: "palabras",
@@ -1261,17 +1249,25 @@ const de: Translation = {
  scrabble: { title: "Scrabble Duplicate", subtitle: "Duplicate gibt allen dasselbe Gestell. 7 Buchstaben (plus Brett-Buchstaben) eingeben und die besten Züge finden.", rack: "Dein Gestell", board: "Brett-Buchstaben (optional)", btn: "Beste Wörter finden", hint: "Platzhalter erlaubt. Nach Punkten sortiert." },
  wordlists: { title: "Wortlisten", subtitle: "Alle 2- bis 7-Buchstaben-Wörter durchsuchen. Ansicht, Länge und Buchstabe wählen, A–Z erkunden.", allWords: "Alle Wörter", startsBy: "Beginnt mit A–Z", endsBy: "Endet mit A–Z", letter: "Buchstabe", selectLength: "Länge", selectLetter: "Buchstabe", browse: "Durchsuchen" },
  about: {
-  title: "Über WordIzy",
-  intro: "WordIzy ist eine kostenlose, datenschutzorientierte Wortspiel-Plattform, die für Wortspiel-Enthusiasten, Studierende und Sprachliebhaber weltweit entwickelt wurde. Unsere Mission ist einfach: schnelle, präzise und werbefinanzierte Wortwerkzeuge anzubieten, die Ihre Privatsphäre respektieren — kein Konto erforderlich, keine persönlichen Daten erfasst.",
+  title: "Über wordIzy",
+  intro: "Willkommen bei wordIzy, Ihrer ersten Anlaufstelle für hochleistungs-Wortspielwerkzeuge, Anagramm-Löser und bildungsorientierte Rätselressourcen. Von einem engagierten Team aus Indie-Entwicklern und lebenslangen Worträtsel-Enthusiasten entwickelt, wurde wordIzy von Grund auf so konzipiert, dass es das schnellste, übersichtlichste und ablenkungsfreiste Wörterbuch-Werkzeugset im Web ist.",
   sections: [
-   { heading: "Unsere Mission", body: "Wir glauben, dass Wortwerkzeuge sofort, präzise und für jeden zugänglich sein sollten. Egal, ob Sie bei einem Wordle-Rätsel feststecken, nach dem besten Scrabble-Zug suchen oder eine neue Sprache erkunden — WordIzy gibt Ihnen die Antworten ohne Reibung, ohne Registrierung und ohne Bezahlschranken." },
-   { heading: "Was wir bieten", body: "WordIzy umfasst zwölf spezialisierte Werkzeuge: einen Wort-Entwirker, einen Scramble-Löser, einen Anagramm-Löser, einen Scrabble-Duplicate-Helfer, einen Wordle-Löser, einen Quordle-Löser, einen Wordfeud-Helfer, einen Zufallswort-Generator, eine Wörterbuch-Prüfung, Wortlisten, Wort-beginnt-mit und Wort-endet-mit. Jedes Werkzeug läuft vollständig in Ihrem Browser — die Ergebnisse erscheinen, sobald Sie Ihre Buchstaben absenden." },
-   { heading: "Offizielle Scrabble-Wörterbücher", body: "Wir verwenden autoritative Turnier-Wortlisten als Hauptquelle: NWL2023 und CSW21 für Englisch, ODS9 für Französisch, FISE für Spanisch, Zingarelli für Italienisch, OpenTaal für Niederländisch sowie kuratierte, nach Scrabble gefilterte Listen für Deutsch und Portugiesisch. Das bedeutet, dass die Wörter, die Sie hier finden, dieselben sind, die bei offiziellen Scrabble-Wettbewerben akzeptiert werden." },
-   { heading: "Neun Sprachen unterstützt", body: "WordIzy ist auf Englisch, Französisch, Spanisch, Italienisch, Portugiesisch, Deutsch, Niederländisch, Japanisch (Romaji) und Chinesisch (Mandarin, Pinyin) verfügbar. Wechseln Sie jederzeit die Sprache über die Auswahl in der Navigationsleiste — die gesamte Oberfläche, die FAQ-Tipps und das zugrunde liegende Wörterbuch ändern sich sofort." },
-   { heading: "Intelligente Funktionen", body: "Kopieren Sie jede Wortliste mit einem Klick in die Zwischenablage. Ihre letzten Suchen werden lokal gespeichert, um sie schnell erneut auszuführen. Lade-Skelette sorgen für ein reibungsloses Erlebnis, während die Wörterbücher laden. Und die gesamte Website ist eine Progressive Web App — installieren Sie sie auf Ihrem Telefon oder Desktop für den Vollbildzugriff wie eine App." },
-   { heading: "Privacy by Design", body: "Keine Konten. Kein seitenübergreifendes Tracking. Kein Fingerprinting. Jede Anfrage wird serverseitig mit Wörterbüchern im Arbeitsspeicher verarbeitet. Wir erfassen nur anonyme Suchstatistiken (die Suchanfrage, das verwendete Werkzeug und die Ergebnisanzahl — keine IP-Adresse, keine Benutzer-ID), um uns zu verbessern. Beim ersten Besuch wird ein Cookie-Zustimmungsbanner eingeblendet, und Sie können Cookies jederzeit in Ihren Browser-Einstellungen verwalten." },
-   { heading: "Themes & Barrierefreiheit", body: "Wählen Sie zwischen dem hellen, dunklen oder System-Theme — der Umschalter wechselt mit einem Klick durch alle drei. Die Oberfläche nutzt semantisches HTML, ARIA-Labels für Screenreader und durchgängig tastaturfreundliche Navigation. Aktive Navigationspunkte werden mit aria-current für Hilfstechnologien markiert." },
-   { heading: "Kontakt aufnehmen", body: "Einen Fehler gefunden, einen Vorschlag oder eine neue Funktion gewünscht? Besuchen Sie unsere Kontaktseite und senden Sie uns direkt eine Nachricht — wir lesen jede Einsendung und antworten auf so viele wie möglich. Ihre Nachricht wird sicher gespeichert und niemals an Dritte weitergegeben." },
+   {
+    heading: "Unsere Mission",
+    body: "Unsere Mission ist es, Spielern zu helfen, ihren Wortschatz zu erweitern, ihren Geist zu trainieren und freundschaftliche Rätselstreitigkeiten mit absoluter Genauigkeit zu klären. Wir glauben, dass Wortlöser nicht mit aufdringlichen Layouts, trägen Ladezeiten oder komplizierten Setups überladen sein sollten. Deshalb bietet wordIzy Sofortberechnungen, lokalisierte mehrsprachige Scrabble-Wörterbücher und intuitive, maßgeschneiderte Filter-Engines für einen nahtlosen Alltagseinsatz.",
+   },
+   {
+    heading: "Warum wordIzy wählen?",
+    body: "Anders als bei einfachen, generischen Nachschlagetabellen sind unsere Werkzeuge maßgeschneidert, um exakt den Mechaniken der weltweit beliebtesten Wortspiele zu entsprechen:\n• Umfassende Wörterbuchdatenbanken: Wir unterstützen 9 Sprachen und filtern Ihre Buchstaben direkt gegen offizielle Wettbewerbslexika wie das Scrabble-Wörterbuch (Deutsch), NWL2023 und CSW21.\n• Realistische Spiellogik: Unser fortschrittliches Joker-Filter-System erkennt Regeln wie die Verteilung von Scrabble-Leerfeldern und weist echte Nullpunkt-Werte zu, damit Sie präzise, turnierreife Züge planen können.\n• Innovative Lernwerkzeuge: Einzigartige Funktionen wie unser lokal gespeicherter Save Vault dienen als persönlicher Lernkarten-Manager und bieten den Spielern eine aktive Umgebung, um Wortmuster, Haken und Erweiterungen offline zu studieren.\n• Fesselndes Spiel: Über Werkzeuge hinaus erschaffen wir personalisierte Erlebnisse wie Anagram Blitz, um Liebhabern von Wortspielen eine temporeiche Umgebung zu bieten, in der sie ihre Geschwindigkeit testen und ihre persönlichen High Scores herausfordern können.",
+   },
+   {
+    heading: "Unser Engagement für den Datenschutz",
+    body: "Wir legen Wert auf Ihre digitale Sicherheit und die Leistung Ihres Systems. Erweiterte Optionen wie Ihr Wort-Lesezeichen-Verlauf werden direkt über den lokalen Speicher Ihres Browsers ausgeführt. Das bedeutet, dass Ihre persönlichen Studienlisten niemals Ihr Gerät verlassen, keine Benutzerkonto-Registrierungen erforderlich sind und Ihre Daten vollständig privat bleiben.",
+   },
+   {
+    heading: "Kontakt aufnehmen",
+    body: "Wir arbeiten ständig daran, unsere Suchalgorithmen zu verbessern, unsere Datenbanken zu erweitern und neue Spielmodi zu entwerfen. Wenn Sie Funktionswünsche, Wörterbuchkorrekturen oder allgemeines Feedback haben, erreichen Sie uns über unsere Kontaktseite. Danke, dass Sie wordIzy zu einem Teil Ihrer täglichen Gaming-Routine machen!",
+   },
   ],
  },
  contact: {
@@ -1512,9 +1508,6 @@ const de: Translation = {
   remaining: "verbleibend",
   allLengths: "Alle",
   filterByLength: "Nach Wortlänge filtern",
-  aboutTitle: "Über diese Wortliste",
-  aboutBody: "Durchsuchen Sie verifizierte, wörterbuchgeprüfte Wörter für Scrabble, Wordle und Anagramm-Puzzles. Verwenden Sie den Längenfilter und das Suchfeld, um die Ergebnisse einzugrenzen. Klicken Sie auf ein Wort, um es zu kopieren.",
-  canonicalUrl: "Canonical URL:",
   noMatch: "Keine Wörter entsprechen Ihrem Filter.",
   noWords: "Keine Wörter gefunden.",
   wordsCount: "Wörter",
@@ -1566,17 +1559,25 @@ const it: Translation = {
  scrabble: { title: "Scrabble Duplicate", subtitle: "Il duplicate dà a tutti la stessa rastrelliera. Inserisci 7 lettere (più quelle in tabellone) e trova le mosse migliori.", rack: "La tua rastrelliera", board: "Lettere tabellone (facoltative)", btn: "Trova le migliori", hint: "Jolly ammessi. Risultati per punteggio." },
  wordlists: { title: "Liste Parole", subtitle: "Sfoglia tutte le parole da 2 a 7 lettere. Scegli vista, lunghezza e lettera per esplorare A–Z.", allWords: "Tutte le parole", startsBy: "Inizia per A–Z", endsBy: "Finisce per A–Z", letter: "Lettera", selectLength: "Lunghezza", selectLetter: "Lettera", browse: "Sfoglia" },
  about: {
-  title: "Informazioni su WordIzy",
-  intro: "WordIzy è una piattaforma gratuita di giochi di parole orientata alla privacy, creata per appassionati di giochi di parole, studenti e amanti delle lingue in tutto il mondo. La nostra missione è semplice: fornire strumenti linguistici rapidi, precisi e sostenuti dalla pubblicità che rispettino la tua privacy — nessun account richiesto, nessun dato personale raccolto.",
+  title: "Informazioni su wordIzy",
+  intro: "Benvenuto su wordIzy, la tua destinazione di riferimento per utilità di giochi di parole ad alte prestazioni, risolutori di anagrammi e risorse educative per enigmi. Realizzato da un team dedicato di sviluppatori indipendenti e appassionati di enigmi lessicali di sempre, wordIzy è stato progettato fin dall'inizio per essere la suite di strumenti di dizionario più veloce, pulita e priva di distrazioni sul Web.",
   sections: [
-   { heading: "La nostra missione", body: "Riteniamo che gli strumenti di parole debbano essere istantanei, precisi e accessibili a tutti. Che tu sia bloccato su un puzzle di Wordle, alla ricerca della migliore mossa di Scrabble o stia esplorando una nuova lingua, WordIzy ti dà le risposte senza attriti, senza registrazione e senza paywall." },
-   { heading: "Cosa offriamo", body: "WordIzy include dodici strumenti dedicati: un Disordinatore di parole, un Risolutore di mischia, un Risolutore di anagrammi, un Aiutante per Scrabble Duplicate, un Risolutore Wordle, un Risolutore Quordle, un Aiutante Wordfeud, un Generatore di parole casuali, un Verificatore di dizionario, Elenchi di parole, Parole che iniziano per e Parole che finiscono per. Ogni strumento viene eseguito interamente nel tuo browser — i risultati appaiono non appena inserisci le lettere." },
-   { heading: "Dizionari ufficiali di Scrabble", body: "Utilizziamo liste di parole da torneo autorevoli come fonte principale: NWL2023 e CSW21 per l'inglese, ODS9 per il francese, FISE per lo spagnolo, Zingarelli per l'italiano, OpenTaal per l'olandese e liste filtrate per Scrabble curate per il tedesco e il portoghese. Ciò significa che le parole che trovi qui sono le stesse accettate nelle competizioni ufficiali di Scrabble." },
-   { heading: "Nove lingue supportate", body: "WordIzy è disponibile in inglese, francese, spagnolo, italiano, portoghese, tedesco, olandese, giapponese (romaji) e cinese mandarino (pinyin). Cambia lingua in qualsiasi momento usando il selettore nella barra di navigazione — l'intera interfaccia, i suggerimenti della FAQ e il dizionario sottostante cambiano istantaneamente." },
-   { heading: "Funzioni intelligenti", body: "Copia qualsiasi lista di parole negli appunti con un clic. Le tue ricerche recenti vengono salvate localmente per rieseguirle rapidamente. Gli scheletri di caricamento offrono un'esperienza fluida mentre i dizionari si caricano. E l'intero sito è una Progressive Web App — installala sul telefono o sul desktop per un accesso a schermo intero, come un'app." },
-   { heading: "Privacy by Design", body: "Nessun account. Nessun tracciamento cross-site. Nessun fingerprinting. Ogni richiesta viene elaborata lato server utilizzando dizionari in memoria. Raccogliamo solo statistiche di ricerca anonime (la stringa di query, lo strumento utilizzato e il numero di risultati — nessun indirizzo IP, nessun ID utente) per aiutarci a migliorare. Un banner di consenso ai cookie appare alla prima visita, e puoi gestire i cookie nelle impostazioni del browser in qualsiasi momento." },
-   { heading: "Temi e accessibilità", body: "Scegli tra i temi Chiaro, Scuro o Sistema — l'interruttore scorre tra i tre con un solo clic. L'interfaccia utilizza HTML semantico, etichette ARIA per i lettori di schermo e navigazione comoda con tastiera in tutta l'applicazione. Gli elementi di navigazione attivi sono contrassegnati con aria-current per le tecnologie assistive." },
-   { heading: "Contattaci", body: "Hai trovato un bug, hai un suggerimento o vuoi richiedere una nuova funzione? Visita la nostra pagina Contatti e inviaci un messaggio direttamente — leggiamo ogni invio e rispondiamo a quanti più possibile. Il tuo messaggio viene conservato in modo sicuro e non viene mai condiviso con terze parti." },
+   {
+    heading: "La nostra missione",
+    body: "La nostra missione è aiutare i giocatori ad ampliare il proprio vocabolario, allenare la mente e risolvere dispute amichevoli di enigmi con assoluta precisione. Crediamo che i risolutori di parole non debbano essere ingombrati da layout intrusivi, tempi di caricamento lenti o configurazioni complicate. Ecco perché wordIzy offre calcoli istantanei, dizionari di Scrabble localizzati in più lingue e motori di filtraggio personalizzati e intuitivi, pensati per un uso quotidiano senza intoppi.",
+   },
+   {
+    heading: "Perché scegliere wordIzy?",
+    body: "A differenza delle semplici tabelle di ricerca generiche, i nostri strumenti sono su misura per corrispondere alle meccaniche esatte dei giochi di parole più popolari al mondo:\n• Database di dizionari completi: Supportiamo 9 lingue, filtrando le vostre lettere direttamente con i lessici di competizione ufficiali come Zingarelli (italiano), NWL2023 e CSW21.\n• Logica di gioco realistica: Il nostro sistema avanzato di filtraggio dei jolly riconosce regole come le distribuzioni delle tessere vuote di Scrabble, assegnando veri valori a zero punti per permettervi di pianificare mosse precise di livello da torneo.\n• Strumenti didattici innovativi: Funzionalità uniche come la nostra Save Vault salvata localmente funzionano come gestore personale di schede didattiche, offrendo ai giocatori un ambiente attivo per studiare i modelli delle parole, i ganci e le estensioni offline.\n• Gioco coinvolgente: Oltre agli strumenti, creiamo esperienze personalizzate come Anagram Blitz per offrire agli amanti dei giochi di parole un ambiente rapido in cui mettere alla prova la loro velocità e sfidare i propri record personali.",
+   },
+   {
+    heading: "Il nostro impegno per la privacy",
+    body: "Diamo valore alla tua sicurezza digitale e alle prestazioni del tuo sistema. Opzioni avanzate come la cronologia dei segnalibri delle parole vengono eseguite direttamente utilizzando l'archiviazione locale del tuo browser. Ciò significa che i tuoi elenchi di studio personali non lasciano mai il tuo dispositivo, non è richiesta alcuna registrazione di account utente e i tuoi dati rimangono completamente privati.",
+   },
+   {
+    heading: "Contattaci",
+    body: "Lavoriamo costantemente per migliorare i nostri algoritmi di ricerca, ampliare i nostri database e progettare nuove modalità di gioco. Se hai richieste di funzionalità, correzioni al dizionario o feedback generale, contattaci tramite la nostra pagina Contatti. Grazie per aver reso wordIzy parte della tua routine di gioco quotidiana!",
+   },
   ],
  },
  contact: {
@@ -1817,9 +1818,6 @@ const it: Translation = {
   remaining: "rimanenti",
   allLengths: "Tutti",
   filterByLength: "Filtra per lunghezza parola",
-  aboutTitle: "Informazioni su questa lista di parole",
-  aboutBody: "Sfogli parole verificate e controllate col dizionario per Scrabble, Wordle e puzzle di anagrammi. Usi il filtro per lunghezza e la casella di ricerca per restringere i risultati. Clicchi su una parola per copiarla.",
-  canonicalUrl: "URL canonico:",
   noMatch: "Nessuna parola corrisponde al filtro.",
   noWords: "Nessuna parola trovata.",
   wordsCount: "parole",
@@ -1871,17 +1869,25 @@ const pt: Translation = {
  scrabble: { title: "Scrabble Duplicate", subtitle: "O duplicate dá o mesmo suporte a todos. Digite 7 letras (e as do tabuleiro) e encontre as melhores jogadas.", rack: "Seu suporte", board: "Letras do tabuleiro (opcional)", btn: "Encontrar melhores", hint: "Curingas permitidos. Por pontuação." },
  wordlists: { title: "Listas de Palavras", subtitle: "Navegue por todas as palavras de 2 a 7 letras. Escolha vista, tamanho e letra para explorar A–Z.", allWords: "Todas as palavras", startsBy: "Começa por A–Z", endsBy: "Termina em A–Z", letter: "Letra", selectLength: "Tamanho", selectLetter: "Letra", browse: "Navegar" },
  about: {
-  title: "Sobre o WordIzy",
-  intro: "O WordIzy é uma plataforma gratuita de jogos de palavras focada na privacidade, criada para entusiastas de jogos de palavras, estudantes e amantes de idiomas em todo o mundo. A nossa missão é simples: fornecer ferramentas de palavras rápidas, precisas e suportadas por anúncios que respeitem a sua privacidade — sem conta necessária, sem dados pessoais recolhidos.",
+  title: "Sobre o wordIzy",
+  intro: "Bem-vindo ao wordIzy, seu destino principal para utilitários de jogos de palavras de alto desempenho, resolvedores de anagramas e recursos educacionais de quebra-cabeças. Criado por uma equipe dedicada de desenvolvedores independentes e entusiastas de quebra-cabeças de palavras de longa data, o wordIzy foi projetado desde o início para ser o conjunto de ferramentas de dicionário mais rápido, limpo e livre de distrações da web.",
   sections: [
-   { heading: "A nossa missão", body: "Acreditamos que as ferramentas de palavras devem ser instantâneas, precisas e acessíveis a todos. Esteja você preso num puzzle de Wordle, à procura da melhor jogada de Scrabble ou a explorar um novo idioma, o WordIzy dá-lhe as respostas sem atrito, sem inscrições e sem barreiras de pagamento." },
-   { heading: "O que oferecemos", body: "O WordIzy inclui doze ferramentas dedicadas: um Descodificador de palavras, um Solucionador de embaralhamento, um Solucionador de anagramas, um Auxiliar de Scrabble Duplicate, um Solucionador de Wordle, um Solucionador de Quordle, um Auxiliar de Wordfeud, um Gerador de palavras aleatórias, um Verificador de dicionário, Listas de palavras, Palavras que começam por e Palavras que terminam em. Cada ferramenta corre inteiramente no seu navegador — os resultados aparecem no momento em que submete as suas letras." },
-   { heading: "Dicionários oficiais de Scrabble", body: "Usamos listas de palavras de torneio oficiais como fonte principal: NWL2023 e CSW21 para inglês, ODS9 para francês, FISE para espanhol, Zingarelli para italiano, OpenTaal para neerlandês e listas filtradas para Scrabble cuidadosamente curadas para alemão e português. Isto significa que as palavras que encontra aqui são as mesmas aceites nas competições oficiais de Scrabble." },
-   { heading: "Nove idiomas suportados", body: "O WordIzy funciona em inglês, francês, espanhol, italiano, português, alemão, neerlandês, japonês (romaji) e chinês mandarim (pinyin). Mude de idioma a qualquer momento utilizando o seletor na barra de navegação — toda a interface, as dicas das perguntas frequentes e o dicionário subjacente mudam instantaneamente." },
-   { heading: "Funcionalidades inteligentes", body: "Copie qualquer lista de palavras para a área de transferência com um clique. As suas pesquisas recentes são guardadas localmente para reexecução rápida. Os esqueletos de carregamento oferecem uma experiência fluida enquanto os dicionários carregam. E todo o site é uma Progressive Web App — instale-a no telefone ou no computador para um acesso em ecrã inteiro, semelhante a uma aplicação." },
-   { heading: "Privacidade por design", body: "Sem contas. Sem rastreamento entre sites. Sem impressão digital. Cada consulta é processada no servidor usando dicionários em memória. Recolhemos apenas estatísticas de pesquisa anónimas (a cadeia de consulta, a ferramenta utilizada e o número de resultados — sem endereço IP, sem ID de utilizador) para nos ajudar a melhorar. Um banner de consentimento de cookies aparece na sua primeira visita e pode gerir os cookies nas definições do navegador a qualquer momento." },
-   { heading: "Temas e acessibilidade", body: "Escolha entre o tema Claro, Escuro ou Sistema — o alternador percorre os três com um único clique. A interface utiliza HTML semântico, etiquetas ARIA para leitores de ecrã e navegação amigável para teclado em toda a aplicação. Os itens de navegação ativos são marcados com aria-current para tecnologia de assistência." },
-   { heading: "Contacte-nos", body: "Encontrou um erro, tem uma sugestão ou quer pedir uma nova funcionalidade? Visite a nossa página de Contacto e envie-nos uma mensagem diretamente — lemos todas as submissões e respondemos a tantas quantas conseguimos. A sua mensagem é guardada de forma segura e nunca é partilhada com terceiros." },
+   {
+    heading: "Nossa missão",
+    body: "Nossa missão é ajudar os jogadores a elevar seu vocabulário, treinar suas mentes e resolver disputas amigáveis de quebra-cabeças com precisão absoluta. Acreditamos que resolvedores de palavras não devem ser carregados de layouts intrusivos, tempos de carregamento lentos ou configurações complicadas. É por isso que o wordIzy oferece cálculos instantâneos, dicionários de Scrabble localizados em vários idiomas e motores de filtragem personalizados e intuitivos, projetados para um uso diário sem interrupções.",
+   },
+   {
+    heading: "Por que escolher o wordIzy?",
+    body: "Ao contrário das tabelas de consulta genéricas e básicas, nossas ferramentas são feitas sob medida para corresponder às mecânicas exatas dos jogos de palavras mais populares do mundo:\n• Bancos de dados de dicionários abrangentes: Oferecemos 9 idiomas, filtrando suas letras diretamente com os léxicos de competição oficiais como o Léxico (português pt-BR), NWL2023 e CSW21.\n• Lógica de jogo realista: Nosso sistema avançado de filtragem de curingas reconhece regras como as distribuições de letras em branco do Scrabble, atribuindo verdadeiros valores de zero ponto para que você possa planejar jogadas precisas de nível de torneio.\n• Ferramentas educativas inovadoras: Recursos exclusivos como nossa Save Vault salva localmente funcionam como um gerenciador pessoal de cartões de estudo, oferecendo aos jogadores um ambiente ativo para estudar padrões de palavras, ganchos e extensões offline.\n• Jogo envolvente: Além das ferramentas, criamos experiências personalizadas como o Anagram Blitz para oferecer aos amantes de jogos de palavras um ambiente acelerado para testar sua velocidade e desafiar seus recordes pessoais.",
+   },
+   {
+    heading: "Nosso compromisso com a privacidade",
+    body: "Valorizamos sua segurança digital e o desempenho do seu sistema. Opções avançadas como o histórico de favoritos de palavras são executadas diretamente usando o armazenamento local do seu navegador. Isso significa que suas listas de estudo pessoais nunca saem do seu dispositivo, não é necessário nenhum registro de conta de usuário e seus dados permanecem completamente privados.",
+   },
+   {
+    heading: "Entre em contato",
+    body: "Trabalhamos constantemente para melhorar nossos algoritmos de busca, expandir nossos bancos de dados e projetar novos modos de jogo. Se você tiver pedidos de recursos, correções de dicionário ou feedback geral, entre em contato conosco através de nossa página de Contato. Obrigado por fazer do wordIzy parte da sua rotina diária de jogos!",
+   },
   ],
  },
  contact: {
@@ -2122,9 +2128,6 @@ const pt: Translation = {
   remaining: "restantes",
   allLengths: "Todos",
   filterByLength: "Filtrar por comprimento da palavra",
-  aboutTitle: "Sobre esta lista de palavras",
-  aboutBody: "Navegue por palavras verificadas e checadas em dicionário para Scrabble, Wordle e puzzles de anagramas. Use o filtro de comprimento e a caixa de pesquisa para refinar os resultados. Clique em qualquer palavra para copiá-la.",
-  canonicalUrl: "URL canônica:",
   noMatch: "Nenhuma palavra corresponde ao seu filtro.",
   noWords: "Nenhuma palavra encontrada.",
   wordsCount: "palavras",
@@ -2176,17 +2179,25 @@ const nl: Translation = {
  scrabble: { title: "Scrabble Duplicate", subtitle: "Duplicate geeft iedereen hetzelfde rek. Voer 7 letters in (plus bordletters) en vind de beste zetten.", rack: "Jouw rek", board: "Bordletters (optioneel)", btn: "Beste woorden vinden", hint: "Jokers toegestaan. Op score gesorteerd." },
  wordlists: { title: "Woordlijsten", subtitle: "Doorzoek alle 2- tot 7-letterwoorden. Kies weergave, lengte en letter om A–Z te verkennen.", allWords: "Alle woorden", startsBy: "Begint met A–Z", endsBy: "Eindigt op A–Z", letter: "Letter", selectLength: "Lengte", selectLetter: "Letter", browse: "Bladeren" },
  about: {
-  title: "Over WordIzy",
-  intro: "WordIzy is een gratis, privacygerichte woordpuzzel-platform, gebouwd voor woordspelliefhebbers, studenten en taalliefhebbers wereldwijd. Onze missie is eenvoudig: snelle, nauwkeurige en door advertenties ondersteunde woordhulpmiddelen bieden die uw privacy respecteren — geen account vereist, geen persoonlijke gegevens verzameld.",
+  title: "Over wordIzy",
+  intro: "Welkom bij wordIzy, jouw eersteklas bestemming voor krachtige woordspelhulpmiddelen, anagram-oplossers en educatieve puzzelbronnen. Gebouwd door een toegewijd team van onafhankelijke ontwikkelaars en levenslange woordpuzzel-liefhebbers, is wordIzy vanaf de basis ontworpen om de snelste, meest overzichtelijke en minst afleidende woordenboek-toolset op het web te zijn.",
   sections: [
-   { heading: "Onze missie", body: "Wij geloven dat woordhulpmiddelen direct, nauwkeurig en voor iedereen toegankelijk moeten zijn. Of u nu vastzit bij een Wordle-puzzel, op zoek bent naar de beste Scrabble-zet of een nieuwe taal verkent, WordIzy geeft u de antwoorden zonder frictie, zonder registratie en zonder betaalmuren." },
-   { heading: "Wat we bieden", body: "WordIzy omvat twaalf specifieke hulpmiddelen: een Woordontwarer, Scramble-oplosser, Anagram-oplosser, Scrabble Duplicate-hulp, Wordle-oplosser, Quordle-oplosser, Wordfeud-hulp, Willekeurige-woordgenerator, Woordenboekcontrole, Woordenlijsten, Woorden-beginnen-met en Woorden-eindigen-met. Elk hulpmiddel draait volledig in uw browser — resultaten verschijnen zodra u uw letters verstuurt." },
-   { heading: "Officiële Scrabble-woordenboeken", body: "We gebruiken gezaghebbende toernooiwoordenlijsten als belangrijkste bron: NWL2023 en CSW21 voor Engels, ODS9 voor Frans, FISE voor Spaans, Zingarelli voor Italiaans, OpenTaal voor Nederlands, en zorgvuldig samengestelde, op Scrabble gefilterde lijsten voor Duits en Portugees. Dit betekent dat de woorden die u hier vindt dezelfde zijn die in officiële Scrabble-wedstrijden worden geaccepteerd." },
-   { heading: "Negen talen ondersteund", body: "WordIzy is beschikbaar in het Engels, Frans, Spaans, Italiaans, Portugees, Duits, Nederlands, Japans (romaji) en Mandarijn-Chinees (pinyin). Wijzig op elk moment van taal met de schakelaar in de navigatiebalk — de hele interface, de FAQ-tips en het onderliggende woordenboek wijzigen direct." },
-   { heading: "Slimme functies", body: "Kopieer elke woordenlijst met één klik naar uw klembord. Uw recente zoekopdrachten worden lokaal opgeslagen voor snelle heruitvoering. Laadskeletons zorgen voor een vloeiende ervaring terwijl woordenboeken opwarmen. En de hele site is een Progressive Web App — installeer hem op uw telefoon of desktop voor full-screen, app-achtige toegang." },
-   { heading: "Privacy by Design", body: "Geen accounts. Geen cross-site tracking. Geen fingerprinting. Elke zoekopdracht wordt server-side verwerkt met woordenboeken in het geheugen. We verzamelen alleen anonieme zoekanalyses (de queryreeks, gebruikte hulpmiddel en aantal resultaten — geen IP-adres, geen gebruikers-ID) om onszelf te verbeteren. Bij uw eerste bezoek verschijnt een cookietoestemmingsbanner en kunt u cookies op elk moment beheren in uw browserinstellingen." },
-   { heading: "Thema's en toegankelijkheid", body: "Kies tussen het thema Licht, Donker of Systeem — de schakelaar doorloopt alle drie met één klik. De interface gebruikt semantische HTML, ARIA-labels voor schermlezers en toetsenbordvriendelijke navigatie overal. Actieve navigatie-items worden gemarkeerd met aria-current voor hulptechnologie." },
-   { heading: "Contact opnemen", body: "Een bug gevonden, een suggestie of een nieuwe functie aangevraagd? Bezoek onze Contactpagina en stuur ons direct een bericht — we lezen elke inzending en reageren op zoveel mogelijk. Uw bericht wordt veilig opgeslagen en nooit met derden gedeeld." },
+   {
+    heading: "Onze missie",
+    body: "Onze missie is om spelers te helpen hun woordenschat te verrijken, hun geest te trainen en vriendelijke puzzelgeschillen met absolute nauwkeurigheid op te lossen. Wij vinden dat woordoplossers niet vol moeten zitten met opdringerige lay-outs, trage laadtijden of ingewikkelde instellingen. Daarom biedt wordIzy directe berekeningen, gelokaliseerde meertalige Scrabble-woordenboeken en intuïtieve, op maat gemaakte filtermotoren voor naadloos dagelijks gebruik.",
+   },
+   {
+    heading: "Waarom voor wordIzy kiezen?",
+    body: "In tegenstelling tot eenvoudige, generieke opzoektabellen zijn onze tools op maat gemaakt om exact te passen bij de mechaniek van de populairste woordspellen ter wereld:\n• Uitgebreide woordenboekdatabases: We ondersteunen 9 talen en filteren je letters direct tegen officiële competitielexicons zoals OpenTaal (Nederlands), NWL2023 en CSW21.\n• Realistische spellogica: Ons geavanceerde joker-filtersysteem herkent regels zoals de verdeling van Scrabble-blanco-tegels en wijst echte nulpunt-waarden toe, zodat je precieze, tornooiwaardige zetten kunt plannen.\n• Innovatieve leermiddelen: Unieke functies zoals onze lokaal opgeslagen Save Vault fungeren als een persoonlijke flashcard-manager en bieden spelers een actieve omgeving om woordpatronen, haken en uitbreidingen offline te bestuderen.\n• Boeiend spel: Voorbij de tools creëren we op maat gemaakte ervaringen zoals Anagram Blitz om woordspel-liefhebbers een vlotte omgeving te bieden om hun snelheid te testen en hun persoonlijke high scores uit te dagen.",
+   },
+   {
+    heading: "Onze toewijding aan privacy",
+    body: "Wij hechten waarde aan jouw digitale veiligheid en de prestaties van jouw systeem. Geavanceerde opties zoals jouw woordbladgeschiedenis worden direct uitgevoerd via de lokale opslag van je browser. Dit betekent dat jouw persoonlijke studielijsten nooit je apparaat verlaten, er geen gebruikersaccountregistraties nodig zijn en jouw gegevens volledig privé blijven.",
+   },
+   {
+    heading: "Neem contact op",
+    body: "We werken voortdurend aan het verbeteren van onze opzoek-algoritmes, het uitbreiden van onze databases en het ontwerpen van nieuwe spelmodi. Als je functieverzoeken, woordenboekcorrecties of algemene feedback hebt, neem dan contact met ons op via onze contactpagina. Bedankt dat je wordIzy deel laat uitmaken van jouw dagelijkse spelroutine!",
+   },
   ],
  },
  contact: {
@@ -2427,9 +2438,6 @@ const nl: Translation = {
   remaining: "resterend",
   allLengths: "Alle",
   filterByLength: "Filteren op woordlengte",
-  aboutTitle: "Over deze woordenlijst",
-  aboutBody: "Doorzoek geverifieerde, woordenboekgecontroleerde woorden voor Scrabble, Wordle en anagrampuzzles. Gebruik het lengtefilter en het zoekvak om resultaten te verfijnen. Klik op een woord om het te kopiëren.",
-  canonicalUrl: "Canonical URL:",
   noMatch: "Geen woorden komen overeen met uw filter.",
   noWords: "Geen woorden gevonden.",
   wordsCount: "woorden",
@@ -2484,17 +2492,25 @@ const ja: Translation = {
  scrabble: { title: "スクラブル複製", subtitle: "全員同じラックの複製モード。7文字(+盤面文字)で最高得点の手を見つけます。", rack: "ラック", board: "盤面文字(任意)", btn: "最適な単語を見つける", hint: "ワイルドカード可。得点順。" },
  wordlists: { title: "単語リスト", subtitle: "2〜7文字のすべての単語を閲覧。A〜Zで探索。", allWords: "すべての単語", startsBy: "A〜Zで始まる", endsBy: "A〜Zで終わる", letter: "文字", selectLength: "長さ", selectLetter: "文字", browse: "閲覧" },
  about: {
-  title: "WordIzyについて",
-  intro: "WordIzyは、世界中のワードゲーム愛好家、学生、言語愛好家のために構築された、無料でプライバシー重視のワードパズルプラットフォームです。当社のミッションはシンプルです。プライバシーを尊重する、高速で正確で広告支援付きの単語ツールを提供することです。アカウント不要、個人データの収集なし。",
+  title: "wordIzyについて",
+  intro: "wordIzyへようこそ。高性能なワードゲームユーティリティ、アナグラムソルバー、教育的なパズルリソースを提供する最高峰の場所です。インディー開発者と長年の言葉パズル愛好家からなる専心のチームによって構築されたwordIzyは、ウェブで最速・最もクリーン・最も気が散らない辞書ツールセットになるよう、当初から設計されています。",
   sections: [
-   { heading: "当社のミッション", body: "単語ツールは、瞬時で正確、そして誰にでもアクセス可能であるべきだと信じています。Wordleのパズルに行き詰まったとき、Scrabbleの最善手を探しているとき、新しい言語を探索しているときでも、WordIzyは摩擦も、登録も、課金壁もなしに答えを提供します。" },
-   { heading: "提供するもの", body: "WordIzyには12の専用ツールが含まれています。ワードアンスクランブラー、スクランブルソルバー、アナグラムソルバー、Scrabble Duplicateヘルパー、Wordleソルバー、Quordleソルバー、Wordfeudヘルパー、ランダムワードジェネレーター、辞書チェッカー、ワードリスト、ワード開始文字、ワード終了文字。各ツールはブラウザー内で完全に動作し、文字を送信するとすぐに結果が表示されます。" },
-   { heading: "公式Scrabble辞書", body: "権威あるトーナメント単語リストを主な情報源として使用しています。英語にはNWL2023とCSW21、フランス語にはODS9、スペイン語にはFISE、イタリア語にはZingarelli、オランダ語にはOpenTaal、そしてドイツ語とポルトガル語には厳選したScrabbleフィルター済みリストです。つまり、ここで見つける単語は、公式Scrabble競技会で認められるものと同じです。" },
-   { heading: "9言語をサポート", body: "WordIzyは英語、フランス語、スペイン語、イタリア語、ポルトガル語、ドイツ語、オランダ語、日本語（ローマ字）、中国語（普通話・ピンイン）で動作します。ナビゲーションバーのセレクターを使っていつでも言語を切り替えられます。インターフェース全体、FAQのヒント、基盤となる辞書が瞬時に切り替わります。" },
-   { heading: "スマートな機能", body: "任意の単語リストを1クリックでクリップボードにコピーできます。最近の検索はローカルに保存され、すぐに再実行できます。ローディングスケルトンにより、辞書の準備中もスムーズな体験が得られます。また、サイト全体はProgressive Web Appであり、フルスクリーンのアプリのようなアクセスのために電話やデスクトップにインストールできます。" },
-   { heading: "プライバシー・バイ・デザイン", body: "アカウントなし。サイト間追跡なし。フィンガープリントなし。すべてのクエリは、メモリ内の辞書を使用してサーバー側で処理されます。改善のために、匿名の検索分析（クエリ文字列、使用ツール、結果数のみ。IPアドレスやユーザーIDなし）のみを収集します。初回訪問時にCookie同意バナーが表示され、ブラウザー設定でCookieをいつでも管理できます。" },
-   { heading: "テーマとアクセシビリティ", body: "ライト、ダーク、またはシステムテーマから選択できます。トグルは1回のクリックで3つを順に切り替えます。インターフェースはセマンティックHTML、スクリーンリーダー向けのARIAラベル、そして全体にわたるキーボードフレンドリーなナビゲーションを使用しています。アクティブなナビゲーション項目は支援技術のためにaria-currentでマークされています。" },
-   { heading: "お問い合わせ", body: "バグを見つけた、提案がある、新機能をリクエストしたいという場合は、お問い合わせページにアクセスして直接メッセージをお送りください。すべての送信を読み、可能な限り返信しています。メッセージは安全に保管され、第三者と共有されることはありません。" },
+   {
+    heading: "私たちのミッション",
+    body: "私たちのミッションは、プレイヤーが語彙を高め、知力を鍛え、フレンドリーなパズルの議論を絶対的な精度で解決するのを助けることです。言葉ソルバーは、押し付けがましいレイアウトや遅い読み込み時間、複雑な設定で雑然としているべきではないと考えています。だからこそwordIzyは、即時計算、複数言語にローカライズされたスクラブル辞書、そして日常のシームレスな使用のために構築された直感的なカスタムフィルタリングエンジンを備えています。",
+   },
+   {
+    heading: "wordIzyを選ぶ理由は？",
+    body: "基本的で一般的な検索表とは異なり、当社のツールは世界で最も人気のある言葉ゲームの正確なメカニクスに合わせて特注されています：\n• 包括的な辞書データベース：9つの言語をサポートし、厳選された日本語ローマ字リスト、NWL2023、CSW21などの公式競技用語彙に対して直接文字を絞り込みます。\n• 現実的なゲームロジック：高度なワイルドカードフィルタリングシステムは、スクラブルの空白タイルの配布などのルールを認識し、真のゼロ点値を割り当てることで、大会レベルの正確な手を計画できます。\n• 革新的な教育ツール：ローカルに保存されるSave Vaultなどの独自機能は、個人の単語カード管理ツールとして機能し、プレイヤーがオフラインで単語のパターン、フック、拡張を学べるアクティブな環境を提供します。\n• 魅力的なゲームプレイ：ツールを超えて、Anagram Blitzのようなカスタム体験を創造し、言葉ゲーム愛好者にスピードを試し、自己ベストスコアに挑戦するテンポの速い環境を提供します。",
+   },
+   {
+    heading: "プライバシーへの取り組み",
+    body: "デジタルセキュリティとシステムのパフォーマンスを大切にしています。単語ブックマーク履歴のような高度なオプションは、ブラウザのローカルストレージを使用して直接実行されます。つまり、個人の学習リストがデバイスから離れることはなく、ユーザーアカウントの登録は不要で、データは完全にプライベートなまま保たれます。",
+   },
+   {
+    heading: "お問い合わせ",
+    body: "ルックアップアルゴリズムの改善、データベースの拡張、新しいゲームモードの設計に常に取り組んでいます。機能のリクエスト、辞書の修正、一般的なフィードバックがある場合は、お問い合わせページからご連絡ください。wordIzyを日々のゲームルーチンの一部にしていただきありがとうございます！",
+   },
   ],
  },
  contact: {
@@ -2735,9 +2751,6 @@ const ja: Translation = {
   remaining: "件残り",
   allLengths: "すべて",
   filterByLength: "単語の長さで絞り込む",
-  aboutTitle: "この単語リストについて",
-  aboutBody: "Scrabble、Wordle、アナグラムパズル用の、確認済みで辞書チェック済みの単語を閲覧できます。長さフィルターと検索ボックスを使って結果を絞り込みます。単語をクリックするとコピーされます。",
-  canonicalUrl: "正規URL:",
   noMatch: "絞り込み条件に一致する単語はありません。",
   noWords: "単語が見つかりませんでした。",
   wordsCount: "単語",
@@ -2792,17 +2805,25 @@ const zh: Translation = {
  scrabble: { title: "Scrabble复刻", subtitle: "复刻模式每人相同牌架。输入7个字母（加已放字母）找出最高分。", rack: "你的牌架", board: "盘面字母(可选)", btn: "找最佳单词", hint: "支持通配符。按得分排序。" },
  wordlists: { title: "单词表", subtitle: "浏览所有2到7字母单词。选择视图、长度和字母按A–Z探索。", allWords: "全部单词", startsBy: "开头A–Z", endsBy: "结尾A–Z", letter: "字母", selectLength: "长度", selectLetter: "字母", browse: "浏览" },
  about: {
-  title: "关于 WordIzy",
-  intro: "WordIzy 是一个免费、注重隐私的文字益智平台，为全球的文字游戏爱好者、学生和语言爱好者打造。我们的使命很简单：提供快速、准确、由广告支持的单词工具，尊重您的隐私——无需账号，不收集个人数据。",
+  title: "关于 wordIzy",
+  intro: "欢迎使用 wordIzy，您的高性能文字游戏工具、字谜求解器和教育性谜题资源首选目的地。wordIzy 由一支专注的独立开发者团队和终身文字谜题爱好者共同打造，从设计之初就以成为网络上最快、最干净、最少干扰的字典工具集为目标。",
   sections: [
-   { heading: "我们的使命", body: "我们相信单词工具应当即时、准确，并让所有人都能使用。无论您是卡在 Wordle 谜题上、寻找最佳的 Scrabble 出牌、还是在探索一门新语言，WordIzy 都能毫无阻碍、无需注册、无需付费墙地给您答案。" },
-   { heading: "我们的内容", body: "WordIzy 包含十二个专用工具：单词重组器、乱序求解器、易位词求解器、Scrabble Duplicate 助手、Wordle 求解器、Quordle 求解器、Wordfeud 助手、随机单词生成器、词典检查器、单词列表、单词开头和单词结尾。每个工具都完全在您的浏览器中运行——您提交字母后立即出现结果。" },
-   { heading: "官方 Scrabble 词典", body: "我们以权威的比赛词表作为主要来源：英语使用 NWL2023 和 CSW21，法语使用 ODS9，西班牙语使用 FISE，意大利语使用 Zingarelli，荷兰语使用 OpenTaal，德语和葡萄牙语则使用精选的 Scrabble 过滤词表。这意味着您在这里找到的单词与官方 Scrabble 比赛中所接受的单词完全相同。" },
-   { heading: "支持九种语言", body: "WordIzy 支持英语、法语、西班牙语、意大利语、葡萄牙语、德语、荷兰语、日语（罗马字）和中文普通话（拼音）。您可以随时使用导航栏中的选择器切换语言——整个界面、FAQ 提示和底层词典都会立即切换。" },
-   { heading: "智能功能", body: "一键将任意单词列表复制到剪贴板。您最近的搜索会保存在本地，方便快速重新运行。加载骨架在词典预热时为您提供流畅的体验。整个站点是一个 Progressive Web App——您可以将其安装在手机或桌面，获得全屏、应用般的访问体验。" },
-   { heading: "隐私即设计", body: "无需账号。无跨站跟踪。无指纹采集。每个查询都使用内存中的词典在服务器端处理。我们仅收集匿名搜索分析（查询字符串、所用工具和结果数量——无 IP 地址、无用户 ID）以帮助我们改进。首次访问时会显示 Cookie 同意横幅，您可以随时在浏览器设置中管理 Cookie。" },
-   { heading: "主题与无障碍", body: "在浅色、深色或系统主题之间选择——一次点击即可在三者之间循环切换。界面使用语义化 HTML、面向屏幕阅读器的 ARIA 标签，以及贯穿始终的键盘友好导航。当前导航项以 aria-current 标记，便于辅助技术识别。" },
-   { heading: "联系我们", body: "发现 Bug、有建议或想请求新功能？请访问我们的联系页面并直接给我们留言——我们会阅读每份提交，并尽可能多地回复。您的留言将安全存储，绝不与第三方分享。" },
+   {
+    heading: "我们的使命",
+    body: "我们的使命是帮助玩家提升词汇、训练头脑，并以绝对的准确性解决友好的谜题争议。我们相信，文字求解器不应被杂乱的布局、缓慢的加载时间或复杂的设置所困扰。因此 wordIzy 提供即时计算、本地化的多语言 Scrabble 字典以及直观的自定义过滤引擎，专为实现无缝的日常使用而打造。",
+   },
+   {
+    heading: "为什么选择 wordIzy？",
+    body: "与基础、通用的查找表不同，我们的工具经过精心定制，精准契合全球最受欢迎文字游戏的核心机制：\n• 全面的字典数据库：我们支持 9 种语言，将您的字母直接对照官方竞赛词汇表进行筛选，例如精心整理的中文拼音列表、NWL2023 和 CSW21。\n• 真实的游戏逻辑：我们先进的通配符筛选系统能够识别 Scrabble 空白牌分配等规则，并赋予真正的零分值，帮助您精确规划比赛级别的棋步。\n• 创新的教育工具：像我们本地保存的 Save Vault 这样的独特功能可用作个人随卡片管理器，为玩家提供一个活跃的环境来离线学习单词模式、挂接和扩展。\n• 引人入胜的游戏体验：除了工具之外，我们还打造像 Anagram Blitz 这样的定制体验，让文字游戏爱好者在快节奏的环境中测试速度并挑战自己的最高分。",
+   },
+   {
+    heading: "我们对隐私的承诺",
+    body: "我们重视您的数字安全和系统性能。诸如单词书签历史之类的高级选项直接通过浏览器的本地存储来执行。这意味着您的个人学习列表永远不会离开您的设备，无需用户账户注册，且您的数据完全保持私密。",
+   },
+   {
+    heading: "联系我们",
+    body: "我们不断努力改进查找算法、扩展数据库并设计新的游戏模式。如果您有任何功能请求、字典更正或一般反馈，请通过我们的联系页面与我们联系。感谢您将 wordIzy 纳入您的日常游戏惯例！",
+   },
   ],
  },
  contact: {
@@ -3043,9 +3064,6 @@ const zh: Translation = {
   remaining: "剩余",
   allLengths: "全部",
   filterByLength: "按单词长度筛选",
-  aboutTitle: "关于此单词列表",
-  aboutBody: "浏览为 Scrabble、Wordle 和易位词谜题验证并经词典核查的单词。使用长度筛选和搜索框缩小结果范围。点击任意单词即可复制。",
-  canonicalUrl: "规范 URL：",
   noMatch: "没有单词符合您的筛选条件。",
   noWords: "未找到单词。",
   wordsCount: "个单词",

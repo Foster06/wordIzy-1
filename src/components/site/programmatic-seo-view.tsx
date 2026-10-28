@@ -14,7 +14,6 @@ import {
   parseWordListSlug,
   buildWordListTitle,
   buildWordListSiblingLinks,
-  buildCanonicalWordListUrl,
   WORD_LIST_LENGTHS,
   ALPHABET_LOWER,
   ALPHABET_UPPER,
@@ -95,7 +94,6 @@ export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: Progra
 
   const titleText = buildWordListTitle(config);
   const siblings = buildWordListSiblingLinks(config);
-  const canonical = buildCanonicalWordListUrl(config);
 
   let descriptionText = "";
   if (config.type === "length") {
@@ -409,16 +407,6 @@ export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: Progra
         initialTopWords={topWords}
         total={total}
       />
-
-      <section className="text-xs text-muted-foreground leading-relaxed pt-4">
-        <h2 className="text-sm font-semibold text-foreground mb-2">{t.wordListPage.aboutTitle}</h2>
-        <p>
-          {t.wordListPage.aboutBody}
-        </p>
-        <p className="mt-2">
-          {t.wordListPage.canonicalUrl} <code className="text-brand">wordizy.com{canonical}</code>
-        </p>
-      </section>
     </div>
   );
 }

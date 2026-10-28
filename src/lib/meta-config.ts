@@ -90,8 +90,8 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["wordle words ending with","wordle ending words","wordle words by ending","wordle hooks","wordle words that end with","wordle ending word list","wordle words ending in","wordle word list by ending letter","wordle words ending with e","wordle words ending with s","wordle words ending with y","wordle suffix words","wordle words ending in a","wordle ending letters","wordle words a to z ending","wordle last letter words","wordle words by ending","wordle ending patterns","wordle words ending with d"]
   },
   "about": {
-    title: "About wordIzy — Free Word Tools & Unscrambler",
-    description: "wordIzy is a free, privacy-friendly suite of word tools: unscrambler, anagram solver, Wordle & Quordle solvers, Scrabble helper, word lists, and more. No sign-up required. 9 languages.",
+    title: "About Us — Our Mission & Word Game Tools",
+    description: "Learn more about wordIzy, our mission to build fast, intuitive dictionary tools, and how we help players master Scrabble, Wordle, and crossword puzzles.",
     keywords: ["about wordizy","free word unscrambler","word tools","scrabble helper online","word game tools","anagram solver online","wordle helper free","scrabble word finder online","unscramble letters free","word unscrambler tool","free scrabble solver","word puzzle solver","letter unscrambler tool","word finder tool","word game helper","multi language word solver","free word tools online","no sign up word unscrambler","wordizy about"]
   },
   "contact": {
