@@ -129,3 +129,25 @@ export function getInitialWordListPage(
 export function clearWordListCache(): void {
   listCache.clear();
 }
+
+/**
+ * Returns the top-N highest-scoring words for a slug+lang — used by the
+ * SEO article component (<WordListArticle />) to render real high-scoring
+ * example words with live scores. Sorts score-desc with an alphabetical
+ * tiebreak, riding the same listCache as getInitialWordListPage (so it's
+ * ~free after the first call for a given slug+lang pair).
+ */
+export function getTopScoringWords(
+  slug: string,
+  lang: LanguageCode = "en",
+  limit: number = 10,
+): { word: string; score: number }[] | null {
+  const cached = getCachedList(slug, lang);
+  if (!cached) return null;
+
+  const sorted = [...cached.words]
+    .sort((a, b) => b.score - a.score || a.word.localeCompare(b.word))
+    .slice(0, Math.max(1, limit));
+
+  return sorted.map(({ word, score }) => ({ word, score }));
+}

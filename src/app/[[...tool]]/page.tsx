@@ -7,7 +7,7 @@ import {
   buildWordListTitle,
   buildCanonicalWordListUrl,
 } from "@/lib/word-list-urls";
-import { getInitialWordListPage, type InitialWordListPage } from "@/lib/word-list-data";
+import { getInitialWordListPage, getTopScoringWords, type InitialWordListPage } from "@/lib/word-list-data";
 
 interface PageProps {
   params: Promise<{ tool?: string[] }>;
@@ -312,14 +312,17 @@ export default async function Page({ params }: PageProps) {
   const subRoute = toolSegments[1] || "";
 
   let initialWordListData: InitialWordListPage | null = null;
+  let topWordData: { word: string; score: number }[] | null = null;
 
   // Try single-segment programmatic slug
   if (isWordListPage(activeToolSlug)) {
     initialWordListData = getInitialWordListPage(activeToolSlug, "en", 50);
+    topWordData = getTopScoringWords(activeToolSlug, "en", 10);
   }
   // Try legacy two-segment path: /unscramble/<slug>
   else if (activeToolSlug === "unscramble" && subRoute && isWordListPage(subRoute)) {
     initialWordListData = getInitialWordListPage(subRoute, "en", 50);
+    topWordData = getTopScoringWords(subRoute, "en", 10);
   }
 
   // Only render the game structured data on the /blitz page
@@ -362,6 +365,7 @@ export default async function Page({ params }: PageProps) {
       <MainToolView
         params={params}
         initialWordListData={initialWordListData}
+        topWordData={topWordData}
       />
     </>
   );

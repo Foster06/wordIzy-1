@@ -88,6 +88,8 @@ import type { InitialWordListPage } from "@/lib/word-list-data";
 interface MainToolViewProps {
   params: Promise<{ tool?: string[] }>;
   initialWordListData?: InitialWordListPage | null;
+  /** SSR-seeded top-scoring words for the SEO article (English, computed by page.tsx). */
+  topWordData?: { word: string; score: number }[] | null;
 }
 
 function HomeHero() {
@@ -106,7 +108,7 @@ function HomeHero() {
   );
 }
 
-export function MainToolView({ params, initialWordListData }: MainToolViewProps) {
+export function MainToolView({ params, initialWordListData, topWordData }: MainToolViewProps) {
   const resolvedParams = use(params);
   const toolSegments = resolvedParams.tool || [];
   const { route } = useHashRoute();
@@ -120,7 +122,11 @@ export function MainToolView({ params, initialWordListData }: MainToolViewProps)
     if (isWordListPage(primaryRoute)) {
       return (
         <ErrorBoundary label="Word List">
-          <ProgrammaticSEOView slug={primaryRoute} initialData={initialWordListData} />
+          <ProgrammaticSEOView
+            slug={primaryRoute}
+            initialData={initialWordListData}
+            topWords={topWordData ?? []}
+          />
         </ErrorBoundary>
       );
     }
@@ -129,7 +135,11 @@ export function MainToolView({ params, initialWordListData }: MainToolViewProps)
     if (primaryRoute === "unscramble" && subRoute && isWordListPage(subRoute)) {
       return (
         <ErrorBoundary label="Word List">
-          <ProgrammaticSEOView slug={subRoute} initialData={initialWordListData} />
+          <ProgrammaticSEOView
+            slug={subRoute}
+            initialData={initialWordListData}
+            topWords={topWordData ?? []}
+          />
         </ErrorBoundary>
       );
     }

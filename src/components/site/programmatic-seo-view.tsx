@@ -8,6 +8,8 @@ import { ReturnButton } from "@/components/site/back-button";
 import { GlassCard } from "@/components/site/glass-card";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/i18n/language-provider";
+import { WordListArticle } from "@/components/site/word-list-article";
+import type { TopWord } from "@/components/site/word-list-article";
 import {
   parseWordListSlug,
   buildWordListTitle,
@@ -28,6 +30,8 @@ interface ProgrammaticSEOViewProps {
   // view renders immediately WITHOUT a loading spinner — the words are already
   // in the SSR'd HTML. The client only fetches for "Load more" / filter changes.
   initialData?: InitialWordListPage | null;
+  /** SSR-seeded top-scoring words for the SEO article (English, computed by page.tsx). */
+  topWords?: TopWord[];
 }
 
 interface ApiWord { word: string; score: number; }
@@ -42,7 +46,7 @@ interface ApiResponse {
 
 const PAGE_SIZE = 50;
 
-export function ProgrammaticSEOView({ slug, initialData }: ProgrammaticSEOViewProps) {
+export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: ProgrammaticSEOViewProps) {
   const config = parseWordListSlug(slug);
 
   if (!config) {
@@ -395,6 +399,16 @@ export function ProgrammaticSEOView({ slug, initialData }: ProgrammaticSEOViewPr
       <div className="flex justify-center pt-2">
         <ReturnButton variant="button" href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
       </div>
+
+      {/* Educational SEO article — 300-400 words of unique per-letter strategy
+          content (AdSense quality-content criterion). Renders live tile values
+          and real top-scoring words from the dictionary. */}
+      <WordListArticle
+        config={config}
+        slug={slug}
+        initialTopWords={topWords}
+        total={total}
+      />
 
       <section className="text-xs text-muted-foreground leading-relaxed pt-4">
         <h2 className="text-sm font-semibold text-foreground mb-2">{t.wordListPage.aboutTitle}</h2>
