@@ -84,7 +84,7 @@ export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
         `}} />
 
         {/* INNER SOLID FULL CONTENT CANVAS LAYER */}
-        <div 
+        <div
           style={{
             width: "100%",
             height: "100%",
@@ -93,7 +93,15 @@ export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
             padding: "24px",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "space-between",
+            // flex-start (was space-between) — lets the footer sit right below
+            // the word cards instead of being pinned to the bottom of the
+            // drawer. With space-between, when the vault has only 1 saved
+            // word, a huge empty gap appears between the word card and the
+            // footer (the "gap between two bodies" the user reported). With
+            // flex-start, content stacks naturally top-to-bottom and any
+            // empty space lands at the bottom of the drawer (below the
+            // footer), which is visually unobjectionable.
+            justifyContent: "flex-start",
             boxShadow: "-10px 0 35px rgba(0,0,0,0.2)",
             borderLeft: `1px solid ${dividerLineColor}`,
           }}
