@@ -1402,3 +1402,41 @@ User reported the preview sandbox was showing "not active" between commands. Dia
 - Supervisor: `python3 scripts/dev-supervisor.py start` reports "dev server ready on :3000"; subsequent `status` calls (after sleep gaps and across separate bash commands) all report "supervisor running ... dev server healthy".
 - SSR curl /contact → 200. Title tag is "Contact Us — Feedback & Support | wordIzy" (matches user spec). Meta description matches user spec. "How to Reach Us", "Please Include in Your Message", "Expected Response Times" all present in SSR HTML. "support@wordizy.com" visible in SSR HTML. Closing line "Thank you for being a part of the wordIzy community" present. Old form fields (name="name" / name="email" / name="message") all removed (counts: 0 / 0 / 0).
 - /terms and /privacy continue to return 200 — no regression from the contact refactor.
+
+## Task 24 (Oct 29 2026) — Sitemap page + sitemap.xml update; contact email clickable
+
+### sitemap.xml (src/app/sitemap.ts) — bring URLs in sync with current site
+- Added `terms` to CORE_TOOLS array (between `privacy` and `sitemap`). The /terms route was created in Task 22 but never made it into the sitemap.xml output — now present.
+- Replaced single-element `GUIDES = ["best-wordle-starter-words"]` with the full 4-guide list: `["best-wordle-starter-words", "5-crossword-solving-tips-for-beginners", "score-400-in-anagram-blitz", "memorize-2-letter-scrabble-words"]`. Three guides were missing entirely from sitemap.xml since Task 19 added them.
+- Bumped LAST_MODIFIED from `2026-08-04` to `2026-10-29` so crawlers re-fetch and pick up the new URLs from this deploy (lastModified appears as <lastmod> on every <url> entry).
+- Verified via curl: sitemap.xml now contains 1× `/terms` entry, 4× `/guides/` entries, 52× `wordle-words` entries (26 starts + 26 ends). Total entries: 19 core + 14 length + 52 starts/ends scrabble + 52 starts/ends wordle + 4 guides = 141 URLs.
+
+### /sitemap HTML page (SitemapView component in info-views.tsx)
+- Added 2 new GlassCards for Wordle pages that were missing from the human-readable sitemap:
+  - "Wordle Words Starts With A-Z" — 26-link grid → /wordle-words-starts-with-a through -z
+  - "Wordle Words Ends With A-Z" — 26-link grid → /wordle-words-ends-with-a through -z
+  These mirror the existing "Words Starts/Ends With A-Z" Scrabble cards but point to the Wordle routes that were added in Task 19 (52 new pages). They now appear visually on /sitemap between the Scrabble Ends card and the Guides card.
+- Fixed URL form bug in the existing "Words Starts/Ends With A-Z" cards: was using `/words-starts-by-${letter}` (legacy redirect form) — switched to `/words-starts-with-${letter}` (preferred canonical form that matches sitemap.xml output, prevents Google from indexing two URL variants). The legacy `starts-by` form still works as a redirect via the existing matcher in word-list-urls.ts, but the canonical form is now what the sitemap page links to.
+- Expanded the Guides section from 1 link to all 4 guides:
+  - Best Wordle Starter Words (was already there)
+  - 5 Crossword Solving Tips for Beginners (new)
+  - How to Score 400+ in Anagram Blitz (new)
+  - Memorize 2-Letter Scrabble Words (new)
+  All four use the same GlassCard+icon styling as the existing one.
+- The SOLVERS / TOOLS / SITE 3-column grid at the top of /sitemap already auto-included /terms (because it iterates ROUTES filtered to group="site" and routes.ts was updated in Task 22). No change needed there — /terms, /privacy, /contact, /about, /sitemap all already render in the SITE column.
+- Verified via SSR curl: both new Wordle section headings present in HTML; /words-starts-with-a link uses preferred form; /wordle-words-starts-with-a link present; all 4 guide links present.
+
+### Contact email clickable (info-views.tsx)
+- Added module-level `EMAIL_REGEX` constant + `renderBodyWithMailto(body)` helper function. The helper splits a body string on the email pattern (using a capture group so the email lands in its own array slot), then maps each segment — non-email text becomes a `<span>` and any matched email becomes `<a href="mailto:${email}" class="text-brand hover:underline font-medium">`.
+- Used the helper in ContactView's sections.map() — the "How to Reach Us" section body now renders as: plain text "Please send all inquiries..." + a clickable `mailto:support@wordizy.com` link, instead of plain text.
+- When a visitor clicks the email link, their default mail client (Apple Mail, Outlook, Gmail web compose, etc.) opens with the To: field pre-filled. Works on mobile (iOS Mail / Android Gmail) and desktop.
+- Verified via SSR curl: HTML contains exactly 1 `href="mailto:support@wordizy.com"` link.
+- The helper is generic — it will also wrap any email addresses that appear in future body strings without requiring per-section code changes.
+
+### Verification
+- TypeScript: `bunx tsc --noEmit` — 0 errors.
+- ESLint: `bunx eslint` on info-views.tsx + sitemap.ts — 0 errors, 0 warnings.
+- Dev supervisor: still running (pid 1245), dev server healthy on :3000 across multiple bash calls.
+- SSR curl /sitemap → 200. New Wordle sections present, all 4 guide links present, preferred `starts-with` URLs in use.
+- SSR curl /sitemap.xml → 200. /terms entry present (1), /guides/ entries (4), wordle-words entries (52), lastmod bumped to 2026-10-29.
+- SSR curl /contact → 200. `href="mailto:support@wordizy.com"` present (count: 1).

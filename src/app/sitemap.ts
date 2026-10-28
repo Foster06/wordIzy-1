@@ -20,6 +20,7 @@ const CORE_TOOLS = [
   "about",
   "contact",
   "privacy",
+  "terms",
   "sitemap"
 ];
 
@@ -29,11 +30,19 @@ const ALPHABET = "abcdefghijklmnopqrstuvwxyz".split("");
 // 3. 🎯 FIXED: Fully populated array boundary items explicitly matching programmatic routes
 const WORD_LENGTHS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"];
 
-// 4. Editorial guides — long-tail SEO landing pages
-const GUIDES = ["best-wordle-starter-words"];
+// 4. Editorial guides — long-tail SEO landing pages (4 guides × 9 languages = 36 markdown files
+//    under src/content/guides/*.md; only the English slug is the canonical URL)
+const GUIDES = [
+  "best-wordle-starter-words",
+  "5-crossword-solving-tips-for-beginners",
+  "score-400-in-anagram-blitz",
+  "memorize-2-letter-scrabble-words",
+];
 
-// 5. Fixed last-modified timestamp so crawlers can diff changes between deploys
-const LAST_MODIFIED = new Date("2026-08-04T00:00:00Z");
+// 5. Fixed last-modified timestamp so crawlers can diff changes between deploys.
+//    Bumped to 2026-10-29 to reflect the Privacy Policy rewrite, new Terms of
+//    Service page, and Contact page refactor shipped in this deploy.
+const LAST_MODIFIED = new Date("2026-10-29T00:00:00Z");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://wordizy.com";
@@ -91,7 +100,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   });
 
-  // GENERATION MAP D: Editorial guide pages
+  // GENERATION MAP D: Editorial guide pages (canonical English slugs only — localized
+  // variants share the same URL and are routed client-side via the ?lang= cookie)
   GUIDES.forEach((guideSlug) => {
     sitemapEntries.push({
       url: `${baseUrl}/guides/${guideSlug}`,

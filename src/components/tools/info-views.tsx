@@ -15,6 +15,31 @@ const SITEMAP_ICONS: Record<string, React.ComponentType<{ className?: string }>>
   FileText,
 };
 
+// Email-detection regex — used to wrap any email address found inside a body
+// paragraph (e.g. support@wordizy.com in the Contact page) in a clickable
+// mailto: link so it opens the visitor's default mail app.
+const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
+
+/** Render a body string, wrapping any embedded email addresses in mailto links. */
+function renderBodyWithMailto(body: string): React.ReactNode[] {
+  // Split with capture group so emails land in their own array slots.
+  const parts = body.split(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
+  return parts.map((part, i) => {
+    if (EMAIL_REGEX.test(part)) {
+      return (
+        <a
+          key={`mail-${i}`}
+          href={`mailto:${part}`}
+          className="text-brand hover:underline font-medium"
+        >
+          {part}
+        </a>
+      );
+    }
+    return <span key={`txt-${i}`}>{part}</span>;
+  });
+}
+
 export function AboutView() {
   const { t } = useLanguage();
   return (
@@ -67,7 +92,7 @@ export function ContactView() {
                   {section.heading}
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground leading-relaxed whitespace-pre-line">
-                  {section.body}
+                  {renderBodyWithMailto(section.body)}
                 </p>
               </div>
             ))}
@@ -239,7 +264,7 @@ export function SitemapView() {
           </div>
         </GlassCard>
 
-        {/* Programmatic: Words Starts By A-Z */}
+        {/* Programmatic: Words Starts With A-Z (preferred form, matches sitemap.xml) */}
         <GlassCard className="p-5 sm:p-6 result-card">
           <h2 className="section-label !text-[14px] mb-4 text-brand flex items-center gap-2">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
@@ -249,7 +274,7 @@ export function SitemapView() {
             {ALPHABET_LOWER.map((letter, i) => (
               <Link
                 key={letter}
-                href={`/words-starts-by-${letter}`}
+                href={`/words-starts-with-${letter}`}
                 className="h-11 w-full flex items-center justify-center rounded-md glass-soft text-foreground/80 hover:bg-brand hover:text-background transition-colors text-sm font-semibold"
               >
                 {ALPHABET_UPPER[i]}
@@ -258,7 +283,7 @@ export function SitemapView() {
           </div>
         </GlassCard>
 
-        {/* Programmatic: Words Ends By A-Z */}
+        {/* Programmatic: Words Ends With A-Z (preferred form, matches sitemap.xml) */}
         <GlassCard className="p-5 sm:p-6 result-card">
           <h2 className="section-label !text-[14px] mb-4 text-brand flex items-center gap-2">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
@@ -268,7 +293,7 @@ export function SitemapView() {
             {ALPHABET_LOWER.map((letter, i) => (
               <Link
                 key={letter}
-                href={`/words-ends-by-${letter}`}
+                href={`/words-ends-with-${letter}`}
                 className="h-11 w-full flex items-center justify-center rounded-md glass-soft text-foreground/80 hover:bg-brand hover:text-background transition-colors text-sm font-semibold"
               >
                 {ALPHABET_UPPER[i]}
@@ -277,7 +302,45 @@ export function SitemapView() {
           </div>
         </GlassCard>
 
-        {/* Guides section */}
+        {/* Programmatic: Wordle Words Starts With A-Z */}
+        <GlassCard className="p-5 sm:p-6 result-card">
+          <h2 className="section-label !text-[14px] mb-4 text-brand flex items-center gap-2">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
+            Wordle Words Starts With A-Z
+          </h2>
+          <div className="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-13 gap-2">
+            {ALPHABET_LOWER.map((letter, i) => (
+              <Link
+                key={letter}
+                href={`/wordle-words-starts-with-${letter}`}
+                className="h-11 w-full flex items-center justify-center rounded-md glass-soft text-foreground/80 hover:bg-brand hover:text-background transition-colors text-sm font-semibold"
+              >
+                {ALPHABET_UPPER[i]}
+              </Link>
+            ))}
+          </div>
+        </GlassCard>
+
+        {/* Programmatic: Wordle Words Ends With A-Z */}
+        <GlassCard className="p-5 sm:p-6 result-card">
+          <h2 className="section-label !text-[14px] mb-4 text-brand flex items-center gap-2">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
+            Wordle Words Ends With A-Z
+          </h2>
+          <div className="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-13 gap-2">
+            {ALPHABET_LOWER.map((letter, i) => (
+              <Link
+                key={letter}
+                href={`/wordle-words-ends-with-${letter}`}
+                className="h-11 w-full flex items-center justify-center rounded-md glass-soft text-foreground/80 hover:bg-brand hover:text-background transition-colors text-sm font-semibold"
+              >
+                {ALPHABET_UPPER[i]}
+              </Link>
+            ))}
+          </div>
+        </GlassCard>
+
+        {/* Guides section — all 4 editorial strategy guides */}
         <GlassCard className="p-5 sm:p-6 result-card">
           <h2 className="section-label !text-[14px] mb-4 text-brand flex items-center gap-2">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
@@ -293,6 +356,42 @@ export function SitemapView() {
               </div>
               <span className="flex-1 text-sm font-medium text-foreground/80 group-hover:text-brand transition-colors truncate">
                 Best Wordle Starter Words
+              </span>
+              <ChevronRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-0.5 transition-colors transition-transform shrink-0" />
+            </Link>
+            <Link
+              href="/guides/5-crossword-solving-tips-for-beginners"
+              className="group flex items-center gap-3 rounded-xl px-4 py-3 bg-white/[0.04] border border-white/[0.08] hover:bg-brand/10 hover:border-brand/30 transition-colors transition-transform text-left shadow-sm hover:shadow-md"
+            >
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand/10 border border-brand/20 group-hover:bg-brand/20 transition-colors">
+                <BookOpen className="h-4 w-4 text-brand" />
+              </div>
+              <span className="flex-1 text-sm font-medium text-foreground/80 group-hover:text-brand transition-colors truncate">
+                5 Crossword Solving Tips for Beginners
+              </span>
+              <ChevronRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-0.5 transition-colors transition-transform shrink-0" />
+            </Link>
+            <Link
+              href="/guides/score-400-in-anagram-blitz"
+              className="group flex items-center gap-3 rounded-xl px-4 py-3 bg-white/[0.04] border border-white/[0.08] hover:bg-brand/10 hover:border-brand/30 transition-colors transition-transform text-left shadow-sm hover:shadow-md"
+            >
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand/10 border border-brand/20 group-hover:bg-brand/20 transition-colors">
+                <BookOpen className="h-4 w-4 text-brand" />
+              </div>
+              <span className="flex-1 text-sm font-medium text-foreground/80 group-hover:text-brand transition-colors truncate">
+                How to Score 400+ in Anagram Blitz
+              </span>
+              <ChevronRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-0.5 transition-colors transition-transform shrink-0" />
+            </Link>
+            <Link
+              href="/guides/memorize-2-letter-scrabble-words"
+              className="group flex items-center gap-3 rounded-xl px-4 py-3 bg-white/[0.04] border border-white/[0.08] hover:bg-brand/10 hover:border-brand/30 transition-colors transition-transform text-left shadow-sm hover:shadow-md"
+            >
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand/10 border border-brand/20 group-hover:bg-brand/20 transition-colors">
+                <BookOpen className="h-4 w-4 text-brand" />
+              </div>
+              <span className="flex-1 text-sm font-medium text-foreground/80 group-hover:text-brand transition-colors truncate">
+                Memorize 2-Letter Scrabble Words
               </span>
               <ChevronRight className="h-4 w-4 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-0.5 transition-colors transition-transform shrink-0" />
             </Link>
