@@ -12,7 +12,7 @@ export type RouteId =
   | "about" | "contact" | "privacy" | "terms" | "sitemap" | "inbox" | "dashboard"
   | "blitz";
 
-export type RouteGroup = "solvers" | "tools" | "site";
+export type RouteGroup = "solvers" | "tools" | "wordlab" | "site";
 export type DesktopNavSlot = "inline" | "tools" | "wordlab" | "site";
 
 export interface RouteDef {
@@ -43,11 +43,11 @@ export const ROUTES: RouteDef[] = [
   { id: "quordle", hash: "/quordle", icon: "LayoutGrid", labelKey: "quordle", group: "solvers", desktop: "tools" },
 
   // Word Lab dropdown
-  { id: "wordlists", hash: "/wordlists", icon: "List", labelKey: "wordlists", group: "tools", desktop: "wordlab" },
-  { id: "wordstarts", hash: "/wordstarts", icon: "ArrowDownToLine", labelKey: "wordstarts", group: "tools", desktop: "wordlab" },
-  { id: "wordends", hash: "/wordends", icon: "ArrowUpFromLine", labelKey: "wordends", group: "tools", desktop: "wordlab" },
-  { id: "wordle-starts", hash: "/wordle-starts", icon: "Grid3x3", labelKey: "wordlestarts", group: "tools", desktop: "wordlab" },
-  { id: "wordle-ends", hash: "/wordle-ends", icon: "Grid3x3", labelKey: "wordleends", group: "tools", desktop: "wordlab" },
+  { id: "wordlists", hash: "/wordlists", icon: "List", labelKey: "wordlists", group: "wordlab", desktop: "wordlab" },
+  { id: "wordstarts", hash: "/wordstarts", icon: "ArrowDownToLine", labelKey: "wordstarts", group: "wordlab", desktop: "wordlab" },
+  { id: "wordends", hash: "/wordends", icon: "ArrowUpFromLine", labelKey: "wordends", group: "wordlab", desktop: "wordlab" },
+  { id: "wordle-starts", hash: "/wordle-starts", icon: "Grid3x3", labelKey: "wordlestarts", group: "wordlab", desktop: "wordlab" },
+  { id: "wordle-ends", hash: "/wordle-ends", icon: "Grid3x3", labelKey: "wordleends", group: "wordlab", desktop: "wordlab" },
 
   // Site links — NO "More" dropdown in navbar (removed to make room for Blitz).
   // These items are accessible via the footer's SITE column.
@@ -67,9 +67,9 @@ export const ROUTE_MAP: Record<string, RouteDef> = Object.fromEntries(
   ROUTES.map((r) => [r.id, r])
 );
 
-export const GROUP_ORDER: RouteGroup[] = ["solvers", "tools", "site"];
-export const GROUP_LABELS: Record<RouteGroup, "solvers" | "tools" | "site"> = {
-  solvers: "solvers", tools: "tools", site: "site",
+export const GROUP_ORDER: RouteGroup[] = ["solvers", "tools", "wordlab", "site"];
+export const GROUP_LABELS: Record<RouteGroup, "solvers" | "tools" | "wordlab" | "site"> = {
+  solvers: "solvers", tools: "tools", wordlab: "wordlab", site: "site",
 };
 
 // Only 2 dropdowns in the navbar now — "Tools" and "Word Lab".

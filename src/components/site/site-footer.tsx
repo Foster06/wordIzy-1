@@ -6,7 +6,8 @@ import { useLanguage } from "@/components/i18n/language-provider";
 import { AdSlot } from "./ad-slot";
 import { Logo } from "./logo";
 
-/** Footer with SOLVERS / TOOLS / SITE — 3-column grid, always visible.
+/** Footer with SOLVERS / TOOLS / WORD LAB / SITE — 4-column grid (responsive:
+ *  2 cols on mobile, 4 cols on desktop), always visible.
  *  Brand name + description on top, copyright bottom left.
  *  All text uses Bree Serif 15px. */
 export function SiteFooter() {
@@ -26,8 +27,8 @@ export function SiteFooter() {
           </p>
         </div>
 
-        {/* SOLVERS / TOOLS / SITE — 3-column grid */}
-        <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-6">
+        {/* SOLVERS / TOOLS / WORD LAB / SITE — 4-column grid (2 cols on mobile, 4 on desktop) */}
+        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4 mb-6">
           {GROUP_ORDER.map((group: RouteGroup) => {
             const groupRoutes = ROUTES.filter((r) => r.group === group && !r.hidden);
             const labelKey = GROUP_LABELS[group];
@@ -56,7 +57,7 @@ export function SiteFooter() {
         {/* Guides section — visible in footer so users can discover content */}
         <div className="mb-6">
           <h3 className="font-bree !text-[15px] !font-semibold uppercase tracking-wider mb-2 sm:mb-3 text-brand">Guides</h3>
-          <ul className="space-y-1.5 sm:space-y-2">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1.5 sm:gap-2">
             <li>
               <Link href="/guides/best-wordle-starter-words" className="font-bree !text-[15px] text-muted-foreground hover:text-brand transition-colors block cursor-pointer">
                 Best Wordle Starter Words
