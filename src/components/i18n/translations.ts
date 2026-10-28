@@ -156,6 +156,7 @@ export type Translation = {
   challengeFriend: string;
   challengeText: string;
   // SEO content section (below the game card) — translated per language
+  pageHeading: string;
   howToPlayTitle: string;
   howToPlayDesc: string;
   gameModesTitle: string;
@@ -519,6 +520,7 @@ const en: Translation = {
   challengeFriend: "Challenge a Friend",
   challengeText: "I scored {score} on WordIzy Anagram Blitz — can you beat me? Play free: https://wordizy.com/blitz",
   // SEO content section (below the game card)
+  pageHeading: "Play Anagram Blitz — Free 60-Second Word Game",
   howToPlayTitle: "How to Play Anagram Blitz",
   howToPlayDesc: "Anagram Blitz is a fast-paced 60-second word unscramble game. You are given a scrambled set of letters and must rearrange them to form a valid dictionary word. Each correct answer earns 20 points; each skip costs 5 points. Beat your high score and climb the daily leaderboard.",
   gameModesTitle: "Game Modes",
@@ -923,6 +925,7 @@ const fr: Translation = {
   challengeFriend: "Défier un ami",
   challengeText: "J'ai marqué {score} à Anagram Blitz sur WordIzy — peux-tu faire mieux ? Joue gratuitement : https://wordizy.com/blitz",
   // Section contenu SEO (sous la carte du jeu)
+  pageHeading: "Jouez à Anagram Blitz — Jeu de mots gratuit de 60 secondes",
   howToPlayTitle: "Comment jouer à Anagram Blitz",
   howToPlayDesc: "Anagram Blitz est un jeu d'anagrammes rapide de 60 secondes. Vous recevez un ensemble de lettres mélangées et devez les réarranger pour former un mot valide du dictionnaire. Chaque bonne réponse rapporte 20 points ; chaque skip coûte 5 points. Battez votre meilleur score et grimpez dans le classement quotidien.",
   gameModesTitle: "Modes de jeu",
@@ -1300,6 +1303,7 @@ const es: Translation = {
   challengeFriend: "Reta a un amigo",
   challengeText: "Puntué {score} en Anagram Blitz de WordIzy — ¿puedes superarme? Juega gratis: https://wordizy.com/blitz",
   // Sección de contenido SEO (debajo de la tarjeta del juego)
+  pageHeading: "Juega a Anagram Blitz — Juego de palabras gratis de 60 segundos",
   howToPlayTitle: "Cómo jugar a Anagram Blitz",
   howToPlayDesc: "Anagram Blitz es un juego rápido de anagramas de 60 segundos. Recibe un conjunto de letras mezcladas y debe reordenarlas para formar una palabra válida del diccionario. Cada respuesta correcta gana 20 puntos; cada omisión cuesta 5 puntos. Supere su mejor puntuación y suba en la clasificación diaria.",
   gameModesTitle: "Modos de juego",
@@ -1677,6 +1681,7 @@ const de: Translation = {
   challengeFriend: "Freund herausfordern",
   challengeText: "Ich habe {score} Punkte bei WordIzy Anagram Blitz erzielt — schlägst du mich? Kostenlos spielen: https://wordizy.com/blitz",
   // SEO-Inhaltsabschnitt (unter der Spielkarte)
+  pageHeading: "Spiele Anagram Blitz — Gratis 60-Sekunden-Wortspiel",
   howToPlayTitle: "So spielen Sie Anagram Blitz",
   howToPlayDesc: "Anagram Blitz ist ein schnelles 60-Sekunden-Anagramm-Spiel. Sie erhalten ein durcheinandergebrachtes Buchstaben-Set und müssen diese neu anordnen, um ein gültiges Wörterbuchwort zu bilden. Jede richtige Antwort bringt 20 Punkte; jedes Überspringen kostet 5 Punkte. Schlagen Sie Ihren Highscore und steigen Sie in der täglichen Rangliste auf.",
   gameModesTitle: "Spielmodi",
@@ -2054,6 +2059,7 @@ const it: Translation = {
   challengeFriend: "Sfida un amico",
   challengeText: "Ho totalizzato {score} punti su WordIzy Anagram Blitz — mi batti? Gioca gratis: https://wordizy.com/blitz",
   // Sezione contenuto SEO (sotto la carta del gioco)
+  pageHeading: "Gioca ad Anagram Blitz — Gioco di parole gratuito da 60 secondi",
   howToPlayTitle: "Come giocare ad Anagram Blitz",
   howToPlayDesc: "Anagram Blitz è un gioco di anagrammi veloce di 60 secondi. Ricevi un insieme di lettere mescolate e devi riordinarle per formare una parola valida del dizionario. Ogni risposta corretta guadagna 20 punti; ogni salto costa 5 punti. Supera il tuo punteggio migliore e sali nella classifica giornaliera.",
   gameModesTitle: "Modalità di gioco",
@@ -2431,6 +2437,7 @@ const pt: Translation = {
   challengeFriend: "Desafie um amigo",
   challengeText: "Marquei {score} no Anagram Blitz da WordIzy — consegue me superar? Jogue grátis: https://wordizy.com/blitz",
   // Seção de conteúdo SEO (abaixo do cartão do jogo)
+  pageHeading: "Jogue Anagram Blitz — Jogo de palavras grátis de 60 segundos",
   howToPlayTitle: "Como jogar Anagram Blitz",
   howToPlayDesc: "Anagram Blitz é um jogo de anagramas rápido de 60 segundos. Você recebe um conjunto de letras embaralhadas e deve reorganizá-las para formar uma palavra válida do dicionário. Cada resposta correta ganha 20 pontos; cada salto custa 5 pontos. Supere sua melhor pontuação e suba na classificação diária.",
   gameModesTitle: "Modos de jogo",
@@ -2808,6 +2815,7 @@ const nl: Translation = {
   challengeFriend: "Daag een vriend uit",
   challengeText: "Ik scoorde {score} op WordIzy Anagram Blitz — kun je me verslaan? Speel gratis: https://wordizy.com/blitz",
   // SEO-inhoud sectie (onder de spelkaart)
+  pageHeading: "Speel Anagram Blitz — Gratis 60-seconden woordspel",
   howToPlayTitle: "Hoe Anagram Blitz te spelen",
   howToPlayDesc: "Anagram Blitz is een snel 60-seconden anagramspel. U ontvangt een door elkaar gehusselde set letters en moet deze herschikken om een geldig woordenboekwoord te vormen. Elk juist antwoord levert 20 punten op; elke overslaing kost 5 punten. Versla uw highscore en klim in het dagelijkse klassement.",
   gameModesTitle: "Spelmodi",
@@ -3188,6 +3196,7 @@ const ja: Translation = {
   challengeFriend: "友達を挑発する",
   challengeText: "WordIzyアナグラムブリッツで{score}点獲得 — 負けられる？無料でプレイ: https://wordizy.com/blitz",
   // SEOコンテンツセクション（ゲームカードの下）
+  pageHeading: "Anagram Blitz をプレイ — 無料の60秒ワードゲーム",
   howToPlayTitle: "アナグラム・ブリッツの遊び方",
   howToPlayDesc: "アナグラム・ブリッツは60秒の高速アナグラムゲームです。シャッフルされた文字のセットが与えられ、辞書の有効な単語になるように並べ替える必要があります。正解ごとに20ポイント獲得、スキップごとに5ポイント失います。ハイスコアを更新してデイリーリーダーボードを登りましょう。",
   gameModesTitle: "ゲームモード",
@@ -3568,6 +3577,7 @@ const zh: Translation = {
   challengeFriend: "挑战好友",
   challengeText: "我在 WordIzy 字谜闪击中得了 {score} 分 — 能超越我吗？免费游玩: https://wordizy.com/blitz",
   // SEO内容部分（游戏卡片下方）
+  pageHeading: "玩 Anagram Blitz — 免费60秒单词游戏",
   howToPlayTitle: "如何玩字谜闪击",
   howToPlayDesc: "字谜闪击是一款快节奏的60秒字谜重排游戏。你会收到一组打乱的字母，必须重新排列以组成一个有效的词典单词。每个正确答案获得20分；每次跳过扣5分。刷新你的高分纪录，登上每日排行榜。",
   gameModesTitle: "游戏模式",

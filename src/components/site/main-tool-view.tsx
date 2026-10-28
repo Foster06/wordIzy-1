@@ -241,6 +241,7 @@ export function MainToolView({ params, initialWordListData, topWordData }: MainT
                   real word game, not a thin "Loading..." shell.
                   Content is translated per language via t.blitz.* keys. */}
               <section className="mt-10 max-w-2xl mx-auto space-y-4 text-sm text-muted-foreground leading-relaxed">
+                <h1 className="text-2xl font-bold text-foreground">{t.blitz.pageHeading}</h1>
                 <h2 className="text-lg font-bold text-foreground">{t.blitz.howToPlayTitle}</h2>
                 <p>{t.blitz.howToPlayDesc}</p>
                 <h3 className="text-base font-semibold text-foreground pt-2">{t.blitz.gameModesTitle}</h3>
