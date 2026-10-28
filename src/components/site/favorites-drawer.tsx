@@ -100,10 +100,15 @@ export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
         >
           <div style={{ backgroundColor: containerBgColor }} className="w-full flex flex-col">
             
-            {/* Header Row Container */}
-            <div 
+            {/* Header Row Container — pb-3 mb-2 (was pb-4 mb-4 = 32px) tightens
+                the vertical gap so the border-bottom feels attached to the
+                content below instead of floating between two "bodies".
+                Above-border padding 12px (pb-3) keeps the title breathing
+                room; below-border margin 8px (mb-2) glues the border to the
+                counts row + word cards below. */}
+            <div
               style={{ borderBottom: `1px solid ${dividerLineColor}`, backgroundColor: containerBgColor }}
-              className="flex items-center justify-between pb-4 mb-4"
+              className="flex items-center justify-between pb-3 mb-2"
             >
               <div style={{ backgroundColor: containerBgColor }} className="flex items-center space-x-2">
                 <Star className="h-4 w-4 text-amber-500 fill-amber-500" />
