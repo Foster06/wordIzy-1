@@ -308,53 +308,51 @@ const en: Translation = {
  },
  privacy: {
   title: "Privacy Policy",
-  intro: "Your privacy is fundamental to how WordIzy operates. This policy explains, in plain language, what data we process, why we process it, and the choices you have. We are committed to full transparency and compliance with the GDPR (EU) and CCPA (California).",
-  lastUpdated: "Last updated: July 2026",
+  intro: "At wordIzy, accessible from wordizy.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by wordIzy and how we use it.\n\nIf you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.",
+  lastUpdated: "Last Updated: October 28, 2026",
   sections: [
    {
-    heading: "Data We Collect",
-    body: "WordIzy does not require an account and does not collect personal data such as your name, email, or browsing history (except when you voluntarily submit the contact form — see below). We do not use fingerprinting, third-party tracking pixels, or cross-site tracking. The only information we process is what you actively type into our tools, plus anonymous usage statistics (see below).",
+    heading: "Log Files",
+    body: "wordIzy follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this as part of hosting services' analytics. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information.",
    },
    {
-    heading: "Anonymous Search Analytics",
-    body: "When you perform a search, we anonymously record the query string, the tool you used, your selected language, and the number of results returned. No IP address, no user ID, no browser fingerprint, and no personal information is stored with this data. This helps us understand which searches are popular and identify content gaps. You cannot be identified from this data.",
+    heading: "Cookies and Web Beacons",
+    body: "Like any other website, wordIzy uses \"cookies\". These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.",
    },
    {
-    heading: "How We Process Your Input",
-    body: "Every query — letters to unscramble, a Wordle pattern, a dictionary word to check — is processed server-side using dictionaries held in memory. Your input is used solely to generate results and is discarded immediately after the response is sent. The search terms themselves are stored anonymously in our analytics (see above) but are not linked to you in any way.",
+    heading: "Google DoubleClick DART Cookie",
+    body: "Google is one of the third-party vendors on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to wordizy.com and other sites on the internet. However, visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy at the following URL: google.com",
    },
    {
-    heading: "Contact Form Submissions",
-    body: "When you submit the contact form, your name, email address, and message are stored in our database so that we can read and respond to your inquiry. This data is only accessible to the site owner and is never shared with third parties. You may request deletion of your submission at any time by emailing support@wordizy.com. To prevent spam, contact form submissions are rate-limited to 5 per hour per IP address.",
+    heading: "Our Advertising Partners",
+    body: "Some of the advertisers on our site may use cookies and web beacons. Our advertising partners include: Google AdSense. Each of our advertising partners has their own Privacy Policy for their policies on user data. For easier access, we hyperlinked to their Privacy Policies above. Third-party ad servers or ad networks use technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on wordIzy, which are sent directly to users' browsers. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.\n\nPlease note that wordIzy has no access to or control over these cookies that are used by third-party advertisers.",
    },
    {
-    heading: "Cookies & Advertising",
-    body: "WordIzy displays ads through Google AdSense to keep the service free. AdSense may use cookies to serve relevant ads and measure ad performance. A cookie consent banner appears on your first visit, allowing you to accept or decline. You can manage or disable cookies in your browser settings, and opt out of personalised advertising via Google's Ads Settings. We do not set any first-party tracking cookies ourselves — only a single preference cookie to remember your consent choice and your selected language and theme",
+    heading: "Third-Party Privacy Policies",
+    body: "wordIzy's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.\n\nYou can choose to disable cookies through your individual browser options. To know more detailed information about cookie management with specific web browsers, it can be found at the browsers' respective websites.",
    },
    {
-    heading: "Your Rights (GDPR & CCPA)",
-    body: "Because we do not create accounts or link analytics to individuals, there is no personal profile associated with you. You are not tracked across visits. If you have submitted a contact form message and wish to have it deleted, contact us at support@wordizy.com and we will remove it promptly. Under the GDPR (EU residents) you have the right to access, rectify, or erase any personal data we hold about you. Under the CCPA (California residents) you have the right to know what personal information is collected, request deletion, and opt out of the sale of personal information — we do not sell your information.",
+    heading: "Browser Local Storage",
+    body: "To provide our personalized features without requiring user accounts or registrations, wordIzy utilizes your browser's local storage (localStorage) for features like the Save Vault and game preferences. This data is stored entirely on your local device. It is never transmitted to our servers, shared with third parties, or used for tracking purposes across external websites. You can clear this data at any time by clearing your browser's cache or using the options provided within the tool interfaces.",
    },
    {
-    heading: "Contact",
-    body: "Questions about this policy? Email us at support@wordizy.com and we will be happy to help. You can also use the Contact form on this site to send us a message directly.",
+    heading: "Children's Information",
+    body: "Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.\n\nwordIzy does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.",
+   },
+   {
+    heading: "Online Privacy Policy Only",
+    body: "This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in wordIzy. This policy is not applicable to any information collected offline or via channels other than this website.",
+   },
+   {
+    heading: "Consent",
+    body: "By using our website, you hereby consent to our Privacy Policy and agree to its Terms and Conditions.",
    },
   ],
   thirdPartyServices: [
     {
       name: "Google AdSense",
-      description: "Serves advertisements. AdSense may use cookies to display relevant ads and measure performance. You can opt out of personalised advertising via Google's Ads Settings.",
+      description: "Serves advertisements to our site visitors. Uses cookies (DART cookies) to serve ads based on your visits to wordizy.com and other sites. You can decline DART cookies by visiting Google's ad and content network Privacy Policy.",
       url: "https://policies.google.com/technologies/ads",
-    },
-    {
-      name: "Turso",
-      description: "Hosts our SQLite database that stores contact form submissions and anonymous search analytics. Data is stored on Turso's servers.",
-      url: "https://turso.tech/privacy",
-    },
-    {
-      name: "Google Fonts",
-      description: "Serves the Inter, Bree Serif, and Roboto Slab fonts used on this site. Google may log the request for your IP address temporarily.",
-      url: "https://policies.google.com/fonts",
     },
   ],
  },
@@ -666,32 +664,51 @@ const fr: Translation = {
  },
  privacy: {
   title: "Politique de confidentialité",
-  intro: "Votre vie privée est fondamentale pour le fonctionnement de WordIzy. Cette politique explique, en termes clairs, quelles données nous traitons, pourquoi nous les traitons et les choix dont vous disposez. Nous nous engageons à une transparence totale et à la conformité au GDPR (UE) et au CCPA (Californie).",
-  lastUpdated: "Dernière mise à jour : juillet 2026",
+  intro: "Sur wordIzy, accessible depuis wordizy.com, l'une de nos principales priorités est la confidentialité de nos visiteurs. Ce document de Politique de confidentialité contient les types d'informations collectées et enregistrées par wordIzy et la manière dont nous les utilisons.\n\nSi vous avez des questions supplémentaires ou si vous souhaitez plus d'informations sur notre Politique de confidentialité, n'hésitez pas à nous contacter.",
+  lastUpdated: "Dernière mise à jour : 28 octobre 2026",
   sections: [
-   { heading: "Données que nous collectons", body: "WordIzy ne nécessite pas de compte et ne collecte pas de données personnelles telles que votre nom, votre e-mail ou votre historique de navigation (sauf lorsque vous soumettez volontairement le formulaire de contact — voir ci-dessous). Nous n'utilisons pas d'empreinte numérique, de pixels de suivi tiers ou de suivi intersites. Les seules informations que nous traitons sont ce que vous tapez activement dans nos outils, plus des statistiques d'utilisation anonymes (voir ci-dessous)." },
-   { heading: "Statistiques de recherche anonymes", body: "Lorsque vous effectuez une recherche, nous enregistrons de manière anonyme la chaîne de requête, l'outil que vous avez utilisé, la langue sélectionnée et le nombre de résultats renvoyés. Aucune adresse IP, aucun identifiant utilisateur, aucune empreinte de navigateur et aucune information personnelle ne sont stockés avec ces données. Cela nous aide à comprendre quelles recherches sont populaires et à identifier les lacunes de contenu. Vous ne pouvez pas être identifié à partir de ces données." },
-   { heading: "Comment nous traitons vos saisies", body: "Chaque requête — lettres à désordonner, un motif Wordle, un mot de dictionnaire à vérifier — est traitée côté serveur à l'aide de dictionnaires conservés en mémoire. Votre saisie est utilisée uniquement pour générer des résultats et est immédiatement supprimée après l'envoi de la réponse. Les termes de recherche eux-mêmes sont stockés de manière anonyme dans nos statistiques (voir ci-dessus) mais ne vous sont en aucun cas liés." },
-   { heading: "Soumissions de formulaire de contact", body: "Lorsque vous soumettez le formulaire de contact, votre nom, votre adresse e-mail et votre message sont stockés dans notre base de données afin que nous puissions lire et répondre à votre demande. Ces données sont uniquement accessibles au propriétaire du site et ne sont jamais partagées avec des tiers. Vous pouvez demander la suppression de votre soumission à tout moment en écrivant à support@wordizy.com. Pour éviter le spam, les soumissions du formulaire de contact sont limitées à 5 par heure et par adresse IP." },
-   { heading: "Cookies et publicité", body: "WordIzy affiche des annonces via Google AdSense pour rester gratuit. AdSense peut utiliser des cookies pour diffuser des annonces pertinentes et mesurer les performances publicitaires. Une bannière de consentement aux cookies apparaît lors de votre première visite, vous permettant d'accepter ou de refuser. Vous pouvez gérer ou désactiver les cookies dans les paramètres de votre navigateur, et désactiver la publicité personnalisée via les paramètres publicitaires de Google. Nous ne définissons aucun cookie de suivi propriétaire nous-mêmes — seulement un cookie de préférence unique pour mémoriser votre choix de consentement ainsi que la langue et le thème sélectionnés." },
-   { heading: "Vos droits (GDPR et CCPA)", body: "Comme nous ne créons pas de comptes et ne relions pas les statistiques à des individus, aucun profil personnel n'est associé à vous. Vous n'êtes pas suivi d'une visite à l'autre. Si vous avez soumis un message via le formulaire de contact et souhaitez le faire supprimer, contactez-nous à support@wordizy.com et nous le supprimerons rapidement. Dans le cadre du GDPR (résidents de l'UE), vous avez le droit d'accéder, de rectifier ou d'effacer toutes les données personnelles que nous détenons à votre sujet. Dans le cadre du CCPA (résidents de Californie), vous avez le droit de savoir quelles informations personnelles sont collectées, d'en demander la suppression et de vous opposer à la vente d'informations personnelles — nous ne vendons pas vos informations." },
-   { heading: "Contact", body: "Des questions sur cette politique ? Écrivez-nous à support@wordizy.com et nous serons ravis de vous aider. Vous pouvez également utiliser le formulaire de Contact sur ce site pour nous envoyer un message directement." },
+   {
+    heading: "Fichiers journaux",
+    body: "wordIzy suit une procédure standard d'utilisation des fichiers journaux. Ces fichiers enregistrent les visiteurs lorsqu'ils visitent des sites web. Toutes les sociétés d'hébergement le font dans le cadre des analyses des services d'hébergement. Les informations collectées par les fichiers journaux comprennent les adresses de protocole Internet (IP), le type de navigateur, le fournisseur d'accès Internet (FAI), l'horodatage, les pages d'entrée et de sortie, et éventuellement le nombre de clics. Celles-ci ne sont liées à aucune information personnellement identifiable. L'objectif de ces informations est d'analyser les tendances, d'administrer le site, de suivre les déplacements des utilisateurs sur le site et de recueillir des informations démographiques.",
+   },
+   {
+    heading: "Cookies et balises Web",
+    body: "Comme tout autre site web, wordIzy utilise des « cookies ». Ces cookies sont utilisés pour stocker des informations, notamment les préférences des visiteurs et les pages du site que le visiteur a consultées ou visitées. Ces informations servent à optimiser l'expérience des utilisateurs en personnalisant le contenu de nos pages web en fonction du type de navigateur du visiteur et/ou d'autres informations.",
+   },
+   {
+    heading: "Cookie Google DoubleClick DART",
+    body: "Google est l'un des prestataires tiers sur notre site. Il utilise également des cookies, appelés cookies DART, pour diffuser des annonces auprès des visiteurs de notre site en fonction de leur visite sur wordizy.com et d'autres sites sur Internet. Toutefois, les visiteurs peuvent choisir de refuser l'utilisation des cookies DART en consultant la Politique de confidentialité du réseau de contenu et d'annonces de Google à l'URL suivant : google.com",
+   },
+   {
+    heading: "Nos partenaires publicitaires",
+    body: "Certains des annonceurs sur notre site peuvent utiliser des cookies et des balises Web. Nos partenaires publicitaires incluent : Google AdSense. Chacun de nos partenaires publicitaires possède sa propre Politique de confidentialité concernant ses pratiques en matière de données utilisateur. Pour faciliter l'accès, nous avons mis un lien hypertexte vers leurs Politiques de confidentialité ci-dessus. Les serveurs de publicités tiers ou les réseaux publicitaires utilisent des technologies telles que les cookies, JavaScript ou les balises Web dans leurs annonces respectives et les liens qui apparaissent sur wordIzy, qui sont envoyés directement aux navigateurs des utilisateurs. Ils reçoivent automatiquement votre adresse IP lorsque cela se produit. Ces technologies sont utilisées pour mesurer l'efficacité de leurs campagnes publicitaires et/ou pour personnaliser le contenu publicitaire que vous voyez sur les sites web que vous visitez.\n\nVeuillez noter que wordIzy n'a aucun accès ni contrôle sur ces cookies utilisés par les annonceurs tiers.",
+   },
+   {
+    heading: "Politiques de confidentialité tierces",
+    body: "La Politique de confidentialité de wordIzy ne s'applique pas aux autres annonceurs ou sites web. Ainsi, nous vous conseillons de consulter les Politiques de confidentialité respectives de ces serveurs publicitaires tiers pour des informations plus détaillées. Celles-ci peuvent inclure leurs pratiques et instructions sur la façon de vous désinscrire de certaines options.\n\nVous pouvez choisir de désactiver les cookies via les options individuelles de votre navigateur. Pour des informations plus détaillées sur la gestion des cookies avec des navigateurs web spécifiques, vous pouvez consulter les sites web respectifs des navigateurs.",
+   },
+   {
+    heading: "Stockage local du navigateur",
+    body: "Pour fournir nos fonctionnalités personnalisées sans nécessiter de comptes utilisateurs ni d'inscriptions, wordIzy utilise le stockage local de votre navigateur (localStorage) pour des fonctionnalités telles que la Save Vault et les préférences de jeu. Ces données sont stockées entièrement sur votre appareil local. Elles ne sont jamais transmises à nos serveurs, partagées avec des tiers ou utilisées à des fins de suivi sur des sites web externes. Vous pouvez effacer ces données à tout moment en vidant le cache de votre navigateur ou en utilisant les options fournies dans les interfaces des outils.",
+   },
+   {
+    heading: "Informations relatives aux enfants",
+    body: "Une autre partie de notre priorité est d'ajouter une protection pour les enfants lors de l'utilisation d'Internet. Nous encourageons les parents et les tuteurs à observer, participer et/ou surveiller et guider l'activité en ligne de leurs enfants.\n\nwordIzy ne collecte sciemment aucune information personnelle identifiable (Personal Identifiable Information) auprès d'enfants de moins de 13 ans. Si vous pensez que votre enfant a fourni ce type d'informations sur notre site web, nous vous encourageons vivement à nous contacter immédiatement et nous ferons de notre mieux pour supprimer rapidement ces informations de nos registres.",
+   },
+   {
+    heading: "Politique de confidentialité en ligne uniquement",
+    body: "Cette Politique de confidentialité ne s'applique qu'à nos activités en ligne et est valable pour les visiteurs de notre site web en ce qui concerne les informations qu'ils ont partagées et/ou collectées dans wordIzy. Cette politique ne s'applique à aucune information collectée hors ligne ou via d'autres canaux que ce site web.",
+   },
+   {
+    heading: "Consentement",
+    body: "En utilisant notre site web, vous consentez par la présente à notre Politique de confidentialité et acceptez ses Conditions générales.",
+   },
   ],
   thirdPartyServices: [
     {
       name: "Google AdSense",
-      description: "Diffuse des publicités. AdSense peut utiliser des cookies pour afficher des annonces pertinentes et mesurer les performances. Vous pouvez désactiver la publicité personnalisée via les paramètres publicitaires de Google.",
+      description: "Diffuse des annonces auprès des visiteurs de notre site. Utilise des cookies (cookies DART) pour diffuser des annonces en fonction de vos visites sur wordizy.com et d'autres sites. Vous pouvez refuser les cookies DART en consultant la Politique de confidentialité du réseau de contenu et d'annonces de Google.",
       url: "https://policies.google.com/technologies/ads",
-    },
-    {
-      name: "Turso",
-      description: "Héberge notre base de données SQLite qui stocke les soumissions du formulaire de contact et les statistiques de recherche anonymes. Les données sont stockées sur les serveurs de Turso.",
-      url: "https://turso.tech/privacy",
-    },
-    {
-      name: "Google Fonts",
-      description: "Diffuse les polices Inter, Bree Serif et Roboto Slab utilisées sur ce site. Google peut enregistrer temporairement la demande de votre adresse IP.",
-      url: "https://policies.google.com/fonts",
     },
   ],
  },
@@ -976,32 +993,51 @@ const es: Translation = {
  },
  privacy: {
   title: "Política de privacidad",
-  intro: "Su privacidad es fundamental para el funcionamiento de WordIzy. Esta política explica, en lenguaje claro, qué datos procesamos, por qué los procesamos y qué opciones tiene. Nos comprometemos con la total transparencia y el cumplimiento del GDPR (UE) y del CCPA (California).",
-  lastUpdated: "Última actualización: julio de 2026",
+  intro: "En wordIzy, accesible desde wordizy.com, una de nuestras principales prioridades es la privacidad de nuestros visitantes. Este documento de Política de privacidad contiene los tipos de información que recopila y registra wordIzy y cómo la utilizamos.\n\nSi tiene preguntas adicionales o requiere más información sobre nuestra Política de privacidad, no dude en contactarnos.",
+  lastUpdated: "Última actualización: 28 de octubre de 2026",
   sections: [
-   { heading: "Datos que recopilamos", body: "WordIzy no requiere cuenta y no recopila datos personales como su nombre, correo electrónico o historial de navegación (excepto cuando envía voluntariamente el formulario de contacto — ver más abajo). No utilizamos huellas digitales, píxeles de seguimiento de terceros ni rastreo entre sitios. La única información que procesamos es lo que escribe activamente en nuestras herramientas, además de estadísticas de uso anónimas (ver más abajo)." },
-   { heading: "Estadísticas de búsqueda anónimas", body: "Cuando realiza una búsqueda, registramos de forma anónima la cadena de consulta, la herramienta que utilizó, el idioma seleccionado y el número de resultados devueltos. No se almacena ninguna dirección IP, ningún identificador de usuario, ninguna huella del navegador ni ninguna información personal con estos datos. Esto nos ayuda a entender qué búsquedas son populares e identificar lagunas de contenido. No se le puede identificar a partir de estos datos." },
-   { heading: "Cómo procesamos su entrada", body: "Cada consulta — letras para descodificar, un patrón de Wordle, una palabra del diccionario para comprobar — se procesa en el servidor utilizando diccionarios en memoria. Su entrada se usa únicamente para generar resultados y se descarta inmediatamente después de enviar la respuesta. Los propios términos de búsqueda se almacenan de forma anónima en nuestras estadísticas (ver más arriba) pero no se vinculan con usted de ninguna manera." },
-   { heading: "Envíos del formulario de contacto", body: "Cuando envía el formulario de contacto, su nombre, dirección de correo electrónico y mensaje se almacenan en nuestra base de datos para que podamos leer y responder a su consulta. Estos datos solo son accesibles para el propietario del sitio y nunca se comparten con terceros. Puede solicitar la eliminación de su envío en cualquier momento escribiendo a support@wordizy.com. Para evitar el spam, los envíos del formulario de contacto están limitados a 5 por hora por dirección IP." },
-   { heading: "Cookies y publicidad", body: "WordIzy muestra anuncios a través de Google AdSense para mantener el servicio gratuito. AdSense puede usar cookies para ofrecer anuncios relevantes y medir el rendimiento publicitario. Aparece un banner de consentimiento de cookies en su primera visita, lo que le permite aceptar o rechazar. Puede gestionar o desactivar las cookies en la configuración de su navegador, y desactivar la publicidad personalizada a través de la configuración de anuncios de Google. Nosotros no establecemos ninguna cookie de seguimiento propia — solo una cookie de preferencia única para recordar su elección de consentimiento y su idioma y tema seleccionados." },
-   { heading: "Sus derechos (GDPR y CCPA)", body: "Dado que no creamos cuentas ni vinculamos las estadísticas con individuos, no hay ningún perfil personal asociado a usted. No se le rastrea entre visitas. Si ha enviado un mensaje por el formulario de contacto y desea que se elimine, contáctenos en support@wordizy.com y lo eliminaremos rápidamente. Conforme al GDPR (residentes de la UE), usted tiene derecho a acceder, rectificar o suprimir cualquier dato personal que tengamos sobre usted. Conforme al CCPA (residentes de California), usted tiene derecho a saber qué información personal se recopila, solicitar su eliminación y oponerse a la venta de información personal — no vendemos su información." },
-   { heading: "Contacto", body: "¿Tiene preguntas sobre esta política? Escríbanos a support@wordizy.com y estaremos encantados de ayudarle. También puede usar el formulario de Contacto de este sitio para enviarnos un mensaje directamente." },
+   {
+    heading: "Archivos de registro",
+    body: "wordIzy sigue un procedimiento estándar de uso de archivos de registro. Estos archivos registran a los visitantes cuando visitan sitios web. Todas las empresas de alojamiento lo hacen como parte de las analíticas de los servicios de alojamiento. La información recopilada por los archivos de registro incluye direcciones de protocolo de Internet (IP), tipo de navegador, proveedor de servicios de Internet (ISP), marca de fecha y hora, páginas de entrada/salida y posiblemente el número de clics. Estos no se vinculan a ninguna información personalmente identificable. El propósito de la información es analizar tendencias, administrar el sitio, rastrear el movimiento de los usuarios en el sitio web y recopilar información demográfica.",
+   },
+   {
+    heading: "Cookies y balizas web",
+    body: "Como cualquier otro sitio web, wordIzy utiliza \"cookies\". Estas cookies se utilizan para almacenar información, incluidas las preferencias de los visitantes y las páginas del sitio web que el visitante accedió o visitó. La información se utiliza para optimizar la experiencia de los usuarios personalizando el contenido de nuestra página web según el tipo de navegador del visitante y/u otra información.",
+   },
+   {
+    heading: "Cookie DART de Google DoubleClick",
+    body: "Google es uno de los proveedores externos en nuestro sitio. También utiliza cookies, conocidas como cookies DART, para mostrar anuncios a los visitantes de nuestro sitio en función de su visita a wordizy.com y a otros sitios en Internet. Sin embargo, los visitantes pueden optar por rechazar el uso de cookies DART visitando la Política de privacidad de la red de contenido y anuncios de Google en la siguiente URL: google.com",
+   },
+   {
+    heading: "Nuestros socios publicitarios",
+    body: "Algunos de los anunciantes en nuestro sitio pueden usar cookies y balizas web. Nuestros socios publicitarios incluyen: Google AdSense. Cada uno de nuestros socios publicitarios tiene su propia Política de privacidad para sus políticas sobre datos de usuario. Para facilitar el acceso, hemos puesto un hipervínculo a sus Políticas de privacidad anteriormente. Los servidores de anuncios de terceros o las redes de anuncios utilizan tecnologías como cookies, JavaScript o balizas web que se usan en sus anuncios y enlaces respectivos que aparecen en wordIzy, que se envían directamente a los navegadores de los usuarios. Reciben automáticamente su dirección IP cuando esto ocurre. Estas tecnologías se utilizan para medir la eficacia de sus campañas publicitarias y/o personalizar el contenido publicitario que ve en los sitios web que visita.\n\nTenga en cuenta que wordIzy no tiene acceso ni control sobre estas cookies que utilizan los anunciantes externos.",
+   },
+   {
+    heading: "Políticas de privacidad de terceros",
+    body: "La Política de privacidad de wordIzy no se aplica a otros anunciantes o sitios web. Por lo tanto, le aconsejamos que consulte las respectivas Políticas de privacidad de estos servidores de anuncios de terceros para obtener información más detallada. Puede incluir sus prácticas e instrucciones sobre cómo excluirse de ciertas opciones.\n\nPuede optar por desactivar las cookies a través de las opciones individuales de su navegador. Para obtener información más detallada sobre la gestión de cookies con navegadores web específicos, puede encontrarse en los sitios web respectivos de los navegadores.",
+   },
+   {
+    heading: "Almacenamiento local del navegador",
+    body: "Para proporcionar nuestras funciones personalizadas sin requerir cuentas de usuario ni registros, wordIzy utiliza el almacenamiento local de su navegador (localStorage) para funciones como la Save Vault y las preferencias del juego. Estos datos se almacenan completamente en su dispositivo local. Nunca se transmiten a nuestros servidores, se comparten con terceros ni se utilizan con fines de seguimiento en sitios web externos. Puede borrar estos datos en cualquier momento limpiando la caché de su navegador o usando las opciones proporcionadas dentro de las interfaces de las herramientas.",
+   },
+   {
+    heading: "Información sobre niños",
+    body: "Otra parte de nuestra prioridad es añadir protección para los niños mientras usan Internet. Animamos a los padres y tutores a observar, participar y/o monitorear y guiar su actividad en línea.\n\nwordIzy no recopila a sabiendas ninguna Información de identificación personal de niños menores de 13 años. Si cree que su hijo proporcionó este tipo de información en nuestro sitio web, le animamos encarecidamente a contactarnos inmediatamente y haremos todo lo posible para eliminar rápidamente dicha información de nuestros registros.",
+   },
+   {
+    heading: "Solo política de privacidad en línea",
+    body: "Esta Política de privacidad se aplica solo a nuestras actividades en línea y es válida para los visitantes de nuestro sitio web con respecto a la información que compartieron y/o recopilaron en wordIzy. Esta política no se aplica a ninguna información recopilada sin conexión o a través de canales que no sean este sitio web.",
+   },
+   {
+    heading: "Consentimiento",
+    body: "Al usar nuestro sitio web, por la presente consiente a nuestra Política de privacidad y acepta sus Términos y condiciones.",
+   },
   ],
   thirdPartyServices: [
     {
       name: "Google AdSense",
-      description: "Muestra anuncios. AdSense puede usar cookies para mostrar anuncios relevantes y medir el rendimiento. Puede desactivar la publicidad personalizada a través de la configuración de anuncios de Google.",
+      description: "Muestra anuncios a los visitantes de nuestro sitio. Utiliza cookies (cookies DART) para mostrar anuncios basados en sus visitas a wordizy.com y otros sitios. Puede rechazar las cookies DART visitando la Política de privacidad de la red de contenido y anuncios de Google.",
       url: "https://policies.google.com/technologies/ads",
-    },
-    {
-      name: "Turso",
-      description: "Aloja nuestra base de datos SQLite que almacena los envíos del formulario de contacto y las estadísticas de búsqueda anónimas. Los datos se almacenan en los servidores de Turso.",
-      url: "https://turso.tech/privacy",
-    },
-    {
-      name: "Google Fonts",
-      description: "Sirve las fuentes Inter, Bree Serif y Roboto Slab utilizadas en este sitio. Google puede registrar temporalmente la solicitud de su dirección IP.",
-      url: "https://policies.google.com/fonts",
     },
   ],
  },
@@ -1286,32 +1322,51 @@ const de: Translation = {
  },
  privacy: {
   title: "Datenschutzerklärung",
-  intro: "Ihre Privatsphäre ist grundlegend für die Funktionsweise von WordIzy. Diese Richtlinie erklärt in verständlicher Sprache, welche Daten wir verarbeiten, warum wir sie verarbeiten und welche Wahlmöglichkeiten Sie haben. Wir bekennen uns zu voller Transparenz und zur Einhaltung des GDPR (EU) und des CCPA (Kalifornien).",
-  lastUpdated: "Zuletzt aktualisiert: Juli 2026",
+  intro: "Auf wordIzy, erreichbar unter wordizy.com, ist die Privatsphäre unserer Besucher eine unserer Hauptprioritäten. Dieses Dokument zur Datenschutzerklärung enthält die Arten von Informationen, die von wordIzy erfasst und aufgezeichnet werden, und wie wir sie verwenden.\n\nWenn Sie weitere Fragen haben oder weitere Informationen zu unserer Datenschutzerklärung benötigen, zögern Sie nicht, uns zu kontaktieren.",
+  lastUpdated: "Zuletzt aktualisiert: 28. Oktober 2026",
   sections: [
-   { heading: "Daten, die wir erfassen", body: "WordIzy erfordert kein Konto und erfasst keine persönlichen Daten wie Ihren Namen, Ihre E-Mail oder Ihren Browserverlauf (außer wenn Sie freiwillig das Kontaktformular absenden — siehe unten). Wir verwenden kein Fingerprinting, keine Tracking-Pixel von Drittanbietern und kein seitenübergreifendes Tracking. Die einzigen Informationen, die wir verarbeiten, sind das, was Sie aktiv in unsere Werkzeuge eingeben, sowie anonyme Nutzungsstatistiken (siehe unten)." },
-   { heading: "Anonyme Suchanalysen", body: "Wenn Sie eine Suche durchführen, zeichnen wir anonym die Suchanfrage, das verwendete Werkzeug, die gewählte Sprache und die Anzahl der zurückgegebenen Ergebnisse auf. Es werden keine IP-Adresse, keine Benutzer-ID, kein Browser-Fingerprint und keine persönlichen Informationen mit diesen Daten gespeichert. Dies hilft uns zu verstehen, welche Suchen beliebt sind und Lücken im Inhalt zu erkennen. Sie können aus diesen Daten nicht identifiziert werden." },
-   { heading: "Wie wir Ihre Eingabe verarbeiten", body: "Jede Anfrage — zu entwirrende Buchstaben, ein Wordle-Muster, ein zu prüfendes Wörterbuchwort — wird serverseitig mit Wörterbüchern im Arbeitsspeicher verarbeitet. Ihre Eingabe wird ausschließlich zur Ergebniserzeugung verwendet und unmittelbar nach dem Senden der Antwort verworfen. Die Suchbegriffe selbst werden anonym in unseren Analysen gespeichert (siehe oben), aber in keiner Weise mit Ihnen verknüpft." },
-   { heading: "Kontaktformular-Einsendungen", body: "Wenn Sie das Kontaktformular absenden, werden Ihr Name, Ihre E-Mail-Adresse und Ihre Nachricht in unserer Datenbank gespeichert, damit wir Ihre Anfrage lesen und beantworten können. Diese Daten sind nur für den Websitebetreiber zugänglich und werden niemals an Dritte weitergegeben. Sie können die Löschung Ihrer Einsendung jederzeit per E-Mail an support@wordizy.com anfordern. Um Spam zu verhindern, sind Kontaktformular-Einsendungen auf 5 pro Stunde und IP-Adresse begrenzt." },
-   { heading: "Cookies & Werbung", body: "WordIzy blendet Werbung über Google AdSense ein, um den Dienst kostenlos anzubieten. AdSense kann Cookies verwenden, um relevante Anzeigen zu liefern und die Anzeigenleistung zu messen. Beim ersten Besuch wird ein Cookie-Zustimmungsbanner eingeblendet, mit dem Sie zustimmen oder ablehnen können. Sie können Cookies in Ihren Browser-Einstellungen verwalten oder deaktivieren und personalisierte Werbung über die Anzeigeneinstellungen von Google deaktivieren. Wir selbst setzen keine First-Party-Tracking-Cookies — sondern nur ein einziges Präferenz-Cookie, um Ihre Zustimmung sowie die gewählte Sprache und Theme zu speichern." },
-   { heading: "Ihre Rechte (GDPR & CCPA)", body: "Da wir keine Konten erstellen und Analysen nicht mit Personen verknüpfen, ist kein persönliches Profil mit Ihnen verknüpft. Sie werden über Besuche hinweg nicht verfolgt. Wenn Sie eine Nachricht über das Kontaktformular gesendet haben und diese löschen lassen möchten, kontaktieren Sie uns unter support@wordizy.com und wir werden sie umgehend entfernen. Nach dem GDPR (EU-Bewohner) haben Sie das Recht, auf alle personenbezogenen Daten, die wir über Sie gespeichert haben, zuzugreifen, diese zu berichtigen oder zu löschen. Nach dem CCPA (Bewohner Kaliforniens) haben Sie das Recht zu wissen, welche personenbezogenen Daten erfasst werden, deren Löschung zu verlangen und sich dem Verkauf personenbezogener Daten zu widersetzen — wir verkaufen Ihre Daten nicht." },
-   { heading: "Kontakt", body: "Fragen zu dieser Richtlinie? Schreiben Sie uns an support@wordizy.com und wir helfen Ihnen gerne weiter. Sie können auch das Kontaktformular auf dieser Website nutzen, um uns direkt eine Nachricht zu senden." },
+   {
+    heading: "Protokolldateien",
+    body: "wordIzy folgt einem Standardverfahren zur Verwendung von Protokolldateien. Diese Dateien protokollieren Besucher, wenn sie Websites besuchen. Alle Hosting-Unternehmen tun dies im Rahmen der Analysen der Hosting-Dienste. Die von den Protokolldateien erfassten Informationen umfassen Internetprotokoll-(IP)-Adressen, Browsertyp, Internetdienstanbieter (ISP), Datums- und Uhrzeitstempel, verweisende/Ausstiegs-Seiten und möglicherweise die Anzahl der Klicks. Diese sind nicht mit Informationen verknüpft, die persönlich identifizierbar sind. Zweck der Informationen ist die Analyse von Trends, die Verwaltung der Website, die Verfolgung der Bewegung der Benutzer auf der Website und die Erhebung demografischer Informationen.",
+   },
+   {
+    heading: "Cookies und Web Beacons",
+    body: "Wie jede andere Website verwendet wordIzy \"Cookies\". Diese Cookies werden verwendet, um Informationen zu speichern, darunter die Präferenzen der Besucher und die Seiten auf der Website, die der Besucher aufgerufen oder besucht hat. Die Informationen werden verwendet, um die Benutzererfahrung zu optimieren, indem unser Webseiteninhalt basierend auf dem Browsertyp des Besuchers und/oder anderen Informationen angepasst wird.",
+   },
+   {
+    heading: "Google DoubleClick DART-Cookie",
+    body: "Google ist einer der Drittanbieter auf unserer Website. Es verwendet auch Cookies, sogenannte DART-Cookies, um Besuchern unserer Website basierend auf ihrem Besuch auf wordizy.com und anderen Websites im Internet Werbung anzuzeigen. Besucher können die Verwendung von DART-Cookies jedoch ablehnen, indem sie die Datenschutzerklärung des Google-Werbe- und Content-Netzwerks unter der folgenden URL aufrufen: google.com",
+   },
+   {
+    heading: "Unsere Werbepartner",
+    body: "Einige der Werbetreibenden auf unserer Website verwenden möglicherweise Cookies und Web Beacons. Unsere Werbepartner sind: Google AdSense. Jeder unserer Werbepartner hat eine eigene Datenschutzerklärung für seine Richtlinien zu Benutzerdaten. Für einen leichteren Zugang haben wir oben einen Link zu ihren Datenschutzerklärungen eingefügt. Drittanbieter-Werbeserver oder Werbenetzwerke verwenden Technologien wie Cookies, JavaScript oder Web Beacons, die in ihren jeweiligen Anzeigen und Links verwendet werden, die auf wordIzy erscheinen und direkt an die Browser der Benutzer gesendet werden. Sie erhalten automatisch Ihre IP-Adresse, wenn dies geschieht. Diese Technologien werden verwendet, um die Wirksamkeit ihrer Werbekampagnen zu messen und/oder die Werbeinhalte zu personalisieren, die Sie auf von Ihnen besuchten Websites sehen.\n\nBitte beachten Sie, dass wordIzy keinen Zugriff auf oder keine Kontrolle über diese von Drittanbieter-Werbetreibenden verwendeten Cookies hat.",
+   },
+   {
+    heading: "Datenschutzerklärung von Drittanbietern",
+    body: "Die Datenschutzerklärung von wordIzy gilt nicht für andere Werbetreibende oder Websites. Daher raten wir Ihnen, die jeweiligen Datenschutzerklärungen dieser Drittanbieter-Werbeserver für detailliertere Informationen zu konsultieren. Diese können deren Praktiken und Anweisungen zum Opt-out bestimmter Optionen umfassen.\n\nSie können Cookies über die individuellen Optionen Ihres Browsers deaktivieren. Detailliertere Informationen zur Cookie-Verwaltung mit bestimmten Webbrowsern finden Sie auf den jeweiligen Websites der Browser.",
+   },
+   {
+    heading: "Lokaler Browser-Speicher",
+    body: "Um unsere personalisierten Funktionen ohne Benutzerkonten oder Registrierungen anzubieten, nutzt wordIzy den lokalen Speicher Ihres Browsers (localStorage) für Funktionen wie die Save Vault und Spieleinstellungen. Diese Daten werden vollständig auf Ihrem lokalen Gerät gespeichert. Sie werden niemals an unsere Server übertragen, an Dritte weitergegeben oder für Tracking-Zwecke über externe Websites hinweg verwendet. Sie können diese Daten jederzeit durch Leeren des Browser-Caches oder über die in den Werkzeugschnittstellen bereitgestellten Optionen löschen.",
+   },
+   {
+    heading: "Informationen für Kinder",
+    body: "Ein weiterer Teil unserer Priorität ist der Schutz von Kindern bei der Nutzung des Internets. Wir bitten Eltern und Erziehungsberechtigte, die Online-Aktivität ihrer Kinder zu beobachten, daran teilzunehmen und/oder sie zu überwachen und zu leiten.\n\nwordIzy erfasst wissentlich keine personenbezogenen Daten (Personal Identifiable Information) von Kindern unter 13 Jahren. Wenn Sie der Meinung sind, dass Ihr Kind diese Art von Informationen auf unserer Website angegeben hat, bitten wir Sie dringend, uns umgehend zu kontaktieren, und wir werden unser Bestes tun, um solche Informationen umgehend aus unseren Aufzeichnungen zu entfernen.",
+   },
+   {
+    heading: "Nur Online-Datenschutzerklärung",
+    body: "Diese Datenschutzerklärung gilt nur für unsere Online-Aktivitäten und ist für Besucher unserer Website in Bezug auf die Informationen gültig, die sie auf wordIzy geteilt und/oder gesammelt haben. Diese Richtlinie ist nicht auf Informationen anwendbar, die offline oder über andere Kanäle als diese Website erfasst werden.",
+   },
+   {
+    heading: "Einwilligung",
+    body: "Durch die Nutzung unserer Website stimmen Sie hiermit unserer Datenschutzerklärung zu und akzeptieren deren Allgemeine Geschäftsbedingungen.",
+   },
   ],
   thirdPartyServices: [
     {
       name: "Google AdSense",
-      description: "Liefert Werbung. AdSense kann Cookies verwenden, um relevante Anzeigen einzublenden und die Leistung zu messen. Sie können personalisierte Werbung über die Anzeigeneinstellungen von Google deaktivieren.",
+      description: "Liefert Werbung an die Besucher unserer Website. Verwendet Cookies (DART-Cookies), um Anzeigen basierend auf Ihren Besuchen auf wordizy.com und anderen Websites zu liefern. Sie können DART-Cookies ablehnen, indem Sie die Datenschutzerklärung des Google-Werbe- und Content-Netzwerks aufrufen.",
       url: "https://policies.google.com/technologies/ads",
-    },
-    {
-      name: "Turso",
-      description: "Hostet unsere SQLite-Datenbank, die Kontaktformular-Einsendungen und anonyme Suchanalysen speichert. Daten werden auf den Servern von Turso gespeichert.",
-      url: "https://turso.tech/privacy",
-    },
-    {
-      name: "Google Fonts",
-      description: "Liefert die auf dieser Website verwendeten Schriftarten Inter, Bree Serif und Roboto Slab. Google kann die Anfrage Ihrer IP-Adresse vorübergehend protokollieren.",
-      url: "https://policies.google.com/fonts",
     },
   ],
  },

@@ -100,9 +100,9 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["contact wordizy","word tools support","scrabble solver feedback","word unscrambler contact","anagram solver support","wordle helper contact","word game tools feedback","scrabble word finder support","word unscrambler help","word solver contact form","wordizy contact","word tools bug report","scrabble helper feedback","word game solver support","word finder tool contact","letter unscrambler support","word puzzle tools contact","free word tools support","wordizy feedback"]
   },
   "privacy": {
-    title: "Privacy Policy — wordIzy",
-    description: "wordIzy does not require an account and does not collect personal data. All solving happens server-side with no permanent storage. 100% anonymous word unscrambler & solver.",
-    keywords: ["privacy policy","wordizy privacy","anonymous word tools","no tracking word solver","private scrabble solver","no account word unscrambler","anonymous wordle solver","privacy first word tools","no data collection word solver","gdpr word tools","ccpa word unscrambler","no cookies word solver","private word finder","anonymous anagram solver","word tools privacy policy","scrabble helper privacy","word unscrambler privacy","no sign up word tools","secure word solver"]
+    title: "Privacy Policy",
+    description: "Read the wordIzy privacy policy. Learn how we handle cookies, browser local storage, and our partnership with Google AdSense to serve advertisements.",
+    keywords: ["privacy policy","wordizy privacy","cookies advertising","google adsense privacy","browser local storage","privacy policy word tools","wordizy cookie policy","third party advertising policy","dart cookie opt out","save vault privacy","local storage word tools","gdpr word tools","ccpa word unscrambler","scrabble helper privacy","word unscrambler privacy","children online privacy","browser storage privacy","online privacy policy","adsense cookies policy"]
   },
   "sitemap": {
     title: "Sitemap — Browse All wordIzy Word Tools & Word Lists",
