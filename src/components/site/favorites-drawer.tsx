@@ -108,15 +108,17 @@ export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
         >
           <div style={{ backgroundColor: containerBgColor }} className="w-full flex flex-col">
             
-            {/* Header Row Container — pb-3 mb-2 (was pb-4 mb-4 = 32px) tightens
-                the vertical gap so the border-bottom feels attached to the
-                content below instead of floating between two "bodies".
-                Above-border padding 12px (pb-3) keeps the title breathing
-                room; below-border margin 8px (mb-2) glues the border to the
-                counts row + word cards below. */}
+            {/* Header Row Container — px-2.5 aligns the star+title text (and the
+                close X) with the word-card TEXT below. Word cards have p-2.5
+                internal padding so their text sits 10px in from the card edge.
+                Without px-2.5 here, the header text was at x=0 while word-card
+                text was at x=10 — a 10px visible misalignment.
+                pb-2 mb-1 (was pb-4 mb-4 = 32px) tightens the vertical gap so
+                the border-bottom feels attached to the content below instead
+                of floating between two "bodies". */}
             <div
               style={{ borderBottom: `1px solid ${dividerLineColor}`, backgroundColor: containerBgColor }}
-              className="flex items-center justify-between pb-3 mb-2"
+              className="flex items-center justify-between px-2.5 pb-2 mb-1"
             >
               <div style={{ backgroundColor: containerBgColor }} className="flex items-center space-x-2">
                 <Star className="h-4 w-4 text-amber-500 fill-amber-500" />
@@ -135,10 +137,11 @@ export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
               </button>
             </div>
 
-            {/* Counts Area Panel — px-0 so the count + Copy-All link align
-                exactly with the header row above and the word rows below.
-                Previously px-1 which caused a 4px left-edge misalignment. */}
-            <div style={{ backgroundColor: containerBgColor }} className="flex justify-between items-center text-xs text-neutral-400 mb-4 px-0">
+            {/* Counts Area Panel — px-2.5 aligns the count + Copy-All link text
+                with the word-card TEXT below (and the header text above). Word
+                cards have p-2.5 internal padding so their text sits 10px in
+                from the card edge. Header also has px-2.5 now. */}
+            <div style={{ backgroundColor: containerBgColor }} className="flex justify-between items-center text-xs text-neutral-400 mb-3 px-2.5">
               <span>{favorites?.length ?? 0} saved words</span>
               {favorites && favorites.length > 0 && (
                 <button 
