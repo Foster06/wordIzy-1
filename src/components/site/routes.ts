@@ -9,7 +9,7 @@ export type RouteId =
   | "home" | "scramble" | "anagram" | "wordle" | "quordle" | "scrabble"
   | "random" | "wordfeud" | "dictionary" | "wordlists" | "wordstarts" | "wordends"
   | "wordle-starts" | "wordle-ends"
-  | "about" | "contact" | "privacy" | "sitemap" | "inbox" | "dashboard"
+  | "about" | "contact" | "privacy" | "terms" | "sitemap" | "inbox" | "dashboard"
   | "blitz";
 
 export type RouteGroup = "solvers" | "tools" | "site";
@@ -54,6 +54,7 @@ export const ROUTES: RouteDef[] = [
   { id: "about", hash: "/about", icon: "Info", labelKey: "about", group: "site", desktop: "site" },
   { id: "contact", hash: "/contact", icon: "Mail", labelKey: "contact", group: "site", desktop: "site" },
   { id: "privacy", hash: "/privacy", icon: "Shield", labelKey: "privacy", group: "site", desktop: "site" },
+  { id: "terms", hash: "/terms", icon: "FileText", labelKey: "terms", group: "site", desktop: "site" },
   { id: "sitemap", hash: "/sitemap", icon: "Map", labelKey: "sitemap", group: "site", desktop: "site" },
 
   // Hidden — owner-only inbox for contact form submissions. Access via /inbox

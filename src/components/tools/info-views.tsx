@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Info, Mail, Shield, Map, Send, Check, Loader2, AlertCircle, Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2, BookOpen, Trophy, List, ArrowDownToLine, ArrowUpFromLine, ChevronRight } from "lucide-react";
+import { Info, Mail, Shield, Map, Send, Check, Loader2, AlertCircle, Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2, BookOpen, Trophy, List, ArrowDownToLine, ArrowUpFromLine, ChevronRight, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,6 +18,7 @@ import { toast } from "sonner";
 const SITEMAP_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2,
   BookOpen, Trophy, List, Info, Mail, Shield, Map, ArrowDownToLine, ArrowUpFromLine,
+  FileText,
 };
 
 export function AboutView() {
@@ -233,6 +234,40 @@ export function PrivacyView() {
                 </div>
               </div>
             )}
+          </div>
+        </GlassCard>
+        <AdSlot format="horizontal" />
+      </div>
+    </>
+  );
+}
+
+export function TermsView() {
+  const { t } = useLanguage();
+  return (
+    <>
+      <PageHeader badge={t.nav.terms} title={t.terms.title} icon={<FileText className="h-6 w-6" />} />
+      <div className="mt-6 space-y-6">
+        <GlassCard className="p-6 sm:p-8">
+          {/* Intro — larger, prominent lead paragraph */}
+          <p className="text-base sm:text-lg text-foreground/90 leading-relaxed mb-4 max-w-3xl mx-auto">
+            {t.terms.intro}
+          </p>
+          {/* Last updated badge */}
+          <p className="text-xs text-muted-foreground/70 mb-6 max-w-3xl mx-auto">{t.terms.lastUpdated}</p>
+          {/* Sections with headings */}
+          <div className="space-y-6 max-w-3xl mx-auto">
+            {t.terms.sections.map((section, i) => (
+              <div key={i}>
+                <h2 className="text-base sm:text-lg font-semibold text-brand mb-2 flex items-center gap-2">
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand shrink-0" />
+                  {section.heading}
+                </h2>
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed whitespace-pre-line">
+                  {section.body}
+                </p>
+              </div>
+            ))}
           </div>
         </GlassCard>
         <AdSlot format="horizontal" />

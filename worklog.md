@@ -1341,3 +1341,36 @@ Stage Summary:
 - 52 Wordle pages transformed from thin tool pages into 300-400-word unique information resources with dedicated Wordle strategy (frequency, position, information gain), Scrabble tile-value crossover, and high-scoring double-duty plays
 - 9 language files with genuine per-language context (native-pattern contrasts for speakers of each language playing English Wordle), not literal translations — verified by an independent script
 - Scrabble pages and length pages unchanged; clean separation via config.dict
+
+## Task 22 (Oct 28 2026) — Privacy Policy rewrite + Terms of Service page (9 languages)
+
+User asked for two related deliverables:
+1. Replace the existing Privacy Policy content with a ready-made spec focused on cookies, AdSense, DART cookies, browser local storage, children's info, and consent (last updated Oct 28, 2026).
+2. Add a brand-new Terms of Service page reachable from the footer, with 9 numbered sections covering service description, usage restrictions, IP, third-party trademarks, local storage, liability limits, modifications, governing law, and contact.
+
+### Privacy Policy rewrite (src/components/i18n/translations.ts × 9 langs)
+- Replaced the old GDPR/CCPA-centric "no account / no tracking / anonymous" narrative with the new AdSense + DART + localStorage narrative across ALL 9 languages (en/fr/es/de/it/pt/nl/ja/zh). Old third-party services list (Turso + Google Fonts) trimmed to JUST Google AdSense, since the new policy copy explicitly states AdSense is the only advertising partner and mentions no other third parties.
+- 9 sections per language, all translated contextually — not literal word-for-word — so each locale's legal tone reads naturally (e.g. French uses « » guillemets for quoted "cookies"/"Terms"; German keeps "Cookies" as anglicism; Italian preserves "Save Vault" as a feature name; Japanese uses 「Cookie」 with full-width brackets; Chinese uses 《》for Terms/Conditions document references).
+- meta-config.ts `privacy` entry updated: title "Privacy Policy" (layout template appends " | wordIzy" → final "Privacy Policy | wordIzy"); description replaced with the user-supplied copy; keywords refreshed to reflect the new AdSense/localStorage focus (no more "no tracking word solver", "anonymous" claims — those were removed because the new policy explicitly acknowledges cookies + ad tracking).
+
+### Terms of Service (new page)
+- routes.ts: added `terms` to RouteId union + registered `{ id: "terms", hash: "/terms", icon: "FileText", labelKey: "terms", group: "site", desktop: "site" }` — auto-shows in footer's SITE column (footer iterates ROUTES by group). Placed between `privacy` and `sitemap` so the three legal/info pages sit together.
+- meta-config.ts: added `terms` registry entry — title "Terms of Service" (final "Terms of Service | wordIzy" after layout template), description "Read the wordIzy terms of service. Learn about our user guidelines, data restrictions, intellectual property rights, and third-party game disclaimers.", 19 keywords covering terms-of-service, terms-of-use, IP, restrictions, third-party disclaimer, etc.
+- translations.ts: added `terms` block to Translation interface type def + nav.terms key + per-language terms:{title, intro, lastUpdated, sections[]} for all 9 languages. 9 numbered sections each:
+  1. Description of Service
+  2. Permitted Use and Restrictions (with 4 bulleted prohibitions — no scraping, no server disruption, no framing, no cheating in banned environments)
+  3. Intellectual Property Rights (covers Anagram Blitz software + logos + design)
+  4. Third-Party Trademarks and Disclaimer (Scrabble/Wordle/Words With Friends/Wordfeud/Quordle; explicit non-affiliation with Hasbro/Mattel/NYT)
+  5. User Data and Local Storage (Save Vault uses localStorage, no liability for data loss from cache clearing)
+  6. Limitations of Liability (no guarantee of error-free word lists / scoring / dictionary patches)
+  7. Modifications to the Service and Terms (continued use = acceptance)
+  8. Governing Law (international digital commerce practices)
+  9. Contact Information (link to /contact)
+- nav.terms labels per language: "Terms of Service" / "Conditions d'utilisation" / "Términos de servicio" / "Nutzungsbedingungen" / "Termini di servizio" / "Termos de serviço" / "Servicevoorwaarden" / "利用規約" / "服务条款".
+- info-views.tsx: added TermsView component (mirrors PrivacyView structure but no thirdPartyServices block since the ToS has no external service list). Uses FileText lucide icon for PageHeader. Added FileText to SITEMAP_ICONS so the terms row in the sitemap page also renders its proper icon instead of falling back to Shuffle.
+- main-tool-view.tsx: added dynamic import for TermsView (info-views barrel) + `case "terms":` route in the renderView switch — returns `<ErrorBoundary label="Terms of Service"><TermsView /></ErrorBoundary>`.
+
+### Verification
+- TypeScript: `bunx tsc --noEmit` — 0 errors.
+- ESLint: `bunx eslint` on all 5 changed files (translations.ts, meta-config.ts, info-views.tsx, main-tool-view.tsx, routes.ts) — 0 errors, 0 warnings.
+- SSR curl: GET /privacy → 200, GET /terms → 200. Both pages emit the correct `<title>` (with " | wordIzy" suffix from layout template) and the user-specified meta description. Last-updated date "October 28, 2026" present in SSR HTML for both pages. "Log Files" heading + 4 AdSense mentions visible on /privacy. "Description of Service" + "Save Vault" + "October 28, 2026" all visible on /terms. Footer shows /terms "Terms of Service" and /privacy "Privacy" links in SSR HTML — both legal pages reachable from the footer of every page on the site.

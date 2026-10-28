@@ -67,6 +67,9 @@ const ContactView = dynamic(
 const PrivacyView = dynamic(
   () => import("@/components/tools/info-views").then((m) => m.PrivacyView),
 );
+const TermsView = dynamic(
+  () => import("@/components/tools/info-views").then((m) => m.TermsView),
+);
 const SitemapView = dynamic(
   () => import("@/components/tools/info-views").then((m) => m.SitemapView),
 );
@@ -289,6 +292,8 @@ export function MainToolView({ params, initialWordListData, topWordData }: MainT
         return <ErrorBoundary label="Contact"><ContactView /></ErrorBoundary>;
       case "privacy":
         return <ErrorBoundary label="Privacy Policy"><PrivacyView /></ErrorBoundary>;
+      case "terms":
+        return <ErrorBoundary label="Terms of Service"><TermsView /></ErrorBoundary>;
       case "sitemap":
         return <ErrorBoundary label="Sitemap"><SitemapView /></ErrorBoundary>;
       case "inbox":

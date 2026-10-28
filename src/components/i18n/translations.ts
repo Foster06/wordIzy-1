@@ -8,7 +8,7 @@ export type Translation = {
   unscrambler: string; scramble: string; wordle: string; quordle: string;
   anagram: string; random: string; wordfeud: string; dictionary: string;
   scrabble: string; wordlists: string; wordstarts: string; wordends: string; wordlestarts: string; wordleends: string; about: string; contact: string;
-  privacy: string; sitemap: string; tools: string; more: string;
+  privacy: string; terms: string; sitemap: string; tools: string; more: string;
   solvers: string; site: string; wordlab: string; inbox: string;
   dashboard: string; blitz: string; blitzShort: string;
  };
@@ -66,6 +66,12 @@ export type Translation = {
   lastUpdated: string;
   sections: { heading: string; body: string }[];
   thirdPartyServices: { name: string; description: string; url: string }[];
+ };
+ terms: {
+  title: string;
+  intro: string;
+  lastUpdated: string;
+  sections: { heading: string; body: string }[];
  };
  sitemap: { title: string; body: string };
  footer: { rights: string; madeWith: string; links: string; desc: string; disclaimer: string };
@@ -205,7 +211,7 @@ const en: Translation = {
   unscrambler: "Unscrambler", scramble: "Scramble", wordle: "Wordle",
   quordle: "Quordle", anagram: "Anagram", random: "Random Word",
   wordfeud: "Wordfeud", dictionary: "Dictionary", scrabble: "Duplicate",
-  wordlists: "Unscramble by Length", wordstarts: "Words Starts With A-Z", wordends: "Words Ends With A-Z", wordlestarts: "Wordle Starts A-Z", wordleends: "Wordle Ends A-Z", about: "About", contact: "Contact", privacy: "Privacy",
+  wordlists: "Unscramble by Length", wordstarts: "Words Starts With A-Z", wordends: "Words Ends With A-Z", wordlestarts: "Wordle Starts A-Z", wordleends: "Wordle Ends A-Z", about: "About", contact: "Contact", privacy: "Privacy", terms: "Terms of Service",
   sitemap: "Sitemap", tools: "Tools", more: "More", solvers: "Solvers", site: "Site", wordlab: "Word Lab", inbox: "Inbox",
   dashboard: "Dashboard", blitz: "Anagram Blitz", blitzShort: "Blitz"
  },
@@ -354,6 +360,49 @@ const en: Translation = {
       description: "Serves advertisements to our site visitors. Uses cookies (DART cookies) to serve ads based on your visits to wordizy.com and other sites. You can decline DART cookies by visiting Google's ad and content network Privacy Policy.",
       url: "https://policies.google.com/technologies/ads",
     },
+  ],
+ },
+ terms: {
+  title: "Terms of Service",
+  intro: "Welcome to wordIzy (accessible via wordizy.com). These Terms of Service (\"Terms\") govern your access to and use of our website, word game helper tools, dictionaries, and interactive games like Anagram Blitz (collectively, the \"Services\").\n\nBy accessing or using wordIzy, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, please do not use our Services.",
+  lastUpdated: "Last Updated: October 28, 2026",
+  sections: [
+   {
+    heading: "1. Description of Service",
+    body: "wordIzy provides free online word puzzle assistance tools, anagram solvers, dictionary lookups, and word-based mini-games. All Services are provided on an \"as-is\" and \"as-available\" basis for personal, non-commercial entertainment and educational purposes only.",
+   },
+   {
+    heading: "2. Permitted Use and Restrictions",
+    body: "You are granted a limited, non-exclusive, non-transferable, and revocable license to access and use wordIzy strictly in accordance with these Terms.\nAs a condition of your use, you agree not to:\n• Use any automated systems, scrapers, spiders, robots, or scripts to harvest data, text, or word lists from our databases.\n• Interfere with or disrupt the performance, integrity, or security of the website servers.\n• Frame or mirror any part of the site without our prior written authorization.\n• Use our word game helper tools or automated systems to cheat in competitive online environments where external assistance tools are explicitly banned by those platforms' respective terms.",
+   },
+   {
+    heading: "3. Intellectual Property Rights",
+    body: "All content, features, functionality, logos, site design, text, and custom gaming software (including Anagram Blitz) on wordIzy are the exclusive property of wordIzy and are protected by international copyright, trademark, and intellectual property laws. You may not reproduce, distribute, modify, or create derivative works of our property without express written consent.",
+   },
+   {
+    heading: "4. Third-Party Trademarks and Disclaimer",
+    body: "References to third-party games, including but not limited to Scrabble, Wordle, Words With Friends, Wordfeud, and Quordle, are used solely for informational and descriptive purposes to explain the compatibility of our toolsets. wordIzy is an independent platform and is not affiliated with, endorsed, authorized, or sponsored by Hasbro, Mattel, The New York Times Company, or any of their respective parent companies or affiliates.",
+   },
+   {
+    heading: "5. User Data and Local Storage",
+    body: "wordIzy does not require user registration or account creation. Features like the Save Vault utilize your web browser's local storage (localStorage) to save configuration states and word history locally on your device. We hold no responsibility or liability for any data loss occurring from cleared browser caches, hardware changes, or browser updates.",
+   },
+   {
+    heading: "6. Limitations of Liability",
+    body: "In no event shall wordIzy, its developers, or its affiliates be liable for any direct, indirect, incidental, special, or consequential damages arising out of the use or the inability to use our website, even if advised of the possibility of such damages. We do not guarantee that the word lists, scoring calculations, or dictionary helper configurations are entirely error-free or updated to match real-time live game dictionary patches.",
+   },
+   {
+    heading: "7. Modifications to the Service and Terms",
+    body: "We reserve the right to modify, suspend, or discontinue any aspect of our Services at any time without notice. We also reserve the right to amend these Terms at our discretion. Your continued use of wordIzy following any posted updates constitutes your acceptance of the revised Terms.",
+   },
+   {
+    heading: "8. Governing Law",
+    body: "These Terms shall be governed by and construed in accordance with international digital commerce practices, without regard to conflict of law principles.",
+   },
+   {
+    heading: "9. Contact Information",
+    body: "If you have any questions or clarifications regarding these Terms of Service, please contact us via our official contact page.",
+   },
   ],
  },
  sitemap: { title: "Sitemap", body: "All pages on WordIzy." },
@@ -561,7 +610,7 @@ const fr: Translation = {
   unscrambler: "Anagrammeur", scramble: "Mélange", wordle: "Wordle",
   quordle: "Quordle", anagram: "Anagrammes", random: "Mot Aléatoire",
   wordfeud: "Wordfeud", dictionary: "Dictionnaire", scrabble: "Duplicate",
-  wordlists: "Listes de Mots", wordstarts: "Mots Commencent Par", wordends: "Mots Finissent Par", wordlestarts: "Wordle Commence A-Z", wordleends: "Wordle Finit A-Z", about: "À propos", contact: "Contact", privacy: "Confidentialité",
+  wordlists: "Listes de Mots", wordstarts: "Mots Commencent Par", wordends: "Mots Finissent Par", wordlestarts: "Wordle Commence A-Z", wordleends: "Wordle Finit A-Z", about: "À propos", contact: "Contact", privacy: "Confidentialité", terms: "Conditions d'utilisation",
   sitemap: "Plan du site", tools: "Outils", more: "Plus", solvers: "Solveurs", site: "Site", wordlab: "Labo des Mots", inbox: "Boîte de réception",
   dashboard: "Tableau de bord", blitz: "⚡ Anagram Blitz", blitzShort: "Blitz"
  },
@@ -710,6 +759,49 @@ const fr: Translation = {
       description: "Diffuse des annonces auprès des visiteurs de notre site. Utilise des cookies (cookies DART) pour diffuser des annonces en fonction de vos visites sur wordizy.com et d'autres sites. Vous pouvez refuser les cookies DART en consultant la Politique de confidentialité du réseau de contenu et d'annonces de Google.",
       url: "https://policies.google.com/technologies/ads",
     },
+  ],
+ },
+ terms: {
+  title: "Conditions d'utilisation",
+  intro: "Bienvenue sur wordIzy (accessible via wordizy.com). Les présentes Conditions d'utilisation (les « Conditions ») régissent votre accès et votre utilisation de notre site web, de nos outils d'aide aux jeux de mots, de nos dictionnaires et de nos jeux interactifs comme Anagram Blitz (collectivement, les « Services »).\n\nEn accédant ou en utilisant wordIzy, vous acceptez d'être lié par ces Conditions et par notre Politique de confidentialité. Si vous n'acceptez pas ces Conditions, veuillez ne pas utiliser nos Services.",
+  lastUpdated: "Dernière mise à jour : 28 octobre 2026",
+  sections: [
+   {
+    heading: "1. Description du Service",
+    body: "wordIzy fournit des outils gratuits en ligne d'assistance aux énigmes de mots, des solveurs d'anagrammes, des recherches dans le dictionnaire et des mini-jeux basés sur les mots. Tous les Services sont fournis « tels quels » et « tels que disponibles » à des fins personnelles, non commerciales, de divertissement et éducatives uniquement.",
+   },
+   {
+    heading: "2. Utilisation autorisée et restrictions",
+    body: "Vous bénéficiez d'une licence limitée, non exclusive, non transférable et révocable pour accéder et utiliser wordIzy strictement conformément à ces Conditions.\nComme condition de votre utilisation, vous acceptez de ne pas :\n• Utiliser des systèmes automatisés, des aspirateurs, des spiders, des robots ou des scripts pour extraire des données, du texte ou des listes de mots de nos bases de données.\n• Interférer avec ou perturber la performance, l'intégrité ou la sécurité des serveurs du site web.\n• Encadrer ou mettre en miroir une partie du site sans notre autorisation écrite préalable.\n• Utiliser nos outils d'aide aux jeux de mots ou des systèmes automatisés pour tricher dans des environnements compétitifs en ligne où les outils d'assistance externes sont explicitement interdits par les conditions respectives de ces plateformes.",
+   },
+   {
+    heading: "3. Droits de propriété intellectuelle",
+    body: "Tout le contenu, les fonctionnalités, les caractéristiques, les logos, la conception du site, le texte et les logiciels de jeu personnalisés (y compris Anagram Blitz) sur wordIzy sont la propriété exclusive de wordIzy et sont protégés par les lois internationales sur le droit d'auteur, les marques et la propriété intellectuelle. Vous ne pouvez pas reproduire, distribuer, modifier ou créer des œuvres dérivées de notre propriété sans consentement écrit exprès.",
+   },
+   {
+    heading: "4. Marques de tiers et clause de non-responsabilité",
+    body: "Les références à des jeux tiers, y compris mais sans s'y limiter Scrabble, Wordle, Words With Friends, Wordfeud et Quordle, sont utilisées uniquement à des fins d'information et de description pour expliquer la compatibilité de nos outils. wordIzy est une plateforme indépendante et n'est pas affiliée, approuvée, autorisée ou sponsorisée par Hasbro, Mattel, The New York Times Company, ou l'une de leurs sociétés mères ou filiales respectives.",
+   },
+   {
+    heading: "5. Données utilisateur et stockage local",
+    body: "wordIzy ne nécessite pas d'inscription utilisateur ni de création de compte. Des fonctionnalités comme la Save Vault utilisent le stockage local de votre navigateur web (localStorage) pour enregistrer les états de configuration et l'historique des mots localement sur votre appareil. Nous n'assumons aucune responsabilité ni garantie en cas de perte de données due à l'effacement des caches du navigateur, à des changements de matériel ou à des mises à jour du navigateur.",
+   },
+   {
+    heading: "6. Limitations de responsabilité",
+    body: "En aucun cas wordIzy, ses développeurs ou ses affiliés ne pourront être tenus responsables de tout dommage direct, indirect, accessoire, spécial ou consécutif découlant de l'utilisation ou de l'impossibilité d'utiliser notre site web, même s'ils ont été informés de la possibilité de tels dommages. Nous ne garantissons pas que les listes de mots, les calculs de scores ou les configurations de l'aide au dictionnaire soient entièrement exempts d'erreurs ou mis à jour pour correspondre aux correctifs en temps réel des dictionnaires de jeu.",
+   },
+   {
+    heading: "7. Modifications du Service et des Conditions",
+    body: "Nous nous réservons le droit de modifier, suspendre ou interrompre tout aspect de nos Services à tout moment sans préavis. Nous nous réservons également le droit de modifier ces Conditions à notre discrétion. Votre utilisation continue de wordIzy suite à toute mise à jour publiée constitue votre acceptation des Conditions révisées.",
+   },
+   {
+    heading: "8. Loi applicable",
+    body: "Les présentes Conditions seront régies et interprétées conformément aux pratiques internationales du commerce numérique, sans égard aux principes de conflit de lois.",
+   },
+   {
+    heading: "9. Coordonnées",
+    body: "Si vous avez des questions ou des clarifications concernant ces Conditions d'utilisation, veuillez nous contacter via notre page de contact officielle.",
+   },
   ],
  },
  sitemap: { title: "Plan du site", body: "Toutes les pages de WordIzy." },
@@ -917,7 +1009,7 @@ const es: Translation = {
   unscrambler: "Desordenador", scramble: "Mezcla", wordle: "Wordle",
   quordle: "Quordle", anagram: "Anagramas", random: "Palabra Aleatoria",
   wordfeud: "Wordfeud", dictionary: "Diccionario", scrabble: "Duplicate",
-  wordlists: "Listas de Palabras", wordstarts: "Palabras Empiezan Por", wordends: "Palabras Terminan En", wordlestarts: "Wordle Empieza A-Z", wordleends: "Wordle Termina A-Z", about: "Acerca de", contact: "Contacto", privacy: "Privacidad",
+  wordlists: "Listas de Palabras", wordstarts: "Palabras Empiezan Por", wordends: "Palabras Terminan En", wordlestarts: "Wordle Empieza A-Z", wordleends: "Wordle Termina A-Z", about: "Acerca de", contact: "Contacto", privacy: "Privacidad", terms: "Términos de servicio",
   sitemap: "Mapa del sitio", tools: "Herramientas", more: "Más", solvers: "Solucionadores", site: "Sitio", wordlab: "Lab de Palabras", inbox: "Bandeja de entrada",
   dashboard: "Panel", blitz: "⚡ Anagram Blitz", blitzShort: "Blitz"
  },
@@ -1039,6 +1131,49 @@ const es: Translation = {
       description: "Muestra anuncios a los visitantes de nuestro sitio. Utiliza cookies (cookies DART) para mostrar anuncios basados en sus visitas a wordizy.com y otros sitios. Puede rechazar las cookies DART visitando la Política de privacidad de la red de contenido y anuncios de Google.",
       url: "https://policies.google.com/technologies/ads",
     },
+  ],
+ },
+ terms: {
+  title: "Términos de servicio",
+  intro: "Bienvenido a wordIzy (accesible vía wordizy.com). Estos Términos de servicio (los \"Términos\") rigen su acceso y uso de nuestro sitio web, herramientas de ayuda para juegos de palabras, diccionarios y juegos interactivos como Anagram Blitz (colectivamente, los \"Servicios\").\n\nAl acceder o usar wordIzy, usted acepta estar sujeto a estos Términos y a nuestra Política de privacidad. Si no está de acuerdo con estos Términos, por favor no utilice nuestros Servicios.",
+  lastUpdated: "Última actualización: 28 de octubre de 2026",
+  sections: [
+   {
+    heading: "1. Descripción del Servicio",
+    body: "wordIzy proporciona herramientas gratuitas en línea de asistencia para puzzles de palabras, solucionadores de anagramas, búsquedas en diccionario y mini-juegos basados en palabras. Todos los Servicios se proporcionan \"tal cual\" y \"según disponibilidad\" para fines personales, no comerciales, de entretenimiento y educativos únicamente.",
+   },
+   {
+    heading: "2. Uso permitido y restricciones",
+    body: "Se le concede una licencia limitada, no exclusiva, no transferible y revocable para acceder y usar wordIzy estrictamente de acuerdo con estos Términos.\nComo condición de su uso, usted acepta no:\n• Usar sistemas automatizados, scrapers, arañas, robots o scripts para extraer datos, texto o listas de palabras de nuestras bases de datos.\n• Interferir o interrumpir el rendimiento, la integridad o la seguridad de los servidores del sitio web.\n• Enmarcar o reflejar cualquier parte del sitio sin nuestra autorización escrita previa.\n• Usar nuestras herramientas de ayuda para juegos de palabras o sistemas automatizados para hacer trampa en entornos competitivos en línea donde las herramientas de asistencia externa están explícitamente prohibidas por los términos respectivos de esas plataformas.",
+   },
+   {
+    heading: "3. Derechos de propiedad intelectual",
+    body: "Todo el contenido, características, funcionalidad, logotipos, diseño del sitio, texto y software de juego personalizado (incluyendo Anagram Blitz) en wordIzy son propiedad exclusiva de wordIzy y están protegidos por leyes internacionales de derechos de autor, marcas y propiedad intelectual. Usted no puede reproducir, distribuir, modificar o crear obras derivadas de nuestra propiedad sin consentimiento escrito expreso.",
+   },
+   {
+    heading: "4. Marcas de terceros y exención de responsabilidad",
+    body: "Las referencias a juegos de terceros, incluyendo pero no limitándose a Scrabble, Wordle, Words With Friends, Wordfeud y Quordle, se utilizan únicamente con fines informativos y descriptivos para explicar la compatibilidad de nuestras herramientas. wordIzy es una plataforma independiente y no está afiliada, respaldada, autorizada o patrocinada por Hasbro, Mattel, The New York Times Company, o cualquiera de sus respectivas matrices o afiliadas.",
+   },
+   {
+    heading: "5. Datos de usuario y almacenamiento local",
+    body: "wordIzy no requiere registro de usuario ni creación de cuenta. Funciones como la Save Vault utilizan el almacenamiento local de su navegador web (localStorage) para guardar estados de configuración e historial de palabras localmente en su dispositivo. No asumimos ninguna responsabilidad ni obligación por cualquier pérdida de datos derivada del borrado de cachés del navegador, cambios de hardware o actualizaciones del navegador.",
+   },
+   {
+    heading: "6. Limitaciones de responsabilidad",
+    body: "En ningún caso wordIzy, sus desarrolladores o sus afiliados serán responsables de ningún daño directo, indirecto, incidental, especial o consecuyente que surja del uso o la imposibilidad de usar nuestro sitio web, incluso si se les hubiera informado de la posibilidad de tales daños. No garantizamos que las listas de palabras, los cálculos de puntuación o las configuraciones de la ayuda del diccionario sean totalmente libres de errores o estén actualizados para coincidir con los parches en tiempo real de los diccionarios de juego.",
+   },
+   {
+    heading: "7. Modificaciones al Servicio y los Términos",
+    body: "Nos reservamos el derecho de modificar, suspender o discontinuar cualquier aspecto de nuestros Servicios en cualquier momento sin previo aviso. También nos reservamos el derecho de modificar estos Términos a nuestra discreción. Su uso continuado de wordIzy tras cualquier actualización publicada constituye su aceptación de los Términos revisados.",
+   },
+   {
+    heading: "8. Ley aplicable",
+    body: "Estos Términos se regirán e interpretarán de acuerdo con las prácticas internacionales de comercio digital, sin tener en cuenta los principios de conflicto de leyes.",
+   },
+   {
+    heading: "9. Información de contacto",
+    body: "Si tiene alguna pregunta o aclaración sobre estos Términos de servicio, contáctenos a través de nuestra página de contacto oficial.",
+   },
   ],
  },
  sitemap: { title: "Mapa del sitio", body: "Todas las páginas de WordIzy." },
@@ -1246,7 +1381,7 @@ const de: Translation = {
   unscrambler: "Entwirker", scramble: "Misch", wordle: "Wordle",
   quordle: "Quordle", anagram: "Anagramme", random: "Zufallswort",
   wordfeud: "Wordfeud", dictionary: "Wörterbuch", scrabble: "Duplicate",
-  wordlists: "Wortlisten", wordstarts: "Wörter Beginnen Mit", wordends: "Wörter Enden Mit", wordlestarts: "Wordle Beginnt A-Z", wordleends: "Wordle Endet A-Z", about: "Über", contact: "Kontakt", privacy: "Datenschutz",
+  wordlists: "Wortlisten", wordstarts: "Wörter Beginnen Mit", wordends: "Wörter Enden Mit", wordlestarts: "Wordle Beginnt A-Z", wordleends: "Wordle Endet A-Z", about: "Über", contact: "Kontakt", privacy: "Datenschutz", terms: "Nutzungsbedingungen",
   sitemap: "Sitemap", tools: "Werkzeuge", more: "Mehr", solvers: "Löser", site: "Seite", wordlab: "Wort-Labor", inbox: "Posteingang",
   dashboard: "Dashboard", blitz:"Anagramm-Blitz", blitzShort: "Blitz"
  },
@@ -1368,6 +1503,49 @@ const de: Translation = {
       description: "Liefert Werbung an die Besucher unserer Website. Verwendet Cookies (DART-Cookies), um Anzeigen basierend auf Ihren Besuchen auf wordizy.com und anderen Websites zu liefern. Sie können DART-Cookies ablehnen, indem Sie die Datenschutzerklärung des Google-Werbe- und Content-Netzwerks aufrufen.",
       url: "https://policies.google.com/technologies/ads",
     },
+  ],
+ },
+ terms: {
+  title: "Nutzungsbedingungen",
+  intro: "Willkommen bei wordIzy (erreichbar über wordizy.com). Diese Nutzungsbedingungen (\"Bedingungen\") regeln Ihren Zugriff auf und Ihre Nutzung unserer Website, unserer Hilfswerkzeuge für Wortspiele, unserer Wörterbücher und unserer interaktiven Spiele wie Anagram Blitz (zusammenfassend die \"Dienste\").\n\nDurch den Zugriff auf oder die Nutzung von wordIzy erklären Sie sich mit diesen Bedingungen und unserer Datenschutzerklärung einverstanden. Wenn Sie diesen Bedingungen nicht zustimmen, nutzen Sie unsere Dienste bitte nicht.",
+  lastUpdated: "Zuletzt aktualisiert: 28. Oktober 2026",
+  sections: [
+   {
+    heading: "1. Beschreibung des Dienstes",
+    body: "wordIzy bietet kostenlose Online-Worträtsel-Hilfswerkzeuge, Anagramm-Löser, Wörterbuch-Recherchen und wortbasierte Mini-Spiele. Alle Dienste werden auf \"As-is\"- und \"As-available\"-Basis ausschließlich für persönliche, nicht-kommerzielle Unterhaltungs- und Bildungszwecke bereitgestellt.",
+   },
+   {
+    heading: "2. Erlaubte Nutzung und Beschränkungen",
+    body: "Ihnen wird eine eingeschränkte, nicht-exklusive, nicht-übertragbare und widerrufliche Lizenz gewährt, auf wordIzy zuzugreifen und es strikt gemäß diesen Bedingungen zu nutzen.\nAls Bedingung für Ihre Nutzung erklären Sie sich damit einverstanden, Folgendes zu unterlassen:\n• Verwenden von automatisierten Systemen, Scrapern, Spidern, Robots oder Skripten, um Daten, Text oder Wortlisten aus unseren Datenbanken zu extrahieren.\n• Stören oder Unterbrechen der Leistung, Integrität oder Sicherheit der Website-Server.\n• Einrahmen oder Spiegeln eines Teils der Website ohne unsere vorherige schriftliche Genehmigung.\n• Verwenden unserer Hilfswerkzeuge für Wortspiele oder automatisierter Systeme, um in kompetitiven Online-Umgebungen zu betrügen, in denen externe Hilfswerkzeuge durch die jeweiligen Bedingungen dieser Plattformen ausdrücklich verboten sind.",
+   },
+   {
+    heading: "3. Rechte an geistigem Eigentum",
+    body: "Alle Inhalte, Funktionen, Merkmale, Logos, das Site-Design, Text und benutzerdefinierte Gaming-Software (einschließlich Anagram Blitz) auf wordIzy sind das exklusive Eigentum von wordIzy und sind durch internationale Urheberrechts-, Marken- und Gesetze zum geistigen Eigentum geschützt. Sie dürfen unser Eigentum ohne ausdrückliche schriftliche Zustimmung nicht reproduzieren, verbreiten, modifizieren oder davon abgeleitete Werke erstellen.",
+   },
+   {
+    heading: "4. Marken von Drittanbietern und Haftungsausschluss",
+    body: "Verweise auf Spiele von Drittanbietern, einschließlich, aber nicht beschränkt auf Scrabble, Wordle, Words With Friends, Wordfeud und Quordle, dienen ausschließlich Informations- und Beschreibungszwecken, um die Kompatibilität unserer Werkzeuge zu erklären. wordIzy ist eine unabhängige Plattform und ist nicht mit Hasbro, Mattel, The New York Times Company oder einem ihrer jeweiligen Mutterunternehmen oder Tochtergesellschaften verbunden, von ihnen befürwortet, autorisiert oder gesponsert.",
+   },
+   {
+    heading: "5. Benutzerdaten und lokaler Speicher",
+    body: "wordIzy erfordert keine Benutzerregistrierung oder Kontoerstellung. Funktionen wie die Save Vault nutzen den lokalen Speicher Ihres Webbrowsers (localStorage), um Konfigurationsstatus und Wortverlauf lokal auf Ihrem Gerät zu speichern. Wir übernehmen keine Verantwortung oder Haftung für Datenverluste, die durch das Leeren von Browser-Caches, Hardwareänderungen oder Browser-Updates entstehen.",
+   },
+   {
+    heading: "6. Haftungsbeschränkungen",
+    body: "In keinem Fall haftet wordIzy, seine Entwickler oder verbundene Unternehmen für direkte, indirekte, beiläufige, besondere oder Folgeschäden, die aus der Nutzung oder der Unmöglichkeit der Nutzung unserer Website entstehen, selbst wenn über die Möglichkeit solcher Schäden informiert wurde. Wir garantieren nicht, dass die Wortlisten, Berechnungen der Punktzahl oder die Konfigurationen der Wörterbuch-Hilfe völlig fehlerfrei sind oder mit Echtzeit-Patches der Spielwörterbücher übereinstimmen.",
+   },
+   {
+    heading: "7. Änderungen des Dienstes und der Bedingungen",
+    body: "Wir behalten uns das Recht vor, jederzeit ohne Vorankündigung jeden Aspekt unserer Dienste zu ändern, auszusetzen oder einzustellen. Wir behalten uns auch das Recht vor, diese Bedingungen nach unserem Ermessen zu ändern. Ihre fortgesetzte Nutzung von wordIzy nach Veröffentlichung von Aktualisierungen stellt Ihre Zustimmung zu den geänderten Bedingungen dar.",
+   },
+   {
+    heading: "8. Anwendbares Recht",
+    body: "Diese Bedingungen unterliegen den internationalen Digital-Commerce-Praktiken und sind in Übereinstimmung damit auszulegen, ohne Berücksichtigung von Grundsätzen des Kollisionsrechts.",
+   },
+   {
+    heading: "9. Kontaktinformationen",
+    body: "Wenn Sie Fragen oder Klarstellungen zu diesen Nutzungsbedingungen haben, kontaktieren Sie uns über unsere offizielle Kontaktseite.",
+   },
   ],
  },
  sitemap: { title: "Sitemap", body: "Alle Seiten von WordIzy." },
@@ -1575,7 +1753,7 @@ const it: Translation = {
   unscrambler: "Anagrammatore", scramble: "Mischia", wordle: "Wordle",
   quordle: "Quordle", anagram: "Anagrammi", random: "Parola Casuale",
   wordfeud: "Wordfeud", dictionary: "Verifica Diz.", scrabble: "Duplicate",
-  wordlists: "Liste Parole", wordstarts: "Parole Iniziano Per", wordends: "Parole Finiscono Per", wordlestarts: "Wordle Inizia A-Z", wordleends: "Wordle Finisce A-Z", about: "Info", contact: "Contatti", privacy: "Privacy",
+  wordlists: "Liste Parole", wordstarts: "Parole Iniziano Per", wordends: "Parole Finiscono Per", wordlestarts: "Wordle Inizia A-Z", wordleends: "Wordle Finisce A-Z", about: "Info", contact: "Contatti", privacy: "Privacy", terms: "Termini di servizio",
   sitemap: "Mappa", tools: "Strumenti", more: "Altro", solvers: "Risolutori", site: "Sito", wordlab: "Lab delle Parole", inbox: "Posta in arrivo",
   dashboard: "Cruscotto",blitz: "⚡ Anagramma Blitz", blitzShort: "Blitz"
  },
@@ -1651,33 +1829,95 @@ const it: Translation = {
  },
  privacy: {
   title: "Informativa sulla privacy",
-  intro: "La tua privacy è fondamentale per il funzionamento di WordIzy. Questa informativa spiega, in linguaggio semplice, quali dati trattiamo, perché li trattiamo e quali scelte hai. Ci impegniamo per la totale trasparenza e la conformità al GDPR (UE) e al CCPA (California).",
-  lastUpdated: "Ultimo aggiornamento: luglio 2026",
+  intro: "Su wordIzy, accessibile da wordizy.com, una delle nostre principali priorità è la privacy dei nostri visitatori. Questo documento dell'Informativa sulla privacy contiene i tipi di informazioni raccolte e registrate da wordIzy e come le utilizziamo.\n\nSe hai domande aggiuntive o richiedi maggiori informazioni sulla nostra Informativa sulla privacy, non esitare a contattarci.",
+  lastUpdated: "Ultimo aggiornamento: 28 ottobre 2026",
   sections: [
-   { heading: "Dati che raccogliamo", body: "WordIzy non richiede un account e non raccoglie dati personali come nome, email o cronologia di navigazione (tranne quando invii volontariamente il modulo di contatto — vedi sotto). Non utilizziamo fingerprinting, pixel di tracciamento di terze parti o tracciamento cross-site. Le uniche informazioni che trattiamo sono quelle che digiti attivamente nei nostri strumenti, oltre a statistiche di utilizzo anonime (vedi sotto)." },
-   { heading: "Statistiche di ricerca anonime", body: "Quando effettui una ricerca, registriamo anonimamente la stringa di query, lo strumento utilizzato, la lingua selezionata e il numero di risultati restituiti. Nessun indirizzo IP, nessun ID utente, nessun fingerprint del browser e nessuna informazione personale vengono memorizzati con questi dati. Questo ci aiuta a capire quali ricerche sono popolari e a identificare le lacune nei contenuti. Non puoi essere identificato da questi dati." },
-   { heading: "Come trattiamo il tuo input", body: "Ogni richiesta — lettere da disordinare, un pattern di Wordle, una parola di dizionario da verificare — viene elaborata lato server utilizzando dizionari in memoria. Il tuo input viene utilizzato esclusivamente per generare risultati e viene eliminato immediatamente dopo l'invio della risposta. I termini di ricerca stessi vengono memorizzati anonimamente nelle nostre statistiche (vedi sopra) ma non sono in alcun modo collegati a te." },
-   { heading: "Invii del modulo di contatto", body: "Quando invii il modulo di contatto, il tuo nome, l'indirizzo email e il messaggio vengono memorizzati nel nostro database in modo che possiamo leggere e rispondere alla tua richiesta. Questi dati sono accessibili solo al proprietario del sito e non vengono mai condivisi con terze parti. Puoi richiedere in qualsiasi momento la cancellazione del tuo invio scrivendo a support@wordizy.com . Per prevenire lo spam, gli invii del modulo di contatto sono limitati a 5 all'ora per indirizzo IP." },
-   { heading: "Cookie e pubblicità", body: "WordIzy mostra annunci tramite Google AdSense per mantenere il servizio gratuito. AdSense può utilizzare cookie per fornire annunci pertinenti e misurare le prestazioni degli annunci. Alla prima visita viene mostrato un banner di consenso ai cookie, che ti permette di accettare o rifiutare. Puoi gestire o disattivare i cookie nelle impostazioni del browser e disattivare la pubblicità personalizzata tramite le Impostazioni annunci di Google. Non impostiamo noi stessi alcun cookie di tracciamento di prima parte — solo un singolo cookie di preferenza per ricordare la tua scelta di consenso e la lingua e il tema selezionati." },
-   { heading: "I tuoi diritti (GDPR e CCPA)", body: "Poiché non creiamo account né colleghiamo le statistiche a individui, non c'è alcun profilo personale associato a te. Non sei tracciato tra una visita e l'altra. Se hai inviato un messaggio tramite il modulo di contatto e desideri che venga cancellato, contattaci all'indirizzo support@wordizy.com e provvederemo tempestivamente. Secondo il GDPR (residenti UE) hai il diritto di accedere, rettificare o cancellare qualsiasi dato personale che conserviamo su di te. Secondo il CCPA (residenti in California) hai il diritto di sapere quali informazioni personali vengono raccolte, richiederne la cancellazione e opporti alla vendita di informazioni personali — non vendiamo le tue informazioni." },
-   { heading: "Contatti", body: "Domande su questa informativa? Scrivici a support@wordizy.com e saremo felici di aiutarti. Puoi anche utilizzare il modulo di Contatto su questo sito per inviarci un messaggio direttamente." },
+   {
+    heading: "File di registro",
+    body: "wordIzy segue una procedura standard per l'utilizzo dei file di registro. Questi file registrano i visitatori quando visitano siti web. Tutte le società di hosting lo fanno come parte delle analisi dei servizi di hosting. Le informazioni raccolte dai file di registro includono indirizzi di protocollo Internet (IP), tipo di browser, provider di servizi Internet (ISP), timestamp di data e ora, pagine di riferimento/uscita ed eventualmente il numero di clic. Questi non sono collegati ad alcuna informazione personalmente identificabile. Lo scopo delle informazioni è analizzare le tendenze, amministrare il sito, monitorare i movimenti degli utenti sul sito web e raccogliere informazioni demografiche.",
+   },
+   {
+    heading: "Cookie e Web Beacon",
+    body: "Come qualsiasi altro sito web, wordIzy utilizza dei \"cookie\". Questi cookie sono utilizzati per memorizzare informazioni tra cui le preferenze dei visitatori e le pagine del sito web che il visitatore ha accesso o visitato. Le informazioni vengono utilizzate per ottimizzare l'esperienza degli utenti personalizzando il contenuto delle nostre pagine web in base al tipo di browser del visitatore e/o ad altre informazioni.",
+   },
+   {
+    heading: "Cookie DART di Google DoubleClick",
+    body: "Google è uno dei fornitori di terze parti sul nostro sito. Utilizza inoltre cookie, noti come cookie DART, per mostrare annunci ai visitatori del nostro sito in base alla loro visita a wordizy.com e ad altri siti su internet. Tuttavia, i visitatori possono scegliere di rifiutare l'uso dei cookie DART visitando l'Informativa sulla privacy della rete di annunci e contenuti di Google al seguente URL: google.com",
+   },
+   {
+    heading: "I nostri partner pubblicitari",
+    body: "Alcuni degli inserzionisti sul nostro sito potrebbero utilizzare cookie e web beacon. I nostri partner pubblicitari includono: Google AdSense. Ciascuno dei nostri partner pubblicitari ha una propria Informativa sulla privacy per le politiche sui dati degli utenti. Per un accesso più facile, abbiamo inserito un link alle loro Informative sulla privacy sopra. I server di annunci di terze parti o le reti pubblicitarie utilizzano tecnologie come cookie, JavaScript o Web Beacon che vengono utilizzati nei rispettivi annunci e link che appaiono su wordIzy, che vengono inviati direttamente ai browser degli utenti. Ricevono automaticamente il tuo indirizzo IP quando ciò si verifica. Queste tecnologie vengono utilizzate per misurare l'efficacia delle loro campagne pubblicitarie e/o per personalizzare i contenuti pubblicitari che vedi sui siti web che visiti.\n\nSi prega di notare che wordIzy non ha accesso né controllo su questi cookie utilizzati dagli inserzionisti di terze parti.",
+   },
+   {
+    heading: "Informativa sulla privacy di terze parti",
+    body: "L'Informativa sulla privacy di wordIzy non si applica ad altri inserzionisti o siti web. Pertanto, ti consigliamo di consultare le rispettive Informative sulla privacy di questi server di annunci di terze parti per informazioni più dettagliate. Queste possono includere le loro pratiche e istruzioni su come disattivare determinate opzioni.\n\nPuoi scegliere di disabilitare i cookie tramite le opzioni individuali del tuo browser. Per informazioni più dettagliata sulla gestione dei cookie con specifici browser web, puoi trovarle sui rispettivi siti web dei browser.",
+   },
+   {
+    heading: "Archiviazione locale del browser",
+    body: "Per fornire le nostre funzionalità personalizzate senza richiedere account utente o registrazioni, wordIzy utilizza l'archiviazione locale del tuo browser (localStorage) per funzionalità come la Save Vault e le preferenze di gioco. Questi dati sono memorizzati interamente sul tuo dispositivo locale. Non vengono mai trasmessi ai nostri server, condivisi con terze parti o utilizzati per scopi di tracciamento su siti web esterni. Puoi cancellare questi dati in qualsiasi momento svuotando la cache del tuo browser o utilizzando le opzioni fornite all'interno delle interfacce degli strumenti.",
+   },
+   {
+    heading: "Informazioni sui bambini",
+    body: "Un'altra parte della nostra priorità è aggiungere protezione per i bambini durante l'utilizzo di internet. Incoraggiamo i genitori e i tutori a osservare, partecipare e/o monitorare e guidare l'attività online dei propri figli.\n\nwordIzy non raccoglie consapevolmente alcuna Informazione di identificazione personale (Personal Identifiable Information) da bambini di età inferiore ai 13 anni. Se ritieni che tuo figlio abbia fornito questo tipo di informazioni sul nostro sito web, ti invitiamo caldamente a contattarci immediatamente e faremo del nostro meglio per rimuovere tempestivamente tali informazioni dai nostri archivi.",
+   },
+   {
+    heading: "Solo informativa sulla privacy online",
+    body: "Questa Informativa sulla privacy si applica solo alle nostre attività online ed è valida per i visitatori del nostro sito web per quanto riguarda le informazioni che hanno condiviso e/o raccolto in wordIzy. Questa politica non è applicabile a nessuna informazione raccolta offline o tramite canali diversi da questo sito web.",
+   },
+   {
+    heading: "Consenso",
+    body: "Utilizzando il nostro sito web, con il presente acconsenti alla nostra Informativa sulla privacy e accetti i suoi Termini e condizioni.",
+   },
   ],
   thirdPartyServices: [
     {
       name: "Google AdSense",
-      description: "Pubblica annunci. AdSense può utilizzare cookie per mostrare annunci pertinenti e misurare le prestazioni. Puoi disattivare la pubblicità personalizzata tramite le Impostazioni annunci di Google.",
+      description: "Pubblica annunci ai visitatori del nostro sito. Utilizza cookie (cookie DART) per mostrare annunci in base alle tue visite su wordizy.com e altri siti. Puoi rifiutare i cookie DART visitando l'Informativa sulla privacy della rete di annunci e contenuti di Google.",
       url: "https://policies.google.com/technologies/ads",
     },
-    {
-      name: "Turso",
-      description: "Ospita il nostro database SQLite che memorizza gli invii del modulo di contatto e le statistiche di ricerca anonime. I dati sono memorizzati sui server di Turso.",
-      url: "https://turso.tech/privacy",
-    },
-    {
-      name: "Google Fonts",
-      description: "Fornisce i font Inter, Bree Serif e Roboto Slab utilizzati su questo sito. Google può registrare temporaneamente la richiesta del tuo indirizzo IP.",
-      url: "https://policies.google.com/fonts",
-    },
+  ],
+ },
+ terms: {
+  title: "Termini di servizio",
+  intro: "Benvenuto su wordIzy (accessibile tramite wordizy.com). Questi Termini di servizio (i \"Termini\") regolano l'accesso e l'utilizzo del nostro sito web, degli strumenti di aiuto per giochi di parole, dei dizionari e dei giochi interattivi come Anagram Blitz (collettivamente, i \"Servizi\").\n\nAccedendo o utilizzando wordIzy, accetti di essere vincolato da questi Termini e dalla nostra Informativa sulla privacy. Se non accetti questi Termini, ti preghiamo di non utilizzare i nostri Servizi.",
+  lastUpdated: "Ultimo aggiornamento: 28 ottobre 2026",
+  sections: [
+   {
+    heading: "1. Descrizione del Servizio",
+    body: "wordIzy fornisce strumenti online gratuiti di assistenza per puzzle di parole, solver di anagrammi, ricerche nel dizionario e mini-giochi basati su parole. Tutti i Servizi sono forniti su base \"così com'è\" e \"come disponibile\" per scopi personali, non commerciali, di intrattenimento ed educativi esclusivamente.",
+   },
+   {
+    heading: "2. Uso consentito e restrizioni",
+    body: "Ti viene concessa una licenza limitata, non esclusiva, non trasferibile e revocabile per accedere e utilizzare wordIzy strettamente in conformità con questi Termini.\nCome condizione del tuo utilizzo, accetti di non:\n• Utilizzare sistemi automatizzati, scraper, spider, robot o script per estrarre dati, testo o elenchi di parole dai nostri database.\n• Interferire o interrompere le prestazioni, l'integrità o la sicurezza dei server del sito web.\n• Inquadrare o replicare qualsiasi parte del sito senza la nostra previa autorizzazione scritta.\n• Utilizzare i nostri strumenti di aiuto per giochi di parole o sistemi automatizzati per barare in ambienti competitivi online dove gli strumenti di assistenza esterni sono espressamente vietati dai rispettivi termini di quelle piattaforme.",
+   },
+   {
+    heading: "3. Diritti di proprietà intellettuale",
+    body: "Tutti i contenuti, le caratteristiche, le funzionalità, i loghi, il design del sito, il testo e il software di gioco personalizzato (incluso Anagram Blitz) su wordIzy sono di proprietà esclusiva di wordIzy e sono protetti dalle leggi internazionali sul diritto d'autore, sui marchi e sulla proprietà intellettuale. Non puoi riprodurre, distribuire, modificare o creare opere derivate della nostra proprietà senza espresso consenso scritto.",
+   },
+   {
+    heading: "4. Marchi di terze parti e disclaimer",
+    body: "I riferimenti a giochi di terze parti, inclusi ma non limitati a Scrabble, Wordle, Words With Friends, Wordfeud e Quordle, sono utilizzati esclusivamente a scopo informativo e descrittivo per spiegare la compatibilità dei nostri strumenti. wordIzy è una piattaforma indipendente e non è affiliata, approvata, autorizzata o sponsorizzata da Hasbro, Mattel, The New York Times Company, o una qualsiasi delle rispettive società madri o affiliate.",
+   },
+   {
+    heading: "5. Dati utente e archiviazione locale",
+    body: "wordIzy non richiede registrazione utente o creazione di account. Funzionalità come la Save Vault utilizzano l'archiviazione locale del tuo browser web (localStorage) per salvare gli stati di configurazione e la cronologia delle parole localmente sul tuo dispositivo. Non assumiamo alcuna responsabilità o obbligo per eventuali perdite di dati derivanti dalla cancellazione della cache del browser, da modifiche hardware o aggiornamenti del browser.",
+   },
+   {
+    heading: "6. Limitazioni di responsabilità",
+    body: "In nessun caso wordIzy, i suoi sviluppatori o i suoi affiliati saranno responsabili per eventuali danni diretti, indiretti, incidentali, speciali o consequenziali derivanti dall'uso o dall'impossibilità di utilizzare il nostro sito web, anche se informati della possibilità di tali danni. Non garantiamo che gli elenchi di parole, i calcoli dei punteggi o le configurazioni dell'assistente dizionario siano del tutto privi di errori o aggiornati per corrispondere alle patch in tempo reale dei dizionari di gioco.",
+   },
+   {
+    heading: "7. Modifiche al Servizio e ai Termini",
+    body: "Ci riserviamo il diritto di modificare, sospendere o interrompere qualsiasi aspetto dei nostri Servizi in qualsiasi momento senza preavviso. Ci riserviamo anche il diritto di modificare questi Termini a nostra discrezione. Il tuo utilizzo continuato di wordIzy in seguito a qualsiasi aggiornamento pubblicato costituisce la tua accettazione dei Termini revisionati.",
+   },
+   {
+    heading: "8. Legge applicabile",
+    body: "Questi Termini saranno disciplinati e interpretati in conformità con le pratiche internazionali del commercio digitale, senza riguardo ai principi di conflitto di leggi.",
+   },
+   {
+    heading: "9. Informazioni di contatto",
+    body: "Se hai domande o chiarimenti riguardo questi Termini di servizio, contattaci tramite la nostra pagina di contatto ufficiale.",
+   },
   ],
  },
  sitemap: { title: "Mappa del sito", body: "Tutte le pagine di WordIzy." },
@@ -1885,7 +2125,7 @@ const pt: Translation = {
   unscrambler: "Descodificador", scramble: "Mistura", wordle: "Wordle",
   quordle: "Quordle", anagram: "Anagramas", random: "Palavra Aleatória",
   wordfeud: "Wordfeud", dictionary: "Verificar Dicio.", scrabble: "Duplicate",
-  wordlists: "Listas de Palavras", wordstarts: "Palavras Começam Por", wordends: "Palavras Terminam Em", wordlestarts: "Wordle Começa A-Z", wordleends: "Wordle Termina A-Z", about: "Sobre", contact: "Contato", privacy: "Privacidade",
+  wordlists: "Listas de Palavras", wordstarts: "Palavras Começam Por", wordends: "Palavras Terminam Em", wordlestarts: "Wordle Começa A-Z", wordleends: "Wordle Termina A-Z", about: "Sobre", contact: "Contato", privacy: "Privacidade", terms: "Termos de serviço",
   sitemap: "Mapa do site", tools: "Ferramentas", more: "Mais", solvers: "Solucionadores", site: "Site", wordlab: "Lab de Palavras", inbox: "Caixa de entrada",
   dashboard: "Painel", blitz: "Anagrama blitz", blitzShort: "Blitz"
  },
@@ -1961,33 +2201,95 @@ const pt: Translation = {
  },
  privacy: {
   title: "Política de privacidade",
-  intro: "A sua privacidade é fundamental para o funcionamento do WordIzy. Esta política explica, em linguagem simples, que dados processamos, porque os processamos e que escolhas tem. Comprometemo-nos com a total transparência e conformidade com o GDPR (UE) e o CCPA (Califórnia).",
-  lastUpdated: "Última atualização: julho de 2026",
+  intro: "No wordIzy, acessível em wordizy.com, uma das nossas principais prioridades é a privacidade dos nossos visitantes. Este documento de Política de privacidade contém os tipos de informação que são recolhidos e registados pelo wordIzy e como os utilizamos.\n\nSe tiver questões adicionais ou necessitar de mais informações sobre a nossa Política de privacidade, não hesite em contactar-nos.",
+  lastUpdated: "Última atualização: 28 de outubro de 2026",
   sections: [
-   { heading: "Dados que recolhemos", body: "O WordIzy não exige conta e não recolhe dados pessoais como o seu nome, e-mail ou histórico de navegação (exceto quando submete voluntariamente o formulário de contacto — ver abaixo). Não usamos impressão digital, pixels de rastreamento de terceiros nem rastreamento entre sites. A única informação que processamos é aquilo que escreve ativamente nas nossas ferramentas, além de estatísticas de uso anónimas (ver abaixo)." },
-   { heading: "Estatísticas de pesquisa anónimas", body: "Quando realiza uma pesquisa, registamos anonimamente a cadeia de consulta, a ferramenta que utilizou, o idioma selecionado e o número de resultados devolvidos. Nenhum endereço IP, nenhum ID de utilizador, nenhuma impressão digital do navegador e nenhuma informação pessoal são armazenados com estes dados. Isto ajuda-nos a perceber que pesquisas são populares e a identificar lacunas de conteúdo. Não pode ser identificado a partir destes dados." },
-   { heading: "Como processamos o seu input", body: "Cada consulta — letras para descodificar, um padrão de Wordle, uma palavra de dicionário para verificar — é processada no servidor usando dicionários em memória. O seu input é usado apenas para gerar resultados e é descartado imediatamente após a resposta ser enviada. Os próprios termos de pesquisa são armazenados anonimamente nas nossas estatísticas (ver acima) mas não estão ligados a si de forma alguma." },
-   { heading: "Submissões do formulário de contacto", body: "Quando submete o formulário de contacto, o seu nome, endereço de e-mail e mensagem são guardados na nossa base de dados para que possamos ler e responder ao seu pedido. Estes dados são apenas acessíveis ao proprietário do site e nunca são partilhados com terceiros. Pode pedir a eliminação da sua submissão a qualquer momento escrevendo para support@wordizy.com. Para evitar spam, as submissões do formulário de contacto estão limitadas a 5 por hora por endereço IP." },
-   { heading: "Cookies e publicidade", body: "O WordIzy exibe anúncios através do Google AdSense para manter o serviço gratuito. O AdSense pode usar cookies para servir anúncios relevantes e medir o desempenho dos anúncios. Um banner de consentimento de cookies aparece na sua primeira visita, permitindo-lhe aceitar ou recusar. Pode gerir ou desativar os cookies nas definições do navegador e desativar a publicidade personalizada através das Definições de Anúncios do Google. Não definimos nenhum cookie de rastreamento próprio — apenas um único cookie de preferência para lembrar a sua escolha de consentimento e o seu idioma e tema selecionados." },
-   { heading: "Os seus direitos (GDPR e CCPA)", body: "Como não criamos contas nem ligamos as estatísticas a indivíduos, não há nenhum perfil pessoal associado a si. Não é rastreado entre visitas. Se submeteu uma mensagem por formulário de contacto e deseja que seja eliminada, contacte-nos em support@wordizy.com e removê-la-emos prontamente. Ao abrigo do GDPR (residentes da UE) tem o direito de aceder, retificar ou apagar quaisquer dados pessoais que tenhamos sobre si. Ao abrigo do CCPA (residentes da Califórnia) tem o direito de saber que informações pessoais são recolhidas, pedir a sua eliminação e excluir-se da venda de informações pessoais — nós não vendemos as suas informações." },
-   { heading: "Contacto", body: "Perguntas sobre esta política? Envie-nos um e-mail para support@wordizy.com e teremos todo o gosto em ajudar. Também pode usar o formulário de Contacto neste site para nos enviar uma mensagem diretamente." },
+   {
+    heading: "Ficheiros de registro",
+    body: "O wordIzy segue um procedimento padrão de utilização de ficheiros de registro. Estes ficheiros registam os visitantes quando visitam sites. Todas as empresas de alojamento o fazem como parte das análises dos serviços de alojamento. As informações recolhidas pelos ficheiros de registro incluem endereços de protocolo de Internet (IP), tipo de navegador, fornecedor de serviços de Internet (ISP), carimbo de data e hora, páginas de referência/saída e possivelmente o número de cliques. Estes não estão ligados a nenhuma informação pessoal identificável. O propósito da informação é analisar tendências, administrar o site, monitorizar o movimento dos utilizadores no site e recolher informações demográficas.",
+   },
+   {
+    heading: "Cookies e Web Beacons",
+    body: "Como qualquer outro site, o wordIzy utiliza \"cookies\". Estes cookies são usados para armazenar informações, incluindo as preferências dos visitantes, e as páginas no site que o visitante acessou ou visitou. A informação é usada para otimizar a experiência dos utilizadores personalizando o conteúdo da nossa página web com base no tipo de navegador do visitante e/ou outras informações.",
+   },
+   {
+    heading: "Cookie DART do Google DoubleClick",
+    body: "O Google é um dos fornecedores terceiros no nosso site. Também utiliza cookies, conhecidos como cookies DART, para veicular anúncios aos visitantes do nosso site com base na sua visita a wordizy.com e a outros sites na internet. No entanto, os visitantes podem optar por recusar a utilização de cookies DART visitando a Política de privacidade da rede de anúncios e conteúdos do Google no seguinte URL: google.com",
+   },
+   {
+    heading: "Os nossos parceiros publicitários",
+    body: "Alguns dos anunciantes no nosso site podem utilizar cookies e web beacons. Os nossos parceiros publicitários incluem: Google AdSense. Cada um dos nossos parceiros publicitários tem a sua própria Política de privacidade para as suas políticas sobre dados de utilizadores. Para um acesso mais fácil, colocamos uma hiperligação para as suas Políticas de privacidade acima. Os servidores de anúncios de terceiros ou as redes de anúncios usam tecnologias como cookies, JavaScript ou Web Beacons que são usados nos respetivos anúncios e ligações que aparecem no wordIzy, que são enviados diretamente para os navegadores dos utilizadores. Eles recebem automaticamente o seu endereço IP quando isso ocorre. Estas tecnologias são usadas para medir a eficácia das suas campanhas publicitárias e/ou personalizar o conteúdo publicitário que vê nos sites que visita.\n\nPor favor, note que o wordIzy não tem acesso nem controlo sobre estes cookies que são usados pelos anunciantes terceiros.",
+   },
+   {
+    heading: "Políticas de privacidade de terceiros",
+    body: "A Política de privacidade do wordIzy não se aplica a outros anunciantes ou sites. Assim, aconselhamos-o a consultar as respetivas Políticas de privacidade destes servidores de anúncios de terceiros para informações mais detalhadas. Estas podem incluir as suas práticas e instruções sobre como excluir-se de certas opções.\n\nPode optar por desativar os cookies através das opções individuais do seu navegador. Para obter informações mais detalhadas sobre a gestão de cookies com navegadores web específicos, pode ser encontrada nos respetivos sites dos navegadores.",
+   },
+   {
+    heading: "Armazenamento local do navegador",
+    body: "Para fornecer as nossas funcionalidades personalizadas sem exigir contas de utilizador ou registos, o wordIzy utiliza o armazenamento local do seu navegador (localStorage) para funcionalidades como a Save Vault e preferências de jogo. Estes dados são armazenados inteiramente no seu dispositivo local. Nunca são transmitidos para os nossos servidores, partilhados com terceiros ou usados para fins de rastreamento entre sites externos. Pode limpar estes dados a qualquer momento limpando a cache do seu navegador ou usando as opções fornecidas dentro das interfaces das ferramentas.",
+   },
+   {
+    heading: "Informações sobre crianças",
+    body: "Outra parte da nossa prioridade é acrescentar proteção às crianças durante a utilização da internet. Encorajamos os pais e encarregados de educação a observar, participar e/ou monitorizar e orientar a sua atividade online.\n\nO wordIzy não recolhe conscientemente nenhuma Informação Pessoal Identificável de crianças com idade inferior a 13 anos. Se achar que a sua criança forneceu este tipo de informação no nosso site, encorajamos fortemente a contactar-nos imediatamente e faremos o nosso melhor para prontamente remover tal informação dos nossos registos.",
+   },
+   {
+    heading: "Apenas política de privacidade online",
+    body: "Esta Política de privacidade aplica-se apenas às nossas atividades online e é válida para os visitantes do nosso site no que diz respeito à informação que partilharam e/ou recolheram no wordIzy. Esta política não se aplica a nenhuma informação recolhida offline ou através de canais que não este site.",
+   },
+   {
+    heading: "Consentimento",
+    body: "Ao usar o nosso site, aceita assim a nossa Política de privacidade e concorda com os seus Termos e Condições.",
+   },
   ],
   thirdPartyServices: [
     {
       name: "Google AdSense",
-      description: "Exibe anúncios. O AdSense pode usar cookies para mostrar anúncios relevantes e medir o desempenho. Pode desativar a publicidade personalizada através das Definições de Anúncios do Google.",
+      description: "Exibe anúncios aos visitantes do nosso site. Utiliza cookies (cookies DART) para mostrar anúncios com base nas suas visitas a wordizy.com e outros sites. Pode recusar os cookies DART visitando a Política de privacidade da rede de anúncios e conteúdos do Google.",
       url: "https://policies.google.com/technologies/ads",
     },
-    {
-      name: "Turso",
-      description: "Aloja a nossa base de dados SQLite que armazena as submissões do formulário de contacto e as estatísticas de pesquisa anónimas. Os dados são guardados nos servidores da Turso.",
-      url: "https://turso.tech/privacy",
-    },
-    {
-      name: "Google Fonts",
-      description: "Fornece as fontes Inter, Bree Serif e Roboto Slab usadas neste site. O Google pode registar temporariamente o pedido do seu endereço IP.",
-      url: "https://policies.google.com/fonts",
-    },
+  ],
+ },
+ terms: {
+  title: "Termos de serviço",
+  intro: "Bem-vindo ao wordIzy (acessível via wordizy.com). Estes Termos de serviço (os \"Termos\") regem o seu acesso e uso do nosso site, ferramentas de ajuda para jogos de palavras, dicionários e jogos interativos como Anagram Blitz (coletivamente, os \"Serviços\").\n\nAo aceder ou utilizar o wordIzy, concorda em ficar vinculado a estes Termos e à nossa Política de privacidade. Se não concordar com estes Termos, por favor não utilize os nossos Serviços.",
+  lastUpdated: "Última atualização: 28 de outubro de 2026",
+  sections: [
+   {
+    heading: "1. Descrição do Serviço",
+    body: "O wordIzy fornece ferramentas gratuitas online de assistência a puzzles de palavras, solucionadores de anagramas, pesquisas em dicionário e mini-jogos baseados em palavras. Todos os Serviços são fornecidos numa base \"tal como está\" e \"conforme disponível\" para fins pessoais, não comerciais, de entretenimento e educativos apenas.",
+   },
+   {
+    heading: "2. Uso permitido e restrições",
+    body: "É-lhe concedida uma licença limitada, não exclusiva, não transferível e revogável para aceder e usar o wordIzy estritamente em conformidade com estes Termos.\nComo condição de uso, concorda em não:\n• Utilizar sistemas automatizados, scrapers, spiders, robots ou scripts para extrair dados, texto ou listas de palavras das nossas bases de dados.\n• Interferir ou interromper o desempenho, integridade ou segurança dos servidores do site.\n• Enquadrar ou espelhar qualquer parte do site sem a nossa autorização prévia por escrito.\n• Utilizar as nossas ferramentas de ajuda a jogos de palavras ou sistemas automatizados para fazer batota em ambientes competitivos online onde ferramentas de assistência externa são explicitamente proibidas pelos termos respetivos dessas plataformas.",
+   },
+   {
+    heading: "3. Direitos de propriedade intelectual",
+    body: "Todo o conteúdo, funcionalidades, características, logótipos, design do site, texto e software de jogo personalizado (incluindo Anagram Blitz) no wordIzy são propriedade exclusiva do wordIzy e estão protegidos por leis internacionais de direitos de autor, marcas e propriedade intelectual. Não pode reproduzir, distribuir, modificar ou criar obras derivadas da nossa propriedade sem consentimento expresso por escrito.",
+   },
+   {
+    heading: "4. Marcas de terceiros e isenção de responsabilidade",
+    body: "As referências a jogos de terceiros, incluindo mas não limitando-se a Scrabble, Wordle, Words With Friends, Wordfeud e Quordle, são usadas apenas para fins informativos e descritivos para explicar a compatibilidade das nossas ferramentas. O wordIzy é uma plataforma independente e não é afiliada, apoiada, autorizada ou patrocinada pela Hasbro, Mattel, The New York Times Company, ou qualquer uma das suas respetivas empresas-mãe ou afiliadas.",
+   },
+   {
+    heading: "5. Dados do utilizador e armazenamento local",
+    body: "O wordIzy não requer registo de utilizador ou criação de conta. Funcionalidades como a Save Vault utilizam o armazenamento local do seu navegador web (localStorage) para guardar estados de configuração e histórico de palavras localmente no seu dispositivo. Não assumimos qualquer responsabilidade ou obrigação por qualquer perda de dados decorrente da limpeza de caches do navegador, mudanças de hardware ou atualizações do navegador.",
+   },
+   {
+    heading: "6. Limitações de responsabilidade",
+    body: "Em nenhuma circunstância o wordIzy, os seus programadores ou os seus afiliados serão responsáveis por quaisquer danos diretos, indiretos, incidentais, especiais ou consequentes decorrentes do uso ou da impossibilidade de usar o nosso site, mesmo que informados da possibilidade de tais danos. Não garantimos que as listas de palavras, cálculos de pontuação ou configurações do assistente de dicionário sejam totalmente isentos de erros ou atualizadas para corresponder aos patches em tempo real dos dicionários de jogo.",
+   },
+   {
+    heading: "7. Modificações ao Serviço e aos Termos",
+    body: "Reservamo-nos o direito de modificar, suspender ou descontinuar qualquer aspeto dos nossos Serviços a qualquer momento sem aviso prévio. Reservamo-nos também o direito de alterar estes Termos ao nosso critério. O seu uso continuado do wordIzy após qualquer atualização publicada constitui a sua aceitação dos Termos revistos.",
+   },
+   {
+    heading: "8. Lei aplicável",
+    body: "Estes Termos serão regidos e interpretados de acordo com as práticas internacionais de comércio digital, sem consideração pelos princípios de conflito de leis.",
+   },
+   {
+    heading: "9. Informações de contacto",
+    body: "Se tiver alguma questão ou esclarecimento sobre estes Termos de serviço, contacte-nos através da nossa página de contacto oficial.",
+   },
   ],
  },
  sitemap: { title: "Mapa do site", body: "Todas as páginas do WordIzy." },
@@ -2195,7 +2497,7 @@ const nl: Translation = {
   unscrambler: "Woordontwarer", scramble: "Meng", wordle: "Wordle",
   quordle: "Quordle", anagram: "Anagrammen", random: "Willekeurig Woord",
   wordfeud: "Wordfeud", dictionary: "Woordenboek", scrabble: "Duplicate",
-  wordlists: "Woordlijsten", wordstarts: "Woorden Beginnen Met", wordends: "Woorden Eindigen Op", wordlestarts: "Wordle Begint A-Z", wordleends: "Wordle Eindigt A-Z", about: "Over", contact: "Contact", privacy: "Privacy",
+  wordlists: "Woordlijsten", wordstarts: "Woorden Beginnen Met", wordends: "Woorden Eindigen Op", wordlestarts: "Wordle Begint A-Z", wordleends: "Wordle Eindigt A-Z", about: "Over", contact: "Contact", privacy: "Privacy", terms: "Servicevoorwaarden",
   sitemap: "Sitemap", tools: "Hulpmiddelen", more: "Meer", solvers: "Oplossers", site: "Site", wordlab: "Woord-Lab", inbox: "Postvak IN",
   dashboard: "Dashboard", blitz: "⚡ Anagram Blitz", blitzShort: "Blitz"
  },
@@ -2271,33 +2573,95 @@ const nl: Translation = {
  },
  privacy: {
   title: "Privacybeleid",
-  intro: "Uw privacy is fundamenteel voor de manier waarop WordIzy werkt. Dit beleid legt in gewone taal uit welke gegevens we verwerken, waarom we ze verwerken en welke keuzes u heeft. Wij streven naar volledige transparantie en naleving van de GDPR (EU) en de CCPA (Californië).",
-  lastUpdated: "Laatst bijgewerkt: juli 2026",
+  intro: "Op wordIzy, bereikbaar via wordizy.com, is de privacy van onze bezoekers een van onze belangrijkste prioriteiten. Dit Privacybeleid-document bevat soorten informatie die door wordIzy worden verzameld en geregistreerd en hoe wij deze gebruiken.\n\nAls u aanvullende vragen heeft of meer informatie wenst over ons Privacybeleid, aarzel dan niet om contact met ons op te nemen.",
+  lastUpdated: "Laatst bijgewerkt: 28 oktober 2026",
   sections: [
-   { heading: "Gegevens die we verzamelen", body: "WordIzy vereist geen account en verzamelt geen persoonlijke gegevens zoals uw naam, e-mail of browsergeschiedenis (behalve wanneer u vrijwillig het contactformulier verstuurt — zie hieronder). We gebruiken geen fingerprinting, trackingpixels van derden of cross-site tracking. De enige informatie die we verwerken is wat u actief in onze hulpmiddelen typt, plus anonieme gebruiksstatistieken (zie hieronder)." },
-   { heading: "Anonieme zoekanalyses", body: "Wanneer u een zoekopdracht uitvoert, registreren we anoniem de queryreeks, het gebruikte hulpmiddel, de geselecteerde taal en het aantal geretourneerde resultaten. Er worden geen IP-adres, geen gebruikers-ID, geen browserfingerprint en geen persoonlijke informatie bij deze gegevens opgeslagen. Dit helpt ons begrijpen welke zoekopdrachten populair zijn en lacunes in de inhoud te identificeren. U kunt niet uit deze gegevens worden geïdentificeerd." },
-   { heading: "Hoe we uw invoer verwerken", body: "Elke zoekopdracht — te ontwarren letters, een Wordle-patroon, een te controleren woordenboekwoord — wordt server-side verwerkt met woordenboeken in het geheugen. Uw invoer wordt uitsluitend gebruikt om resultaten te genereren en wordt direct na het versturen van het antwoord verwijderd. De zoektermen zelf worden anoniem opgeslagen in onze analyses (zie hierboven) maar zijn op geen enkele manier aan u gekoppeld." },
-   { heading: "Contactformulier-inzendingen", body: "Wanneer u het contactformulier verstuurt, worden uw naam, e-mailadres en bericht in onze database opgeslagen zodat we uw vraag kunnen lezen en beantwoorden. Deze gegevens zijn alleen toegankelijk voor de site-eigenaar en worden nooit met derden gedeeld. U kunt op elk moment verwijdering van uw inzending aanvragen door te e-mailen naar support@wordizy.com. Om spam te voorkomen zijn contactformulier-inzendingen beperkt tot 5 per uur per IP-adres." },
-   { heading: "Cookies en advertenties", body: "WordIzy toont advertenties via Google AdSense om de dienst gratis te houden. AdSense kan cookies gebruiken om relevante advertenties te tonen en advertentieprestaties te meten. Bij uw eerste bezoek verschijnt een cookietoestemmingsbanner waarmee u kunt accepteren of weigeren. U kunt cookies beheren of uitschakelen in uw browserinstellingen en gepersonaliseerde advertenties uitschakelen via de advertentie-instellingen van Google. We stellen zelf geen first-party tracking-cookies in — alleen een enkele voorkeurscookie om uw toestemmingskeuze en uw geselecteerde taal en thema te onthouden." },
-   { heading: "Uw rechten (GDPR en CCPA)", body: "Omdat we geen accounts aanmaken en analyses niet aan personen koppelen, is er geen persoonlijk profiel aan u gekoppeld. U wordt niet tussen bezoeken gevolgd. Als u een bericht via het contactformulier heeft verstuurd en dit wilt laten verwijderen, neem dan contact met ons op via support@wordizy.com en wij verwijderen het prompt. Onder de GDPR (EU-burgers) heeft u het recht om toegang te krijgen tot, te rectificeren of te laten wissen alle persoonsgegevens die we over u hebben. Onder de CCPA (inwoners van Californië) heeft u het recht te weten welke persoonlijke informatie wordt verzameld, verwijdering te vragen en u af te melden voor de verkoop van persoonlijke informatie — wij verkopen uw informatie niet." },
-   { heading: "Contact", body: "Vragen over dit beleid? E-mail ons op support@wordizy.com en we helpen u graag verder. U kunt ook het contactformulier op deze site gebruiken om ons direct een bericht te sturen." },
+   {
+    heading: "Logbestanden",
+    body: "wordIzy volgt een standaardprocedure voor het gebruik van logbestanden. Deze bestanden registreren bezoekers wanneer zij websites bezoeken. Alle hostingbedrijven doen dit als onderdeel van de analyses van hostingservices. De informatie die door logbestanden wordt verzameld, omvat internetprotocoladressen (IP), browsertype, internetserviceprovider (ISP), datum- en tijdstempel, verwijzings-/uitgangspagina's en mogelijk het aantal klikken. Deze zijn niet gekoppeld aan informatie die persoonlijk identificeerbaar is. Het doel van de informatie is het analyseren van trends, het beheren van de site, het volgen van de beweging van gebruikers op de website en het verzamelen van demografische informatie.",
+   },
+   {
+    heading: "Cookies en Web Beacons",
+    body: "Zoals elke andere website maakt wordIzy gebruik van \"cookies\". Deze cookies worden gebruikt om informatie op te slaan, waaronder de voorkeuren van bezoekers en de pagina's op de website die de bezoeker heeft bezocht of geraadpleegd. De informatie wordt gebruikt om de gebruikerservaring te optimaliseren door onze webpagina-inhoud aan te passen op het browsertype van de bezoeker en/of andere informatie.",
+   },
+   {
+    heading: "Google DoubleClick DART-cookie",
+    body: "Google is een van de externe aanbieders op onze site. Het gebruikt ook cookies, zogenaamde DART-cookies, om advertenties te tonen aan bezoekers van onze site op basis van hun bezoek aan wordizy.com en andere sites op het internet. Bezoekers kunnen echter kiezen om het gebruik van DART-cookies af te wijzen door het Privacybeleid van het advertentie- en contentnetwerk van Google te raadplegen op de volgende URL: google.com",
+   },
+   {
+    heading: "Onze advertentiepartners",
+    body: "Sommige adverteerders op onze site gebruiken mogelijk cookies en web beacons. Onze advertentiepartners zijn: Google AdSense. Elke advertentiepartner heeft een eigen Privacybeleid voor het beleid rond gebruikersgegevens. Voor eenvoudiger toegang hebben we hierboven een link naar hun Privacybeleid geplaatst. Externe advertentieservers of advertentienetwerken gebruiken technologieën zoals cookies, JavaScript of Web Beacons die worden gebruikt in hun respectievelijke advertenties en links die op wordIzy verschijnen en die rechtstreeks naar de browsers van gebruikers worden verzonden. Zij ontvangen automatisch uw IP-adres wanneer dit plaatsvindt. Deze technologieën worden gebruikt om de effectiviteit van hun advertentiecampagnes te meten en/of de advertentie-inhoud te personaliseren die u ziet op websites die u bezoekt.\n\nLet op: wordIzy heeft geen toegang tot of controle over deze cookies die door externe adverteerders worden gebruikt.",
+   },
+   {
+    heading: "Privacybeleid van derden",
+    body: "Het Privacybeleid van wordIzy is niet van toepassing op andere adverteerders of websites. Daarom raden we u aan de respectievelijke Privacybeleid van deze externe advertentieservers te raadplegen voor meer gedetailleerde informatie. Dit kan hun praktijken en instructies bevatten over hoe u zich voor bepaalde opties kunt afmelden.\n\nU kunt ervoor kiezen om cookies uit te schakelen via de individuele opties van uw browser. Meer gedetailleerde informatie over cookiebeheer met specifieke webbrowsers is te vinden op de respectievelijke websites van de browsers.",
+   },
+   {
+    heading: "Lokale opslag van de browser",
+    body: "Om onze gepersonaliseerde functies te bieden zonder gebruikersaccounts of registraties te vereisen, maakt wordIzy gebruik van de lokale opslag van uw browser (localStorage) voor functies zoals de Save Vault en spelvoorkeuren. Deze gegevens worden volledig op uw lokale apparaat opgeslagen. Ze worden nooit naar onze servers verzonden, gedeeld met derden of gebruikt voor trackingdoeleinden op externe websites. U kunt deze gegevens op elk moment wissen door de cache van uw browser te legen of door de opties te gebruiken die binnen de tool-interfaces worden aangeboden.",
+   },
+   {
+    heading: "Informatie over kinderen",
+    body: "Een ander deel van onze prioriteit is het toevoegen van bescherming voor kinderen bij het gebruik van het internet. We moedigen ouders en voogden aan om hun online activiteit te observeren, eraan deel te nemen en/of deze te monitoren en te begeleiden.\n\nwordIzy verzamelt bewust geen persoonlijk identificeerbare informatie (Personal Identifiable Information) van kinderen onder de 13 jaar. Als u denkt dat uw kind dit soort informatie op onze website heeft verstrekt, dringen we er bij u op aan om onmiddellijk contact met ons op te nemen en wij zullen ons best doen om dergelijke informatie onmiddellijk uit onze administratie te verwijderen.",
+   },
+   {
+    heading: "Alleen online Privacybeleid",
+    body: "Dit Privacybeleid is alleen van toepassing op onze online activiteiten en is geldig voor bezoekers van onze website met betrekking tot de informatie die zij hebben gedeeld en/of verzameld in wordIzy. Dit beleid is niet van toepassing op informatie die offline of via andere kanalen dan deze website wordt verzameld.",
+   },
+   {
+    heading: "Toestemming",
+    body: "Door onze website te gebruiken, stemt u hierbij in met ons Privacybeleid en gaat u akkoord met de Algemene voorwaarden.",
+   },
   ],
   thirdPartyServices: [
     {
       name: "Google AdSense",
-      description: "Toont advertenties. AdSense kan cookies gebruiken om relevante advertenties te tonen en prestaties te meten. U kunt gepersonaliseerde advertenties uitschakelen via de advertentie-instellingen van Google.",
+      description: "Toont advertenties aan bezoekers van onze site. Gebruikt cookies (DART-cookies) om advertenties te tonen op basis van uw bezoeken aan wordizy.com en andere sites. U kunt DART-cookies afwijzen door het Privacybeleid van het advertentie- en contentnetwerk van Google te raadplegen.",
       url: "https://policies.google.com/technologies/ads",
     },
-    {
-      name: "Turso",
-      description: "Host onze SQLite-database die contactformulier-inzendingen en anonieme zoekanalyses opslaat. Gegevens worden opgeslagen op Turso's servers.",
-      url: "https://turso.tech/privacy",
-    },
-    {
-      name: "Google Fonts",
-      description: "Levert de Inter-, Bree Serif- en Roboto Slab-lettertypen die op deze site worden gebruikt. Google kan het verzoek van uw IP-adres tijdelijk loggen.",
-      url: "https://policies.google.com/fonts",
-    },
+  ],
+ },
+ terms: {
+  title: "Servicevoorwaarden",
+  intro: "Welkom bij wordIzy (bereikbaar via wordizy.com). Deze Servicevoorwaarden (de \"Voorwaarden\") regelen uw toegang tot en gebruik van onze website, woordspel-hulpmiddelen, woordenboeken en interactieve spellen zoals Anagram Blitz (gezamenlijk de \"Diensten\").\n\nDoor toegang te krijgen tot of gebruik te maken van wordIzy, gaat u ermee akkoord gebonden te zijn aan deze Voorwaarden en ons Privacybeleid. Als u niet akkoord gaat met deze Voorwaarden, gebruik onze Diensten dan niet.",
+  lastUpdated: "Laatst bijgewerkt: 28 oktober 2026",
+  sections: [
+   {
+    heading: "1. Beschrijving van de Dienst",
+    body: "wordIzy biedt gratis online hulpmiddelen voor woordpuzzels, anagram-oplossers, woordenboekopzoekingen en woordgebaseerde mini-spellen. Alle Diensten worden geleverd op een \"zo-is\"- en \"zo-beschikbaar\"-basis voor uitsluitend persoonlijk, niet-commercieel entertainment- en educatieve doeleinden.",
+   },
+   {
+    heading: "2. Toegestane gebruik en beperkingen",
+    body: "U krijgt een beperkte, niet-exclusieve, niet-overdraagbare en herroepbare licentie om toegang te krijgen tot en wordIzy te gebruiken, strikt in overeenstemming met deze Voorwaarden.\nAls voorwaarde voor uw gebruik gaat u ermee akkoord niet te:\n• Gebruik maken van geautomatiseerde systemen, scrapers, spiders, robots of scripts om gegevens, tekst of woordenlijsten uit onze databases te oogsten.\n• Storen of verstoren van de prestaties, integriteit of beveiliging van de websiteservers.\n• Inlijsten of spiegelen van enig deel van de site zonder onze voorafgaande schriftelijke autorisatie.\n• Onze hulpmiddelen voor woordspellen of geautomatiseerde systemen gebruiken om te valsspelen in competitieve online omgevingen waar externe hulpmiddelen expliciet verboden zijn door de respectievelijke voorwaarden van die platforms.",
+   },
+   {
+    heading: "3. Intellectuele eigendomsrechten",
+    body: "Alle inhoud, functies, functionaliteit, logo's, sitedesign, tekst en aangepaste gamingssoftware (inclusief Anagram Blitz) op wordIzy zijn het exclusieve eigendom van wordIzy en zijn beschermd door internationale auteursrecht-, merk- en intellectuele eigendomswetten. U mag onze eigendommen niet reproduceren, distribueren, wijzigen of afgeleide werken ervan maken zonder uitdrukkelijke schriftelijke toestemming.",
+   },
+   {
+    heading: "4. Merken van derden en disclaimer",
+    body: "Verwijzingen naar spellen van derden, waaronder maar niet beperkt tot Scrabble, Wordle, Words With Friends, Wordfeud en Quordle, worden uitsluitend voor informatieve en beschrijvende doeleinden gebruikt om de compatibiliteit van onze hulpmiddelen uit te leggen. wordIzy is een onafhankelijk platform en is niet gelieerd aan, noch onderschreven, geautoriseerd of gesponsord door Hasbro, Mattel, The New York Times Company, of een van hun respectievelijke moedermaatschappijen of dochterondernemingen.",
+   },
+   {
+    heading: "5. Gebruikersgegevens en lokale opslag",
+    body: "wordIzy vereist geen gebruikersregistratie of aanmaak van een account. Functies zoals de Save Vault maken gebruik van de lokale opslag van uw webbrowser (localStorage) om configuratiestatussen en woordgeschiedenis lokaal op uw apparaat op te slaan. Wij dragen geen verantwoordelijkheid of aansprakelijkheid voor enig gegevensverlies als gevolg van het wissen van browser-caches, hardwarewijzigingen of browser-updates.",
+   },
+   {
+    heading: "6. Beperkingen van aansprakelijkheid",
+    body: "In geen geval zijn wordIzy, zijn ontwikkelaars of zijn gelieerde ondernemingen aansprakelijk voor enige directe, indirecte, incidentele, bijzondere of gevolgschade voortvloeiend uit het gebruik of de onmogelijkheid om onze website te gebruiken, zelfs indien op de hoogte gesteld van de mogelijkheid van dergelijke schade. Wij garanderen niet dat de woordenlijsten, scoreberekeningen of configuraties van het woordenboek-hulpmiddel volledig foutloos zijn of bijgewerkt zijn om overeen te komen met real-time patches van de spelwoordenboeken.",
+   },
+   {
+    heading: "7. Wijzigingen in de Dienst en de Voorwaarden",
+    body: "Wij behouden ons het recht voor om op elk moment zonder kennisgeving elk aspect van onze Diensten te wijzigen, op te schorten of stop te zetten. Wij behouden ons ook het recht voor om deze Voorwaarden naar eigen goeddunken te wijzigen. Uw voortgezet gebruik van wordIzy na enige gepubliceerde update vormt uw aanvaarding van de herziene Voorwaarden.",
+   },
+   {
+    heading: "8. Toepasselijk recht",
+    body: "Deze Voorwaarden worden beheerst en uitgelegd in overeenstemming met internationale digitale handelspraktijken, zonder rekening te houden met beginselen van conflict van wetgeving.",
+   },
+   {
+    heading: "9. Contactinformatie",
+    body: "Als u vragen of verduidelijkingen heeft over deze Servicevoorwaarden, neem dan contact met ons op via onze officiële contactpagina.",
+   },
   ],
  },
  sitemap: { title: "Sitemap", body: "Alle pagina's van WordIzy." },
@@ -2506,7 +2870,7 @@ const ja: Translation = {
   unscrambler: "アナグラム", scramble: "ミックス", wordle: "Wordle",
   quordle: "Quordle", anagram: "アナグラム解決", random: "ランダム単語",
   wordfeud: "Wordfeud", dictionary: "辞書", scrabble: "Duplicate",
-  wordlists: "単語リスト", wordstarts: "単語 始まる", wordends: "単語 終わる", wordlestarts: "Wordle 始まる", wordleends: "Wordle 終わる", about: "概要", contact: "お問い合わせ", privacy: "プライバシー",
+  wordlists: "単語リスト", wordstarts: "単語 始まる", wordends: "単語 終わる", wordlestarts: "Wordle 始まる", wordleends: "Wordle 終わる", about: "概要", contact: "お問い合わせ", privacy: "プライバシー", terms: "利用規約",
   sitemap: "サイトマップ", tools: "ツール", more: "その他", solvers: "ソルバー", site: "サイト", wordlab: "ワードラボ", inbox: "受信箱",
   dashboard: "ダッシュボード", blitz:"アナグラム・ブリッツ", blitzShort: "Blitz"
  },
@@ -2584,33 +2948,95 @@ const ja: Translation = {
  },
  privacy: {
   title: "プライバシーポリシー",
-  intro: "あなたのプライバシーは、WordIzyの運営において基本的なものです。このポリシーは、平易な言葉で、どのようなデータを処理するか、なぜ処理するか、そしてあなたが持つ選択肢を説明します。完全な透明性と、GDPR（EU）およびCCPA（カリフォルニア州）の遵守に努めています。",
-  lastUpdated: "最終更新：2026年7月",
+  intro: "wordizy.com からアクセス可能な wordIzy では、訪問者のプライバシーを最優先事項の一つとしています。このプライバシーポリシー文書には、wordIzy が収集・記録する情報の種類と、その利用方法が記載されています。\n\nプライバシーポリシーに関する追加のご質問や詳細情報が必要な場合は、お気軽にお問い合わせください。",
+  lastUpdated: "最終更新日：2026年10月28日",
   sections: [
-   { heading: "収集するデータ", body: "WordIzyはアカウントを必要とせず、氏名、メール、閲覧履歴などの個人データを収集しません（お問い合わせフォームを自発的に送信した場合を除く — 下記参照）。フィンガープリント、サードパーティのトラッキングピクセル、サイト間追跡は使用しません。処理する情報は、あなたがツールに能動的に入力した内容と、匿名の利用統計（下記参照）のみです。" },
-   { heading: "匿名検索分析", body: "検索を行う際、クエリ文字列、使用したツール、選択した言語、返された結果数を匿名で記録します。このデータにはIPアドレス、ユーザーID、ブラウザーフィンガープリント、個人情報は一切保存されません。これは、どの検索が人気かを理解し、コンテンツのギャップを特定するのに役立ちます。このデータから個人を特定することはできません。" },
-   { heading: "入力の処理方法", body: "すべてのクエリ（アンスクランブルする文字、Wordleのパターン、確認する辞書の単語）は、メモリ内の辞書を使用してサーバー側で処理されます。入力は結果の生成にのみ使用され、レスポンス送信後に直ちに破棄されます。検索語そのものは分析に匿名で保存されます（上記参照）が、あなたとは一切関連付けられません。" },
-   { heading: "お問い合わせフォームの送信", body: "お問い合わせフォームを送信すると、氏名、メールアドレス、メッセージがデータベースに保存され、お問い合わせを読んで対応できるようになります。このデータにはサイト所有者のみがアクセスでき、第三者と共有されることはありません。support@wordizy.comにメールして、いつでも送信の削除をリクエストできます。スパムを防ぐため、お問い合わせフォームの送信はIPアドレスごとに1時間あたり5件に制限されています。" },
-   { heading: "Cookieと広告", body: "WordIzyはサービスを無料で提供するため、Google AdSenseを通じて広告を表示します。AdSenseは関連広告を配信し、広告パフォーマンスを測定するためにCookieを使用する場合があります。初回訪問時にCookie同意バナーが表示され、承諾または拒否できます。ブラウザー設定でCookieを管理または無効にでき、Googleの広告設定でパーソナライズド広告をオプトアウトできます。当社自身はファーストパーティのトラッキングCookieを設定しません。同意の選択と、選択した言語・テーマを記憶するための単一の設定Cookieのみです。" },
-   { heading: "あなたの権利（GDPRおよびCCPA）", body: "当社はアカウントを作成せず、分析を個人に関連付けないため、あなたに関連付けられた個人プロフィールは存在しません。訪問間で追跡されることはありません。お問い合わせフォームでメッセージを送信し、削除を希望する場合は、support@wordizy.comまでご連絡ください。迅速に削除します。GDPR（EU居住者）の下では、あなたに関する個人データへのアクセス、訂正、消去の権利があります。CCPA（カリフォルニア州居住者）の下では、収集される個人情報を知る権利、削除を要求する権利、個人情報の販売のオプトアウトの権利があります。当社はあなたの情報を販売しません。" },
-   { heading: "お問い合わせ", body: "このポリシーについてご質問がありますか？support@wordizy.comまでメールをお送りください。喜んでお手伝いします。このサイトのお問い合わせフォームを使用して、直接メッセージを送信することもできます。" },
+   {
+    heading: "ログファイル",
+    body: "wordIzy はログファイルを使用する標準的な手順に従っています。これらのファイルは、ユーザーがウェブサイトを訪問した際に記録します。すべてのホスティング企業は、ホスティングサービスの分析の一環としてこれを行っています。ログファイルに収集される情報には、インターネットプロトコル（IP）アドレス、ブラウザーの種類、インターネットサービスプロバイダー（ISP）、日付と時刻のタイムスタンプ、参照元・退出ページ、さらにはクリック数などが含まれます。これらは個人を特定できる情報にはリンクされません。情報の目的は、傾向の分析、サイトの管理、ウェブサイト上でのユーザーの移動の追跡、および人口統計情報の収集です。",
+   },
+   {
+    heading: "Cookie とウェブビーコン",
+    body: "他のウェブサイトと同様に、wordIzy は「Cookie」を使用します。これらの Cookie は、訪問者の設定や、訪問者がアクセスまたは訪問したウェブサイト上のページなど、情報を保存するために使用されます。この情報は、訪問者のブラウザーの種類やその他の情報に基づいてウェブページのコンテンツをカスタマイズすることで、ユーザーエクスペリエンスを最適化するために使用されます。",
+   },
+   {
+    heading: "Google DoubleClick DART Cookie",
+    body: "Google は当サイトのサードパーティベンダーの一つです。また、wordizy.com やインターネット上の他のサイトへの訪問に基づいて当サイトの訪問者に広告を配信するために、DART Cookie と呼ばれる Cookie を使用しています。ただし、訪問者は Google の広告およびコンテンツネットワークプライバシーポリシー（次の URL：google.com）にアクセスすることで、DART Cookie の使用を拒否できます。",
+   },
+   {
+    heading: "当社の広告パートナー",
+    body: "当サイトの広告主の一部は Cookie やウェブビーコンを使用する場合があります。当社の広告パートナーには次が含まれます：Google AdSense。各広告パートナーには、ユーザーデータに関するポリシーについて独自のプライバシーポリシーがあります。アクセスしやすいように、上記に各社のプライバシーポリシーへのハイパーリンクを設定しています。サードパーティの広告サーバーや広告ネットワークは、wordIzy 上に表示されるそれぞれの広告やリンクで使用される Cookie、JavaScript、ウェブビーコンなどの技術を使用し、これらはユーザーのブラウザーに直接送信されます。これらが発生した際、自動的にあなたの IP アドレスを受信します。これらの技術は、広告キャンペーンの効果を測定したり、あなたが訪問するウェブサイトで表示される広告コンテンツをパーソナライズするために使用されます。\n\nwordIzy は、サードパーティの広告主が使用するこれらの Cookie に対してアクセス権も制御権も持たないことにご留意ください。",
+   },
+   {
+    heading: "サードパーティのプライバシーポリシー",
+    body: "wordIzy のプライバシーポリシーは他の広告主やウェブサイトには適用されません。したがって、より詳細な情報については、これらのサードパーティ広告サーバーのそれぞれのプライバシーポリシーを参照することをお勧めします。これには、特定のオプションのオプトアウト方法に関する慣行や指示が含まれる場合があります。\n\nブラウザーの個別のオプションから Cookie を無効にすることを選択できます。特定のウェブブラウザーでの Cookie 管理に関する詳細情報は、それぞれのブラウザーのウェブサイトで見つけることができます。",
+   },
+   {
+    heading: "ブラウザーのローカルストレージ",
+    body: "ユーザーアカウントや登録を必要とせずにパーソナライズされた機能を提供するため、wordIzy は Save Vault やゲーム設定などの機能について、お使いのブラウザーのローカルストレージ（localStorage）を利用しています。このデータは完全にあなたのローカルデバイスに保存されます。当社のサーバーに送信されたり、第三者と共有されたり、外部ウェブサイトにまたがる追跡目的で使用されることはありません。ブラウザーのキャッシュをクリアするか、ツールインターフェース内で提供されるオプションを使用することで、いつでもこのデータを消去できます。",
+   },
+   {
+    heading: "子どもに関する情報",
+    body: "当社のもう一つの優先事項は、インターネットを使用する子どもの保護を強化することです。親や後見人には、お子様のオンライン活動を観察し、参加し、かつ/または監視・指導することをお勧めします。\n\nwordIzy は、13 歳未満の子どもから個人を特定できる情報（Personal Identifiable Information）を意図的に収集することはありません。お子様が当ウェブサイトでこの種の情報を提供したと思われる場合は、直ちに当社にご連絡いただくよう強くお勧めします。当社は記録から当該情報を速やかに削除するよう最善を尽くします。",
+   },
+   {
+    heading: "オンラインプライバシーポリシーのみ",
+    body: "本プライバシーポリシーは当社のオンライン活動にのみ適用され、wordIzy で共有および/または収集した情報に関して当ウェブサイトの訪問者に有効です。このポリシーは、オフラインで収集された、または当ウェブサイト以外のチャネルを通じて収集された情報には適用されません。",
+   },
+   {
+    heading: "同意",
+    body: "当ウェブサイトを利用することにより、あなたは本プライバシーポリシーに同意し、その利用規約に同意したことになります。",
+   },
   ],
   thirdPartyServices: [
     {
       name: "Google AdSense",
-      description: "広告を配信します。AdSenseは関連性の高い広告を表示し、パフォーマンスを測定するためにCookieを使用する場合があります。Googleの広告設定でパーソナライズド広告をオプトアウトできます。",
+      description: "当サイトの訪問者に広告を配信します。wordizy.com や他のサイトへの訪問に基づいて広告を配信するために Cookie（DART Cookie）を使用します。Google の広告およびコンテンツネットワークプライバシーポリシーにアクセスすることで、DART Cookie の使用を拒否できます。",
       url: "https://policies.google.com/technologies/ads",
     },
-    {
-      name: "Turso",
-      description: "お問い合わせフォームの送信と匿名検索分析を保存するSQLiteデータベースをホストします。データはTursoのサーバーに保存されます。",
-      url: "https://turso.tech/privacy",
-    },
-    {
-      name: "Google Fonts",
-      description: "このサイトで使用されているInter、Bree Serif、Roboto Slabフォントを配信します。GoogleはリクエストのIPアドレスを一時的に記録する場合があります。",
-      url: "https://policies.google.com/fonts",
-    },
+  ],
+ },
+ terms: {
+  title: "利用規約",
+  intro: "wordIzy（wordizy.com からアクセス可能）へようこそ。本利用規約（以下「規約」）は、当社のウェブサイト、ワードゲーム支援ツール、辞書、および Anagram Blitz などのインタラクティブゲーム（総称して「サービス」）へのアクセスおよび利用を規定します。\n\nwordIzy にアクセスまたは使用することにより、あなたは本規約およびプライバシーポリシーに拘束されることに同意します。本規約に同意されない場合は、当社のサービスを使用しないでください。",
+  lastUpdated: "最終更新日：2026年10月28日",
+  sections: [
+   {
+    heading: "1. サービスの説明",
+    body: "wordIzy は無料のオンライン・ワードパズル支援ツール、アナグラム・ソルバー、辞書検索、ワードベースのミニゲームを提供します。すべてのサービスは「現状有姿」および「利用可能な状態」ベースで、個人的・非商用の娯楽および教育目的のみに提供されます。",
+   },
+   {
+    heading: "2. 許可される使用と制限",
+    body: "あなたには、本規約に厳密に従って wordIzy にアクセスおよび使用するための、限定的かつ非独占的、譲渡不可、取消可能なライセンスが付与されます。\n使用の条件として、あなたは以下を行わないことに同意します：\n• 当社のデータベースからデータ、テキスト、単語リストを収集するために、自動化システム、スクレイパー、スパイダー、ロボット、スクリプトを使用すること。\n• ウェブサイトサーバーのパフォーマンス、完全性、またはセキュリティを妨害または混乱させること。\n• 当社の事前の書面による許可なく、サイトのいかなる部分のフレーム化またはミラーリングを行うこと。\n• 当社のワードゲーム支援ツールまたは自動化システムを使用して、それらのプラットフォームのそれぞれの規約によって外部支援ツールが明示的に禁止されている競争環境で不正行為を行うこと。",
+   },
+   {
+    heading: "3. 知的財産権",
+    body: "wordIzy 上のすべてのコンテンツ、機能、特徴、ロゴ、サイトデザイン、テキスト、およびカスタムゲームソフトウェア（Anagram Blitz を含む）は wordIzy の専有財産であり、国際著作権法、商標法、知的財産権法によって保護されています。明示的な書面による同意なく、当社の財産を複製、配布、改変、または派生的作品を作成することはできません。",
+   },
+   {
+    heading: "4. サードパーティの商標と免責事項",
+    body: "Scrabble、Wordle、Words With Friends、Wordfeud、Quordle など（ただしこれらに限定されない）のサードパーティゲームへの言及は、当社のツール群の互換性を説明するための情報提供および記述目的のみに使用されます。wordIzy は独立したプラットフォームであり、Hasbro、Mattel、The New York Times Company、またはそれらのそれぞれの親会社もしくは関連会社と提携、推奨、承認、またはスポンサーされる関係にはありません。",
+   },
+   {
+    heading: "5. ユーザーデータとローカルストレージ",
+    body: "wordIzy はユーザー登録やアカウント作成を必要としません。Save Vault のような機能は、設定状態や単語履歴をあなたのデバイス上にローカルで保存するため、ウェブブラウザーのローカルストレージ（localStorage）を利用します。ブラウザーのキャッシュクリア、ハードウェアの変更、またはブラウザーのアップデートから生じるデータ損失について、当社は一切の責任または義務を負いません。",
+   },
+   {
+    heading: "6. 責任の制限",
+    body: "wordIzy、その開発者、または関連会社は、当社のウェブサイトの使用または使用不能に起因する直接的、間接的、付随的、特別、または結果的損害について、たとえそのような損害の可能性を知らされていた場合でも、一切の責任を負いません。単語リスト、スコア計算、または辞書支援設定が完全にエラーがないこと、またはリアルタイムのゲーム辞書パッチと一致するように更新されていることを保証しません。",
+   },
+   {
+    heading: "7. サービスおよび規約の変更",
+    body: "当社は、いつでも事前通知なくサービスのいかなる側面も変更、一時停止、または中止する権利を留保します。また、当社の裁量で本規約を修正する権利も留保します。公開されたアップデート後の wordIzy の継続使用は、改訂された規約への承認とみなされます。",
+   },
+   {
+    heading: "8. 準拠法",
+    body: "本規約は、国際的なデジタル商取引の実務に準拠し、それに従って解釈されるものとし、法の抵触原則は考慮しません。",
+   },
+   {
+    heading: "9. 連絡先情報",
+    body: "本利用規約に関するご質問やご不明な点がございましたら、当社の公式お問い合わせページよりご連絡ください。",
+   },
   ],
  },
  sitemap: { title: "サイトマップ", body: "WordIzyのすべてのページ。" },
@@ -2819,7 +3245,7 @@ const zh: Translation = {
   unscrambler: "字母重组", scramble: "乱序", wordle: "Wordle",
   quordle: "Quordle", anagram: "易位词", random: "随机单词",
   wordfeud: "Wordfeud", dictionary: "词典", scrabble: "Duplicate",
-  wordlists: "单词表", wordstarts: "单词 开头", wordends: "单词 结尾", wordlestarts: "Wordle 开头", wordleends: "Wordle 结尾", about: "关于", contact: "联系", privacy: "隐私",
+  wordlists: "单词表", wordstarts: "单词 开头", wordends: "单词 结尾", wordlestarts: "Wordle 开头", wordleends: "Wordle 结尾", about: "关于", contact: "联系", privacy: "隐私", terms: "服务条款",
   sitemap: "网站地图", tools: "工具", more: "更多", solvers: "求解器", site: "站点", wordlab: "词汇实验室", inbox: "收件箱",
   dashboard: "仪表盘", blitz:"字谜闪击", blitzShort: "Blitz"
  },
@@ -2897,33 +3323,95 @@ const zh: Translation = {
  },
  privacy: {
   title: "隐私政策",
-  intro: "您的隐私是 WordIzy 运营的基础。本政策以平实的语言说明我们处理哪些数据、为何处理以及您有哪些选择。我们致力于完全透明，并遵守 GDPR（欧盟）和 CCPA（加利福尼亚州）。",
-  lastUpdated: "最后更新：2026 年 7 月",
+  intro: "在 wordIzy（可通过 wordizy.com 访问），我们最优先考虑的事项之一就是访客的隐私。本《隐私政策》文档包含 wordIzy 收集和记录的信息类型以及我们如何使用这些信息。\n\n如对本《隐私政策》有其他问题或需要更多信息，请随时与我们联系。",
+  lastUpdated: "最后更新：2026 年 10 月 28 日",
   sections: [
-   { heading: "我们收集的数据", body: "WordIzy 不需要账号，也不收集姓名、电子邮件或浏览历史等个人数据（除非您自愿提交联系表单——见下文）。我们不使用指纹采集、第三方跟踪像素或跨站跟踪。我们处理的唯一信息是您在我们的工具中主动输入的内容，加上匿名的使用统计（见下文）。" },
-   { heading: "匿名搜索分析", body: "当您执行搜索时，我们会匿名记录查询字符串、您使用的工具、所选语言以及返回的结果数量。该数据不存储任何 IP 地址、用户 ID、浏览器指纹或个人信息。这有助于我们了解哪些搜索受欢迎并发现内容缺口。您无法通过此数据被识别。" },
-   { heading: "我们如何处理您的输入", body: "每个查询——需要重组的字母、Wordle 模式、要检查的词典单词——都使用内存中的词典在服务器端处理。您的输入仅用于生成结果，并在响应发送后立即被丢弃。搜索词本身会匿名存储在我们的分析中（见上文），但不会以任何方式与您关联。" },
-   { heading: "联系表单提交", body: "当您提交联系表单时，您的姓名、电子邮件地址和留言会存储在我们的数据库中，以便我们阅读并回复您的询问。此数据仅站点所有者可访问，绝不与第三方分享。您可以随时发邮件至 support@wordizy.com 请求删除您的提交。为防止垃圾信息，联系表单提交限制为每个 IP 每小时 5 次。" },
-   { heading: "Cookie 与广告", body: "WordIzy 通过 Google AdSense 展示广告以保持服务免费。AdSense 可能使用 Cookie 来投放相关广告并衡量广告效果。首次访问时会显示 Cookie 同意横幅，您可以选择接受或拒绝。您可以在浏览器设置中管理或禁用 Cookie，并通过 Google 的广告设置停用个性化广告。我们自己不设置任何第一方跟踪 Cookie——只设置一个偏好 Cookie 来记住您的同意选择以及您选择的语言和主题。" },
-   { heading: "您的权利（GDPR 与 CCPA）", body: "由于我们不创建账号或将分析与个人相关联，因此不存在与您相关联的个人资料。您不会在访问之间被跟踪。如果您已通过联系表单提交留言并希望将其删除，请通过 support@wordizy.com 联系我们，我们会尽快删除。根据 GDPR（欧盟居民），您有权访问、更正或删除我们持有的关于您的任何个人数据。根据 CCPA（加利福尼亚州居民），您有权知道收集了哪些个人信息、请求删除以及选择不出售个人信息——我们不出售您的信息。" },
-   { heading: "联系方式", body: "对本政策有疑问？请发送电子邮件至 support@wordizy.com，我们将很乐意提供帮助。您也可以使用本站的联系表单直接给我们留言。" },
+   {
+    heading: "日志文件",
+    body: "wordIzy 遵循使用日志文件的标准程序。这些文件记录访客访问网站时的信息。所有托管公司都将此作为托管服务分析的一部分。日志文件收集的信息包括互联网协议（IP）地址、浏览器类型、互联网服务提供商（ISP）、日期和时间戳、推荐/退出页面，以及可能的点击次数。这些信息不与任何可识别个人的信息相关联。该信息用于分析趋势、管理网站、跟踪用户在网站上的移动以及收集人口统计信息。",
+   },
+   {
+    heading: "Cookie 和网络信标",
+    body: "与其他任何网站一样，wordIzy 使用\"Cookie\"。这些 Cookie 用于存储信息，包括访客偏好以及访客访问或浏览过的网站页面。该信息用于根据访客浏览器类型和/或其他信息来定制我们的网页内容，从而优化用户体验。",
+   },
+   {
+    heading: "Google DoubleClick DART Cookie",
+    body: "Google 是我们网站上的第三方供应商之一。它还使用 Cookie（即所谓的 DART Cookie）根据访客对 wordizy.com 和互联网上其他网站的访问情况向其投放广告。不过，访客可通过访问以下网址的 Google 广告与内容网络隐私政策来选择停用 DART Cookie：google.com",
+   },
+   {
+    heading: "我们的广告合作伙伴",
+    body: "我们网站上的一些广告主可能使用 Cookie 和网络信标。我们的广告合作伙伴包括：Google AdSense。我们的每个广告合作伙伴就其用户数据政策都有各自的隐私政策。为方便访问，我们已在上文提供其隐私政策的超链接。第三方广告服务器或广告网络使用 Cookie、JavaScript 或网络信标等技术，这些技术用于出现在 wordIzy 上的各自广告和链接中，并直接发送至用户的浏览器。发生这种情况时，他们会自动接收您的 IP 地址。这些技术用于衡量其广告活动的有效性，和/或个性化您在所访问网站上看到的广告内容。\n\n请注意，wordIzy 无法访问或控制第三方广告主使用的这些 Cookie。",
+   },
+   {
+    heading: "第三方隐私政策",
+    body: "wordIzy 的隐私政策不适用于其他广告主或网站。因此，我们建议您查阅这些第三方广告服务器各自的隐私政策以获取更详细的信息。其中可能包含其做法以及有关如何停用某些选项的说明。\n\n您可以通过各个浏览器的选项选择停用 Cookie。有关特定网络浏览器中 Cookie 管理的更多详细信息，可在各浏览器的相应网站上找到。",
+   },
+   {
+    heading: "浏览器本地存储",
+    body: "为了在无需用户帐户或注册的情况下提供我们的个性化功能，wordIzy 使用浏览器的本地存储（localStorage）来支持 Save Vault 和游戏偏好等功能。这些数据完全存储在您的本地设备上。它们绝不会传输到我们的服务器、与第三方共享或用于在外部网站之间进行跟踪。您可以随时通过清除浏览器缓存或使用工具界面中提供的选项来清除这些数据。",
+   },
+   {
+    heading: "儿童信息",
+    body: "我们的另一项优先工作是加强对使用互联网的儿童的保护。我们鼓励父母和监护人观察、参与和/或监督和指导其在线活动。\n\nwordIzy 不会故意收集任何 13 岁以下儿童的可识别个人信息（Personal Identifiable Information）。如果您认为您的孩子在本网站上提供了此类信息，我们强烈建议您立即与我们联系，我们将尽最大努力迅速从我们的记录中删除此类信息。",
+   },
+   {
+    heading: "仅在线隐私政策",
+    body: "本《隐私政策》仅适用于我们的在线活动，并对访问本网站的访客就其在 wordIzy 中共享和/或收集的信息有效。本政策不适用于通过本网站以外的渠道或离线收集的任何信息。",
+   },
+   {
+    heading: "同意",
+    body: "使用本网站即表示您特此同意本《隐私政策》并接受其《条款与条件》。",
+   },
   ],
   thirdPartyServices: [
     {
       name: "Google AdSense",
-      description: "投放广告。AdSense 可能使用 Cookie 来展示相关广告并衡量效果。您可以通过 Google 的广告设置停用个性化广告。",
+      description: "向我们网站的访客投放广告。根据您对 wordizy.com 和其他网站的访问情况使用 Cookie（DART Cookie）投放广告。您可以通过访问 Google 广告与内容网络隐私政策来拒绝 DART Cookie。",
       url: "https://policies.google.com/technologies/ads",
     },
-    {
-      name: "Turso",
-      description: "托管我们的 SQLite 数据库，该数据库存储联系表单提交和匿名搜索分析。数据存储在 Turso 的服务器上。",
-      url: "https://turso.tech/privacy",
-    },
-    {
-      name: "Google Fonts",
-      description: "提供本站使用的 Inter、Bree Serif 和 Roboto Slab 字体。Google 可能会临时记录您的 IP 地址请求。",
-      url: "https://policies.google.com/fonts",
-    },
+  ],
+ },
+ terms: {
+  title: "服务条款",
+  intro: "欢迎使用 wordIzy（可通过 wordizy.com 访问）。本《服务条款》（简称\"条款\"）规管您对本网站、文字游戏辅助工具、词典以及互动游戏（如 Anagram Blitz）的访问与使用（统称\"服务\"）。\n\n访问或使用 wordIzy 即表示您同意受本条款及我们的《隐私政策》约束。如您不同意本条款，请勿使用我们的服务。",
+  lastUpdated: "最后更新：2026 年 10 月 28 日",
+  sections: [
+   {
+    heading: "1. 服务说明",
+    body: "wordIzy 提供免费的在线字谜辅助工具、易位词求解器、词典查询以及基于文字的迷你游戏。所有服务均按\"现状\"及\"可用性\"基础提供，仅供个人、非商业性娱乐及教育用途使用。",
+   },
+   {
+    heading: "2. 许可使用与限制",
+    body: "您获得的是有限、非独家、不可转让且可撤销的许可，仅可在严格遵守本条款的前提下访问和使用 wordIzy。\n作为使用条件，您同意不会：\n• 使用任何自动化系统、抓取器、爬虫、机器人或脚本，从我们的数据库中提取数据、文字或单词列表。\n• 干扰或破坏网站服务器的性能、完整性或安全性。\n• 未经我们事先书面授权，对本网站的任何部分进行框架化或镜像。\n• 在那些外部辅助工具被其各自条款明令禁止的竞争性在线环境中，使用我们的文字游戏辅助工具或自动化系统进行作弊。",
+   },
+   {
+    heading: "3. 知识产权",
+    body: "wordIzy 上的所有内容、功能、特性、徽标、网站设计、文本和定制游戏软件（包括 Anagram Blitz）均为 wordIzy 的专属财产，受国际版权、商标和知识产权法保护。未经明确书面同意，您不得复制、分发、修改或对我们的财产制作衍生作品。",
+   },
+   {
+    heading: "4. 第三方商标与免责声明",
+    body: "对第三方游戏（包括但不限于 Scrabble、Wordle、Words With Friends、Wordfeud 和 Quordle）的引用，仅出于信息和描述目的，用于说明我们工具的兼容性。wordIzy 是独立平台，与 Hasbro、Mattel、The New York Times Company 或其各自的母公司或附属公司无任何附属、认可、授权或赞助关系。",
+   },
+   {
+    heading: "5. 用户数据与本地存储",
+    body: "wordIzy 无需用户注册或创建账户。Save Vault 等功能利用您的网络浏览器本地存储（localStorage）将配置状态和单词历史记录保存在您的设备上。对于因清除浏览器缓存、硬件更改或浏览器更新而导致的任何数据丢失，我们不承担任何责任或义务。",
+   },
+   {
+    heading: "6. 责任限制",
+    body: "在任何情况下，wordIzy、其开发者或其关联方均不对因使用或无法使用本网站而产生的任何直接、间接、附带、特殊或后果性损害负责，即使已被告知此类损害的可能性。我们不保证单词列表、积分计算或词典辅助配置完全无错或已更新至与游戏实时词典补丁一致。",
+   },
+   {
+    heading: "7. 服务与条款的修改",
+    body: "我们保留随时在不另行通知的情况下修改、暂停或终止我们服务任何方面的权利。我们亦保留自行决定修改本条款的权利。您在发布任何更新后继续使用 wordIzy 即视为您接受修订后的条款。",
+   },
+   {
+    heading: "8. 适用法律",
+    body: "本条款受国际数字商业惯例管辖并据此解释，不考虑法律冲突原则。",
+   },
+   {
+    heading: "9. 联系信息",
+    body: "如对本《服务条款》有任何疑问或澄清需求，请通过我们的官方联系页面与我们联系。",
+   },
   ],
  },
  sitemap: { title: "网站地图", body: "WordIzy的全部页面。" },

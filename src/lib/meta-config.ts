@@ -104,6 +104,11 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     description: "Read the wordIzy privacy policy. Learn how we handle cookies, browser local storage, and our partnership with Google AdSense to serve advertisements.",
     keywords: ["privacy policy","wordizy privacy","cookies advertising","google adsense privacy","browser local storage","privacy policy word tools","wordizy cookie policy","third party advertising policy","dart cookie opt out","save vault privacy","local storage word tools","gdpr word tools","ccpa word unscrambler","scrabble helper privacy","word unscrambler privacy","children online privacy","browser storage privacy","online privacy policy","adsense cookies policy"]
   },
+  "terms": {
+    title: "Terms of Service",
+    description: "Read the wordIzy terms of service. Learn about our user guidelines, data restrictions, intellectual property rights, and third-party game disclaimers.",
+    keywords: ["terms of service","wordizy terms","terms of use","user agreement wordizy","service terms","acceptable use policy","intellectual property terms","third party disclaimer","non commercial use","wordizy user guidelines","site terms","website terms of service","terms and conditions","usage restrictions","word game tools terms","anagram blitz terms","scrabble wordle disclaimer","user license terms","terms of service word tools"]
+  },
   "sitemap": {
     title: "Sitemap — Browse All wordIzy Word Tools & Word Lists",
     description: "All pages on wordIzy: word unscrambler, anagram solver, Wordle solver, Quordle solver, Scrabble word finder, word lists by letter and length, Wordle word lists, and more.",
