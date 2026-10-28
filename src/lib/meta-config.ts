@@ -95,8 +95,8 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["about wordizy","free word unscrambler","word tools","scrabble helper online","word game tools","anagram solver online","wordle helper free","scrabble word finder online","unscramble letters free","word unscrambler tool","free scrabble solver","word puzzle solver","letter unscrambler tool","word finder tool","word game helper","multi language word solver","free word tools online","no sign up word unscrambler","wordizy about"]
   },
   "contact": {
-    title: "Contact wordIzy",
-    description: "Get in touch with the wordIzy team. Send feedback, suggestions, or bug reports about our word unscrambler, anagram solver, Scrabble helper, Wordle solver, and word tools.",
+    title: "Contact Us — Feedback & Support",
+    description: "Have a question or a dictionary correction? Contact the wordIzy support team directly with your feedback, feature requests, and bug reports.",
     keywords: ["contact wordizy","word tools support","scrabble solver feedback","word unscrambler contact","anagram solver support","wordle helper contact","word game tools feedback","scrabble word finder support","word unscrambler help","word solver contact form","wordizy contact","word tools bug report","scrabble helper feedback","word game solver support","word finder tool contact","letter unscrambler support","word puzzle tools contact","free word tools support","wordizy feedback"]
   },
   "privacy": {

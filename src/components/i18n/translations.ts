@@ -48,17 +48,9 @@ export type Translation = {
  };
  contact: {
   title: string;
-  body: string;
-  name: string;
-  email: string;
-  message: string;
-  send: string;
-  sending: string;
-  success: string;
-  successDesc: string;
-  error: string;
-  another: string;
-  note: string;
+  intro: string;
+  sections: { heading: string; body: string }[];
+  closing: string;
  };
  privacy: {
   title: string;
@@ -299,18 +291,23 @@ const en: Translation = {
   ],
  },
  contact: {
-  title: "Contact",
-  body: "Have a suggestion or found a bug? Send us a message.",
-  name: "Name",
-  email: "Email",
-  message: "Message",
-  send: "Send message",
-  sending: "Sending…",
-  success: "Message sent!",
-  successDesc: "Thanks for reaching out. We'll get back to you at the email you provided.",
-  error: "Something went wrong. Please try again.",
-  another: "Send another",
-  note: "Your message is sent directly to our inbox — you stay right here on the site.",
+  title: "Contact Us",
+  intro: "Have a question, feedback, or a feature suggestion for wordIzy? We would love to hear from you!\n\nWhether you found a missing word in our Scrabble dictionaries, encountered a bug while playing Anagram Blitz, or just want to suggest a new tool variation, your input helps us build a better platform for word puzzle players worldwide.",
+  sections: [
+   {
+    heading: "How to Reach Us",
+    body: "Please send all inquiries, feedback, or support requests directly to our official administration email:\n📩 support@wordizy.com",
+   },
+   {
+    heading: "Please Include in Your Message",
+    body: "To help us handle your request as quickly as possible, please include any relevant details:\n• For Bug Reports: Let us know what device or browser you were using (e.g., iPhone/Safari or Desktop/Chrome).\n• For Dictionary Corrections: Mention the specific word, language dictionary, or game mode you were using.\n• For Partnerships: Please state your company or platform name clearly in the subject line.",
+   },
+   {
+    heading: "Expected Response Times",
+    body: "We are a small, independent development team, but we read every piece of feedback we receive. You can generally expect a response from us within 24 to 48 hours, Monday through Friday.",
+   },
+  ],
+  closing: "Thank you for being a part of the wordIzy community!",
  },
  privacy: {
   title: "Privacy Policy",
@@ -698,18 +695,23 @@ const fr: Translation = {
   ],
  },
  contact: {
-  title: "Contact",
-  body: "Une suggestion ou un bug ? Envoyez-nous un message.",
-  name: "Nom",
-  email: "E-mail",
-  message: "Message",
-  send: "Envoyer",
-  sending: "Envoi…",
-  success: "Message envoyé !",
-  successDesc: "Merci de nous avoir contactés. Nous répondrons à l'adresse e-mail indiquée.",
-  error: "Une erreur est survenue. Veuillez réessayer.",
-  another: "Envoyer un autre message",
-  note: "Votre message est envoyé directement dans notre boîte de réception — vous restez sur le site.",
+  title: "Contactez-nous",
+  intro: "Vous avez une question, un retour ou une suggestion de fonctionnalité pour wordIzy ? Nous serions ravis de vous entendre !\n\nQue vous ayez trouvé un mot manquant dans nos dictionnaires Scrabble, rencontré un bug en jouant à Anagram Blitz, ou que vous souhaitiez simplement suggérer une nouvelle variante d'outil, votre contribution nous aide à construire une meilleure plateforme pour les joueurs de puzzles de mots du monde entier.",
+  sections: [
+   {
+    heading: "Comment nous joindre",
+    body: "Veuillez envoyer toutes les demandes, retours ou demandes d'assistance directement à notre adresse e-mail d'administration officielle :\n📩 support@wordizy.com",
+   },
+   {
+    heading: "Veuillez inclure dans votre message",
+    body: "Pour nous aider à traiter votre demande le plus rapidement possible, veuillez inclure toute information pertinente :\n• Pour les rapports de bug : Indiquez l'appareil ou le navigateur que vous utilisiez (par ex. iPhone/Safari ou Ordinateur/Chrome).\n• Pour les corrections de dictionnaire : Mentionnez le mot spécifique, le dictionnaire linguistique ou le mode de jeu que vous utilisiez.\n• Pour les partenariats : Veuillez indiquer clairement le nom de votre entreprise ou de votre plateforme dans l'objet du message.",
+   },
+   {
+    heading: "Délais de réponse attendus",
+    body: "Nous sommes une petite équipe de développement indépendante, mais nous lisons chaque retour que nous recevons. Vous pouvez généralement vous attendre à une réponse de notre part dans un délai de 24 à 48 heures, du lundi au vendredi.",
+   },
+  ],
+  closing: "Merci de faire partie de la communauté wordIzy !",
  },
  privacy: {
   title: "Politique de confidentialité",
@@ -1070,18 +1072,23 @@ const es: Translation = {
   ],
  },
  contact: {
-  title: "Contacto",
-  body: "¿Sugerencia o error? Envíanos un mensaje.",
-  name: "Nombre",
-  email: "Correo",
-  message: "Mensaje",
-  send: "Enviar",
-  sending: "Enviando…",
-  success: "¡Mensaje enviado!",
-  successDesc: "Gracias por escribirnos. Responderemos al correo que indicaste.",
-  error: "Algo salió mal. Inténtalo de nuevo.",
-  another: "Enviar otro",
-  note: "Tu mensaje se envía directamente a nuestra bandeja de entrada — te quedas en el sitio.",
+  title: "Contáctanos",
+  intro: "¿Tienes una pregunta, comentario o sugerencia de función para wordIzy? ¡Nos encantaría saber de ti!\n\nYa sea que hayas encontrado una palabra que falta en nuestros diccionarios de Scrabble, hayas encontrado un error mientras jugabas Anagram Blitz, o simplemente quieras sugerir una nueva variación de herramienta, tu aporte nos ayuda a construir una mejor plataforma para los jugadores de puzzles de palabras en todo el mundo.",
+  sections: [
+   {
+    heading: "Cómo contactarnos",
+    body: "Por favor, envía todas las consultas, comentarios o solicitudes de soporte directamente a nuestro correo electrónico oficial de administración:\n📩 support@wordizy.com",
+   },
+   {
+    heading: "Por favor incluye en tu mensaje",
+    body: "Para ayudarnos a manejar tu solicitud lo más rápido posible, por favor incluye cualquier detalle relevante:\n• Para reportes de errores: Indícanos qué dispositivo o navegador estabas usando (p. ej. iPhone/Safari o Escritorio/Chrome).\n• Para correcciones de diccionario: Menciona la palabra específica, el diccionario de idioma o el modo de juego que estabas usando.\n• Para colaboraciones: Por favor, indica claramente el nombre de tu empresa o plataforma en el asunto del mensaje.",
+   },
+   {
+    heading: "Tiempos de respuesta esperados",
+    body: "Somos un pequeño equipo de desarrollo independiente, pero leemos cada comentario que recibimos. Por lo general, puedes esperar una respuesta nuestra dentro de las 24 a 48 horas, de lunes a viernes.",
+   },
+  ],
+  closing: "¡Gracias por ser parte de la comunidad wordIzy!",
  },
  privacy: {
   title: "Política de privacidad",
@@ -1442,18 +1449,23 @@ const de: Translation = {
   ],
  },
  contact: {
-  title: "Kontakt",
-  body: "Vorschlag oder Bug? Schreib uns.",
-  name: "Name",
-  email: "E-Mail",
-  message: "Nachricht",
-  send: "Senden",
-  sending: "Wird gesendet…",
-  success: "Nachricht gesendet!",
-  successDesc: "Danke für deine Nachricht. Wir antworten an die angegebene E-Mail.",
-  error: "Etwas ist schiefgelaufen. Bitte erneut versuchen.",
-  another: "Weitere senden",
-  note: "Deine Nachricht geht direkt an unseren Posteingang — du bleibst auf der Website.",
+  title: "Kontakt aufnehmen",
+  intro: "Hast du eine Frage, ein Feedback oder einen Funktionsvorschlag für wordIzy? Wir würden uns freuen, von dir zu hören!\n\nEgal, ob du ein fehlendes Wort in unseren Scrabble-Wörterbüchern gefunden hast, beim Spielen von Anagram Blitz einen Fehler entdeckt hast oder einfach eine neue Werkzeugvariante vorschlagen möchtest — dein Input hilft uns, eine bessere Plattform für Wortpuzzle-Spieler weltweit aufzubauen.",
+  sections: [
+   {
+    heading: "So erreichst du uns",
+    body: "Bitte sende alle Anfragen, Feedback oder Support-Anfragen direkt an unsere offizielle Verwaltungs-E-Mail-Adresse:\n📩 support@wordizy.com",
+   },
+   {
+    heading: "Bitte gib in deiner Nachricht an",
+    body: "Um uns zu helfen, deine Anfrage so schnell wie möglich zu bearbeiten, gib bitte alle relevanten Details an:\n• Für Fehlerberichte: Teile uns mit, welches Gerät oder welchen Browser du verwendet hast (z. B. iPhone/Safari oder Desktop/Chrome).\n• Für Wörterbuch-Korrekturen: Erwähne das spezifische Wort, das Sprachwörterbuch oder den Spielmodus, den du verwendet hast.\n• Für Partnerschaften: Bitte gib deinen Firmen- oder Plattformnamen klar im Betreff an.",
+   },
+   {
+    heading: "Erwartete Antwortzeiten",
+    body: "Wir sind ein kleines, unabhängiges Entwicklerteam, aber wir lesen jedes Feedback, das wir erhalten. Du kannst im Allgemeinen innerhalb von 24 bis 48 Stunden von Montag bis Freitag mit einer Antwort von uns rechnen.",
+   },
+  ],
+  closing: "Danke, dass du Teil der wordIzy-Community bist!",
  },
  privacy: {
   title: "Datenschutzerklärung",
@@ -1814,18 +1826,23 @@ const it: Translation = {
   ],
  },
  contact: {
-  title: "Contatti",
-  body: "Suggerimento o bug? Scrivici.",
-  name: "Nome",
-  email: "Email",
-  message: "Messaggio",
-  send: "Invia",
-  sending: "Invio…",
-  success: "Messaggio inviato!",
-  successDesc: "Grazie per averci scritto. Risponderemo all'email indicata.",
-  error: "Qualcosa è andato storto. Riprova.",
-  another: "Invia un altro",
-  note: "Il tuo messaggio arriva direttamente nella nostra casella — resti sul sito.",
+  title: "Contattaci",
+  intro: "Hai una domanda, un feedback o un suggerimento su una funzionalità per wordIzy? Ci piacerebbe sentirti!\n\nChe tu abbia trovato una parola mancante nei nostri dizionari Scrabble, abbia riscontrato un bug giocando ad Anagram Blitz, o voglia semplicemente suggerire una nuova variante di strumento, il tuo contributo ci aiuta a costruire una piattaforma migliore per i giocatori di puzzle di parole in tutto il mondo.",
+  sections: [
+   {
+    heading: "Come raggiungerci",
+    body: "Si prega di inviare tutte le richieste, i feedback o le richieste di assistenza direttamente alla nostra email ufficiale di amministrazione:\n📩 support@wordizy.com",
+   },
+   {
+    heading: "Si prega di includere nel messaggio",
+    body: "Per aiutarci a gestire la tua richiesta il più rapidamente possibile, ti preghiamo di includere tutti i dettagli pertinenti:\n• Per le segnalazioni di bug: Facci sapere quale dispositivo o browser stavi utilizzando (ad es. iPhone/Safari o Desktop/Chrome).\n• Per le correzioni del dizionario: Menziona la parola specifica, il dizionario della lingua o la modalità di gioco che stavi utilizzando.\n• Per le partnership: Ti preghiamo di indicare chiaramente il nome della tua azienda o piattaforma nell'oggetto del messaggio.",
+   },
+   {
+    heading: "Tempi di risposta previsti",
+    body: "Siamo un piccolo team di sviluppo indipendente, ma leggiamo ogni feedback che riceviamo. In generale puoi aspettarti una risposta da noi entro 24-48 ore, dal lunedì al venerdì.",
+   },
+  ],
+  closing: "Grazie per far parte della community di wordIzy!",
  },
  privacy: {
   title: "Informativa sulla privacy",
@@ -2186,18 +2203,23 @@ const pt: Translation = {
   ],
  },
  contact: {
-  title: "Contato",
-  body: "Sugestão ou erro? Envie uma mensagem.",
-  name: "Nome",
-  email: "E-mail",
-  message: "Mensagem",
-  send: "Enviar",
-  sending: "Enviando…",
-  success: "Mensagem enviada!",
-  successDesc: "Obrigado pelo contato. Responderemos para o e-mail informado.",
-  error: "Algo deu errado. Tente novamente.",
-  another: "Enviar outra",
-  note: "Sua mensagem vai direto para nossa caixa de entrada — você continua no site.",
+  title: "Contacte-nos",
+  intro: "Tem uma pergunta, feedback ou sugestão de funcionalidade para o wordIzy? Adoraríamos ouvir de si!\n\nSeja por ter encontrado uma palavra em falta nos nossos dicionários de Scrabble, ter encontrado um erro enquanto jogava Anagram Blitz, ou simplesmente querer sugerir uma nova variação de ferramenta, o seu contributo ajuda-nos a construir uma melhor plataforma para os jogadores de puzzles de palavras em todo o mundo.",
+  sections: [
+   {
+    heading: "Como nos contactar",
+    body: "Por favor, envie todas as consultas, feedback ou pedidos de suporte diretamente para o nosso e-mail oficial de administração:\n📩 support@wordizy.com",
+   },
+   {
+    heading: "Por favor, inclua na sua mensagem",
+    body: "Para nos ajudar a processar o seu pedido o mais rapidamente possível, por favor inclua quaisquer detalhes relevantes:\n• Para relatórios de erros: Indique-nos qual o dispositivo ou navegador que estava a usar (por ex. iPhone/Safari ou Computador/Chrome).\n• Para correções de dicionário: Mencione a palavra específica, o dicionário de idioma ou o modo de jogo que estava a usar.\n• Para parcerias: Por favor, indique claramente o nome da sua empresa ou plataforma na linha de assunto.",
+   },
+   {
+    heading: "Tempos de resposta esperados",
+    body: "Somos uma pequena equipa de desenvolvimento independente, mas lemos cada feedback que recebemos. Pode geralmente esperar uma resposta nossa dentro de 24 a 48 horas, de segunda a sexta-feira.",
+   },
+  ],
+  closing: "Obrigado por fazer parte da comunidade wordIzy!",
  },
  privacy: {
   title: "Política de privacidade",
@@ -2558,18 +2580,23 @@ const nl: Translation = {
   ],
  },
  contact: {
-  title: "Contact",
-  body: "Suggestie of bug? Stuur een bericht.",
-  name: "Naam",
-  email: "E-mail",
-  message: "Bericht",
-  send: "Versturen",
-  sending: "Versturen…",
-  success: "Bericht verzonden!",
-  successDesc: "Bedankt voor je bericht. We antwoorden naar het opgegeven e-mailadres.",
-  error: "Er ging iets mis. Probeer het opnieuw.",
-  another: "Nog een bericht",
-  note: "Je bericht gaat direct naar onze inbox — je blijft op de website.",
+  title: "Neem contact op",
+  intro: "Heb je een vraag, feedback of een functievoorstel voor wordIzy? We horen graag van je!\n\nOf je nu een ontbrekend woord hebt gevonden in onze Scrabble-woordenboeken, een bug bent tegengeken tijdens het spelen van Anagram Blitz, of gewoon een nieuwe toolvariant wilt voorstellen, jouw inbreng helpt ons een beter platform te bouwen voor woordpuzzelspelers wereldwijd.",
+  sections: [
+   {
+    heading: "Hoe je ons bereikt",
+    body: "Stuur alle vragen, feedback of ondersteuningsverzoeken rechtstreeks naar ons officiële administratie-e-mailadres:\n📩 support@wordizy.com",
+   },
+   {
+    heading: "Vermeld in je bericht",
+    body: "Om ons te helpen je verzoek zo snel mogelijk af te handelen, vermeld eventuele relevante details:\n• Voor foutrapporten: Laat ons weten welk apparaat of browser je gebruikte (bijv. iPhone/Safari of Desktop/Chrome).\n• Voor woordenboekcorrecties: Vermeld het specifieke woord, het taalwoordenboek of de spelmodus die je gebruikte.\n• Voor partnerschappen: Vermeld duidelijk de naam van je bedrijf of platform in de onderwerpregel.",
+   },
+   {
+    heading: "Verwachte reactietijden",
+    body: "We zijn een klein, onafhankelijk ontwikkelingsteam, maar we lezen elk stukje feedback dat we ontvangen. Je kunt over het algemeen binnen 24 tot 48 uur een reactie van ons verwachten, van maandag tot en met vrijdag.",
+   },
+  ],
+  closing: "Bedankt dat je deel uitmaakt van de wordIzy-community!",
  },
  privacy: {
   title: "Privacybeleid",
@@ -2934,17 +2961,22 @@ const ja: Translation = {
  },
  contact: {
   title: "お問い合わせ",
-  body: "ご意見やバグ報告をお送りください。",
-  name: "名前",
-  email: "メール",
-  message: "メッセージ",
-  send: "送信",
-  sending: "送信中…",
-  success: "送信されました！",
-  successDesc: "ご連絡ありがとうございます。ご入力いただいたメールアドレスへ返信します。",
-  error: "エラーが発生しました。もう一度お試しください。",
-  another: "もう一度送信",
-  note: "メッセージは直接私たちの受信箱に送信されます — サイト上に留まります。",
+  intro: "wordIzy についてご質問、フィードバック、機能のご提案がありますか？ぜひお聞かせください！\n\nScrabble 辞書に載っていない単語を見つけた、Anagram Blitz のプレイ中にバグに遭遇した、あるいは新しいツールのバリエーションを提案したいなど、あなたのご意見は世界中のワードパズルプレイヤーのためにより良いプラットフォームを構築するのに役立ちます。",
+  sections: [
+   {
+    heading: "お問い合わせ方法",
+    body: "すべてのお問い合わせ、フィードバック、サポートリクエストは当社の公式管理者メールアドレスまで直接お送りください：\n📩 support@wordizy.com",
+   },
+   {
+    heading: "メッセージにご記入ください",
+    body: "お客様からのご要望をできるだけ迅速に処理するため、関連する詳細をご記入ください：\n• バグ報告の場合：使用していたデバイスやブラウザーをお知らせください（例：iPhone/Safari または デスクトップ/Chrome）。\n• 辞書の修正の場合：使用していた具体的な単語、言語辞書、ゲームモードをお知らせください。\n• 提携について：件名にお客様の会社名またはプラットフォーム名を明記してください。",
+   },
+   {
+    heading: "想定される回答時間",
+    body: "当社は小規模な独立開発チームですが、いただいたフィードバックはすべて拝読しております。原則として月曜から金曜の 24〜48 時間以内にご返信いたします。",
+   },
+  ],
+  closing: "wordIzy コミュニティのご参加、ありがとうございます！",
  },
  privacy: {
   title: "プライバシーポリシー",
@@ -3308,18 +3340,23 @@ const zh: Translation = {
   ],
  },
  contact: {
-  title: "联系",
-  body: "有建议或发现bug？给我们留言。",
-  name: "姓名",
-  email: "邮箱",
-  message: "留言",
-  send: "发送",
-  sending: "发送中…",
-  success: "发送成功！",
-  successDesc: "感谢留言。我们会通过您填写的邮箱回复您。",
-  error: "出错了，请重试。",
-  another: "再发一条",
-  note: "您的留言会直接送达我们的收件箱 — 您不会离开本站。",
+  title: "联系我们",
+  intro: "对 wordIzy 有疑问、反馈或功能建议吗？我们很乐意收到您的来信！\n\n无论您是在我们的 Scrabble 词典中发现遗漏的单词、在玩 Anagram Blitz 时遇到 bug，还是想建议新的工具变体，您的意见都能帮助我们为全球字谜玩家打造更好的平台。",
+  sections: [
+   {
+    heading: "如何联系我们",
+    body: "请将所有咨询、反馈或支持请求直接发送至我们的官方管理邮箱：\n📩 support@wordizy.com",
+   },
+   {
+    heading: "请在留言中包含",
+    body: "为帮助我们尽快处理您的请求，请提供相关详细信息：\n• 提交 Bug 报告：请说明您使用的设备或浏览器（例如 iPhone/Safari 或 桌面端/Chrome）。\n• 提交词典修正：请说明具体的单词、语言词典或您使用的游戏模式。\n• 合作意向：请在主题行中清楚注明您的公司或平台名称。",
+   },
+   {
+    heading: "预期响应时间",
+    body: "我们是一支小型的独立开发团队，但我们会认真阅读收到的每一条反馈。一般情况下，您可以在周一至周五的 24 至 48 小时内收到我们的回复。",
+   },
+  ],
+  closing: "感谢您成为 wordIzy 社区的一员！",
  },
  privacy: {
   title: "隐私政策",

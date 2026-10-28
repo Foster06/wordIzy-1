@@ -1374,3 +1374,31 @@ User asked for two related deliverables:
 - TypeScript: `bunx tsc --noEmit` — 0 errors.
 - ESLint: `bunx eslint` on all 5 changed files (translations.ts, meta-config.ts, info-views.tsx, main-tool-view.tsx, routes.ts) — 0 errors, 0 warnings.
 - SSR curl: GET /privacy → 200, GET /terms → 200. Both pages emit the correct `<title>` (with " | wordIzy" suffix from layout template) and the user-specified meta description. Last-updated date "October 28, 2026" present in SSR HTML for both pages. "Log Files" heading + 4 AdSense mentions visible on /privacy. "Description of Service" + "Save Vault" + "October 28, 2026" all visible on /terms. Footer shows /terms "Terms of Service" and /privacy "Privacy" links in SSR HTML — both legal pages reachable from the footer of every page on the site.
+
+## Task 23 (Oct 29 2026) — Contact Us rewrite (no form, email-based) + dev-server supervisor fix
+
+User reported the preview sandbox was showing "not active" between commands. Diagnosed cause: the `bun run dev` background process was being killed when its parent bash session exited — pkill, setsid, nohup, and disown all insufficient to keep it alive across bash command boundaries.
+
+### Sandbox fix: persistent dev supervisor
+- New persisted script `scripts/dev-supervisor.py` (run as `python3 scripts/dev-supervisor.py {start|stop|status|restart}`). Implements a double-fork daemon pattern that fully detaches from the parent bash session, then runs an infinite `while True:` loop that respawns `bun run dev` if it ever exits (3s cooldown between restarts).
+- Writes a pidfile at `/tmp/wordizy-dev-supervisor.pid` so callers can stop it cleanly. SIGTERM handler reaps any `bun run dev` / `next-server` children before exiting.
+- The `start` command forks off the daemon and polls `curl localhost:3000/` for HTTP 200 (90s timeout) before returning. The `status` command checks pidfile + port-open + curl-200.
+- Verified: after `start`, multiple subsequent bash commands (with sleep gaps) all return 200 on /contact, /terms, /privacy — the supervisor keeps the dev server alive across bash session boundaries, fixing the "sandbox not active" issue.
+
+### Contact Us page rewrite (src/components/i18n/translations.ts × 9 langs)
+- Removed the entire form-based structure (title/body/name/email/message/send/sending/success/successDesc/error/another/note) from the contact Translation type and all 9 language contact blocks. The user's new spec pivots from an in-site contact form to a direct-email-to-support@wordizy.com informational page.
+- New structure mirrors Privacy/Terms: `contact: { title, intro, sections: [{heading, body}], closing }`. Three numbered-equivalent sections: "How to Reach Us" (support@wordizy.com + 📩 emoji), "Please Include in Your Message" (3 bulleted pointers: Bug Reports, Dictionary Corrections, Partnerships), "Expected Response Times" (24-48h Mon-Fri). Plus a brand-style closing line: "Thank you for being a part of the wordIzy community!"
+- All 9 languages updated contextually (not literal): FR uses « » guillemets + "Signaler un bug"; ES uses "Reportes de errores"; DE uses "Fehlerberichte"; IT uses "Segnalazioni di bug"; PT uses "Relatórios de erros"; NL uses "Foutrapporten"; JA uses 「バグ報告」; ZH uses 「Bug 报告」. The 📩 emoji prefix on the support email is preserved across all 9 languages as the user wrote it.
+- meta-config.ts `contact` entry updated: title "Contact Us — Feedback & Support" (layout appends " | wordIzy" → final "Contact Us — Feedback & Support | wordIzy", matching the user-specified meta title). Description replaced with the user-supplied copy. Keywords kept largely intact (still about support/contact/bug-report/etc).
+
+### ContactView rewrite (src/components/tools/info-views.tsx)
+- Dropped the entire form UI: removed `useState` import, removed `Button`/`Input`/`Label`/`Textarea`/`toast` imports, removed `Check`/`Loader2`/`AlertCircle`/`Send` icons (Send is kept because SITEMAP_ICONS may need it later — actually removed since no longer used). Removed `handleSubmit`, removed the success/error state machine, removed the side panel that showed t.contact.body + mailto link.
+- New ContactView mirrors the AboutView/PrivacyView/TermsView structure: PageHeader + GlassCard with intro paragraph + sections.map() + closing line. The closing line uses `font-semibold text-brand` to make it pop slightly without being a "section".
+- Old contact form posting to /api/contact is no longer rendered (the API route still exists for backward compatibility but is no longer called from any UI).
+
+### Verification
+- TypeScript: `bunx tsc --noEmit` — 0 errors.
+- ESLint: `bunx eslint` on translations.ts, info-views.tsx, meta-config.ts — 0 errors, 0 warnings.
+- Supervisor: `python3 scripts/dev-supervisor.py start` reports "dev server ready on :3000"; subsequent `status` calls (after sleep gaps and across separate bash commands) all report "supervisor running ... dev server healthy".
+- SSR curl /contact → 200. Title tag is "Contact Us — Feedback & Support | wordIzy" (matches user spec). Meta description matches user spec. "How to Reach Us", "Please Include in Your Message", "Expected Response Times" all present in SSR HTML. "support@wordizy.com" visible in SSR HTML. Closing line "Thank you for being a part of the wordIzy community" present. Old form fields (name="name" / name="email" / name="message") all removed (counts: 0 / 0 / 0).
+- /terms and /privacy continue to return 200 — no regression from the contact refactor.
