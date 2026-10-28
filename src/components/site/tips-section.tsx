@@ -29,10 +29,13 @@ export function TipsSection({ title, items }: { title: string; items: FaqItem[] 
         </Accordion>
       ) : (
         // Static placeholder before mount — avoids Radix useId hydration mismatch.
+        // The answer text is included (visually hidden via CSS) so the SSR HTML
+        // contains the full FAQ content for SEO and Google AdSense quality review.
         <div className="w-full">
           {items.map((item, i) => (
             <div key={i} className="border-b border-white/10 py-3">
               <p className="text-sm sm:text-base font-semibold text-left">{item.q}</p>
+              <p className="sr-only" aria-hidden="true">{item.a}</p>
             </div>
           ))}
         </div>

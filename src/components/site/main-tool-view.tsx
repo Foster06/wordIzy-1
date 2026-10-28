@@ -179,19 +179,50 @@ export function MainToolView({ params, initialWordListData, topWordData }: MainT
             <ErrorBoundary label="Unscrambler">
               <UnscramblerTool />
             </ErrorBoundary>
-            {/* Featured guide — visible on homepage so users can discover content */}
+            {/* Featured guides — visible on homepage so users can discover content */}
             <div className="mt-8 rounded-xl border border-white/10 bg-white/[0.04] p-5 sm:p-6">
-              <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center gap-2 mb-4">
                 <BookOpen className="h-5 w-5 text-brand" />
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-brand">{t.ui.featuredGuide}</h3>
               </div>
-              <Link href="/guides/best-wordle-starter-words" className="group flex items-center justify-between gap-3">
-                <div>
-                  <h4 className="text-lg font-bold text-foreground group-hover:text-brand transition-colors">Best Wordle Starter Words: Top Strategy Combinations to Win Daily</h4>
-                  <p className="text-xs text-muted-foreground mt-1">Discover the mathematically optimal opening words, 3 winning strategies, and a proven second-guess framework for every scenario.</p>
-                </div>
-                <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-colors transition-transform shrink-0" />
-              </Link>
+              <ul className="space-y-3">
+                <li>
+                  <Link href="/guides/best-wordle-starter-words" className="group flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="text-base font-bold text-foreground group-hover:text-brand transition-colors">Best Wordle Starter Words</h4>
+                      <p className="text-xs text-muted-foreground mt-1">Discover the mathematically optimal opening words, 3 winning strategies, and a proven second-guess framework for every scenario.</p>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-colors transition-transform shrink-0 mt-1" />
+                  </Link>
+                </li>
+                <li className="border-t border-white/5 pt-3">
+                  <Link href="/guides/5-crossword-solving-tips-for-beginners" className="group flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="text-base font-bold text-foreground group-hover:text-brand transition-colors">5 Crossword Solving Tips Every Beginner Needs to Know</h4>
+                      <p className="text-xs text-muted-foreground mt-1">Master the highest-leverage techniques experienced solvers use daily — long answers, plural endings, crossing letters, common patterns, and abbreviation shorthand.</p>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-colors transition-transform shrink-0 mt-1" />
+                  </Link>
+                </li>
+                <li className="border-t border-white/5 pt-3">
+                  <Link href="/guides/score-400-in-anagram-blitz" className="group flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="text-base font-bold text-foreground group-hover:text-brand transition-colors">How to Consistently Score 400+ in Anagram Blitz</h4>
+                      <p className="text-xs text-muted-foreground mt-1">Seven specific techniques top players use to hit 400+ points in 60 seconds — suffix recognition, vowel-first scanning, type-without-hesitation, and the pattern-recall library.</p>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-colors transition-transform shrink-0 mt-1" />
+                  </Link>
+                </li>
+                <li className="border-t border-white/5 pt-3">
+                  <Link href="/guides/memorize-2-letter-scrabble-words" className="group flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="text-base font-bold text-foreground group-hover:text-brand transition-colors">The Ultimate Guide to Memorizing 2-Letter Scrabble Words</h4>
+                      <p className="text-xs text-muted-foreground mt-1">The complete NWL2023 2-letter word list grouped by memorization strategy, plus a spaced-repetition workflow using the Save Vault to drill them into long-term memory.</p>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-colors transition-transform shrink-0 mt-1" />
+                  </Link>
+                </li>
+              </ul>
             </div>
           </>
         );
@@ -272,17 +303,48 @@ export function MainToolView({ params, initialWordListData, topWordData }: MainT
               <UnscramblerTool />
             </ErrorBoundary>
             <div className="mt-8 rounded-xl border border-white/10 bg-white/[0.04] p-5 sm:p-6">
-              <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center gap-2 mb-4">
                 <BookOpen className="h-5 w-5 text-brand" />
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-brand">{t.ui.featuredGuide}</h3>
               </div>
-              <Link href="/guides/best-wordle-starter-words" className="group flex items-center justify-between gap-3">
-                <div>
-                  <h4 className="text-lg font-bold text-foreground group-hover:text-brand transition-colors">Best Wordle Starter Words: Top Strategy Combinations to Win Daily</h4>
-                  <p className="text-xs text-muted-foreground mt-1">Discover the mathematically optimal opening words, 3 winning strategies, and a proven second-guess framework for every scenario.</p>
-                </div>
-                <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-colors transition-transform shrink-0" />
-              </Link>
+              <ul className="space-y-3">
+                <li>
+                  <Link href="/guides/best-wordle-starter-words" className="group flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="text-base font-bold text-foreground group-hover:text-brand transition-colors">Best Wordle Starter Words</h4>
+                      <p className="text-xs text-muted-foreground mt-1">Discover the mathematically optimal opening words, 3 winning strategies, and a proven second-guess framework for every scenario.</p>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-colors transition-transform shrink-0 mt-1" />
+                  </Link>
+                </li>
+                <li className="border-t border-white/5 pt-3">
+                  <Link href="/guides/5-crossword-solving-tips-for-beginners" className="group flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="text-base font-bold text-foreground group-hover:text-brand transition-colors">5 Crossword Solving Tips Every Beginner Needs to Know</h4>
+                      <p className="text-xs text-muted-foreground mt-1">Master the highest-leverage techniques experienced solvers use daily — long answers, plural endings, crossing letters, common patterns, and abbreviation shorthand.</p>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-colors transition-transform shrink-0 mt-1" />
+                  </Link>
+                </li>
+                <li className="border-t border-white/5 pt-3">
+                  <Link href="/guides/score-400-in-anagram-blitz" className="group flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="text-base font-bold text-foreground group-hover:text-brand transition-colors">How to Consistently Score 400+ in Anagram Blitz</h4>
+                      <p className="text-xs text-muted-foreground mt-1">Seven specific techniques top players use to hit 400+ points in 60 seconds — suffix recognition, vowel-first scanning, type-without-hesitation, and the pattern-recall library.</p>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-colors transition-transform shrink-0 mt-1" />
+                  </Link>
+                </li>
+                <li className="border-t border-white/5 pt-3">
+                  <Link href="/guides/memorize-2-letter-scrabble-words" className="group flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="text-base font-bold text-foreground group-hover:text-brand transition-colors">The Ultimate Guide to Memorizing 2-Letter Scrabble Words</h4>
+                      <p className="text-xs text-muted-foreground mt-1">The complete NWL2023 2-letter word list grouped by memorization strategy, plus a spaced-repetition workflow using the Save Vault to drill them into long-term memory.</p>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-muted-foreground/40 group-hover:text-brand group-hover:translate-x-1 transition-colors transition-transform shrink-0 mt-1" />
+                  </Link>
+                </li>
+              </ul>
             </div>
           </>
         );

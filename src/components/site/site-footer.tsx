@@ -62,6 +62,21 @@ export function SiteFooter() {
                 Best Wordle Starter Words
               </Link>
             </li>
+            <li>
+              <Link href="/guides/5-crossword-solving-tips-for-beginners" className="font-bree !text-[15px] text-muted-foreground hover:text-brand transition-colors block cursor-pointer">
+                5 Crossword Solving Tips for Beginners
+              </Link>
+            </li>
+            <li>
+              <Link href="/guides/score-400-in-anagram-blitz" className="font-bree !text-[15px] text-muted-foreground hover:text-brand transition-colors block cursor-pointer">
+                How to Score 400+ in Anagram Blitz
+              </Link>
+            </li>
+            <li>
+              <Link href="/guides/memorize-2-letter-scrabble-words" className="font-bree !text-[15px] text-muted-foreground hover:text-brand transition-colors block cursor-pointer">
+                Memorize 2-Letter Scrabble Words
+              </Link>
+            </li>
           </ul>
         </div>
 

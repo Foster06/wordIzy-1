@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { ReturnButton } from "@/components/site/back-button";
@@ -88,26 +89,179 @@ function findGuideFile(slug: string, lang: string): string | null {
   return null;
 }
 
-/** Render plain-text markdown-lite content with heading + paragraph support.
- *  ALL-CAPS lines (or standalone short lines in CJK) become h2 headings. */
-function renderContent(content: string) {
-  const paragraphs = content.trim().split(/\n\n+/);
-  return paragraphs.map((para, i) => {
-    const trimmed = para.trim();
-    // ALL-CAPS lines (at least 10 chars, no lowercase) become h2 headings
-    if (trimmed.length > 5 && trimmed === trimmed.toUpperCase() && !/[a-z]/.test(trimmed) && trimmed.length < 120) {
-      return (
-        <h2 key={i} className="text-xl font-bold text-foreground mt-8 mb-3 tracking-tight">
-          {trimmed}
-        </h2>
+/** Render inline markdown: bold (**text**), italic (*text* or _text_), and links ([text](url)).
+ *  Returns an array of React nodes (strings + <strong> + <em> + <a>). */
+function renderInline(text: string, keyPrefix: string): ReactNode[] {
+  const nodes: ReactNode[] = [];
+  // Regex matches **bold**, *italic* or _italic_, and [text](url) in order
+  const tokenRegex = /(\*\*([^*]+)\*\*|\*([^*]+)\*|_([^_]+)_|\[([^\]]+)\]\(([^)]+)\))/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let i = 0;
+  while ((match = tokenRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      nodes.push(text.slice(lastIndex, match.index));
+    }
+    const key = `${keyPrefix}-${i++}`;
+    if (match[2]) {
+      // **bold**
+      nodes.push(<strong key={key} className="font-semibold text-foreground">{match[2]}</strong>);
+    } else if (match[3]) {
+      // *italic*
+      nodes.push(<em key={key}>{match[3]}</em>);
+    } else if (match[4]) {
+      // _italic_
+      nodes.push(<em key={key}>{match[4]}</em>);
+    } else if (match[5] && match[6]) {
+      // [text](url)
+      const isExternal = /^https?:\/\//.test(match[6]);
+      nodes.push(
+        <a
+          key={key}
+          href={match[6]}
+          className="text-brand underline underline-offset-2 hover:opacity-80"
+          {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
+          {match[5]}
+        </a>
       );
     }
-    return (
-      <p key={i} className="text-sm text-muted-foreground leading-relaxed mb-4">
-        {trimmed}
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    nodes.push(text.slice(lastIndex));
+  }
+  return nodes;
+}
+
+/** Render markdown-lite content with:
+ *  - ## and ### headings (markdown-style)
+ *  - ALL-CAPS standalone lines as h2 (legacy support)
+ *  - Unordered lists (- item or * item)
+ *  - Ordered lists (1. item, 2. item, ...)
+ *  - Inline bold **text**, italic *text* / _text_, and links [text](url)
+ *  - Plain paragraphs otherwise
+ *  Consecutive list items are grouped into a single <ul>/<ol>. */
+function renderContent(content: string): ReactNode[] {
+  const lines = content.replace(/\r\n/g, "\n").split("\n");
+  const blocks: ReactNode[] = [];
+  let i = 0;
+  let keyCounter = 0;
+
+  while (i < lines.length) {
+    const raw = lines[i];
+    const line = raw.trim();
+    if (!line) {
+      i++;
+      continue;
+    }
+
+    // ## Heading 2
+    if (/^##\s+/.test(line)) {
+      blocks.push(
+        <h2 key={`b${keyCounter++}`} className="text-xl font-bold text-foreground mt-8 mb-3 tracking-tight">
+          {line.replace(/^##\s+/, "")}
+        </h2>
+      );
+      i++;
+      continue;
+    }
+
+    // ### Heading 3
+    if (/^###\s+/.test(line)) {
+      blocks.push(
+        <h3 key={`b${keyCounter++}`} className="text-base font-semibold text-foreground mt-6 mb-2 tracking-tight">
+          {line.replace(/^###\s+/, "")}
+        </h3>
+      );
+      i++;
+      continue;
+    }
+
+    // # Heading 1
+    if (/^#\s+/.test(line)) {
+      blocks.push(
+        <h2 key={`b${keyCounter++}`} className="text-2xl font-extrabold text-foreground mt-10 mb-3 tracking-tight">
+          {line.replace(/^#\s+/, "")}
+        </h2>
+      );
+      i++;
+      continue;
+    }
+
+    // Unordered list: collect consecutive - or * items
+    if (/^[-*]\s+/.test(line)) {
+      const items: string[] = [];
+      while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {
+        items.push(lines[i].replace(/^\s*[-*]\s+/, "").trim());
+        i++;
+      }
+      blocks.push(
+        <ul key={`b${keyCounter++}`} className="list-disc pl-6 my-3 space-y-1.5 text-sm text-muted-foreground leading-relaxed">
+          {items.map((item, idx) => (
+            <li key={`li-${keyCounter}-${idx}`}>{renderInline(item, `ul-${keyCounter}-${idx}`)}</li>
+          ))}
+        </ul>
+      );
+      continue;
+    }
+
+    // Ordered list: collect consecutive "1. " "2. " items
+    if (/^\d+\.\s+/.test(line)) {
+      const items: string[] = [];
+      while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) {
+        items.push(lines[i].replace(/^\s*\d+\.\s+/, "").trim());
+        i++;
+      }
+      blocks.push(
+        <ol key={`b${keyCounter++}`} className="list-decimal pl-6 my-3 space-y-1.5 text-sm text-muted-foreground leading-relaxed">
+          {items.map((item, idx) => (
+            <li key={`ol-${keyCounter}-${idx}`}>{renderInline(item, `ol-${keyCounter}-${idx}`)}</li>
+          ))}
+        </ol>
+      );
+      continue;
+    }
+
+    // ALL-CAPS legacy heading (back-compat with existing guides)
+    if (
+      line.length > 5 &&
+      line === line.toUpperCase() &&
+      !/[a-z]/.test(line) &&
+      line.length < 120 &&
+      !/[.!?;:,]/.test(line.slice(-1))
+    ) {
+      blocks.push(
+        <h2 key={`b${keyCounter++}`} className="text-xl font-bold text-foreground mt-8 mb-3 tracking-tight">
+          {line}
+        </h2>
+      );
+      i++;
+      continue;
+    }
+
+    // Plain paragraph: collect consecutive non-empty, non-special lines
+    const paraLines: string[] = [line];
+    i++;
+    while (
+      i < lines.length &&
+      lines[i].trim() &&
+      !/^#{1,3}\s+/.test(lines[i].trim()) &&
+      !/^[-*]\s+/.test(lines[i].trim()) &&
+      !/^\d+\.\s+/.test(lines[i].trim())
+    ) {
+      paraLines.push(lines[i].trim());
+      i++;
+    }
+    const paraText = paraLines.join(" ");
+    blocks.push(
+      <p key={`b${keyCounter++}`} className="text-sm text-muted-foreground leading-relaxed mb-4">
+        {renderInline(paraText, `p-${keyCounter}`)}
       </p>
     );
-  });
+  }
+
+  return blocks;
 }
 
 export default async function GuidePage({ params }: GuideProps) {
@@ -186,7 +340,48 @@ export default async function GuidePage({ params }: GuideProps) {
               <Link href="/unscramble-5-letter-words" className="px-3 py-1.5 rounded-md glass-soft text-xs text-foreground/80 hover:text-brand transition-colors">
                 5-Letter Words
               </Link>
+              <Link href="/unscramble-2-letter-words" className="px-3 py-1.5 rounded-md glass-soft text-xs text-foreground/80 hover:text-brand transition-colors">
+                2-Letter Words
+              </Link>
+              <Link href="/blitz" className="px-3 py-1.5 rounded-md glass-soft text-xs text-foreground/80 hover:text-brand transition-colors">
+                Anagram Blitz
+              </Link>
             </div>
+          </div>
+
+          {/* More strategy guides — internal cross-linking for SEO */}
+          <div className="mt-8 pt-6 border-t border-white/10">
+            <h3 className="text-sm font-semibold text-foreground mb-3">More Strategy Guides</h3>
+            <ul className="space-y-2 text-sm">
+              {slug !== "best-wordle-starter-words" && (
+                <li>
+                  <Link href="/guides/best-wordle-starter-words" className="text-brand hover:opacity-80 underline-offset-2">
+                    Best Wordle Starter Words: Top Strategy Combinations to Win Daily
+                  </Link>
+                </li>
+              )}
+              {slug !== "5-crossword-solving-tips-for-beginners" && (
+                <li>
+                  <Link href="/guides/5-crossword-solving-tips-for-beginners" className="text-brand hover:opacity-80 underline-offset-2">
+                    5 Crossword Solving Tips Every Beginner Needs to Know
+                  </Link>
+                </li>
+              )}
+              {slug !== "score-400-in-anagram-blitz" && (
+                <li>
+                  <Link href="/guides/score-400-in-anagram-blitz" className="text-brand hover:opacity-80 underline-offset-2">
+                    How to Consistently Score 400+ in Anagram Blitz
+                  </Link>
+                </li>
+              )}
+              {slug !== "memorize-2-letter-scrabble-words" && (
+                <li>
+                  <Link href="/guides/memorize-2-letter-scrabble-words" className="text-brand hover:opacity-80 underline-offset-2">
+                    The Ultimate Guide to Memorizing 2-Letter Scrabble Words
+                  </Link>
+                </li>
+              )}
+            </ul>
           </div>
         </article>
       </main>
