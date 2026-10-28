@@ -1293,3 +1293,51 @@ Stage Summary:
 - About page (/about) fully rewritten with the user-provided new copy: title, intro paragraph, 4 sections (Our Mission / Why Choose wordIzy? with 4 bullets / Our Commitment to Privacy / Get in Touch), and proper meta title + description
 - All 9 language versions of the About block updated with the new content; each non-English version mentions that language's primary Scrabble dictionary prominently in the "Comprehensive Dictionary Databases" bullet (French ODS9, Spanish FISE, German Scrabble-Wörterbuch, Italian Zingarelli, Portuguese Léxico, Dutch OpenTaal, Japanese romaji, Chinese pinyin)
 - Cleanup script persisted at /home/z/my-project/scripts/remove_wordlist_about_fields.py for recoverability
+
+---
+Task ID: 22
+Agent: main
+Task: Dedicated Wordle per-letter articles on all 52 /wordle-words-starts/ends-with-{a-z} pages (AdSense quality-content criterion)
+
+Work Log:
+- User request: add a short article beneath the Wordle word lists titled "How to Win Wordle Games Using Q Words Without U" (Q as the example), explaining strategies, tile values, and common high-scoring plays — for EACH letter, on BOTH the starts-with and ends-with A-Z Wordle pages, with genuine per-letter context (not template swaps) and per-language context (not just translations), 9 languages.
+
+- ARCHITECTURE: Wordle pages previously rendered the SCRABBLE articles plus a small wordleNote overlay. Now they render DEDICATED Wordle-strategy articles; Scrabble pages keep their articles unchanged.
+
+- NEW FILE src/lib/wordle-articles.ts (EN content + index):
+  - WordleLetterProse { title, starts, ends } + WordleArticleContent interface (titleTemplate, startsLead, endsLead, tileTemplate, topWordsHeading, topWordsLead, closing, letters a-z)
+  - titleTemplate: "How to Win Wordle Games Using {angle}" — the Q entry's angle is "Q Words Without U", reproducing the user's exact requested title
+  - 26 genuinely unique per-letter entries (no template swapping). Each starts/ends block ~85-105 words of Wordle-specific strategy: positional frequency (S most common start ~10%+, E most common letter ~11% + most common ending ~18-20%, Y 2nd most common ending ~9%, plurals excluded so almost no answers end in S, Q nearly always followed by U, zero answers end in J/Q/V, virtually none in Z/X/F/B), pattern families (CRANE opener, -IGHT rhyme set, -ER/-LE/-AL endings, KN-/WR- silent letters, ZZ/CK doubles), plus Scrabble tile-value crossover (Q/Z=10, J/X=8, K=5...) and high-scoring double-duty answers (PIZZA 24, FUZZY 29, DIZZY 27, QUERY 16, QUICK 18, HELIX 17, VIVID 13) per the user's request to "explain strategies, tile values, and common high-scoring plays"
+  - Index merges 9 per-language files: WORDLE_ARTICLES: Partial<Record<LanguageCode, WordleArticleContent>>
+
+- NEW 8 language files (parallel subagents, each ~215-230 lines):
+  - wordle-articles-fr.ts: "Comment gagner au Wordle grâce aux {angle}" — French QU-obligatoire reflex maps perfectly to English QU; E over-testing validated (FR ~15% vs EN ~11%); accents/Ç never appear; hard-consonant endings are the #1 reflex to retrain
+  - wordle-articles-es.ts: "Cómo ganar al Wordle usando {angle}" — Ñ doesn't exist in Wordle; vowel-density warning; Spanish vowel-final instinct vs English consonant-final reality; QU equivalence is an advantage
+  - wordle-articles-de.ts: "So gewinnst du Wordle-Spiele mit {angle}" — mirror-image tile economy (German Z common/3pts vs English Z rare/10pts; German V=8 vs English V=4); Umlaute/ß never appear; Komposita habit flagged; E intuition transfers (DE ~17%, EN ~11%)
+  - wordle-articles-it.ts: "Come vincere a Wordle usando {angle}" — vowel-final is the biggest adjustment; Italian double-letter familiarity (ZZ, LL) is a real edge (FUZZY/DIZZY/PIZZA are "at home"); PIZZA framed as "the Italian gift to Wordle" (24 points)
+  - wordle-articles-pt.ts: "Como ganhar no Wordle usando {angle}" — -ÃO/cedilha/LH/NH/RR/SS contrasts; pt-BR final-L pronunciation quirk; QU equivalence helps
+  - wordle-articles-nl.ts: "Zo win je Wordle-spellen met {angle}" — Dutch -EN plural/-JE diminutive actually protects against the plural-S trap; E-intuition works in both (NL ~19%, EN ~11%); IJ/OE digraphs flagged; sound-shift cognate coaching (ZON→SUN, VIS→FISH)
+  - wordle-articles-ja.ts: "{angle}を使ってWordleに勝つ方法" — katakana drops final E (APPLE→アップル); sokuon restoration drills (ッ→CK/PP); romaji shi/si drift; L/R and V/B merger habits flagged
+  - wordle-articles-zh.ts: "如何用{angle}赢下Wordle" — pinyin vs English spelling (shi is transcription, SHE is an answer); tones ignored (ZHONG=中/钟/重); no-plurals rule must be memorized since Chinese lacks plural suffixes; vowel-final intuition inverted
+  - All keep the ENGLISH Wordle facts + ENGLISH word examples (the actual answers) — contextualization is in the framing and native-pattern contrasts, per the "not just translate" requirement
+
+- COMPONENT UPDATE src/components/site/word-list-article.tsx:
+  - Imports WORDLE_ARTICLES; picks Wordle content when config.dict === "wordle" (Wordle pages are always letter pages — no /wordle-N-letter route exists, so lengths still use the Scrabble shape via the scrabbleContent reference)
+  - Union-typed content for shared letter-page fields; scrabbleContent!.lengthsLead/lengths for the length branch (TypeScript-safe)
+  - Removed the old wordleNote overlay render (fully replaced by the dedicated articles)
+
+- VERIFICATION:
+  - TypeScript: 0 errors (bunx tsc --noEmit)
+  - ESLint: 0 errors on all 9 new files + the component
+  - NEW persisted script scripts/verify-wordle-articles.ts: all 9 languages verified — 26 letters each, placeholders intact, per-language context markers found (French "QUI, QUAND" QU reflex; Spanish Ñ; German Umlaute; Italian doppie/PIZZA; Portuguese Ç/ÃO/LH/NH; Dutch IJ; Japanese カタカナ/ローマ字; Chinese 拼音/声调), zero draft artifacts — ALL 9 LANGUAGES VERIFIED ✅
+  - 52/52 Wordle pages (26 starts + 26 ends) return HTTP 200 AND render "How to Win Wordle Games Using ..." — swept programmatically, 0 failures
+  - Q starts page shows the EXACT requested title: "How to Win Wordle Games Using Q Words Without U"
+  - Unique per-letter angles confirmed: Q "Q Words Without U", E "E Words — the Vowel King", S "S Words — the Starting King", Y "Y Words — the Ending Surprise", Z "Z Words — the Final Elimination"
+  - Article word count on Q starts page: 383 words (within the 300-400 AdSense target)
+  - Live top-scoring word chips render (10 chips on Q page)
+  - Regression: Scrabble letter pages still show "How to Win Scrabble Games Using" (separation intact); /unscramble-7-letter-words still shows the bingo content; length pages untouched
+
+Stage Summary:
+- 52 Wordle pages transformed from thin tool pages into 300-400-word unique information resources with dedicated Wordle strategy (frequency, position, information gain), Scrabble tile-value crossover, and high-scoring double-duty plays
+- 9 language files with genuine per-language context (native-pattern contrasts for speakers of each language playing English Wordle), not literal translations — verified by an independent script
+- Scrabble pages and length pages unchanged; clean separation via config.dict

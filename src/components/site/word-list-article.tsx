@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import { WORD_LIST_ARTICLES } from "@/lib/word-list-articles";
+import { WORDLE_ARTICLES } from "@/lib/wordle-articles";
 import type { WordListConfig } from "@/lib/word-list-urls";
 
 export interface TopWord {
@@ -82,11 +83,21 @@ export function WordListArticle({
   const langKey = (["en", "fr", "es", "de", "it", "pt", "nl", "ja", "zh"].includes(lang)
     ? lang
     : "en") as LanguageCode;
-  const content = WORD_LIST_ARTICLES[langKey] ?? WORD_LIST_ARTICLES.en;
-  if (!content) return null;
-
-  // ── Length pages get their own article shape ─────────────────────────────
   const isLengthPage = config.type === "length";
+  // Wordle pages get DEDICATED Wordle-strategy articles (frequency, position,
+  // information gain, Scrabble-score crossover) instead of the Scrabble
+  // board-strategy articles. Wordle pages are always letter pages (there is
+  // no /wordle-N-letter-words route), so the length-page fields below always
+  // come from the Scrabble shape.
+  const useWordle = config.dict === "wordle" && !isLengthPage;
+  const wordleContent = WORDLE_ARTICLES[langKey] ?? WORDLE_ARTICLES.en;
+  const scrabbleContent = WORD_LIST_ARTICLES[langKey] ?? WORD_LIST_ARTICLES.en;
+  // Union content used for the shared letter-page fields (titleTemplate,
+  // startsLead/endsLead, letters, tileTemplate, topWords*, closing).
+  const content = useWordle ? wordleContent : scrabbleContent;
+  if (!content) return null;
+  // Length pages additionally require the Scrabble shape (lengthsLead/lengths).
+  if (isLengthPage && !scrabbleContent) return null;
   const n = String(config.value);
   const laneNote =
     Number(n) <= 3
@@ -123,17 +134,16 @@ export function WordListArticle({
   const title = isLengthPage
     ? `${n}-Letter Words That Win Games`
     : fill(content.titleTemplate, { angle });
-
   // ── Assemble the paragraphs ─────────────────────────────────────────────
   const lead = isLengthPage
-    ? fill(content.lengthsLead, { n, total: String(total), laneNote })
+    ? fill(scrabbleContent!.lengthsLead, { n, total: String(total), laneNote })
     : fill(config.type === "ends" ? content.endsLead : content.startsLead, {
         letter: letterKey,
         total: String(total),
       });
 
   const body = isLengthPage
-    ? content.lengths[n] ?? ""
+    ? scrabbleContent!.lengths[n] ?? ""
     : config.type === "ends"
       ? letterProse!.ends
       : letterProse!.starts;
@@ -189,12 +199,9 @@ export function WordListArticle({
 
       <p className="pt-1">{closing}</p>
 
-      {/* Wordle overlay — only on /wordle-words-* pages */}
-      {config.dict === "wordle" && (
-        <p className="text-xs bg-brand/5 border border-brand/15 rounded-lg p-3">
-          {fill(content.wordleNote, { letter: letterKey })}
-        </p>
-      )}
+      {/* Wordle pages no longer need the old overlay note — the dedicated
+          Wordle article above fully replaces it (frequency, position strategy,
+          Scrabble crossover scores, and high-scoring plays). */}
     </section>
   );
 }

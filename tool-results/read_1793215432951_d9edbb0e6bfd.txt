@@ -1,0 +1,252 @@
+     1→// src/lib/wordle-articles.ts
+     2→//
+     3→// Wordle-SPECIFIC per-letter educational article content for the programmatic
+     4→// Wordle word-list pages (/wordle-words-starts-with-{letter},
+     5→// /wordle-words-ends-with-{letter}). These are SEPARATE from the Scrabble
+     6→// articles in word-list-articles.ts because the strategy is fundamentally
+     7→// different: Wordle is about letter frequency, positional probability, and
+     8→// information gain — NOT board positioning, hooks, and lanes.
+     9→//
+    10→// PURPOSE (user request): turn the 52 Wordle tool pages ("thin pages") into
+    11→// "authentic, high-quality information resources" per Google's AdSense
+    12→// criteria. Example title: "How to Win Wordle Games Using Q Words Without U."
+    13→// Each article explains Wordle strategy, the letter's Scrabble tile value
+    14→// (crossover knowledge — WordIzy displays Scrabble scores next to every
+    15→// Wordle answer), and the common high-scoring plays.
+    16→//
+    17→// ARCHITECTURE: Pure data module (no server imports). The <WordListArticle />
+    18→// component picks this content when config.dict === "wordle" and falls back
+    19→// to the Scrabble articles otherwise. Non-English languages are authored in
+    20→// separate per-language files (wordle-articles-fr.ts, etc.) and merged here —
+    21→// each written FOR speakers of that language playing English Wordle, with
+    22→// native-language pattern contrasts, NOT literal translations.
+    23→//
+    24→// Placeholders: {letter} {Letter} {angle} {score} {count} {total} {plural}
+    25→//               {tileWord} {double} {triple}
+    26→
+    27→import type { LanguageCode } from "@/lib/languages";
+    28→
+    29→export interface WordleLetterProse {
+    30→  /** Unique strategic angle used in the article title, e.g. "Q Words Without U". */
+    31→  title: string;
+    32→  /** Unique prose for /wordle-words-starts-with-{letter} (~85-105 words). */
+    33→  starts: string;
+    34→  /** Unique prose for /wordle-words-ends-with-{letter} (~85-105 words). */
+    35→  ends: string;
+    36→}
+    37→
+    38→export interface WordleArticleContent {
+    39→  /** Article title template. {angle} is replaced by the letter's unique title. */
+    40→  titleTemplate: string;
+    41→  /** Lead paragraph for starts pages. Placeholders: {letter} {total}. */
+    42→  startsLead: string;
+    43→  /** Lead paragraph for ends pages. Placeholders: {letter} {total}. */
+    44→  endsLead: string;
+    45→  /** Scrabble-score crossover paragraph. Placeholders: {Letter} {score} {plural} {count} {tileWord} {double} {triple}. */
+    46→  tileTemplate: string;
+    47→  /** Heading of the live top-words section. Placeholder: {Letter}. */
+    48→  topWordsHeading: string;
+    49→  /** Lead-in sentence before the live word list. Placeholder: {letter}. */
+    50→  topWordsLead: string;
+    51→  /** Closing paragraph. Placeholder: {letter}. */
+    52→  closing: string;
+    53→  /** Per-letter unique Wordle prose, keyed "a" through "z". */
+    54→  letters: Record<string, WordleLetterProse>;
+    55→}
+    56→
+    57→// ─────────────────────────────────────────────────────────────────────────────
+    58→// ENGLISH — the flagship content (primary AdSense market). Wordle answers are
+    59→// English-only, so every language version explains ENGLISH Wordle strategy;
+    60→// non-English files adapt the framing for their readers, not the word facts.
+    61→// ─────────────────────────────────────────────────────────────────────────────
+    62→const EN: WordleArticleContent = {
+    63→  titleTemplate: "How to Win Wordle Games Using {angle}",
+    64→  startsLead:
+    65→    "Wordle rewards players who know where each letter likes to sit. Words starting with {letter} have a specific role in the answer pool: {total} valid Wordle answers begin with this letter, and knowing the dominant patterns turns them from guesses into weapons. This guide covers the Wordle tactics for {letter}-openers, the letter's Scrabble tile value for crossover players, and the highest-scoring plays hiding in the live list above.",
+    66→  endsLead:
+    67→    "Endings are where Wordle streaks are saved or lost. Words ending in {letter} form a distinct family inside the answer pool — {total} valid Wordle answers finish with this letter — and their patterns reward study far more than random guessing. This guide breaks down the {letter}-final strategies, the Scrabble point values WordIzy displays next to every answer, and the high-scoring crossover plays worth memorizing.",
+    68→  tileTemplate:
+    69→    "Scrabble crossover: the {Letter} tile is worth {score} point{plural} in English Scrabble, and only {count} {tileWord} circulate in every game. WordIzy shows each answer's Scrabble score beside the word — so when a Wordle answer doubles as a high-value Scrabble play ({Letter} on a double-letter square pays {double}, on a triple {triple}), you can spot it instantly in the live list above and file it away for your next rack.",
+    70→  topWordsHeading: "Highest-Scoring {Letter} Wordle Words",
+    71→  topWordsLead:
+    72→    "These are the top Scrabble point-scorers among valid Wordle answers containing {letter} — live from our word database. They pull double duty: strong daily-puzzle guesses AND high-value Scrabble plays:",
+    73→  closing:
+    74→    "The difference between a casual player and a streak-keeper is rarely luck — it is knowing which {letter} words exist as valid Wordle answers, where the letter statistically prefers to sit, and how to spend each guess on maximum information. Bookmark this page, drill the top words above, and {letter} becomes a clue you exploit instead of a square you fear.",
+    75→  letters: {
+    76→    a: {
+    77→      title: "A Words for Opening Assaults",
+    78→      starts:
+    79→        "A is the second-most-common opening letter in Wordle — roughly one answer in twelve begins with it, behind only S. That makes A-initial words prime second-guess material once your opener eliminates S. The dominant shapes are AD-, AL-, AN-, AR-, and AT- (ADAPT, ALERT, ANGEL, ARGUE, ATLAS), with double-A entries like ABACK catching unprepared players. A-fronted openers such as ADIEU and AUDIO test four vowels in one shot — the fastest way to learn whether E, I, O, or U appears in today's answer. When A comes back green in slot one, run the ANGEL-ARGUE-ATLAS triangle next; when it is yellow, position two is its favorite home.",
+    80→      ends:
+    81→        "Fewer than three percent of Wordle answers end in A — far rarer than most players expect. The A-final family is a loanword club: AURA, COMA, DRAMA, EXTRA, KOALA, MAFIA, MAGMA, MEDIA, OMEGA, PANDA, PLAZA, SOFA, VILLA, YOGA, ZEBRA, ARENA, ULTRA, AROMA. Strategy shifts accordingly: a yellow A almost always points to position two or three, not five, so test interior placements before burning a guess on the final slot. Scrabble crossover: A's tile is worth only 1 point (nine in the bag), so most A-final words score modestly — but EXTRA (12 points) and ZEBRA (16 points) are sneaky-high plays that win crosswords and Scrabble boards alike.",
+    82→    },
+    83→    b: {
+    84→      title: "B Words for Bold Second Guesses",
+    85→      starts:
+    86→        "B is the third-most-common opening letter in Wordle — about one answer in fourteen starts with it (BLACK, BREAD, BRING, BONUS, BEACH). B-initial words are outstanding second guesses because the letter rarely appears elsewhere: a gray B eliminates the entire BA-, BE-, BI-, BO-, BU- spread in one move, which is elite information per guess. The high-probability shapes are the BL- and BR- blends (BLACK, BLADE, BRICK, BROTH) followed by BE- (BEAST, BEGIN, BENCH). Because vowel-heavy openers like ADIEU contain no B, a green B usually means your vowel map deserves a second pass.",
+    87→      ends:
+    88→        "No common English five-letter Wordle answer ends in B — the list is effectively empty, because native words ending in B are almost always longer (absorb, describe) or clipped forms. Use this as an elimination fact: if your final slot is unresolved late in the puzzle, spend the guess on a high-value ending (E, Y, T) rather than hunting a B that cannot exist. A yellow B therefore points strongly at position two or three (RABID, ROBOT, HABIT, CABLE). Scrabble crossover: B's 3-point tile (only two in the bag) makes B-interior words like CABLE (9) and GAMBLE (10) the scoring plays — B-final Scrabble words like CRUMB exist, but they never appear as Wordle answers.",
+    89→    },
+    90→    c: {
+    91→      title: "C Words for Pattern Coverage",
+    92→      starts:
+    93→        "C is the second-most-common opening letter in Wordle — nearly one answer in ten begins with it, mostly through the CA-, CO-, and CR- families (CANDY, CATCH, COUCH, CRANE, CROSS). C-initial guesses carry excellent coverage because the letter has two distinct sounds: hard /k/ (CATCH, CRANE) and soft /s/ before E, I, Y (CIDER, CYCLE, CIVIC). One C-guess therefore samples both phonetic families at once. The CH- blend (CHAIR, CHESS, CHICK) is its own high-frequency tribe. Opener CRANE is famous for a reason — it packs C, R, A, N, E, five of the highest-value common letters, into a single move.",
+    94→      ends:
+    95→        "Virtually no Wordle answer ends in C — English five-letter words with final C are absent from the answer list, because words like MUSIC and LOGIC place the C in slot four, not five. Treat the pattern as evidence: if you have MUSI- or LOGI- on your grid, C fills slot four, never five. A yellow C typically marks position one or four (CHAIR, MUSIC, LOGIC, MAGIC). Scrabble crossover: C's 3-point tile (two in the bag) rewards interior placement — MUSIC (9 points), MAGIC (9), and LOGIC (6) are all solid Wordle answers that double as tidy Scrabble plays, especially with the C riding a double-letter square.",
+    96→    },
+    97→    d: {
+    98→      title: "D Words for the -ED Deduction",
+    99→      starts:
+   100→        "D is a mid-frequency opener in Wordle — roughly one answer in twenty begins with it (DANCE, DAILY, DIARY, DOUBT, DREAM, DRINK). D-initial words cluster into two strategic groups: the vowel-forward DA-/DE- family (DANCE, DEBUT, DELTA) and the DR- consonant blend (DREAM, DRIFT, DRIVE, DROWN). Because D is one of the four most common ending letters, confirming it early shifts your endgame planning immediately — a gray D at position five is as valuable as a green D at position one. The DI- shapes (DIARY, DIGIT, DINER) round out the front-of-word families worth one mid-game probe.",
+   101→      ends:
+   102→        "D is the seventh-most-common ending letter in Wordle — about four percent of answers — almost entirely through past-tense and adjective shapes: -ED (FIXED, BROAD, BLOOD, THIRD) and bare -D nouns (WORLD, BLOND, HOUND, FIELD, BEARD). The -ED family is a deduction gift: if E and D are both confirmed, the word is likely a past-tense form, and the opening letters carry the meaning. D-final words also pair beautifully with common consonants — WOULD, COULD, SOUND, FOUND form a five-letter rhyme family where one correct guess unlocks several at once. Scrabble crossover: D is a 2-point tile (four in the bag); WORLD and WOUND score 9, BROAD 8 — modest but steady rack-clearers.",
+   103→    },
+   104→    e: {
+   105→      title: "E Words — the Vowel King",
+   106→      starts:
+   107→        "E is the most common letter in the entire Wordle answer pool — about eleven percent of all letters — yet it rarely STARTS an answer: fewer than two percent begin with E (EAGLE, EARLY, EARTH, EIGHT, ELITE, EMPTY, ENEMY, ENTER, EQUAL, ERUPT, EXACT, EXTRA). That inversion matters: E-fronted words are scarce enough that a green E in slot one dramatically narrows the field to the shortlist above. The dominant E-opener families are EA- (EAGLE, EARLY, EARTH), EM-/EN- (EMPTY, ENEMY, ENTER), and the EX- premium pair (EXACT, EXTRA). Because E usually sits interior or final, testing it at position one is a deliberate long-shot with outsized payoff when it lands.",
+   108→      ends:
+   109→        "E is the king of endings: roughly one Wordle answer in five finishes with E — by far the most common final letter. The productive families are -KE, -LE, -ME, -NE, -SE, -TE, and -VE (SNAKE, APPLE, BLAME, STONE, HOUSE, WRITE, GIVE), with the -ER comparative family (AFTER, WATER, SUPER) adding another four percent. When your grid has one unresolved slot and several gray vowels, E is the correct statistical bet at position five. Scrabble crossover: E's 1-point tile (twelve in the bag — the most common tile) keeps per-word scores modest, but E-final answers like HOUSE (8) and STONE (5) are reliable rack-clearers in both games, and the -ER/-LE families are the single best Wordle rhyme sets to drill.",
+   110→    },
+   111→    f: {
+   112→      title: "F Words for Fast Elimination",
+   113→      starts:
+   114→        "F is a mid-frequency opener — about one Wordle answer in twenty begins with it (FAIRY, FANCY, FIELD, FIRST, FLOAT, FRONT, FROST, FRUIT). F-initial words are elimination gold because the letter rarely appears elsewhere: a gray F instantly kills the FA-, FE-, FI-, FO-, FU- families, which is exceptional coverage per guess. The dominant shapes are the FR- blend (FRESH, FRIED, FRONT, FROST) and the vowel-forward FA-/FE- pairs (FANCY, FEAST, FEVER, FIBER). Opener favorites like SLATE and CRANE skip F entirely, so a dedicated F-probe (FRONT, FLOAT, FROST) is worth one mid-game slot when you suspect a front-loaded consonant.",
+   115→      ends:
+   116→        "Effectively zero Wordle answers end in F — the answer list contains no five-letter F-final words, because native English -F endings need longer words (itself, behalf). Use this structurally: when the final letter is unresolved, F is never the answer, so a yellow F marks positions one through four — realistically the interior slots where KNIFE, WOLF, and CHEF place it. Scrabble crossover: F is a 4-point tile (two in the bag), so F-interior answers like KNIFE (12), WOLF (10), and CHEF (12) are exactly the high-scoring Wordle-Scrabble double-duty words this page exists to surface — star them in your Save Vault.",
+   117→    },
+   118→    g: {
+   119→      title: "G Words and the -ING Pattern",
+   120→      starts:
+   121→        "G is a low-frequency opener — under three percent of Wordle answers start with it (GHOST, GIANT, GIVEN, GLASS, GLOBE, GRACE, GRADE, GRAND, GRASP, GRAVE, GROUP, GUESS). Nearly all G-openers route through the GR- blend (GRAND, GRAPE, GRASP, GRAVE, GREED, GRILL, GROSS, GROUP, GROVE, GROWL), with GL- (GLASS, GLOBE, GLORY) and GO- (GOOSE, GORGE) as supporting families. A green G at slot one plus a confirmed R makes the GRA-/GRE- triangle your next move. G's real Wordle power is positional: it appears far more often at the END of answers (-ING) than at the start, so front-testing it is a deliberate inversion play.",
+   122→      ends:
+   123→        "About two percent of Wordle answers end in G, split between the -ING gerund family (BRING, GOING, DYING, USING) and the -NG monosyllables (AMONG, STRONG, WRONG, YOUNG). The deduction play is powerful: a green G at position five plus a vowel hint points to -ING or -ONG immediately, and the front two or three letters become a small searchable set. The -ING words are also grammar-tells: if I-N-G are all confirmed, the answer is a verb form, which further narrows candidates. Scrabble crossover: G's 2-point tile (three in the bag) makes BRING (8) and YOUNG (9) modest Scrabble plays — but the -ING suffix engine is where G earns its keep in the other game.",
+   124→    },
+   125→    h: {
+   126→      title: "H Words — the Blend Decoder",
+   127→      starts:
+   128→        "H is a rare opener alone but a common guest: fewer than three percent of Wordle answers begin with H, and most route through blends that dominate English — TH-, CH-, SH-, WH-. The standalone H-openers are the workhorses (HABIT, HAPPY, HEART, HEAVY, HORSE, HOTEL, HUMAN, HUMOR, HURRY), with the HA-/HE-/HU- vowel-forward shapes carrying most of the load. H's strategic value in Wordle is as a blend-confirmer: if T is yellow and you suspect TH, spending one guess on THEME or THUMB resolves both letters' positions simultaneously. Opener SLATE skips H, so dedicated H-probes matter mid-game when a blend is suspected.",
+   129→      ends:
+   130→        "About three percent of Wordle answers end in H — through the short-vowel blend families: -ACH (BEACH, TEACH), -ITCH (PITCH, SWITCH), -USH (BRUSH, FRESH), and the -UGH shapes (TOUGH, ROUGH, LAUGH, MOUTH). A green H at position five tells you the word is almost certainly a monosyllable with a short vowel plus consonant blend, which collapses the candidate list fast. Scrabble crossover: H is a 4-point tile (two in the bag); WORTH (11) and YOUTH (11) are genuinely strong Scrabble plays that also appear in Wordle — exactly the crossover gems worth starring in your vault.",
+   131→    },
+   132→    i: {
+   133→      title: "I Words — the Interior Vowel",
+   134→      starts:
+   135→        "I is a rare opener — under one percent of Wordle answers start with it (IMAGE, INDEX, INPUT, IRONY, ISSUE, IVORY). The surviving I-openers are loanwords and technical terms, so a green I at slot one is a powerful rarity signal: the answer belongs to a small, recognizable club. The IN- prefix family (INDEX, INPUT) is the densest node, followed by the IR-/IS- shapes (IRONY, ISSUE). Opener ADIEU places I at slot four, where it is far more comfortable — I appears in answers three times more often at positions three and four than at position one, which makes interior-testing the default strategy.",
+   136→      ends:
+   137→        "Almost no Wordle answers end in I — the answer list contains essentially zero I-finals, because native English five-letter words with final I do not exist outside loanwords. That zero is itself the strategy: when the last letter is unresolved, never guess I. A yellow I overwhelmingly marks position three or four — the interior vowel slots (MUSIC, LOGIC, VIVID, RIVAL, CIVIC, PILOT, TIGER). The -IC adjective family (MUSIC, LOGIC, CIVIC, TOPIC, MANIC) is I's most productive Wordle pattern, placing the vowel at slot three and C at slot four. Scrabble crossover: I is a 1-point tile (nine in the bag); VIVID (12 points) is the standout double-duty word — a rare double-V Wordle answer that scores big in Scrabble.",
+   138→    },
+   139→    j: {
+   140→      title: "J Words — the Rarest Start",
+   141→      starts:
+   142→        "J is one of the rarest Wordle letters — roughly a quarter of one percent of answers contain it at all, and openers are essentially limited to JOINT, JOKER, JUICE, JUDGE, JUICY plus a handful of loanwords. That scarcity is the strategy: a green J narrows the field to a tiny memorable club, and one deliberate J-guess (JOKER, JOINT, JUICE) resolves a letter most openers never test. The JU- family (JUICE, JUDGE, JUICY) dominates because English J demands a following vowel. Opener CRANE-style words skip J entirely, so if your grid shows a stubborn unknown consonant late in the puzzle, J is a legitimate long-shot worth one guess.",
+   143→      ends:
+   144→        "Zero Wordle answers end in J — none, in the entire answer list; English five-letter words with final J do not exist in the Wordle pool. Use this as a hard elimination: a yellow J can only mark positions one through four, and realistically one through three. The interior-J plays are the real J habitat: MAJOR and BANJO place J at slots three and four, while JOINT and JOKER keep it at one. ENJOY is the answer most players meet first, with J at slot four. Scrabble crossover: J is an 8-point tile (one in the bag — the rarest), so BANJO (14) and MAJOR (13) are exactly the high-scoring double-duty words this page exists to surface.",
+   145→    },
+   146→    k: {
+   147→      title: "K Words and the CK Pattern",
+   148→      starts:
+   149→        "K is a rare opener — about one percent of Wordle answers begin with it (KNIFE, KNOCK, KNOWN, KAYAK, KIOSK, KNEEL). The KN- silent-letter family (KNIFE, KNOCK, KNOWN, KNEEL) is K's signature: half its openers start with an unpronounced N, a pattern unique in English. That makes K-guesses double-purpose — testing K while confirming whether the silent-N shape is in play. The vowel-heavy KA-/KO- entries (KAYAK, KIOSK) are loanwords with doubled vowels worth recognizing on sight. A green K at slot one plus a gray N eliminates the entire KN- family in one move, which is exceptional information per guess.",
+   150→      ends:
+   151→        "About three percent of Wordle answers end in K — dominated by the short-vowel -ACK/-OCK/-ICK/-UCK families: BLACK, BLOCK, BRICK, CLOCK, KNOCK, QUICK, STICK, STUCK, THINK, THICK, TRACK, TRUCK, SHACK. The deduction play: a green K at five with a confirmed short vowel means the middle consonant is almost certainly L, R, S, T, or a TH blend — five candidates, one guess. The CK-words are also grammar-tells: if C and K are both confirmed, the word is monosyllabic, which kills the remaining verb-form candidates. Scrabble crossover: K is a 5-point tile (one in the bag); QUICK (18), BLACK (11), and THINK (12) are the high-value double-duty answers.",
+   152→    },
+   153→    l: {
+   154→      title: "L Words — the Liquid Ending",
+   155→      starts:
+   156→        "L is a moderately common opener — about four percent of Wordle answers begin with it (LABEL, LARGE, LAUGH, LEARN, LEMON, LIGHT, LIMIT, LOCAL, LOYAL, LUNCH, LUCKY). The LA-/LE- vowel-forward families carry the load, with LI-/LO-/LU- supporting. L-openers pair well with vowel-dense second guesses because L is the most common interior consonant in English: testing it at position one is a statistically sound bet, but a yellow L more often means slots two, three, or four (PLACE, BLEND, FLOOD, SMILE). The LL- double (LLAMA) and the L-blend families (FL-, CL-, PL-, BL-) hide inside thousands of answers, so L-knowledge compounds across every letter page on this site.",
+   157→      ends:
+   158→        "L is the sixth-most-common ending letter — around five percent of answers — through three families: -AL (EQUAL, LOCAL, LEGAL, FOCAL, MEDAL, PEDAL, TOTAL), -LE (APPLE, TABLE, CABLE, NOBLE, MAPLE), and -EL (LABEL, MODEL, HOTEL, VOWEL, JEWEL). That three-family split is the study plan: if the vowel before L is A, think -AL; if E, think -LE or -EL. The -LE family is the largest and rewards pattern drilling (AP-, TA-, CA-, NO- plus LE). Scrabble crossover: L is a 1-point tile (four in the bag); MEDAL (8) and MAPLE (9) are modest Scrabble plays, but LEGAL (6) doubles as a killer Wordle guess when G and L are both in play.",
+   159→    },
+   160→    m: {
+   161→      title: "M Words for Momentum",
+   162→      starts:
+   163→        "M is a moderately common opener — around three percent of Wordle answers (MAGIC, MAJOR, MANGO, MARCH, MATCH, MEDIUM, MINOR, MONEY, MONTH, MORAL, MOTOR, MOUSE, MOUTH, MOVIE, MUSIC). The MA- family is the densest node (MAGIC, MAJOR, MANGO, MARCH, MATCH), with MO- (MONTH, MORAL, MOTOR, MOUSE, MOUTH, MOVIE) close behind. M-initial words are strong second guesses after vowel-heavy openers because M rarely appears at position one without a following A or O. The double-M pattern (COMMA, MUMMY, GAMMA) is rare but distinctive — a yellow M in two slots often signals it, and one probe confirms.",
+   164→      ends:
+   165→        "M is a rare ending — under two percent of Wordle answers finish with it: MAXIM, MEDIUM, RHYTHM, VENOM, FORUM, VICTIM, WISDOM, GLOOM, BLOOM, CHASM, SCREAM, ALBUM, PSALM. Note the shape of that list: M-final words are mostly academic or technical terms with specific vowel structures (OO, A-, I-). A green M at five plus a confirmed double-O or I-vowel points to GLOOM, BLOOM, or VICTIM quickly. Scrabble crossover: M is a 3-point tile (two in the bag); MAXIM (16) and VICTIM (12) are premium double-duty answers, and RHYTHM (21 points, with Y on the double) is the M-family's hidden Scrabble monster.",
+   166→    },
+   167→    n: {
+   168→      title: "N Words — the Nasal Anchor",
+   169→      starts:
+   170→        "N is a mid-frequency opener — about two percent of Wordle answers begin with it (NAIL, NAIVE, NASTY, NAVY, NECK, NERVE, NEVER, NIGHT, NOBLE, NOISE, NORTH, NOTCH, NURSE). The NA- family carries the front (NAIVE, NASTY, NAVY) while NO- (NORTH, NOISE, NOBLE, NOTCH) and NE- (NECK, NERVE, NEVER) split the rest. N-openers are unglamorous but information-dense: because N is the fourth-most-common letter overall, confirming its position early — especially slot four, inside the -ION/-ON patterns — unlocks the ending families that dominate five-letter answers. NIGHT and NOTCH are the blend-probes worth remembering.",
+   171→      ends:
+   172→        "N is the fifth-most-common ending — about six percent of Wordle answers — through two families: -EN (GIVEN, OFTEN, OCEAN, OVEN, WOMEN, SIREN, RAVEN, SEVEN, WOVEN, MELON) and -AN (BEGAN, HUMAN, ORGAN, PECAN, TITAN, VEGAN). A green N at five with an E-hint points to -EN instantly; with an A-hint, -AN. The -EN words are disproportionately common in Wordle because English past participles and mass nouns cluster there. Scrabble crossover: N is a 1-point tile (six in the bag); ORGAN (6) and WOMEN (10) are steady double-duty plays, and RAVEN (8) is the kind of balanced answer that clears racks in both games.",
+   173→    },
+   174→    o: {
+   175→      title: "O Words — the Second Vowel",
+   176→      starts:
+   177→        "O is a rare opener — about one percent of Wordle answers begin with it (OCEAN, OFTEN, OLIVE, ONION, OPERA, OTHER, OUGHT, OUNCE). The O-fronted set is small and vowel-heavy, dominated by the OU- diphthong shapes (OUGHT, OUNCE) and the O+consonant pairs (OCEAN, OFTEN, OLIVE, ONION, OPERA, OTHER). Because O is the fourth-most-common letter overall — usually at positions two and three — O-openers are low-value first guesses. The OO- double-vowel family (BLOOD, FLOOR, GLOOM) starts with other letters but rewards O-knowledge, and the OU- opener shapes are O's distinctive contribution worth one probe.",
+   178→      ends:
+   179→        "About two percent of Wordle answers end in O — a small loanword club: MANGO, TORSO, HALO, PIANO, ECHO, and a handful of borrowings. The list is short enough to memorize outright, which converts a rare ending into a free deduction: if the final letter is unresolved and your vowel hints point to O, test the shortlist above before anything else. A yellow O more often means position two or three (MONEY, PHONE, GHOST, SCOOP, BROOM). Scrabble crossover: O is a 1-point tile (eight in the bag); MANGO (8) and TORSO (5) are modest plays, but knowing O rarely ends answers saves guesses — the real Wordle value of this page.",
+   180→    },
+   181→    p: {
+   182→      title: "P Words for Precision Guesses",
+   183→      starts:
+   184→        "P is a mid-frequency opener — about three percent of Wordle answers (PAINT, PANDA, PAPER, PARTY, PASTA, PATCH, PEARL, PIANO, PLACE, PLAIN, PLANE, PLANT, PLATE, POINT, POUND, POWER, PRESS, PRICE, PRIDE, PRIME, PRIZE, PROVE, PULSE, PUNCH, PUPIL). The PL- and PR- blends (PLAIN, PLANT, PRESS, PRIDE, PRICE) dominate, with PA- vowel-forward (PAPER, PASTA, PANDA) supporting. P-initial guesses are precision instruments: the letter rarely appears elsewhere, so a gray P eliminates three full families at once. The double-P PIZZA pattern is the answer list's most famous loanword — a yellow P with a Z-hint often means PIZZA is in play.",
+   185→      ends:
+   186→        "P is a very rare ending — under one percent of Wordle answers finish with it, through monosyllabic -AP, -IP, and -OP shapes that barely register in the answer list. The realistic advice: almost no answers end in P, so a yellow P marks positions one through three (PAINT, PAPER, PUPIL) with high confidence. Spend final-slot guesses on E, Y, or T instead. Scrabble crossover: P is a 3-point tile (two in the bag); PIZZA (24 points) is the crown jewel — one of the highest-scoring common Wordle answers, worth starring in your Save Vault immediately, and PROVE (10) plus PRIZE (16) are the blend-family's other double-duty champions.",
+   187→    },
+   188→    q: {
+   189→      title: "Q Words Without U",
+   190→      starts:
+   191→        "Q is the rarest Wordle letter — well under one percent of answers contain it, and the openers are a tight club: QUAKE, QUART, QUEEN, QUERY, QUEUE, QUICK, QUILT, QUIET, QUITE, QUOTA, QUOTE. The strategic fact: Wordle answers containing Q follow the QU pattern almost without exception, so a green Q makes U your immediate next test — and if U comes back gray, you are hunting a Q-without-U word, knowledge imported wholesale from tournament Scrabble where QI alone is worth 11 points and QAT, QOPH, and FAQIR keep the Q alive without a U in sight. The live list above shows every valid Q-initial answer with its Scrabble score.",
+   192→      ends:
+   193→        "Zero Wordle answers end in Q — none, in the entire official list. English five-letter words with final Q are exotic loanwords (SUQ, TRANQ) that never appear as answers. That zero is a defensive gift: when the final letter is unresolved, spend guesses on high-probability endings (E, Y, T, R) rather than hunting an impossible Q. A yellow Q can only mean position one or two, and realistically one (QUERY, QUAKE, QUOTE). Scrabble crossover: Q is a 10-point tile (one in the bag — the joint-rarest), so QUOTA (14) and QUERY (16) are premium double-duty answers, and the Q-without-U Scrabble lore (QI, QAT, FAQIR) is exactly why this page's title exists.",
+   194→    },
+   195→    r: {
+   196→      title: "R Words — the Workhorse Consonant",
+   197→      starts:
+   198→        "R is a mid-frequency opener — about two percent of Wordle answers begin with it (RADIO, RAISE, RANCH, RANGE, RAPID, RATIO, REACT, READY, REALM, REFER, RELAX, REPLY, RIDER, RIGID, RISKY, ROBOT, ROUGH, ROUND, ROUTE, ROYAL, RURAL). The RA-/RE- vowel-forward families dominate, with RO- (ROBOT, ROUGH, ROUND, ROYAL) supporting. R is the third-most-common letter overall, so R-openers carry strong coverage value — but a yellow R more often means interior positions (BREAD, FIRST, OTHER) where the letter is twice as frequent. Opener CRANE tests R at slot two, which is why it eliminates so much of the field.",
+   199→      ends:
+   200→        "R is the fourth-most-common ending — about seven percent of Wordle answers — dominated by the -ER agent family: AFTER, FEVER, LATER, LASER, LITER, LUNAR, NEVER, OTHER, OWNER, PAPER, RIVER, SUPER, TIMER, TOWER, UNDER, WATER. The -AR and -OR shapes (SUGAR, VAPOR, FLOOR) add the rest. A green R at five with an E-hint points to -ER instantly, and the front three letters become the searchable core. Scrabble crossover: R is a 1-point tile (six in the bag); RIVER (8) and WATER (7) are steady double-duty plays, and REFER (8) is the answer list's rare double-R bookend — a pattern worth one dedicated probe.",
+   201→    },
+   202→    s: {
+   203→      title: "S Words — the Starting King",
+   204→      starts:
+   205→        "S is the most common opening letter in Wordle — over ten percent of answers begin with it (SALAD, SAUCE, SCALE, SCARE, SCENE, SCOPE, SCORE, SHADOW, SHAKE, SHAPE, SHARE, SHARK, SHARP, SHEEP, SHEET, SHELF, SHELL, SHIFT, SHINE, SHIRT, SHOCK, SHOOT, SHORE, SHORT, SIGHT, SILLY, SINCE, SKILL, SLEEP, SLICE, SMALL, SMART, SMELL, SMILE, SMOKE, SNACK, SOLID, SOLVE, SORRY, SOUND, SOUTH, SPACE, SPARE, SPARK, SPEAK, SPEED, SPELL, SPEND, SPICE, SPLIT, SPOON, STAFF, STAGE, STAIR, STAKE, STAMP, STAND, START, STEAK, STEAL, STEAM, STEEL, STICK, STILL, STOCK, STONE, STOOD, STORE, STORM, STORY, STRIP, STUDY, STYLE, SUGAR, SUITE, SUPER). The SH-, SK-, SM-, SN-, SP-, ST- blends make S-openers a sixty-family landscape — which is why openers like SLATE and SAUCE test S first.",
+   206→      ends:
+   207→        "Here is Wordle's most famous trap: although S is the most common OVERALL letter, almost no answers END in it — under one percent — because the answer list excludes plurals. Players waste guesses on -S endings every day. The few genuine S-finals are mostly irregular plurals and loanwords (CHAOS, CIRCUS, FOCUS, GUESS, GLASS, CROSS, BONUS). The strategy: a yellow S overwhelmingly means position ONE, so test S-fronted words rather than pluralizing. Scrabble crossover: S is a 1-point tile (four in the bag — the plural-maker that extends words); CHAOS (10) and FOCUS (10) are tidy double-duty answers, and BONUS (7) is the meta-irony word of this entire page.",
+   208→    },
+   209→    t: {
+   210→      title: "T Words — the Ending Titan",
+   211→      starts:
+   212→        "T is a mid-frequency opener — about three percent of Wordle answers begin with it (TABLE, TASTE, TEACH, THANK, THEIR, THERE, THESE, THICK, THIEF, THING, THINK, THIRD, THOSE, THUMB, TIGER, TIGHT, TIRED, TITLE, TODAY, TOKEN, TOPIC, TORCH, TOTAL, TOUCH, TOWEL, TOWER, TOXIC, TRACE, TRACK, TRAIL, TRAIN, TREAT, TREND, TRIAL, TRIBE, TRICK, TROOP, TRUCK, TRULY, TRUST, TRUTH, TWICE, TWIST). The TH- blend dominates T-openers (THANK, THEIR, THERE, THICK, THING), with TR- (TRACK, TRAIN, TRUST) close behind. T is the fifth-most-common letter overall, so T-guesses carry high coverage — but its real power sits at the END of answers.",
+   213→      ends:
+   214→        "T is the third-most-common ending — around eight percent of Wordle answers — through four families: -HT (BRIGHT, FIGHT, LIGHT, NIGHT, RIGHT, SIGHT, TIGHT), -NT (FRONT, PLANT, PRINT, SAINT, SPENT, WANT), -ST (FEAST, GHOST, TOAST, TRUST, TWIST, WORST), and -RT (SMART, SPORT, START). The -IGHT family alone is the single best five-letter rhyme set in English — one green GHT unlocks five answers at once. A green T at five plus a vowel shortlist collapses candidates fast. Scrabble crossover: T is a 1-point tile (six in the bag); FIGHT (11) and LIGHT (9) are solid double-duty answers worth vaulting.",
+   215→    },
+   216→    u: {
+   217→      title: "U Words — the Hidden Vowel",
+   218→      starts:
+   219→        "U is the rarest vowel opener — well under one percent of Wordle answers begin with it (UNCLE, UNION, UNTIL, UPPER, URBAN, UPSET, USHER, UTTER). The U-fronted set is tiny, because U almost never leads English words — it is the hidden vowel, lurking at positions two and three (BUILD, GUILT, HOUSE, MOUTH, POINT, POUND, SOUND, WOULD). The QU- pattern is U's most common habitat: every Q-word locks a U behind it, so a green Q makes U-automatic. Opener ADIEU places U at slot four, its natural home, and AUDIO covers it too — both are why U rarely needs a dedicated first guess.",
+   220→      ends:
+   221→        "Under one percent of Wordle answers end in U — effectively zero, because native English five-letter words with final U do not exist outside loanwords. Treat U-finals as an exclusion fact: a yellow U marks positions two through four, most commonly three (BUILD, GUILT, HOUSE, MOUTH). The -UE shapes (DUE, VALUE, VENUE) mostly route the E to slot five instead, leaving U interior. Scrabble crossover: U is a 1-point tile (four in the bag), but QU words ride Q's 10 points — QUERY (16) and QUOTA (14) are the double-duty champions covered on this site's Q companion page, and U-knowledge is the tax you pay to unlock them.",
+   222→    },
+   223→    v: {
+   224→      title: "V Words — the Interior Specialist",
+   225→      starts:
+   226→        "V is one of the rarest Wordle letters — under half a percent of answers start with it (VAGUE, VALID, VALUE, VENOM, VIDEO, VINYL, VIPER, VIRAL, VIRUS, VISIT, VITAL, VIVID, VODKA). The VA-/VI- families dominate (VALID, VALUE, VIDEO, VINYL, VIPER, VIRAL, VIRUS, VISIT). V-openers are long-shot guesses with elite payoff: a green V narrows the field to the tight club above. The double-V VIVID is the answer list's showpiece — the only common double-V English word — and the vowel-heavy shapes (VALID, VALUE, VODKA) are worth recognizing on sight because they are simultaneously excellent Scrabble plays.",
+   227→      ends:
+   228→        "Zero Wordle answers end in V — none. Native English five-letter words with final V do not exist (lav, rev are clippings; even Scrabble's V-final words are foreign imports). Use this as a hard structural fact: a yellow V can only mark positions one through four, and realistically one through three (VIDEO, GIVEN, RIVAL, COVER, HOVER, OLIVE). The -IVE family (ALIVE, DRIVE, OLIVE, WOVEN-no ends N, GIVE) is V's most productive pattern, placing V at slot four. Scrabble crossover: V is a 4-point tile (two in the bag); VIVID (13 points) and VODKA (13) are premium double-duty answers — exactly the crossover gems worth saving to your vault.",
+   229→    },
+   230→    w: {
+   231→      title: "W Words and the WH Pattern",
+   232→      starts:
+   233→        "W is a moderate opener — about three percent of Wordle answers begin with it (WAGON, WASTE, WATCH, WATER, WHEAT, WHEEL, WHERE, WHICH, WHILE, WHITE, WHOLE, WHOSE, WIDOW, WINDY, WITCH, WOMAN, WORLD, WORRY, WORSE, WORTH, WOULD, WOUND, WRIST, WRITE, WRONG, WROTE). The WH- blend is W's signature family (WHEAT, WHEEL, WHERE, WHICH, WHILE, WHITE, WHOLE, WHOSE), followed by the silent-W WR- set (WRIST, WRITE, WRONG, WROTE) — the second silent-letter family after KN-. W-openers test two patterns at once: a gray W eliminates both WH- and WR- families, which is strong per-guess coverage most players never exploit.",
+   234→      ends:
+   235→        "About two percent of Wordle answers end in W — through the -OW diphthong family almost exclusively: BELOW, ELBOW, THROW, ALLOW, ARROW, BILLOW-no, DRAW-no, FOLLOW-no, plus a shortlist of monosyllabic -OW words. The realistic finals set is small enough to memorize: BELOW, ELBOW, THROW, ALLOW, ARROW. A green W at five with an O-hint means -OW instantly, and the front two or three letters become the searchable core. Scrabble crossover: W is a 4-point tile (two in the bag); THROW (11) and ELBOW (10) are strong double-duty answers, and ARROW (8) is the three-vowel W-final that catches unprepared Scrabble racks.",
+   236→    },
+   237→    x: {
+   238→      title: "X Words — the Exclusion Key",
+   239→      starts:
+   240→        "X never starts Wordle answers — zero, in the entire list. English five-letter words beginning with X are transliterations (XYLEM, XEBEC) that never appear as answers. That zero is the strategy: X is purely an interior letter, so a yellow X marks positions three through five (TOXIC, BOXER, HELIX, INDEX, MAXIM, RELAX). Testing X is an exclusion move: a gray X eliminates the -AX, -EX, -IX, -OX families in one guess, which is elite late-game value when the field is narrow. The -EX and -AX shapes (INDEX, RELAX, HELIX, BORAX) are X's genuine habitats worth one deliberate probe.",
+   241→      ends:
+   242→        "A tiny handful of Wordle answers end in X — under half a percent, through the -AX and -EX families (RELAX, plus rarities). The strategic value: X-final answers are so scarce that confirming an X late — especially gray — effectively ends the -AX/-EX hunt in a single move. A green X at five with a preceding vowel hint means RELAX is the overwhelming favorite. Scrabble crossover: X is an 8-point tile (one in the bag — the rarest alongside J); RELAX (12) and TOXIC (14) are premium double-duty answers, and HELIX (17) is the crown jewel of X-words that appear in Wordle — vault it immediately.",
+   243→    },
+   244→    y: {
+   245→      title: "Y Words — the Ending Surprise",
+   246→      starts:
+   247→        "Y almost never starts Wordle answers — under a quarter of one percent (YACHT, YEAST, YIELD, YOUNG, YOUTH). The Y-fronted set is a micro-club, so a green Y at slot one is a powerful rarity signal pointing at those five candidates. Y's real habitat is two-fold: the consonant Y at the END of answers (HAPPY, FUNNY, HEAVY) and the vowel Y inside words (MYTH, RHYME, LYMPH, CRYPT, LYNX). The double-role is Wordle's Y-trap: a yellow Y might be a consonant ending or an interior vowel, and distinguishing which is a mid-game skill that separates streak-keepers from streak-breakers.",
+   248→      ends:
+   249→        "Y is the second-most-common ending letter — around nine percent of Wordle answers — through the -LY, -NY, -RY, -TY families: ANGRY, DAILY, DIRTY, DIZZY, EARLY, EMPTY, FAIRY, FORTY, FUNNY, FUZZY, HAPPY, HEAVY, HURRY, JUICY, LUCKY, NASTY, PARTY, RUSTY, SALTY, SILLY, SIXTY, SORRY, SPICY, STICKY, TASTY, WEARY. The -Y set is huge — drill it by consonant pair (P-Y, T-Y, R-Y, L-Y), because one confirmed Y-final plus a consonant often completes the word. Scrabble crossover: Y is a 4-point tile (two in the bag); FUZZY (29!) and DIZZY (27) are monster double-duty words, among the highest-scoring answers in the entire Wordle pool.",
+   250→    },
+
+[showing lines 1-250 of 286; use offset=251 with limit to continue reading]
