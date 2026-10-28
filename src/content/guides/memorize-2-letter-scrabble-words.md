@@ -1,6 +1,7 @@
 ---
 title: "The Ultimate Guide to Memorizing 2-Letter Scrabble Words"
 date: "2026-10-29"
+description: "The complete NWL2023 2-letter Scrabble word list (107 words) grouped by memorization strategy, plus a spaced-repetition workflow using WordIzy's Save Vault to drill them into long-term memory."
 ---
 Two-letter words are the secret weapon of every Scrabble champion. They look trivial — just two tiles on a board — but they unlock positional value that long words cannot reach. A well-placed 2-letter word lets you parallel-play alongside an existing word, score both words' tile values twice, and block opponents from extending plays. The 107 valid 2-letter words in the NWL2023 (North American) Scrabble dictionary are the foundation of competitive play, and memorizing them is the single highest-ROI vocabulary investment you can make. This guide walks through why 2-letter words matter, gives you the complete list grouped by memorization strategy, and shows you exactly how to use WordIzy to drill them into long-term memory.
 

@@ -1,6 +1,7 @@
 ---
 title: "5 Crossword Solving Tips Every Beginner Needs to Know"
 date: "2026-10-29"
+description: "Master the five highest-leverage crossword solving techniques — long answers first, plural endings, crossing letters, common patterns, and abbreviation shorthand. Includes WordIzy workflow tips."
 ---
 Crossword puzzles look like an intimidating wall of white squares when you first open the newspaper, but they are actually one of the most learnable word games in existence. The secret is that almost every crossword follows predictable patterns: constructors reuse the same short answer words, the same clue phrasings, and the same letter combinations across thousands of puzzles. Once you internalize those patterns, a Tuesday New York Times puzzle that once took you an hour suddenly takes fifteen minutes. This guide walks through the five highest-leverage techniques that experienced solvers rely on every single day, and shows you exactly how to use WordIzy as a crossword assistant when you get stuck.
 

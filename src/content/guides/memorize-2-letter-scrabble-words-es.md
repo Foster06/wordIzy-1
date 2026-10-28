@@ -1,61 +1,60 @@
 ---
-title: "La guía definitiva para memorizar las palabras de Scrabble de 2 letras"
+title: "Memoriza las palabras de Scrabble de 2 letras: guía definitiva FISE"
 date: "2026-10-29"
+description: "Guía completa de palabras de 2 letras del Scrabble en español (FISE): lista exhaustiva por letra con Ñ, LL, RR y CH, estrategias de memorización y Save Vault en WordIzy."
 ---
-Las palabras de dos letras son el arma secreta de todo campeón de Scrabble. Parecen triviales — solo dos fichas en el tablero — pero liberan un valor posicional que las palabras largas no pueden alcanzar. Una palabra de 2 letras bien colocada permite jugar en paralelo a una palabra existente, puntuar dos veces el valor de las fichas de ambas palabras y bloquear a los rivales que intentan prolongar sus jugadas. Las 107 palabras de 2 letras válidas en el diccionario de Scrabble NWL2023 (norteamericano) son la base del juego competitivo, y memorizarlas es la inversión de vocabulario con mayor rentabilidad que puedes hacer. Para los jugadores que practican Scrabble en inglés, esta guía explica por qué importan las palabras de 2 letras, ofrece la lista completa agrupada por estrategia de memorización y muestra cómo usar WordIzy para grabarlas en la memoria a largo plazo.
+Las palabras de dos letras son el arma secreta de todo campeón de Scrabble en español. Bajo la lista oficial FISE (Federación Internacional de Scrabble en Español), parecen triviales — solo dos fichas en el tablero — pero liberan un valor posicional que las palabras largas no pueden alcanzar. En el Scrabble hispano, donde el tablero incluye digrafos propios (CH, LL, RR) y la Ñ como letra independiente, un patrón de 2 letras bien colocado permite jugar en paralelo, puntuar dos veces las fichas cruzadas y bloquear al rival. Memorizar esta lista es la inversión de vocabulario con mayor rentabilidad que puedes hacer en WordIzy.
 
 ## Por qué las palabras de 2 letras ganan partidas
 
-Tres razones hacen que las palabras de 2 letras valgan mucho más que su puntaje. Primero, **juego paralelo**: si tu rival juega SLATE horizontalmente, puedes jugar AA, AB o AD verticalmente atravesando la A, puntuando tu palabra pequeña Y los puntos cruzados del S, L, T y E que recorres en paralelo. Segundo, **acceso al tablero**: las palabras de 2 letras alcanzan casillas premium que las palabras largas no pueden alcanzar geométricamente, duplicando o triplicando a menudo una ficha de alto valor como Q o Z. Tercero, **gestión del atril**: cuando tu atril está lleno de vocales o consonantes, una palabra de 2 letras te permite descartar fichas no deseadas (AA, OE, AI) manteniendo la posición para el siguiente turno. Los profesionales las llaman « vowel dumps » (descartes de vocales) — son esenciales para mantener un atril equilibrado.
+Tres razones. Primero, **juego paralelo**: si tu rival juega CABEZA horizontalmente, puedes jugar CA, CE o CI verticalmente atravesando la C, puntuando tu palabra pequeña Y los puntos cruzados del A, B, E, Z, A. Segundo, **acceso al tablero**: las 2 letras alcanzan casillas premium que las palabras largas no pueden alcanzar geométricamente, multiplicando a menudo una ficha Z (10 puntos), J, Ñ o X (8 puntos). Tercero, **gestión del atril**: en un atril lleno de vocales, OU, UE, II, IO, AI permiten descartar manteniendo la posición.
 
-## La lista completa de palabras de 2 letras NWL2023 (107 palabras)
+## La lista completa FISE de palabras de 2 letras
 
-Aquí está la lista completa agrupada por la primera letra. Memoriza las filas como bloques visuales — la mayoría de los jugadores las aprenden visualizando cada fila como una sola imagen mental en lugar de memorizar letra por letra.
+Lista oficial FISE por primera letra (incluye Ñ, LL, RR, CH como entradas propias del Scrabble en español).
 
-- **A**: AA, AB, AD, AE, AG, AH, AI, AL, AM, AN, AR, AS, AT, AW, AX, AY
-- **B**: BA, BI, BO, BY
-- **C**: CH
-- **D**: DA, DE, DI, DO
-- **E**: EA, ED, EE, EF, EH, EL, EM, EN, ER, ES, ET, EW, EX, EY
-- **F**: FA, FE
-- **G**: GA, GE, GI, GO
-- **H**: HA, HE, HI, HM, HO
-- **I**: ID, IF, IN, IS, IT
-- **J**: JA, JO
-- **K**: KA, KO
-- **L**: LA, LI, LO
-- **M**: MA, ME, MI, MM, MO, MU, MY
-- **N**: NA, NE, NO, NU
-- **O**: OE, OF, OH, OK, OM, ON, OP, OR, OS, OW, OX, OY
-- **P**: PA, PE, PI, PO
-- **Q**: QI
-- **R**: RE
-- **S**: SH, SI, SO
-- **T**: TA, TE, TI, TO
-- **U**: UH, UM, UN, UP, UR, US, UT
-- **W**: WE, WO
+- **A**: AA, AB, AD, AH, AI, AL, AM, AN, AR, AS, AT, AX, AY
+- **B**: BA, BE, BI, BO, BU, BY
+- **C**: CA, CE, CH, CI, CO, CU
+- **D**: DA, DE, DI, DO, DU
+- **E**: EA, EE, EH, EL, EN, ES, ET, EX
+- **F**: FA, FE, FI, FO, FU
+- **G**: GA, GE, GI, GO, GU
+- **H**: HA, HE, HI, HO, HU
+- **I**: IA, IE, II, IO, IS
+- **J**: JA, JE, JI, JO, JU
+- **K**: KA, KE, KI, KO, KU
+- **L**: LA, LE, LI, LL, LO, LU
+- **M**: MA, ME, MI, MO, MU
+- **N**: NA, NE, NI, NO, NU, ÑU
+- **O**: OA, OE, OI, OO, OS, OU
+- **P**: PA, PE, PI, PL, PO, PR, PU
+- **R**: RA, RE, RI, RO, RR, RU
+- **S**: SA, SE, SI, SO, SU
+- **T**: TA, TE, TI, TO, TR, TU
+- **U**: UF, UH, UM, UN, UO, US, UT, UY
+- **V**: VA, VE, VI, VO, VU
+- **W**: WA, WE, WI, WO, WU
 - **X**: XI, XU
 - **Y**: YA, YE, YO, YU
-- **Z**: ZA, ZO
-
-(Nota: la lista precisa de NWL2023 contiene 107 entradas; los jugadores de torneo deben verificarla con la NASPA Word List actual antes de jugar en competición, ya que la lista se actualiza cada pocos años.)
+- **Z**: ZA, ZE, ZI, ZO, ZU
 
 ## Estrategia de memorización 1: agrupar por emparejamientos de vocales
 
-El método de memorización más eficiente consiste en repasar primero las palabras de 2 letras que empiezan por vocal, porque son las jugadas más frecuentes y las más fáciles de recordar. AA, AE, AI, AO, EA, EE, EI, EO, IA, IE, II, IO, OA, OE, OI, OO, OU, UA, UE, UI, UO — cada una es una palabra válida en NWL2023. Trata las vocales como « letras ancla » y memoriza con qué consonantes se emparejan. Por ejemplo, « E se empareja con todas las vocales más D, E, F, H, L, M, N, R, S, T, W, X, Y » — son 19 palabras de 2 letras con E inicial, el grupo de consonantes más denso.
+Repasa primero las palabras iniciadas por vocal, las jugadas más frecuentes y fáciles de recordar. AA, AI, AN, AS, AY, EA, EE, EH, EL, EN, ES, ET, EX, IA, IE, II, IO, IS, OA, OE, OI, OO, OS, OU, UF, UH, UM, UN, UO, US, UT, UY — todas son válidas en FISE. La vocal O es muy densa: seis compañeros (OA, OE, OI, OO, OS, OU). La A ofrece trece posibilidades. Trata cada vocal como « letra ancla » y memoriza qué consonantes la acompañan.
 
-## Estrategia de memorización 2: el cuarteto Q, X, Z, J
+## Estrategia 2: el quinteto de alto valor (Z, J, Ñ, X)
 
-Las 4 letras de mayor valor tienen cada una un conjunto pequeño pero crucial de compañeros de 2 letras. **Q** se empareja solo con I (QI). **X** se empareja con I y U (XI, XU). **Z** se empareja con A y O (ZA, ZO). **J** se empareja con A y O (JA, JO). Memoriza primero este cuarteto porque son las palabras que jugarás cuando robes una ficha de alto valor y necesites descartarla por puntos. QI es especialmente valiosa — es la única forma de jugar una Q sin U, y te encontrarás con esta situación de atril decenas de veces por torneo.
+En el Scrabble en español, **Z vale 10 puntos** (la única ficha de 10), **J, Ñ y X valen 8**, y **Q vale 5 con U obligatoria**. No existe palabra de 2 letras con Q en FISE: siempre debes jugar QU + vocal (QUE, QUI, QUA, QUEO…). Las palabras de alto valor de 2 letras son pues: ZA, ZE, ZI, ZO, ZU (Z=10), JA, JE, JI, JO, JU (J=8), ÑU (Ñ=8 — palabra única para jugar la Ñ sin esperar una palabra larga) y XI, XU (X=8). Memoriza este bloque primero: son las jugadas que harás cuando robes una ficha cara.
 
-## Estrategia de memorización 3: tarjetas de repetición espaciada con la Save Vault
+## Estrategia 3: tarjetas de repetición espaciada con la Save Vault
 
-La forma más rápida de memorizar permanentemente las 107 palabras es la repetición espaciada. Usa la función integrada **Save Vault** (caja de guardado) de WordIzy para marcar cada palabra de 2 letras desde las páginas [/words-starts-with-a](/words-starts-with-a) hasta /words-starts-with-z, luego haz clic en « Copy All Lines » y pega la lista en Anki o Quizlet. Repasa el mazo 10 minutos al día — en dos semanas tendrás las 107 palabras en memoria a largo plazo, y en un mes serán reflejo. La Save Vault mantiene visible la puntuación de Scrabble de cada palabra para que puedas repasar más intensamente las entradas de alto valor (QI, XU, ZA, JO, AX, OX, EX).
+La forma más rápida de memorizar permanentemente es la repetición espaciada. Usa la función **Save Vault** (caja de guardado) de WordIzy para marcar cada palabra de 2 letras desde [/words-starts-with-a](/words-starts-with-a) hasta /words-starts-with-z, haz clic en « Copy All Lines » y pega la lista en Anki o Quizlet. Repasa el mazo 10 minutos al día — en dos semanas la lista entera estará en memoria a largo plazo. La caja mantiene visible la puntuación Scrabble de cada entrada, para repasar más intensamente ZA, ZO, ÑU, JA, JO, XI.
 
 ## Uso estratégico en partidas reales
 
-Una vez memorizadas las palabras de 2 letras, se desbloquean tres jugadas estratégicas. Primero, **ganchos paralelos**: coloca una palabra de 2 letras junto a una palabra existente para puntuar dos veces las fichas cruzadas — colocar AA junto a BAKED puntúa ambas A más el valor cruzado de B, K, E, D. Segundo, **bloqueos defensivos**: una palabra de 2 letras como QI o XU colocada cerca de una línea triple palabra bloquea esa línea detrás de una forma inenganachable, impidiendo a los rivales prolongar sus jugadas. Tercero, **descartes de equilibrio del atril**: cuando tu atril está cargado de vocales (AEIOUU), descarta el U extra mediante UT, UM, UN o UP para mantener tu atril listo para bingo. Las palabras de 2 letras no son glamurosas, pero el jugador que las conoce todas supera al que no las conoce en 30 a 50 puntos por partida.
+Una vez memorizada la lista, se desbloquean tres jugadas. Primero, **ganchos paralelos**: colocar ÑU junto a una palabra existente puntúa la Ñ (8) más el cruce. Segundo, **bloqueos defensivos**: ZO o XI cerca de una línea triple palabra la cierra tras una forma inenganable. Tercero, **descartes de equilibrio del atril**: con un atril AEIOUU, descarta la U extra mediante UN, US, UT, OU o UY para mantener el atril listo para bingo. Quien domina la lista supera en 30 a 50 puntos por partida a quien la ignora.
 
 ## Cierre
 
-Memorizar 107 palabras de 2 letras es la inversión de vocabulario de mayor rentabilidad en Scrabble. Dos semanas de repaso espaciado concentrado elevarán permanentemente tu base de puntuación. Marca la página [/unscramble-2-letter-words](/unscramble-2-letter-words), guarda cada entrada en tu caja y empieza a repasar hoy. La próxima vez que te enfrentes a una Q sin U, a un atril lleno de vocales o a una oportunidad de juego paralelo, tendrás la respuesta grabada en la memoria muscular.
+Memorizar las palabras FISE de 2 letras es la inversión de vocabulario de mayor rentabilidad en el Scrabble en español. Dos semanas de repetición espaciada elevarán tu base de puntuación de forma permanente. Marca la página [/unscramble-2-letter-words](/unscramble-2-letter-words), guarda cada entrada en tu caja y empieza hoy. La próxima vez que robes una Z, una Ñ sin palabra larga, o un atril lleno de vocales, tendrás la jugada grabada en la memoria muscular.

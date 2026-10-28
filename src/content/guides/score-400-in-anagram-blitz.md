@@ -1,6 +1,7 @@
 ---
 title: "How to Consistently Score 400+ in Anagram Blitz"
 date: "2026-10-29"
+description: "Seven specific techniques top players use to hit 400+ points in 60 seconds in Anagram Blitz — suffix recognition, vowel-first scanning, type-without-hesitation, skip discipline, and pattern-recall library."
 ---
 Anagram Blitz is WordIzy's free 60-second word unscramble game, and scoring 400 points in a single round puts you in the top 5 percent of all players. Each correct answer earns 20 points, each skip costs 5, and every correct answer in Infinite Mode adds 10 bonus seconds to the clock. That means scoring 400+ requires netting roughly 20 correct answers in 60 seconds — about one solve every three seconds, with no wasted time. This guide breaks down the seven specific techniques that top players use to hit 400+ consistently, including the mental shortcuts that let you recognize anagram patterns before you've even finished reading the letters on screen.
 

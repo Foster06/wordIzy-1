@@ -56,6 +56,7 @@ export async function generateMetadata({ params }: GuideProps) {
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data } = matter(fileContent);
     if (data.title) title = String(data.title);
+    if (data.description) description = String(data.description);
   }
 
   return {
