@@ -457,33 +457,48 @@ input[type="number"] {
 }
 
 /* ---------- Global button press animation (site-wide) ---------- */
-/* Adds a subtle press-down (scale 0.97) + smooth multi-property transition to
-   every <button>, [role="button"], and <input type="submit|button"> on the
-   site. Lives in @layer base so Tailwind utilities (e.g. `active:scale-95`,
-   `transition-all`, `hover:scale-105`) ALWAYS override when explicitly set
-   on a per-button basis — existing animations like the .btn-amber-flow CTA
-   on the blitz page keep their bespoke hover/active behavior untouched. */
+/* Adds a visible hover lift (3% up) + active press-down (6% down) to every
+   <button>, [role="button"], and <input type="submit|button"> on the site.
+   Lives in @layer base so Tailwind utilities (e.g. `active:scale-95`,
+   `hover:scale-105`, `transition-all`) ALWAYS override when explicitly set
+   on a per-button basis — existing bespoke animations like the .btn-amber-flow
+   CTA on the blitz page (hover:scale-105 + active:scale-95) keep their
+   original behavior untouched. For buttons WITHOUT bespoke scale utilities
+   (unscramble / descramble / solve / check / clear / nav buttons / theme
+   toggle / etc.), this rule provides the visible animation. */
 @layer base {
   button,
   [role="button"],
   input[type="submit"],
   input[type="button"] {
     transition:
-      transform 150ms cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 200ms ease,
+      transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 250ms ease,
       background-color 200ms ease,
       border-color 200ms ease,
-      color 200ms ease;
+      color 200ms ease,
+      filter 200ms ease;
   }
+  /* Hover lift — 3% scale up. Visible feedback when the cursor enters. */
+  button:hover:not(:disabled),
+  [role="button"]:hover:not(:disabled),
+  input[type="submit"]:hover,
+  input[type="button"]:hover {
+    transform: scale(1.03);
+  }
+  /* Active press — 6% scale down. Obvious click feedback while held. */
+  /* Wins over the hover lift because :active state is more specific than :hover
+     in the user-interaction cascade, AND both rules apply during a click
+     (hover is implicit during active). */
   button:active:not(:disabled),
   [role="button"]:active:not(:disabled),
   input[type="submit"]:active,
   input[type="button"]:active {
-    transform: scale(0.97);
+    transform: scale(0.94);
   }
   /* Accessibility: respect user's reduced-motion preference — kill the
-     press-down + transitions entirely for users who set OS-level
-     prefers-reduced-motion. */
+     hover lift + active press + all transitions entirely for users who set
+     OS-level prefers-reduced-motion. */
   @media (prefers-reduced-motion: reduce) {
     button,
     [role="button"],
@@ -491,6 +506,10 @@ input[type="number"] {
     input[type="button"] {
       transition: none !important;
     }
+    button:hover,
+    [role="button"]:hover,
+    input[type="submit"]:hover,
+    input[type="button"]:hover,
     button:active,
     [role="button"]:active,
     input[type="submit"]:active,

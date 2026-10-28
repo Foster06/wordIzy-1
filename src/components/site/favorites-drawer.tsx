@@ -122,8 +122,10 @@ export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
               </button>
             </div>
 
-            {/* Counts Area Panel */}
-            <div style={{ backgroundColor: containerBgColor }} className="flex justify-between items-center text-xs text-neutral-400 mb-4 px-1">
+            {/* Counts Area Panel — px-0 so the count + Copy-All link align
+                exactly with the header row above and the word rows below.
+                Previously px-1 which caused a 4px left-edge misalignment. */}
+            <div style={{ backgroundColor: containerBgColor }} className="flex justify-between items-center text-xs text-neutral-400 mb-4 px-0">
               <span>{favorites?.length ?? 0} saved words</span>
               {favorites && favorites.length > 0 && (
                 <button 
@@ -139,8 +141,12 @@ export function FavoritesDrawer({ isOpen, onClose }: FavoritesDrawerProps) {
               )}
             </div>
 
-            {/* Bookmarked Word rows container */}
-            <div style={{ backgroundColor: containerBgColor }} className="space-y-1.5 max-h-[75vh] overflow-y-auto pr-1 nice-scroll">
+            {/* Bookmarked Word rows container — pr-0 so word-row cards span the
+                same width as the header + counts rows above. Previously pr-1
+                which made the rows 4px narrower than the header (right-edge
+                misalignment). The `nice-scroll` thin-scrollbar style means
+                the scrollbar no longer needs a 4px gutter. */}
+            <div style={{ backgroundColor: containerBgColor }} className="space-y-1.5 max-h-[75vh] overflow-y-auto pr-0 nice-scroll">
               {!favorites || favorites.length === 0 ? (
                 <div 
                   style={{ 
