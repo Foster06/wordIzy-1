@@ -1028,3 +1028,48 @@ Stage Summary:
 - AdSense remains consent-gated via `<AnalyticsScripts />` component.
 - Single source of Ahrefs loading (no double-counting risk).
 - Live on origin/main at commit 4bb78d8.
+
+---
+Task ID: 18
+Agent: main
+Task: Add 300-400 word educational strategy articles beneath every word-list page (AdSense quality-content criterion)
+
+Work Log:
+- User request: transform thin tool pages into "authentic, high-quality information resources" per Google's AdSense criteria, with genuinely unique per-letter context per language (NOT literal translations). Example title given: "How to Win Scrabble Games Using Q Words Without U".
+
+- Exploration (subagent) mapped the full architecture: ProgrammaticSEOView (410 lines), word-list-data.ts caching layer, per-language tile values (FR Q=8, ES Q=5, IT max=5, DE P=6, NL Q=10), Wordle dict = EN-only 5/6/7-letter words, SSR English-only initialData, insertion point after sibling nav.
+
+- NEW FILE src/lib/word-list-articles.ts (965 lines):
+  - Interface: LangArticleContent { titleTemplate, startsLead, endsLead, tileTemplate, topWordsHeading, topWordsLead, closing, wordleNote, lengthsLead, lengths (2-15), letters (a-z with {title, starts, ends}) }
+  - EN (flagship): rich unique per-letter strategy for all 26 letters x starts/ends — Q angle is exactly the user's example "Q Words Without U" (QI/QAT/QOPH/QANAT/QINDAR strategy), X = two-letter goldmine (AX/EX/OX/XI/XU), S = hook master, Z = -ZZ double-square straddling, etc.
+  - FR: genuinely contextual — 5 ten-point tiles (K/W/X/Y/Z), Q=8 with COQ/CINQ as the only Q-sans-U finals, -X plural gold (CHEVAUX/GÉNÉRAUX), N-mute verrous (-ENT/-ANT/-ONT)
+  - ES: contextual — Ñ/LL/RR are exclusive 8-point FISE tiles, Z the only 10, Q=5 with mandatory QU, CH=5 own tile
+  - DE: contextual — Q/X/Y=10, J/V=8, P=6 (vs EN 3), H=2 (vs EN 4), Z=3 (vs EN 10), umlauts as AE/OE/UE
+  - Record typed Partial<Record<LanguageCode, LangArticleContent>> so IT/PT/NL/JA/ZH fall back to EN at runtime — remaining languages can be added later without touching the component.
+  - Cleaned all "thinking-out-loud" artifacts ("? no —" patterns) via scripts/fix_wordlist_articles.py (persisted per Script Persistence Rule) + targeted MultiEdits; final grep confirms zero artifacts.
+
+- NEW src/lib/word-list-data.ts function: getTopScoringWords(slug, lang, limit) — sorts the cached list score-desc (alpha tiebreak), slices, maps to {word, score}. Rides listCache so it is ~free after first call.
+
+- NEW src/components/site/word-list-article.tsx (client component):
+  - Composes article from: per-letter unique prose + LIVE tile facts interpolated from LANGUAGES[lang] (real score/count/double/triple, per-language plural forms for EN s/FR s/ES s/DE n) + REAL top-10 words with live scores (SSR-seeded EN; client-refetch via /api/word-list?sort=score when lang changes) + Wordle overlay on dict==="wordle" + bingo-bonus paragraph on length pages.
+  - Styled per the blitz SEO section convention (max-w-2xl mx-auto text-sm muted, h2 text-lg bold).
+  - Word chips use the existing .word-chip CSS class.
+
+- Wiring: page.tsx computes topWordData = getTopScoringWords(slug, "en", 10) in both slug branches and passes to MainToolView → ProgrammaticSEOView → <WordListArticle config slug initialTopWords total /> after the sibling nav, above the About section.
+
+- Live verification (dev server curl, SSR HTML):
+  - /words-starts-with-q renders "How to Win Scrabble Games Using Q Words Without U" + 376-word article + tile facts (Q=10 points, 1 tile, double=20, triple=30) + real chips QUIZZIFICATIONS(47)/QUIZZIFICATION(46)/QUIZZIFYING(45)/QUIZZICALITY(44)...
+  - Letter pages: 337-398 words (within 300-400 spec)
+  - Length pages: 284 words (boosted with bingo-bonus paragraph)
+  - /wordle-words-starts-with-q shows Wordle overlay; /words-ends-with-a shows different unique prose than starts
+  - Fixed plural bug: {plural} now keyed to tileScore not tileCount ("10 points" not "10 point")
+  - Article fully SSR-rendered — AdSense crawler sees it without JS
+
+- Quality: TypeScript 0 errors. ESLint 0 errors on all new/modified files. The 19 pre-existing programmatic-seo-view.tsx rules-of-hooks errors verified untouched (git stash before/after shows identical 19).
+
+- Committed 9926874, pushed to origin/main (ea35680..9926874).
+
+Stage Summary:
+- ~118 thin word-list pages now each render a unique 284-398 word expert strategy article with live tile economics and real top-scoring words, fully SSR-crawlable.
+- 4 languages fully authored with genuine per-language Scrabble context; 5 more fall back to EN until authored.
+- Follow-up opportunity: author IT/PT/NL/JA/ZH letter prose in word-list-articles.ts (the Partial record + component fallback already support it — no wiring changes needed).
