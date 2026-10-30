@@ -1487,3 +1487,32 @@ Three separate visual issues, fixed across two turns:
 - SSR curl /blitz → 200, h1 count went 0 → 1, h1 content: "Play Anagram Blitz — Free 60-Second Word Game"
 - Compiled CSS contains `scale(1.03)` (hover lift), `scale(.94)` (active press), `button:hover:not(:disabled)`, `button:active:not(:disabled)`, `prefers-reduced-motion` (2 instances: existing btn-amber-flow + new rule), `filter 200ms ease` (added for brightness transition)
 - Save Vault source: `justifyContent: "flex-start"` confirmed on inner content canvas (line 104), `pb-3 mb-2` on header div, `px-0` on counts row, `pr-0` on word rows container
+
+## Task 26 (Oct 29 2026) — Save Vault polish + Umami Cloud Analytics
+
+Two independent changes batched into one push.
+
+### Save Vault layout polish (src/components/site/favorites-drawer.tsx)
+User reported the previous round of Save Vault fixes (Task 25) didn't actually solve the visual issues. Re-investigation found that my previous fixes only addressed outer-edge alignment, not text-position alignment:
+
+- **Issue #1 (horizontal text misalignment)**: Word cards have `p-2.5` (10px internal padding) so their TEXT sits 10px in from the card edge. Header + counts rows previously had `px-0` (no horizontal padding) so their text was at x=0 — a 10px visible misalignment vs the word card text. Fix: added `px-2.5` to both the header row and the counts row, so all text (header title, counts text, word-card text) aligns at x=10 from the canvas edge.
+- **Issue #2 (header gap too loose)**: Previous `pb-3 mb-2` was 20px total. Bumped to `pb-2 mb-1` (12px total: 8px above border + 4px below). Border-bottom now feels attached to the content below.
+- **Issue #3 (big empty gap below word card)**: The `justifyContent: "flex-start"` fix from Task 25 was correct but the user was likely seeing the cached old CSS bundle. Did a clean dev-server restart (killed pid, cleared .next/cache, restarted supervisor) to force a full recompile — the flex-start change is now live and the footer sits right below the word cards instead of being pinned to the bottom of the drawer.
+
+### Umami Cloud Analytics integration (next.config.ts + src/app/layout.tsx)
+User requested adding the Umami Cloud script tag `<script defer src="https://cloud.umami.is/script.js" data-website-id="06a0f162-8e8b-488c-9633-5621dad76f06"></script>` site-wide.
+
+**CSP allowlist (next.config.ts)**: Added `https://cloud.umami.is` to both `script-src` (so the browser fetches the loader script) and `connect-src` (so the loader can POST pageview beacons to `/api/send`). Added inline comments explaining each addition.
+
+**Layout (src/app/layout.tsx)**:
+- New constant `UMAMI_WEBSITE_ID = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ?? "06a0f162-8e8b-488c-9633-5621dad76f06"` (env-overridable, hardcoded fallback — same pattern as the existing Ahrefs key)
+- Added `<script defer src="https://cloud.umami.is/script.js" data-website-id={UMAMI_WEBSITE_ID} />` in `<head>`, right after the Ahrefs loader
+- Loaded **unconditionally** (not gated behind cookie consent) — Umami is privacy-friendly: no cookies, no PII, anonymous pageview counts. Same posture as the existing Ahrefs and Vercel Analytics trackers. Visitors who click "Decline" in the cookie banner still get Umami pageview tracking (legal because no cookies/PII).
+
+### Verification
+- TypeScript: `bunx tsc --noEmit` — 0 errors
+- ESLint: `bunx eslint` on layout.tsx + next.config.ts — 0 errors, 0 warnings
+- Dev supervisor: clean restart done (killed old pid, cleared .next/cache, restarted) so next.config.ts CSP changes are live
+- SSR curl / → 200, HTML contains `<script defer="" src="https://cloud.umami.is/script.js" data-website-id="06a0f162-8e8b-488c-9633-5621dad76f06">` in <head>
+- CSP header on / response: `script-src` includes `https://cloud.umami.is`, `connect-src` includes `https://cloud.umami.is`
+- Sanity: /, /blitz, /privacy all return HTTP 200 — no regressions from the CSP or layout changes
