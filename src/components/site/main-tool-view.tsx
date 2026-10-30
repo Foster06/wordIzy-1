@@ -18,6 +18,7 @@ const UnscramblerTool = dynamic(
 );
 import Link from "next/link";
 import { BookOpen, ChevronRight, Zap } from "lucide-react";
+import { trackUmamiEvent } from "@/lib/umami";
 
 const ScrambleTool = dynamic(
   () => import("@/components/tools/scramble-tool").then((m) => m.ScrambleTool),
@@ -172,6 +173,11 @@ export function MainToolView({ params, initialWordListData, topWordData }: MainT
                 </div>
                 <Link
                   href="/blitz"
+                  onClick={() => trackUmamiEvent("play_blitz_cta_click", {
+                    location: "homepage_featured_card",
+                    destination: "/blitz",
+                    button_label: "Play Now — It's Free",
+                  })}
                   className="btn-amber-flow shrink-0 inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg text-sm font-bold hover:brightness-110 transition-transform hover:scale-105 active:scale-95 shadow-lg shadow-brand/30"
                 >
                   <Zap className="h-4 w-4" />
