@@ -1516,3 +1516,68 @@ User requested adding the Umami Cloud script tag `<script defer src="https://clo
 - SSR curl / → 200, HTML contains `<script defer="" src="https://cloud.umami.is/script.js" data-website-id="06a0f162-8e8b-488c-9633-5621dad76f06">` in <head>
 - CSP header on / response: `script-src` includes `https://cloud.umami.is`, `connect-src` includes `https://cloud.umami.is`
 - Sanity: /, /blitz, /privacy all return HTTP 200 — no regressions from the CSP or layout changes
+
+## Task 27 (Oct 29 2026) — Umami custom event tracking on Play Now button
+
+User requested: "track engagement on your 'Play Now' button using Umami's custom event tracking".
+
+### New files
+
+**src/types/umami.d.ts** — TypeScript global declaration for `window.umami`:
+```ts
+interface UmamiAnalytics {
+  track: (eventName: string, data?: Record<string, unknown>) => void;
+  trackView?: (url: string, referrer?: string, websiteId?: string) => void;
+}
+interface Window { umami?: UmamiAnalytics; }
+```
+The `?` optional marker reflects that Umami may not be loaded yet (defer script still downloading, ad-blocker blocking, CSP violation, etc.). Gives TypeScript autocomplete + type-checking when accessing `window.umami` anywhere in the codebase.
+
+**src/lib/umami.ts** — Safe wrapper `trackUmamiEvent(eventName, properties?)`:
+- SSR guard: no-op if `typeof window === "undefined"` (server rendering)
+- Defensive check: no-op if `window.umami?.track` isn't a function yet
+- try/catch: analytics NEVER throws — worst case it logs to `console.warn` in dev mode
+- Fire-and-forget: caller doesn't need to await anything
+
+### Play Now button onClick (src/components/site/main-tool-view.tsx)
+
+Imported `trackUmamiEvent` from `@/lib/umami` and added an `onClick` handler to the homepage's "Play Now — It's Free" button (the Featured Game card CTA → `/blitz`):
+
+```tsx
+<Link
+  href="/blitz"
+  onClick={() => trackUmamiEvent("play_blitz_cta_click", {
+    location: "homepage_featured_card",
+    destination: "/blitz",
+    button_label: "Play Now — It's Free",
+  })}
+  className="btn-amber-flow ..."
+>
+  <Zap className="h-4 w-4" />
+  Play Now — It's Free
+</Link>
+```
+
+### Event flow
+1. User clicks "Play Now — It's Free" on the homepage
+2. React fires the onClick handler BEFORE Next.js navigates to /blitz
+3. `trackUmamiEvent("play_blitz_cta_click", { location, destination, button_label })` runs
+4. Helper calls `window.umami.track(...)` (no-op if Umami isn't loaded)
+5. Umami internally uses `navigator.sendBeacon()` to POST the event to `cloud.umami.is/api/send` — fire-and-forget, survives the page navigation to /blitz
+6. User lands on /blitz (the auto pageview tracking fires separately for the new URL)
+
+### Event properties visible in Umami dashboard
+In Umami Cloud → Website `06a0f162-8e8b-488c-9633-5621dad76f06` → Events tab, the event `play_blitz_cta_click` will appear with properties:
+- `location`: "homepage_featured_card"
+- `destination`: "/blitz"
+- `button_label`: "Play Now — It's Free"
+
+Filterable/groupable by any property in the dashboard.
+
+### Verification
+- TypeScript: `bunx tsc --noEmit` — 0 errors (the new src/types/umami.d.ts augments the global Window interface correctly)
+- ESLint: `bunx eslint` on main-tool-view.tsx + umami.ts + umami.d.ts — 0 errors, 0 warnings
+- Sandbox: dev supervisor restarted, / homepage returns HTTP 200
+- Play Now button still renders correctly (count: 1), href="/blitz" still navigates correctly
+- Umami loader script still in <head> (count: 2 — head + inline reference)
+- The onClick handler isn't visible in SSR HTML (React attaches it client-side after hydration) — that's expected. To verify the event fires, the user can: hard-refresh → DevTools → Network → filter "umami" → click Play Now → see POST to cloud.umami.is/api/send with JSON body containing `name: "play_blitz_cta_click"` + properties
