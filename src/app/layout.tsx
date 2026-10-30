@@ -72,6 +72,16 @@ const robotoSlab = Roboto_Slab({
 const AHREFS_ANALYTICS_KEY =
   process.env.NEXT_PUBLIC_AHREFS_ANALYTICS_KEY ?? "F87goBifqTaUBs3AbK3EWA";
 
+// Umami Cloud Analytics — public website id (safe to expose: ships in the HTML
+// like the Ahrefs key above). Env-overridable, hardcoded fallback keeps it
+// working without any .env entry. Loaded via a defer <script> in <head> below.
+// Umami is privacy-friendly (no cookies, no PII, anonymous pageview counts) so
+// it loads unconditionally, NOT gated behind cookie consent — same posture as
+// Ahrefs. CSP allowlists cloud.umami.is in both script-src (loader) and
+// connect-src (beacon endpoints /api/send).
+const UMAMI_WEBSITE_ID =
+  process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ?? "06a0f162-8e8b-488c-9633-5621dad76f06";
+
 // AdSense is gated behind cookie consent (uses cookies for ad personalization —
 // GDPR/ePrivacy require opt-in). The actual AdSense <script> tag is rendered
 // by <AnalyticsScripts /> (a client component) which reads consent state from
@@ -275,6 +285,19 @@ ahrefs_analytics_script.src = 'https://analytics.ahrefs.com/analytics.js';
 ahrefs_analytics_script.setAttribute('data-key', ${JSON.stringify(AHREFS_ANALYTICS_KEY)});
 document.getElementsByTagName('head')[0].appendChild(ahrefs_analytics_script);`,
           }}
+        />
+        {/*
+          Umami Cloud Analytics — privacy-friendly pageview tracker (no cookies,
+          no PII). Loaded unconditionally via defer <script> in <head>, same
+          posture as Ahrefs above. CSP allowlists cloud.umami.is in script-src
+          (this loader) and connect-src (its /api/send beacon endpoint).
+          Website id is env-overridable via NEXT_PUBLIC_UMAMI_WEBSITE_ID; falls
+          back to the hardcoded project id when env is unset.
+        */}
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id={UMAMI_WEBSITE_ID}
         />
         {/*
           AdSense + other consent-gated trackers (e.g. Google Ads pixels) are

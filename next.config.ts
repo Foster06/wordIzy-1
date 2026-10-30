@@ -107,7 +107,7 @@ const nextConfig: NextConfig = {
               // 'unsafe-eval' is DEV-ONLY: next dev serves modules through
               // eval-based source maps (devtool: 'eval-source-map'). Production
               // bundles contain no eval, so it is never added there.
-              `script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com https://fundingchoicesmessages.google.com https://analytics.ahrefs.com${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
+              `script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://va.vercel-scripts.com https://fundingchoicesmessages.google.com https://analytics.ahrefs.com https://cloud.umami.is${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
               // style-src — 'unsafe-inline' is required by Next.js (inline
               // hydration styles) + Tailwind. We self-host all fonts via
               // next/font/google so no googleapis.com allowlist is needed.
@@ -118,7 +118,10 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: https:",
               // Ahrefs Web Analytics sends events via sendBeacon/XMLHttpRequest
               // POST to https://analytics.ahrefs.com/api/event (+ /api/error).
-              "connect-src 'self' https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://analytics.ahrefs.com",
+              // cloud.umami.is — Umami Cloud Analytics: the script.js loader
+              // AND its beacon endpoints (/api/send + /api/event) are all on
+              // this single origin. Privacy-friendly (no cookies, no PII).
+              "connect-src 'self' https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://analytics.ahrefs.com https://cloud.umami.is",
               // frame-src — AdSense serves creatives from doubleclick AND
               // tpc.googlesyndication.com (image/video ad iframes). Without
               // tpc here, real ad impressions trigger CSP frame-src violations.
