@@ -29,6 +29,20 @@ export function AnagramBlitz() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [revealMessage, setRevealMessage] = useState("");
   const [hasPlayedToday, setHasPlayedToday] = useState(false);
+  // All-time best score (persists across days via localStorage izy_blitz_best_score).
+  // Separate from izy_blitz_high_score which tracks TODAY's daily challenge best
+  // (resets when the date changes). bestScore is the lifetime record.
+  const [bestScore, setBestScore] = useState(0);
+  // Set true when the just-ended game beat bestScore — drives the "🎉 NEW BEST!"
+  // celebration banner in the game-over UI. Reset to false when a new game starts.
+  const [isNewBest, setIsNewBest] = useState(false);
+  // Set true when the just-ended game DIDN'T beat bestScore but came within 20
+  // points of it — drives the "So close! Just N points away" motivational
+  // message. Reset to false when a new game starts.
+  const [almostBeat, setAlmostBeat] = useState(false);
+  // How many points the user was away from bestScore (used to fill the {points}
+  // placeholder in t.blitz.almostBeat). Only meaningful when almostBeat === true.
+  const [pointsAway, setPointsAway] = useState(0);
   // SSR-friendly: default to NOT loading so the start menu renders during SSR.
   // The daily-status check runs in useEffect (client-only) and updates
   // hasPlayedToday after hydration. This means the SSR HTML contains the
@@ -48,6 +62,15 @@ export function AnagramBlitz() {
         if (dailyHighScore) setScore(parseInt(dailyHighScore, 10));
       }
       // No setLoading(false) needed — we default to false.
+
+      // Load the all-time best score (persists across days, separate from
+      // the daily high score above). Shown on the start menu + game-over
+      // screen for motivation. Defaults to 0 when no record exists yet.
+      const storedBest = localStorage.getItem("izy_blitz_best_score");
+      if (storedBest) {
+        const parsed = parseInt(storedBest, 10);
+        if (!Number.isNaN(parsed)) setBestScore(parsed);
+      }
     };
 
     checkDailyStatus();
@@ -148,9 +171,37 @@ export function AnagramBlitz() {
       setHasPlayedToday(true);
     }
 
+    // Daily high score (existing logic — tracks TODAY's best only).
     const currentHigh = localStorage.getItem("izy_blitz_high_score") || "0";
     if (score > parseInt(currentHigh, 10)) {
       localStorage.setItem("izy_blitz_high_score", score.toString());
+    }
+
+    // All-time best score (NEW — persists across days via izy_blitz_best_score).
+    // Three outcomes:
+    //   1. score > bestScore        → NEW BEST! Update localStorage + state +
+    //                                 show celebration banner (isNewBest=true)
+    //   2. bestScore - score <= 20  → "So close!" motivational message
+    //                                 (almostBeat=true, pointsAway=N)
+    //   3. otherwise                → no special messaging (just show final score)
+    // The 20-point threshold (~1 correct answer worth) gives a satisfying "almost"
+    // signal without being too generous.
+    if (score > bestScore) {
+      localStorage.setItem("izy_blitz_best_score", score.toString());
+      setBestScore(score);
+      setIsNewBest(true);
+      setAlmostBeat(false);
+      setPointsAway(0);
+    } else {
+      setIsNewBest(false);
+      const away = bestScore - score;
+      if (away > 0 && away <= 20) {
+        setAlmostBeat(true);
+        setPointsAway(away);
+      } else {
+        setAlmostBeat(false);
+        setPointsAway(0);
+      }
     }
   };
 
@@ -162,6 +213,11 @@ export function AnagramBlitz() {
     setScore(0);
     setRevealMessage("");
     setInput("");
+    // Reset game-over messaging flags so a fresh game doesn't show stale
+    // "NEW BEST!" or "So close!" banners from the previous round.
+    setIsNewBest(false);
+    setAlmostBeat(false);
+    setPointsAway(0);
     await fetchWordFromDictionary("infinite");
   };
 
@@ -173,6 +229,9 @@ export function AnagramBlitz() {
     setScore(0);
     setRevealMessage("");
     setInput("");
+    setIsNewBest(false);
+    setAlmostBeat(false);
+    setPointsAway(0);
     await fetchWordFromDictionary("daily");
   };
 
@@ -203,6 +262,15 @@ export function AnagramBlitz() {
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand/10 text-brand uppercase tracking-wider">{t.ui.newDailyChallenge}</span>
         <h3 className="text-xl font-bold mt-2 mb-1">{t.blitz.challengeTitle}</h3>
         <p className="text-muted-foreground text-xs mb-4">{t.blitz.challengeDesc}</p>
+        {/* All-time best score badge — shown on the start menu when the user
+            has played before (bestScore > 0). Hides on first-ever play (no
+            record yet — would show "0" which is meaningless). Gives the user
+            a target to beat before they start. */}
+        {bestScore > 0 && (
+          <p className="text-xs text-muted-foreground mb-4">
+            🏆 {t.blitz.bestScore}: <span className="font-bold text-brand">{bestScore}</span>
+          </p>
+        )}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
         <button
           onClick={startDailyChallenge}
@@ -228,6 +296,33 @@ export function AnagramBlitz() {
       <GlassCard className="p-6 text-center max-w-md mx-auto">
         <h4 className="text-lg font-bold">{t.blitz.timesUp}</h4>
         <p className="text-sm my-2">{t.blitz.finalScore} <span className="font-bold text-brand">{score}</span> {t.blitz.points}</p>
+
+        {/* NEW BEST SCORE celebration banner — shown when the just-ended game
+            beat the user's all-time best. Emerald-tinted to stand out from the
+            regular final-score line above. Only renders when isNewBest is true
+            (set in handleStopGame when score > bestScore at game-over time). */}
+        {isNewBest && (
+          <p className="text-sm font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 rounded-lg py-2 px-3 my-2">
+            {t.blitz.newBestScore}
+          </p>
+        )}
+
+        {/* "So close!" motivational message — shown when the user didn't beat
+            their best but came within 20 points of it. Amber-tinted to feel
+            encouraging rather than punishing. The {points} placeholder in
+            t.blitz.almostBeat is replaced with the actual point gap. */}
+        {almostBeat && (
+          <p className="text-xs text-amber-500 bg-amber-500/5 border border-amber-500/20 rounded-lg py-2 px-3 my-2">
+            {t.blitz.almostBeat.replace("{points}", String(pointsAway))}
+          </p>
+        )}
+
+        {/* Best score display — always shown on game-over (even when isNewBest,
+            where it equals the just-achieved score). Gives the user context for
+            how their current game stacks up against their lifetime record. */}
+        <p className="text-xs text-muted-foreground my-2">
+          🏆 {t.blitz.bestScore}: <span className="font-bold text-foreground">{bestScore}</span>
+        </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-2">
           {isInfiniteMode ? (

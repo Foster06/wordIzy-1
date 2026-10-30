@@ -138,6 +138,10 @@ export type Translation = {
   timesUp: string;
   finalScore: string;
   points: string;
+  // All-time best score (persisted across days via localStorage izy_blitz_best_score)
+  bestScore: string;
+  newBestScore: string;
+  almostBeat: string; // contains {points} placeholder for the points-away count
   playAgain: string;
   dailyLocked: string;
   returnMenu: string;
@@ -502,6 +506,9 @@ const en: Translation = {
   timesUp: "⏱️ Time's Up! Game Over",
   finalScore: "Final Score:",
   points: "points.",
+  bestScore: "Best Score",
+  newBestScore: "🎉 NEW BEST SCORE!",
+  almostBeat: "So close! Just {points} points away from your best!",
   playAgain: "🔄 Play Practice Again",
   dailyLocked: "Your daily attempt is locked. See you tomorrow!",
   returnMenu: "Return to Menu",
@@ -907,6 +914,9 @@ const fr: Translation = {
   timesUp: "⏱️ Temps écoulé ! Partie terminée",
   finalScore: "Score final :",
   points: "points.",
+  bestScore: "Meilleur score",
+  newBestScore: "🎉 NOUVEAU MEILLEUR SCORE !",
+  almostBeat: "Si proche ! À seulement {points} points de votre meilleur score !",
   playAgain: "🔄 Rejouer",
   dailyLocked: "Votre tentative quotidienne est verrouillée. À demain !",
   returnMenu: "Retour au menu",
@@ -1285,6 +1295,9 @@ const es: Translation = {
   timesUp: "⏱️ ¡Se acabó el tiempo! Juego terminado",
   finalScore: "Puntuación final:",
   points: "puntos.",
+  bestScore: "Mejor puntuación",
+  newBestScore: "🎉 ¡NUEVO MEJOR RÉCORD!",
+  almostBeat: "¡Casi! A solo {points} puntos de tu mejor puntuación.",
   playAgain: "🔄 Jugar de nuevo",
   dailyLocked: "Tu intento diario está bloqueado. ¡Hasta mañana!",
   returnMenu: "Volver al menú",
@@ -1663,6 +1676,9 @@ const de: Translation = {
   timesUp: "⏱️ Zeit ist um! Spiel vorbei",
   finalScore: "Endpunktzahl:",
   points: "Punkte.",
+  bestScore: "Bester Punktestand",
+  newBestScore: "🎉 NEUER BESTWERT!",
+  almostBeat: "Knapp vorbei! Nur {points} Punkte von deinem Bestwert entfernt!",
   playAgain: "🔄 Nochmal üben",
   dailyLocked: "Ihr täglicher Versuch ist gesperrt. Bis morgen!",
   returnMenu: "Zum Menü",
@@ -2041,6 +2057,9 @@ const it: Translation = {
   timesUp: "⏱️ Tempo scaduto! Gioco finito",
   finalScore: "Punteggio finale:",
   points: "punti.",
+  bestScore: "Miglior punteggio",
+  newBestScore: "🎉 NUOVO MIGLIOR PUNTEGGIO!",
+  almostBeat: "Ci sei quasi! A soli {points} punti dal tuo miglior punteggio!",
   playAgain: "🔄 Gioca di nuovo",
   dailyLocked: "Il tuo tentativo giornaliero è bloccato. A domani!",
   returnMenu: "Torna al menu",
@@ -2419,6 +2438,9 @@ const pt: Translation = {
   timesUp: "⏱️ Tempo esgotado! Jogo terminado",
   finalScore: "Pontuação final:",
   points: "pontos.",
+  bestScore: "Melhor pontuação",
+  newBestScore: "🎉 NOVA MELHOR PONTUAÇÃO!",
+  almostBeat: "Quase lá! Apenas {points} pontos de distância da sua melhor pontuação!",
   playAgain: "🔄 Jogar de novo",
   dailyLocked: "Sua tentativa diária está bloqueada. Até amanhã!",
   returnMenu: "Voltar ao menu",
@@ -2797,6 +2819,9 @@ const nl: Translation = {
   timesUp: "⏱️ Tijd is om! Spel voorbij",
   finalScore: "Eindscore:",
   points: "punten.",
+  bestScore: "Beste score",
+  newBestScore: "🎉 NIEUWE BESTE SCORE!",
+  almostBeat: "Zo dichtbij! Nog maar {points} punten verwijderd van je beste score!",
   playAgain: "🔄 Opnieuw oefenen",
   dailyLocked: "Uw dagelijkse poging is vergrendeld. Tot morgen!",
   returnMenu: "Terug naar menu",
@@ -3178,6 +3203,9 @@ const ja: Translation = {
   timesUp: "⏱️ 時間切れ！ゲームオーバー",
   finalScore: "最終スコア：",
   points: "ポイント。",
+  bestScore: "ベストスコア",
+  newBestScore: "🎉 新記録達成！",
+  almostBeat: "惜しい！ベストスコアまであと {points} 点！",
   playAgain: "🔄 もう一度練習",
   dailyLocked: "本日の挑戦はロックされています。また明日！",
   returnMenu: "メニューに戻る",
@@ -3559,6 +3587,9 @@ const zh: Translation = {
   timesUp: "⏱️ 时间到！游戏结束",
   finalScore: "最终得分：",
   points: "分。",
+  bestScore: "最佳得分",
+  newBestScore: "🎉 新纪录！",
+  almostBeat: "差一点！距离最佳成绩只差 {points} 分！",
   playAgain: "🔄 再玩一次",
   dailyLocked: "您的每日挑战已锁定。明天见！",
   returnMenu: "返回菜单",
