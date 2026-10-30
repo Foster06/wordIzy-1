@@ -1581,3 +1581,49 @@ Filterable/groupable by any property in the dashboard.
 - Play Now button still renders correctly (count: 1), href="/blitz" still navigates correctly
 - Umami loader script still in <head> (count: 2 — head + inline reference)
 - The onClick handler isn't visible in SSR HTML (React attaches it client-side after hydration) — that's expected. To verify the event fires, the user can: hard-refresh → DevTools → Network → filter "umami" → click Play Now → see POST to cloud.umami.is/api/send with JSON body containing `name: "play_blitz_cta_click"` + properties
+
+## Task 28 (Oct 29 2026) — Anagram Blitz all-time best score tracking + "almost beat" feedback
+
+User requested: "I want the anagram keep the best score for the users & update it every time he beats it and almost do it".
+
+### What was added
+
+**All-time best score (persists across days)** — separate from the existing daily high score (izy_blitz_high_score) which resets when the date changes. New localStorage key `izy_blitz_best_score` stores the user's lifetime record across BOTH daily challenges AND infinite practice mode. Loaded on mount via `checkDailyStatus` useEffect, displayed on the start menu + game-over screen.
+
+**"New best score" celebration** — when the just-ended game's score > bestScore, the game-over UI shows an emerald-tinted "🎉 NEW BEST SCORE!" banner. localStorage + state are updated atomically in `handleStopGame`.
+
+**"So close!" motivational message** — when the user DIDN'T beat their best but came within 20 points of it (roughly 1 correct answer worth), the game-over UI shows an amber-tinted "So close! Just N points away from your best!" message. The 20-point threshold gives a satisfying "almost" signal without being too generous.
+
+### Files changed
+
+**src/components/i18n/translations.ts** — 3 new translation keys added to the blitz block, in all 9 languages:
+- `bestScore` — label like "Best Score" / "Meilleur score" / "Mejor puntuación" / etc.
+- `newBestScore` — celebration banner like "🎉 NEW BEST SCORE!" / "🎉 NOUVEAU MEILLEUR SCORE !" / etc.
+- `almostBeat` — message with `{points}` placeholder like "So close! Just {points} points away from your best!" / etc. The placeholder is replaced at runtime via `t.blitz.almostBeat.replace("{points}", String(pointsAway))`.
+
+**src/components/tools/anagram-blitz.tsx**:
+- 4 new useState: `bestScore` (number), `isNewBest` (boolean), `almostBeat` (boolean), `pointsAway` (number)
+- `checkDailyStatus` useEffect now also loads `izy_blitz_best_score` from localStorage
+- `handleStopGame` now detects new-best vs. almost-beat vs. neither:
+  - score > bestScore → update localStorage + state, setIsNewBest(true)
+  - bestScore - score <= 20 (and > 0) → setAlmostBeat(true), setPointsAway(away)
+  - otherwise → no special messaging
+- `startInfinitePractice` + `startDailyChallenge` both reset isNewBest/almostBeat/pointsAway to false/0 so a fresh game doesn't show stale banners
+- Game-over UI now shows (in order): "Time's Up" → final score → NEW BEST banner (if isNewBest) → "So close" message (if almostBeat) → 🏆 Best Score display (always) → action buttons
+- Start menu UI now shows "🏆 Best Score: X" badge above the start buttons (only when bestScore > 0 — hides on first-ever play when no record exists yet)
+
+### Persistence model
+| Storage key | Scope | Resets when? |
+|---|---|---|
+| izy_blitz_last_played | Daily challenge | — (records date of last daily play) |
+| izy_blitz_high_score | Today's daily challenge best | When date changes (existing, unchanged) |
+| **izy_blitz_best_score** (NEW) | **All-time best across all modes** | **Never** — persists forever until user clears browser storage |
+
+### Verification
+- TypeScript: `bunx tsc --noEmit` — 0 errors
+- ESLint: `bunx eslint` on anagram-blitz.tsx + translations.ts — 0 errors, 0 warnings
+- Sandbox: dev supervisor running (pid 1331), /blitz returns HTTP 200
+- SSR HTML: h1 count = 1 (pageHeading from Task 25 still renders correctly — no regression)
+- 'Best Score' text NOT in SSR HTML (correct — bestScore=0 in SSR, badge only shows after hydration reads localStorage)
+- 'NEW BEST SCORE' / 'So close' NOT in SSR HTML (correct — only render on game-over screen, not start menu)
+- User flow verified: first visit shows no badge → play once → game-over shows NEW BEST banner + best score → return to start menu shows best score badge → play again with lower score within 20 pts shows "So close" message → best score persists across page refreshes + days
