@@ -8,6 +8,7 @@ import {
   buildCanonicalWordListUrl,
 } from "@/lib/word-list-urls";
 import { getInitialWordListPage, getTopScoringWords, type InitialWordListPage } from "@/lib/word-list-data";
+import { translations } from "@/components/i18n/translations";
 
 interface PageProps {
   params: Promise<{ tool?: string[] }>;
@@ -81,6 +82,46 @@ function buildBreadcrumbJsonLd(toolSlug: string, title: string) {
       { "@type": "ListItem", position: 1, name: "wordIzy — Word Tools", item: SITE_ORIGIN },
       { "@type": "ListItem", position: 2, name: title, item: `${SITE_ORIGIN}/${toolSlug}` },
     ],
+  };
+}
+
+// Build a FAQPage JSON-LD for tool pages that have FAQ sections.
+// The FAQ content is sourced from the English translations (translations.en.faq[toolSlug])
+// — English is the canonical SSR language, and the FAQ arrays are defined in translations.ts.
+// FAQPage schema gets rich snippets in Bing/Google search results (expandable Q&A
+// accordion under the page listing) → significantly higher CTR → more organic traffic.
+//
+// Not all tool routes have FAQs — only unscrambler, scramble, wordle, quordle,
+// anagram, random, wordfeud, dictionary, scrabble, wordlists, wordstarts, wordends.
+// Returns null if no FAQ exists for the given tool slug.
+function buildFaqJsonLd(toolSlug: string): {
+  "@context": string;
+  "@type": "FAQPage";
+  mainEntity: {
+    "@type": "Question";
+    name: string;
+    acceptedAnswer: { "@type": "Answer"; text: string };
+  }[];
+} | null {
+  // Map route slugs to FAQ keys in translations.en.faq.
+  // Most slugs match directly (e.g. "scramble" → faq.scramble).
+  // The homepage route is "" but its FAQ is under "unscrambler".
+  const faqKey = toolSlug === "" || toolSlug === "unscrambler" ? "unscrambler" : toolSlug;
+
+  const faqItems = (translations.en.faq as unknown as Record<string, { q: string; a: string }[]>)[faqKey];
+  if (!faqItems || faqItems.length === 0) return null;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
   };
 }
 
@@ -342,6 +383,14 @@ export default async function Page({ params }: PageProps) {
         )
       : null;
 
+  // FAQPage JSON-LD — for tool pages that have FAQ sections (unscrambler, scramble,
+  // wordle, quordle, anagram, random, wordfeud, dictionary, scrabble, wordlists,
+  // wordstarts, wordends). Gets rich snippets in Bing/Google search results.
+  // Not rendered for blitz, info pages, or word-list programmatic pages.
+  const faqJsonLd = isCoreToolPage || activeToolSlug === "" || activeToolSlug === "unscrambler"
+    ? buildFaqJsonLd(activeToolSlug)
+    : null;
+
   return (
     <>
       {isBlitzPage && (
@@ -360,6 +409,12 @@ export default async function Page({ params }: PageProps) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(toolBreadcrumbJsonLd) }}
+        />
+      )}
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       )}
       <MainToolView

@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { Info, Mail, Shield, Map, Send, Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2, BookOpen, Trophy, List, ArrowDownToLine, ArrowUpFromLine, ChevronRight, FileText } from "lucide-react";
+import { Info, Mail, Shield, Map, Send, Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2, BookOpen, Trophy, List, ArrowDownToLine, ArrowUpFromLine, ChevronRight, FileText, Copy, Check } from "lucide-react";
 import { GlassCard } from "@/components/site/glass-card";
 import { AdSlot } from "@/components/site/ad-slot";
 import { PageHeader } from "@/components/site/page-header";
@@ -40,6 +41,81 @@ function renderBodyWithMailto(body: string): React.ReactNode[] {
   });
 }
 
+/** Link-to-Us section — provides ready-made HTML snippets for webmasters who
+ *  want to link to wordIzy. Removes friction ("what anchor text should I use?")
+ *  and encourages legitimate backlinks from blogs, directories, and resource
+ *  pages. Rendered on the About page. English-only since it targets webmasters. */
+function LinkToUsSection() {
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+
+  const snippets = [
+    {
+      label: "Simple text link",
+      html: '<a href="https://wordizy.com/">wordIzy — Free Word Unscrambler</a>',
+    },
+    {
+      label: "Descriptive link (recommended for resource pages)",
+      html: '<a href="https://wordizy.com/">wordIzy: Word Unscrambler, Anagram Solver & Wordle Helper — Free, no sign-up, 9 languages</a>',
+    },
+    {
+      label: "Game link (for word game directories)",
+      html: '<a href="https://wordizy.com/blitz">Anagram Blitz — Free 60-Second Word Unscramble Game</a>',
+    },
+  ];
+
+  const handleCopy = async (idx: number, text: string) => {
+    try {
+      await navigator.clipboard?.writeText(text);
+      setCopiedIdx(idx);
+      setTimeout(() => setCopiedIdx(null), 2000);
+    } catch {
+      /* clipboard not available */
+    }
+  };
+
+  return (
+    <GlassCard className="p-6 sm:p-8">
+      <h2 className="text-base sm:text-lg font-semibold text-brand mb-3 flex items-center gap-2 max-w-3xl mx-auto">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand shrink-0" />
+        Link to wordIzy
+      </h2>
+      <p className="text-sm text-muted-foreground leading-relaxed mb-5 max-w-3xl mx-auto">
+        If you found wordIzy useful, consider linking to us from your blog, resource page, or directory listing.
+        Copy any snippet below and paste it into your HTML — no attribution required, no reciprocal link expected.
+      </p>
+      <div className="space-y-4 max-w-3xl mx-auto">
+        {snippets.map((snippet, idx) => (
+          <div key={idx}>
+            <p className="text-xs text-muted-foreground mb-1.5">{snippet.label}</p>
+            <div className="relative">
+              <pre className="text-xs font-mono bg-white/[0.04] border border-white/10 rounded-lg p-3 pr-24 overflow-x-auto text-foreground/80">
+                {snippet.html}
+              </pre>
+              <button
+                type="button"
+                onClick={() => handleCopy(idx, snippet.html)}
+                className="absolute top-2 right-2 inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium glass-soft border border-white/10 text-muted-foreground hover:text-brand hover:border-brand/30 transition-colors transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                {copiedIdx === idx ? (
+                  <>
+                    <Check className="h-3 w-3 text-emerald-400" />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-3 w-3" />
+                    Copy
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </GlassCard>
+  );
+}
+
 export function AboutView() {
   const { t } = useLanguage();
   return (
@@ -66,6 +142,7 @@ export function AboutView() {
             ))}
           </div>
         </GlassCard>
+        <LinkToUsSection />
         <AdSlot format="horizontal" />
       </div>
     </>

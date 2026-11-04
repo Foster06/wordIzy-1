@@ -1,95 +1,123 @@
 "use client";
 
-import { Twitter, Facebook, Linkedin, Link2, Check } from "lucide-react";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { Twitter, Facebook, Globe, Link as LinkIcon, Check, Share2 } from "lucide-react";
 
 interface ShareButtonsProps {
-  /** The title to pre-fill in social posts */
-  title?: string;
-  /** The URL to share (defaults to current page URL) */
-  url?: string;
-  className?: string;
+  url: string;
+  title: string;
+  /** Optional label text shown before the buttons. Defaults to "Share". */
+  label?: string;
 }
 
 /**
- * Social media sharing buttons — Twitter/X, Facebook, LinkedIn, and copy link.
- * Uses the current page URL and title for pre-filled share content.
+ * Social sharing buttons — Twitter, Facebook, Reddit, + copy-link.
+ * Uses platform-native share intent URLs (no JS SDKs, no tracking scripts).
+ * Rendered on guide pages + the blitz game-over screen to encourage organic
+ * sharing → those shares can lead to natural backlinks from forums, blogs,
+ * and social media profiles.
  */
-export function ShareButtons({ title, url, className }: ShareButtonsProps) {
+export function ShareButtons({ url, title, label = "Share" }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
 
-  // Build the share URL from the current browser location
-  const shareUrl = url ?? (typeof window !== "undefined" ? window.location.href : "https://wordizy.com");
-  const shareTitle = title ?? "wordIzy — Free Word Unscrambler & Anagram Solver";
-  const encodedUrl = encodeURIComponent(shareUrl);
-  const encodedTitle = encodeURIComponent(shareTitle);
+  const encodedUrl = encodeURIComponent(url);
+  const encodedTitle = encodeURIComponent(title);
 
-  const shareLinks = [
-    {
-      name: "Twitter",
-      icon: Twitter,
-      href: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
-      color: "hover:text-sky-400 hover:border-sky-400/40",
-    },
-    {
-      name: "Facebook",
-      icon: Facebook,
-      href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
-      color: "hover:text-blue-500 hover:border-blue-500/40",
-    },
-    {
-      name: "LinkedIn",
-      icon: Linkedin,
-      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
-      color: "hover:text-blue-600 hover:border-blue-600/40",
-    },
-  ];
-
-  const handleCopy = async () => {
+  const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(shareUrl);
+      await navigator.clipboard?.writeText(url);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      setTimeout(() => setCopied(false), 2000);
     } catch {
-      /* ignore */
+      // Fallback for older browsers — use a temporary textarea
+      const textarea = document.createElement("textarea");
+      textarea.value = url;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch {
+        /* clipboard not available — silently fail */
+      }
+      document.body.removeChild(textarea);
     }
   };
 
+  // Try native Web Share API first (mobile only). Desktop browsers don't
+  // support it, so we always render the platform buttons below.
+  const handleNativeShare = async () => {
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ title, url });
+      } catch {
+        /* user dismissed — no action needed */
+      }
+    } else {
+      handleCopyLink();
+    }
+  };
+
+  const buttonClass =
+    "inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium glass-soft border border-white/10 text-muted-foreground hover:text-brand hover:border-brand/30 transition-colors transition-transform hover:scale-105 active:scale-95 cursor-pointer";
+
   return (
-    <div className={cn("flex items-center gap-2", className)}>
-      <span className="text-xs text-muted-foreground/60 mr-1">Share:</span>
-      {shareLinks.map((link) => {
-        const Icon = link.icon;
-        return (
-          <a
-            key={link.name}
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Share on ${link.name}`}
-            title={`Share on ${link.name}`}
-            className={cn(
-              "flex h-8 w-8 items-center justify-center rounded-lg glass-soft border border-white/10 text-muted-foreground transition-colors transition-transform hover:scale-105",
-              link.color
-            )}
-          >
-            <Icon className="h-4 w-4" />
-          </a>
-        );
-      })}
-      <button
-        onClick={handleCopy}
-        aria-label="Copy link"
-        title="Copy link"
-        className={cn(
-          "flex h-8 w-8 items-center justify-center rounded-lg glass-soft border border-white/10 text-muted-foreground transition-colors transition-transform hover:scale-105",
-          copied
-            ? "text-emerald-400 border-emerald-400/40"
-            : "hover:text-brand hover:border-brand/40"
-        )}
+    <div className="flex flex-wrap items-center gap-2 mt-6 pt-4 border-t border-white/5">
+      <span className="text-xs text-muted-foreground flex items-center gap-1.5">
+        <Share2 className="h-3.5 w-3.5" />
+        {label}:
+      </span>
+      <a
+        href={`https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={buttonClass}
+        aria-label="Share on Twitter"
       >
-        {copied ? <Check className="h-4 w-4" /> : <Link2 className="h-4 w-4" />}
+        <Twitter className="h-3.5 w-3.5" />
+        Twitter
+      </a>
+      <a
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={buttonClass}
+        aria-label="Share on Facebook"
+      >
+        <Facebook className="h-3.5 w-3.5" />
+        Facebook
+      </a>
+      <a
+        href={`https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={buttonClass}
+        aria-label="Share on Reddit"
+      >
+        <Globe className="h-3.5 w-3.5" />
+        Reddit
+      </a>
+      {/* Native share (mobile) or copy link (desktop) */}
+      <button
+        type="button"
+        onClick={handleNativeShare}
+        className={buttonClass}
+        aria-label="Share via native sheet or copy link"
+      >
+        {copied ? (
+          <>
+            <Check className="h-3.5 w-3.5 text-emerald-400" />
+            Copied!
+          </>
+        ) : (
+          <>
+            <LinkIcon className="h-3.5 w-3.5" />
+            Copy link
+          </>
+        )}
       </button>
     </div>
   );

@@ -1627,3 +1627,48 @@ User requested: "I want the anagram keep the best score for the users & update i
 - 'Best Score' text NOT in SSR HTML (correct — bestScore=0 in SSR, badge only shows after hydration reads localStorage)
 - 'NEW BEST SCORE' / 'So close' NOT in SSR HTML (correct — only render on game-over screen, not start menu)
 - User flow verified: first visit shows no badge → play once → game-over shows NEW BEST banner + best score → return to start menu shows best score badge → play again with lower score within 20 pts shows "So close" message → best score persists across page refreshes + days
+
+## Task 29 (Oct 30 2026) — Code-side SEO improvements for backlink building
+
+Bing Webmaster Tools flagged "Your site lacks inbound links from high-quality domains" as moderate severity. While backlinks are primarily an off-page effort (directory submissions, guest posts, Reddit, Quora), 4 code-side improvements were implemented to maximize the SEO value of existing traffic + encourage organic link discovery.
+
+### 1. FAQPage JSON-LD structured data (src/app/[[...tool]]/page.tsx)
+- New `buildFaqJsonLd(toolSlug)` function generates FAQPage schema.org JSON-LD from the English FAQ translations (translations.en.faq[toolSlug])
+- Rendered as a `<script type="application/ld+json">` tag alongside the existing BreadcrumbList JSON-LD
+- Covers 12 tool pages that have FAQ sections: unscrambler, scramble, wordle, quordle, anagram, random, wordfeud, dictionary, scrabble, wordlists, wordstarts, wordends
+- FAQPage schema enables rich snippets in Bing/Google search results (expandable Q&A accordion under the page listing) → significantly higher CTR → more organic traffic → more natural backlink discovery
+- Verified: FAQPage + Question + acceptedAnswer present in SSR HTML on / and /scramble
+
+### 2. Social sharing buttons on guide pages (src/components/site/share-buttons.tsx + src/app/guides/[slug]/page.tsx)
+- New reusable `ShareButtons` component with Twitter, Facebook, Reddit, + copy-link buttons
+- Uses platform-native share intent URLs (no JS SDKs, no tracking scripts)
+- Copy-link button uses navigator.clipboard with fallback to execCommand for older browsers
+- Native Web Share API support on mobile (opens OS share sheet)
+- Added to all 4 guide pages (best-wordle-starter-words, 5-crossword-solving-tips, score-400-in-anagram-blitz, memorize-2-letter-scrabble-words) after the article content, before the "More Strategy Guides" section
+- Encourages organic sharing on social media → shares can lead to natural backlinks from forums, blogs, and social profiles
+
+### 3. Link-to-Us section on About page (src/components/tools/info-views.tsx)
+- New `LinkToUsSection` component rendered on /about
+- Provides 3 ready-made HTML snippets webmasters can copy-paste:
+  1. Simple text link: `<a href="https://wordizy.com/">wordIzy — Free Word Unscrambler</a>`
+  2. Descriptive link (recommended for resource pages): includes full tool description + "9 languages, no sign-up"
+  3. Game link (for word game directories): links to /blitz with game description
+- Each snippet has a "Copy" button with clipboard integration + "Copied!" confirmation
+- Removes friction for webmasters who want to link but don't know what anchor text to use
+
+### 4. Internal cross-linking (already existed — confirmed + leveraged)
+- Guide pages already have "Related Tools" sections (added in Task 19) with links to Wordle Solver, Anagram Solver, Scrabble Word Finder, 5-Letter Words, 2-Letter Words, Anagram Blitz
+- Guide pages also have "More Strategy Guides" cross-links to the other 3 guides
+- Homepage has Featured Guides section linking to all 4 guides
+- Footer (4-column layout from Task 25) links to all tools + Word Lab + Site info
+- Sitemap page links to every page on the site
+- No new cross-links needed — the internal link graph is already strong
+
+### Verification
+- TypeScript: `bunx tsc --noEmit` — 0 errors
+- ESLint: `bunx eslint` on all changed files — 0 errors, 0 warnings
+- Dev supervisor running, sandbox healthy
+- SSR curl / → FAQPage JSON-LD present (count: 2), Question + acceptedAnswer schema present
+- SSR curl /scramble → FAQPage JSON-LD present
+- SSR curl /guides/best-wordle-starter-words → Twitter/Facebook/Reddit share URLs present
+- SSR curl /about → "Link to wordIzy" section present with Copy buttons + HTML snippets

@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { ReturnButton } from "@/components/site/back-button";
 import { LanguageReload } from "@/components/site/language-reload";
+import { ShareButtons } from "@/components/site/share-buttons";
 
 interface GuideProps {
   params: Promise<{ slug: string }>;
@@ -324,6 +325,14 @@ export default async function GuidePage({ params }: GuideProps) {
           <div className="space-y-0">
             {renderContent(content)}
           </div>
+
+          {/* Social sharing buttons — encourages organic sharing on Twitter,
+              Facebook, Reddit → can lead to natural backlinks from forums,
+              blogs, and social media profiles. */}
+          <ShareButtons
+            url={`https://wordizy.com/guides/${slug}`}
+            title={data.title}
+          />
 
           {/* Internal links for SEO + UX */}
           <div className="mt-10 pt-6 border-t border-white/10">
