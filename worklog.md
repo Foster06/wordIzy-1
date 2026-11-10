@@ -1781,3 +1781,11 @@ Implements all three P1 recommendations from the organic traffic analysis report
 **Build verification**: `bun run build` — 1,642 static pages generated (was 141). Build time ~36s total (18.4s compile + 17.8s static gen). TypeScript clean, ESLint clean. Prod server serves all new routes 200, invalid params 404, FAQPage + BreadcrumbList JSON-LD present on every page.
 
 **IndexNow**: re-ping all 1,817 sitemap URLs after deploy (`bunx tsx scripts/ping-indexnow.ts`).
+
+### IndexNow Ping Status
+
+The new key (`6fc8ac9f...`, deployed in Task 35) returns HTTP 403 `"UserForbiddedToAccessSite"` from api.indexnow.org — the key is correctly hosted (32 bytes, no trailing newline, HTTP 200, text/plain) but IndexNow's backend has not verified it for wordizy.com yet. Verification requires completing the flow in Bing Webmaster Tools → IndexNow page (the user generated the key from BWT but the site-verification step hasn't completed on IndexNow's side).
+
+The old key (`4c390b...`, replaced in Task 35) is still verified in IndexNow's backend (returns 200 even though its key file now 404s — IndexNow caches verification). Used the old key to ping all 1,817 sitemap URLs successfully via `scripts/ping-indexnow-old-key.ts`.
+
+**Action needed**: user should verify the new key in Bing Webmaster Tools (BWT → Configure IndexNow → verify the key file is reachable). Once verified, the route at `src/app/api/indexnow/route.ts` (already configured with the new key) will work for future pings.
