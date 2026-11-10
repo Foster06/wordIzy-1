@@ -1703,3 +1703,24 @@ Loading AdSense unconditionally means EU/EEA visitors get ad cookies before cons
   - `crossorigin` attribute present
 - CSP header includes `pagead2.googlesyndication.com` in script-src ✓
 - All 3 third-party scripts now in <head>: Ahrefs + Umami + AdSense
+
+## Task 34 — GSC Traffic Analysis + CTR/Soft-404 Overhaul (2026-11-11)
+
+**Input**: GA4↔GSC organic search report, Oct 13 – Nov 9 2026 (30,221 impressions / 77 clicks / 0.26% CTR / weighted pos 15.6; ~40% of impressions from anonymized queries).
+
+**Key findings** (analysis scripts: `scripts/analyze-gsc.py`, `scripts/gsc-detail.py`; data JSONs in scripts/):
+1. CTR crisis, not a ranking crisis: 189 queries rank positions 4-15 (12,008 impressions) but earn ~0 clicks. /wordle: 9,207 imp @ pos 10.3 → 0.22% CTR. /wordfeud: 1,084 imp @ pos 8.3 → 0 clicks.
+2. Legacy programmatic URLs (words-starts-by-*, /unscramble/<slug>, /N-letter-words) served HTTP 200 duplicates — Google indexed both variants, splitting signals (e.g. /words-starts-by-n: 112 imp @ pos 71).
+3. CRITICAL soft-404: any unknown URL rendered the homepage with 200 + "index, follow" (catch-all fallback to ROUTES[0]).
+4. Localized queries (wordle oplosser, wørdle solver, wordle hjælper) rank 8-9 with 0 clicks — site serves English-only metadata (no hreflang); roadmap item.
+5. GA4 engagement columns ~0 across organic landings (GA4 only live since Oct 30; watch measurement, CSP verified OK).
+
+**Changes**:
+- `src/app/[[...tool]]/page.tsx`: new `buildWordListSeo()` — count-enriched exact-match titles + dict-aware descriptions for ~130 word-list pages (e.g. "1,173 5-Letter Words Starting With T — Wordle", "Words That Start With T — 14,759 Valid Words"); counts from cached dictionary store. Full slug enumeration in `generateStaticParams` (141 pages) + `dynamicParams = false` → real 404 for junk URLs; defensive notFound() guards; /inbox & /dashboard now noindex.
+- `src/lib/meta-config.ts`: rewrote titles/descriptions for wordle, anagram, scramble, wordfeud, dictionary, wordstarts, wordends, wordle-starts, wordle-ends (exact-match phrasing + click triggers).
+- `next.config.ts`: 15 permanent redirect patterns (legacy word-list variants + /unscramble → / and /game → /blitz) with scoped param regexes to avoid swallowing canonical URLs.
+- `src/app/sitemap.ts`: lastmod → 2026-11-11.
+
+**Verification**: tsc/eslint clean; prod build 168 static pages; all 39 valid routes 200; 13 redirect patterns 308; junk URLs → 404; canonicals + noindex verified. Pushed as `3518c29` (cherry-picked onto remote `2720b6e` after history conflict — local had duplicate font commits).
+
+**Roadmap (not implemented)**: guide content depth (starter-words guide ranks 25-75 for 696-imp cluster), "Is X a Scrabble Word?" programmatic pages, localized subpaths + hreflang, backlinks.
