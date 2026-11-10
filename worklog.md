@@ -1724,3 +1724,9 @@ Loading AdSense unconditionally means EU/EEA visitors get ad cookies before cons
 **Verification**: tsc/eslint clean; prod build 168 static pages; all 39 valid routes 200; 13 redirect patterns 308; junk URLs → 404; canonicals + noindex verified. Pushed as `3518c29` (cherry-picked onto remote `2720b6e` after history conflict — local had duplicate font commits).
 
 **Roadmap (not implemented)**: guide content depth (starter-words guide ranks 25-75 for 696-imp cluster), "Is X a Scrabble Word?" programmatic pages, localized subpaths + hreflang, backlinks.
+
+## Task 34b — Analysis Report + IndexNow Key Fix (2026-11-11)
+
+- **Report deliverable**: `download/wordizy-organic-traffic-analysis.docx` (+ PDF). 15 pages: R1 cover (DM-1), TOC, 8 sections, 3 matplotlib charts (CTR gap, cluster demand, click opportunity), 8 data tables. Postcheck 9/9, visual render verified.
+- **IndexNow key fix**: old UUID key (dashes) violated the spec's hex-only requirement → engines returned 403. Replaced with 32-char hex key (`public/4c390b55a43e0c71cd0f29c2a11b444f.txt`), route updated, direct test now 202. Full re-ping of 142 URLs succeeded.
+- Chart/generation scripts: `scripts/report-charts.py`, `scripts/generate-report.js`, `scripts/patch-report-footers.py`.
