@@ -287,7 +287,7 @@ const en: Translation = {
    },
    {
     heading: "Our Commitment to Privacy",
-    body: "We value your digital security and your system's performance. Advanced options like your word bookmark history are executed directly using your browser's local storage. This means your personal study lists never leave your device, no user account registrations are required, and your data remains completely private to you.",
+    body: "We value your digital security and your system's performance. Advanced options like your word bookmark history are executed directly using your browser's local storage. This means your personal study lists never leave your device, no user account registrations are required, and your data remains completely private to you.\nFor site analytics, we use a combination of privacy-friendly tools (Ahrefs Web Analytics and Umami Cloud Analytics — both cookie-free and anonymous) alongside Google Analytics 4 and Google AdSense, which use cookies for traffic analysis and ad personalization. See our Privacy Policy for the full list of third-party services and how to manage your cookie preferences.",
    },
    {
     heading: "Get in Touch",
@@ -317,7 +317,7 @@ const en: Translation = {
  privacy: {
   title: "Privacy Policy",
   intro: "At wordIzy, accessible from wordizy.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by wordIzy and how we use it.\n\nIf you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.",
-  lastUpdated: "Last Updated: October 28, 2026",
+  lastUpdated: "Last Updated: October 30, 2026",
   sections: [
    {
     heading: "Log Files",
@@ -362,12 +362,27 @@ const en: Translation = {
       description: "Serves advertisements to our site visitors. Uses cookies (DART cookies) to serve ads based on your visits to wordizy.com and other sites. You can decline DART cookies by visiting Google's ad and content network Privacy Policy.",
       url: "https://policies.google.com/technologies/ads",
     },
+    {
+      name: "Google Analytics 4",
+      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
+      url: "https://policies.google.com/technologies/cookies",
+    },
+    {
+      name: "Ahrefs Web Analytics",
+      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
+      url: "https://ahrefs.com/privacy",
+    },
+    {
+      name: "Umami Cloud Analytics",
+      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
+      url: "https://umami.is/privacy-policy",
+    },
   ],
  },
  terms: {
   title: "Terms of Service",
   intro: "Welcome to wordIzy (accessible via wordizy.com). These Terms of Service (\"Terms\") govern your access to and use of our website, word game helper tools, dictionaries, and interactive games like Anagram Blitz (collectively, the \"Services\").\n\nBy accessing or using wordIzy, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, please do not use our Services.",
-  lastUpdated: "Last Updated: October 28, 2026",
+  lastUpdated: "Last Updated: October 30, 2026",
   sections: [
    {
     heading: "1. Description of Service",
@@ -725,7 +740,7 @@ const fr: Translation = {
  privacy: {
   title: "Politique de confidentialité",
   intro: "Sur wordIzy, accessible depuis wordizy.com, l'une de nos principales priorités est la confidentialité de nos visiteurs. Ce document de Politique de confidentialité contient les types d'informations collectées et enregistrées par wordIzy et la manière dont nous les utilisons.\n\nSi vous avez des questions supplémentaires ou si vous souhaitez plus d'informations sur notre Politique de confidentialité, n'hésitez pas à nous contacter.",
-  lastUpdated: "Dernière mise à jour : 28 octobre 2026",
+  lastUpdated: "Dernière mise à jour : 30 octobre 2026",
   sections: [
    {
     heading: "Fichiers journaux",
@@ -770,12 +785,27 @@ const fr: Translation = {
       description: "Diffuse des annonces auprès des visiteurs de notre site. Utilise des cookies (cookies DART) pour diffuser des annonces en fonction de vos visites sur wordizy.com et d'autres sites. Vous pouvez refuser les cookies DART en consultant la Politique de confidentialité du réseau de contenu et d'annonces de Google.",
       url: "https://policies.google.com/technologies/ads",
     },
+    {
+      name: "Google Analytics 4",
+      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
+      url: "https://policies.google.com/technologies/cookies",
+    },
+    {
+      name: "Ahrefs Web Analytics",
+      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
+      url: "https://ahrefs.com/privacy",
+    },
+    {
+      name: "Umami Cloud Analytics",
+      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
+      url: "https://umami.is/privacy-policy",
+    },
   ],
  },
  terms: {
   title: "Conditions d'utilisation",
   intro: "Bienvenue sur wordIzy (accessible via wordizy.com). Les présentes Conditions d'utilisation (les « Conditions ») régissent votre accès et votre utilisation de notre site web, de nos outils d'aide aux jeux de mots, de nos dictionnaires et de nos jeux interactifs comme Anagram Blitz (collectivement, les « Services »).\n\nEn accédant ou en utilisant wordIzy, vous acceptez d'être lié par ces Conditions et par notre Politique de confidentialité. Si vous n'acceptez pas ces Conditions, veuillez ne pas utiliser nos Services.",
-  lastUpdated: "Dernière mise à jour : 28 octobre 2026",
+  lastUpdated: "Dernière mise à jour : 30 octobre 2026",
   sections: [
    {
     heading: "1. Description du Service",
@@ -1106,7 +1136,7 @@ const es: Translation = {
  privacy: {
   title: "Política de privacidad",
   intro: "En wordIzy, accesible desde wordizy.com, una de nuestras principales prioridades es la privacidad de nuestros visitantes. Este documento de Política de privacidad contiene los tipos de información que recopila y registra wordIzy y cómo la utilizamos.\n\nSi tiene preguntas adicionales o requiere más información sobre nuestra Política de privacidad, no dude en contactarnos.",
-  lastUpdated: "Última actualización: 28 de octubre de 2026",
+  lastUpdated: "Última actualización: 30 de octubre de 2026",
   sections: [
    {
     heading: "Archivos de registro",
@@ -1151,12 +1181,27 @@ const es: Translation = {
       description: "Muestra anuncios a los visitantes de nuestro sitio. Utiliza cookies (cookies DART) para mostrar anuncios basados en sus visitas a wordizy.com y otros sitios. Puede rechazar las cookies DART visitando la Política de privacidad de la red de contenido y anuncios de Google.",
       url: "https://policies.google.com/technologies/ads",
     },
+    {
+      name: "Google Analytics 4",
+      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
+      url: "https://policies.google.com/technologies/cookies",
+    },
+    {
+      name: "Ahrefs Web Analytics",
+      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
+      url: "https://ahrefs.com/privacy",
+    },
+    {
+      name: "Umami Cloud Analytics",
+      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
+      url: "https://umami.is/privacy-policy",
+    },
   ],
  },
  terms: {
   title: "Términos de servicio",
   intro: "Bienvenido a wordIzy (accesible vía wordizy.com). Estos Términos de servicio (los \"Términos\") rigen su acceso y uso de nuestro sitio web, herramientas de ayuda para juegos de palabras, diccionarios y juegos interactivos como Anagram Blitz (colectivamente, los \"Servicios\").\n\nAl acceder o usar wordIzy, usted acepta estar sujeto a estos Términos y a nuestra Política de privacidad. Si no está de acuerdo con estos Términos, por favor no utilice nuestros Servicios.",
-  lastUpdated: "Última actualización: 28 de octubre de 2026",
+  lastUpdated: "Última actualización: 30 de octubre de 2026",
   sections: [
    {
     heading: "1. Descripción del Servicio",
@@ -1487,7 +1532,7 @@ const de: Translation = {
  privacy: {
   title: "Datenschutzerklärung",
   intro: "Auf wordIzy, erreichbar unter wordizy.com, ist die Privatsphäre unserer Besucher eine unserer Hauptprioritäten. Dieses Dokument zur Datenschutzerklärung enthält die Arten von Informationen, die von wordIzy erfasst und aufgezeichnet werden, und wie wir sie verwenden.\n\nWenn Sie weitere Fragen haben oder weitere Informationen zu unserer Datenschutzerklärung benötigen, zögern Sie nicht, uns zu kontaktieren.",
-  lastUpdated: "Zuletzt aktualisiert: 28. Oktober 2026",
+  lastUpdated: "Zuletzt aktualisiert: 30. Oktober 2026",
   sections: [
    {
     heading: "Protokolldateien",
@@ -1532,12 +1577,27 @@ const de: Translation = {
       description: "Liefert Werbung an die Besucher unserer Website. Verwendet Cookies (DART-Cookies), um Anzeigen basierend auf Ihren Besuchen auf wordizy.com und anderen Websites zu liefern. Sie können DART-Cookies ablehnen, indem Sie die Datenschutzerklärung des Google-Werbe- und Content-Netzwerks aufrufen.",
       url: "https://policies.google.com/technologies/ads",
     },
+    {
+      name: "Google Analytics 4",
+      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
+      url: "https://policies.google.com/technologies/cookies",
+    },
+    {
+      name: "Ahrefs Web Analytics",
+      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
+      url: "https://ahrefs.com/privacy",
+    },
+    {
+      name: "Umami Cloud Analytics",
+      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
+      url: "https://umami.is/privacy-policy",
+    },
   ],
  },
  terms: {
   title: "Nutzungsbedingungen",
   intro: "Willkommen bei wordIzy (erreichbar über wordizy.com). Diese Nutzungsbedingungen (\"Bedingungen\") regeln Ihren Zugriff auf und Ihre Nutzung unserer Website, unserer Hilfswerkzeuge für Wortspiele, unserer Wörterbücher und unserer interaktiven Spiele wie Anagram Blitz (zusammenfassend die \"Dienste\").\n\nDurch den Zugriff auf oder die Nutzung von wordIzy erklären Sie sich mit diesen Bedingungen und unserer Datenschutzerklärung einverstanden. Wenn Sie diesen Bedingungen nicht zustimmen, nutzen Sie unsere Dienste bitte nicht.",
-  lastUpdated: "Zuletzt aktualisiert: 28. Oktober 2026",
+  lastUpdated: "Zuletzt aktualisiert: 30. Oktober 2026",
   sections: [
    {
     heading: "1. Beschreibung des Dienstes",
@@ -1868,7 +1928,7 @@ const it: Translation = {
  privacy: {
   title: "Informativa sulla privacy",
   intro: "Su wordIzy, accessibile da wordizy.com, una delle nostre principali priorità è la privacy dei nostri visitatori. Questo documento dell'Informativa sulla privacy contiene i tipi di informazioni raccolte e registrate da wordIzy e come le utilizziamo.\n\nSe hai domande aggiuntive o richiedi maggiori informazioni sulla nostra Informativa sulla privacy, non esitare a contattarci.",
-  lastUpdated: "Ultimo aggiornamento: 28 ottobre 2026",
+  lastUpdated: "Ultimo aggiornamento: 30 ottobre 2026",
   sections: [
    {
     heading: "File di registro",
@@ -1913,12 +1973,27 @@ const it: Translation = {
       description: "Pubblica annunci ai visitatori del nostro sito. Utilizza cookie (cookie DART) per mostrare annunci in base alle tue visite su wordizy.com e altri siti. Puoi rifiutare i cookie DART visitando l'Informativa sulla privacy della rete di annunci e contenuti di Google.",
       url: "https://policies.google.com/technologies/ads",
     },
+    {
+      name: "Google Analytics 4",
+      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
+      url: "https://policies.google.com/technologies/cookies",
+    },
+    {
+      name: "Ahrefs Web Analytics",
+      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
+      url: "https://ahrefs.com/privacy",
+    },
+    {
+      name: "Umami Cloud Analytics",
+      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
+      url: "https://umami.is/privacy-policy",
+    },
   ],
  },
  terms: {
   title: "Termini di servizio",
   intro: "Benvenuto su wordIzy (accessibile tramite wordizy.com). Questi Termini di servizio (i \"Termini\") regolano l'accesso e l'utilizzo del nostro sito web, degli strumenti di aiuto per giochi di parole, dei dizionari e dei giochi interattivi come Anagram Blitz (collettivamente, i \"Servizi\").\n\nAccedendo o utilizzando wordIzy, accetti di essere vincolato da questi Termini e dalla nostra Informativa sulla privacy. Se non accetti questi Termini, ti preghiamo di non utilizzare i nostri Servizi.",
-  lastUpdated: "Ultimo aggiornamento: 28 ottobre 2026",
+  lastUpdated: "Ultimo aggiornamento: 30 ottobre 2026",
   sections: [
    {
     heading: "1. Descrizione del Servizio",
@@ -2249,7 +2324,7 @@ const pt: Translation = {
  privacy: {
   title: "Política de privacidade",
   intro: "No wordIzy, acessível em wordizy.com, uma das nossas principais prioridades é a privacidade dos nossos visitantes. Este documento de Política de privacidade contém os tipos de informação que são recolhidos e registados pelo wordIzy e como os utilizamos.\n\nSe tiver questões adicionais ou necessitar de mais informações sobre a nossa Política de privacidade, não hesite em contactar-nos.",
-  lastUpdated: "Última atualização: 28 de outubro de 2026",
+  lastUpdated: "Última atualização: 30 de outubro de 2026",
   sections: [
    {
     heading: "Ficheiros de registro",
@@ -2294,12 +2369,27 @@ const pt: Translation = {
       description: "Exibe anúncios aos visitantes do nosso site. Utiliza cookies (cookies DART) para mostrar anúncios com base nas suas visitas a wordizy.com e outros sites. Pode recusar os cookies DART visitando a Política de privacidade da rede de anúncios e conteúdos do Google.",
       url: "https://policies.google.com/technologies/ads",
     },
+    {
+      name: "Google Analytics 4",
+      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
+      url: "https://policies.google.com/technologies/cookies",
+    },
+    {
+      name: "Ahrefs Web Analytics",
+      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
+      url: "https://ahrefs.com/privacy",
+    },
+    {
+      name: "Umami Cloud Analytics",
+      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
+      url: "https://umami.is/privacy-policy",
+    },
   ],
  },
  terms: {
   title: "Termos de serviço",
   intro: "Bem-vindo ao wordIzy (acessível via wordizy.com). Estes Termos de serviço (os \"Termos\") regem o seu acesso e uso do nosso site, ferramentas de ajuda para jogos de palavras, dicionários e jogos interativos como Anagram Blitz (coletivamente, os \"Serviços\").\n\nAo aceder ou utilizar o wordIzy, concorda em ficar vinculado a estes Termos e à nossa Política de privacidade. Se não concordar com estes Termos, por favor não utilize os nossos Serviços.",
-  lastUpdated: "Última atualização: 28 de outubro de 2026",
+  lastUpdated: "Última atualização: 30 de outubro de 2026",
   sections: [
    {
     heading: "1. Descrição do Serviço",
@@ -2630,7 +2720,7 @@ const nl: Translation = {
  privacy: {
   title: "Privacybeleid",
   intro: "Op wordIzy, bereikbaar via wordizy.com, is de privacy van onze bezoekers een van onze belangrijkste prioriteiten. Dit Privacybeleid-document bevat soorten informatie die door wordIzy worden verzameld en geregistreerd en hoe wij deze gebruiken.\n\nAls u aanvullende vragen heeft of meer informatie wenst over ons Privacybeleid, aarzel dan niet om contact met ons op te nemen.",
-  lastUpdated: "Laatst bijgewerkt: 28 oktober 2026",
+  lastUpdated: "Laatst bijgewerkt: 30 oktober 2026",
   sections: [
    {
     heading: "Logbestanden",
@@ -2675,12 +2765,27 @@ const nl: Translation = {
       description: "Toont advertenties aan bezoekers van onze site. Gebruikt cookies (DART-cookies) om advertenties te tonen op basis van uw bezoeken aan wordizy.com en andere sites. U kunt DART-cookies afwijzen door het Privacybeleid van het advertentie- en contentnetwerk van Google te raadplegen.",
       url: "https://policies.google.com/technologies/ads",
     },
+    {
+      name: "Google Analytics 4",
+      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
+      url: "https://policies.google.com/technologies/cookies",
+    },
+    {
+      name: "Ahrefs Web Analytics",
+      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
+      url: "https://ahrefs.com/privacy",
+    },
+    {
+      name: "Umami Cloud Analytics",
+      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
+      url: "https://umami.is/privacy-policy",
+    },
   ],
  },
  terms: {
   title: "Servicevoorwaarden",
   intro: "Welkom bij wordIzy (bereikbaar via wordizy.com). Deze Servicevoorwaarden (de \"Voorwaarden\") regelen uw toegang tot en gebruik van onze website, woordspel-hulpmiddelen, woordenboeken en interactieve spellen zoals Anagram Blitz (gezamenlijk de \"Diensten\").\n\nDoor toegang te krijgen tot of gebruik te maken van wordIzy, gaat u ermee akkoord gebonden te zijn aan deze Voorwaarden en ons Privacybeleid. Als u niet akkoord gaat met deze Voorwaarden, gebruik onze Diensten dan niet.",
-  lastUpdated: "Laatst bijgewerkt: 28 oktober 2026",
+  lastUpdated: "Laatst bijgewerkt: 30 oktober 2026",
   sections: [
    {
     heading: "1. Beschrijving van de Dienst",
@@ -3014,7 +3119,7 @@ const ja: Translation = {
  privacy: {
   title: "プライバシーポリシー",
   intro: "wordizy.com からアクセス可能な wordIzy では、訪問者のプライバシーを最優先事項の一つとしています。このプライバシーポリシー文書には、wordIzy が収集・記録する情報の種類と、その利用方法が記載されています。\n\nプライバシーポリシーに関する追加のご質問や詳細情報が必要な場合は、お気軽にお問い合わせください。",
-  lastUpdated: "最終更新日：2026年10月28日",
+  lastUpdated: "最終更新日：2026年10月30日",
   sections: [
    {
     heading: "ログファイル",
@@ -3059,12 +3164,27 @@ const ja: Translation = {
       description: "当サイトの訪問者に広告を配信します。wordizy.com や他のサイトへの訪問に基づいて広告を配信するために Cookie（DART Cookie）を使用します。Google の広告およびコンテンツネットワークプライバシーポリシーにアクセスすることで、DART Cookie の使用を拒否できます。",
       url: "https://policies.google.com/technologies/ads",
     },
+    {
+      name: "Google Analytics 4",
+      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
+      url: "https://policies.google.com/technologies/cookies",
+    },
+    {
+      name: "Ahrefs Web Analytics",
+      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
+      url: "https://ahrefs.com/privacy",
+    },
+    {
+      name: "Umami Cloud Analytics",
+      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
+      url: "https://umami.is/privacy-policy",
+    },
   ],
  },
  terms: {
   title: "利用規約",
   intro: "wordIzy（wordizy.com からアクセス可能）へようこそ。本利用規約（以下「規約」）は、当社のウェブサイト、ワードゲーム支援ツール、辞書、および Anagram Blitz などのインタラクティブゲーム（総称して「サービス」）へのアクセスおよび利用を規定します。\n\nwordIzy にアクセスまたは使用することにより、あなたは本規約およびプライバシーポリシーに拘束されることに同意します。本規約に同意されない場合は、当社のサービスを使用しないでください。",
-  lastUpdated: "最終更新日：2026年10月28日",
+  lastUpdated: "最終更新日：2026年10月30日",
   sections: [
    {
     heading: "1. サービスの説明",
@@ -3398,7 +3518,7 @@ const zh: Translation = {
  privacy: {
   title: "隐私政策",
   intro: "在 wordIzy（可通过 wordizy.com 访问），我们最优先考虑的事项之一就是访客的隐私。本《隐私政策》文档包含 wordIzy 收集和记录的信息类型以及我们如何使用这些信息。\n\n如对本《隐私政策》有其他问题或需要更多信息，请随时与我们联系。",
-  lastUpdated: "最后更新：2026 年 10 月 28 日",
+  lastUpdated: "最后更新：2026 年 10 月 30 日",
   sections: [
    {
     heading: "日志文件",
@@ -3443,12 +3563,27 @@ const zh: Translation = {
       description: "向我们网站的访客投放广告。根据您对 wordizy.com 和其他网站的访问情况使用 Cookie（DART Cookie）投放广告。您可以通过访问 Google 广告与内容网络隐私政策来拒绝 DART Cookie。",
       url: "https://policies.google.com/technologies/ads",
     },
+    {
+      name: "Google Analytics 4",
+      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
+      url: "https://policies.google.com/technologies/cookies",
+    },
+    {
+      name: "Ahrefs Web Analytics",
+      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
+      url: "https://ahrefs.com/privacy",
+    },
+    {
+      name: "Umami Cloud Analytics",
+      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
+      url: "https://umami.is/privacy-policy",
+    },
   ],
  },
  terms: {
   title: "服务条款",
   intro: "欢迎使用 wordIzy（可通过 wordizy.com 访问）。本《服务条款》（简称\"条款\"）规管您对本网站、文字游戏辅助工具、词典以及互动游戏（如 Anagram Blitz）的访问与使用（统称\"服务\"）。\n\n访问或使用 wordIzy 即表示您同意受本条款及我们的《隐私政策》约束。如您不同意本条款，请勿使用我们的服务。",
-  lastUpdated: "最后更新：2026 年 10 月 28 日",
+  lastUpdated: "最后更新：2026 年 10 月 30 日",
   sections: [
    {
     heading: "1. 服务说明",
