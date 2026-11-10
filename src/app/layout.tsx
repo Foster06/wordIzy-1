@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Lora, Inter, Bree_Serif } from "next/font/google";
 import "./globals.css";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { LanguageProvider } from "@/components/i18n/language-provider";
@@ -11,55 +10,12 @@ import { AnalyticsScripts } from "@/components/site/analytics-scripts";
 import { Analytics } from "@vercel/analytics/next";
 import { WordVaultProvider } from "@/hooks/use-word-vault";
 
-// Font configuration — next/font/google self-hosts and auto-adds font-display: swap.
-// preload is DISABLED for all fonts. Preloading fonts makes them render-blocking
-// on the critical path — on slow 4G, 3 preloaded fonts added ~940ms to LCP.
-// With display: "swap", text renders immediately using fallback fonts (system-ui),
-// then swaps to the web font when it arrives. This cuts the critical path
-// from ~940ms (fonts) down to ~261ms (HTML only).
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-  preload: false,
-  fallback: ["system-ui", "Segoe UI", "Roboto", "sans-serif"],
-});
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-  preload: false,
-  fallback: ["ui-monospace", "Menlo", "Consolas", "monospace"],
-});
-const lora = Lora({
-  variable: "--font-serif",
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  display: "swap",
-  preload: false,
-  fallback: ["Georgia", "Times New Roman", "serif"],
-});
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  preload: false,
-  fallback: ["system-ui", "Segoe UI", "Roboto", "sans-serif"],
-});
-const breeSerif = Bree_Serif({
-  variable: "--font-bree-serif",
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-  preload: false,
-  fallback: ["Georgia", "serif"],
-});
-// Roboto Slab is now SELF-HOSTED — no longer loaded via next/font/google.
-// The @font-face + --font-roboto-slab CSS variable are in globals.css.
-// The WOFF2 file is at /public/fonts/roboto-slab-latin.woff2.
+// ALL fonts are now SELF-HOSTED — no more next/font/google import.
+// The @font-face declarations + CSS variables (--font-geist-sans,
+// --font-geist-mono, --font-serif, --font-inter, --font-bree-serif,
+// --font-roboto-slab) are in globals.css. WOFF2 files are in /public/fonts/.
 // This eliminates the Vercel build-time dependency on Google Fonts API
-// that caused the "roboto_slab_8855e401.module.css module-not-found" error.
+// that caused "module-not-found" deploy failures.
 
 // Ahrefs Web Analytics — public site data-key (safe to expose: it ships in the
 // HTML like the AdSense client id). Env-overridable, hardcoded fallback keeps
@@ -364,7 +320,7 @@ gtag('config', ${JSON.stringify(GA_MEASUREMENT_ID)});`,
         */}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} ${inter.variable} ${breeSerif.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}
+        className="antialiased bg-background text-foreground min-h-screen flex flex-col"
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true}>
           <LanguageProvider>

@@ -456,11 +456,63 @@ input[type="number"] {
   }
 }
 
-/* ---------- Self-hosted Roboto Slab font (replaces next/font/google) ---------- */
-/* Eliminates the build-time dependency on Google Fonts API that caused
-   Vercel deploy failures (roboto_slab_8855e401.module.css module-not-found).
-   The WOFF2 file is a variable font covering weights 600-800, latin subset.
-   Served from /public/fonts/roboto-slab-latin.woff2 (~34KB). */
+/* ---------- Self-hosted fonts (replaces next/font/google entirely) ---------- */
+/* ALL fonts are self-hosted to eliminate the build-time dependency on Google
+   Fonts API that caused Vercel deploy failures (module-not-found errors).
+   WOFF2 files are in /public/fonts/. CSS variables match the old next/font/google
+   variable names so all existing CSS continues to work unchanged. */
+
+/* Geist (sans-serif) — variable font, weights 400-700, latin subset */
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/geist-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Geist Mono (monospace) — variable font, weights 400-700, latin subset */
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/geist-mono-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Lora (serif) — weights 600-700, latin subset */
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600 700;
+  font-display: swap;
+  src: url('/fonts/lora-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Inter (sans-serif) — variable font, weights 400-700, latin subset */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Bree Serif — weight 400, latin subset */
+@font-face {
+  font-family: 'Bree Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/bree-serif-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Roboto Slab — variable font, weights 600-800, latin subset */
 @font-face {
   font-family: 'Roboto Slab';
   font-style: normal;
@@ -470,7 +522,14 @@ input[type="number"] {
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* CSS variables — match the old next/font/google variable names so all
+   existing CSS that uses var(--font-geist-sans) etc. continues to work. */
 :root {
+  --font-geist-sans: 'Geist', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-geist-mono: 'Geist Mono', ui-monospace, Menlo, Consolas, monospace;
+  --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-inter: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-bree-serif: 'Bree Serif', Georgia, serif;
   --font-roboto-slab: 'Roboto Slab', 'Roboto', Georgia, serif;
 }
 /* Adds a visible hover lift (3% up) + active press-down (6% down) to every
