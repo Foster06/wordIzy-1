@@ -287,7 +287,7 @@ const en: Translation = {
    },
    {
     heading: "Our Commitment to Privacy",
-    body: "We value your digital security and your system's performance. Advanced options like your word bookmark history are executed directly using your browser's local storage. This means your personal study lists never leave your device, no user account registrations are required, and your data remains completely private to you.\nFor site analytics, we use a combination of privacy-friendly tools (Ahrefs Web Analytics and Umami Cloud Analytics — both cookie-free and anonymous) alongside Google Analytics 4 and Google AdSense, which use cookies for traffic analysis and ad personalization. See our Privacy Policy for the full list of third-party services and how to manage your cookie preferences.",
+    body: "We value your digital security and your system's performance. Advanced options like your word bookmark history are executed directly using your browser's local storage. This means your personal study lists never leave your device, no user account registrations are required, and your data remains completely private to you.\nFor site analytics and advertising, we use third-party services to analyze website traffic and serve relevant ads. These services may use cookies. See our Privacy Policy for details on how we handle cookies and your data.",
    },
    {
     heading: "Get in Touch",
@@ -361,21 +361,6 @@ const en: Translation = {
       name: "Google AdSense",
       description: "Serves advertisements to our site visitors. Uses cookies (DART cookies) to serve ads based on your visits to wordizy.com and other sites. You can decline DART cookies by visiting Google's ad and content network Privacy Policy.",
       url: "https://policies.google.com/technologies/ads",
-    },
-    {
-      name: "Google Analytics 4",
-      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
-      url: "https://policies.google.com/technologies/cookies",
-    },
-    {
-      name: "Ahrefs Web Analytics",
-      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
-      url: "https://ahrefs.com/privacy",
-    },
-    {
-      name: "Umami Cloud Analytics",
-      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
-      url: "https://umami.is/privacy-policy",
     },
   ],
  },
@@ -785,21 +770,6 @@ const fr: Translation = {
       description: "Diffuse des annonces auprès des visiteurs de notre site. Utilise des cookies (cookies DART) pour diffuser des annonces en fonction de vos visites sur wordizy.com et d'autres sites. Vous pouvez refuser les cookies DART en consultant la Politique de confidentialité du réseau de contenu et d'annonces de Google.",
       url: "https://policies.google.com/technologies/ads",
     },
-    {
-      name: "Google Analytics 4",
-      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
-      url: "https://policies.google.com/technologies/cookies",
-    },
-    {
-      name: "Ahrefs Web Analytics",
-      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
-      url: "https://ahrefs.com/privacy",
-    },
-    {
-      name: "Umami Cloud Analytics",
-      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
-      url: "https://umami.is/privacy-policy",
-    },
   ],
  },
  terms: {
@@ -1180,21 +1150,6 @@ const es: Translation = {
       name: "Google AdSense",
       description: "Muestra anuncios a los visitantes de nuestro sitio. Utiliza cookies (cookies DART) para mostrar anuncios basados en sus visitas a wordizy.com y otros sitios. Puede rechazar las cookies DART visitando la Política de privacidad de la red de contenido y anuncios de Google.",
       url: "https://policies.google.com/technologies/ads",
-    },
-    {
-      name: "Google Analytics 4",
-      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
-      url: "https://policies.google.com/technologies/cookies",
-    },
-    {
-      name: "Ahrefs Web Analytics",
-      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
-      url: "https://ahrefs.com/privacy",
-    },
-    {
-      name: "Umami Cloud Analytics",
-      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
-      url: "https://umami.is/privacy-policy",
     },
   ],
  },
@@ -1577,21 +1532,6 @@ const de: Translation = {
       description: "Liefert Werbung an die Besucher unserer Website. Verwendet Cookies (DART-Cookies), um Anzeigen basierend auf Ihren Besuchen auf wordizy.com und anderen Websites zu liefern. Sie können DART-Cookies ablehnen, indem Sie die Datenschutzerklärung des Google-Werbe- und Content-Netzwerks aufrufen.",
       url: "https://policies.google.com/technologies/ads",
     },
-    {
-      name: "Google Analytics 4",
-      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
-      url: "https://policies.google.com/technologies/cookies",
-    },
-    {
-      name: "Ahrefs Web Analytics",
-      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
-      url: "https://ahrefs.com/privacy",
-    },
-    {
-      name: "Umami Cloud Analytics",
-      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
-      url: "https://umami.is/privacy-policy",
-    },
   ],
  },
  terms: {
@@ -1972,21 +1912,6 @@ const it: Translation = {
       name: "Google AdSense",
       description: "Pubblica annunci ai visitatori del nostro sito. Utilizza cookie (cookie DART) per mostrare annunci in base alle tue visite su wordizy.com e altri siti. Puoi rifiutare i cookie DART visitando l'Informativa sulla privacy della rete di annunci e contenuti di Google.",
       url: "https://policies.google.com/technologies/ads",
-    },
-    {
-      name: "Google Analytics 4",
-      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
-      url: "https://policies.google.com/technologies/cookies",
-    },
-    {
-      name: "Ahrefs Web Analytics",
-      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
-      url: "https://ahrefs.com/privacy",
-    },
-    {
-      name: "Umami Cloud Analytics",
-      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
-      url: "https://umami.is/privacy-policy",
     },
   ],
  },
@@ -2369,21 +2294,6 @@ const pt: Translation = {
       description: "Exibe anúncios aos visitantes do nosso site. Utiliza cookies (cookies DART) para mostrar anúncios com base nas suas visitas a wordizy.com e outros sites. Pode recusar os cookies DART visitando a Política de privacidade da rede de anúncios e conteúdos do Google.",
       url: "https://policies.google.com/technologies/ads",
     },
-    {
-      name: "Google Analytics 4",
-      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
-      url: "https://policies.google.com/technologies/cookies",
-    },
-    {
-      name: "Ahrefs Web Analytics",
-      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
-      url: "https://ahrefs.com/privacy",
-    },
-    {
-      name: "Umami Cloud Analytics",
-      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
-      url: "https://umami.is/privacy-policy",
-    },
   ],
  },
  terms: {
@@ -2764,21 +2674,6 @@ const nl: Translation = {
       name: "Google AdSense",
       description: "Toont advertenties aan bezoekers van onze site. Gebruikt cookies (DART-cookies) om advertenties te tonen op basis van uw bezoeken aan wordizy.com en andere sites. U kunt DART-cookies afwijzen door het Privacybeleid van het advertentie- en contentnetwerk van Google te raadplegen.",
       url: "https://policies.google.com/technologies/ads",
-    },
-    {
-      name: "Google Analytics 4",
-      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
-      url: "https://policies.google.com/technologies/cookies",
-    },
-    {
-      name: "Ahrefs Web Analytics",
-      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
-      url: "https://ahrefs.com/privacy",
-    },
-    {
-      name: "Umami Cloud Analytics",
-      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
-      url: "https://umami.is/privacy-policy",
     },
   ],
  },
@@ -3164,21 +3059,6 @@ const ja: Translation = {
       description: "当サイトの訪問者に広告を配信します。wordizy.com や他のサイトへの訪問に基づいて広告を配信するために Cookie（DART Cookie）を使用します。Google の広告およびコンテンツネットワークプライバシーポリシーにアクセスすることで、DART Cookie の使用を拒否できます。",
       url: "https://policies.google.com/technologies/ads",
     },
-    {
-      name: "Google Analytics 4",
-      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
-      url: "https://policies.google.com/technologies/cookies",
-    },
-    {
-      name: "Ahrefs Web Analytics",
-      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
-      url: "https://ahrefs.com/privacy",
-    },
-    {
-      name: "Umami Cloud Analytics",
-      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
-      url: "https://umami.is/privacy-policy",
-    },
   ],
  },
  terms: {
@@ -3562,21 +3442,6 @@ const zh: Translation = {
       name: "Google AdSense",
       description: "向我们网站的访客投放广告。根据您对 wordizy.com 和其他网站的访问情况使用 Cookie（DART Cookie）投放广告。您可以通过访问 Google 广告与内容网络隐私政策来拒绝 DART Cookie。",
       url: "https://policies.google.com/technologies/ads",
-    },
-    {
-      name: "Google Analytics 4",
-      description: "Tracks page views and user interactions using cookies. Measurement ID G-02HTT8KL4S. Sends data to Google's servers via googletagmanager.com and google-analytics.com. You can manage your Google Analytics settings via Google's Ads Settings.",
-      url: "https://policies.google.com/technologies/cookies",
-    },
-    {
-      name: "Ahrefs Web Analytics",
-      description: "Privacy-friendly pageview analytics. No cookies, no personally identifiable information. Tracks anonymous pageview counts only.",
-      url: "https://ahrefs.com/privacy",
-    },
-    {
-      name: "Umami Cloud Analytics",
-      description: "Privacy-friendly anonymous pageview tracking. No cookies, no personal data. Hosted at cloud.umami.is.",
-      url: "https://umami.is/privacy-policy",
     },
   ],
  },
