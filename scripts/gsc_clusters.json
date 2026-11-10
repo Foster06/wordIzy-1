@@ -1,0 +1,170 @@
+[
+ {
+  "cluster": "wordle-solver",
+  "n": 155,
+  "clicks": 9,
+  "imps": 5701,
+  "wpos": 9.2,
+  "striking_imps": 5416
+ },
+ {
+  "cluster": "unscramble-jumble",
+  "n": 405,
+  "clicks": 5,
+  "imps": 2902,
+  "wpos": 18.3,
+  "striking_imps": 1727
+ },
+ {
+  "cluster": "wordle-cheat",
+  "n": 30,
+  "clicks": 5,
+  "imps": 1824,
+  "wpos": 12.3,
+  "striking_imps": 1631
+ },
+ {
+  "cluster": "anagram-solver",
+  "n": 158,
+  "clicks": 1,
+  "imps": 1584,
+  "wpos": 12.6,
+  "striking_imps": 1334
+ },
+ {
+  "cluster": "starts-with",
+  "n": 305,
+  "clicks": 7,
+  "imps": 1200,
+  "wpos": 50.0,
+  "striking_imps": 9
+ },
+ {
+  "cluster": "wordfeud",
+  "n": 17,
+  "clicks": 0,
+  "imps": 886,
+  "wpos": 8.2,
+  "striking_imps": 859
+ },
+ {
+  "cluster": "ends-with",
+  "n": 236,
+  "clicks": 1,
+  "imps": 788,
+  "wpos": 41.1,
+  "striking_imps": 110
+ },
+ {
+  "cluster": "wordle-starting-words",
+  "n": 154,
+  "clicks": 0,
+  "imps": 696,
+  "wpos": 44.7,
+  "striking_imps": 174
+ },
+ {
+  "cluster": "make-words-from-letters",
+  "n": 278,
+  "clicks": 0,
+  "imps": 650,
+  "wpos": 39.9,
+  "striking_imps": 36
+ },
+ {
+  "cluster": "wordle-other",
+  "n": 112,
+  "clicks": 1,
+  "imps": 458,
+  "wpos": 23.6,
+  "striking_imps": 199
+ },
+ {
+  "cluster": "other",
+  "n": 218,
+  "clicks": 0,
+  "imps": 428,
+  "wpos": 26.4,
+  "striking_imps": 144
+ },
+ {
+  "cluster": "scrabble-checker",
+  "n": 125,
+  "clicks": 1,
+  "imps": 373,
+  "wpos": 38.9,
+  "striking_imps": 51
+ },
+ {
+  "cluster": "competitor-brand",
+  "n": 21,
+  "clicks": 1,
+  "imps": 328,
+  "wpos": 10.5,
+  "striking_imps": 308
+ },
+ {
+  "cluster": "crossword",
+  "n": 37,
+  "clicks": 0,
+  "imps": 149,
+  "wpos": 12.3,
+  "striking_imps": 109
+ },
+ {
+  "cluster": "letter-words-other",
+  "n": 58,
+  "clicks": 0,
+  "imps": 95,
+  "wpos": 40.9,
+  "striking_imps": 12
+ },
+ {
+  "cluster": "quordle",
+  "n": 6,
+  "clicks": 1,
+  "imps": 53,
+  "wpos": 11.1,
+  "striking_imps": 50
+ },
+ {
+  "cluster": "random-generator",
+  "n": 18,
+  "clicks": 0,
+  "imps": 49,
+  "wpos": 16.7,
+  "striking_imps": 25
+ },
+ {
+  "cluster": "is-it-a-word",
+  "n": 8,
+  "clicks": 0,
+  "imps": 34,
+  "wpos": 25.5,
+  "striking_imps": 0
+ },
+ {
+  "cluster": "dictionary",
+  "n": 14,
+  "clicks": 0,
+  "imps": 21,
+  "wpos": 63.6,
+  "striking_imps": 0
+ },
+ {
+  "cluster": "brand",
+  "n": 1,
+  "clicks": 1,
+  "imps": 6,
+  "wpos": 6.5,
+  "striking_imps": 6
+ },
+ {
+  "cluster": "wordle-pattern",
+  "n": 1,
+  "clicks": 0,
+  "imps": 1,
+  "wpos": 6.0,
+  "striking_imps": 0
+ }
+]

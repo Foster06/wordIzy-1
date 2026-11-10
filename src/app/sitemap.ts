@@ -40,9 +40,10 @@ const GUIDES = [
 ];
 
 // 5. Fixed last-modified timestamp so crawlers can diff changes between deploys.
-//    Bumped to 2026-10-29 to reflect the Privacy Policy rewrite, new Terms of
-//    Service page, and Contact page refactor shipped in this deploy.
-const LAST_MODIFIED = new Date("2026-10-29T00:00:00Z");
+//    Bumped to 2026-11-11 to reflect the GSC-driven metadata rewrite (count-
+//    enriched word-list titles, tool title/description upgrades) and the 301
+//    consolidation of legacy word-list URLs onto their canonical forms.
+const LAST_MODIFIED = new Date("2026-11-11T00:00:00Z");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://wordizy.com";

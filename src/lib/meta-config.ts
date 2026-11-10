@@ -25,18 +25,18 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["word unscrambler","unscramble letters","word finder","unscramble words","scramble solver","letter unscrambler","word unscrambler free","words with friends cheat","jumble solver","word cheat","scrabble word finder","anagram finder","letter rearranger","word maker","unscramble letters into words","word solver","unscramble cheat","word generator from letters","word descrambler"]
   },
   "scramble": {
-    title: "Word Scramble Solver — Descramble Jumbled Letters",
-    description: "Solve jumble & word scramble puzzles instantly. Descramble letters into valid words for Scrabble, Words with Friends, and crossword puzzles. Free jumble solver with wildcard support.",
+    title: "Word Scrambler — Descramble & Unscramble Jumbled Words",
+    description: "Free word scramble solver & descrambler. Unscramble jumbled letters into valid words for Scrabble, Words with Friends, Wordle & crosswords. Instant results, wildcards supported.",
     keywords: ["word scramble solver","jumble solver","descramble letters","word scramble","scramble cheat","jumble word solver","unscramble jumbled words","scrambled word finder","word descrambler","jumble puzzle solver","scramble letters solver","word jumble cheat","descramble words","scramble word maker","jumble answer solver","word scramble cheat","unscramble scramble letters","daily jumble solver","word scramble helper"]
   },
   "anagram": {
-    title: "Anagram Solver — Find All Possible Hidden Anagrams",
-    description: "Free anagram solver & maker. Input any word or letters to find all valid anagrams and sub-anagrams instantly. Perfect for Scrabble, crossword puzzles, and word games. 9 languages.",
+    title: "Anagram Solver — Find All Anagrams of Your Letters",
+    description: "Free anagram solver & maker. Enter any word or letters to instantly find every valid anagram and sub-anagram. Perfect for Scrabble, crosswords & word games. 9 languages.",
     keywords: ["anagram solver","anagram maker","anagram finder","solve anagrams","anagram generator","word anagram solver","letter rearranger","anagram cheat","anagram creator","find anagrams","anagram word finder","multiple word anagram solver","anagram unscrambler","anagram puzzle solver","best anagram solver","free anagram solver","anagram solver online","anagram letters","sub anagram finder"]
   },
   "wordle": {
-    title: "Wordle Solver — Daily Cheat & Word Pattern Helper",
-    description: "Wordle solver & helper. Filter word choices by green, yellow, and gray letter positions. Find today's Wordle answer fast. Free Wordle cheat with 4-8 letter support.",
+    title: "Wordle Solver — Cheat, Helper & Answer Finder",
+    description: "Free Wordle solver & cheat for today's puzzle. Filter words by green, yellow & gray letters to find today's Wordle answer fast. Works with 4-8 letter Wordles. No sign-up.",
     keywords: ["wordle solver","wordle cheat","wordle helper","wordle answer finder","wordle hint","daily wordle solver","wordle today","wordle word finder","wordle answer","wordle clue","wordle guesser","wordle solver tool","wordle pattern solver","wordle cheat sheet","wordle helper tool","wordle answer today","wordle letter solver","wordle word helper","wordle green yellow gray solver"]
   },
   "quordle": {
@@ -55,13 +55,13 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["random word generator","word generator","random words","word list generator","word picker","random word picker","random word","generate random word","random english word generator","word randomizer","random word tool","random vocabulary word generator","random noun generator","random word maker","random word list","random word selector","generate words","random scrabble word generator","random word generator for games"]
   },
   "wordfeud": {
-    title: "Wordfeud Helper — Find Best Words from Your Rack",
-    description: "Wordfeud helper & solver. Find the best Wordfeud words from your rack. Enter 7 letters + board letters. Supports 9 languages, blank tiles. Free Wordfeud cheat & word finder.",
+    title: "Wordfeud Helper & Cheat — Best Words From Your Rack",
+    description: "Wordfeud helper, cheat & unscrambler. Enter your 7 rack letters + board letters to find the best Wordfeud words instantly. 9 languages, blank tiles supported. Free.",
     keywords: ["wordfeud helper","wordfeud solver","wordfeud finder","wordfeud cheat","wordfeud word finder","wordfeud best words","wordfeud word generator","wordfeud tile solver","wordfeud rack solver","wordfeud cheat tool","wordfeud helper tool","wordfeud anagram solver","wordfeud word maker","wordfeud score calculator","wordfeud word builder","wordfeud dictionary finder","wordfeud word checker","wordfeud high score words","wordfeud letter solver"]
   },
   "dictionary": {
-    title: "Scrabble Dictionary Checker — Verify Words & Scores",
-    description: "Check if a word is valid in the official Scrabble dictionary. See Scrabble score, definition, and synonyms. 9 languages supported. Free word checker & dictionary lookup.",
+    title: "Scrabble Dictionary Checker — Is It a Valid Word?",
+    description: "Check if a word is valid in the official Scrabble dictionary (TWL & CSW). See the Scrabble score, definition & synonyms instantly. Free word checker, 9 languages.",
     keywords: ["scrabble dictionary","check scrabble word","word lookup","scrabble word checker","is it a word","scrabble valid word","word validator","dictionary check","scrabble dictionary online","official scrabble dictionary","scrabble word list","scrabble word search","scrabble accepted words","scrabble word verification","scrabble word score checker","scrabble twl dictionary","scrabble csw dictionary","word definition scrabble","scrabble word database"]
   },
   "wordlists": {
@@ -70,23 +70,23 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["2 letter words","3 letter words","4 letter words","5 letter words","6 letter words","7 letter words","scrabble word lists","words by length","word lists by length","scrabble word lengths","short scrabble words","long scrabble words","bingo words","unscramble by length","2 letter scrabble words","3 letter scrabble words","5 letter scrabble words","7 letter scrabble words","scrabble word list by length"]
   },
   "wordstarts": {
-    title: "Words Starts With A-Z — Browse Scrabble Words by Letter",
-    description: "Browse all valid Scrabble words that start with each letter A-Z. Filter by word length 2-15. Perfect for studying openings, hooks, and high-scoring Scrabble plays. Free word lists.",
+    title: "Words That Start With A to Z — Word Lists by Letter",
+    description: "Browse every valid word that starts with A to Z. Filter by length 2-15, sorted by Scrabble score. Free word lists for Scrabble, Wordle & Words with Friends.",
     keywords: ["words starts with","words beginning with","words that start with","scrabble words by letter","starting letter word list","words starting with a","words starting with q","words starting with x","scrabble opening words","word list by starting letter","words beginning with a","words that begin with","words that start with letter","scrabble words starting with","words starting with b","words starting with c","words starting with s","words that start with a to z"]
   },
   "wordends": {
-    title: "Words Ends With A-Z — Browse Scrabble Words by Ending",
-    description: "Browse all valid Scrabble words that end with each letter A-Z. Filter by word length 2-15. Find hooks, suffixes, and high-scoring endings for Scrabble. Free word lists.",
+    title: "Words That End With A to Z — Word Lists by Letter",
+    description: "Browse every valid word that ends with A to Z. Filter by length 2-15 to find suffixes, hooks & high-scoring endings. Free word lists for Scrabble & Wordle.",
     keywords: ["words ends with","words ending in","words that end with","scrabble words by ending","ending letter word list","words ending with e","words ending with s","words ending with z","words ending with d","scrabble suffix words","word list by ending letter","words ending in a","words that end in","words that end with letter","scrabble words ending with","words ending with ing","words ending with ed","words ending with er","words that end with a to z"]
   },
   "wordle-starts": {
-    title: "Wordle Words Starting With A-Z — Best Starting Words",
-    description: "Browse all valid Wordle words that start with each letter A-Z. Find the best Wordle starting words, filter by length, and narrow down your daily puzzle. Free Wordle word lists.",
+    title: "Wordle Words That Start With A to Z — Best Starters",
+    description: "Browse all valid Wordle words by starting letter A-Z. Find the best Wordle starting words, filter by length & score, and narrow down today's puzzle fast.",
     keywords: ["wordle words starting with","wordle starting words","best wordle starts","wordle words by letter","wordle words that start with","wordle starting word list","best wordle starting words","wordle words beginning with","wordle word list by letter","wordle words starting with a","wordle words starting with s","wordle words starting with t","wordle opening words","wordle first word","wordle words a to z","wordle starter words","wordle words by starting letter","wordle starting letters","best wordle first words"]
   },
   "wordle-ends": {
-    title: "Wordle Words Ending With A-Z — Hooks & Suffixes",
-    description: "Browse all valid Wordle words that end with each letter A-Z. Find hooks, suffixes, and ending patterns to narrow down your daily Wordle puzzle. Free Wordle word lists.",
+    title: "Wordle Words That End With A to Z — Hooks & Suffixes",
+    description: "Browse all valid Wordle words by ending letter A-Z. Find Wordle hooks, suffixes & ending patterns to narrow down today's puzzle. Free Wordle word lists.",
     keywords: ["wordle words ending with","wordle ending words","wordle words by ending","wordle hooks","wordle words that end with","wordle ending word list","wordle words ending in","wordle word list by ending letter","wordle words ending with e","wordle words ending with s","wordle words ending with y","wordle suffix words","wordle words ending in a","wordle ending letters","wordle words a to z ending","wordle last letter words","wordle words by ending","wordle ending patterns","wordle words ending with d"]
   },
   "about": {

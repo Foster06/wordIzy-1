@@ -32,6 +32,44 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
   },
 
+  // Legacy programmatic word-list URLs → canonical 301 redirects.
+  // GSC data (Oct–Nov 2026) showed the legacy variants still indexed and
+  // ranking separately from the canonical /words-*-with-* URLs (e.g.
+  // /words-starts-by-n alone got 112 impressions at position ~71), splitting
+  // ranking signals across near-duplicate pages. Canonical tags alone did not
+  // consolidate them, so hard redirects now fold every legacy pattern into
+  // its canonical URL.
+  // NOTE the custom param regexes: :letter([a-z]) and :n(\d{1,2}) — without
+  // them "/:n-letter-words" would also match the canonical
+  // "/unscramble-5-letter-words" (n = "unscramble-5") and redirect it into a
+  // 404 loop. The regex keeps every pattern strictly scoped.
+  async redirects() {
+    return [
+      // Top-level legacy slug variants
+      { source: "/words-starts-by-:letter([a-z])", destination: "/words-starts-with-:letter", permanent: true },
+      { source: "/words-ends-by-:letter([a-z])", destination: "/words-ends-with-:letter", permanent: true },
+      { source: "/words-starting-with-:letter([a-z])", destination: "/words-starts-with-:letter", permanent: true },
+      { source: "/words-ending-with-:letter([a-z])", destination: "/words-ends-with-:letter", permanent: true },
+      { source: "/:n(\\d{1,2})-letter-words", destination: "/unscramble-:n-letter-words", permanent: true },
+      // Legacy two-segment /unscramble/<slug> paths
+      { source: "/unscramble/words-starts-by-:letter([a-z])", destination: "/words-starts-with-:letter", permanent: true },
+      { source: "/unscramble/words-starting-with-:letter([a-z])", destination: "/words-starts-with-:letter", permanent: true },
+      { source: "/unscramble/words-starts-with-:letter([a-z])", destination: "/words-starts-with-:letter", permanent: true },
+      { source: "/unscramble/words-ends-by-:letter([a-z])", destination: "/words-ends-with-:letter", permanent: true },
+      { source: "/unscramble/words-ending-with-:letter([a-z])", destination: "/words-ends-with-:letter", permanent: true },
+      { source: "/unscramble/words-ends-with-:letter([a-z])", destination: "/words-ends-with-:letter", permanent: true },
+      { source: "/unscramble/wordle-words-starts-with-:letter([a-z])", destination: "/wordle-words-starts-with-:letter", permanent: true },
+      { source: "/unscramble/wordle-words-ends-with-:letter([a-z])", destination: "/wordle-words-ends-with-:letter", permanent: true },
+      { source: "/unscramble/unscramble-:n(\\d{1,2})-letter-words", destination: "/unscramble-:n-letter-words", permanent: true },
+      { source: "/unscramble/:n(\\d{1,2})-letter-words", destination: "/unscramble-:n-letter-words", permanent: true },
+      // Misc aliases: bare /unscramble rendered the homepage with NO canonical
+      // (duplicate-content), and /game rendered the homepage while carrying
+      // the blitz VideoGame JSON-LD. Point both at their real targets.
+      { source: "/unscramble", destination: "/", permanent: true },
+      { source: "/game", destination: "/blitz", permanent: true },
+    ];
+  },
+
   // Security + cache headers applied to every route.
   async headers() {
     const cacheHeaders = [

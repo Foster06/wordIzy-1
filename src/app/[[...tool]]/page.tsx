@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { MainToolView } from "@/components/site/main-tool-view";
 import { TOOL_METADATA_REGISTRY } from "@/lib/meta-config";
 import {
   isWordListPage,
   parseWordListSlug,
-  buildWordListTitle,
   buildCanonicalWordListUrl,
+  WORD_LIST_LENGTHS,
+  type WordListConfig,
 } from "@/lib/word-list-urls";
 import { getInitialWordListPage, getTopScoringWords, type InitialWordListPage } from "@/lib/word-list-data";
 import { translations } from "@/components/i18n/translations";
@@ -125,6 +127,64 @@ function buildFaqJsonLd(toolSlug: string): {
   };
 }
 
+// ---------------------------------------------------------------------------
+// Programmatic word-list SEO builders (GSC-driven rewrite, 2026-11).
+//
+// Search Console data (Oct 13 – Nov 9, 2026) showed the word-list pages rank
+// positions 6-9 for their long-tail queries with ~0% CTR (~3,000 impressions,
+// 4 clicks). The old titles ("Words Starting With T") neither matched the
+// dominant query phrasing ("words that start with t") nor gave a searcher a
+// reason to click. These builders produce exact-match, count-enriched
+// titles/descriptions instead, e.g. "1,173 5-Letter Words Starting With T —
+// Wordle" / "Words That Start With T — 1,912 Valid Words". Counts come from
+// the module-cached dictionary store, so there is no extra build cost.
+// ---------------------------------------------------------------------------
+
+/** Build the SEO title + description for a programmatic word-list config. */
+function buildWordListSeo(config: WordListConfig): { title: string; description: string } {
+  const dict = config.dict ?? "scrabble";
+  const letter = String(config.value).toUpperCase();
+
+  // Resolve real word counts from the (module-cached) dictionary store.
+  const slug = buildCanonicalWordListUrl(config).replace(/^\//, "");
+  const data = getInitialWordListPage(slug, "en", 1);
+  const fmt = (n: number) => n.toLocaleString("en-US");
+  const total = data?.total ?? 0;
+  const count5 = data?.lengthCounts?.[5] ?? 0;
+
+  if (config.type === "length") {
+    const n = config.value as number;
+    return {
+      title: total > 0
+        ? `${n}-Letter Words — ${fmt(total)} Valid Words`
+        : `${n}-Letter Words — Complete Scrabble & Wordle List`,
+      description: `Complete list of ${total > 0 ? `${fmt(total)} ` : ""}${n}-letter words from the official Scrabble dictionary, sorted by score. Browse ${n}-letter words for Scrabble, Wordle, Words with Friends, and anagram puzzles.`,
+    };
+  }
+
+  const starts = config.type === "starts";
+
+  if (dict === "wordle") {
+    return {
+      title: count5 > 0
+        ? `${fmt(count5)} 5-Letter Words ${starts ? "Starting" : "Ending"} With "${letter}" — Wordle`
+        : `Wordle Words That ${starts ? "Start" : "End"} With "${letter}"`,
+      description: starts
+        ? `${count5 > 0 ? `${fmt(count5)} five-letter ` : "All "}Wordle words that start with "${letter}", plus 6-7 letter Wordle word lists. Filter by length, sorted by score — find the best Wordle guesses starting with ${letter} fast.`
+        : `${count5 > 0 ? `${fmt(count5)} five-letter ` : "All "}Wordle words that end with "${letter}", plus 6-7 letter Wordle word lists. Find Wordle hooks, suffixes, and ending patterns to solve today's puzzle fast.`,
+    };
+  }
+
+  return {
+    title: total > 0
+      ? `Words That ${starts ? "Start" : "End"} With "${letter}" — ${fmt(total)} Valid Words`
+      : `Words That ${starts ? "Start" : "End"} With "${letter}" — Scrabble Word List`,
+    description: starts
+      ? `${total > 0 ? `${fmt(total)} valid ` : "All "}words that start with "${letter}" in the official Scrabble dictionary. Filter by length 2-15, sorted by score — for Scrabble, Words with Friends, and crossword puzzles.`
+      : `${total > 0 ? `${fmt(total)} valid ` : "All "}words that end with "${letter}" in the official Scrabble dictionary. Filter by length 2-15, find hooks and suffixes — for Scrabble, Words with Friends, and word game strategy.`,
+  };
+}
+
 // SERVER-SIDE METADATA ENGINE: unique titles/descriptions for Google bots.
 // Every return path now emits a fully-formed openGraph (incl. url / siteName /
 // type / locale) + a page-specific twitter card + robots.googleBot so the
@@ -138,18 +198,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // 1. Single-segment programmatic page: /words-starts-by-c, /unscramble-5-letter-words, etc.
   if (isWordListPage(activeToolSlug)) {
     const config = parseWordListSlug(activeToolSlug)!;
-    const title = buildWordListTitle(config);
+    const { title, description } = buildWordListSeo(config);
     const canonical = buildCanonicalWordListUrl(config);
-    let description = "";
-    if (config.type === "length") {
-      description = `Complete list of ${config.value}-letter words for Scrabble, Wordle, Words with Friends, and anagram puzzles. Official Scrabble dictionary, sorted by score. Browse ${config.value}-letter word lists, find high-scoring plays, and study word patterns.`;
-    } else if (config.type === "starts") {
-      const letter = String(config.value).toUpperCase();
-      description = `Browse all valid Scrabble and Wordle words starting with "${letter}". Filter by length 2-15, sorted by score. Find words beginning with ${letter} for Scrabble, Words with Friends, crossword puzzles, and anagram games.`;
-    } else {
-      const letter = String(config.value).toUpperCase();
-      description = `Browse all valid Scrabble and Wordle words ending with "${letter}". Filter by length 2-15, find hooks and suffixes. Words ending in ${letter} for Scrabble, Words with Friends, crossword puzzles, and word game strategy.`;
-    }
     const keywords = config.type === "length"
       ? [`${config.value} letter words`, `${config.value}-letter words`, `words with ${config.value} letters`, `scrabble ${config.value} letter words`, `wordle ${config.value} letter words`, `${config.value} letter word list`, `${config.value} letter scrabble words`, `words ${config.value} letters long`, `${config.value} letter words for scrabble`, `${config.value} letter words for wordle`, `${config.value} letter anagram words`, `${config.value} letter words with friends`, `list of ${config.value} letter words`, `${config.value} letter word finder`, `${config.value} letter word generator`]
       : config.type === "starts"
@@ -178,20 +228,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // 2. Legacy two-segment path: /unscramble/<slug>
   if (activeToolSlug === "unscramble" && subRoute && isWordListPage(subRoute)) {
     const config = parseWordListSlug(subRoute)!;
-    const title = buildWordListTitle(config);
+    // Reuse the same per-config SEO builders as the single-segment branch —
+    // avoids duplicate-content flags across ~1.8k programmatic pages.
+    const { title, description } = buildWordListSeo(config);
     const canonical = buildCanonicalWordListUrl(config);
-    // Reuse the same per-config description builder as the single-segment branch
-    // — avoids duplicate-content flag across ~1.8k programmatic pages.
-    let description = "";
-    if (config.type === "length") {
-      description = `Complete list of ${config.value}-letter words for Scrabble, Wordle, Words with Friends, and anagram puzzles. Official Scrabble dictionary, sorted by score. Browse ${config.value}-letter word lists, find high-scoring plays, and study word patterns.`;
-    } else if (config.type === "starts") {
-      const letter = String(config.value).toUpperCase();
-      description = `Browse all valid Scrabble and Wordle words starting with "${letter}". Filter by length 2-15, sorted by score. Find words beginning with ${letter} for Scrabble, Words with Friends, crossword puzzles, and anagram games.`;
-    } else {
-      const letter = String(config.value).toUpperCase();
-      description = `Browse all valid Scrabble and Wordle words ending with "${letter}". Filter by length 2-15, find hooks and suffixes. Words ending in ${letter} for Scrabble, Words with Friends, crossword puzzles, and word game strategy.`;
-    }
     const keywords = config.type === "length"
       ? [`${config.value} letter words`, `${config.value}-letter words`, `words with ${config.value} letters`, `scrabble ${config.value} letter words`, `wordle ${config.value} letter words`, `${config.value} letter word list`, `${config.value} letter scrabble words`, `words ${config.value} letters long`, `${config.value} letter words for scrabble`, `${config.value} letter words for wordle`, `${config.value} letter anagram words`, `${config.value} letter words with friends`, `list of ${config.value} letter words`, `${config.value} letter word finder`, `${config.value} letter word generator`]
       : config.type === "starts"
@@ -215,7 +255,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  // 3. Core game/tool pages
+  // 3. Hidden owner-only views — keep out of the search index.
+  if (activeToolSlug === "inbox" || activeToolSlug === "dashboard") {
+    return { robots: { index: false, follow: false } };
+  }
+
+  // 4. Core game/tool pages
   const metaConfig = TOOL_METADATA_REGISTRY[activeToolSlug];
   if (metaConfig) {
     const canonicalPath = activeToolSlug === "unscrambler" ? "/" : `/${activeToolSlug}`;
@@ -271,38 +316,63 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // each request. Less popular pages (8-15 letter, wordle starts/ends) are
 // server-rendered on demand.
 const ALPHABET = "abcdefghijklmnopqrstuvwxyz".split("");
-const POPULAR_LENGTHS = ["5", "6", "7"]; // Most searched lengths
+
+// Hidden owner-only views served by the catch-all (not in the metadata
+// registry) — kept reachable via the static params below.
+const EXTRA_CATCHALL_SLUGS = ["inbox", "dashboard"] as const;
 
 export async function generateStaticParams() {
-  // Pre-generate the most popular word-list pages at build time:
-  // - 26 starts-with pages (words-starts-with-a through words-starts-with-z)
-  // - 26 ends-with pages (words-ends-with-a through words-ends-with-z)
-  // - 3 length pages (5, 6, 7 letter words — most common Wordle lengths)
-  // Total: 55 static pages (the rest render on-demand)
+  // Enumerate EVERY valid single-segment slug so the whole site is
+  // statically prerendered. Combined with `dynamicParams = false` below,
+  // any URL NOT in this list (junk like /nonexistent-page-xyz, /Wordle,
+  // /wordle/foo) gets Next.js's built-in REAL 404 — previously the
+  // catch-all rendered the homepage for any unknown slug with HTTP 200 +
+  // "index, follow", a soft-404 duplicate-content problem that let Google
+  // index unlimited homepage copies under arbitrary URLs.
+  //
+  // Legacy word-list variants (/words-starts-by-*, /words-starting-with-*,
+  // /unscramble/<slug>, /N-letter-words) are deliberately NOT enumerated:
+  // they are 308-redirected to their canonical URLs in next.config.ts, so
+  // they never reach this route.
   const params: { tool: string[] }[] = [];
 
+  // Homepage
+  params.push({ tool: [] });
+
+  // Every core tool / info page from the metadata registry (unscrambler,
+  // scramble, wordle, quordle, scrabble, random, wordfeud, dictionary,
+  // wordlists, wordstarts, wordends, wordle-starts, wordle-ends, about,
+  // contact, privacy, terms, sitemap, blitz)
+  for (const slug of Object.keys(TOOL_METADATA_REGISTRY)) {
+    params.push({ tool: [slug] });
+  }
+
+  // Hidden owner-only views
+  for (const slug of EXTRA_CATCHALL_SLUGS) {
+    params.push({ tool: [slug] });
+  }
+
+  // Programmatic word-list pages:
+  // - Scrabble starts/ends A-Z (52)
+  // - Wordle starts/ends A-Z (52)
+  // - Unscramble by length 2-15 (14)
   for (const letter of ALPHABET) {
     params.push({ tool: [`words-starts-with-${letter}`] });
     params.push({ tool: [`words-ends-with-${letter}`] });
+    params.push({ tool: [`wordle-words-starts-with-${letter}`] });
+    params.push({ tool: [`wordle-words-ends-with-${letter}`] });
   }
-  for (const len of POPULAR_LENGTHS) {
+  for (const len of WORD_LIST_LENGTHS) {
     params.push({ tool: [`unscramble-${len}-letter-words`] });
-  }
-
-  // Also pre-generate the core tool routes so they're cached at the CDN
-  const coreTools = ["", "blitz", "scramble", "anagram", "wordle", "dictionary", "wordstarts", "wordends", "wordlists"];
-  for (const tool of coreTools) {
-    if (tool === "") {
-      params.push({ tool: [] }); // homepage
-    } else {
-      params.push({ tool: [tool] });
-    }
   }
 
   return params;
 }
 
-export const dynamicParams = true; // Allow on-demand rendering for non-static pages
+// Every valid slug is prerendered above, so on-demand rendering is disabled:
+// unknown slugs get a real 404 status + the styled not-found page. This is
+// the hard guarantee behind the soft-404 fix.
+export const dynamicParams = false;
 
 // VideoGame structured data for the /blitz page — helps Google understand
 // this is a playable game and potentially show it in game-specific results.
@@ -346,11 +416,46 @@ const blitzBreadcrumbJsonLd = {
   ],
 };
 
+// ---------------------------------------------------------------------------
+// DEFENSIVE 404 GUARD (2026-11-11).
+// The primary guarantee is `dynamicParams = false` above (unknown slugs never
+// reach this component). These guards are defense-in-depth in case dynamic
+// rendering is ever re-enabled: they keep the old behavior — rendering the
+// homepage for ANY unrecognized slug with HTTP 200 "index, follow", a classic
+// soft-404 duplicate-content problem — from ever coming back.
+// ---------------------------------------------------------------------------
+
+function isKnownCatchallSlug(slug: string): boolean {
+  return (
+    slug === "" ||
+    (EXTRA_CATCHALL_SLUGS as readonly string[]).includes(slug) ||
+    isWordListPage(slug) ||
+    Boolean(TOOL_METADATA_REGISTRY[slug])
+  );
+}
+
 export default async function Page({ params }: PageProps) {
   const resolvedParams = await params;
   const toolSegments = resolvedParams.tool || [];
   const activeToolSlug = toolSegments[0] || "";
   const subRoute = toolSegments[1] || "";
+
+  // Unknown primary slug → 404 (previously rendered the homepage with 200).
+  // "/game" used to alias the blitz page through dead switch-case code; it
+  // now redirects to /blitz in next.config.ts. "/unscramble" (homepage
+  // alias without a canonical) also redirects to "/" there.
+  if (!isKnownCatchallSlug(activeToolSlug)) notFound();
+
+  // Sub-routes: only the legacy /unscramble/<word-list-slug> pattern is a
+  // valid two-segment path (and those are 301-redirected upstream anyway —
+  // this is a defensive fallback). Everything else (/wordle/foo, /a/b/c) 404s.
+  if (toolSegments.length > 1) {
+    const isLegacyWordList =
+      activeToolSlug === "unscramble" &&
+      toolSegments.length === 2 &&
+      isWordListPage(subRoute);
+    if (!isLegacyWordList) notFound();
+  }
 
   let initialWordListData: InitialWordListPage | null = null;
   let topWordData: { word: string; score: number }[] | null = null;
