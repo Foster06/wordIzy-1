@@ -1672,3 +1672,34 @@ Bing Webmaster Tools flagged "Your site lacks inbound links from high-quality do
 - SSR curl /scramble → FAQPage JSON-LD present
 - SSR curl /guides/best-wordle-starter-words → Twitter/Facebook/Reddit share URLs present
 - SSR curl /about → "Link to wordIzy" section present with Copy buttons + HTML snippets
+
+## Task 30 (Oct 30 2026) — Google AdSense loader script added to <head>
+
+User requested: add the AdSense adsbygoogle.js loader script with publisher ID ca-pub-5239519008982973 to every page.
+
+### What was wrong
+The existing AdSense setup used `<AnalyticsScripts />` (a client component that loads AdSense AFTER cookie consent). But `NEXT_PUBLIC_ADSENSE_CLIENT` was never set in `.env`, so `ADSENSE_ENABLED` was always `false` → the AnalyticsScripts component silently rendered nothing → AdSense never loaded → no ads displayed anywhere on the site.
+
+### Fix (src/app/layout.tsx)
+- Added `ADSENSE_CLIENT` constant: `process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "ca-pub-5239519008982973"` (env-overridable, hardcoded fallback matching ads.txt)
+- Added `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}" crossOrigin="anonymous" />` in `<head>`, after the Umami script
+- Loads UNCONDITIONALLY on every page (not gated behind cookie consent) — ads appear immediately for all visitors
+- CSP already allows `pagead2.googlesyndication.com` in script-src (no CSP changes needed)
+- The publisher ID `ca-pub-5239519008982973` matches the `ads.txt` entry: `google.com, pub-5239519008982973, DIRECT, f08c47fec0942fa0`
+
+### Note on GDPR
+Loading AdSense unconditionally means EU/EEA visitors get ad cookies before consenting — technically non-compliant with GDPR Article 5 + ePrivacy Directive. If GDPR compliance is needed later:
+1. Remove this `<head>` script
+2. Set `NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-5239519008982973` in `.env`
+3. The existing `<AnalyticsScripts />` component will load AdSense after the user clicks "Accept" in the cookie consent banner
+
+### Verification
+- TypeScript: `bunx tsc --noEmit` — 0 errors
+- ESLint: 0 errors, 0 warnings
+- Dev server restarted (layout.tsx changes require full restart, not HMR)
+- SSR curl / → AdSense script tag present in <head>:
+  - `pagead2.googlesyndication.com/pagead/js/adsbygoogle.js` count: 2
+  - `ca-pub-5239519008982973` count: 2
+  - `crossorigin` attribute present
+- CSP header includes `pagead2.googlesyndication.com` in script-src ✓
+- All 3 third-party scripts now in <head>: Ahrefs + Umami + AdSense

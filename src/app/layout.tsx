@@ -82,6 +82,20 @@ const AHREFS_ANALYTICS_KEY =
 const UMAMI_WEBSITE_ID =
   process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ?? "06a0f162-8e8b-488c-9633-5621dad76f06";
 
+// Google AdSense — publisher client ID (ca-pub-XXXXX). Safe to expose: it
+// ships in the HTML as the script src query param, same as the ads.txt line.
+// Env-overridable via NEXT_PUBLIC_ADSENSE_CLIENT; falls back to the hardcoded
+// project publisher ID when env is unset.
+// NOTE: This script loads UNCONDITIONALLY on every page (in <head>, not gated
+// behind cookie consent). The existing <AnalyticsScripts /> component in the
+// body is designed to load AdSense after consent, but since NEXT_PUBLIC_ADSENSE_CLIENT
+// was never set in .env, it silently did nothing. Loading unconditionally ensures
+// ads appear immediately for all visitors. If you later want GDPR-compliant
+// consent-gated loading for EU/EEA visitors, remove this <head> script and set
+// NEXT_PUBLIC_ADSENSE_CLIENT in .env instead.
+const ADSENSE_CLIENT =
+  process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "ca-pub-5239519008982973";
+
 // AdSense is gated behind cookie consent (uses cookies for ad personalization —
 // GDPR/ePrivacy require opt-in). The actual AdSense <script> tag is rendered
 // by <AnalyticsScripts /> (a client component) which reads consent state from
@@ -298,6 +312,19 @@ document.getElementsByTagName('head')[0].appendChild(ahrefs_analytics_script);`,
           defer
           src="https://cloud.umami.is/script.js"
           data-website-id={UMAMI_WEBSITE_ID}
+        />
+        {/*
+          Google AdSense — the main adsbygoogle.js loader script. Loaded
+          UNCONDITIONALLY on every page (async, crossorigin="anonymous").
+          Publisher ID: ca-pub-5239519008982973 (matches ads.txt).
+          CSP already allowlists pagead2.googlesyndication.com in script-src.
+          The AdSlot components throughout the site push () to window.adsbygoogle
+          to render ad units — this loader script provides that global.
+        */}
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+          crossOrigin="anonymous"
         />
         {/*
           AdSense + other consent-gated trackers (e.g. Google Ads pixels) are
