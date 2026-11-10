@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Lora, Inter, Bree_Serif, Roboto_Slab } from "next/font/google";
+import { Geist, Geist_Mono, Lora, Inter, Bree_Serif } from "next/font/google";
 import "./globals.css";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { LanguageProvider } from "@/components/i18n/language-provider";
@@ -55,14 +55,11 @@ const breeSerif = Bree_Serif({
   preload: false,
   fallback: ["Georgia", "serif"],
 });
-const robotoSlab = Roboto_Slab({
-  variable: "--font-roboto-slab",
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
-  display: "swap",
-  preload: false,
-  fallback: ["Roboto", "Georgia", "serif"],
-});
+// Roboto Slab is now SELF-HOSTED — no longer loaded via next/font/google.
+// The @font-face + --font-roboto-slab CSS variable are in globals.css.
+// The WOFF2 file is at /public/fonts/roboto-slab-latin.woff2.
+// This eliminates the Vercel build-time dependency on Google Fonts API
+// that caused the "roboto_slab_8855e401.module.css module-not-found" error.
 
 // Ahrefs Web Analytics — public site data-key (safe to expose: it ships in the
 // HTML like the AdSense client id). Env-overridable, hardcoded fallback keeps
@@ -367,7 +364,7 @@ gtag('config', ${JSON.stringify(GA_MEASUREMENT_ID)});`,
         */}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} ${inter.variable} ${breeSerif.variable} ${robotoSlab.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} ${inter.variable} ${breeSerif.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true}>
           <LanguageProvider>
