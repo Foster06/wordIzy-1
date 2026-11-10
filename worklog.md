@@ -1739,4 +1739,4 @@ Loading AdSense unconditionally means EU/EEA visitors get ad cookies before cons
 - Deleted `public/4c390b55a43e0c71cd0f29c2a11b444f.txt`, added `public/6fc8ac9f8e3147fbaabdfe277401ff71.txt` (32-char hex, spec-compliant).
 - `src/app/api/indexnow/route.ts`: INDEXNOW_KEY hardcoded fallback + comment references updated.
 
-**Verification**: tsc clean; dev server serves new key file 200 (content exact), old key file 404, GET /api/indexnow returns new key. Re-ping of all sitemap URLs after deploy (`bunx tsx scripts/ping-indexnow.ts`).
+**Verification**: tsc clean; dev server serves new key file 200 (content exact), old key file 404, GET /api/indexnow returns new key. Re-ping after deploy: 142 URLs submitted, HTTP 200, OK=true. Prod key file 200 / old key file 404. Pushed as `1a159a0`.
