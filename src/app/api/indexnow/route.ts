@@ -13,7 +13,7 @@
 // search engines. IndexNow accepts up to 10,000 URLs per request.
 //
 // Verification: the IndexNow key is hosted at
-// https://wordizy.com/4c390b55a43e0c71cd0f29c2a11b444f.txt
+// https://wordizy.com/6fc8ac9f8e3147fbaabdfe277401ff71.txt
 // (served as a static file from /public/). Search engines fetch this URL
 // to verify ownership before accepting pings.
 
@@ -25,9 +25,12 @@ import { NextRequest, NextResponse } from "next/server";
 // (0-9, a-f). The original UUID-format key (with dashes) was accepted in
 // October 2026 but started returning 403 when engines tightened validation —
 // keys with dashes are now rejected. This key is 32 hex chars, spec-compliant.
+// ⚠️ 2026-11-11: replaced with the key generated from Bing Webmaster Tools
+// (IndexNow page) so pings link to the site's webmaster account — the previous
+// self-generated key verified fine but never showed up in webmaster tools.
 const INDEXNOW_KEY =
   process.env.NEXT_PUBLIC_INDEXNOW_KEY ??
-  "4c390b55a43e0c71cd0f29c2a11b444f";
+  "6fc8ac9f8e3147fbaabdfe277401ff71";
 
 // The URL where the key file is hosted. Search engines fetch this to verify
 // the site owner controls the domain.

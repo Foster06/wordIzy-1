@@ -1730,3 +1730,13 @@ Loading AdSense unconditionally means EU/EEA visitors get ad cookies before cons
 - **Report deliverable**: `download/wordizy-organic-traffic-analysis.docx` (+ PDF). 15 pages: R1 cover (DM-1), TOC, 8 sections, 3 matplotlib charts (CTR gap, cluster demand, click opportunity), 8 data tables. Postcheck 9/9, visual render verified.
 - **IndexNow key fix**: old UUID key (dashes) violated the spec's hex-only requirement → engines returned 403. Replaced with 32-char hex key (`public/4c390b55a43e0c71cd0f29c2a11b444f.txt`), route updated, direct test now 202. Full re-ping of 142 URLs succeeded.
 - Chart/generation scripts: `scripts/report-charts.py`, `scripts/generate-report.js`, `scripts/patch-report-footers.py`.
+
+## Task 35 — IndexNow Key Replacement (2026-11-11)
+
+**Reason**: the self-generated hex key (`4c390b55…`) verified with engines but never linked to the Bing Webmaster Tools account ("does not connect to the webmaster page"). Replaced with the key generated from the webmaster tools IndexNow page.
+
+**Changes**:
+- Deleted `public/4c390b55a43e0c71cd0f29c2a11b444f.txt`, added `public/6fc8ac9f8e3147fbaabdfe277401ff71.txt` (32-char hex, spec-compliant).
+- `src/app/api/indexnow/route.ts`: INDEXNOW_KEY hardcoded fallback + comment references updated.
+
+**Verification**: tsc clean; dev server serves new key file 200 (content exact), old key file 404, GET /api/indexnow returns new key. Re-ping of all sitemap URLs after deploy (`bunx tsx scripts/ping-indexnow.ts`).
