@@ -121,7 +121,9 @@ const nextConfig: NextConfig = {
               // cloud.umami.is — Umami Cloud Analytics: the script.js loader
               // AND its beacon endpoints (/api/send + /api/event) are all on
               // this single origin. Privacy-friendly (no cookies, no PII).
-              "connect-src 'self' https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://analytics.ahrefs.com https://cloud.umami.is",
+              // www.google-analytics.com — Google Analytics 4 (gtag.js) sends
+              // pageview + event beacons to /g/collect on this domain.
+              "connect-src 'self' https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://analytics.ahrefs.com https://cloud.umami.is https://www.google-analytics.com",
               // frame-src — AdSense serves creatives from doubleclick AND
               // tpc.googlesyndication.com (image/video ad iframes). Without
               // tpc here, real ad impressions trigger CSP frame-src violations.

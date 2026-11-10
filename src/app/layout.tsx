@@ -96,6 +96,17 @@ const UMAMI_WEBSITE_ID =
 const ADSENSE_CLIENT =
   process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "ca-pub-5239519008982973";
 
+// Google Analytics 4 (gtag.js) — GA4 measurement ID (G-XXXXX). Safe to expose:
+// it ships in the HTML as the script src query param, same as AdSense.
+// Env-overridable via NEXT_PUBLIC_GA_MEASUREMENT_ID; falls back to the hardcoded
+// project measurement ID when env is unset.
+// NOTE: Like AdSense above, this loads UNCONDITIONALLY (not gated behind cookie
+// consent). GA4 uses cookies for user tracking — GDPR Article 5 requires opt-in
+// for EU/EEA visitors. If consent-gated loading is needed later, move this to
+// <AnalyticsScripts /> and gate it on useCookieConsent().
+const GA_MEASUREMENT_ID =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "G-02HTT8KL4S";
+
 // AdSense is gated behind cookie consent (uses cookies for ad personalization —
 // GDPR/ePrivacy require opt-in). The actual AdSense <script> tag is rendered
 // by <AnalyticsScripts /> (a client component) which reads consent state from
@@ -325,6 +336,27 @@ document.getElementsByTagName('head')[0].appendChild(ahrefs_analytics_script);`,
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
           crossOrigin="anonymous"
+        />
+        {/*
+          Google Analytics 4 (gtag.js) — GA4 pageview + event tracking.
+          Two parts: (1) the async loader script from googletagmanager.com,
+          (2) an inline init script that bootstraps the dataLayer + sends the
+          initial pageview config. Loaded UNCONDITIONALLY (same posture as
+          AdSense above). CSP allows googletagmanager.com in script-src (loader)
+          + google-analytics.com in connect-src (beacon endpoint /g/collect).
+          Measurement ID: G-02HTT8KL4S.
+        */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', ${JSON.stringify(GA_MEASUREMENT_ID)});`,
+          }}
         />
         {/*
           AdSense + other consent-gated trackers (e.g. Google Ads pixels) are
