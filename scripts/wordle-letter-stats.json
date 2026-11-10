@@ -1,0 +1,698 @@
+{
+  "word_count_5letter": 18824,
+  "letter_frequency": [
+    {
+      "letter": "A",
+      "count": 8389,
+      "pct": 44.6
+    },
+    {
+      "letter": "E",
+      "count": 7971,
+      "pct": 42.3
+    },
+    {
+      "letter": "S",
+      "count": 7454,
+      "pct": 39.6
+    },
+    {
+      "letter": "R",
+      "count": 5636,
+      "pct": 29.9
+    },
+    {
+      "letter": "O",
+      "count": 5545,
+      "pct": 29.5
+    },
+    {
+      "letter": "I",
+      "count": 5519,
+      "pct": 29.3
+    },
+    {
+      "letter": "L",
+      "count": 4495,
+      "pct": 23.9
+    },
+    {
+      "letter": "T",
+      "count": 4467,
+      "pct": 23.7
+    },
+    {
+      "letter": "N",
+      "count": 4348,
+      "pct": 23.1
+    },
+    {
+      "letter": "U",
+      "count": 3807,
+      "pct": 20.2
+    },
+    {
+      "letter": "D",
+      "count": 3182,
+      "pct": 16.9
+    },
+    {
+      "letter": "Y",
+      "count": 2928,
+      "pct": 15.6
+    },
+    {
+      "letter": "C",
+      "count": 2898,
+      "pct": 15.4
+    },
+    {
+      "letter": "M",
+      "count": 2748,
+      "pct": 14.6
+    },
+    {
+      "letter": "H",
+      "count": 2596,
+      "pct": 13.8
+    },
+    {
+      "letter": "P",
+      "count": 2565,
+      "pct": 13.6
+    },
+    {
+      "letter": "B",
+      "count": 2275,
+      "pct": 12.1
+    },
+    {
+      "letter": "G",
+      "count": 2205,
+      "pct": 11.7
+    },
+    {
+      "letter": "K",
+      "count": 2086,
+      "pct": 11.1
+    },
+    {
+      "letter": "W",
+      "count": 1399,
+      "pct": 7.4
+    },
+    {
+      "letter": "F",
+      "count": 1333,
+      "pct": 7.1
+    },
+    {
+      "letter": "V",
+      "count": 997,
+      "pct": 5.3
+    },
+    {
+      "letter": "Z",
+      "count": 569,
+      "pct": 3.0
+    },
+    {
+      "letter": "J",
+      "count": 463,
+      "pct": 2.5
+    },
+    {
+      "letter": "X",
+      "count": 421,
+      "pct": 2.2
+    },
+    {
+      "letter": "Q",
+      "count": 168,
+      "pct": 0.9
+    }
+  ],
+  "positional_frequency": [
+    {
+      "slot": 1,
+      "top": [
+        {
+          "letter": "S",
+          "count": 2137,
+          "pct": 11.4
+        },
+        {
+          "letter": "C",
+          "count": 1345,
+          "pct": 7.1
+        },
+        {
+          "letter": "B",
+          "count": 1334,
+          "pct": 7.1
+        },
+        {
+          "letter": "A",
+          "count": 1299,
+          "pct": 6.9
+        },
+        {
+          "letter": "T",
+          "count": 1173,
+          "pct": 6.2
+        },
+        {
+          "letter": "P",
+          "count": 1150,
+          "pct": 6.1
+        },
+        {
+          "letter": "M",
+          "count": 993,
+          "pct": 5.3
+        },
+        {
+          "letter": "D",
+          "count": 976,
+          "pct": 5.2
+        }
+      ]
+    },
+    {
+      "slot": 2,
+      "top": [
+        {
+          "letter": "A",
+          "count": 3412,
+          "pct": 18.1
+        },
+        {
+          "letter": "O",
+          "count": 2818,
+          "pct": 15.0
+        },
+        {
+          "letter": "E",
+          "count": 2376,
+          "pct": 12.6
+        },
+        {
+          "letter": "I",
+          "count": 1948,
+          "pct": 10.3
+        },
+        {
+          "letter": "U",
+          "count": 1689,
+          "pct": 9.0
+        },
+        {
+          "letter": "R",
+          "count": 1325,
+          "pct": 7.0
+        },
+        {
+          "letter": "L",
+          "count": 978,
+          "pct": 5.2
+        },
+        {
+          "letter": "H",
+          "count": 827,
+          "pct": 4.4
+        }
+      ]
+    },
+    {
+      "slot": 3,
+      "top": [
+        {
+          "letter": "R",
+          "count": 1804,
+          "pct": 9.6
+        },
+        {
+          "letter": "A",
+          "count": 1738,
+          "pct": 9.2
+        },
+        {
+          "letter": "I",
+          "count": 1467,
+          "pct": 7.8
+        },
+        {
+          "letter": "N",
+          "count": 1459,
+          "pct": 7.8
+        },
+        {
+          "letter": "O",
+          "count": 1351,
+          "pct": 7.2
+        },
+        {
+          "letter": "E",
+          "count": 1252,
+          "pct": 6.7
+        },
+        {
+          "letter": "L",
+          "count": 1221,
+          "pct": 6.5
+        },
+        {
+          "letter": "U",
+          "count": 946,
+          "pct": 5.0
+        }
+      ]
+    },
+    {
+      "slot": 4,
+      "top": [
+        {
+          "letter": "E",
+          "count": 2975,
+          "pct": 15.8
+        },
+        {
+          "letter": "A",
+          "count": 1823,
+          "pct": 9.7
+        },
+        {
+          "letter": "I",
+          "count": 1507,
+          "pct": 8.0
+        },
+        {
+          "letter": "T",
+          "count": 1223,
+          "pct": 6.5
+        },
+        {
+          "letter": "N",
+          "count": 1108,
+          "pct": 5.9
+        },
+        {
+          "letter": "O",
+          "count": 1070,
+          "pct": 5.7
+        },
+        {
+          "letter": "L",
+          "count": 1070,
+          "pct": 5.7
+        },
+        {
+          "letter": "R",
+          "count": 1033,
+          "pct": 5.5
+        }
+      ]
+    },
+    {
+      "slot": 5,
+      "top": [
+        {
+          "letter": "S",
+          "count": 4394,
+          "pct": 23.3
+        },
+        {
+          "letter": "E",
+          "count": 2225,
+          "pct": 11.8
+        },
+        {
+          "letter": "Y",
+          "count": 1873,
+          "pct": 10.0
+        },
+        {
+          "letter": "A",
+          "count": 1440,
+          "pct": 7.6
+        },
+        {
+          "letter": "T",
+          "count": 1178,
+          "pct": 6.3
+        },
+        {
+          "letter": "D",
+          "count": 1005,
+          "pct": 5.3
+        },
+        {
+          "letter": "N",
+          "count": 985,
+          "pct": 5.2
+        },
+        {
+          "letter": "R",
+          "count": 972,
+          "pct": 5.2
+        }
+      ]
+    }
+  ],
+  "top_starters_by_score": [
+    {
+      "word": "AUREI",
+      "score": 40718.6,
+      "vowels": 4,
+      "distinct_letters": 5
+    },
+    {
+      "word": "URAEI",
+      "score": 40718.6,
+      "vowels": 4,
+      "distinct_letters": 5
+    },
+    {
+      "word": "AEROS",
+      "score": 40244.2,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "AROSE",
+      "score": 40244.2,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "OREAS",
+      "score": 40244.2,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "SEORA",
+      "score": 40244.2,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "SOARE",
+      "score": 40244.2,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "AESIR",
+      "score": 40214.3,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "ARIES",
+      "score": 40214.3,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "ARISE",
+      "score": 40214.3,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "RAISE",
+      "score": 40214.3,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "REAIS",
+      "score": 40214.3,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "SERAI",
+      "score": 40214.3,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "OUSIA",
+      "score": 39928.2,
+      "vowels": 4,
+      "distinct_letters": 5
+    },
+    {
+      "word": "AUETO",
+      "score": 39232.7,
+      "vowels": 4,
+      "distinct_letters": 5
+    },
+    {
+      "word": "ALOES",
+      "score": 38932.1,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "ALOSE",
+      "score": 38932.1,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "OSELA",
+      "score": 38932.1,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "SOLEA",
+      "score": 38932.1,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "AISLE",
+      "score": 38902.2,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "ELIAS",
+      "score": 38902.2,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "AOTES",
+      "score": 38899.9,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "STOAE",
+      "score": 38899.9,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "TOEAS",
+      "score": 38899.9,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    {
+      "word": "SAITE",
+      "score": 38870.0,
+      "vowels": 3,
+      "distinct_letters": 5
+    }
+  ],
+  "known_openers_scored": {
+    "SALET": {
+      "score": 32776.0,
+      "vowels": 2,
+      "distinct_letters": 5
+    },
+    "CRANE": {
+      "score": 29242.0,
+      "vowels": 2,
+      "distinct_letters": 5
+    },
+    "SLATE": {
+      "score": 32776.0,
+      "vowels": 2,
+      "distinct_letters": 5
+    },
+    "CRATE": {
+      "score": 29361.0,
+      "vowels": 2,
+      "distinct_letters": 5
+    },
+    "TRACE": {
+      "score": 29361.0,
+      "vowels": 2,
+      "distinct_letters": 5
+    },
+    "ADIEU": {
+      "score": 37528.4,
+      "vowels": 4,
+      "distinct_letters": 5
+    },
+    "AUDIO": {
+      "score": 34374.6,
+      "vowels": 4,
+      "distinct_letters": 5
+    },
+    "RAISE": {
+      "score": 40214.3,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    "SOARE": {
+      "score": 40244.2,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    "IRATE": {
+      "score": 36779.3,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    "STARE": {
+      "score": 33917.0,
+      "vowels": 2,
+      "distinct_letters": 5
+    },
+    "AROSE": {
+      "score": 40244.2,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    "RAILE": {
+      "score": 36811.5,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    "ARISE": {
+      "score": 40214.3,
+      "vowels": 3,
+      "distinct_letters": 5
+    },
+    "CARES": {
+      "score": 32348.0,
+      "vowels": 2,
+      "distinct_letters": 5
+    },
+    "TORSE": {
+      "score": 31073.0,
+      "vowels": 2,
+      "distinct_letters": 5
+    },
+    "LATER": {
+      "score": 30958.0,
+      "vowels": 2,
+      "distinct_letters": 5
+    },
+    "TARES": {
+      "score": 33917.0,
+      "vowels": 2,
+      "distinct_letters": 5
+    },
+    "CARTS": {
+      "score": 28844.0,
+      "vowels": 1,
+      "distinct_letters": 5
+    }
+  },
+  "vowel_coverage": [
+    {
+      "word": "SALET",
+      "vowels_tested": "AE",
+      "vowel_count": 2,
+      "distinct_consonants": 3,
+      "has_repeat": false
+    },
+    {
+      "word": "CRANE",
+      "vowels_tested": "AE",
+      "vowel_count": 2,
+      "distinct_consonants": 3,
+      "has_repeat": false
+    },
+    {
+      "word": "SLATE",
+      "vowels_tested": "AE",
+      "vowel_count": 2,
+      "distinct_consonants": 3,
+      "has_repeat": false
+    },
+    {
+      "word": "CRATE",
+      "vowels_tested": "AE",
+      "vowel_count": 2,
+      "distinct_consonants": 3,
+      "has_repeat": false
+    },
+    {
+      "word": "TRACE",
+      "vowels_tested": "AE",
+      "vowel_count": 2,
+      "distinct_consonants": 3,
+      "has_repeat": false
+    },
+    {
+      "word": "ADIEU",
+      "vowels_tested": "AEIU",
+      "vowel_count": 4,
+      "distinct_consonants": 1,
+      "has_repeat": false
+    },
+    {
+      "word": "AUDIO",
+      "vowels_tested": "AIOU",
+      "vowel_count": 4,
+      "distinct_consonants": 1,
+      "has_repeat": false
+    },
+    {
+      "word": "RAISE",
+      "vowels_tested": "AEI",
+      "vowel_count": 3,
+      "distinct_consonants": 2,
+      "has_repeat": false
+    },
+    {
+      "word": "SOARE",
+      "vowels_tested": "AEO",
+      "vowel_count": 3,
+      "distinct_consonants": 2,
+      "has_repeat": false
+    },
+    {
+      "word": "IRATE",
+      "vowels_tested": "AEI",
+      "vowel_count": 3,
+      "distinct_consonants": 2,
+      "has_repeat": false
+    },
+    {
+      "word": "STARE",
+      "vowels_tested": "AE",
+      "vowel_count": 2,
+      "distinct_consonants": 3,
+      "has_repeat": false
+    },
+    {
+      "word": "AROSE",
+      "vowels_tested": "AEO",
+      "vowel_count": 3,
+      "distinct_consonants": 2,
+      "has_repeat": false
+    }
+  ],
+  "scoring_notes": "Score = sum of each distinct letter's presence frequency across the 5-letter Wordle pool, plus a 15%-of-base bonus for each distinct vowel beyond two, minus a 20% penalty if any letter repeats. Presence frequency = how many of the 18,824 accepted 5-letter Wordle guesses contain that letter at least once."
+}

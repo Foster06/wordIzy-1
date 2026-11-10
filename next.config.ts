@@ -107,6 +107,17 @@ const nextConfig: NextConfig = {
         headers: cacheHeaders,
       },
       {
+        // Per-word Scrabble validity pages (/scrabble-words/[word]). The valid
+        // ones are prerendered (static HTML), the long tail is ISR'd daily.
+        // CDN caching makes repeat visits instant.
+        source: "/scrabble-words/:word",
+        headers: cacheHeaders,
+      },
+      {
+        source: "/scrabble-words",
+        headers: cacheHeaders,
+      },
+      {
         source: "/(.*)",
         headers: [
           { key: "X-Frame-Options", value: "DENY" },

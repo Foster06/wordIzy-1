@@ -13,8 +13,17 @@ interface GuideProps {
   params: Promise<{ slug: string }>;
 }
 
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
 // All supported languages for the guide.
 const GUIDE_LANGS = ["en", "fr", "es", "de", "it", "pt", "nl", "ja", "zh"];
+
+// Unknown guide slugs should 404 rather than soft-404 the homepage.
+// Only the 4 base English slugs (stripped of language suffixes) are valid.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const contentDirectory = path.join(process.cwd(), "src/content/guides");
@@ -52,13 +61,30 @@ export async function generateMetadata({ params }: GuideProps) {
   const filePath = findGuideFile(slug, lang);
   let title = "Best Wordle Starter Words: Top Strategy Combinations to Win Daily";
   let description = "Discover the mathematically optimal Wordle starter words, 3 winning strategies, and a proven second-guess framework.";
+  let faq: FaqItem[] | undefined;
 
   if (filePath && fs.existsSync(filePath)) {
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data } = matter(fileContent);
     if (data.title) title = String(data.title);
     if (data.description) description = String(data.description);
+    if (Array.isArray(data.faq)) faq = data.faq as FaqItem[];
   }
+
+  // Build FAQPage JSON-LD if the guide declares a FAQ block in front-matter.
+  // This unlocks expandable Q&A rich snippets in Google/Bing SERPs → higher CTR.
+  const faqJsonLd =
+    faq && faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faq.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a },
+          })),
+        }
+      : null;
 
   return {
     title,
@@ -71,6 +97,7 @@ export async function generateMetadata({ params }: GuideProps) {
       description,
       images: [{ url: "/og-image.png", width: 1200, height: 630, alt: title }],
     },
+    other: faqJsonLd ? { "ld:faq": JSON.stringify(faqJsonLd) } : undefined,
   };
 }
 
@@ -89,6 +116,18 @@ function findGuideFile(slug: string, lang: string): string | null {
   if (fs.existsSync(enPath)) return enPath;
 
   return null;
+}
+
+/** Slugify a heading into an HTML id — lowercase, hyphen-separated, ASCII-only.
+ *  Enables deep-link anchors (#section-name) from SERPs and internal TOCs. */
+function slugifyHeading(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .slice(0, 60);
 }
 
 /** Render inline markdown: bold (**text**), italic (*text* or _text_), and links ([text](url)).
@@ -136,9 +175,85 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
   return nodes;
 }
 
+/** Parse a GFM-style pipe table from a block of lines.
+ *  Format:
+ *    | Header 1 | Header 2 |
+ *    | --- | --- |
+ *    | cell | cell |
+ *  Returns null if the lines don't form a valid table. */
+function parseTable(lines: string[], startIdx: number): { rows: string[][]; nextIdx: number } | null {
+  // A table needs at least: header row, separator row, 1 data row = 3 lines
+  if (startIdx + 2 >= lines.length) return null;
+  const headerLine = lines[startIdx].trim();
+  const sepLine = lines[startIdx + 1].trim();
+
+  // Both lines must start and end with |
+  if (!headerLine.startsWith("|") || !headerLine.endsWith("|")) return null;
+  if (!sepLine.startsWith("|") || !sepLine.endsWith("|")) return null;
+
+  // Separator row must be all dashes/colons (e.g. | --- | :---: | ---: |)
+  const sepCells = sepLine.slice(1, -1).split("|").map((c) => c.trim());
+  if (!sepCells.every((c) => /^:?-+:?$/.test(c))) return null;
+
+  const parseRow = (line: string) =>
+    line.trim().slice(1, -1).split("|").map((c) => c.trim());
+
+  const header = parseRow(headerLine);
+  const rows: string[][] = [header];
+
+  let i = startIdx + 2;
+  while (i < lines.length) {
+    const line = lines[i].trim();
+    if (!line.startsWith("|") || !line.endsWith("|")) break;
+    rows.push(parseRow(line));
+    i++;
+  }
+
+  if (rows.length < 2) return null; // header + at least 1 data row
+  return { rows, nextIdx: i };
+}
+
+/** Render a parsed table as a styled HTML table. */
+function renderTable(rows: string[][], keyPrefix: string): ReactNode {
+  const [header, ...body] = rows;
+  return (
+    <div key={`tbl-${keyPrefix}`} className="my-6 overflow-x-auto rounded-lg border border-white/10">
+      <table className="w-full text-sm">
+        <thead className="bg-brand/10">
+          <tr>
+            {header.map((cell, idx) => (
+              <th
+                key={`th-${keyPrefix}-${idx}`}
+                className="px-3 py-2 text-left font-semibold text-foreground border-b border-white/10 whitespace-nowrap"
+              >
+                {renderInline(cell, `th-${keyPrefix}-${idx}`)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {body.map((row, rowIdx) => (
+            <tr key={`tr-${keyPrefix}-${rowIdx}`} className={rowIdx % 2 === 0 ? "bg-white/[0.02]" : ""}>
+              {row.map((cell, colIdx) => (
+                <td
+                  key={`td-${keyPrefix}-${rowIdx}-${colIdx}`}
+                  className="px-3 py-2 text-muted-foreground border-b border-white/5 align-top"
+                >
+                  {renderInline(cell, `td-${keyPrefix}-${rowIdx}-${colIdx}`)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 /** Render markdown-lite content with:
- *  - ## and ### headings (markdown-style)
- *  - ALL-CAPS standalone lines as h2 (legacy support)
+ *  - ## and ### headings (markdown-style) — with slugified id anchors
+ *  - GFM pipe tables (| col | col | with | --- | separator row)
+ *  - ALL-CAPS standalone lines as h2 (legacy support, no id)
  *  - Unordered lists (- item or * item)
  *  - Ordered lists (1. item, 2. item, ...)
  *  - Inline bold **text**, italic *text* / _text_, and links [text](url)
@@ -158,33 +273,49 @@ function renderContent(content: string): ReactNode[] {
       continue;
     }
 
-    // ## Heading 2
+    // GFM pipe table — detect a line starting with | followed by a separator row
+    if (line.startsWith("|") && line.endsWith("|")) {
+      const table = parseTable(lines, i);
+      if (table) {
+        blocks.push(renderTable(table.rows, `t${keyCounter++}`));
+        i = table.nextIdx;
+        continue;
+      }
+    }
+
+    // ## Heading 2 (with slugified anchor id)
     if (/^##\s+/.test(line)) {
+      const text = line.replace(/^##\s+/, "");
+      const id = slugifyHeading(text);
       blocks.push(
-        <h2 key={`b${keyCounter++}`} className="text-xl font-bold text-foreground mt-8 mb-3 tracking-tight">
-          {line.replace(/^##\s+/, "")}
+        <h2 key={`b${keyCounter++}`} id={id} className="scroll-mt-24 text-xl font-bold text-foreground mt-8 mb-3 tracking-tight">
+          {text}
         </h2>
       );
       i++;
       continue;
     }
 
-    // ### Heading 3
+    // ### Heading 3 (with slugified anchor id)
     if (/^###\s+/.test(line)) {
+      const text = line.replace(/^###\s+/, "");
+      const id = slugifyHeading(text);
       blocks.push(
-        <h3 key={`b${keyCounter++}`} className="text-base font-semibold text-foreground mt-6 mb-2 tracking-tight">
-          {line.replace(/^###\s+/, "")}
+        <h3 key={`b${keyCounter++}`} id={id} className="scroll-mt-24 text-base font-semibold text-foreground mt-6 mb-2 tracking-tight">
+          {text}
         </h3>
       );
       i++;
       continue;
     }
 
-    // # Heading 1
+    // # Heading 1 (rendered as h2-styled, with anchor)
     if (/^#\s+/.test(line)) {
+      const text = line.replace(/^#\s+/, "");
+      const id = slugifyHeading(text);
       blocks.push(
-        <h2 key={`b${keyCounter++}`} className="text-2xl font-extrabold text-foreground mt-10 mb-3 tracking-tight">
-          {line.replace(/^#\s+/, "")}
+        <h2 key={`b${keyCounter++}`} id={id} className="scroll-mt-24 text-2xl font-extrabold text-foreground mt-10 mb-3 tracking-tight">
+          {text}
         </h2>
       );
       i++;
@@ -225,7 +356,8 @@ function renderContent(content: string): ReactNode[] {
       continue;
     }
 
-    // ALL-CAPS legacy heading (back-compat with existing guides)
+    // ALL-CAPS legacy heading (back-compat with existing guides — no id, these
+    // pre-date the ## syntax and don't need anchors)
     if (
       line.length > 5 &&
       line === line.toUpperCase() &&
@@ -250,7 +382,8 @@ function renderContent(content: string): ReactNode[] {
       lines[i].trim() &&
       !/^#{1,3}\s+/.test(lines[i].trim()) &&
       !/^[-*]\s+/.test(lines[i].trim()) &&
-      !/^\d+\.\s+/.test(lines[i].trim())
+      !/^\d+\.\s+/.test(lines[i].trim()) &&
+      !(lines[i].trim().startsWith("|") && lines[i].trim().endsWith("|"))
     ) {
       paraLines.push(lines[i].trim());
       i++;
@@ -312,6 +445,22 @@ export default async function GuidePage({ params }: GuideProps) {
 
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
+  const faq: FaqItem[] = Array.isArray(data.faq) ? (data.faq as FaqItem[]) : [];
+
+  // Build the FAQPage JSON-LD for rich snippets. Mirrors the pattern used on
+  // the 12 tool pages in [[...tool]]/page.tsx via buildFaqJsonLd().
+  const faqJsonLd =
+    faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faq.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a },
+          })),
+        }
+      : null;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -325,6 +474,32 @@ export default async function GuidePage({ params }: GuideProps) {
           <div className="space-y-0">
             {renderContent(content)}
           </div>
+
+          {/* Visible FAQ section — mirrors the JSON-LD Q&As so the rich
+              snippet content is also on-page (Google requires both). */}
+          {faq.length > 0 && (
+            <section className="mt-10 pt-6 border-t border-white/10">
+              <h2 id="frequently-asked-questions" className="scroll-mt-24 text-xl font-bold text-foreground mb-4 tracking-tight">
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-4">
+                {faq.map((item, idx) => (
+                  <div key={`faq-${idx}`} className="space-y-1.5">
+                    <h3 className="text-sm font-semibold text-foreground">{item.q}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.a}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* JSON-LD: FAQPage schema for rich snippets in Google/Bing. */}
+          {faqJsonLd && (
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+            />
+          )}
 
           {/* Social sharing buttons — encourages organic sharing on Twitter,
               Facebook, Reddit → can lead to natural backlinks from forums,

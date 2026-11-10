@@ -1740,3 +1740,44 @@ Loading AdSense unconditionally means EU/EEA visitors get ad cookies before cons
 - `src/app/api/indexnow/route.ts`: INDEXNOW_KEY hardcoded fallback + comment references updated.
 
 **Verification**: tsc clean; dev server serves new key file 200 (content exact), old key file 404, GET /api/indexnow returns new key. Re-ping after deploy: 142 URLs submitted, HTTP 200, OK=true. Prod key file 200 / old key file 404. Pushed as `1a159a0`.
+
+## Task 36 — P1 Content Depth Roadmap Implementation (2026-11-11)
+
+Implements all three P1 recommendations from the organic traffic analysis report (section 7.2): the "next two to four weeks" content plays targeting the largest under-exploited demand pockets identified in the Nov 2026 GSC data.
+
+### P1.3 — Wordle Solver Length-Targeted Sections
+
+**Target**: 43 combined named impressions at positions 7.8-25 for "5/6/7/8 letter wordle solver" queries.
+
+**Changes**:
+- `src/components/tools/wordle-tool.tsx`: added a "Wordle Solver by Word Length" section below the FAQ, with 4 anchor-linked subsections (`#5-letter-wordle-solver` through `#8-letter-wordle-solver`). Each explains how the solver handles that length (answer-pool size, strategy tips) and includes a "Solve a N-letter puzzle →" button that sets the length state and smooth-scrolls to the solver card.
+- `src/components/site/glass-card.tsx`: added optional `id` prop (for the `wordle-solver-card` scroll anchor).
+
+### P1.1 — Rebuild /guides/best-wordle-starter-words
+
+**Target**: 696 impressions at position 44.7 for the wordle-starting-words cluster.
+
+**Changes**:
+- `src/app/guides/[slug]/page.tsx`: extended the markdown-lite renderer to support GFM pipe tables (`| col | col |` with `| --- |` separator). Added `slugifyHeading()` — all `##`/`###` headings now get `id="slugified-text"` anchors for SERP deep-linking. Added `dynamicParams = false` for soft-404 safety. Added FAQPage JSON-LD support: reads a `faq` array from the markdown front-matter, renders it as a visible Q&A section + `<script type="application/ld+json">` FAQPage schema (mirrors the pattern used on the 12 tool pages).
+- `src/content/guides/best-wordle-starter-words.md`: full rewrite. Converted ALL-CAPS headings to `##` syntax (enables anchors). Added 3 real data tables computed from the 18,824-word Wordle guess pool:
+  1. Letter frequency table (A=44.6%, E=42.3%, S=39.6%, ... Q=0.9%)
+  2. Positional frequency table (S is #1 in slot 1 at 11.4%, A in slot 2 at 18.1%, etc.)
+  3. Top 10 openers ranked with avg-guesses + frequency-score columns
+  4. Vowel coverage table for 12 popular openers
+  Added 8-question FAQ block in front-matter → renders as both visible Q&A and FAQPage JSON-LD.
+- `scripts/compute-wordle-letter-stats.py`: new script that computes letter frequency, positional frequency, and starter-word composite scores from `data/scrabble/EN_WORDLE.txt`. Output: `scripts/wordle-letter-stats.json`.
+
+### P1.2 — "Is [word] a valid Scrabble word?" Programmatic Pages
+
+**Target**: 373 impressions / 125 queries in scrabble-checker cluster + 34 impressions in is-it-a-word cluster + 100+ dictionary lookups at positions 8-11.
+
+**Changes**:
+- `src/lib/scrabble-word-data.ts` (new, 276 lines): server-side data layer. Parses `NWL2023.txt` to extract word + definition + part-of-speech + inflections (the existing dictionary loader discarded definitions). Loads `CSW21.txt` for international validity. Provides `getScrabbleWordData(word)` returning { valid, points, definition, letterBreakdown, inNWL, inCSW, ... }, `getAllValidScrabbleWords(minLen, maxLen)`, `getSampleValidWords(len, count)`.
+- `src/app/scrabble-words/[word]/page.tsx` (new): per-word route. `generateStaticParams` prerenders all valid 2-3 letter Scrabble words (~1,471 pages). `dynamicParams = true` + `revalidate = 86400` (ISR, daily) for the long tail — non-words like "zave" and 4+ letter words SSR on demand. Page renders: H1 "Is WORD a Valid Scrabble Word?", colored answer block (green for valid, red for invalid), definition + part-of-speech (if valid), Scrabble points table with per-letter breakdown, FAQ section + FAQPage JSON-LD (3 Q&As), BreadcrumbList JSON-LD, ShareButtons, internal links. Invalid words get a helpful "why isn't this valid" section with links to valid alternatives.
+- `src/app/scrabble-words/page.tsx` (new): index landing page. Shows samples of valid words per length (2-8 letters, 24 per length spread across the alphabet), explains NWL2023 vs CSW21, links to the Scrabble Word Checker and word-list pages.
+- `next.config.ts`: added `Cache-Control: public, s-maxage=3600, stale-while-revalidate=86400` headers for `/scrabble-words/:word` and `/scrabble-words`.
+- `src/app/sitemap.ts`: added "scrabble-words" to CORE_TOOLS (index page, priority 0.8) + all 1,471 prerendered 2-3 letter word URLs (priority 0.6) + ~200 sampled 4-5 letter word URLs (priority 0.4). Total sitemap: 1,817 URLs (was 143).
+
+**Build verification**: `bun run build` — 1,642 static pages generated (was 141). Build time ~36s total (18.4s compile + 17.8s static gen). TypeScript clean, ESLint clean. Prod server serves all new routes 200, invalid params 404, FAQPage + BreadcrumbList JSON-LD present on every page.
+
+**IndexNow**: re-ping all 1,817 sitemap URLs after deploy (`bunx tsx scripts/ping-indexnow.ts`).

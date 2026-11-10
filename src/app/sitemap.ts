@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getAllValidScrabbleWords } from "@/lib/scrabble-word-data";
 
 // 1. Declare your core static tools registry arrays mapping
 const CORE_TOOLS = [
@@ -12,6 +13,7 @@ const CORE_TOOLS = [
   "wordfeud",
   "dictionary",
   "scrabble",
+  "scrabble-words", // Index page for /scrabble-words/[word] programmatic pages
   "wordlists",
   "wordstarts",
   "wordends",
@@ -111,6 +113,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     });
   });
+
+  // GENERATION MAP E: Programmatic Scrabble per-word validity pages
+  // (/scrabble-words/[word]). All prerendered 2-3 letter valid words (~1,500)
+  // get priority 0.6; a sample of 4-5 letter words (~200) gets priority 0.4
+  // for discovery of the ISR-rendered long tail. Total adds ~1,700 URLs —
+  // the sitemap stays well under Google's 50k-URL cap.
+  const shortScrabbleWords = getAllValidScrabbleWords(2, 3);
+  for (const word of shortScrabbleWords) {
+    sitemapEntries.push({
+      url: `${baseUrl}/scrabble-words/${word}`,
+      lastModified: LAST_MODIFIED,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    });
+  }
+  const midScrabbleWords = getAllValidScrabbleWords(4, 5);
+  const sampleStep = Math.max(1, Math.floor(midScrabbleWords.length / 200));
+  for (let i = 0; i < midScrabbleWords.length; i += sampleStep) {
+    sitemapEntries.push({
+      url: `${baseUrl}/scrabble-words/${midScrabbleWords[i]}`,
+      lastModified: LAST_MODIFIED,
+      changeFrequency: "monthly",
+      priority: 0.4,
+    });
+  }
 
   return sitemapEntries;
 }
