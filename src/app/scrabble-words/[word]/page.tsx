@@ -327,7 +327,7 @@ export default async function ScrabbleWordPage({ params }: PageProps) {
 
               <section className="mb-8">
                 <h2 className="text-xl font-bold text-foreground mb-3 tracking-tight">
-                  {data.display} — Scrabble Points &amp; Letter Breakdown
+                  {`${data.display} — Scrabble Points & Letter Breakdown`}
                 </h2>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                   {data.display} is worth <span className="text-foreground font-semibold">{data.points} points</span> in Scrabble,
@@ -406,7 +406,7 @@ export default async function ScrabbleWordPage({ params }: PageProps) {
           {/* ── Cross-dictionary validity — all 8 dictionaries ── */}
           <section className="mb-8">
             <h2 className="text-xl font-bold text-foreground mb-3 tracking-tight">
-              {data.display} in Every Dictionary &amp; Language
+              {`${data.display} in Every Dictionary & Language`}
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed mb-4">
               Scrabble dictionaries are language-specific — a word can be
