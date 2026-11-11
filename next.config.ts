@@ -127,6 +127,18 @@ const nextConfig: NextConfig = {
         headers: cacheHeaders,
       },
       {
+        // Localized scrabble-words editions (/{lang}/scrabble-words[/word] —
+        // de/fr/es/it/nl/pt). Same HTML cache policy as the English section.
+        // The :lang token matches any first segment, which is harmless: only
+        // the six dictionary languages have those routes.
+        source: "/:lang/scrabble-words/:word",
+        headers: cacheHeaders,
+      },
+      {
+        source: "/:lang/scrabble-words",
+        headers: cacheHeaders,
+      },
+      {
         source: "/(.*)",
         headers: [
           { key: "X-Frame-Options", value: "DENY" },

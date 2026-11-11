@@ -6,8 +6,11 @@
 //   /wordle               → English tool pages (canonical)
 //   /de, /de/wordle, …    → localized subpaths (8 languages) — rewritten to the
 //                           internal static route /i18n/{lang}/{tool}
-//   /de/<non-localized>   → 308 to the English canonical (word lists, guides,
-//                           scrabble-words have no localized variants yet)
+//   /de/scrabble-words[/word] → localized Scrabble-words section (6 dictionary
+//                           languages only) — rewritten to
+//                           /i18n/{lang}/scrabble-words[/{word}]
+//   /de/<non-localized>   → 308 to the English canonical (word lists, guides;
+//                           ja/zh scrabble-words — no Scrabble dictionary)
 //
 // LANGUAGE PREFERENCE (first visit, no wordizy-lang cookie)
 //   1. Accept-Language header (the user's own browser setting — most reliable
@@ -17,6 +20,8 @@
 //   An explicit earlier choice (wordizy-lang cookie, incl. "en") always wins.
 //   Applies to / and the 19 localized tool pages, as a temporary 307 redirect
 //   so it never poisons caches and crawlers (US + en) still see English URLs.
+//   The scrabble-words section ALSO honors a cookie in one of its 6 dictionary
+//   languages (a variant exists, so the user's chosen language wins there too).
 //
 // PRIVACY: detection happens per-request in edge memory only. Nothing is
 // logged or stored by us. See the "Language and Region Detection" section of
@@ -33,6 +38,15 @@ const TOOL_SLUGS = new Set([
   "dictionary", "wordlists", "wordstarts", "wordends", "wordle-starts",
   "wordle-ends", "about", "contact", "privacy", "terms", "sitemap", "blitz",
 ]);
+
+/** Languages with a localized /{lang}/scrabble-words section (they ship a
+ *  Scrabble dictionary — must mirror DICT_LANGS in src/lib/scrabble-word-data.ts).
+ *  ja/zh have no Scrabble dictionary → their /{lang}/scrabble-words URLs fall
+ *  through to the 308 English-canonical redirect below. */
+const DICT_LANGS = new Set(["de", "fr", "es", "it", "pt", "nl"]);
+
+/** /scrabble-words/[word] URL space — mirrors the guard in the word pages. */
+const SCRABBLE_WORD_RE = /^[a-z]{2,15}$/;
 
 /** Internal route prefix that serves the localized pages. */
 const I18N_PREFIX = "/i18n";
@@ -113,6 +127,19 @@ export function middleware(req: NextRequest) {
     if (segs.length === 2 && segs[1] === "unscrambler") {
       return NextResponse.redirect(new URL(`/${lang}${search}`, req.url), 308);
     }
+    // /fr/scrabble-words and /fr/scrabble-words/{word} → localized
+    // Scrabble-words section (dictionary languages only; ja/zh and malformed
+    // word slugs fall through to the 308 English-canonical redirect below).
+    if (segs[1] === "scrabble-words" && DICT_LANGS.has(lang)) {
+      if (segs.length === 2) {
+        return NextResponse.rewrite(new URL(`${I18N_PREFIX}/${lang}/scrabble-words${search}`, req.url));
+      }
+      if (segs.length === 3 && SCRABBLE_WORD_RE.test(segs[2])) {
+        return NextResponse.rewrite(
+          new URL(`${I18N_PREFIX}/${lang}/scrabble-words/${segs[2]}${search}`, req.url)
+        );
+      }
+    }
     // Everything else under /{lang}/ has no localized variant → English canonical.
     const rest = segs.slice(1).join("/");
     return NextResponse.redirect(new URL(`/${rest}${search}`.replace(/\/$/, "") || "/", req.url), 308);
@@ -128,6 +155,26 @@ export function middleware(req: NextRequest) {
       const target = `/${lang}${segs.length ? `/${segs[0]}` : ""}${search}`;
       // 307 (temporary): content negotiation must never be cached permanently.
       return NextResponse.redirect(new URL(target, req.url), 307);
+    }
+  }
+
+  // ── C2. Scrabble-words section: send the visitor to their language's
+  //        edition when one exists. Unlike the 19 tools, this ALSO honors a
+  //        wordizy-lang cookie in a dictionary language (an explicit choice
+  //        wins wherever a localized variant exists — French visitors should
+  //        never land on the all-English pages). Cookie-less visitors use the
+  //        same Accept-Language / geo negotiation as the tools. Never applies
+  //        to ja/zh (no variant — a redirect would loop back here) or to
+  //        cookie "en" (explicit English choice). 307, never cached.
+  const isScrabbleWordsPath =
+    segs[0] === "scrabble-words" &&
+    (segs.length === 1 || (segs.length === 2 && SCRABBLE_WORD_RE.test(segs[1])));
+  if (isScrabbleWordsPath) {
+    const cookie = req.cookies.get("wordizy-lang")?.value;
+    const target = cookie && DICT_LANGS.has(cookie) ? cookie : negotiateLanguage(req);
+    if (target && DICT_LANGS.has(target)) {
+      const rest = segs.length === 2 ? `/${segs[1]}` : "";
+      return NextResponse.redirect(new URL(`/${target}/scrabble-words${rest}${search}`, req.url), 307);
     }
   }
 

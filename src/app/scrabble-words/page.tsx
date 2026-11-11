@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { ReturnButton } from "@/components/site/back-button";
+import { buildDictAlternates } from "@/lib/i18n-seo";
 import {
   getSampleValidWords,
   getScrabbleWordData,
@@ -12,7 +13,11 @@ export const metadata: Metadata = {
   title: "Scrabble Words — Is It Valid? Check Any Word (NWL2023 + CSW21)",
   description:
     "Check whether any word is valid in Scrabble — English NWL2023 + CSW21, plus the French, Spanish, Italian, Dutch, German and Portuguese dictionaries.",
-  alternates: { canonical: "https://wordizy.com/scrabble-words" },
+  alternates: {
+    canonical: "https://wordizy.com/scrabble-words",
+    // Reciprocal cluster with the 6 localized editions (fr/es/it/nl/de/pt).
+    languages: buildDictAlternates("/scrabble-words"),
+  },
   openGraph: {
     title: "Scrabble Words — Is It Valid? Check Any Word (NWL2023 + CSW21)",
     description:
@@ -147,6 +152,17 @@ export default async function ScrabbleWordsIndexPage() {
               wordIzy&apos;s German and Portuguese word lists — a word that is
               invalid in English may be perfectly playable in another
               language&apos;s game.
+            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-4">
+              This section also has dedicated editions that check each
+              language&apos;s own dictionary first, with that language&apos;s
+              official tile values: {" "}
+              <Link href="/fr/scrabble-words" className="text-brand underline underline-offset-2">French</Link>, {" "}
+              <Link href="/es/scrabble-words" className="text-brand underline underline-offset-2">Spanish</Link>, {" "}
+              <Link href="/it/scrabble-words" className="text-brand underline underline-offset-2">Italian</Link>, {" "}
+              <Link href="/nl/scrabble-words" className="text-brand underline underline-offset-2">Dutch</Link>, {" "}
+              <Link href="/de/scrabble-words" className="text-brand underline underline-offset-2">German</Link> and {" "}
+              <Link href="/pt/scrabble-words" className="text-brand underline underline-offset-2">Portuguese</Link>.
             </p>
           </section>
 

@@ -76,6 +76,28 @@ export function buildAlternates(englishPath: string): Record<string, string> {
   return languages;
 }
 
+/**
+ * hreflang cluster for the scrabble-words section ONLY: English + the six
+ * languages that have a localized /{lang}/scrabble-words variant (they ship a
+ * Scrabble dictionary — the same source as the localized games). ja/zh have
+ * no Scrabble dictionary; middleware 308s /{ja|zh}/scrabble-words to the
+ * English canonical, so they must NOT appear in the cluster (an hreflang
+ * entry pointing at a redirect is a soft-404 signal). Used by both the
+ * English pages (reciprocity) and the six localized variants.
+ */
+export const SCRABBLE_WORDS_LANGS = ["de", "fr", "es", "it", "pt", "nl"] as const;
+
+export function buildDictAlternates(englishPath: string): Record<string, string> {
+  const languages: Record<string, string> = {
+    en: englishPath,
+    "x-default": englishPath,
+  };
+  for (const lang of SCRABBLE_WORDS_LANGS) {
+    languages[lang] = `/${lang}${englishPath}`;
+  }
+  return languages;
+}
+
 // ---------------------------------------------------------------------------
 // Localized title/description registry, keyed [lang][slug]. "home" is the
 // localized homepage (English ""). Copy is native, keyword-rich, and written

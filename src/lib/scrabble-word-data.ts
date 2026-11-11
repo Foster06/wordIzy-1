@@ -366,3 +366,178 @@ export function getSampleValidWords(len: number, count: number): string[] {
   }
   return sample;
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// LOCALIZED scrabble-words pages (/{lang}/scrabble-words/…)
+//
+// The six languages that have a Scrabble dictionary on this site (the same
+// sources the localized games use — see src/lib/dictionary.ts) get their own
+// localized section: /fr/scrabble-words, /es/scrabble-words, … The localized
+// word page checks the visitor's language dictionary FIRST (e.g. ODS9 on the
+// French page), shows points with that language's official tile values, and
+// reports cross-dictionary validity second.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** Languages with a localized /{lang}/scrabble-words section. MUST mirror
+ *  DICT_LANGS in src/middleware.ts and SCRABBLE_WORDS_COPY in
+ *  src/lib/scrabble-words-i18n.ts. Japanese/Mandarin have no Scrabble
+ *  dictionary (romaji/pinyin game lists only) — no localized section. */
+export const DICT_LANGS = ["fr", "es", "it", "nl", "de", "pt"] as const;
+export type ScrabbleDictLang = (typeof DICT_LANGS)[number];
+
+/** Data for a word on a LOCALIZED /{lang}/scrabble-words/[word] page. */
+export interface LocalizedScrabbleWordData {
+  /** The query word, normalized (lowercase, diacritics stripped). */
+  word: string;
+  /** Display form (uppercase, Scrabble convention — accents stripped). */
+  display: string;
+  length: number;
+  /** True if the word is in THIS language's dictionary (the primary check). */
+  valid: boolean;
+  /** Points using THIS language's official tile values. */
+  points: number;
+  /** Per-letter breakdown with THIS language's tile values. */
+  letterBreakdown: { letter: string; value: number; count: number }[];
+  /** Cross-checks: English (NWL2023 / CSW21) + the five other languages. */
+  inNWL: boolean;
+  inCSW: boolean;
+  /** Validity in the other five dictionary languages (self excluded). */
+  otherLanguages: OtherLanguageResult[];
+  validInOtherLanguages: OtherLanguageResult[];
+  /** True when the word is valid in at least one NON-self dictionary. */
+  validAnywhereElse: boolean;
+}
+
+/** The OTHER_DICTS entry for a dictionary language (file + labels). */
+function dictLangDef(lang: ScrabbleDictLang): OtherDictDef {
+  const def = OTHER_DICTS.find((d) => d.lang === lang);
+  if (!def) throw new Error(`No dictionary registered for lang "${lang}"`);
+  return def;
+}
+
+/** Public info about a language's Scrabble dictionary (for table rows / prose). */
+export function getDictInfo(lang: ScrabbleDictLang): { dictName: string; official: boolean } {
+  const def = dictLangDef(lang);
+  return { dictName: def.dictName, official: def.official };
+}
+
+/** Per-language sorted word lists (built lazily from the same normalized
+ *  Sets the English cross-dictionary table uses — identical validity data). */
+const langWordsByLength = new Map<string, Map<number, string[]>>();
+
+function getLangWordsByLength(lang: ScrabbleDictLang): Map<number, string[]> {
+  const cacheKey = lang;
+  const cached = langWordsByLength.get(cacheKey);
+  if (cached) return cached;
+  const buckets = new Map<number, string[]>();
+  for (const word of getOtherDictSet(dictLangDef(lang).file)) {
+    const len = word.length;
+    const bucket = buckets.get(len);
+    if (bucket) bucket.push(word);
+    else buckets.set(len, [word]);
+  }
+  for (const bucket of buckets.values()) bucket.sort();
+  langWordsByLength.set(cacheKey, buckets);
+  return buckets;
+}
+
+/** Objective display-quality filter for SHORT words shown on the localized
+ *  index pages and prerendered/sitemapped: a 2- or 3-letter entry must
+ *  contain at least one vowel (a, e, i, o, u). The raw lists — especially
+ *  OpenTaal and the German/Portuguese word lists — include consonant-only
+ *  abbreviation entries (bb, cd, tv, dvd, rsi, lpg …) that are not real
+ *  words; they would otherwise be showcased front and center. This affects
+ *  display/prerender only — validity checks stay raw and consistent with
+ *  the games and the English cross-dictionary table. */
+function isShowcaseWord(word: string): boolean {
+  if (word.length < 2 || word.length > 3) return true;
+  return /[aeiou]/.test(word);
+}
+
+/** All valid words of a length in a language's dictionary (sorted). */
+export function getLangDictWords(lang: ScrabbleDictLang, len: number): string[] {
+  return getLangWordsByLength(lang).get(len) ?? [];
+}
+
+/** Alphabet-spread sample of a language's valid words for the localized
+ *  index page (showcase-quality for short lengths). */
+export function getSampleLangWords(lang: ScrabbleDictLang, len: number, count: number): string[] {
+  const all = getLangDictWords(lang, len).filter(isShowcaseWord);
+  if (all.length <= count) return all;
+  const step = Math.floor(all.length / count);
+  const sample: string[] = [];
+  for (let i = 0; i < all.length && sample.length < count; i += step) {
+    sample.push(all[i]);
+  }
+  return sample;
+}
+
+/** Words to prerender per language for /{lang}/scrabble-words/[word]: the
+ *  showcase-quality 2-letter words (highest-intent queries; the raw lists'
+ *  consonant-only abbreviation junk is left to on-demand ISR). */
+export function getLangPrerenderWords(lang: ScrabbleDictLang): string[] {
+  return getLangDictWords(lang, 2).filter(isShowcaseWord);
+}
+
+/** Letter breakdown + points using a language's OFFICIAL tile values. */
+function computeLocalizedBreakdown(word: string, lang: ScrabbleDictLang): {
+  points: number;
+  letterBreakdown: { letter: string; value: number; count: number }[];
+} {
+  const def = LANGUAGES[lang];
+  const counts = new Map<string, number>();
+  let points = 0;
+  for (const ch of word.toUpperCase()) {
+    const value = def.letterValues[ch] ?? 0;
+    points += value;
+    counts.set(ch, (counts.get(ch) ?? 0) + 1);
+  }
+  const letterBreakdown = Array.from(counts.entries())
+    .map(([letter, count]) => ({
+      letter,
+      value: def.letterValues[letter] ?? 0,
+      count,
+    }))
+    .sort((a, b) => b.count - a.count || b.value - a.value || a.letter.localeCompare(b.letter));
+  return { points, letterBreakdown };
+}
+
+/** Main localized lookup: full LocalizedScrabbleWordData for any query word. */
+export function getLocalizedScrabbleWordData(
+  lang: ScrabbleDictLang,
+  rawWord: string
+): LocalizedScrabbleWordData {
+  const word = normalizeWord(rawWord);
+  const display = word.toUpperCase();
+  const selfDef = dictLangDef(lang);
+
+  const valid = getOtherDictSet(selfDef.file).has(word);
+  const { points, letterBreakdown } = computeLocalizedBreakdown(word, lang);
+
+  const inNWL = getNWLSet().has(word);
+  const inCSW = getCSWSet().has(word);
+
+  // The five other dictionary languages (self excluded) — same labels the
+  // English cross-dictionary table uses.
+  const otherLanguages = OTHER_DICTS.filter((d) => d.lang !== lang).map((d) => ({
+    lang: d.lang,
+    languageName: d.languageName,
+    dictName: d.dictName,
+    official: d.official,
+    valid: getOtherDictSet(d.file).has(word),
+  }));
+
+  return {
+    word,
+    display,
+    length: word.length,
+    valid,
+    points,
+    letterBreakdown,
+    inNWL,
+    inCSW,
+    otherLanguages,
+    validInOtherLanguages: otherLanguages.filter((r) => r.valid),
+    validAnywhereElse: inNWL || inCSW || otherLanguages.some((r) => r.valid),
+  };
+}

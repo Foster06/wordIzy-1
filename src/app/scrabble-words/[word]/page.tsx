@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { ReturnButton } from "@/components/site/back-button";
 import { ShareButtons } from "@/components/site/share-buttons";
+import { buildDictAlternates, SCRABBLE_WORDS_LANGS } from "@/lib/i18n-seo";
 import {
   getScrabbleWordData,
   getAllValidScrabbleWords,
@@ -124,6 +125,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const canonical = `${SITE_ORIGIN}/scrabble-words/${word}`;
 
+  // Reciprocal hreflang cluster with the 6 localized editions (fr/es/it/nl/de/pt).
+  const alternates = {
+    canonical,
+    languages: buildDictAlternates(`/scrabble-words/${word}`),
+  };
+
   // FAQPage JSON-LD — embedded as <meta> via `other` field, rendered as a script
   // tag in the page body. Three Q&As that match common SERP feature triggers.
   const faqJsonLd = buildFaqJsonLd(data);
@@ -131,7 +138,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates,
     openGraph: {
       title,
       description,
@@ -538,6 +545,24 @@ export default async function ScrabbleWordPage({ params }: PageProps) {
             url={`${SITE_ORIGIN}/scrabble-words/${word}`}
             title={`Is ${data.display} a Valid Scrabble Word?`}
           />
+
+          {/* Check this word in the localized editions (own dictionary first) */}
+          <section className="mt-10 pt-6 border-t border-white/10">
+            <h3 className="text-sm font-semibold text-foreground mb-3">
+              Check {data.display} in its own language&apos;s dictionary:
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {SCRABBLE_WORDS_LANGS.map((l) => (
+                <Link
+                  key={l}
+                  href={`/${l}/scrabble-words/${word}`}
+                  className="px-3 py-1.5 rounded-md glass-soft text-xs text-foreground/80 hover:text-brand transition-colors"
+                >
+                  /{l}/scrabble-words/{word}
+                </Link>
+              ))}
+            </div>
+          </section>
 
           {/* Internal links */}
           <div className="mt-10 pt-6 border-t border-white/10">

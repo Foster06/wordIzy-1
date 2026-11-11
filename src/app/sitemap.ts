@@ -1,5 +1,10 @@
 import type { MetadataRoute } from "next";
-import { getAllValidScrabbleWords } from "@/lib/scrabble-word-data";
+import {
+  getAllValidScrabbleWords,
+  DICT_LANGS,
+  getLangDictWords,
+  getLangPrerenderWords,
+} from "@/lib/scrabble-word-data";
 
 // Localized tool pages: 8 languages × [home + 19 tools] = 160 URLs
 // (/de, /de/wordle, /fr/wordfeud, …). Must mirror src/lib/i18n-seo.ts.
@@ -179,6 +184,38 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     });
   });
+
+  // GENERATION MAP G: Localized scrabble-words section
+  // (/{lang}/scrabble-words + /{lang}/scrabble-words/[word] for the 6
+  // dictionary languages). Per language: the index (0.7), the prerendered
+  // 2-letter word pages (0.5), and a ~100-word sample of the 3-letter pages
+  // for ISR discovery (0.3). Adds ~1.2k URLs — still well under the 50k cap.
+  for (const lang of DICT_LANGS) {
+    sitemapEntries.push({
+      url: `${baseUrl}/${lang}/scrabble-words`,
+      lastModified: LAST_MODIFIED,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    });
+    for (const word of getLangPrerenderWords(lang)) {
+      sitemapEntries.push({
+        url: `${baseUrl}/${lang}/scrabble-words/${word}`,
+        lastModified: LAST_MODIFIED,
+        changeFrequency: "monthly",
+        priority: 0.5,
+      });
+    }
+    const threeLetter = getLangDictWords(lang, 3).filter((w) => /[aeiou]/.test(w));
+    const step = Math.max(1, Math.floor(threeLetter.length / 100));
+    for (let i = 0; i < threeLetter.length; i += step) {
+      sitemapEntries.push({
+        url: `${baseUrl}/${lang}/scrabble-words/${threeLetter[i]}`,
+        lastModified: LAST_MODIFIED,
+        changeFrequency: "monthly",
+        priority: 0.3,
+      });
+    }
+  }
 
   return sitemapEntries;
 }
