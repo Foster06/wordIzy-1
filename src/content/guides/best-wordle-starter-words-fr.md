@@ -1,5 +1,6 @@
 ---
 title: "Meilleurs mots de départ pour Le Mot (Wordle français) : stratégies gagnantes"
+description: "Les meilleurs mots de départ Wordle selon les fréquences réelles des lettres, avec trois stratégies gagnantes et un cadre pour le deuxième essai."
 date: "2026-08-19"
 ---
 

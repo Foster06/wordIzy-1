@@ -36,7 +36,7 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
   },
   "wordle": {
     title: "Wordle Solver — Cheat, Helper & Answer Finder",
-    description: "Free Wordle solver & cheat for today's puzzle. Filter by green, yellow & gray letters to find the answer fast. Works with 4-8 letter Wordles.",
+    description: "Free Wordle solver and cheat for the daily puzzle. Filter by green, yellow and gray letters to find the answer fast. Works with 4-8 letters.",
     keywords: ["wordle solver","wordle cheat","wordle helper","wordle answer finder","wordle hint","daily wordle solver","wordle today","wordle word finder","wordle answer","wordle clue","wordle guesser","wordle solver tool","wordle pattern solver","wordle cheat sheet","wordle helper tool","wordle answer today","wordle letter solver","wordle word helper","wordle green yellow gray solver"]
   },
   "quordle": {
@@ -71,22 +71,22 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
   },
   "wordstarts": {
     title: "Words That Start With A to Z — Word Lists by Letter",
-    description: "Browse every valid word that starts with A to Z. Filter by length 2-15, sorted by Scrabble score. Free word lists for Scrabble, Wordle & Words with Friends.",
+    description: "Browse every valid word that starts with A to Z, sorted by Scrabble score. Free word lists for Scrabble, Wordle and Words with Friends.",
     keywords: ["words starts with","words beginning with","words that start with","scrabble words by letter","starting letter word list","words starting with a","words starting with q","words starting with x","scrabble opening words","word list by starting letter","words beginning with a","words that begin with","words that start with letter","scrabble words starting with","words starting with b","words starting with c","words starting with s","words that start with a to z"]
   },
   "wordends": {
     title: "Words That End With A to Z — Word Lists by Letter",
-    description: "Browse every valid word that ends with A to Z. Filter by length 2-15 to find suffixes, hooks & high-scoring endings. Free word lists for Scrabble & Wordle.",
+    description: "Browse every valid word that ends with A to Z. Find suffixes, hooks and high-scoring endings. Free word lists for Scrabble and Wordle.",
     keywords: ["words ends with","words ending in","words that end with","scrabble words by ending","ending letter word list","words ending with e","words ending with s","words ending with z","words ending with d","scrabble suffix words","word list by ending letter","words ending in a","words that end in","words that end with letter","scrabble words ending with","words ending with ing","words ending with ed","words ending with er","words that end with a to z"]
   },
   "wordle-starts": {
     title: "Wordle Words That Start With A to Z — Best Starters",
-    description: "Browse all valid Wordle words by starting letter A-Z. Find the best Wordle starting words, filter by length & score, and narrow down today's puzzle fast.",
+    description: "Browse all valid Wordle words by starting letter A-Z. Find the best starting words, filter by length and score, and solve puzzles fast.",
     keywords: ["wordle words starting with","wordle starting words","best wordle starts","wordle words by letter","wordle words that start with","wordle starting word list","best wordle starting words","wordle words beginning with","wordle word list by letter","wordle words starting with a","wordle words starting with s","wordle words starting with t","wordle opening words","wordle first word","wordle words a to z","wordle starter words","wordle words by starting letter","wordle starting letters","best wordle first words"]
   },
   "wordle-ends": {
     title: "Wordle Words That End With A to Z — Hooks & Suffixes",
-    description: "Browse all valid Wordle words by ending letter A-Z. Find Wordle hooks, suffixes & ending patterns to narrow down today's puzzle. Free Wordle word lists.",
+    description: "Browse all valid Wordle words by ending letter A-Z. Find hooks, suffixes and ending patterns to solve puzzles fast. Free word lists.",
     keywords: ["wordle words ending with","wordle ending words","wordle words by ending","wordle hooks","wordle words that end with","wordle ending word list","wordle words ending in","wordle word list by ending letter","wordle words ending with e","wordle words ending with s","wordle words ending with y","wordle suffix words","wordle words ending in a","wordle ending letters","wordle words a to z ending","wordle last letter words","wordle words by ending","wordle ending patterns","wordle words ending with d"]
   },
   "about": {

@@ -110,8 +110,10 @@ export const metadata: Metadata = {
     default: "wordIzy — Word Unscrambler, Anagram & Wordle Solver",
     template: "%s | wordIzy",
   },
+  // Bing requires 25-160 chars — keep ≤150 for safety. This default is the
+  // sitewide fallback (404 pages and any route without its own description).
   description:
-    "wordIzy is a free word unscrambler, anagram solver, Wordle solver, Scrabble word finder, and word game helper. Unscramble letters, find words for Words with Friends, solve jumble puzzles, browse word lists by length and letter. 9 languages, no sign up.",
+    "wordIzy — free word unscrambler, anagram solver, Wordle and Scrabble word finder with 9-language dictionaries. Instant results, no sign-up.",
   keywords: [
     "word unscrambler",
     "anagram solver",

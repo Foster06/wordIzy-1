@@ -1,5 +1,6 @@
 ---
 title: "Mejores palabras iniciales para Wordle español: estrategias ganadoras basadas en el diccionario FISE"
+description: "Las palabras iniciales óptimas para Wordle según datos reales de frecuencia de letras, con estrategias ganadoras y guía para la segunda jugada."
 date: "2026-08-19"
 ---
 

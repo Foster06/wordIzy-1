@@ -383,7 +383,8 @@ const blitzGameJsonLd = {
   "@type": "VideoGame",
   name: "Anagram Blitz",
   url: "https://wordizy.com/blitz",
-  description: "Free online word unscramble game. Race against the clock to unscramble as many words as you can in 60 seconds. Daily challenges and infinite practice mode. No download, no sign-up.",
+  // ≤160 chars — Bing's SEO analyzer flags long descriptions in JSON-LD too.
+  description: "Free online word unscramble game. Race the clock to unscramble words in 60 seconds. Daily challenges, practice mode, no sign-up.",
   genre: ["Word Game", "Puzzle", "Educational"],
   gamePlatform: ["Web Browser", "Mobile", "Desktop"],
   applicationCategory: "Game",

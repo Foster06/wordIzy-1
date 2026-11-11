@@ -1,5 +1,6 @@
 ---
 title: "Migliori parole iniziali per Wordle italiano: strategie vincenti basate sullo Zingarelli"
+description: "Le parole iniziali ottimali per Wordle secondo le frequenze reali delle lettere, con strategie vincenti e framework per il secondo tentativo."
 date: "2026-08-19"
 ---
 

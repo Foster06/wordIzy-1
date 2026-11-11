@@ -1,5 +1,6 @@
 ---
 title: "Beste startwoorden voor Wordle Nederlands: winnende strategieën gebaseerd op de OpenTaalwoordenlijst"
+description: "De wiskundig optimale Wordle-startwoorden, gerangschikt op echte letterfrequentie, met winnende strategieën en raamwerk voor de tweede gok."
 date: "2026-08-19"
 ---
 

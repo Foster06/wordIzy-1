@@ -1,5 +1,6 @@
 ---
 title: "Beste Eröffnungswörter für Wordle Deutsch: Gewinnstrategien basierend auf dem deutschen Scrabble-Wörterbuch"
+description: "Die mathematisch optimalen Wordle-Eröffnungswörter, gerankt nach echter Buchstabenhäufigkeit, mit Strategien und Framework für den zweiten Versuch."
 date: "2026-08-19"
 ---
 

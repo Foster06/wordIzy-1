@@ -17,6 +17,23 @@ interface PageProps {
 
 const SITE_ORIGIN = "https://wordizy.com";
 
+/** Length of a string AFTER HTML attribute escaping, matching what Next.js
+ *  renders in `<meta content="…">`. Escapable characters expand:
+ *  & → &amp; (5), < → &lt; (4), > → &gt; (4), " → &quot; (6),
+ *  ' → &#x27; (6). Used to keep the meta description within Bing's
+ *  25-160 char limit as it appears in the final HTML. */
+function escapedLength(s: string): number {
+  let n = 0;
+  for (const ch of s) {
+    if (ch === '"') n += 6; // &quot;
+    else if (ch === "'") n += 6; // &#x27;
+    else if (ch === "&") n += 5; // &amp;
+    else if (ch === "<" || ch === ">") n += 4; // &lt; / &gt;
+    else n += 1;
+  }
+  return n;
+}
+
 // On-demand rendering for non-prerendered words (non-words like "zave", and
 // 4+ letter words not in the static params set). Cached for 24h via ISR.
 // The catch-all [[...tool]] route keeps dynamicParams=false for soft-404 safety;
@@ -46,19 +63,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : `Is ${display} a Valid Scrabble Word? No — Not in NWL or CSW`;
 
   // Meta description MUST be 25-160 chars (Bing URL Inspection rule).
-  // Target 155 to leave a safety buffer for measurement differences.
-  // Build the fixed part first, then spend the remaining budget on the
-  // definition — truncated dynamically so the total never exceeds the target.
-  const MAX_DESC = 155;
+  // Target 150 to leave a safety buffer: Next.js HTML-escapes the content
+  // attribute (& → &amp;, < → &lt;, ' → &#x27;, …), which EXPANDS the
+  // rendered length beyond the raw string length. The budget below is
+  // computed on the ESCAPED length so the rendered attribute never
+  // exceeds the target.
+  const MAX_DESC = 150;
   let description: string;
   if (data.valid) {
     const dicts = `${data.inNWL ? "NWL2023" : ""}${data.inNWL && data.inCSW ? " & " : ""}${data.inCSW ? "CSW21" : ""}`;
     const fixed = `${display} is a valid Scrabble word worth ${data.points} points. Valid in ${dicts}.`;
     let desc = fixed;
     if (data.definition) {
-      const budget = MAX_DESC - fixed.length - " Definition: ".length;
+      const budget = MAX_DESC - escapedLength(fixed) - " Definition: ".length;
       if (budget >= 20) {
-        desc = `${fixed} Definition: ${data.definition.slice(0, budget)}`;
+        let defPart = data.definition.slice(0, budget);
+        while (escapedLength(`${fixed} Definition: ${defPart}`) > MAX_DESC && defPart.length > 20) {
+          defPart = defPart.slice(0, -1);
+        }
+        desc = `${fixed} Definition: ${defPart}`;
       }
     }
     description = desc;

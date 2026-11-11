@@ -1,5 +1,6 @@
 ---
 title: "Melhores palavras iniciais para Termo (Wordle português): estratégias vencedoras baseadas no dicionário de Scrabble"
+description: "As melhores palavras iniciais para Wordle segundo dados reais de frequência de letras, com estratégias vencedoras e guia para o segundo palpite."
 date: "2026-08-19"
 ---
 
