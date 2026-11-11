@@ -8,7 +8,7 @@ export type RouteId =
 
   | "home" | "scramble" | "anagram" | "wordle" | "quordle" | "scrabble"
   | "random" | "wordfeud" | "dictionary" | "wordlists" | "wordstarts" | "wordends"
-  | "wordle-starts" | "wordle-ends"
+  | "wordle-starts" | "wordle-ends" | "scrabble-words"
   | "about" | "contact" | "privacy" | "terms" | "sitemap" | "inbox" | "dashboard"
   | "blitz";
 
@@ -48,6 +48,11 @@ export const ROUTES: RouteDef[] = [
   { id: "wordends", hash: "/wordends", icon: "ArrowUpFromLine", labelKey: "wordends", group: "wordlab", desktop: "wordlab" },
   { id: "wordle-starts", hash: "/wordle-starts", icon: "Grid3x3", labelKey: "wordlestarts", group: "wordlab", desktop: "wordlab" },
   { id: "wordle-ends", hash: "/wordle-ends", icon: "Grid3x3", labelKey: "wordleends", group: "wordlab", desktop: "wordlab" },
+  // Scrabble word-validity checker (/scrabble-words index + 1,674 per-word
+  // programmatic pages). Must stay in nav+footer: before this entry the whole
+  // section was an orphan (sitemap-only discovery — no internal links from
+  // the rest of the site, hurting both users and crawl equity).
+  { id: "scrabble-words", hash: "/scrabble-words", icon: "SpellCheck", labelKey: "scrabblewords", group: "wordlab", desktop: "wordlab" },
 
   // Site links — NO "More" dropdown in navbar (removed to make room for Blitz).
   // These items are accessible via the footer's SITE column.

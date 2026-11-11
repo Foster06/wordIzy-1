@@ -6,7 +6,7 @@ import Link from "next/link";
 import {
   Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2,
   BookOpen, Trophy, List, Info, Mail, Shield, Map, Menu, ChevronDown,
-  ArrowDownToLine, ArrowUpFromLine, Star
+  ArrowDownToLine, ArrowUpFromLine, Star, SpellCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ROUTES, DESKTOP_DROPDOWNS, GROUP_ORDER, GROUP_LABELS, type RouteDef } from "./routes";
@@ -21,7 +21,7 @@ import { useWordVault } from "@/hooks/use-word-vault";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2,
-  BookOpen, Trophy, List, Info, Mail, Shield, Map, ArrowDownToLine, ArrowUpFromLine,
+  BookOpen, Trophy, List, Info, Mail, Shield, Map, ArrowDownToLine, ArrowUpFromLine, SpellCheck,
 };
 
 function NavIcon({ name, className }: { name: string; className?: string }) {
