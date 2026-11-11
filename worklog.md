@@ -1838,3 +1838,20 @@ The old key (`4c390b...`, replaced in Task 35) is still verified in IndexNow's b
 3. `src/components/site/site-header.tsx` — `SpellCheck` lucide icon added to the ICONS map for the mobile/dropdown items.
 
 **Verification**: tsc + eslint clean; prod build OK (1,802 pages); local standalone prod: footer link on `/`, `/de/wordle` shows "Scrabble-Wörter", `/es/wordle` shows "Palabras de Scrabble", `/scrabble-words` 200. Live after deploy: footer link on homepage + de/es/ja/zh locale pages all confirmed (initial homepage/zh responses were the previous build from Vercel edge cache — revalidated within ~1 min; no IndexNow re-ping needed for a nav-only change).
+
+## Task 42 — Scrabble-word pages: multi-language & multi-dictionary validity (2026-11-11)
+
+**Trigger**: User: "the scrabble-word page does not take other languages and dictionaries in consideration, fix it." The /scrabble-words/[word] pages only checked NWL2023 + CSW21 (both English) even though the site ships the official Scrabble dictionaries for 4 more languages in data/scrabble/ (they power the localized games).
+
+**Fix**:
+1. `src/lib/scrabble-word-data.ts` — new `otherLanguages`/`validInOtherLanguages` fields on ScrabbleWordData. Lazy cached Sets for: French ODS9, Spanish FISE, Italian Zingarelli, Dutch OpenTaal (all official Scrabble dictionaries) + German/Portuguese wordIzy word lists (no freely-licensed official dictionary exists — same lists the DE/PT games use, labeled as such in the UI). Site-wide normalization (lowercase, diacritics stripped: ELEVE matches ÉLÈVE), ASCII-only filtering since the URL space is [a-z]{2,15}.
+2. `src/app/scrabble-words/[word]/page.tsx`:
+   - New always-on section "X in Every Dictionary & Language" — 8-row table (NWL2023, CSW21, ODS9, FISE, Zingarelli, OpenTaal, DE*, PT*) with honest footnote for the word-list rows and the accent-stripping convention.
+   - Answer block for invalid-in-English words: "No — X is not a valid *English* Scrabble word … however it IS a valid word in French (ODS9), …" when valid elsewhere; "Why X Isn't Valid (in English)" section explains language-specific dictionaries.
+   - Title/meta for cross-language words: "Is ELEVE a Valid Scrabble Word? Not in English" + description "…but it is valid in French, Spanish and 1 more…" (134 chars, within Bing 25-160).
+   - New FAQ (JSON-LD + visible) "Is X a valid word in other languages?" whenever the word is valid in ≥1 other dictionary; existing FAQ answers corrected from "cannot be played in an official Scrabble game" to "official English-language Scrabble game".
+3. `src/app/scrabble-words/page.tsx` — index copy + meta description now mention the 6-language check.
+4. Rendering bug fix (pre-existing, discovered during verification): headings mixing an expression and JSX text containing `&amp;` lose the leading space of the text node in Vercel's SWC build ("AA— Scrabble Points" instead of "AA — Scrabble Points"; new heading would have been "AAin Every Dictionary"). Fixed by making both headings single template-literal text nodes. Local builds never showed it (local build kept the space) — only the deployed build did; single-node strings are immune regardless of compiler.
+5. `scripts/test-scrabble-multilang.ts` — spot-check harness (qi→+FR, chat→+FR/IT/NL/DE/PT, eleve→FR/ES/PT, gluck→DE, coracao→PT, zave/izy→none).
+
+**Verification**: tsc + eslint clean; prod build OK (1,802 pages, ~59s — dictionary loading adds ~20s, no memory issues); runtime data files confirmed accessible on Vercel (live /scrabble-words/spunk, /quiet correctly show "Yes" — non-prerendered words); live verified: eleve title/desc/answer/table/FAQ, qi "+French", gluck "valid in German", zave unchanged, aa table + fixed headings. IndexNow re-pinged all 1,977 sitemap URLs after deploy. Note: transient stale edge entries after each deploy serve the previous build for up to ~10 min (expected, self-heals — see Task 40 for the s-maxage=600 rationale).
