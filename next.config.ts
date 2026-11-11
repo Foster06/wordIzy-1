@@ -72,16 +72,25 @@ const nextConfig: NextConfig = {
 
   // Security + cache headers applied to every route.
   async headers() {
+    // HTML cache policy — shared by the word-list and scrabble-words routes
+    // below. NEVER add stale-while-revalidate to HTML: every deployment
+    // renames the content-hashed /_next/static chunks, so any cache allowed
+    // to serve stale HTML after a deploy hands out pages whose <script src>
+    // chunks 404 (the 2026-11-11 site audit flagged 1,682 pages as "broken
+    // JavaScript" for exactly this reason). A short s-maxage keeps most page
+    // views as CDN edge hits while capping the cross-deployment staleness
+    // window at 10 minutes; browsers see no max-age and revalidate HTML on
+    // every visit.
     const cacheHeaders = [
       {
         key: "Cache-Control",
-        value: "public, s-maxage=3600, stale-while-revalidate=86400",
+        value: "public, s-maxage=600",
       },
     ];
     return [
       // Programmatic word-list pages: HTML is deterministic per (slug, lang).
-      // Cache at the CDN for 1 hour, allow serving stale for up to 24h while
-      // revalidating. Repeat visits become instant (no server round-trip).
+      // Edge-cached for 10 minutes (see the cacheHeaders note above for why
+      // there is no stale-while-revalidate on HTML).
       {
         source: "/words-starts-with-:letter",
         headers: cacheHeaders,
@@ -109,7 +118,7 @@ const nextConfig: NextConfig = {
       {
         // Per-word Scrabble validity pages (/scrabble-words/[word]). The valid
         // ones are prerendered (static HTML), the long tail is ISR'd daily.
-        // CDN caching makes repeat visits instant.
+        // Edge-cached for 10 minutes (see the cacheHeaders note above).
         source: "/scrabble-words/:word",
         headers: cacheHeaders,
       },
