@@ -23,6 +23,7 @@ export interface ScrabbleWordsCopy {
   indexDictNote: string;
   lengthTitle: string; // "{n}" + letters wording
   sampleNote: string;
+  /** Per-length "Browse all {n}-letter Scrabble words →" link text (uses {n}). */
   browseAll: string;
   whatCountsH2: string;
   whatCountsBody: string;
@@ -112,7 +113,7 @@ export const SCRABBLE_WORDS_COPY: Record<ScrabbleDictLang, ScrabbleWordsCopy> = 
     lengthTitle: "Mots Scrabble de {n} lettres",
     sampleNote:
       "Un échantillon de mots valides de {n} lettres. Cliquez sur un mot pour sa valeur en points et sa validité détaillée.",
-    browseAll: "Parcourir les listes de mots →",
+    browseAll: "Parcourir tous les mots Scrabble de {n} lettres →",
     whatCountsH2: "Qu'est-ce qu'un mot valide au Scrabble français ?",
     whatCountsBody:
       "Le Scrabble francophone se joue avec l'ODS9 (L'Officiel du Jeu Scrabble, 9e édition), le dictionnaire officiel : environ 400 000 formes, inflexions comprises. Y sont exclus les noms propres, les abréviations, les mots avec trait d'union ou apostrophe. Les lettres accentuées existent dans le jeu (É, À, Û…) mais l'URL de ce site les écrit sans accent : la page ELEVE correspond donc au mot ÉLÈVE.",
@@ -209,7 +210,7 @@ export const SCRABBLE_WORDS_COPY: Record<ScrabbleDictLang, ScrabbleWordsCopy> = 
     lengthTitle: "Palabras de Scrabble de {n} letras",
     sampleNote:
       "Una muestra de palabras válidas de {n} letras. Haz clic en una palabra para ver sus puntos y su validez detallada.",
-    browseAll: "Explorar las listas de palabras →",
+    browseAll: "Explorar todas las palabras de Scrabble de {n} letras →",
     whatCountsH2: "¿Qué es una palabra válida en el Scrabble en español?",
     whatCountsBody:
       "El Scrabble en español se juega con la FISE (Federación Internacional de Scrabble en Español), el diccionario oficial: cientos de miles de formas, inflexiones incluidas. Quedan excluidos los nombres propios, las abreviaturas y las formas con guion o apóstrofo. La Ñ existe en el juego, pero las URL de este sitio escriben las letras sin tildes: la página MENSA corresponde a MÉNSA en la FISE.",
@@ -306,7 +307,7 @@ export const SCRABBLE_WORDS_COPY: Record<ScrabbleDictLang, ScrabbleWordsCopy> = 
     lengthTitle: "Parole Scrabble di {n} lettere",
     sampleNote:
       "Un campione di parole valide di {n} lettere. Clicca una parola per i punti e la validità completa.",
-    browseAll: "Sfoglia le liste di parole →",
+    browseAll: "Sfoglia tutte le parole Scrabble di {n} lettere →",
     whatCountsH2: "Che cos'è una parola valida nello Scarabeo italiano?",
     whatCountsBody:
       "Lo Scarabeo in italiano si gioca con il dizionario Zingarelli, il riferimento ufficiale: centinaia di migliaia di forme, flessioni comprese. Sono esclusi i nomi propri, le abbreviazioni e le forme con trattino o apostrofo. Le lettere accentate esistono nel gioco (È, À, Ù…), ma le URL di questo sito le scrive senza accenti: la pagina PERCHE corrisponde a PERCHÉ nello Zingarelli.",
@@ -403,7 +404,7 @@ export const SCRABBLE_WORDS_COPY: Record<ScrabbleDictLang, ScrabbleWordsCopy> = 
     lengthTitle: "Scrabble-woorden van {n} letters",
     sampleNote:
       "Een selectie van geldige woorden van {n} letters. Klik op een woord voor de punten en de volledige geldigheid.",
-    browseAll: "Blader door de woordlijsten →",
+    browseAll: "Blader door alle Scrabble-woorden van {n} letters →",
     whatCountsH2: "Wat is een geldig Scrabble-woord in het Nederlands?",
     whatCountsBody:
       "Nederlands Scrabble wordt gespeeld met de officiële spelwoordenlijst (Woordenlijst Nederlandse Taal); deze site gebruikt de open versie daarvan, OpenTaal. Eigennamen, afkortingen en vormen met koppelteken of apostrof zijn niet geldig. Diakritische tekens bestaan in het spel, maar de URL's van deze site schrijven ze weg: de pagina ELEVE komt dus overeen met het Franse ÉLÈVE, en Nederlandse woorden worden op dezelfde manier zonder accenten opgezocht.",
@@ -500,7 +501,7 @@ export const SCRABBLE_WORDS_COPY: Record<ScrabbleDictLang, ScrabbleWordsCopy> = 
     lengthTitle: "Scrabble-Wörter mit {n} Buchstaben",
     sampleNote:
       "Eine Auswahl gültiger Wörter mit {n} Buchstaben. Klicke auf ein Wort für Punkte und alle Gültigkeitsdetails.",
-    browseAll: "Zu den Wortlisten →",
+    browseAll: "Alle Scrabble-Wörter mit {n} Buchstaben durchsuchen →",
     whatCountsH2: "Was ist ein gültiges deutsches Scrabble-Wort?",
     whatCountsBody:
       "Es existiert kein frei lizenziertes offizielles deutsches Scrabble-Wörterbuch — wordIzy verwendet daher eine gefilterte deutsche Wortliste (dieselbe Liste wie beim deutschen Spiel auf dieser Seite). Eigennamen, Abkürzungen und Formen mit Bindestrich sind nicht gültig. Umlaute werden im Spiel gespielt (Ä, Ö, Ü), in den URL dieser Seite aber ohne Akzent geschrieben: die Seite GLUCK entspricht dem Wort GLÜCK.",
@@ -597,7 +598,7 @@ export const SCRABBLE_WORDS_COPY: Record<ScrabbleDictLang, ScrabbleWordsCopy> = 
     lengthTitle: "Palavras de Scrabble com {n} letras",
     sampleNote:
       "Uma amostra de palavras válidas com {n} letras. Clique numa palavra para ver os pontos e a validade completa.",
-    browseAll: "Explorar as listas de palavras →",
+    browseAll: "Explorar todas as palavras de Scrabble de {n} letras →",
     whatCountsH2: "O que é uma palavra válida no Scrabble em português?",
     whatCountsBody:
       "Não existe um dicionário oficial de Scrabble em português com licença livre — o wordIzy usa uma lista de palavras portuguesa filtrada (a mesma lista do jogo em português deste site). Nomes próprios, abreviaturas e formas com hífen não são válidas. As letras acentuadas existem no jogo (Á, Ç, Õ…), mas as URL deste site escrevem-nas sem acentos: a página CORACAO corresponde a CORAÇÃO.",

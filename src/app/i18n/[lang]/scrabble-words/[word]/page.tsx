@@ -419,6 +419,14 @@ export default async function LocalizedScrabbleWordPage({ params }: PageProps) {
                 <Link href={`/${lang}/scrabble`} className="px-3 py-1.5 rounded-md glass-soft text-xs text-foreground/80 hover:text-brand transition-colors">
                   {t.nav.scrabble}
                 </Link>
+                {/* Per-length "Browse all N-letter Scrabble words" link —
+                    matches the English word page's related-tools block.
+                    The /unscramble-{N}-letter-words word-list route is
+                    English-only (no localized variant exists), so the link
+                    uses the absolute canonical path. */}
+                <Link href={`/unscramble-${data.length}-letter-words`} className="px-3 py-1.5 rounded-md glass-soft text-xs text-foreground/80 hover:text-brand transition-colors">
+                  {fill(copy.browseAll, { n: data.length })}
+                </Link>
                 <Link href={`/${lang}/wordlists`} className="px-3 py-1.5 rounded-md glass-soft text-xs text-foreground/80 hover:text-brand transition-colors">
                   {t.nav.wordlists}
                 </Link>

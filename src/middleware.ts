@@ -163,18 +163,30 @@ export function middleware(req: NextRequest) {
   //        wordizy-lang cookie in a dictionary language (an explicit choice
   //        wins wherever a localized variant exists — French visitors should
   //        never land on the all-English pages). Cookie-less visitors use the
-  //        same Accept-Language / geo negotiation as the tools. Never applies
-  //        to ja/zh (no variant — a redirect would loop back here) or to
-  //        cookie "en" (explicit English choice). 307, never cached.
+  //        same Accept-Language / geo negotiation as the tools. CRITICALLY,
+  //        an explicit NON-dict-language cookie choice (en, ja, zh) is
+  //        honored: if the user picked English in the language selector
+  //        (cookie "en"), they MUST stay on the English /scrabble-words pages
+  //        even when their browser Accept-Language header is fr/de/es/… —
+  //        the explicit user choice always wins. Never applies to ja/zh
+  //        (no variant — a redirect would loop back here) or to cookie "en"
+  //        (explicit English choice). 307, never cached.
   const isScrabbleWordsPath =
     segs[0] === "scrabble-words" &&
     (segs.length === 1 || (segs.length === 2 && SCRABBLE_WORD_RE.test(segs[1])));
   if (isScrabbleWordsPath) {
     const cookie = req.cookies.get("wordizy-lang")?.value;
-    const target = cookie && DICT_LANGS.has(cookie) ? cookie : negotiateLanguage(req);
-    if (target && DICT_LANGS.has(target)) {
-      const rest = segs.length === 2 ? `/${segs[1]}` : "";
-      return NextResponse.redirect(new URL(`/${target}/scrabble-words${rest}${search}`, req.url), 307);
+    // Explicit user choice in a NON-dict language (en/ja/zh) → stay on the
+    // English /scrabble-words pages. The user picked English (or a language
+    // with no Scrabble dictionary) on purpose; we must not override that
+    // choice with an Accept-Language negotiation.
+    const explicitNonDictChoice = !!(cookie && !DICT_LANGS.has(cookie));
+    if (!explicitNonDictChoice) {
+      const target = cookie && DICT_LANGS.has(cookie) ? cookie : negotiateLanguage(req);
+      if (target && DICT_LANGS.has(target)) {
+        const rest = segs.length === 2 ? `/${segs[1]}` : "";
+        return NextResponse.redirect(new URL(`/${target}/scrabble-words${rest}${search}`, req.url), 307);
+      }
     }
   }
 

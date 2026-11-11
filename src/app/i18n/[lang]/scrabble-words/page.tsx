@@ -137,6 +137,22 @@ export default async function LocalizedScrabbleWordsIndexPage({ params }: PagePr
                       </Link>
                     ))}
                   </div>
+                  {/* Per-length "Browse all N-letter Scrabble words →" link —
+                      matches the English index page. The /unscramble-{N}-letter-words
+                      word-list route is English-only (no localized variant
+                      exists); the link uses the absolute path so it works from
+                      any localized edition. Middleware will 308-redirect
+                      /{lang}/unscramble-{N}-letter-words to /unscramble-{N}-letter-words
+                      if a localized prefix is added, so we link directly to
+                      the canonical English word-list page. */}
+                  <p className="text-xs text-muted-foreground mt-3">
+                    <Link
+                      href={`/unscramble-${len}-letter-words`}
+                      className="text-brand underline underline-offset-2"
+                    >
+                      {fill(copy.browseAll, { n: len })}
+                    </Link>
+                  </p>
                 </section>
               ))}
             </div>
