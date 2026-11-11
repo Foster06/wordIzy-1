@@ -1827,3 +1827,14 @@ The old key (`4c390b...`, replaced in Task 35) is still verified in IndexNow's b
 **Verification**: tsc + eslint clean; prod build OK; local standalone server confirmed `Cache-Control: public, s-maxage=600` on /scrabble-words/bobas, /scrabble-words, /words-starts-with-a (homepage unaffected: Vercel-normalized); post-deploy live check: header live on production, full 49-page integrity sweep clean (0 broken chunks, 0 meta-desc violations, 0 stale HIT entries). The audit report should clear on the tool's next crawl; a fresh crawl can be triggered in the auditor UI to confirm immediately.
 
 **Remaining user action**: verify the new IndexNow key (`6fc8ac9f...`) in Bing Webmaster Tools → Configure IndexNow (old key still works in the meantime).
+
+## Task 41 — Add Scrabble Words section to site navigation (2026-11-11)
+
+**Trigger**: User asked why `/scrabble-words` doesn't appear in the menu and how users can find it. Audit: the nav/footer/mobile menu are all driven by the central `ROUTES` registry (`src/components/site/routes.ts`), and `/scrabble-words` (built in Task 36 as a programmatic-SEO section) was never registered. The nav's "Duplicate" item points to the Scrabble Duplicate solver (`/scrabble`), not the word-validity checker. Consequence: the whole section (index + 1,674 word pages) was orphaned — discoverable only via search engines, the XML sitemap, and its own internal links; zero internal links from the rest of the site (bad for users AND crawl equity).
+
+**Fix**:
+1. `src/components/site/routes.ts` — new `scrabble-words` RouteDef in the `wordlab` group → automatically appears in the desktop "Word Lab" dropdown, the mobile drawer's Word Lab section, the footer WORD LAB column, and the /sitemap page listing. Active-state highlighting works on index + word pages (useHashRoute keys off the first path segment).
+2. `src/components/i18n/translations.ts` — new `scrabblewords` nav label in the Translation type + all 9 languages: en "Scrabble Words", fr "Mots Scrabble", es "Palabras de Scrabble", de "Scrabble-Wörter", it "Parole Scrabble", pt "Palavras de Scrabble", nl "Scrabble-woorden", ja "スクラブル単語", zh "Scrabble 单词".
+3. `src/components/site/site-header.tsx` — `SpellCheck` lucide icon added to the ICONS map for the mobile/dropdown items.
+
+**Verification**: tsc + eslint clean; prod build OK (1,802 pages); local standalone prod: footer link on `/`, `/de/wordle` shows "Scrabble-Wörter", `/es/wordle` shows "Palabras de Scrabble", `/scrabble-words` 200. Live after deploy: footer link on homepage + de/es/ja/zh locale pages all confirmed (initial homepage/zh responses were the previous build from Vercel edge cache — revalidated within ~1 min; no IndexNow re-ping needed for a nav-only change).
