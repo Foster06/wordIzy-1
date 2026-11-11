@@ -1,7 +1,7 @@
 ---
 title: "5 consejos para resolver crucigramas que todo principiante debe conocer"
 date: "2026-10-29"
-description: "Domina cinco técnicas de alto impacto para los crucigramas de El País y otros en español: respuestas largas, terminaciones -S/-ES/-IÓN, letras cruzadas, patrones y abreviaturas. Incluye el flujo de WordIzy."
+description: "Domina cinco técnicas de alto impacto para los crucigramas de El País y otros en español: respuestas largas, terminaciones -S/-ES/-IÓN, letras cruzadas"
 ---
 Los crucigramas en español — presentes cada semana en *El País*, *Supercluedo* y numerosas revistas de pasatiempos — parecen un muro intimidante de casillas blancas cuando uno los descubre, pero en realidad son uno de los juegos de palabras más aprendibles que existen. Los constructores reutilizan los mismos vocablos cortos, las mismas terminaciones del español y las mismas combinaciones de letras a través de miles de cuadrículas. Una vez interiorizados esos patrones, un crucigrama que al principio le tomaba una hora se resuelve en quince minutos. Esta guía repasa las cinco técnicas de mayor impacto que los solucionistas experimentados usan a diario, y muestra cómo WordIzy acelera su flujo cuando se atasca.
 

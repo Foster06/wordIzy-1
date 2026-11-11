@@ -11,7 +11,7 @@ import {
 export const metadata: Metadata = {
   title: "Scrabble Words — Is It Valid? Check Any Word (NWL2023 + CSW21)",
   description:
-    "Check whether any word is valid in Scrabble. Browse valid Scrabble words by length (2-8 letters) with points and definitions. Covers NWL2023 (Tournament Word List) and CSW21 (Collins Scrabble Words).",
+    "Check whether any word is valid in Scrabble. Browse valid words by length with points and definitions.",
   alternates: { canonical: "https://wordizy.com/scrabble-words" },
   openGraph: {
     title: "Scrabble Words — Is It Valid? Check Any Word (NWL2023 + CSW21)",

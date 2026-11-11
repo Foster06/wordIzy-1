@@ -1,7 +1,7 @@
 ---
 title: "Memoriza las palabras de Scrabble de 2 letras: guía definitiva FISE"
 date: "2026-10-29"
-description: "Guía completa de palabras de 2 letras del Scrabble en español (FISE): lista exhaustiva por letra con Ñ, LL, RR y CH, estrategias de memorización y Save Vault en WordIzy."
+description: "Guía completa de palabras de 2 letras del Scrabble en español (FISE): lista exhaustiva por letra con Ñ, LL, RR y CH, estrategias de memorización y Save Vault"
 ---
 Las palabras de dos letras son el arma secreta de todo campeón de Scrabble en español. Bajo la lista oficial FISE (Federación Internacional de Scrabble en Español), parecen triviales — solo dos fichas en el tablero — pero liberan un valor posicional que las palabras largas no pueden alcanzar. En el Scrabble hispano, donde el tablero incluye digrafos propios (CH, LL, RR) y la Ñ como letra independiente, un patrón de 2 letras bien colocado permite jugar en paralelo, puntuar dos veces las fichas cruzadas y bloquear al rival. Memorizar esta lista es la inversión de vocabulario con mayor rentabilidad que puedes hacer en WordIzy.
 

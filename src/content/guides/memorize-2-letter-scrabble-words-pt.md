@@ -1,7 +1,7 @@
 ---
 title: "Memorizar palavras de 2 letras do Scrabble: guia Léxico pt-BR"
 date: "2026-10-29"
-description: "Guia completo das 117 palavras de 2 letras do Scrabble em português (Léxico pt-BR, com formas acentuadas): lista por letra, estratégias de memorização e Save Vault no WordIzy."
+description: "Guia completo das 117 palavras de 2 letras do Scrabble em português (Léxico pt-BR, com formas acentuadas): lista por letra, estratégias de memorização e Save"
 ---
 As palavras de duas letras são a arma secreta de todo campeão de Scrabble em português. Sob o Léxico oficial pt-BR, parecem triviais — apenas duas fichas no tabuleiro — mas desbloqueiam valor posicional que palavras longas não conseguem alcançar. No Scrabble luso-brasileiro, onde formas acentuadas (AÁ, É, Í) contam como entradas próprias e a distribuição de pontos premia Z (10), Q (10), X e J (8), uma palavra de 2 letras bem colocada permite o jogo paralelo, a pontuação dupla das fichas cruzadas e o bloqueio defensivo. Memorizar as 117 palavras desta lista é o investimento de vocabulário com o maior retorno que você pode fazer no WordIzy.
 

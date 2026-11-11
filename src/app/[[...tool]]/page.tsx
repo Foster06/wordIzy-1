@@ -158,7 +158,9 @@ function buildWordListSeo(config: WordListConfig): { title: string; description:
       title: total > 0
         ? `${n}-Letter Words — ${fmt(total)} Valid Words`
         : `${n}-Letter Words — Complete Scrabble & Wordle List`,
-      description: `Complete list of ${total > 0 ? `${fmt(total)} ` : ""}${n}-letter words from the official Scrabble dictionary, sorted by score. Browse ${n}-letter words for Scrabble, Wordle, Words with Friends, and anagram puzzles.`,
+      description: total > 0
+        ? `Complete list of ${fmt(total)} ${n}-letter words from the official Scrabble dictionary, sorted by score.`
+        : `Complete list of ${n}-letter words from the official Scrabble dictionary, sorted by score.`,
     };
   }
 
@@ -170,8 +172,8 @@ function buildWordListSeo(config: WordListConfig): { title: string; description:
         ? `${fmt(count5)} 5-Letter Words ${starts ? "Starting" : "Ending"} With "${letter}" — Wordle`
         : `Wordle Words That ${starts ? "Start" : "End"} With "${letter}"`,
       description: starts
-        ? `${count5 > 0 ? `${fmt(count5)} five-letter ` : "All "}Wordle words that start with "${letter}", plus 6-7 letter Wordle word lists. Filter by length, sorted by score — find the best Wordle guesses starting with ${letter} fast.`
-        : `${count5 > 0 ? `${fmt(count5)} five-letter ` : "All "}Wordle words that end with "${letter}", plus 6-7 letter Wordle word lists. Find Wordle hooks, suffixes, and ending patterns to solve today's puzzle fast.`,
+        ? `${count5 > 0 ? `${fmt(count5)} five-letter ` : "All "}Wordle words that start with "${letter}", plus 6-7 letter lists. Sorted by score.`
+        : `${count5 > 0 ? `${fmt(count5)} five-letter ` : "All "}Wordle words that end with "${letter}". Find hooks, suffixes & patterns fast.`,
     };
   }
 
@@ -180,8 +182,8 @@ function buildWordListSeo(config: WordListConfig): { title: string; description:
       ? `Words That ${starts ? "Start" : "End"} With "${letter}" — ${fmt(total)} Valid Words`
       : `Words That ${starts ? "Start" : "End"} With "${letter}" — Scrabble Word List`,
     description: starts
-      ? `${total > 0 ? `${fmt(total)} valid ` : "All "}words that start with "${letter}" in the official Scrabble dictionary. Filter by length 2-15, sorted by score — for Scrabble, Words with Friends, and crossword puzzles.`
-      : `${total > 0 ? `${fmt(total)} valid ` : "All "}words that end with "${letter}" in the official Scrabble dictionary. Filter by length 2-15, find hooks and suffixes — for Scrabble, Words with Friends, and word game strategy.`,
+      ? `${total > 0 ? `${fmt(total)} valid ` : "All "}words that start with "${letter}" in the official Scrabble dictionary. Filter by length 2-15.`
+      : `${total > 0 ? `${fmt(total)} valid ` : "All "}words that end with "${letter}" in the official Scrabble dictionary. Filter by length 2-15.`,
   };
 }
 

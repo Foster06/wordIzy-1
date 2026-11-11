@@ -1,7 +1,7 @@
 ---
 title: "Come superare 400 punti in Anagram Blitz"
 date: "2026-10-29"
-description: "Sette tecniche per superare 400 punti in 60 secondi in Anagram Blitz con il dizionario Zingarelli dello Scrabble italiano — suffissi, vocali, biblioteca di pattern."
+description: "Sette tecniche per superare 400 punti in 60 secondi in Anagram Blitz con il dizionario Zingarelli dello Scrabble italiano — suffissi, vocali, biblioteca di"
 ---
 Anagram Blitz è il gioco di velocità di WordIzy: 60 secondi per riordinare il massimo di parole mescolate. Superare 400 punti in un round ti colloca nel 5 % dei migliori giocatori. Ogni risposta corretta vale 20 punti, ogni salto ne costa 5, e in Modalità Infinita ogni risposta corretta aggiunge 10 secondi bonus al cronometro. Arrivare a 400+ richiede circa 20 risposte esatte in 60 secondi — una ogni tre secondi, senza tempi persi. Questa guida illustra le sette tecniche dei giocatori di punta, adattate al dizionario **Zingarelli**, la lista ufficiale dello Scrabble italiano su cui si basa la banca dati di Anagram Blitz.
 

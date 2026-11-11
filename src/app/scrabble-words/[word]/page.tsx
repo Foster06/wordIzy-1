@@ -44,9 +44,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = data.valid
     ? `Is ${display} a Valid Scrabble Word? Yes — ${data.points} Points`
     : `Is ${display} a Valid Scrabble Word? No — Not in NWL or CSW`;
-  const description = data.valid
-    ? `${display} is a valid Scrabble word worth ${data.points} points${data.definition ? `. Definition: ${data.definition.slice(0, 120)}` : ""}. Valid in ${data.inNWL ? "NWL2023" : ""}${data.inNWL && data.inCSW ? " and " : ""}${data.inCSW ? "CSW21" : ""}.`
-    : `${display} is not a valid Scrabble word in either the NWL2023 (Tournament Word List) or CSW21 (Collins Scrabble Words) dictionary. See why, and find similar valid words.`;
+
+  // Meta description MUST be 25-160 chars (Bing URL Inspection rule).
+  // Target 155 to leave a safety buffer for measurement differences.
+  // Build the fixed part first, then spend the remaining budget on the
+  // definition — truncated dynamically so the total never exceeds the target.
+  const MAX_DESC = 155;
+  let description: string;
+  if (data.valid) {
+    const dicts = `${data.inNWL ? "NWL2023" : ""}${data.inNWL && data.inCSW ? " & " : ""}${data.inCSW ? "CSW21" : ""}`;
+    const fixed = `${display} is a valid Scrabble word worth ${data.points} points. Valid in ${dicts}.`;
+    let desc = fixed;
+    if (data.definition) {
+      const budget = MAX_DESC - fixed.length - " Definition: ".length;
+      if (budget >= 20) {
+        desc = `${fixed} Definition: ${data.definition.slice(0, budget)}`;
+      }
+    }
+    description = desc;
+  } else {
+    description = `${display} is not a valid Scrabble word in NWL2023 or CSW21. See why, and find similar valid words to play.`;
+  }
 
   const canonical = `${SITE_ORIGIN}/scrabble-words/${word}`;
 

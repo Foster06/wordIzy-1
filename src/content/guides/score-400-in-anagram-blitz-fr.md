@@ -1,7 +1,7 @@
 ---
 title: "Comment dépasser régulièrement 400 points à Anagram Blitz"
 date: "2026-10-29"
-description: "Sept techniques pour franchir les 400 points en 60 secondes à Anagram Blitz avec le dictionnaire ODS9 du Scrabble francophone — suffixes, voyelles, familles d'anagrammes."
+description: "Sept techniques pour franchir les 400 points en 60 secondes à Anagram Blitz avec le dictionnaire ODS9 du Scrabble francophone — suffixes, voyelles, familles"
 ---
 Anagram Blitz est le jeu de rapidité de WordIzy : soixante secondes pour reconstituer un maximum de mots mélangés. Atteindre 400 points en une manche vous place parmi les 5 % des meilleurs joueurs. Chaque bonne réponse rapporte 20 points, chaque saut en coûte 5, et en Mode Infini chaque réponse correcte ajoute 10 secondes bonus à l'horloge. Atteindre 400+ exige donc environ 20 mots corrects en 60 secondes — un mot toutes les trois secondes, sans temps mort. Ce guide décrypte les sept techniques utilisées par les meilleurs joueurs, adaptées au dictionnaire **ODS9** (Officiel du Scrabble, 9e édition, 2024) qui alimente le réservoir de mots français d'Anagram Blitz.
 

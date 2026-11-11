@@ -1,7 +1,7 @@
 ---
 title: "Tweeletterwoorden bij Scrabble onthouden: OpenTaal-gids"
 date: "2026-10-29"
-description: "De complete gids voor de honderden tweeletterwoorden in het Nederlandse Scrabble (OpenTaal): lijst per letter, medeklinkerparen zoals BL/BR/BS, strategieën en Save Vault in WordIzy."
+description: "De complete gids voor de honderden tweeletterwoorden in het Nederlandse Scrabble (OpenTaal): lijst per letter, medeklinkerparen zoals BL/BR/BS, strategieën en"
 ---
 Tweeletterwoorden zijn het geheime wapen van elke Scrabble-kampioen in het Nederlands. Onder het OpenTaal-woordenboek — dat uniek is in zijn omvang — lijkken ze triviaal, slechts twee tegels, maar ze ontsluiten positionele waarde die lange woorden niet kunnen bereiken. Het Nederlandse Scrabble onderscheidt zich doordat het **verreweg de grootste tweeletterlijst ter wereld** heeft: honderden woorden, omdat het Nederlands veel medeklinkerparen (BL, BR, BS, PF, PH, SJ, TJ…) als zelfstandige spellingen accepteert. Een goed geplaatst 2-letterwoord stelt je in staat parallel te spelen, de tegelwaarde van beide woorden tweemaal te scoren en tegenstanders te blokkeren.
 

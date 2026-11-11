@@ -1,7 +1,7 @@
 ---
 title: "Best Wordle Starter Words: Top Strategy Combinations to Win Daily"
 date: "2026-11-11"
-description: "Discover the mathematically optimal Wordle starter words ranked by real letter-frequency data from 18,824 accepted guesses, three winning strategies, a second-guess framework, and answers to common questions."
+description: "The mathematically optimal Wordle starter words ranked by real letter-frequency data, plus a second-guess framework and FAQ."
 faq:
   - q: "What is the best Wordle starter word?"
     a: "The mathematically optimal Wordle starter word is SALET, according to an MIT information-theory study that analyzed all accepted five-letter answers. SALET tests the most common starting letter (S), the two most common vowels (A and E), and two high-frequency consonants (L and T). In practice, CRANE, SLATE, TRACE, and CRATE perform nearly identically — the difference between them is well under 0.2 guesses per solve."

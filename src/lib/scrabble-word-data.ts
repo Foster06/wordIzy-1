@@ -81,10 +81,23 @@ function parseNWLLine(line: string): NWLEntry | null {
   const partOfSpeech = bracketParts[0] || "";
   const inflections = bracketParts.slice(1).join(" ").trim() || "";
 
-  // Clean the definition: strip {word=pos} cross-references like "{advertisement=n}"
+  // Clean the definition: {word=pos} cross-refs → keep the word (e.g.
+  // "{clever=adj}" → "clever"), strip bare {word} refs keeping the word,
+  // strip ALL [bracketed] POS/inflection sections (NWL entries can have
+  // multiple sense divisions), strip trailing ": WORD" cross-reference
+  // fragments, and collapse whitespace.
   const definition = definitionRaw
-    .replace(/\{[^}]+=([^}]+)\}/g, "$1")
+    .replace(/\{([^}=]+)=[^}]*\}/g, "$1")
     .replace(/\{([^}]+)\}/g, "$1")
+    .replace(/\[[^\]]*\]/g, "")
+    // Strip ": DERIVED, WORDS" lists — NWL lists derived forms after a colon
+    // in UPPERCASE (e.g. ": FITLY , FITNESS"). Definitions are lowercase, so
+    // only UPPERCASE runs are affected.
+    .replace(/\s*:\s*[A-Z]+(?:\s*,\s*[A-Z]+)*/g, "")
+    .replace(/\s{2,}/g, " ")
+    .replace(/^\s*\/\s*/, "")
+    .replace(/\s*\/\s*$/, "")
+    .replace(/\s*[,:]\s*$/, "")
     .trim();
 
   return {

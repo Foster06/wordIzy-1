@@ -1,7 +1,7 @@
 ---
 title: "Cómo superar 400 puntos en Anagram Blitz"
 date: "2026-10-29"
-description: "Siete técnicas para superar los 400 puntos en 60 segundos en Anagram Blitz usando el diccionario FISE del Scrabble en español — sufijos, vocales, biblioteca de patrones."
+description: "Siete técnicas para superar los 400 puntos en 60 segundos en Anagram Blitz usando el diccionario FISE del Scrabble en español — sufijos, vocales, biblioteca de"
 ---
 Anagram Blitz es el juego de velocidad de WordIzy: 60 segundos para reordenar el máximo de palabras mezcladas. Superar los 400 puntos en una sola ronda te coloca entre el 5 % de los mejores jugadores. Cada respuesta correcta suma 20 puntos, cada salto cuesta 5, y en Modo Infinito cada acierto añade 10 segundos extra al reloj. Llegar a 400+ exige unos 20 aciertos en 60 segundos — uno cada tres segundos, sin tiempos muertos. Esta guía desglosa las siete técnicas usadas por los mejores jugadores, adaptadas al diccionario **FISE** (Federación Internacional de Scrabble en Español) que alimenta el banco de palabras de Anagram Blitz en español.
 

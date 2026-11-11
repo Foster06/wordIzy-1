@@ -1,7 +1,7 @@
 ---
 title: "Haal consequent 400+ punten in Anagram Blitz"
 date: "2026-10-29"
-description: "Zeven technieken om in 60 seconden 400+ punten te halen in Anagram Blitz met het OpenTaal-woordenboek voor Nederlands Scrabble — achtervoegsels, klinkers, patronenbibliotheek."
+description: "Zeven technieken om in 60 seconden 400+ punten te halen in Anagram Blitz met het OpenTaal-woordenboek voor Nederlands Scrabble — achtervoegsels, klinkers"
 ---
 Anagram Blitz is het 60-seconden-woordspel van WordIzy: zoveel mogelijk gehusselde letters ontwarren in één minuut. 400 punten in één ronde halen plaatst je in de top 5 % van alle spelers. Elk goed antwoord levert 20 punten op, elke overslaan kost 5, en in Oneindige Modus voegt elk goed antwoord 10 bonusseconden toe aan de klok. 400+ vereist dus zo'n 20 juiste woorden in 60 seconden — één elke drie seconden, zonder verloren tijd. Deze gids ontleedt de zeven technieken van de topspelers, afgestemd op het **OpenTaal**-woordenboek, de officiële Nederlandse woordenlijst die de Anagram Blitz-woordbank voedt.
 

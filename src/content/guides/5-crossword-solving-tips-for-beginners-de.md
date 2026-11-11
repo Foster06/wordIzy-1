@@ -1,7 +1,7 @@
 ---
 title: "5 Tipps zum Lösen von Kreuzworträtseln, die jeder Anfänger kennen muss"
 date: "2026-10-29"
-description: "Beherrsche fünf hochwirksame Techniken für deutsche Kreuzworträtsel von Zeit Magazin und SZ: lange Antworten, Endungen -S/-E/-ER/-EN, Kreuzbuchstaben, Muster und Abkürzungen. Inklusive WordIzy-Workflow."
+description: "Beherrsche fünf hochwirksame Techniken für deutsche Kreuzworträtsel von Zeit Magazin und SZ: lange Antworten, Endungen -S/-E/-ER/-EN, Kreuzbuchstaben, Muster"
 ---
 Deutsche Kreuzworträtsel — ob im *Zeit Magazin*, in der *Süddeutschen Zeitung*, im *Bildrätsel* oder als beliebtes Schwedenrätsel — wirken beim ersten Blick wie eine einschüchternde Wand aus Kästchen, gehören aber zu den am schnellsten erlernbaren Wortspielen überhaupt. Die Rätselautoren greifen immer wieder auf dieselben kurzen Wörter, dieselben deutschen Endungen und dieselben Buchstabenkombinationen zurück. Wer diese Muster verinnerlicht, löst ein Rätsel, das anfangs eine Stunde dauerte, in fünfzehn Minuten. Dieser Leitfaden stellt die fünf wirkungsvollsten Techniken vor, auf die erfahlene Löser täglich vertrauen, und zeigt, wie WordIzy den Workflow beschleunigt, wenn man feststeckt.
 

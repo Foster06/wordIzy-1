@@ -1,7 +1,7 @@
 ---
 title: "5 tips voor het oplossen van kruiswoordraadsels die elke beginner moet kennen"
 date: "2026-10-29"
-description: "Beheers vijf krachtige technieken voor Nederlandse kruiswoordraadsels uit Donald Duck, Volkskrant en Reformatorisch Dagblad: lange antwoorden, uitgangen -S/-EN/-JE, kruisletters, patronen en afkortingen. Inclusief WordIzy-workflow."
+description: "Beheers vijf krachtige technieken voor Nederlandse kruiswoordraadsels uit Donald Duck, Volkskrant en Reformatorisch Dagblad: lange antwoorden, uitgangen"
 ---
 Nederlandse kruiswoordraadsels — of ze nu in de *Donald Duck* weekblad puzzels staan, in het weekendbijvoegsel van *de Volkskrant*, of in het *Reformatorisch Dagblad* — lijken bij de eerste blik een intimiderende wand van witte vakjes, maar behoren tot de best te leren woordspellen die er zijn. De raadselmakers hergebruiken steeds dezelfde korte woorden, dezelfde Nederlandse uitgangen en dezelfde lettercombinaties door duizenden roosters. Wie deze patronen verinnerlijkt, lost een raadsel dat aanvankelijk een uur duurde in vijftien minuten op. Deze gids loopt de vijf meest impactvolle technieken na waarop ervaren oplossers dagelijks vertrouwen, en laat zien hoe WordIzy uw workflow versnelt wanneer u vastloopt.
 

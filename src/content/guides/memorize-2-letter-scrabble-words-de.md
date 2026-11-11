@@ -1,7 +1,7 @@
 ---
 title: "Zweibuchstabenwörter im Scrabble merken: Leitfaden Scrabble-Wörterbuch"
 date: "2026-10-29"
-description: "Vollständiger Leitfaden zu den 118 Zweibuchstabenwörtern des deutschen Scrabble-Wörterbuchs: Liste nach Buchstabe, AE/OE-Umlaut-Formen, Strategien und Save Vault im WordIzy."
+description: "Vollständiger Leitfaden zu den 118 Zweibuchstabenwörtern des deutschen Scrabble-Wörterbuchs: Liste nach Buchstabe, AE/OE-Umlaut-Formen, Strategien und Save"
 ---
 Zweibuchstabenwörter sind die Geheimwaffe jedes Scrabble-Champions im deutschen Sprachraum. Unter dem offiziellen Scrabble-Wörterbuch wirken sie trivial — nur zwei Steine auf dem Brett —, aber sie erschließen positionellen Wert, den lange Wörter nicht erreichen. Im deutschen Scrabble, wo die Umlaut-Vertretung (AE für Ä, OE für Ö) eigene erlaubte Formen bildet und die Z als häufiger Buchstabe nur 3 Punkte (nicht 10 wie im Englischen) wert ist, erlaubt ein gut platzierter 2-Buchstaben-Wort das Parallelespiel, die doppelte Wertung der Kreuzsteine und die defensive Sperrung. Diese 118 Wörter auswendig zu lernen ist die Vokabelinvestition mit der höchsten Rendite, die Sie auf WordIzy tätigen können.
 

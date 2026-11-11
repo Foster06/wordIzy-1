@@ -1,7 +1,7 @@
 ---
 title: "Memorizzare le parole di Scrabble di 2 lettere: guida Zingarelli"
 date: "2026-10-29"
-description: "Guida completa alle 87 parole di 2 lettere dello Scrabble italiano (Zingarelli): lista per lettera, strategie di memorizzazione e drilling con la Save Vault di WordIzy."
+description: "Guida completa alle 87 parole di 2 lettere dello Scrabble italiano (Zingarelli): lista per lettera, strategie di memorizzazione e drilling con la Save Vault di"
 ---
 Le parole di due lettere sono l'arma segreta di ogni campione di Scrabble italiano. Sotto il dizionario Zingarelli, sembrano banali — solo due tessere sulla plancia — ma sbloccano valore posizionale che le parole lunghe non possono raggiungere. Nel Scrabble italiano, dove la distribuzione dei punteggi premia Z (8 punti, contro i 10 dell'inglese), Q (10), X, J, K, W, Y (8 ciascuna) e i bingo sono più rari per via delle forme verbali dense, una parola di 2 lettere ben piazzata permette il gioco parallelo, il doppio punteggio delle tessere incrociate e il blocco difensivo. Memorizzare queste 87 parole è l'investimento lessicale con il rendimento più alto che tu possa fare su WordIzy.
 

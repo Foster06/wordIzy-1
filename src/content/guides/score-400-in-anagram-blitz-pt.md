@@ -1,7 +1,7 @@
 ---
 title: "Como ultrapassar 400 pontos no Anagram Blitz"
 date: "2026-10-29"
-description: "Sete técnicas para passar dos 400 pontos em 60 segundos no Anagram Blitz com o dicionário Léxico (português brasileiro e europeu) — sufixos, vogais, biblioteca de padrões."
+description: "Sete técnicas para passar dos 400 pontos em 60 segundos no Anagram Blitz com o dicionário Léxico (português brasileiro e europeu) — sufixos, vogais, biblioteca"
 ---
 Anagram Blitz é o jogo de velocidade da WordIzy: 60 segundos para reordenar o máximo de palavras embaralhadas. Passar dos 400 pontos numa rodada coloca-te entre os 5 % dos melhores jogadores. Cada resposta certa vale 20 pontos, cada salto custa 5, e no Modo Infinito cada acerto adiciona 10 segundos bónus ao relógio. Chegar a 400+ exige cerca de 20 respostas corretas em 60 segundos — uma a cada três segundos, sem tempo perdido. Este guia desdobra as sete técnicas dos melhores jogadores, adaptadas ao **Léxico** (lista oficial que combina português brasileiro e europeu) que alimenta o banco de palavras do Anagram Blitz em português.
 

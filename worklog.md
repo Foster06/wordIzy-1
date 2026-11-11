@@ -1789,3 +1789,23 @@ The new key (`6fc8ac9f...`, deployed in Task 35) returns HTTP 403 `"UserForbidde
 The old key (`4c390b...`, replaced in Task 35) is still verified in IndexNow's backend (returns 200 even though its key file now 404s — IndexNow caches verification). Used the old key to ping all 1,817 sitemap URLs successfully via `scripts/ping-indexnow-old-key.ts`.
 
 **Action needed**: user should verify the new key in Bing Webmaster Tools (BWT → Configure IndexNow → verify the key file is reachable). Once verified, the route at `src/app/api/indexnow/route.ts` (already configured with the new key) will work for future pings.
+
+## Task 37 — Meta Description Length Compliance (Bing URL Inspection fix) (2026-11-11)
+
+**Trigger**: Bing Webmaster Tools URL Inspection flagged "Meta Description too long or too short" (Bing requires 25-160 characters). Audit revealed this was site-wide, not page-specific: **36 source-level + 9 live-page violations**.
+
+**Audit tooling**: `scripts/audit-meta-descriptions.py` — checks meta-config.ts, guide front-matter, scrabble-words templates, and live pages against the 25-160 rule.
+
+**Fixes**:
+1. **`src/lib/meta-config.ts`** — rewrote 12 over-length tool descriptions (162-317 chars → 102-154). Worst offender: blitz at 317 → 128.
+2. **`src/app/[[...tool]]/page.tsx`** — shortened all 4 `buildWordListSeo()` description templates (length pages, Wordle starts/ends, Scrabble starts/ends; 179-183 → 94-108).
+3. **`src/content/guides/*.md`** — fixed all 22 guide front-matter descriptions (161-231 → 112-159). English canonicals hand-crafted; localized variants word-boundary-truncated (`scripts/fix-guide-descriptions.py`).
+4. **`src/app/scrabble-words/page.tsx`** — index description 199 → 102 chars.
+5. **`src/app/scrabble-words/[word]/page.tsx`** — per-word meta descriptions now dynamically budget the definition against a 155-char target (safety buffer under Bing's 160 limit). Invalid-word template 163 → 101.
+6. **`src/lib/scrabble-word-data.ts`** — definition parser bug fixes:
+   - `{word=pos}` cross-refs now keep the word (was keeping the POS — "{clever=adj}" rendered as "adj" instead of "clever")
+   - Strip ALL `[bracketed]` POS/inflection sections (multi-sense NWL entries left "[adj FITTER, FITTEST]" in definitions)
+   - Strip ": DERIVED, WORDS" uppercase run-on lists (": FITLY , FITNESS")
+   - Clean leading/trailing slashes and punctuation
+
+**Verification**: tsc + eslint clean; all 10 live page types 94-155 chars; 30-word random sample of scrabble-words pages 0 issues; edge cases (longest-definition words: open/read/fly/fit/thin) all ≤155 chars.

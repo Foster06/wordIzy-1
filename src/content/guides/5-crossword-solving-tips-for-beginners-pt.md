@@ -1,7 +1,7 @@
 ---
 title: "5 dicas para resolver palavras cruzadas que todo iniciante precisa conhecer"
 date: "2026-10-29"
-description: "Domine cinco técnicas de alto impacto para as palavras cruzadas de O Cruzeiro e revistas brasileiras: respostas longas, terminações -S/-ÕES/-ÇÃO, letras cruzadas, padrões e abreviações. Inclui o fluxo WordIzy."
+description: "Domine cinco técnicas de alto impacto para as palavras cruzadas de O Cruzeiro e revistas brasileiras: respostas longas, terminações -S/-ÕES/-ÇÃO, letras"
 ---
 As palavras cruzadas em português — presentes em revistas como *O Cruzeiro* (histórico), em passatempos dominicais e nas edições brasileiras da *Veja* — parecem um muro de casas brancas quando se abrem pela primeira vez, mas são de facto um dos jogos de palavras mais aprendíveis que existem. Os construtores reutilizam os mesmos vocábulos curtos, as mesmas terminações do português e as mesmas combinações de letras através de milhares de grelhas. Quem interiorizar esses padrões resolve em quinze minutos uma grelha que antes demorava uma hora. Este guia percorre as cinco técnicas de maior impacto que os solucionistas experientes usam diariamente, e mostra como o WordIzy acelera o seu fluxo quando fica preso.
 

@@ -1,7 +1,7 @@
 ---
 title: "So erzielst du regelmäßig 400+ Punkte in Anagram Blitz"
 date: "2026-10-29"
-description: "Sieben Techniken, um im 60-Sekunden-Spiel Anagram Blitz 400+ Punkte zu erreichen — mit dem offiziellen deutschen Scrabble-Wörterbuch: Suffixe, Vokale, Musterbibliothek."
+description: "Sieben Techniken, um im 60-Sekunden-Spiel Anagram Blitz 400+ Punkte zu erreichen — mit dem offiziellen deutschen Scrabble-Wörterbuch: Suffixe, Vokale"
 ---
 Anagram Blitz ist das 60-Sekunden-Wortspiel von WordIzy: so viele gemischte Buchstabenfolgen wie möglich in einer Minute entwirren. 400 Punkte in einer Runde schaffen dich unter die obersten 5 % aller Spieler. Jede richtige Antwort gibt 20 Punkte, jeder Sprung kostet 5, und im Infinite Mode addiert jede richtige Antwort 10 Bonussekunden zur Uhr. 400+ verlangt also rund 20 korrekte Wörter in 60 Sekunden — eines alle drei Sekunden, ohne Zeitverlust. Dieser Leitfaden erklärt die sieben Techniken der Top-Spieler, zugeschnitten auf das offizielle **deutsche Scrabble-Wörterbuch**, das dem Anagram-Blitz-Wortpool zugrunde liegt.
 

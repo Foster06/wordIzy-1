@@ -21,52 +21,52 @@ export interface ToolMeta {
 export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
   "unscrambler": {
     title: "Word Unscrambler — Unscramble Letters Into Words Fast",
-    description: "Free word unscrambler & letter unscrambler. Unscramble letters into valid words for Scrabble, Words with Friends, Wordle, and crossword puzzles. Wildcards supported, 9 languages, instant results.",
+    description: "Free word unscrambler. Unscramble letters into valid words for Scrabble, Wordle & crosswords. Wildcards, 9 languages, instant results.",
     keywords: ["word unscrambler","unscramble letters","word finder","unscramble words","scramble solver","letter unscrambler","word unscrambler free","words with friends cheat","jumble solver","word cheat","scrabble word finder","anagram finder","letter rearranger","word maker","unscramble letters into words","word solver","unscramble cheat","word generator from letters","word descrambler"]
   },
   "scramble": {
     title: "Word Scrambler — Descramble & Unscramble Jumbled Words",
-    description: "Free word scramble solver & descrambler. Unscramble jumbled letters into valid words for Scrabble, Words with Friends, Wordle & crosswords. Instant results, wildcards supported.",
+    description: "Free word scramble solver & descrambler. Unscramble jumbled letters into valid words fast. Wildcards supported, instant results.",
     keywords: ["word scramble solver","jumble solver","descramble letters","word scramble","scramble cheat","jumble word solver","unscramble jumbled words","scrambled word finder","word descrambler","jumble puzzle solver","scramble letters solver","word jumble cheat","descramble words","scramble word maker","jumble answer solver","word scramble cheat","unscramble scramble letters","daily jumble solver","word scramble helper"]
   },
   "anagram": {
     title: "Anagram Solver — Find All Anagrams of Your Letters",
-    description: "Free anagram solver & maker. Enter any word or letters to instantly find every valid anagram and sub-anagram. Perfect for Scrabble, crosswords & word games. 9 languages.",
+    description: "Free anagram solver & maker. Enter any word or letters to find every valid anagram instantly. Perfect for Scrabble & word games.",
     keywords: ["anagram solver","anagram maker","anagram finder","solve anagrams","anagram generator","word anagram solver","letter rearranger","anagram cheat","anagram creator","find anagrams","anagram word finder","multiple word anagram solver","anagram unscrambler","anagram puzzle solver","best anagram solver","free anagram solver","anagram solver online","anagram letters","sub anagram finder"]
   },
   "wordle": {
     title: "Wordle Solver — Cheat, Helper & Answer Finder",
-    description: "Free Wordle solver & cheat for today's puzzle. Filter words by green, yellow & gray letters to find today's Wordle answer fast. Works with 4-8 letter Wordles. No sign-up.",
+    description: "Free Wordle solver & cheat for today's puzzle. Filter by green, yellow & gray letters to find the answer fast. Works with 4-8 letter Wordles.",
     keywords: ["wordle solver","wordle cheat","wordle helper","wordle answer finder","wordle hint","daily wordle solver","wordle today","wordle word finder","wordle answer","wordle clue","wordle guesser","wordle solver tool","wordle pattern solver","wordle cheat sheet","wordle helper tool","wordle answer today","wordle letter solver","wordle word helper","wordle green yellow gray solver"]
   },
   "quordle": {
     title: "Quordle Solver — Advanced 4-in-1 Word Game Helper",
-    description: "Solve all four Quordle puzzles simultaneously. Enter green, yellow, and gray constraints per board. Free Quordle solver, cheat, and answer finder for daily puzzles.",
+    description: "Solve all four Quordle puzzles at once. Enter green, yellow & gray clues per board. Free Quordle solver, cheat & answer finder.",
     keywords: ["quordle solver","quordle helper","quordle cheat","quordle answer","quordle word finder","quordle today","4 word puzzle solver","quordle answer today","quordle solver tool","quordle hint","quordle clue","daily quordle solver","quordle cheat sheet","quordle pattern solver","quordle helper tool","quordle answer finder","quordle multi board solver","quordle game solver","quordle daily answer"]
   },
   "scrabble": {
     title: "Scrabble Word Finder — Find Highest-Scoring Plays",
-    description: "Scrabble word finder & solver. Enter your rack + board letters to find the highest-scoring Scrabble words. Supports wildcards, 9 languages, official Scrabble dictionary. Free cheat.",
+    description: "Scrabble word finder & solver. Enter your rack + board letters to find the highest-scoring words. Wildcards, 9 languages, free.",
     keywords: ["scrabble solver","scrabble helper","scrabble word finder","scrabble cheat","scrabble word maker","scrabble anagram solver","scrabble score calculator","words with friends solver","scrabble word generator","scrabble dictionary finder","scrabble rack solver","scrabble word checker","scrabble best word finder","scrabble cheat sheet","scrabble letter unscrambler","scrabble word builder","scrabble high score words","scrabble tile solver","scrabble board solver"]
   },
   "random": {
     title: "Random Word Generator — Filter by Length & Letters",
-    description: "Free random word generator. Generate random real Scrabble words with filters for length, prefix, suffix, and contains. Perfect for games, writing prompts, passwords, and Pictionary.",
+    description: "Free random word generator. Generate random real Scrabble words filtered by length, prefix, suffix & contains. For games & writing.",
     keywords: ["random word generator","word generator","random words","word list generator","word picker","random word picker","random word","generate random word","random english word generator","word randomizer","random word tool","random vocabulary word generator","random noun generator","random word maker","random word list","random word selector","generate words","random scrabble word generator","random word generator for games"]
   },
   "wordfeud": {
     title: "Wordfeud Helper & Cheat — Best Words From Your Rack",
-    description: "Wordfeud helper, cheat & unscrambler. Enter your 7 rack letters + board letters to find the best Wordfeud words instantly. 9 languages, blank tiles supported. Free.",
+    description: "Wordfeud helper, cheat & unscrambler. Enter your rack letters to find the best Wordfeud words instantly. 9 languages, free.",
     keywords: ["wordfeud helper","wordfeud solver","wordfeud finder","wordfeud cheat","wordfeud word finder","wordfeud best words","wordfeud word generator","wordfeud tile solver","wordfeud rack solver","wordfeud cheat tool","wordfeud helper tool","wordfeud anagram solver","wordfeud word maker","wordfeud score calculator","wordfeud word builder","wordfeud dictionary finder","wordfeud word checker","wordfeud high score words","wordfeud letter solver"]
   },
   "dictionary": {
     title: "Scrabble Dictionary Checker — Is It a Valid Word?",
-    description: "Check if a word is valid in the official Scrabble dictionary (TWL & CSW). See the Scrabble score, definition & synonyms instantly. Free word checker, 9 languages.",
+    description: "Check if a word is valid in the official Scrabble dictionary (TWL & CSW). See the score, definition & synonyms instantly.",
     keywords: ["scrabble dictionary","check scrabble word","word lookup","scrabble word checker","is it a word","scrabble valid word","word validator","dictionary check","scrabble dictionary online","official scrabble dictionary","scrabble word list","scrabble word search","scrabble accepted words","scrabble word verification","scrabble word score checker","scrabble twl dictionary","scrabble csw dictionary","word definition scrabble","scrabble word database"]
   },
   "wordlists": {
     title: "Unscramble by Length — 2 to 15 Letter Word Lists",
-    description: "Browse every valid Scrabble word by length, from 2-letter to 15-letter words. Official Scrabble dictionary, sorted by score. Free word lists for Scrabble, Wordle & anagram study.",
+    description: "Browse every valid Scrabble word by length, from 2-letter to 15-letter words. Sorted by score. Free word lists for study.",
     keywords: ["2 letter words","3 letter words","4 letter words","5 letter words","6 letter words","7 letter words","scrabble word lists","words by length","word lists by length","scrabble word lengths","short scrabble words","long scrabble words","bingo words","unscramble by length","2 letter scrabble words","3 letter scrabble words","5 letter scrabble words","7 letter scrabble words","scrabble word list by length"]
   },
   "wordstarts": {
@@ -111,12 +111,12 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
   },
   "sitemap": {
     title: "Sitemap — Browse All wordIzy Word Tools & Word Lists",
-    description: "All pages on wordIzy: word unscrambler, anagram solver, Wordle solver, Quordle solver, Scrabble word finder, word lists by letter and length, Wordle word lists, and more.",
+    description: "All wordIzy pages: word unscrambler, anagram solver, Wordle solver, Scrabble word finder, word lists by letter and length, and more.",
     keywords: ["sitemap","wordizy sitemap","word unscrambler pages","scrabble solver index","word tools directory","word game tools list","scrabble word finder pages","wordle solver pages","anagram solver pages","word list pages","word unscrambler sitemap","scrabble helper pages","word finder directory","word solver tool list","word game solver index","all word tools","word unscrambler tools list","scrabble tools directory","wordle tools sitemap"]
   },
   "blitz": {
     title: "Anagram Blitz — Free Online Word Unscramble Game (Play 60-Second Challenge)",
-    description: "Play Anagram Blitz free — the fast, fun word unscramble game! Race the clock to unscramble words in 60-second rounds. Daily word challenges, endless practice mode, brain-training vocabulary puzzles from official Scrabble dictionaries. No download, no sign-up — play instantly in your browser and beat your high score!",
+    description: "Play Anagram Blitz free — a fast 60-second word unscramble game! Daily challenges, practice mode, no download or sign-up needed.",
     // ~80 high-traffic search terms across the game / word-game / unscramble
     // / anagram / jumble / brain-game query space. Grouped by intent so the
     // list stays maintainable.

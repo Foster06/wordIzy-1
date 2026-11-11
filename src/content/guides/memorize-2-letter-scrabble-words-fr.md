@@ -1,7 +1,7 @@
 ---
 title: "Mémoriser les mots de 2 lettres au Scrabble français : le guide ultime ODS9"
 date: "2026-10-29"
-description: "Guide complet des mots de 2 lettres du Scrabble français ODS9 : liste exhaustive par lettre, stratégies de mémorisation et drilling via la Save Vault de WordIzy."
+description: "Guide complet des mots de 2 lettres du Scrabble français ODS9 : liste exhaustive par lettre, stratégies de mémorisation et drilling via la Save Vault de"
 ---
 Les mots de deux lettres sont l'arme secrète de tout champion de Scrabble francophone. Sous l'Officiel du Scrabble (édition 9, « ODS9 »), ils paraissent triviaux — seulement deux tuiles — mais ils déverrouillent une valeur positionnelle que les mots longs ne peuvent atteindre. En Scrabble français, où le jeu parallèle est roi (les parties se gagnent souvent sur trois ou quatre tules croisées plutôt que sur un bingo), un mot de 2 lettres bien placé permet de marquer deux fois les points des tuiles adjacentes et de verrouiller une ligne triple. Mémoriser cette liste est l'investissement lexical au meilleur rendement que vous puissiez faire sur WordIzy.
 

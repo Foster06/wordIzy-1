@@ -1,7 +1,7 @@
 ---
 title: "5 astuces pour résoudre les mots croisés que tout débutant doit connaître"
 date: "2026-10-29"
-description: "Maîtrisez cinq techniques à fort impact pour les mots croisés français du Monde et de Libération : longues réponses, terminaisons en -S/-ENT/-ANT, lettres croisées, motifs et abréviations. Inclut le flux WordIzy."
+description: "Maîtrisez cinq techniques à fort impact pour les mots croisés français du Monde et de Libération : longues réponses, terminaisons en -S/-ENT/-ANT, lettres"
 ---
 Les mots croisés français — qu'on trouve chaque matin dans *Le Monde*, *Libération* ou *La Croix* — semblent un mur de cases blanches quand on les découvre, mais ils obéissent à des régularités que tout solveur peut apprendre. Les verbiculteurs (terme utilisé par l'Oulipo, dont Georges Perec fut le membre le plus célèbre) réutilisent les mêmes mots courts, les mêmes terminaisons du français et les mêmes combinaisons de lettres à travers des milliers de grilles. Une fois ces motifs intégrés, une grille du *Monde* qui prenait une heure se résout en quinze minutes. Ce guide passe en revue les cinq techniques à plus fort impact que les solveurs expérimentés utilisent quotidiennement, et explique comment WordIzy accélère votre flux quand vous coincez.
 
