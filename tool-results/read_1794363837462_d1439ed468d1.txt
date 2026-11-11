@@ -1,0 +1,535 @@
+     1→import type { Metadata } from "next";
+     2→import { notFound } from "next/navigation";
+     3→import { MainToolView } from "@/components/site/main-tool-view";
+     4→import { TOOL_METADATA_REGISTRY } from "@/lib/meta-config";
+     5→import {
+     6→  isWordListPage,
+     7→  parseWordListSlug,
+     8→  buildCanonicalWordListUrl,
+     9→  WORD_LIST_LENGTHS,
+    10→  type WordListConfig,
+    11→} from "@/lib/word-list-urls";
+    12→import { getInitialWordListPage, getTopScoringWords, type InitialWordListPage } from "@/lib/word-list-data";
+    13→import { translations } from "@/components/i18n/translations";
+    14→
+    15→interface PageProps {
+    16→  params: Promise<{ tool?: string[] }>;
+    17→}
+    18→
+    19→const SITE_ORIGIN = "https://wordizy.com";
+    20→
+    21→// Default googleBot directive — unlocks larger SERP previews + full snippets
+    22→// for every page (max-image-preview:large lets Google show big thumbnail images
+    23→// in results, max-snippet:-1 removes the snippet-length cap). Per-page opt-in
+    24→// (metaConfig.googleBot) merges on top of these defaults.
+    25→const DEFAULT_GOOGLE_BOT = {
+    26→  "max-image-preview": "large" as const,
+    27→  "max-snippet": -1,
+    28→  "max-video-preview": -1,
+    29→};
+    30→
+    31→// Build the full openGraph block — Next.js replaces (does not deep-merge) the
+    32→// root layout's openGraph, so EVERY field must be set here, including
+    33→// siteName / type / locale / url which the root layout provides by default.
+    34→function buildOpenGraph({
+    35→  title,
+    36→  description,
+    37→  canonical,
+    38→}: {
+    39→  title: string;
+    40→  description: string;
+    41→  canonical: string;
+    42→}): Metadata["openGraph"] {
+    43→  return {
+    44→    title,
+    45→    description,
+    46→    url: canonical,
+    47→    siteName: "wordIzy",
+    48→    type: "website",
+    49→    locale: "en_US",
+    50→    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: title }],
+    51→  };
+    52→}
+    53→
+    54→// Build the page-specific Twitter card — defaults to summary_large_image with
+    55→// the page's own title + description (overrides the root layout's generic
+    56→// sitewide card, which would otherwise be emitted).
+    57→function buildTwitter({
+    58→  title,
+    59→  description,
+    60→  overrideTitle,
+    61→  overrideDescription,
+    62→}: {
+    63→  title: string;
+    64→  description: string;
+    65→  overrideTitle?: string;
+    66→  overrideDescription?: string;
+    67→}): Metadata["twitter"] {
+    68→  return {
+    69→    card: "summary_large_image",
+    70→    title: overrideTitle ?? title,
+    71→    description: overrideDescription ?? description,
+    72→    images: ["/og-image.png"],
+    73→  };
+    74→}
+    75→
+    76→// Build a BreadcrumbList JSON-LD for any tool page. The blitz page renders
+    77→// its own bespoke breadcrumb with richer copy, so this helper is only used
+    78→// for non-blitz tool routes.
+    79→function buildBreadcrumbJsonLd(toolSlug: string, title: string) {
+    80→  return {
+    81→    "@context": "https://schema.org",
+    82→    "@type": "BreadcrumbList",
+    83→    itemListElement: [
+    84→      { "@type": "ListItem", position: 1, name: "wordIzy — Word Tools", item: SITE_ORIGIN },
+    85→      { "@type": "ListItem", position: 2, name: title, item: `${SITE_ORIGIN}/${toolSlug}` },
+    86→    ],
+    87→  };
+    88→}
+    89→
+    90→// Build a FAQPage JSON-LD for tool pages that have FAQ sections.
+    91→// The FAQ content is sourced from the English translations (translations.en.faq[toolSlug])
+    92→// — English is the canonical SSR language, and the FAQ arrays are defined in translations.ts.
+    93→// FAQPage schema gets rich snippets in Bing/Google search results (expandable Q&A
+    94→// accordion under the page listing) → significantly higher CTR → more organic traffic.
+    95→//
+    96→// Not all tool routes have FAQs — only unscrambler, scramble, wordle, quordle,
+    97→// anagram, random, wordfeud, dictionary, scrabble, wordlists, wordstarts, wordends.
+    98→// Returns null if no FAQ exists for the given tool slug.
+    99→function buildFaqJsonLd(toolSlug: string): {
+   100→  "@context": string;
+   101→  "@type": "FAQPage";
+   102→  mainEntity: {
+   103→    "@type": "Question";
+   104→    name: string;
+   105→    acceptedAnswer: { "@type": "Answer"; text: string };
+   106→  }[];
+   107→} | null {
+   108→  // Map route slugs to FAQ keys in translations.en.faq.
+   109→  // Most slugs match directly (e.g. "scramble" → faq.scramble).
+   110→  // The homepage route is "" but its FAQ is under "unscrambler".
+   111→  const faqKey = toolSlug === "" || toolSlug === "unscrambler" ? "unscrambler" : toolSlug;
+   112→
+   113→  const faqItems = (translations.en.faq as unknown as Record<string, { q: string; a: string }[]>)[faqKey];
+   114→  if (!faqItems || faqItems.length === 0) return null;
+   115→
+   116→  return {
+   117→    "@context": "https://schema.org",
+   118→    "@type": "FAQPage",
+   119→    mainEntity: faqItems.map((item) => ({
+   120→      "@type": "Question",
+   121→      name: item.q,
+   122→      acceptedAnswer: {
+   123→        "@type": "Answer",
+   124→        text: item.a,
+   125→      },
+   126→    })),
+   127→  };
+   128→}
+   129→
+   130→// ---------------------------------------------------------------------------
+   131→// Programmatic word-list SEO builders (GSC-driven rewrite, 2026-11).
+   132→//
+   133→// Search Console data (Oct 13 – Nov 9, 2026) showed the word-list pages rank
+   134→// positions 6-9 for their long-tail queries with ~0% CTR (~3,000 impressions,
+   135→// 4 clicks). The old titles ("Words Starting With T") neither matched the
+   136→// dominant query phrasing ("words that start with t") nor gave a searcher a
+   137→// reason to click. These builders produce exact-match, count-enriched
+   138→// titles/descriptions instead, e.g. "1,173 5-Letter Words Starting With T —
+   139→// Wordle" / "Words That Start With T — 1,912 Valid Words". Counts come from
+   140→// the module-cached dictionary store, so there is no extra build cost.
+   141→// ---------------------------------------------------------------------------
+   142→
+   143→/** Build the SEO title + description for a programmatic word-list config. */
+   144→function buildWordListSeo(config: WordListConfig): { title: string; description: string } {
+   145→  const dict = config.dict ?? "scrabble";
+   146→  const letter = String(config.value).toUpperCase();
+   147→
+   148→  // Resolve real word counts from the (module-cached) dictionary store.
+   149→  const slug = buildCanonicalWordListUrl(config).replace(/^\//, "");
+   150→  const data = getInitialWordListPage(slug, "en", 1);
+   151→  const fmt = (n: number) => n.toLocaleString("en-US");
+   152→  const total = data?.total ?? 0;
+   153→  const count5 = data?.lengthCounts?.[5] ?? 0;
+   154→
+   155→  if (config.type === "length") {
+   156→    const n = config.value as number;
+   157→    return {
+   158→      title: total > 0
+   159→        ? `${n}-Letter Words — ${fmt(total)} Valid Words`
+   160→        : `${n}-Letter Words — Complete Scrabble & Wordle List`,
+   161→      description: total > 0
+   162→        ? `Complete list of ${fmt(total)} ${n}-letter words from the official Scrabble dictionary, sorted by score.`
+   163→        : `Complete list of ${n}-letter words from the official Scrabble dictionary, sorted by score.`,
+   164→    };
+   165→  }
+   166→
+   167→  const starts = config.type === "starts";
+   168→
+   169→  if (dict === "wordle") {
+   170→    return {
+   171→      title: count5 > 0
+   172→        ? `${fmt(count5)} 5-Letter Words ${starts ? "Starting" : "Ending"} With "${letter}" — Wordle`
+   173→        : `Wordle Words That ${starts ? "Start" : "End"} With "${letter}"`,
+   174→      description: starts
+   175→        ? `${count5 > 0 ? `${fmt(count5)} five-letter ` : "All "}Wordle words that start with "${letter}", plus 6-7 letter lists. Sorted by score.`
+   176→        : `${count5 > 0 ? `${fmt(count5)} five-letter ` : "All "}Wordle words that end with "${letter}". Find hooks, suffixes & patterns fast.`,
+   177→    };
+   178→  }
+   179→
+   180→  return {
+   181→    title: total > 0
+   182→      ? `Words That ${starts ? "Start" : "End"} With "${letter}" — ${fmt(total)} Valid Words`
+   183→      : `Words That ${starts ? "Start" : "End"} With "${letter}" — Scrabble Word List`,
+   184→    description: starts
+   185→      ? `${total > 0 ? `${fmt(total)} valid ` : "All "}words that start with "${letter}" in the official Scrabble dictionary. Filter by length 2-15.`
+   186→      : `${total > 0 ? `${fmt(total)} valid ` : "All "}words that end with "${letter}" in the official Scrabble dictionary. Filter by length 2-15.`,
+   187→  };
+   188→}
+   189→
+   190→// SERVER-SIDE METADATA ENGINE: unique titles/descriptions for Google bots.
+   191→// Every return path now emits a fully-formed openGraph (incl. url / siteName /
+   192→// type / locale) + a page-specific twitter card + robots.googleBot so the
+   193→// root layout's defaults never silently shadow page-level metadata.
+   194→export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+   195→  const resolvedParams = await params;
+   196→  const toolSegments = resolvedParams.tool || [];
+   197→  const activeToolSlug = toolSegments[0] || "unscrambler";
+   198→  const subRoute = toolSegments[1] || "";
+   199→
+   200→  // 1. Single-segment programmatic page: /words-starts-by-c, /unscramble-5-letter-words, etc.
+   201→  if (isWordListPage(activeToolSlug)) {
+   202→    const config = parseWordListSlug(activeToolSlug)!;
+   203→    const { title, description } = buildWordListSeo(config);
+   204→    const canonical = buildCanonicalWordListUrl(config);
+   205→    const keywords = config.type === "length"
+   206→      ? [`${config.value} letter words`, `${config.value}-letter words`, `words with ${config.value} letters`, `scrabble ${config.value} letter words`, `wordle ${config.value} letter words`, `${config.value} letter word list`, `${config.value} letter scrabble words`, `words ${config.value} letters long`, `${config.value} letter words for scrabble`, `${config.value} letter words for wordle`, `${config.value} letter anagram words`, `${config.value} letter words with friends`, `list of ${config.value} letter words`, `${config.value} letter word finder`, `${config.value} letter word generator`]
+   207→      : config.type === "starts"
+   208→        ? [`words starting with ${String(config.value).toLowerCase()}`, `words beginning with ${String(config.value).toLowerCase()}`, `words that start with ${String(config.value).toLowerCase()}`, `scrabble words starting with ${String(config.value).toLowerCase()}`, `wordle words starting with ${String(config.value).toLowerCase()}`, `words starting with ${String(config.value).toLowerCase()} for scrabble`, `${String(config.value).toLowerCase()} words`, `words starting with ${String(config.value).toLowerCase()} wordle`, `words that begin with ${String(config.value).toLowerCase()}`, `scrabble words beginning with ${String(config.value).toLowerCase()}`, `word list starting with ${String(config.value).toLowerCase()}`, `words starting with letter ${String(config.value).toLowerCase()}`, `${String(config.value).toLowerCase()} starting words`, `words starting with ${String(config.value).toLowerCase()} for words with friends`, `find words starting with ${String(config.value).toLowerCase()}`]
+   209→        : [`words ending with ${String(config.value).toLowerCase()}`, `words ending in ${String(config.value).toLowerCase()}`, `words that end with ${String(config.value).toLowerCase()}`, `scrabble words ending with ${String(config.value).toLowerCase()}`, `wordle words ending with ${String(config.value).toLowerCase()}`, `words ending with ${String(config.value).toLowerCase()} for scrabble`, `${String(config.value).toLowerCase()} ending words`, `words that end in ${String(config.value).toLowerCase()}`, `scrabble words ending in ${String(config.value).toLowerCase()}`, `word list ending with ${String(config.value).toLowerCase()}`, `words ending with letter ${String(config.value).toLowerCase()}`, `${String(config.value).toLowerCase()} ending words wordle`, `words ending with ${String(config.value).toLowerCase()} for words with friends`, `find words ending with ${String(config.value).toLowerCase()}`, `words ending in ${String(config.value).toLowerCase()} word list`];
+   210→    // Canonical URL is relative (e.g. "/words-starts-with-a"); resolve to absolute
+   211→    // for og:url by joining with the site origin.
+   212→    const absoluteCanonical = canonical.startsWith("http")
+   213→      ? canonical
+   214→      : `${SITE_ORIGIN}${canonical}`;
+   215→    return {
+   216→      title,
+   217→      description,
+   218→      keywords,
+   219→      alternates: { canonical },
+   220→      openGraph: buildOpenGraph({ title, description, canonical: absoluteCanonical }),
+   221→      twitter: buildTwitter({ title, description }),
+   222→      robots: {
+   223→        index: true,
+   224→        follow: true,
+   225→        googleBot: { index: true, follow: true, ...DEFAULT_GOOGLE_BOT },
+   226→      },
+   227→    };
+   228→  }
+   229→
+   230→  // 2. Legacy two-segment path: /unscramble/<slug>
+   231→  if (activeToolSlug === "unscramble" && subRoute && isWordListPage(subRoute)) {
+   232→    const config = parseWordListSlug(subRoute)!;
+   233→    // Reuse the same per-config SEO builders as the single-segment branch —
+   234→    // avoids duplicate-content flags across ~1.8k programmatic pages.
+   235→    const { title, description } = buildWordListSeo(config);
+   236→    const canonical = buildCanonicalWordListUrl(config);
+   237→    const keywords = config.type === "length"
+   238→      ? [`${config.value} letter words`, `${config.value}-letter words`, `words with ${config.value} letters`, `scrabble ${config.value} letter words`, `wordle ${config.value} letter words`, `${config.value} letter word list`, `${config.value} letter scrabble words`, `words ${config.value} letters long`, `${config.value} letter words for scrabble`, `${config.value} letter words for wordle`, `${config.value} letter anagram words`, `${config.value} letter words with friends`, `list of ${config.value} letter words`, `${config.value} letter word finder`, `${config.value} letter word generator`]
+   239→      : config.type === "starts"
+   240→        ? [`words starting with ${String(config.value).toLowerCase()}`, `words beginning with ${String(config.value).toLowerCase()}`, `words that start with ${String(config.value).toLowerCase()}`, `scrabble words starting with ${String(config.value).toLowerCase()}`, `wordle words starting with ${String(config.value).toLowerCase()}`, `words starting with ${String(config.value).toLowerCase()} for scrabble`, `${String(config.value).toLowerCase()} words`, `words starting with ${String(config.value).toLowerCase()} wordle`, `words that begin with ${String(config.value).toLowerCase()}`, `scrabble words beginning with ${String(config.value).toLowerCase()}`, `word list starting with ${String(config.value).toLowerCase()}`, `words starting with letter ${String(config.value).toLowerCase()}`, `${String(config.value).toLowerCase()} starting words`, `words starting with ${String(config.value).toLowerCase()} for words with friends`, `find words starting with ${String(config.value).toLowerCase()}`]
+   241→        : [`words ending with ${String(config.value).toLowerCase()}`, `words ending in ${String(config.value).toLowerCase()}`, `words that end with ${String(config.value).toLowerCase()}`, `scrabble words ending with ${String(config.value).toLowerCase()}`, `wordle words ending with ${String(config.value).toLowerCase()}`, `words ending with ${String(config.value).toLowerCase()} for scrabble`, `${String(config.value).toLowerCase()} ending words`, `words that end in ${String(config.value).toLowerCase()}`, `scrabble words ending in ${String(config.value).toLowerCase()}`, `word list ending with ${String(config.value).toLowerCase()}`, `words ending with letter ${String(config.value).toLowerCase()}`, `${String(config.value).toLowerCase()} ending words wordle`, `words ending with ${String(config.value).toLowerCase()} for words with friends`, `find words ending with ${String(config.value).toLowerCase()}`, `words ending in ${String(config.value).toLowerCase()} word list`];
+   242→    const absoluteCanonical = canonical.startsWith("http")
+   243→      ? canonical
+   244→      : `${SITE_ORIGIN}${canonical}`;
+   245→    return {
+   246→      title,
+   247→      description,
+   248→      keywords,
+   249→      alternates: { canonical },
+   250→      openGraph: buildOpenGraph({ title, description, canonical: absoluteCanonical }),
+   251→      twitter: buildTwitter({ title, description }),
+   252→      robots: {
+   253→        index: true,
+   254→        follow: true,
+   255→        googleBot: { index: true, follow: true, ...DEFAULT_GOOGLE_BOT },
+   256→      },
+   257→    };
+   258→  }
+   259→
+   260→  // 3. Hidden owner-only views — keep out of the search index.
+   261→  if (activeToolSlug === "inbox" || activeToolSlug === "dashboard") {
+   262→    return { robots: { index: false, follow: false } };
+   263→  }
+   264→
+   265→  // 4. Core game/tool pages
+   266→  const metaConfig = TOOL_METADATA_REGISTRY[activeToolSlug];
+   267→  if (metaConfig) {
+   268→    const canonicalPath = activeToolSlug === "unscrambler" ? "/" : `/${activeToolSlug}`;
+   269→    const pageMeta: Metadata = {
+   270→      title: metaConfig.title,
+   271→      description: metaConfig.description,
+   272→      keywords: metaConfig.keywords,
+   273→      alternates: { canonical: canonicalPath },
+   274→      openGraph: buildOpenGraph({
+   275→        title: metaConfig.title,
+   276→        description: metaConfig.description,
+   277→        canonical: `${SITE_ORIGIN}${canonicalPath}`,
+   278→      }),
+   279→      // Always emit a page-specific Twitter card (override the root layout's
+   280→      // generic sitewide card). metaConfig.twitter, when present, overrides
+   281→      // the title/description copy (used by /blitz for custom game copy).
+   282→      twitter: buildTwitter({
+   283→        title: metaConfig.title,
+   284→        description: metaConfig.description,
+   285→        overrideTitle: metaConfig.twitter?.title,
+   286→        overrideDescription: metaConfig.twitter?.description,
+   287→      }),
+   288→      // Always emit robots + googleBot with max-image-preview:large so every
+   289→      // tool page can earn rich SERP previews (not just /blitz). Per-page
+   290→      // metaConfig.googleBot, if present, merges on top of the defaults.
+   291→      robots: {
+   292→        index: true,
+   293→        follow: true,
+   294→        googleBot: { index: true, follow: true, ...DEFAULT_GOOGLE_BOT, ...metaConfig.googleBot },
+   295→      },
+   296→    };
+   297→
+   298→    return pageMeta;
+   299→  }
+   300→
+   301→  // Fallback — omit title so root layout's default is used
+   302→  return {
+   303→    description: "Free word unscrambler, anagram solver, Wordle & Quordle helper with multi-language official Scrabble dictionaries.",
+   304→  };
+   305→}
+   306→
+   307→// ROUTER JUNCTION: detects programmatic word-list slugs and passes them to
+   308→// MainToolView for client-side rendering via ProgrammaticSEOView.
+   309→//
+   310→// SERVER-SIDE DATA FETCH: For word-list slugs we pre-render the first 50 words
+   311→// on the server so users see them immediately when the page loads — no spinner,
+   312→// no client round-trip on initial page load. The client takes over for
+   313→// pagination ("Load more"), filter changes, and sort toggles.
+   314→//
+   315→// STATIC GENERATION: The most popular word-list pages (A-Z starts/ends, 5-7
+   316→// letter words) are pre-rendered at build time via generateStaticParams.
+   317→// This allows CDN caching and instant delivery — no server computation on
+   318→// each request. Less popular pages (8-15 letter, wordle starts/ends) are
+   319→// server-rendered on demand.
+   320→const ALPHABET = "abcdefghijklmnopqrstuvwxyz".split("");
+   321→
+   322→// Hidden owner-only views served by the catch-all (not in the metadata
+   323→// registry) — kept reachable via the static params below.
+   324→const EXTRA_CATCHALL_SLUGS = ["inbox", "dashboard"] as const;
+   325→
+   326→export async function generateStaticParams() {
+   327→  // Enumerate EVERY valid single-segment slug so the whole site is
+   328→  // statically prerendered. Combined with `dynamicParams = false` below,
+   329→  // any URL NOT in this list (junk like /nonexistent-page-xyz, /Wordle,
+   330→  // /wordle/foo) gets Next.js's built-in REAL 404 — previously the
+   331→  // catch-all rendered the homepage for any unknown slug with HTTP 200 +
+   332→  // "index, follow", a soft-404 duplicate-content problem that let Google
+   333→  // index unlimited homepage copies under arbitrary URLs.
+   334→  //
+   335→  // Legacy word-list variants (/words-starts-by-*, /words-starting-with-*,
+   336→  // /unscramble/<slug>, /N-letter-words) are deliberately NOT enumerated:
+   337→  // they are 308-redirected to their canonical URLs in next.config.ts, so
+   338→  // they never reach this route.
+   339→  const params: { tool: string[] }[] = [];
+   340→
+   341→  // Homepage
+   342→  params.push({ tool: [] });
+   343→
+   344→  // Every core tool / info page from the metadata registry (unscrambler,
+   345→  // scramble, wordle, quordle, scrabble, random, wordfeud, dictionary,
+   346→  // wordlists, wordstarts, wordends, wordle-starts, wordle-ends, about,
+   347→  // contact, privacy, terms, sitemap, blitz)
+   348→  for (const slug of Object.keys(TOOL_METADATA_REGISTRY)) {
+   349→    params.push({ tool: [slug] });
+   350→  }
+   351→
+   352→  // Hidden owner-only views
+   353→  for (const slug of EXTRA_CATCHALL_SLUGS) {
+   354→    params.push({ tool: [slug] });
+   355→  }
+   356→
+   357→  // Programmatic word-list pages:
+   358→  // - Scrabble starts/ends A-Z (52)
+   359→  // - Wordle starts/ends A-Z (52)
+   360→  // - Unscramble by length 2-15 (14)
+   361→  for (const letter of ALPHABET) {
+   362→    params.push({ tool: [`words-starts-with-${letter}`] });
+   363→    params.push({ tool: [`words-ends-with-${letter}`] });
+   364→    params.push({ tool: [`wordle-words-starts-with-${letter}`] });
+   365→    params.push({ tool: [`wordle-words-ends-with-${letter}`] });
+   366→  }
+   367→  for (const len of WORD_LIST_LENGTHS) {
+   368→    params.push({ tool: [`unscramble-${len}-letter-words`] });
+   369→  }
+   370→
+   371→  return params;
+   372→}
+   373→
+   374→// Every valid slug is prerendered above, so on-demand rendering is disabled:
+   375→// unknown slugs get a real 404 status + the styled not-found page. This is
+   376→// the hard guarantee behind the soft-404 fix.
+   377→export const dynamicParams = false;
+   378→
+   379→// VideoGame structured data for the /blitz page — helps Google understand
+   380→// this is a playable game and potentially show it in game-specific results.
+   381→const blitzGameJsonLd = {
+   382→  "@context": "https://schema.org",
+   383→  "@type": "VideoGame",
+   384→  name: "Anagram Blitz",
+   385→  url: "https://wordizy.com/blitz",
+   386→  description: "Free online word unscramble game. Race against the clock to unscramble as many words as you can in 60 seconds. Daily challenges and infinite practice mode. No download, no sign-up.",
+   387→  genre: ["Word Game", "Puzzle", "Educational"],
+   388→  gamePlatform: ["Web Browser", "Mobile", "Desktop"],
+   389→  applicationCategory: "Game",
+   390→  operatingSystem: "Any",
+   391→  playMode: "SinglePlayer",
+   392→  numberOfPlayers: { "@type": "QuantitativeValue", minValue: 1, maxValue: 1 },
+   393→  offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" },
+   394→  publisher: { "@type": "Organization", name: "wordIzy", url: "https://wordizy.com" },
+   395→  inLanguage: "en",
+   396→  image: "https://wordizy.com/og-image.png",
+   397→  screenshot: "https://wordizy.com/og-image.png",
+   398→  datePublished: "2026-07-15",
+   399→  features: [
+   400→    "60-second timed rounds",
+   401→    "Daily challenge mode",
+   402→    "Infinite practice mode",
+   403→    "Scoring system with skip penalties",
+   404→    "Hint system",
+   405→    "Multi-language support (9 languages)",
+   406→  ],
+   407→  aggregateRating: undefined, // Add when you have real user ratings
+   408→};
+   409→
+   410→// Breadcrumb structured data for the /blitz page (uses richer copy than the
+   411→// generic breadcrumb generator that fires for other tool pages).
+   412→const blitzBreadcrumbJsonLd = {
+   413→  "@context": "https://schema.org",
+   414→  "@type": "BreadcrumbList",
+   415→  itemListElement: [
+   416→    { "@type": "ListItem", position: 1, name: "wordIzy — Word Tools", item: "https://wordizy.com" },
+   417→    { "@type": "ListItem", position: 2, name: "Anagram Blitz Game", item: "https://wordizy.com/blitz" },
+   418→  ],
+   419→};
+   420→
+   421→// ---------------------------------------------------------------------------
+   422→// DEFENSIVE 404 GUARD (2026-11-11).
+   423→// The primary guarantee is `dynamicParams = false` above (unknown slugs never
+   424→// reach this component). These guards are defense-in-depth in case dynamic
+   425→// rendering is ever re-enabled: they keep the old behavior — rendering the
+   426→// homepage for ANY unrecognized slug with HTTP 200 "index, follow", a classic
+   427→// soft-404 duplicate-content problem — from ever coming back.
+   428→// ---------------------------------------------------------------------------
+   429→
+   430→function isKnownCatchallSlug(slug: string): boolean {
+   431→  return (
+   432→    slug === "" ||
+   433→    (EXTRA_CATCHALL_SLUGS as readonly string[]).includes(slug) ||
+   434→    isWordListPage(slug) ||
+   435→    Boolean(TOOL_METADATA_REGISTRY[slug])
+   436→  );
+   437→}
+   438→
+   439→export default async function Page({ params }: PageProps) {
+   440→  const resolvedParams = await params;
+   441→  const toolSegments = resolvedParams.tool || [];
+   442→  const activeToolSlug = toolSegments[0] || "";
+   443→  const subRoute = toolSegments[1] || "";
+   444→
+   445→  // Unknown primary slug → 404 (previously rendered the homepage with 200).
+   446→  // "/game" used to alias the blitz page through dead switch-case code; it
+   447→  // now redirects to /blitz in next.config.ts. "/unscramble" (homepage
+   448→  // alias without a canonical) also redirects to "/" there.
+   449→  if (!isKnownCatchallSlug(activeToolSlug)) notFound();
+   450→
+   451→  // Sub-routes: only the legacy /unscramble/<word-list-slug> pattern is a
+   452→  // valid two-segment path (and those are 301-redirected upstream anyway —
+   453→  // this is a defensive fallback). Everything else (/wordle/foo, /a/b/c) 404s.
+   454→  if (toolSegments.length > 1) {
+   455→    const isLegacyWordList =
+   456→      activeToolSlug === "unscramble" &&
+   457→      toolSegments.length === 2 &&
+   458→      isWordListPage(subRoute);
+   459→    if (!isLegacyWordList) notFound();
+   460→  }
+   461→
+   462→  let initialWordListData: InitialWordListPage | null = null;
+   463→  let topWordData: { word: string; score: number }[] | null = null;
+   464→
+   465→  // Try single-segment programmatic slug
+   466→  if (isWordListPage(activeToolSlug)) {
+   467→    initialWordListData = getInitialWordListPage(activeToolSlug, "en", 50);
+   468→    topWordData = getTopScoringWords(activeToolSlug, "en", 10);
+   469→  }
+   470→  // Try legacy two-segment path: /unscramble/<slug>
+   471→  else if (activeToolSlug === "unscramble" && subRoute && isWordListPage(subRoute)) {
+   472→    initialWordListData = getInitialWordListPage(subRoute, "en", 50);
+   473→    topWordData = getTopScoringWords(subRoute, "en", 10);
+   474→  }
+   475→
+   476→  // Only render the game structured data on the /blitz page
+   477→  const isBlitzPage = activeToolSlug === "blitz" || activeToolSlug === "game";
+   478→
+   479→  // Generic BreadcrumbList for every non-blitz tool page (blitz has its own).
+   480→  const isCoreToolPage = Boolean(
+   481→    TOOL_METADATA_REGISTRY[activeToolSlug] &&
+   482→    !isBlitzPage &&
+   483→    activeToolSlug !== "unscrambler" // homepage has its own sitewide WebApplication breadcrumb
+   484→  );
+   485→  const toolBreadcrumbJsonLd =
+   486→    isCoreToolPage && TOOL_METADATA_REGISTRY[activeToolSlug]
+   487→      ? buildBreadcrumbJsonLd(
+   488→          activeToolSlug,
+   489→          TOOL_METADATA_REGISTRY[activeToolSlug].title,
+   490→        )
+   491→      : null;
+   492→
+   493→  // FAQPage JSON-LD — for tool pages that have FAQ sections (unscrambler, scramble,
+   494→  // wordle, quordle, anagram, random, wordfeud, dictionary, scrabble, wordlists,
+   495→  // wordstarts, wordends). Gets rich snippets in Bing/Google search results.
+   496→  // Not rendered for blitz, info pages, or word-list programmatic pages.
+   497→  const faqJsonLd = isCoreToolPage || activeToolSlug === "" || activeToolSlug === "unscrambler"
+   498→    ? buildFaqJsonLd(activeToolSlug)
+   499→    : null;
+   500→
+   501→  return (
+   502→    <>
+   503→      {isBlitzPage && (
+   504→        <script
+   505→          type="application/ld+json"
+   506→          dangerouslySetInnerHTML={{ __html: JSON.stringify(blitzGameJsonLd) }}
+   507→        />
+   508→      )}
+   509→      {isBlitzPage && (
+   510→        <script
+   511→          type="application/ld+json"
+   512→          dangerouslySetInnerHTML={{ __html: JSON.stringify(blitzBreadcrumbJsonLd) }}
+   513→        />
+   514→      )}
+   515→      {toolBreadcrumbJsonLd && (
+   516→        <script
+   517→          type="application/ld+json"
+   518→          dangerouslySetInnerHTML={{ __html: JSON.stringify(toolBreadcrumbJsonLd) }}
+   519→        />
+   520→      )}
+   521→      {faqJsonLd && (
+   522→        <script
+   523→          type="application/ld+json"
+   524→          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+   525→        />
+   526→      )}
+   527→      <MainToolView
+   528→        params={params}
+   529→        initialWordListData={initialWordListData}
+   530→        topWordData={topWordData}
+   531→      />
+   532→    </>
+   533→  );
+   534→}
+   535→
