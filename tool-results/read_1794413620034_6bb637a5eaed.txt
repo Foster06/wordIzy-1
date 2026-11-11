@@ -1,0 +1,592 @@
+     1→import type { Metadata } from "next";
+     2→import Link from "next/link";
+     3→import { notFound } from "next/navigation";
+     4→import { SiteHeader } from "@/components/site/site-header";
+     5→import { SiteFooter } from "@/components/site/site-footer";
+     6→import { ReturnButton } from "@/components/site/back-button";
+     7→import { ShareButtons } from "@/components/site/share-buttons";
+     8→import {
+     9→  getScrabbleWordData,
+    10→  getAllValidScrabbleWords,
+    11→  type ScrabbleWordData,
+    12→} from "@/lib/scrabble-word-data";
+    13→
+    14→interface PageProps {
+    15→  params: Promise<{ word: string }>;
+    16→}
+    17→
+    18→const SITE_ORIGIN = "https://wordizy.com";
+    19→
+    20→/** Length of a string AFTER HTML attribute escaping, matching what Next.js
+    21→ *  renders in `<meta content="…">`. Escapable characters expand:
+    22→ *  & → &amp; (5), < → &lt; (4), > → &gt; (4), " → &quot; (6),
+    23→ *  ' → &#x27; (6). Used to keep the meta description within Bing's
+    24→ *  25-160 char limit as it appears in the final HTML. */
+    25→function escapedLength(s: string): number {
+    26→  let n = 0;
+    27→  for (const ch of s) {
+    28→    if (ch === '"') n += 6; // &quot;
+    29→    else if (ch === "'") n += 6; // &#x27;
+    30→    else if (ch === "&") n += 5; // &amp;
+    31→    else if (ch === "<" || ch === ">") n += 4; // &lt; / &gt;
+    32→    else n += 1;
+    33→  }
+    34→  return n;
+    35→}
+    36→
+    37→// ── Other-language helpers ─────────────────────────────────────────────
+    38→// Each word page reports validity across 8 dictionaries (2 English + 6
+    39→// other languages), so a visitor checking a word from their own language
+    40→// learns it is playable there even when it is not valid English Scrabble.
+    41→
+    42→function joinList(parts: string[]): string {
+    43→  if (parts.length === 0) return "";
+    44→  if (parts.length === 1) return parts[0];
+    45→  return `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}`;
+    46→}
+    47→
+    48→/** "French (ODS9) and Dutch (OpenTaal)" — full list with dictionary names. */
+    49→function otherLangsFull(data: ScrabbleWordData): string {
+    50→  return joinList(data.validInOtherLanguages.map((r) => `${r.languageName} (${r.dictName})`));
+    51→}
+    52→
+    53→/** "French and Dutch" — language names only. */
+    54→function otherLangNames(data: ScrabbleWordData): string {
+    55→  return joinList(data.validInOtherLanguages.map((r) => r.languageName));
+    56→}
+    57→
+    58→/** "French, Dutch and 2 more" — compact list for the meta description. */
+    59→function otherLangsShort(data: ScrabbleWordData): string {
+    60→  const names = data.validInOtherLanguages.map((r) => r.languageName);
+    61→  if (names.length <= 2) return joinList(names);
+    62→  return `${names[0]}, ${names[1]} and ${names.length - 2} more`;
+    63→}
+    64→
+    65→// On-demand rendering for non-prerendered words (non-words like "zave", and
+    66→// 4+ letter words not in the static params set). Cached for 24h via ISR.
+    67→// The catch-all [[...tool]] route keeps dynamicParams=false for soft-404 safety;
+    68→// THIS route intentionally allows dynamic params because every /scrabble-words/*
+    69→// URL produces useful content (valid → "yes" page, invalid → "no" page).
+    70→export const dynamicParams = true;
+    71→export const revalidate = 86400; // seconds = 24h
+    72→
+    73→// Prerender all valid 2-3 letter Scrabble words (~1,500 pages). These cover the
+    74→// highest-intent "is X a scrabble word" queries (short words people are unsure
+    75→// about: ez, izy, qi, za, etc.). Longer words and non-words are SSR'd on demand.
+    76→export async function generateStaticParams() {
+    77→  const words = getAllValidScrabbleWords(2, 3);
+    78→  return words.map((word) => ({ word }));
+    79→}
+    80→
+    81→/** Generate per-word metadata tuned for the "is X a scrabble word" SERP. */
+    82→export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    83→  const { word: rawWord } = await params;
+    84→  const word = rawWord.toLowerCase();
+    85→  if (!/^[a-z]{2,15}$/.test(word)) return {};
+    86→
+    87→  const data = getScrabbleWordData(word);
+    88→  const display = data.display;
+    89→  const otherCount = data.validInOtherLanguages.length;
+    90→  const title = data.valid
+    91→    ? `Is ${display} a Valid Scrabble Word? Yes — ${data.points} Points`
+    92→    : otherCount > 0
+    93→      ? `Is ${display} a Valid Scrabble Word? Not in English`
+    94→      : `Is ${display} a Valid Scrabble Word? No — Not in NWL or CSW`;
+    95→
+    96→  // Meta description MUST be 25-160 chars (Bing URL Inspection rule).
+    97→  // Target 150 to leave a safety buffer: Next.js HTML-escapes the content
+    98→  // attribute (& → &amp;, < → &lt;, ' → &#x27;, …), which EXPANDS the
+    99→  // rendered length beyond the raw string length. The budget below is
+   100→  // computed on the ESCAPED length so the rendered attribute never
+   101→  // exceeds the target.
+   102→  const MAX_DESC = 150;
+   103→  let description: string;
+   104→  if (data.valid) {
+   105→    const dicts = `${data.inNWL ? "NWL2023" : ""}${data.inNWL && data.inCSW ? " & " : ""}${data.inCSW ? "CSW21" : ""}`;
+   106→    const fixed = `${display} is a valid Scrabble word worth ${data.points} points. Valid in ${dicts}.`;
+   107→    let desc = fixed;
+   108→    if (data.definition) {
+   109→      const budget = MAX_DESC - escapedLength(fixed) - " Definition: ".length;
+   110→      if (budget >= 20) {
+   111→        let defPart = data.definition.slice(0, budget);
+   112→        while (escapedLength(`${fixed} Definition: ${defPart}`) > MAX_DESC && defPart.length > 20) {
+   113→          defPart = defPart.slice(0, -1);
+   114→        }
+   115→        desc = `${fixed} Definition: ${defPart}`;
+   116→      }
+   117→    }
+   118→    description = desc;
+   119→  } else if (otherCount > 0) {
+   120→    description = `${display} is not a valid English Scrabble word, but it is valid in ${otherLangsShort(data)}. See why, plus similar valid English words.`;
+   121→  } else {
+   122→    description = `${display} is not a valid Scrabble word in NWL2023 or CSW21. See why, and find similar valid words to play.`;
+   123→  }
+   124→
+   125→  const canonical = `${SITE_ORIGIN}/scrabble-words/${word}`;
+   126→
+   127→  // FAQPage JSON-LD — embedded as <meta> via `other` field, rendered as a script
+   128→  // tag in the page body. Three Q&As that match common SERP feature triggers.
+   129→  const faqJsonLd = buildFaqJsonLd(data);
+   130→
+   131→  return {
+   132→    title,
+   133→    description,
+   134→    alternates: { canonical },
+   135→    openGraph: {
+   136→      title,
+   137→      description,
+   138→      url: canonical,
+   139→      siteName: "wordIzy",
+   140→      type: "article",
+   141→      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: title }],
+   142→    },
+   143→    twitter: {
+   144→      card: "summary_large_image",
+   145→      title,
+   146→      description,
+   147→      images: ["/og-image.png"],
+   148→    },
+   149→    other: faqJsonLd ? { "ld:faq": JSON.stringify(faqJsonLd) } : undefined,
+   150→  };
+   151→}
+   152→
+   153→/** Build a 3-question FAQPage JSON-LD schema for the word.
+   154→ *  Unlocks expandable Q&A rich snippets in Google/Bing SERPs. */
+   155→function buildFaqJsonLd(data: ScrabbleWordData) {
+   156→  const display = data.display;
+   157→  const faqItems: { q: string; a: string }[] = [];
+   158→
+   159→  if (data.valid) {
+   160→    faqItems.push({
+   161→      q: `Is ${display} a valid Scrabble word?`,
+   162→      a: `Yes, ${display} is a valid Scrabble word${data.inNWL ? " in the NWL2023 (Tournament Word List, the North American official dictionary)" : ""}${data.inNWL && data.inCSW ? " and" : data.inCSW ? " in the" : ""}${data.inCSW ? " the CSW21 (Collins Scrabble Words, the international dictionary)" : ""}. It is worth ${data.points} Scrabble points.`,
+   163→    });
+   164→    if (data.definition) {
+   165→      faqItems.push({
+   166→        q: `What does ${display} mean in Scrabble?`,
+   167→        a: `${display} is ${expandPOS(data.partOfSpeech)} as: ${data.definition}.`,
+   168→      });
+   169→    }
+   170→    faqItems.push({
+   171→      q: `How many points is ${display} worth in Scrabble?`,
+   172→      a: `${display} is worth ${data.points} points in Scrabble, calculated as the sum of each letter's tile value: ${data.letterBreakdown
+   173→        .map((l) => `${l.letter}=${l.value}${l.count > 1 ? ` (×${l.count})` : ""}`)
+   174→        .join(", ")}.`,
+   175→    });
+   176→  } else {
+   177→    faqItems.push({
+   178→      q: `Is ${display} a valid Scrabble word?`,
+   179→      a: `No, ${display} is not a valid Scrabble word in either the NWL2023 (Tournament Word List) or CSW21 (Collins Scrabble Words) dictionary. It cannot be played in an official English-language Scrabble game${data.validInOtherLanguages.length > 0 ? ` — but it is a valid word in ${otherLangsFull(data)}` : ""}.`,
+   180→    });
+   181→    faqItems.push({
+   182→      q: `Why is ${display} not a valid Scrabble word?`,
+   183→      a: `${display} does not appear in the official English Scrabble dictionaries (NWL2023 for North America, CSW21 for international play). English-language Scrabble only accepts words that are listed in these dictionaries. Common reasons a word is excluded: it's a proper noun (capitalized), an abbreviation, a prefix/suffix, or simply not recognized as a standard English word.`,
+   184→    });
+   185→    faqItems.push({
+   186→      q: `Where can I check if a word is valid in Scrabble?`,
+   187→      a: `You can use the wordIzy Scrabble Word Checker at wordizy.com/scrabble to look up any word. This page also shows the word's point value, definition, and letter breakdown if it is valid.`,
+   188→    });
+   189→  }
+   190→
+   191→  // Cross-language FAQ — added whenever the word is valid in at least one
+   192→  // other language's dictionary (works for valid and invalid English words).
+   193→  if (data.validInOtherLanguages.length > 0) {
+   194→    faqItems.push({
+   195→      q: `Is ${display} a valid word in other languages?`,
+   196→      a: data.valid
+   197→        ? `Yes — besides English, ${display} is also a valid word in ${otherLangsFull(data)}.`
+   198→        : `Yes. ${display} is a valid word in ${otherLangsFull(data)}. It is not valid in English-language Scrabble (NWL2023 or CSW21), but it can be played in Scrabble games that use those languages' dictionaries.`,
+   199→    });
+   200→  }
+   201→
+   202→  return {
+   203→    "@context": "https://schema.org",
+   204→    "@type": "FAQPage",
+   205→    mainEntity: faqItems.map((item) => ({
+   206→      "@type": "Question",
+   207→      name: item.q,
+   208→      acceptedAnswer: { "@type": "Answer", text: item.a },
+   209→    })),
+   210→  };
+   211→}
+   212→
+   213→/** Expand a part-of-speech code (n, v, adj, adv, interj) into a readable phrase. */
+   214→function expandPOS(pos: string | null): string {
+   215→  if (!pos) return "defined";
+   216→  const map: Record<string, string> = {
+   217→    n: "a noun",
+   218→    v: "a verb",
+   219→    adj: "an adjective",
+   220→    adv: "an adverb",
+   221→    interj: "an interjection",
+   222→    article: "an article",
+   223→    prep: "a preposition",
+   224→    pron: "a pronoun",
+   225→    conj: "a conjunction",
+   226→  };
+   227→  return map[pos] || "defined";
+   228→}
+   229→
+   230→export default async function ScrabbleWordPage({ params }: PageProps) {
+   231→  const { word: rawWord } = await params;
+   232→  const word = rawWord.toLowerCase();
+   233→
+   234→  // Guard: reject anything that isn't 2-15 lowercase letters. This prevents
+   235→  // junk URLs from generating pages (e.g. /scrabble-words/foo-bar-baz).
+   236→  if (!/^[a-z]{2,15}$/.test(word)) {
+   237→    notFound();
+   238→  }
+   239→
+   240→  const data = getScrabbleWordData(word);
+   241→  const faqJsonLd = buildFaqJsonLd(data);
+   242→
+   243→  return (
+   244→    <div className="min-h-screen flex flex-col">
+   245→      <SiteHeader />
+   246→      <main className="flex-1 mx-auto w-full max-w-3xl px-4 py-8 sm:py-12">
+   247→        <ReturnButton href="/scrabble-words" label="All Scrabble Words" />
+   248→
+   249→        <article className="mt-6">
+   250→          <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 tracking-tight text-gradient-brand">
+   251→            Is {data.display} a Valid Scrabble Word?
+   252→          </h1>
+   253→          <p className="text-muted-foreground text-xs mb-8">
+   254→            Scrabble validity check · NWL2023 + CSW21 · French, Spanish, Italian, Dutch, German &amp; Portuguese dictionaries
+   255→          </p>
+   256→
+   257→          {/* ── The answer block — the first thing searchers want ── */}
+   258→          <div
+   259→            className={`rounded-xl p-6 mb-8 border ${
+   260→              data.valid
+   261→                ? "bg-brand/10 border-brand/30"
+   262→                : "bg-red-500/5 border-red-500/20"
+   263→            }`}
+   264→          >
+   265→            <p className="text-lg font-semibold text-foreground mb-2">
+   266→              {data.valid ? (
+   267→                <>Yes — {data.display} is a valid Scrabble word worth {data.points} points.</>
+   268→              ) : data.validInOtherLanguages.length > 0 ? (
+   269→                <>No — {data.display} is not a valid English Scrabble word.</>
+   270→              ) : (
+   271→                <>No — {data.display} is not a valid Scrabble word.</>
+   272→              )}
+   273→            </p>
+   274→            <p className="text-sm text-muted-foreground leading-relaxed">
+   275→              {data.valid ? (
+   276→                <>
+   277→                  {data.display} appears in{" "}
+   278→                  {data.inNWL && <span className="text-foreground/90">NWL2023 (Tournament Word List)</span>}
+   279→                  {data.inNWL && data.inCSW && " and "}
+   280→                  {data.inCSW && <span className="text-foreground/90">CSW21 (Collins Scrabble Words)</span>}
+   281→                  {"."}
+   282→                  {data.inNWL && !data.inCSW && " It is valid in North American Scrabble but not in international (Collins) play."}
+   283→                  {!data.inNWL && data.inCSW && " It is valid in international (Collins) Scrabble but not in North American play."}
+   284→                </>
+   285→              ) : data.validInOtherLanguages.length > 0 ? (
+   286→                <>
+   287→                  {data.display} does not appear in the English Scrabble
+   288→                  dictionaries — NWL2023 (North American) or CSW21
+   289→                  (international English). However, it{" "}
+   290→                  <span className="text-foreground/90">
+   291→                    is a valid word in {otherLangsFull(data)}
+   292→                  </span>{" "}
+   293→                  — playable in Scrabble games that use those languages&apos;
+   294→                  dictionaries.
+   295→                </>
+   296→              ) : (
+   297→                <>
+   298→                  {data.display} does not appear in either the NWL2023 (North American
+   299→                  Scrabble dictionary) or the CSW21 (international Collins Scrabble
+   300→                  dictionary). It cannot be played in an official Scrabble game or
+   301→                  in Words With Friends (which uses a similar but not identical word
+   302→                  list).
+   303→                </>
+   304→              )}
+   305→            </p>
+   306→          </div>
+   307→
+   308→          {/* ── Valid word details: definition, points, letter breakdown ── */}
+   309→          {data.valid && (
+   310→            <>
+   311→              {data.definition && (
+   312→                <section className="mb-8">
+   313→                  <h2 className="text-xl font-bold text-foreground mb-3 tracking-tight">
+   314→                    {data.display} — Definition
+   315→                  </h2>
+   316→                  <p className="text-sm text-muted-foreground leading-relaxed mb-2">
+   317→                    {data.definition}
+   318→                  </p>
+   319→                  {data.partOfSpeech && (
+   320→                    <p className="text-xs text-muted-foreground">
+   321→                      Part of speech: {expandPOS(data.partOfSpeech)}
+   322→                      {data.inflections && ` · Inflections: ${data.inflections}`}
+   323→                    </p>
+   324→                  )}
+   325→                </section>
+   326→              )}
+   327→
+   328→              <section className="mb-8">
+   329→                <h2 className="text-xl font-bold text-foreground mb-3 tracking-tight">
+   330→                  {`${data.display} — Scrabble Points & Letter Breakdown`}
+   331→                </h2>
+   332→                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+   333→                  {data.display} is worth <span className="text-foreground font-semibold">{data.points} points</span> in Scrabble,
+   334→                  calculated as the sum of each letter&apos;s tile value:
+   335→                </p>
+   336→                <div className="overflow-x-auto rounded-lg border border-white/10">
+   337→                  <table className="w-full text-sm">
+   338→                    <thead className="bg-brand/10">
+   339→                      <tr>
+   340→                        <th className="px-3 py-2 text-left font-semibold text-foreground border-b border-white/10">Letter</th>
+   341→                        <th className="px-3 py-2 text-left font-semibold text-foreground border-b border-white/10">Count</th>
+   342→                        <th className="px-3 py-2 text-left font-semibold text-foreground border-b border-white/10">Points each</th>
+   343→                        <th className="px-3 py-2 text-left font-semibold text-foreground border-b border-white/10">Subtotal</th>
+   344→                      </tr>
+   345→                    </thead>
+   346→                    <tbody>
+   347→                      {data.letterBreakdown.map((l, idx) => (
+   348→                        <tr key={l.letter} className={idx % 2 === 0 ? "bg-white/[0.02]" : ""}>
+   349→                          <td className="px-3 py-2 text-foreground font-mono font-semibold">{l.letter}</td>
+   350→                          <td className="px-3 py-2 text-muted-foreground">{l.count}</td>
+   351→                          <td className="px-3 py-2 text-muted-foreground">{l.value}</td>
+   352→                          <td className="px-3 py-2 text-muted-foreground">{l.value * l.count}</td>
+   353→                        </tr>
+   354→                      ))}
+   355→                      <tr className="border-t border-white/10">
+   356→                        <td className="px-3 py-2 text-foreground font-semibold" colSpan={3}>Total</td>
+   357→                        <td className="px-3 py-2 text-brand font-semibold">{data.points}</td>
+   358→                      </tr>
+   359→                    </tbody>
+   360→                  </table>
+   361→                </div>
+   362→              </section>
+   363→            </>
+   364→          )}
+   365→
+   366→          {/* ── Invalid word: helpful suggestions ── */}
+   367→          {!data.valid && (
+   368→            <section className="mb-8">
+   369→              <h2 className="text-xl font-bold text-foreground mb-3 tracking-tight">
+   370→                Why {data.display} Isn&apos;t Valid
+   371→                {data.validInOtherLanguages.length > 0 ? " in English" : ""}
+   372→              </h2>
+   373→              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+   374→                Scrabble dictionaries are language-specific — each language
+   375→                plays with its own official word list. {data.display} does not
+   376→                appear in the English dictionaries: NWL2023 for North American
+   377→                play and CSW21 for international play
+   378→                {data.validInOtherLanguages.length > 0
+   379→                  ? `, but it is a valid word in ${otherLangNames(data)}`
+   380→                  : ""}
+   381→                . Common reasons a word is excluded from the English
+   382→                dictionaries:
+   383→              </p>
+   384→              <ul className="list-disc pl-6 my-3 space-y-1.5 text-sm text-muted-foreground leading-relaxed">
+   385→                <li>It&apos;s a proper noun (capitalized name, place, or brand).</li>
+   386→                <li>It&apos;s an abbreviation or acronym (e.g. NASA, FBI).</li>
+   387→                <li>It&apos;s a prefix or suffix used standalone (e.g. &ldquo;anti&rdquo;, &ldquo;ing&rdquo;).</li>
+   388→                <li>It&apos;s a hyphenated form or requires punctuation.</li>
+   389→                <li>It&apos;s simply not recognized as a standard English word.</li>
+   390→              </ul>
+   391→              <p className="text-sm text-muted-foreground leading-relaxed mt-4">
+   392→                If you were trying to play a word that sounds like {data.display}, try
+   393→                the wordIzy <Link href="/scrabble" className="text-brand underline underline-offset-2">Scrabble Word Checker</Link> to look up valid alternatives, or
+   394→                browse valid words starting with{" "}
+   395→                <Link href={`/words-starts-with-${word[0]}`} className="text-brand underline underline-offset-2">
+   396→                  the letter {word[0].toUpperCase()}
+   397→                </Link>{" "}
+   398→                and{" "}
+   399→                <Link href={`/unscramble-${data.length}-letter-words`} className="text-brand underline underline-offset-2">
+   400→                  {data.length}-letter words
+   401→                </Link>.
+   402→              </p>
+   403→            </section>
+   404→          )}
+   405→
+   406→          {/* ── Cross-dictionary validity — all 8 dictionaries ── */}
+   407→          <section className="mb-8">
+   408→            <h2 className="text-xl font-bold text-foreground mb-3 tracking-tight">
+   409→              {`${data.display} in Every Dictionary & Language`}
+   410→            </h2>
+   411→            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+   412→              Scrabble dictionaries are language-specific — a word can be
+   413→              unplayable in English but perfectly legal in another
+   414→              language&apos;s game. Here is how {data.display} fares across all
+   415→              eight:
+   416→            </p>
+   417→            <div className="overflow-x-auto rounded-lg border border-white/10">
+   418→              <table className="w-full text-sm">
+   419→                <thead className="bg-brand/10">
+   420→                  <tr>
+   421→                    <th className="px-3 py-2 text-left font-semibold text-foreground border-b border-white/10">Dictionary</th>
+   422→                    <th className="px-3 py-2 text-left font-semibold text-foreground border-b border-white/10">Language / region</th>
+   423→                    <th className="px-3 py-2 text-left font-semibold text-foreground border-b border-white/10">{data.display} valid?</th>
+   424→                  </tr>
+   425→                </thead>
+   426→                <tbody>
+   427→                  <DictRow dict="NWL2023" region="English — North America" valid={data.inNWL} />
+   428→                  <DictRow dict="CSW21" region="English — international" valid={data.inCSW} />
+   429→                  {data.otherLanguages.map((r) => (
+   430→                    <DictRow
+   431→                      key={r.lang}
+   432→                      dict={`${r.dictName}${r.official ? "" : " *"}`}
+   433→                      region={r.languageName}
+   434→                      valid={r.valid}
+   435→                    />
+   436→                  ))}
+   437→                </tbody>
+   438→              </table>
+   439→            </div>
+   440→            <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
+   441→              * German and Portuguese have no freely-licensed official Scrabble
+   442→              dictionary — wordIzy uses its own filtered word lists (the same
+   443→              lists that power the German and Portuguese games on this site).
+   444→              Matching follows the site-wide convention of stripping accents
+   445→              (é → e), so ELEVE matches ÉLÈVE in the French ODS9.
+   446→            </p>
+   447→          </section>
+   448→
+   449→          {/* ── FAQ section (visible — mirrors the JSON-LD) ── */}
+   450→          <section className="mt-10 pt-6 border-t border-white/10">
+   451→            <h2 className="text-xl font-bold text-foreground mb-4 tracking-tight">
+   452→              Frequently Asked Questions
+   453→            </h2>
+   454→            <div className="space-y-4">
+   455→              {data.valid ? (
+   456→                <>
+   457→                  <FaqItem q={`Is ${data.display} a valid Scrabble word?`}>
+   458→                    Yes, {data.display} is a valid Scrabble word
+   459→                    {data.inNWL ? " in the NWL2023 (Tournament Word List, the North American official dictionary)" : ""}
+   460→                    {data.inNWL && data.inCSW ? " and" : data.inCSW ? " in the" : ""}
+   461→                    {data.inCSW ? " the CSW21 (Collins Scrabble Words, the international dictionary)" : ""}.
+   462→                    It is worth {data.points} Scrabble points.
+   463→                  </FaqItem>
+   464→                  {data.definition && (
+   465→                    <FaqItem q={`What does ${data.display} mean in Scrabble?`}>
+   466→                      {data.display} is {expandPOS(data.partOfSpeech)} as: {data.definition}.
+   467→                    </FaqItem>
+   468→                  )}
+   469→                  <FaqItem q={`How many points is ${data.display} worth in Scrabble?`}>
+   470→                    {data.display} is worth {data.points} points in Scrabble, calculated as the sum of each
+   471→                    letter&apos;s tile value:{" "}
+   472→                    {data.letterBreakdown
+   473→                      .map((l) => `${l.letter}=${l.value}${l.count > 1 ? ` (×${l.count})` : ""}`)
+   474→                      .join(", ")}.
+   475→                  </FaqItem>
+   476→                </>
+   477→              ) : (
+   478→                <>
+   479→                  <FaqItem q={`Is ${data.display} a valid Scrabble word?`}>
+   480→                    No, {data.display} is not a valid Scrabble word in either the NWL2023 (Tournament
+   481→                    Word List) or CSW21 (Collins Scrabble Words) dictionary. It cannot be played in
+   482→                    an official English-language Scrabble game
+   483→                    {data.validInOtherLanguages.length > 0
+   484→                      ? ` — but it is a valid word in ${otherLangsFull(data)}`
+   485→                      : ""}
+   486→                    .
+   487→                  </FaqItem>
+   488→                  <FaqItem q={`Why is ${data.display} not a valid Scrabble word?`}>
+   489→                    {data.display} does not appear in the official English Scrabble dictionaries (NWL2023 for
+   490→                    North America, CSW21 for international play). English-language Scrabble only accepts words
+   491→                    that are listed in these dictionaries. Common reasons a word is excluded: it&apos;s a
+   492→                    proper noun (capitalized), an abbreviation, a prefix/suffix, or simply not
+   493→                    recognized as a standard English word.
+   494→                  </FaqItem>
+   495→                  <FaqItem q="Where can I check if a word is valid in Scrabble?">
+   496→                    You can use the wordIzy Scrabble Word Checker at{" "}
+   497→                    <Link href="/scrabble" className="text-brand underline underline-offset-2">wordizy.com/scrabble</Link>{" "}
+   498→                    to look up any word. This page also shows the word&apos;s point value, definition,
+   499→                    and letter breakdown if it is valid.
+   500→                  </FaqItem>
+   501→                </>
+   502→              )}
+   503→              {data.validInOtherLanguages.length > 0 && (
+   504→                <FaqItem q={`Is ${data.display} a valid word in other languages?`}>
+   505→                  {data.valid
+   506→                    ? `Yes — besides English, ${data.display} is also a valid word in ${otherLangsFull(data)}.`
+   507→                    : `Yes. ${data.display} is a valid word in ${otherLangsFull(data)}. It is not valid in English-language Scrabble (NWL2023 or CSW21), but it can be played in Scrabble games that use those languages' dictionaries.`}
+   508→                </FaqItem>
+   509→              )}
+   510→            </div>
+   511→          </section>
+   512→
+   513→          {/* FAQPage JSON-LD schema */}
+   514→          {faqJsonLd && (
+   515→            <script
+   516→              type="application/ld+json"
+   517→              dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+   518→            />
+   519→          )}
+   520→
+   521→          {/* BreadcrumbList JSON-LD */}
+   522→          <script
+   523→            type="application/ld+json"
+   524→            dangerouslySetInnerHTML={{
+   525→              __html: JSON.stringify({
+   526→                "@context": "https://schema.org",
+   527→                "@type": "BreadcrumbList",
+   528→                itemListElement: [
+   529→                  { "@type": "ListItem", position: 1, name: "wordIzy", item: SITE_ORIGIN },
+   530→                  { "@type": "ListItem", position: 2, name: "Scrabble Words", item: `${SITE_ORIGIN}/scrabble-words` },
+   531→                  { "@type": "ListItem", position: 3, name: `Is ${data.display} a Scrabble Word?`, item: `${SITE_ORIGIN}/scrabble-words/${word}` },
+   532→                ],
+   533→              }),
+   534→            }}
+   535→          />
+   536→
+   537→          <ShareButtons
+   538→            url={`${SITE_ORIGIN}/scrabble-words/${word}`}
+   539→            title={`Is ${data.display} a Valid Scrabble Word?`}
+   540→          />
+   541→
+   542→          {/* Internal links */}
+   543→          <div className="mt-10 pt-6 border-t border-white/10">
+   544→            <h3 className="text-sm font-semibold text-foreground mb-3">Related Tools</h3>
+   545→            <div className="flex flex-wrap gap-2">
+   546→              <Link href="/scrabble" className="px-3 py-1.5 rounded-md glass-soft text-xs text-foreground/80 hover:text-brand transition-colors">
+   547→                Scrabble Word Checker
+   548→              </Link>
+   549→              <Link href={`/words-starts-with-${word[0]}`} className="px-3 py-1.5 rounded-md glass-soft text-xs text-foreground/80 hover:text-brand transition-colors">
+   550→                Words Starting With {word[0].toUpperCase()}
+   551→              </Link>
+   552→              <Link href={`/unscramble-${data.length}-letter-words`} className="px-3 py-1.5 rounded-md glass-soft text-xs text-foreground/80 hover:text-brand transition-colors">
+   553→                {data.length}-Letter Words
+   554→              </Link>
+   555→              <Link href="/wordlists" className="px-3 py-1.5 rounded-md glass-soft text-xs text-foreground/80 hover:text-brand transition-colors">
+   556→                All Word Lists
+   557→              </Link>
+   558→              <Link href="/dictionary" className="px-3 py-1.5 rounded-md glass-soft text-xs text-foreground/80 hover:text-brand transition-colors">
+   559→                Dictionary
+   560→              </Link>
+   561→            </div>
+   562→          </div>
+   563→        </article>
+   564→      </main>
+   565→      <SiteFooter />
+   566→    </div>
+   567→  );
+   568→}
+   569→
+   570→/** Render a single FAQ item as an H3 + paragraph. */
+   571→function FaqItem({ q, children }: { q: string; children: React.ReactNode }) {
+   572→  return (
+   573→    <div className="space-y-1.5">
+   574→      <h3 className="text-sm font-semibold text-foreground">{q}</h3>
+   575→      <p className="text-sm text-muted-foreground leading-relaxed">{children}</p>
+   576→    </div>
+   577→  );
+   578→}
+   579→
+   580→/** One row of the cross-dictionary validity table. */
+   581→function DictRow({ dict, region, valid }: { dict: string; region: string; valid: boolean }) {
+   582→  return (
+   583→    <tr className="border-b border-white/5 last:border-b-0">
+   584→      <td className="px-3 py-2 text-foreground font-semibold">{dict}</td>
+   585→      <td className="px-3 py-2 text-muted-foreground">{region}</td>
+   586→      <td className={`px-3 py-2 font-semibold ${valid ? "text-brand" : "text-muted-foreground/60"}`}>
+   587→        {valid ? "Yes" : "No"}
+   588→      </td>
+   589→    </tr>
+   590→  );
+   591→}
+   592→
