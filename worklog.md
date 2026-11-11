@@ -1809,3 +1809,21 @@ The old key (`4c390b...`, replaced in Task 35) is still verified in IndexNow's b
    - Clean leading/trailing slashes and punctuation
 
 **Verification**: tsc + eslint clean; all 10 live page types 94-155 chars; 30-word random sample of scrabble-words pages 0 issues; edge cases (longest-definition words: open/read/fly/fit/thin) all ≤155 chars.
+
+## Task 40 — Fix "1,682 pages with broken JavaScript" site-audit issue (2026-11-11)
+
+**Trigger**: Site auditor (Letaido) flagged 1,682 pages with broken JavaScript — every flagged source URL (200 OK) linked to `/_next/static/chunks/336s22-94umdi.js` which returns 404. All flagged pages were `/scrabble-words/*` word pages plus index.
+
+**Diagnosis** (`scripts/check-live-js-integrity.py`, written for this task):
+- The 404 chunk belongs to a PREVIOUS deployment. Every deploy renames all content-hashed Turbopack chunks, so HTML from an old build references chunks that no longer exist.
+- The flagged routes were exactly the ones carrying the custom `Cache-Control: public, s-maxage=3600, stale-while-revalidate=86400` header from `next.config.ts` (scrabble-words, word-list routes). The 24h `stale-while-revalidate` authorized the CDN/auditor/browser caches to keep serving (or holding) HTML from the old deployment after a new one went live — old HTML + new asset namespace = every `<script src>` 404s. Routes without the custom header are normalized by Vercel to `max-age=0, must-revalidate` (never stale) — which is why only these routes were flagged.
+- No service worker is registered (ruled out). Current deployment verified fully self-consistent: 49 pages sampled across all route families + all 8 locale subpaths, all 30 referenced chunks 200 OK, zero stale edge entries (age > 900s).
+- The report was therefore stale data captured across the Task 36→39 deploy sequence (crawl overlapped a deploy), prolonged by the SWR header.
+
+**Fix**:
+1. `next.config.ts` — HTML `Cache-Control` changed from `public, s-maxage=3600, stale-while-revalidate=86400` → `public, s-maxage=600` for all 8 HTML routes that used it (words-starts/ends-with, wordle-words-starts/ends-with, unscramble-n-letter-words, unscramble/:slug, scrabble-words/:word, scrabble-words). Keeps CDN edge hits (the original perf win) while capping the cross-deployment staleness window at 10 minutes and eliminating 24h stale-HTML serving to returning browsers/crawlers. API/JSON routes keep their SWR headers (JSON doesn't reference build chunks, so no cross-deploy breakage possible).
+2. Re-pinged IndexNow with all 1,977 sitemap URLs (old key, HTTP 200) so search engines refresh any cached HTML from the old build.
+
+**Verification**: tsc + eslint clean; prod build OK; local standalone server confirmed `Cache-Control: public, s-maxage=600` on /scrabble-words/bobas, /scrabble-words, /words-starts-with-a (homepage unaffected: Vercel-normalized); post-deploy live check: header live on production, full 49-page integrity sweep clean (0 broken chunks, 0 meta-desc violations, 0 stale HIT entries). The audit report should clear on the tool's next crawl; a fresh crawl can be triggered in the auditor UI to confirm immediately.
+
+**Remaining user action**: verify the new IndexNow key (`6fc8ac9f...`) in Bing Webmaster Tools → Configure IndexNow (old key still works in the meantime).
