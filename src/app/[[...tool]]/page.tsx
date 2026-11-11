@@ -11,6 +11,7 @@ import {
 } from "@/lib/word-list-urls";
 import { getInitialWordListPage, getTopScoringWords, type InitialWordListPage } from "@/lib/word-list-data";
 import { translations } from "@/components/i18n/translations";
+import { buildAlternates } from "@/lib/i18n-seo";
 
 interface PageProps {
   params: Promise<{ tool?: string[] }>;
@@ -266,11 +267,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const metaConfig = TOOL_METADATA_REGISTRY[activeToolSlug];
   if (metaConfig) {
     const canonicalPath = activeToolSlug === "unscrambler" ? "/" : `/${activeToolSlug}`;
+    // hreflang cluster: the 19 core tools + homepage exist in 8 localized
+    // subpaths (/de/wordle, …). Every variant — English included — must emit
+    // the SAME reciprocal cluster (en + 8 langs + x-default → English) so
+    // Bing/Google can pair them and show native-language snippets in the
+    // NL/DE/FR/… markets. Word-list programmatic pages have no localized
+    // variants and intentionally get no cluster.
+    const barePath = canonicalPath === "/" ? "" : canonicalPath;
     const pageMeta: Metadata = {
       title: metaConfig.title,
       description: metaConfig.description,
       keywords: metaConfig.keywords,
-      alternates: { canonical: canonicalPath },
+      alternates: {
+        canonical: canonicalPath,
+        languages: buildAlternates(barePath),
+      },
       openGraph: buildOpenGraph({
         title: metaConfig.title,
         description: metaConfig.description,

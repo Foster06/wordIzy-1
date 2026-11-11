@@ -1,6 +1,32 @@
 import type { MetadataRoute } from "next";
 import { getAllValidScrabbleWords } from "@/lib/scrabble-word-data";
 
+// Localized tool pages: 8 languages × [home + 19 tools] = 160 URLs
+// (/de, /de/wordle, /fr/wordfeud, …). Must mirror src/lib/i18n-seo.ts.
+const I18N_LANGS = ["de", "fr", "es", "it", "pt", "nl", "ja", "zh"];
+const LOCALIZED_SLUGS = [
+  "", // localized homepage /{lang}
+  "scramble",
+  "wordle",
+  "quordle",
+  "anagram",
+  "random",
+  "wordfeud",
+  "dictionary",
+  "scrabble",
+  "wordlists",
+  "wordstarts",
+  "wordends",
+  "wordle-starts",
+  "wordle-ends",
+  "about",
+  "contact",
+  "privacy",
+  "terms",
+  "sitemap",
+  "blitz",
+];
+
 // 1. Declare your core static tools registry arrays mapping
 const CORE_TOOLS = [
   "", // Homepage / Unscrambler
@@ -138,6 +164,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.4,
     });
   }
+
+  // GENERATION MAP F: Localized tool pages (/de, /fr/wordle, …) — the
+  // internationalization play for the NL/DE/FR/ES/IT/PT/JA/ZH markets.
+  // 8 languages × 20 pages = 160 URLs with hreflang pairing (the clusters
+  // are emitted per-page via alternates.languages in generateMetadata).
+  I18N_LANGS.forEach((lang) => {
+    LOCALIZED_SLUGS.forEach((slug) => {
+      sitemapEntries.push({
+        url: `${baseUrl}/${lang}${slug ? `/${slug}` : ""}`,
+        lastModified: LAST_MODIFIED,
+        changeFrequency: "weekly",
+        priority: slug === "" ? 0.9 : 0.7,
+      });
+    });
+  });
 
   return sitemapEntries;
 }

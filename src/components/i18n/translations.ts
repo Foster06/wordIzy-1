@@ -317,8 +317,12 @@ const en: Translation = {
  privacy: {
   title: "Privacy Policy",
   intro: "At wordIzy, accessible from wordizy.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by wordIzy and how we use it.\n\nIf you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.",
-  lastUpdated: "Last Updated: October 30, 2026",
+  lastUpdated: "Last Updated: November 11, 2026",
   sections: [
+   {
+    heading: "Language and Region Detection",
+    body: "To display wordIzy in your preferred language, our hosting platform reads your browser's language preference (the Accept-Language header) and, when available, the country associated with your IP address at the network edge. This detection happens in memory for a single request; it is not stored in any database, and it is never used for tracking, profiling, or advertising. If your country's language is not supported, the site is shown in English. Your explicit language choice is saved locally on your device (the functional 'wordizy-lang' cookie and local storage, kept for up to 12 months) so we do not need to re-detect it. You can change the language at any time using the language selector, or clear the saved preference through your browser settings.",
+   },
    {
     heading: "Log Files",
     body: "wordIzy follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this as part of hosting services' analytics. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information.",
@@ -725,8 +729,12 @@ const fr: Translation = {
  privacy: {
   title: "Politique de confidentialité",
   intro: "Sur wordIzy, accessible depuis wordizy.com, l'une de nos principales priorités est la confidentialité de nos visiteurs. Ce document de Politique de confidentialité contient les types d'informations collectées et enregistrées par wordIzy et la manière dont nous les utilisons.\n\nSi vous avez des questions supplémentaires ou si vous souhaitez plus d'informations sur notre Politique de confidentialité, n'hésitez pas à nous contacter.",
-  lastUpdated: "Dernière mise à jour : 30 octobre 2026",
+  lastUpdated: "Dernière mise à jour : 11 novembre 2026",
   sections: [
+   {
+    heading: "Détection de la langue et de la région",
+    body: "Pour afficher wordIzy dans votre langue préférée, notre plateforme d'hébergement lit la préférence de langue de votre navigateur (l'en-tête Accept-Language) et, le cas échéant, le pays associé à votre adresse IP au niveau du réseau. Cette détection a lieu en mémoire pour une seule requête ; elle n'est stockée dans aucune base de données et n'est jamais utilisée à des fins de suivi, de profilage ou de publicité. Si la langue de votre pays n'est pas prise en charge, le site s'affiche en anglais. Votre choix explicite de langue est enregistré localement sur votre appareil (le cookie fonctionnel 'wordizy-lang' et le stockage local, conservés jusqu'à 12 mois) afin de ne pas avoir à la détecter de nouveau. Vous pouvez changer de langue à tout moment via le sélecteur de langue, ou effacer la préférence enregistrée dans les paramètres de votre navigateur.",
+   },
    {
     heading: "Fichiers journaux",
     body: "wordIzy suit une procédure standard d'utilisation des fichiers journaux. Ces fichiers enregistrent les visiteurs lorsqu'ils visitent des sites web. Toutes les sociétés d'hébergement le font dans le cadre des analyses des services d'hébergement. Les informations collectées par les fichiers journaux comprennent les adresses de protocole Internet (IP), le type de navigateur, le fournisseur d'accès Internet (FAI), l'horodatage, les pages d'entrée et de sortie, et éventuellement le nombre de clics. Celles-ci ne sont liées à aucune information personnellement identifiable. L'objectif de ces informations est d'analyser les tendances, d'administrer le site, de suivre les déplacements des utilisateurs sur le site et de recueillir des informations démographiques.",
@@ -1106,8 +1114,12 @@ const es: Translation = {
  privacy: {
   title: "Política de privacidad",
   intro: "En wordIzy, accesible desde wordizy.com, una de nuestras principales prioridades es la privacidad de nuestros visitantes. Este documento de Política de privacidad contiene los tipos de información que recopila y registra wordIzy y cómo la utilizamos.\n\nSi tiene preguntas adicionales o requiere más información sobre nuestra Política de privacidad, no dude en contactarnos.",
-  lastUpdated: "Última actualización: 30 de octubre de 2026",
+  lastUpdated: "Última actualización: 11 de noviembre de 2026",
   sections: [
+   {
+    heading: "Detección de idioma y región",
+    body: "Para mostrar wordIzy en tu idioma preferido, nuestra plataforma de alojamiento lee la preferencia de idioma de tu navegador (la cabecera Accept-Language) y, cuando está disponible, el país asociado a tu dirección IP en el borde de la red. Esta detección se realiza en memoria para una sola solicitud; no se almacena en ninguna base de datos y nunca se utiliza para seguimiento, perfilado ni publicidad. Si el idioma de tu país no está disponible, el sitio se muestra en inglés. Tu elección explícita de idioma se guarda localmente en tu dispositivo (la cookie funcional 'wordizy-lang' y el almacenamiento local, hasta 12 meses) para no tener que detectarla de nuevo. Puedes cambiar el idioma en cualquier momento con el selector de idioma, o borrar la preferencia guardada en la configuración de tu navegador.",
+   },
    {
     heading: "Archivos de registro",
     body: "wordIzy sigue un procedimiento estándar de uso de archivos de registro. Estos archivos registran a los visitantes cuando visitan sitios web. Todas las empresas de alojamiento lo hacen como parte de las analíticas de los servicios de alojamiento. La información recopilada por los archivos de registro incluye direcciones de protocolo de Internet (IP), tipo de navegador, proveedor de servicios de Internet (ISP), marca de fecha y hora, páginas de entrada/salida y posiblemente el número de clics. Estos no se vinculan a ninguna información personalmente identificable. El propósito de la información es analizar tendencias, administrar el sitio, rastrear el movimiento de los usuarios en el sitio web y recopilar información demográfica.",
@@ -1487,8 +1499,12 @@ const de: Translation = {
  privacy: {
   title: "Datenschutzerklärung",
   intro: "Auf wordIzy, erreichbar unter wordizy.com, ist die Privatsphäre unserer Besucher eine unserer Hauptprioritäten. Dieses Dokument zur Datenschutzerklärung enthält die Arten von Informationen, die von wordIzy erfasst und aufgezeichnet werden, und wie wir sie verwenden.\n\nWenn Sie weitere Fragen haben oder weitere Informationen zu unserer Datenschutzerklärung benötigen, zögern Sie nicht, uns zu kontaktieren.",
-  lastUpdated: "Zuletzt aktualisiert: 30. Oktober 2026",
+  lastUpdated: "Zuletzt aktualisiert: 11. November 2026",
   sections: [
+   {
+    heading: "Sprach- und Regionserkennung",
+    body: "Um wordIzy in deiner bevorzugten Sprache anzuzeigen, liest unsere Hosting-Plattform die Sprachpräferenz deines Browsers (den Accept-Language-Header) und, sofern verfügbar, das deiner IP-Adresse zugeordnete Land am Netzwerkrand. Diese Erkennung erfolgt im Arbeitsspeicher für eine einzelne Anfrage; sie wird in keiner Datenbank gespeichert und niemals für Tracking, Profilbildung oder Werbung verwendet. Wird die Sprache deines Landes nicht unterstützt, erscheint die Seite auf Englisch. Deine explizite Sprachwahl wird lokal auf deinem Gerät gespeichert (der funktionale Cookie 'wordizy-lang' und der lokale Speicher, bis zu 12 Monate), damit wir sie nicht erneut ermitteln müssen. Du kannst die Sprache jederzeit über die Sprachauswahl ändern oder die gespeicherte Präferenz in den Browsereinstellungen löschen.",
+   },
    {
     heading: "Protokolldateien",
     body: "wordIzy folgt einem Standardverfahren zur Verwendung von Protokolldateien. Diese Dateien protokollieren Besucher, wenn sie Websites besuchen. Alle Hosting-Unternehmen tun dies im Rahmen der Analysen der Hosting-Dienste. Die von den Protokolldateien erfassten Informationen umfassen Internetprotokoll-(IP)-Adressen, Browsertyp, Internetdienstanbieter (ISP), Datums- und Uhrzeitstempel, verweisende/Ausstiegs-Seiten und möglicherweise die Anzahl der Klicks. Diese sind nicht mit Informationen verknüpft, die persönlich identifizierbar sind. Zweck der Informationen ist die Analyse von Trends, die Verwaltung der Website, die Verfolgung der Bewegung der Benutzer auf der Website und die Erhebung demografischer Informationen.",
@@ -1868,8 +1884,12 @@ const it: Translation = {
  privacy: {
   title: "Informativa sulla privacy",
   intro: "Su wordIzy, accessibile da wordizy.com, una delle nostre principali priorità è la privacy dei nostri visitatori. Questo documento dell'Informativa sulla privacy contiene i tipi di informazioni raccolte e registrate da wordIzy e come le utilizziamo.\n\nSe hai domande aggiuntive o richiedi maggiori informazioni sulla nostra Informativa sulla privacy, non esitare a contattarci.",
-  lastUpdated: "Ultimo aggiornamento: 30 ottobre 2026",
+  lastUpdated: "Ultimo aggiornamento: 11 novembre 2026",
   sections: [
+   {
+    heading: "Rilevamento di lingua e regione",
+    body: "Per mostrare wordIzy nella tua lingua preferita, la nostra piattaforma di hosting legge la preferenza linguistica del browser (l'intestazione Accept-Language) e, se disponibile, il paese associato al tuo indirizzo IP al bordo della rete. Questo rilevamento avviene in memoria per una singola richiesta; non viene conservato in alcun database e non è mai usato per tracciamento, profilazione o pubblicità. Se la lingua del tuo paese non è supportata, il sito viene mostrato in inglese. La tua scelta esplicita della lingua viene salvata localmente sul dispositivo (il cookie funzionale 'wordizy-lang' e l'archiviazione locale, fino a 12 mesi) per non doverla rilevare di nuovo. Puoi cambiare lingua in qualsiasi momento tramite il selettore della lingua, oppure cancellare la preferenza salvata nelle impostazioni del browser.",
+   },
    {
     heading: "File di registro",
     body: "wordIzy segue una procedura standard per l'utilizzo dei file di registro. Questi file registrano i visitatori quando visitano siti web. Tutte le società di hosting lo fanno come parte delle analisi dei servizi di hosting. Le informazioni raccolte dai file di registro includono indirizzi di protocollo Internet (IP), tipo di browser, provider di servizi Internet (ISP), timestamp di data e ora, pagine di riferimento/uscita ed eventualmente il numero di clic. Questi non sono collegati ad alcuna informazione personalmente identificabile. Lo scopo delle informazioni è analizzare le tendenze, amministrare il sito, monitorare i movimenti degli utenti sul sito web e raccogliere informazioni demografiche.",
@@ -2249,8 +2269,12 @@ const pt: Translation = {
  privacy: {
   title: "Política de privacidade",
   intro: "No wordIzy, acessível em wordizy.com, uma das nossas principais prioridades é a privacidade dos nossos visitantes. Este documento de Política de privacidade contém os tipos de informação que são recolhidos e registados pelo wordIzy e como os utilizamos.\n\nSe tiver questões adicionais ou necessitar de mais informações sobre a nossa Política de privacidade, não hesite em contactar-nos.",
-  lastUpdated: "Última atualização: 30 de outubro de 2026",
+  lastUpdated: "Última atualização: 11 de novembro de 2026",
   sections: [
+   {
+    heading: "Detecção de idioma e região",
+    body: "Para mostrar o wordIzy no seu idioma preferido, nossa plataforma de hospedagem lê a preferência de idioma do seu navegador (o cabeçalho Accept-Language) e, quando disponível, o país associado ao seu endereço IP na borda da rede. Essa detecção acontece na memória para uma única solicitação; não é armazenada em banco de dados e nunca é usada para rastreamento, perfilagem ou publicidade. Se o idioma do seu país não é oferecido, o site é exibido em inglês. Sua escolha explícita de idioma fica salva localmente no seu dispositivo (o cookie funcional 'wordizy-lang' e o armazenamento local, por até 12 meses) para não ser necessário detectá-la novamente. Você pode trocar o idioma a qualquer momento no seletor de idiomas, ou apagar a preferência salva nas configurações do navegador.",
+   },
    {
     heading: "Ficheiros de registro",
     body: "O wordIzy segue um procedimento padrão de utilização de ficheiros de registro. Estes ficheiros registam os visitantes quando visitam sites. Todas as empresas de alojamento o fazem como parte das análises dos serviços de alojamento. As informações recolhidas pelos ficheiros de registro incluem endereços de protocolo de Internet (IP), tipo de navegador, fornecedor de serviços de Internet (ISP), carimbo de data e hora, páginas de referência/saída e possivelmente o número de cliques. Estes não estão ligados a nenhuma informação pessoal identificável. O propósito da informação é analisar tendências, administrar o site, monitorizar o movimento dos utilizadores no site e recolher informações demográficas.",
@@ -2630,8 +2654,12 @@ const nl: Translation = {
  privacy: {
   title: "Privacybeleid",
   intro: "Op wordIzy, bereikbaar via wordizy.com, is de privacy van onze bezoekers een van onze belangrijkste prioriteiten. Dit Privacybeleid-document bevat soorten informatie die door wordIzy worden verzameld en geregistreerd en hoe wij deze gebruiken.\n\nAls u aanvullende vragen heeft of meer informatie wenst over ons Privacybeleid, aarzel dan niet om contact met ons op te nemen.",
-  lastUpdated: "Laatst bijgewerkt: 30 oktober 2026",
+  lastUpdated: "Laatst bijgewerkt: 11 november 2026",
   sections: [
+   {
+    heading: "Taal- en regiodetectie",
+    body: "Om wordIzy in jouw voorkeurstaal te tonen, leest ons hostingplatform de taalvoorkeur van je browser (de Accept-Language-header) en, indien beschikbaar, het land dat aan je IP-adres is gekoppeld aan de rand van het netwerk. Deze detectie gebeurt in het geheugen voor één enkel verzoek; ze wordt niet in een database opgeslagen en wordt nooit gebruikt voor tracking, profiling of advertenties. Wordt de taal van jouw land niet ondersteund, dan wordt de site in het Engels weergegeven. Je expliciete taalkeuze wordt lokaal op je apparaat opgeslagen (de functionele 'wordizy-lang'-cookie en lokale opslag, maximaal 12 maanden) zodat we deze niet opnieuw hoeven te detecteren. Je kunt de taal op elk moment wijzigen via de taalkiezer, of de opgeslagen voorkeur wissen via de instellingen van je browser.",
+   },
    {
     heading: "Logbestanden",
     body: "wordIzy volgt een standaardprocedure voor het gebruik van logbestanden. Deze bestanden registreren bezoekers wanneer zij websites bezoeken. Alle hostingbedrijven doen dit als onderdeel van de analyses van hostingservices. De informatie die door logbestanden wordt verzameld, omvat internetprotocoladressen (IP), browsertype, internetserviceprovider (ISP), datum- en tijdstempel, verwijzings-/uitgangspagina's en mogelijk het aantal klikken. Deze zijn niet gekoppeld aan informatie die persoonlijk identificeerbaar is. Het doel van de informatie is het analyseren van trends, het beheren van de site, het volgen van de beweging van gebruikers op de website en het verzamelen van demografische informatie.",
@@ -3014,8 +3042,12 @@ const ja: Translation = {
  privacy: {
   title: "プライバシーポリシー",
   intro: "wordizy.com からアクセス可能な wordIzy では、訪問者のプライバシーを最優先事項の一つとしています。このプライバシーポリシー文書には、wordIzy が収集・記録する情報の種類と、その利用方法が記載されています。\n\nプライバシーポリシーに関する追加のご質問や詳細情報が必要な場合は、お気軽にお問い合わせください。",
-  lastUpdated: "最終更新日：2026年10月30日",
+  lastUpdated: "最終更新日：2026年11月11日",
   sections: [
+   {
+    heading: "言語と地域の判定",
+    body: "wordIzyをお好みの言語で表示するため、当社のホスティングプラットフォームはブラウザの言語設定（Accept-Languageヘッダー）と、利用可能な場合はネットワークエッジでIPアドレスに関連付けられた国を参照します。この判定は単一のリクエストに対してメモリ上で行われ、データベースに保存されず、トラッキング・プロファイリング・広告に使用されることはありません。お住まいの国の言語がサポートされていない場合、サイトは英語で表示されます。明示的な言語選択は、再判定を避けるためデバイスのローカルに保存されます（機能性Cookie「wordizy-lang」とローカルストレージ、最大12か月）。言語は言語セレクターからいつでも変更でき、保存された設定はブラウザの設定から削除できます。",
+   },
    {
     heading: "ログファイル",
     body: "wordIzy はログファイルを使用する標準的な手順に従っています。これらのファイルは、ユーザーがウェブサイトを訪問した際に記録します。すべてのホスティング企業は、ホスティングサービスの分析の一環としてこれを行っています。ログファイルに収集される情報には、インターネットプロトコル（IP）アドレス、ブラウザーの種類、インターネットサービスプロバイダー（ISP）、日付と時刻のタイムスタンプ、参照元・退出ページ、さらにはクリック数などが含まれます。これらは個人を特定できる情報にはリンクされません。情報の目的は、傾向の分析、サイトの管理、ウェブサイト上でのユーザーの移動の追跡、および人口統計情報の収集です。",
@@ -3398,8 +3430,12 @@ const zh: Translation = {
  privacy: {
   title: "隐私政策",
   intro: "在 wordIzy（可通过 wordizy.com 访问），我们最优先考虑的事项之一就是访客的隐私。本《隐私政策》文档包含 wordIzy 收集和记录的信息类型以及我们如何使用这些信息。\n\n如对本《隐私政策》有其他问题或需要更多信息，请随时与我们联系。",
-  lastUpdated: "最后更新：2026 年 10 月 30 日",
+  lastUpdated: "最后更新：2026 年 11 月 11 日",
   sections: [
+   {
+    heading: "语言与地区检测",
+    body: "为了以您的首选语言显示wordIzy，我们的托管平台会读取浏览器的语言偏好（Accept-Language标头），并在可用时读取网络边缘与您的IP地址相关联的国家/地区信息。该检测仅在内存中针对单个请求进行，不会存储到任何数据库中，也绝不会用于跟踪、画像或广告。如果您所在国家/地区的语言不受支持，网站将以英语显示。您的明确语言选择会保存在设备本地（功能性“wordizy-lang”Cookie和本地存储，最长保留12个月），以便无需重复检测。您可以随时通过语言选择器更改语言，或在浏览器设置中清除已保存的偏好。",
+   },
    {
     heading: "日志文件",
     body: "wordIzy 遵循使用日志文件的标准程序。这些文件记录访客访问网站时的信息。所有托管公司都将此作为托管服务分析的一部分。日志文件收集的信息包括互联网协议（IP）地址、浏览器类型、互联网服务提供商（ISP）、日期和时间戳、推荐/退出页面，以及可能的点击次数。这些信息不与任何可识别个人的信息相关联。该信息用于分析趋势、管理网站、跟踪用户在网站上的移动以及收集人口统计信息。",
