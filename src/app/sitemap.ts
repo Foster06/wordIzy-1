@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 import {
   getAllValidScrabbleWords,
   DICT_LANGS,
-  getLangDictWords,
   getLangPrerenderWords,
+  getSampleLangWords,
 } from "@/lib/scrabble-word-data";
 
 // Localized tool pages: 8 languages × [home + 19 tools] = 160 URLs
@@ -188,8 +188,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // GENERATION MAP G: Localized scrabble-words section
   // (/{lang}/scrabble-words + /{lang}/scrabble-words/[word] for the 6
   // dictionary languages). Per language: the index (0.7), the prerendered
-  // 2-letter word pages (0.5), and a ~100-word sample of the 3-letter pages
-  // for ISR discovery (0.3). Adds ~1.2k URLs — still well under the 50k cap.
+  // native 2-letter word pages (0.5), and a ~100-word sample of the
+  // native 3-letter pages for ISR discovery (0.3). The native-first
+  // curation (words in the language's dict that are NOT also valid
+  // English Scrabble words) keeps the sitemap focused on clearly
+  // localized queries — /fr/scrabble-words/ce rather than /fr/scrabble-words/bye.
+  // Adds ~1.2k URLs — still well under the 50k cap.
   for (const lang of DICT_LANGS) {
     sitemapEntries.push({
       url: `${baseUrl}/${lang}/scrabble-words`,
@@ -205,11 +209,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.5,
       });
     }
-    const threeLetter = getLangDictWords(lang, 3).filter((w) => /[aeiou]/.test(w));
-    const step = Math.max(1, Math.floor(threeLetter.length / 100));
-    for (let i = 0; i < threeLetter.length; i += step) {
+    // Native-first 3-letter sample for ISR discovery — same curated
+    // sampler the localized index page uses, so sitemap and index agree.
+    for (const word of getSampleLangWords(lang, 3, 100)) {
       sitemapEntries.push({
-        url: `${baseUrl}/${lang}/scrabble-words/${threeLetter[i]}`,
+        url: `${baseUrl}/${lang}/scrabble-words/${word}`,
         lastModified: LAST_MODIFIED,
         changeFrequency: "monthly",
         priority: 0.3,

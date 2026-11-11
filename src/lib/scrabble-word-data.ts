@@ -454,29 +454,93 @@ function isShowcaseWord(word: string): boolean {
   return /[aeiou]/.test(word);
 }
 
+// ── Curated native-language short-word filter ───────────────────────────
+// The localized /{lang}/scrabble-words pages previously showcased the
+// alphabet-spread sample of ALL showcase-quality words in each language's
+// dictionary — but every official Scrabble dictionary adopts English
+// loanwords (BYE, POP, SLUM, INTERNET, HACKAS …) and shares short-word
+// homographs with English (PORT, SON, VOL, VIDE …). A French visitor
+// seeing "BYE" and "POP" front and center on /fr/scrabble-words reasonably
+// concluded the page was still showing English words.
+//
+// "Curate official short-word lists per language to fix this at the
+// source": the curation rule we apply is — for the showcase samples,
+// prerender list and sitemap discovery ONLY — prefer the language's
+// NATIVE short words, defined as (in the language's own dictionary) AND
+// (NOT in the English NWL2023 ∪ CSW21 short-word set) AND (passes the
+// existing isShowcaseWord vowel filter). The validity check itself stays
+// raw: BYE/POP/SLUM remain valid French Scrabble words and are still
+// reported as valid when a visitor looks them up; they simply no longer
+// dominate the index-page showcase or the prerendered/sitemapped URL set.
+// When too few native words exist for a length bucket (only the case for
+// a few 4-letter+ buckets in practice), the sampler transparently falls
+// back to the all-showcase pool so the section stays populated.
+
+/** Lazily-built union of NWL2023 + CSW21 short words (2-3 letters only —
+ *  the only lengths where the showcase overlap with English matters).
+ *  Used to deprioritize English-shared homographs in the localized
+ *  showcase sampler. */
+let englishShortSet: Set<string> | null = null;
+function getEnglishShortSet(): Set<string> {
+  if (englishShortSet) return englishShortSet;
+  const s = new Set<string>();
+  for (const w of getNWLSet()) {
+    if (w.length >= 2 && w.length <= 3) s.add(w);
+  }
+  for (const w of getCSWSet()) {
+    if (w.length >= 2 && w.length <= 3) s.add(w);
+  }
+  englishShortSet = s;
+  return s;
+}
+
+/** True if `word` is a "native showcase" word: passes the vowel filter AND
+ *  is NOT a valid English Scrabble word. Used to build per-language
+ *  curated short-word lists for the localized showcase, prerender and
+ *  sitemap samples. */
+function isLangNativeShowcaseWord(word: string): boolean {
+  if (!isShowcaseWord(word)) return false;
+  return !getEnglishShortSet().has(word);
+}
+
 /** All valid words of a length in a language's dictionary (sorted). */
 export function getLangDictWords(lang: ScrabbleDictLang, len: number): string[] {
   return getLangWordsByLength(lang).get(len) ?? [];
 }
 
 /** Alphabet-spread sample of a language's valid words for the localized
- *  index page (showcase-quality for short lengths). */
+ *  index page. Applies the curated native-language showcase filter — i.e.
+ *  prefers words that are NOT valid English Scrabble words — so a French
+ *  visitor lands on /fr/scrabble-words and sees CE, JE, EU, IL… rather
+ *  than BYE, POP, SON. When a length bucket has fewer native words than
+ *  `count` (rare for 2-3 letters; can happen for longer lengths where
+ *  the English-shared overlap naturally drops), the sampler transparently
+ *  falls back to the all-showcase pool so the section is still populated.
+ *  Validity checks are unaffected — every word in the language's dict
+ *  remains valid when looked up directly. */
 export function getSampleLangWords(lang: ScrabbleDictLang, len: number, count: number): string[] {
-  const all = getLangDictWords(lang, len).filter(isShowcaseWord);
-  if (all.length <= count) return all;
-  const step = Math.floor(all.length / count);
+  const all = getLangDictWords(lang, len);
+  const native = all.filter(isLangNativeShowcaseWord);
+  // Prefer native-only words; fall back to all showcase words if too few.
+  const pool = native.length >= count ? native : all.filter(isShowcaseWord);
+  if (pool.length <= count) return pool;
+  const step = Math.floor(pool.length / count);
   const sample: string[] = [];
-  for (let i = 0; i < all.length && sample.length < count; i += step) {
-    sample.push(all[i]);
+  for (let i = 0; i < pool.length && sample.length < count; i += step) {
+    sample.push(pool[i]);
   }
   return sample;
 }
 
 /** Words to prerender per language for /{lang}/scrabble-words/[word]: the
- *  showcase-quality 2-letter words (highest-intent queries; the raw lists'
- *  consonant-only abbreviation junk is left to on-demand ISR). */
+ *  curated NATIVE 2-letter words — official Scrabble dictionary words that
+ *  are NOT also valid English Scrabble words (so /fr/scrabble-words/ce,
+ *  /fr/scrabble-words/je, /fr/scrabble-words/eu … rather than
+ *  /fr/scrabble-words/bye or /fr/scrabble-words/son). Highest-intent
+ *  localized queries; English-shared homographs and the raw lists'
+ *  consonant-only abbreviation junk stay ISR-only. */
 export function getLangPrerenderWords(lang: ScrabbleDictLang): string[] {
-  return getLangDictWords(lang, 2).filter(isShowcaseWord);
+  return getLangDictWords(lang, 2).filter(isLangNativeShowcaseWord);
 }
 
 /** Letter breakdown + points using a language's OFFICIAL tile values. */
