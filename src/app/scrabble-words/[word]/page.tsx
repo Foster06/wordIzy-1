@@ -34,6 +34,34 @@ function escapedLength(s: string): number {
   return n;
 }
 
+// ── Other-language helpers ─────────────────────────────────────────────
+// Each word page reports validity across 8 dictionaries (2 English + 6
+// other languages), so a visitor checking a word from their own language
+// learns it is playable there even when it is not valid English Scrabble.
+
+function joinList(parts: string[]): string {
+  if (parts.length === 0) return "";
+  if (parts.length === 1) return parts[0];
+  return `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}`;
+}
+
+/** "French (ODS9) and Dutch (OpenTaal)" — full list with dictionary names. */
+function otherLangsFull(data: ScrabbleWordData): string {
+  return joinList(data.validInOtherLanguages.map((r) => `${r.languageName} (${r.dictName})`));
+}
+
+/** "French and Dutch" — language names only. */
+function otherLangNames(data: ScrabbleWordData): string {
+  return joinList(data.validInOtherLanguages.map((r) => r.languageName));
+}
+
+/** "French, Dutch and 2 more" — compact list for the meta description. */
+function otherLangsShort(data: ScrabbleWordData): string {
+  const names = data.validInOtherLanguages.map((r) => r.languageName);
+  if (names.length <= 2) return joinList(names);
+  return `${names[0]}, ${names[1]} and ${names.length - 2} more`;
+}
+
 // On-demand rendering for non-prerendered words (non-words like "zave", and
 // 4+ letter words not in the static params set). Cached for 24h via ISR.
 // The catch-all [[...tool]] route keeps dynamicParams=false for soft-404 safety;
@@ -58,9 +86,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const data = getScrabbleWordData(word);
   const display = data.display;
+  const otherCount = data.validInOtherLanguages.length;
   const title = data.valid
     ? `Is ${display} a Valid Scrabble Word? Yes — ${data.points} Points`
-    : `Is ${display} a Valid Scrabble Word? No — Not in NWL or CSW`;
+    : otherCount > 0
+      ? `Is ${display} a Valid Scrabble Word? Not in English`
+      : `Is ${display} a Valid Scrabble Word? No — Not in NWL or CSW`;
 
   // Meta description MUST be 25-160 chars (Bing URL Inspection rule).
   // Target 150 to leave a safety buffer: Next.js HTML-escapes the content
@@ -85,6 +116,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       }
     }
     description = desc;
+  } else if (otherCount > 0) {
+    description = `${display} is not a valid English Scrabble word, but it is valid in ${otherLangsShort(data)}. See why, plus similar valid English words.`;
   } else {
     description = `${display} is not a valid Scrabble word in NWL2023 or CSW21. See why, and find similar valid words to play.`;
   }
@@ -143,15 +176,26 @@ function buildFaqJsonLd(data: ScrabbleWordData) {
   } else {
     faqItems.push({
       q: `Is ${display} a valid Scrabble word?`,
-      a: `No, ${display} is not a valid Scrabble word in either the NWL2023 (Tournament Word List) or CSW21 (Collins Scrabble Words) dictionary. It cannot be played in an official Scrabble game.`,
+      a: `No, ${display} is not a valid Scrabble word in either the NWL2023 (Tournament Word List) or CSW21 (Collins Scrabble Words) dictionary. It cannot be played in an official English-language Scrabble game${data.validInOtherLanguages.length > 0 ? ` — but it is a valid word in ${otherLangsFull(data)}` : ""}.`,
     });
     faqItems.push({
       q: `Why is ${display} not a valid Scrabble word?`,
-      a: `${display} does not appear in the official Scrabble dictionaries (NWL2023 for North America, CSW21 for international play). Scrabble only accepts words that are listed in these dictionaries. Common reasons a word is excluded: it's a proper noun (capitalized), an abbreviation, a prefix/suffix, or simply not recognized as a standard English word.`,
+      a: `${display} does not appear in the official English Scrabble dictionaries (NWL2023 for North America, CSW21 for international play). English-language Scrabble only accepts words that are listed in these dictionaries. Common reasons a word is excluded: it's a proper noun (capitalized), an abbreviation, a prefix/suffix, or simply not recognized as a standard English word.`,
     });
     faqItems.push({
       q: `Where can I check if a word is valid in Scrabble?`,
       a: `You can use the wordIzy Scrabble Word Checker at wordizy.com/scrabble to look up any word. This page also shows the word's point value, definition, and letter breakdown if it is valid.`,
+    });
+  }
+
+  // Cross-language FAQ — added whenever the word is valid in at least one
+  // other language's dictionary (works for valid and invalid English words).
+  if (data.validInOtherLanguages.length > 0) {
+    faqItems.push({
+      q: `Is ${display} a valid word in other languages?`,
+      a: data.valid
+        ? `Yes — besides English, ${display} is also a valid word in ${otherLangsFull(data)}.`
+        : `Yes. ${display} is a valid word in ${otherLangsFull(data)}. It is not valid in English-language Scrabble (NWL2023 or CSW21), but it can be played in Scrabble games that use those languages' dictionaries.`,
     });
   }
 
@@ -207,7 +251,7 @@ export default async function ScrabbleWordPage({ params }: PageProps) {
             Is {data.display} a Valid Scrabble Word?
           </h1>
           <p className="text-muted-foreground text-xs mb-8">
-            Scrabble validity check · NWL2023 + CSW21
+            Scrabble validity check · NWL2023 + CSW21 · French, Spanish, Italian, Dutch, German &amp; Portuguese dictionaries
           </p>
 
           {/* ── The answer block — the first thing searchers want ── */}
@@ -221,6 +265,8 @@ export default async function ScrabbleWordPage({ params }: PageProps) {
             <p className="text-lg font-semibold text-foreground mb-2">
               {data.valid ? (
                 <>Yes — {data.display} is a valid Scrabble word worth {data.points} points.</>
+              ) : data.validInOtherLanguages.length > 0 ? (
+                <>No — {data.display} is not a valid English Scrabble word.</>
               ) : (
                 <>No — {data.display} is not a valid Scrabble word.</>
               )}
@@ -235,6 +281,17 @@ export default async function ScrabbleWordPage({ params }: PageProps) {
                   {"."}
                   {data.inNWL && !data.inCSW && " It is valid in North American Scrabble but not in international (Collins) play."}
                   {!data.inNWL && data.inCSW && " It is valid in international (Collins) Scrabble but not in North American play."}
+                </>
+              ) : data.validInOtherLanguages.length > 0 ? (
+                <>
+                  {data.display} does not appear in the English Scrabble
+                  dictionaries — NWL2023 (North American) or CSW21
+                  (international English). However, it{" "}
+                  <span className="text-foreground/90">
+                    is a valid word in {otherLangsFull(data)}
+                  </span>{" "}
+                  — playable in Scrabble games that use those languages&apos;
+                  dictionaries.
                 </>
               ) : (
                 <>
@@ -311,11 +368,18 @@ export default async function ScrabbleWordPage({ params }: PageProps) {
             <section className="mb-8">
               <h2 className="text-xl font-bold text-foreground mb-3 tracking-tight">
                 Why {data.display} Isn&apos;t Valid
+                {data.validInOtherLanguages.length > 0 ? " in English" : ""}
               </h2>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                Scrabble only accepts words that appear in the official dictionaries:
-                NWL2023 for North American play and CSW21 for international play.
-                Common reasons a word is excluded:
+                Scrabble dictionaries are language-specific — each language
+                plays with its own official word list. {data.display} does not
+                appear in the English dictionaries: NWL2023 for North American
+                play and CSW21 for international play
+                {data.validInOtherLanguages.length > 0
+                  ? `, but it is a valid word in ${otherLangNames(data)}`
+                  : ""}
+                . Common reasons a word is excluded from the English
+                dictionaries:
               </p>
               <ul className="list-disc pl-6 my-3 space-y-1.5 text-sm text-muted-foreground leading-relaxed">
                 <li>It&apos;s a proper noun (capitalized name, place, or brand).</li>
@@ -338,6 +402,49 @@ export default async function ScrabbleWordPage({ params }: PageProps) {
               </p>
             </section>
           )}
+
+          {/* ── Cross-dictionary validity — all 8 dictionaries ── */}
+          <section className="mb-8">
+            <h2 className="text-xl font-bold text-foreground mb-3 tracking-tight">
+              {data.display} in Every Dictionary &amp; Language
+            </h2>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+              Scrabble dictionaries are language-specific — a word can be
+              unplayable in English but perfectly legal in another
+              language&apos;s game. Here is how {data.display} fares across all
+              eight:
+            </p>
+            <div className="overflow-x-auto rounded-lg border border-white/10">
+              <table className="w-full text-sm">
+                <thead className="bg-brand/10">
+                  <tr>
+                    <th className="px-3 py-2 text-left font-semibold text-foreground border-b border-white/10">Dictionary</th>
+                    <th className="px-3 py-2 text-left font-semibold text-foreground border-b border-white/10">Language / region</th>
+                    <th className="px-3 py-2 text-left font-semibold text-foreground border-b border-white/10">{data.display} valid?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <DictRow dict="NWL2023" region="English — North America" valid={data.inNWL} />
+                  <DictRow dict="CSW21" region="English — international" valid={data.inCSW} />
+                  {data.otherLanguages.map((r) => (
+                    <DictRow
+                      key={r.lang}
+                      dict={`${r.dictName}${r.official ? "" : " *"}`}
+                      region={r.languageName}
+                      valid={r.valid}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
+              * German and Portuguese have no freely-licensed official Scrabble
+              dictionary — wordIzy uses its own filtered word lists (the same
+              lists that power the German and Portuguese games on this site).
+              Matching follows the site-wide convention of stripping accents
+              (é → e), so ELEVE matches ÉLÈVE in the French ODS9.
+            </p>
+          </section>
 
           {/* ── FAQ section (visible — mirrors the JSON-LD) ── */}
           <section className="mt-10 pt-6 border-t border-white/10">
@@ -372,12 +479,16 @@ export default async function ScrabbleWordPage({ params }: PageProps) {
                   <FaqItem q={`Is ${data.display} a valid Scrabble word?`}>
                     No, {data.display} is not a valid Scrabble word in either the NWL2023 (Tournament
                     Word List) or CSW21 (Collins Scrabble Words) dictionary. It cannot be played in
-                    an official Scrabble game.
+                    an official English-language Scrabble game
+                    {data.validInOtherLanguages.length > 0
+                      ? ` — but it is a valid word in ${otherLangsFull(data)}`
+                      : ""}
+                    .
                   </FaqItem>
                   <FaqItem q={`Why is ${data.display} not a valid Scrabble word?`}>
-                    {data.display} does not appear in the official Scrabble dictionaries (NWL2023 for
-                    North America, CSW21 for international play). Scrabble only accepts words that
-                    are listed in these dictionaries. Common reasons a word is excluded: it&apos;s a
+                    {data.display} does not appear in the official English Scrabble dictionaries (NWL2023 for
+                    North America, CSW21 for international play). English-language Scrabble only accepts words
+                    that are listed in these dictionaries. Common reasons a word is excluded: it&apos;s a
                     proper noun (capitalized), an abbreviation, a prefix/suffix, or simply not
                     recognized as a standard English word.
                   </FaqItem>
@@ -388,6 +499,13 @@ export default async function ScrabbleWordPage({ params }: PageProps) {
                     and letter breakdown if it is valid.
                   </FaqItem>
                 </>
+              )}
+              {data.validInOtherLanguages.length > 0 && (
+                <FaqItem q={`Is ${data.display} a valid word in other languages?`}>
+                  {data.valid
+                    ? `Yes — besides English, ${data.display} is also a valid word in ${otherLangsFull(data)}.`
+                    : `Yes. ${data.display} is a valid word in ${otherLangsFull(data)}. It is not valid in English-language Scrabble (NWL2023 or CSW21), but it can be played in Scrabble games that use those languages' dictionaries.`}
+                </FaqItem>
               )}
             </div>
           </section>
@@ -456,5 +574,18 @@ function FaqItem({ q, children }: { q: string; children: React.ReactNode }) {
       <h3 className="text-sm font-semibold text-foreground">{q}</h3>
       <p className="text-sm text-muted-foreground leading-relaxed">{children}</p>
     </div>
+  );
+}
+
+/** One row of the cross-dictionary validity table. */
+function DictRow({ dict, region, valid }: { dict: string; region: string; valid: boolean }) {
+  return (
+    <tr className="border-b border-white/5 last:border-b-0">
+      <td className="px-3 py-2 text-foreground font-semibold">{dict}</td>
+      <td className="px-3 py-2 text-muted-foreground">{region}</td>
+      <td className={`px-3 py-2 font-semibold ${valid ? "text-brand" : "text-muted-foreground/60"}`}>
+        {valid ? "Yes" : "No"}
+      </td>
+    </tr>
   );
 }

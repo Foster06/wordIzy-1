@@ -11,7 +11,7 @@ import {
 export const metadata: Metadata = {
   title: "Scrabble Words — Is It Valid? Check Any Word (NWL2023 + CSW21)",
   description:
-    "Check whether any word is valid in Scrabble. Browse valid words by length with points and definitions.",
+    "Check whether any word is valid in Scrabble — English NWL2023 + CSW21, plus the French, Spanish, Italian, Dutch, German and Portuguese dictionaries.",
   alternates: { canonical: "https://wordizy.com/scrabble-words" },
   openGraph: {
     title: "Scrabble Words — Is It Valid? Check Any Word (NWL2023 + CSW21)",
@@ -64,6 +64,14 @@ export default async function ScrabbleWordsIndexPage() {
               /scrabble-words/zave
             </Link>{" "}
             (which is not valid — see why).
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+            Every word page also checks the official Scrabble dictionaries of
+            other languages — French (ODS9), Spanish (FISE), Italian
+            (Zingarelli) and Dutch (OpenTaal), plus wordIzy&apos;s German and
+            Portuguese word lists — so if a word is invalid in English, you
+            will see whether it is still playable in another language&apos;s
+            Scrabble game.
           </p>
 
           {/* Length sections */}
@@ -130,6 +138,15 @@ export default async function ScrabbleWordsIndexPage() {
               hyphenated forms, and words requiring capitalization or
               punctuation. If a word is valid in one dictionary but not the
               other, the per-word page notes which dictionary accepts it.
+            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-4">
+              Scrabble is played worldwide in many languages, and each language
+              uses its own official dictionary. That is why every word page
+              here also checks the French (ODS9), Spanish (FISE), Italian
+              (Zingarelli) and Dutch (OpenTaal) Scrabble dictionaries, plus
+              wordIzy&apos;s German and Portuguese word lists — a word that is
+              invalid in English may be perfectly playable in another
+              language&apos;s game.
             </p>
           </section>
 

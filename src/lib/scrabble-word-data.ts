@@ -8,7 +8,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import { normalizeWord, LANGUAGES } from "./languages";
+import { normalizeWord, LANGUAGES, type LanguageCode } from "./languages";
 
 export interface ScrabbleWordData {
   /** The query word, normalized (lowercase, no diacritics). */
@@ -33,6 +33,11 @@ export interface ScrabbleWordData {
   partOfSpeech: string | null;
   /** Plural / inflected forms from NWL2023 (e.g. "ABS" for AB). null if N/A. */
   inflections: string | null;
+  /** Validity in other languages' Scrabble dictionaries (French, Spanish,
+   *  Italian, Dutch official lists + German/Portuguese word lists). */
+  otherLanguages: OtherLanguageResult[];
+  /** Subset of otherLanguages where valid === true (empty if none). */
+  validInOtherLanguages: OtherLanguageResult[];
 }
 
 interface NWLEntry {
@@ -40,6 +45,72 @@ interface NWLEntry {
   definition: string;
   partOfSpeech: string;
   inflections: string;
+}
+
+// ── Other-language Scrabble dictionaries ──────────────────────────────
+// International Scrabble is played with language-specific official
+// dictionaries, which the site already ships in data/scrabble/ (they also
+// power the localized games): ODS9 (French), FISE (Spanish), Zingarelli
+// (Italian) and OpenTaal (Dutch) are the official Scrabble dictionaries for
+// their languages; German and Portuguese use wordIzy's filtered word lists
+// (no freely-licensed official Scrabble dictionary exists for them — the
+// same lists the German/Portuguese games use). Every /scrabble-words/[word]
+// page reports the word's validity in all of them, so a visitor checking a
+// word from their own language learns it is playable there even when it is
+// not a valid English Scrabble word.
+export interface OtherLanguageResult {
+  lang: LanguageCode;
+  /** English language name, e.g. "French". */
+  languageName: string;
+  /** Dictionary name, e.g. "ODS9" or "wordIzy word list". */
+  dictName: string;
+  /** True for an official Scrabble dictionary (vs. a general word list). */
+  official: boolean;
+  valid: boolean;
+}
+
+interface OtherDictDef {
+  lang: LanguageCode;
+  file: string;
+  languageName: string;
+  dictName: string;
+  official: boolean;
+}
+
+const OTHER_DICTS: OtherDictDef[] = [
+  { lang: "fr", file: "ODS9.txt", languageName: "French", dictName: "ODS9", official: true },
+  { lang: "es", file: "FISE.txt", languageName: "Spanish", dictName: "FISE", official: true },
+  { lang: "it", file: "ZINGA.txt", languageName: "Italian", dictName: "Zingarelli", official: true },
+  { lang: "nl", file: "OpenTaal.txt", languageName: "Dutch", dictName: "OpenTaal", official: true },
+  { lang: "de", file: "DE_FILTERED.txt", languageName: "German", dictName: "wordIzy word list", official: false },
+  { lang: "pt", file: "PT_FILTERED.txt", languageName: "Portuguese", dictName: "wordIzy word list", official: false },
+];
+
+const otherDictSets = new Map<string, Set<string>>();
+
+/** Lazily load (and cache) one of the other-language dictionary files.
+ *  Entries are normalized with the site-wide convention (lowercase,
+ *  diacritics stripped) and restricted to pure ASCII letters 2-15 — the
+ *  /scrabble-words/[word] URL space only accepts [a-z]{2,15}, so non-ASCII
+ *  forms can never be queried and are skipped to keep the Sets lean. */
+function getOtherDictSet(file: string): Set<string> {
+  const cached = otherDictSets.get(file);
+  if (cached) return cached;
+  const set = new Set<string>();
+  const filepath = path.join(DATA_DIR, file);
+  if (fs.existsSync(filepath)) {
+    const content = fs.readFileSync(filepath, "utf8");
+    for (const line of content.split("\n")) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
+      const norm = normalizeWord(trimmed.split(/\s/)[0]);
+      if (!norm || norm.length < 2 || norm.length > 15) continue;
+      if (!/^[a-z]+$/.test(norm)) continue;
+      set.add(norm);
+    }
+  }
+  otherDictSets.set(file, set);
+  return set;
 }
 
 // ── Module-level caches ────────────────────────────────────────────────
@@ -218,6 +289,14 @@ export function getScrabbleWordData(rawWord: string): ScrabbleWordData {
     }
   }
 
+  const otherLanguages: OtherLanguageResult[] = OTHER_DICTS.map((d) => ({
+    lang: d.lang,
+    languageName: d.languageName,
+    dictName: d.dictName,
+    official: d.official,
+    valid: getOtherDictSet(d.file).has(word),
+  }));
+
   return {
     word,
     display,
@@ -230,6 +309,8 @@ export function getScrabbleWordData(rawWord: string): ScrabbleWordData {
     definition,
     partOfSpeech,
     inflections,
+    otherLanguages,
+    validInOtherLanguages: otherLanguages.filter((r) => r.valid),
   };
 }
 
