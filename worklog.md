@@ -1960,3 +1960,41 @@ Same pattern confirmed for ES (AJ BU CA CE CU FI FO FU GE IR JE JI JU LE NI OA O
 - Dev log clean, no compile errors.
 
 **Remaining user action**: deploy to push live (the user did NOT say "don't push" for this task — only Task 45 was held back). After deploy, re-run PageSpeed Insights on the same URL; expected improvements: LCP should drop materially (preload + `font-display: optional` for non-critical fonts removes ~700-900ms of font-related LCP blocking on slow-4G; preconnect saves 100-300ms on each 3rd-party origin's first request). The non-composited-animations warning should disappear entirely (3 → 0). The heading-order a11y issue is resolved. Performance score should climb from 74 toward the green/yellow boundary; Accessibility should hit 99-100.
+
+## Task 47 — CRITICAL FIX: site-wide broken links after deploy (React 19 hydration error #418 from duplicated font preload links) (2026-11-12)
+
+**Trigger**: User: "there is a problem with the links in the website when I click on them after production nothing happens fix it". After the Task 46 deploy, every Next.js `<Link>` on the site stopped responding to clicks — navigation completely broken, the URL bar never changed, no SPA route transition fired. Pure anchor tags would still work via native browser navigation in some cases, but anything routed through Next.js `<Link>` was dead.
+
+**Diagnosis**: Used `agent-browser` (Playwright Chromium) to load `https://wordizy.com/` and capture page errors. Found:
+```
+✗ Error: Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message
+    at rX (https://wordizy.com/_next/static/chunks/0iec5q4ack_04.js:1:47214)
+    at rJ (https://wordizy.com/_next/static/chunks/0iec5q4ack_04.js:1:48582)
+    ...
+```
+
+React error #418 = "Hydration failed because the server rendered HTML didn't match the client." When hydration fails, React does NOT attach client-side event handlers — so `next/link`'s `onClick` interceptor (which calls `router.push()` and prevents the default anchor navigation) never gets bound. Clicks land on a `<a>` that React thinks is unmanaged, and depending on browser behavior the click is swallowed (no SPA nav, no full page nav either).
+
+**Root cause** — Task 46's `<link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin.woff2" crossOrigin="anonymous">` (and the same for `geist-latin.woff2`) in `src/app/layout.tsx`'s `<head>`. Inspecting the production server HTML revealed the same preload link rendered TWICE in `<head>` with **different attribute orders**:
+
+- Link at top of `<head>` (React 19 resource-hoisted): `<link rel="preload" href="/fonts/inter-latin.woff2" as="font" crossorigin="anonymous" type="font/woff2"/>` — attribute order: `rel, href, as, crossorigin, type`
+- Link at the JSX position (where I placed it): `<link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin.woff2" crossorigin="anonymous"/>` — attribute order: `rel, as, type, href, crossorigin`
+
+React 19 treats `<link rel="preload">` as a hoistable resource and lifts it to the top of `<head>` automatically — but when the element is ALSO rendered directly inside `<head>` in the JSX, React ends up emitting it twice with different attribute orders (hoisted copy + in-place copy). The deduplication that React applies for `<link rel="preconnect">` (keyed by `href` alone) does NOT kick in for `<link rel="preload">` (keyed by `href + as + crossOrigin + integrity` — and the different attribute order somehow defeats the key match). Result: server HTML has duplicate preload links; client hydration expects one; reconciliation fails → error #418.
+
+In dev mode the duplication does NOT occur (only one preload link, at the JSX position) — which is why this slipped past local testing and only surfaced after the production deploy.
+
+**Fix**: removed both `<link rel="preload" as="font">` elements from `src/app/layout.tsx` `<head>`. The four `<link rel="preconnect">` hints are KEPT — they are not duplicated by React 19 (verified in the post-fix production build: each preconnect appears exactly once). The font preload benefit (~700ms LCP saving on slow-4G throttling, per Task 46's PageSpeed analysis) is sacrificed to restore site-wide navigation. Fonts still load via the existing `@font-face` declarations in `globals.css` (with `font-display: swap` for Geist + Inter, `optional` for the four non-critical fonts), so there is no visual regression — just a small first-paint timing regression on slow connections.
+
+**Verification** (production build, `.next` wiped, `npm run build` + `npm run start`):
+- Production HTML at `http://localhost:3000/` (cookie `wordizy-lang=en` to avoid the §C2 redirect) — preload link count for fonts: **0** (was 4 — 2 duplicates per font × 2 fonts). Only Next.js's own image + script preloads remain, which are not affected by the React 19 hoist bug.
+- Preconnect link count: **4** (one per origin: googletagmanager, googlesyndication, ahrefs, umami) — unchanged from Task 46.
+- `agent-browser open http://localhost:3000/` → `agent-browser errors`: **empty** (no more React error #418). Was previously:
+  ```
+  ✗ Error: Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= ...
+  ```
+- `agent-browser click @e36` (Blitz nav link) → URL changed to `http://localhost:3000/blitz`, title changed to "Anagram Blitz — Free Online Word Unscramble Game (Play 60-Second Challenge) | wordIzy". ✓ SPA navigation works.
+- `agent-browser click @e156` (Play Now `.btn-amber-flow` button link) → URL changed to `http://localhost:3000/blitz`. ✓ The amber-gradient button link also navigates correctly (the Task 46 `::before` pseudo-element refactor is not affected — `pointer-events: none` on the pseudo-element lets clicks through to the parent `<a>`).
+- `agent-browser click @e231` (Dictionary nav link) → URL changed to `http://localhost:3000/dictionary`, title changed to "Scrabble Dictionary Checker — Is It a Valid Word? | wordIzy". ✓
+
+**Remaining user action**: deploy to push live. Edge HTML cache (`s-maxage=600` from Task 40) refreshes within ~10 minutes of deploy; visitors will get the fixed HTML on next page load. The hydration error will disappear site-wide and all `<Link>` clicks will work again. Recommend re-running the PageSpeed Insights URL from Task 46 after deploy — the LCP score will likely regress slightly (no font preload) but Performance should still be in the 70s, and the broken-links issue is vastly more important than a ~700ms LCP delta on slow-4G.

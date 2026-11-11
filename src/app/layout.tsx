@@ -241,38 +241,26 @@ export default function RootLayout({
       <head>
         {trustedTypesPolicy}
         {/*
-          Preload the two LCP-critical fonts. PageSpeed Insights flagged the
-          home page's LCP element as <p class="page-subtitle">Enter your
-          scrambled letters…</p> — that subtitle uses var(--font-inter) (Inter).
-          The body font is var(--font-geist-sans) (Geist) — every other text
-          node on the page uses it, so it's the highest-priority font.
-          Preloading them with `crossorigin` (required for font preload) moves
-          the fetch out of the CSS-parsed critical path and into the very first
-          network round-trip, eliminating ~700-900ms of LCP-blocking font
-          fetch under slow-4G throttling (per Lighthouse's network dependency
-          tree, fonts were 765-913ms on the critical path).
-        */}
-        <link
-          rel="preload"
-          as="font"
-          type="font/woff2"
-          href="/fonts/inter-latin.woff2"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          as="font"
-          type="font/woff2"
-          href="/fonts/geist-latin.woff2"
-          crossOrigin="anonymous"
-        />
-        {/*
-          Preconnect to the four third-party origins the page actually fetches
-          from during initial load (AdSense + GA4 + Ahrefs + Umami — all
-          unconditionally loaded from <head> below). Lighthouse flagged "No
-          origins were preconnected"; preconnect saves the DNS+TLS round-trip
-          (typically 100-300ms each) on the first request to each origin.
-          Limited to 4 — Lighthouse warns about >4 preconnects.
+          Preconnect hints for the four third-party origins the page fetches
+          from during initial load (AdSense + GA4 + Ahrefs + Umami). Lighthouse
+          flagged "No origins were preconnected"; preconnect saves the
+          DNS+TLS round-trip (typically 100-300ms each) on the first request
+          to each origin. Capped at 4 per Lighthouse guidance (warns >4).
+
+          NOTE: `<link rel="preload" as="font">` for the LCP-critical Inter +
+          Geist web fonts was previously added here (Task 46), but React 19's
+          resource hoisting DUPLICATED them in production: once hoisted to the
+          top of <head> (attribute order `rel, href, as, crossorigin, type`)
+          AND once at this JSX position (attribute order `rel, as, type, href,
+          crossorigin`). The two copies have different attribute orders, which
+          broke React reconciliation during hydration → React error #418 →
+          React did not attach event handlers → Next.js <Link> clicks did
+          nothing site-wide. Preconnect links are NOT duplicated (React 19
+          deduplicates them by href), so they remain. The font preload benefit
+          (~700ms LCP saving on slow-4G) is sacrificed to keep site navigation
+          working; fonts still load via the CSS @font-face declarations in
+          globals.css (with font-display: swap for Geist/Inter, optional for
+          the four non-critical fonts).
         */}
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
