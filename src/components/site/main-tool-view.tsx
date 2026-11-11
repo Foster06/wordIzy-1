@@ -162,10 +162,10 @@ export function MainToolView({ params, initialWordListData, topWordData }: MainT
                     <Zap className="h-6 w-6 text-brand" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
+                    <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
                       Play Anagram Blitz
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 uppercase tracking-wider">Free Game</span>
-                    </h3>
+                    </h2>
                     <p className="text-sm text-muted-foreground mt-1">
                       Race against the clock — unscramble as many words as you can in 60 seconds. Daily challenges + infinite practice. No sign-up needed.
                     </p>

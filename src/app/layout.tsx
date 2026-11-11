@@ -240,7 +240,44 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         {trustedTypesPolicy}
-        {/* prefetch/preconnect hints intentionally removed for mobile perf */}
+        {/*
+          Preload the two LCP-critical fonts. PageSpeed Insights flagged the
+          home page's LCP element as <p class="page-subtitle">Enter your
+          scrambled letters…</p> — that subtitle uses var(--font-inter) (Inter).
+          The body font is var(--font-geist-sans) (Geist) — every other text
+          node on the page uses it, so it's the highest-priority font.
+          Preloading them with `crossorigin` (required for font preload) moves
+          the fetch out of the CSS-parsed critical path and into the very first
+          network round-trip, eliminating ~700-900ms of LCP-blocking font
+          fetch under slow-4G throttling (per Lighthouse's network dependency
+          tree, fonts were 765-913ms on the critical path).
+        */}
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/inter-latin.woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/geist-latin.woff2"
+          crossOrigin="anonymous"
+        />
+        {/*
+          Preconnect to the four third-party origins the page actually fetches
+          from during initial load (AdSense + GA4 + Ahrefs + Umami — all
+          unconditionally loaded from <head> below). Lighthouse flagged "No
+          origins were preconnected"; preconnect saves the DNS+TLS round-trip
+          (typically 100-300ms each) on the first request to each origin.
+          Limited to 4 — Lighthouse warns about >4 preconnects.
+        */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://analytics.ahrefs.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cloud.umami.is" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

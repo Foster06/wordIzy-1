@@ -1923,3 +1923,40 @@ Same pattern confirmed for ES (AJ BU CA CE CU FI FO FU GE IR JE JI JU LE NI OA O
 - Dev log clean, no compile errors.
 
 **Remaining user action**: none — code change is local, NOT pushed to GitHub per user instruction ("do not push it to GitHub yet"). When ready to deploy: commit middleware.ts + scrabble-words-i18n.ts + both localized page.tsx files, push, then redeploy. Edge cache (`s-maxage=600` from Task 40) refreshes within ~10 minutes of deploy.
+
+## Task 46 — PageSpeed Insights fixes: LCP-blocking fonts, missing preconnect, non-composited animations, heading order (2026-11-12)
+
+**Trigger**: User shared a PageSpeed Insights report for https://wordizy.com (Lighthouse run, form_factor=desktop URL but the Lighthouse config in the report shows Moto G Power mobile emulation with 412×823 viewport + slow-4G throttling). Scores: Performance **74**, Accessibility **98**, Best Practices **92**, SEO **100**. Top metrics: FCP 0.9s (good), **LCP 8.0s (poor)**, TBT 130ms (good), CLS 0.002 (excellent), SI 3.2s (needs work). LCP element is `<p class="page-subtitle">Enter your scrambled letters, add wildcards with ? or *, and find every playabl…</p>` — uses `var(--font-inter)` (Inter). LCP breakdown shows "Element render delay: 1,350 ms" and the network dependency tree has fonts loading at 765–913ms on the critical path.
+
+**Diagnoses + fixes**:
+
+1. **Six web fonts all loaded with `font-display: swap` on the critical path** (`src/app/globals.css`). Total font transfer ~189 KiB on first paint, all serializing behind the render-blocking CSS chunk (1na19t9nu34n1.css, 25 KiB / 190ms). The four non-LCP-critical fonts (Geist Mono, Lora, Bree Serif, Roboto Slab) were aggressively fetch-prioritized by the browser even though none of them render above the fold on the home page.
+   - **Fix**: changed `font-display: swap` → `font-display: optional` for Geist Mono, Lora, Bree Serif, Roboto Slab. With `optional`, the browser SKIPS the network fetch entirely on first view if the font isn't already cached, then loads it on a subsequent navigation when it can be used without delaying paint. Only Geist (body font) and Inter (the LCP element's font) keep `swap`. Saves ~110 KiB of LCP-blocking bandwidth on first view.
+
+2. **No preload for the LCP-critical fonts** (`src/app/layout.tsx`). Inter (the LCP element's font) was discovered only after the browser parsed the render-blocking CSS chunk — adding ~700ms of unnecessary fetch delay under slow-4G.
+   - **Fix**: added `<link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin.woff2" crossorigin="anonymous">` and same for `geist-latin.woff2` to `<head>`. `crossorigin` is required for font preload (CORS-anonymous request). Moves the fetch out of the CSS-parsed critical path and into the first network round-trip.
+
+3. **No preconnect hints for the four third-party origins** that `<head>` unconditionally fetches from (AdSense, GA4/gtag, Ahrefs, Umami). Each was paying the full DNS+TCP+TLS round-trip (typically 100–300ms each) on the first request. Lighthouse flagged "No origins were preconnected".
+   - **Fix**: added four `<link rel="preconnect" crossorigin="anonymous">` hints — `https://www.googletagmanager.com`, `https://pagead2.googlesyndication.com`, `https://analytics.ahrefs.com`, `https://cloud.umami.is`. Capped at 4 per Lighthouse guidance (warns >4).
+
+4. **Non-composited `gradient-slide` animation on `.btn-amber-flow`** (`src/app/globals.css`). The keyframes animated `background-position: 0% 50% → 100% 50%`, which the browser compositor cannot offload to the GPU — Lighthouse flagged 3 affected buttons (Play Now on `/blitz`, Unscramble on the home page, Accept on the cookie banner). Even though CLS is already 0.002 (excellent), the warning still appears in the report.
+   - **Fix**: restructured `.btn-amber-flow` to use a `::before` pseudo-element 300% wide with the gradient painted on it, animated via `transform: translateX(0 → -66.6667%)` (GPU-composited). The button itself now has `position: relative; background-image: none; background-color: #d97706` (solid fallback matching the gradient mid-stop), `overflow: hidden` to clip the pseudo-element, and `isolation: isolate` to scope the pseudo-element's `z-index: -1` to the button (doesn't leak behind adjacent elements). `will-change: transform` hints to the compositor. Same visual effect — gradient sweeps left-to-right over 6s, loops seamlessly — but now runs on the compositor thread with zero main-thread cost. The `prefers-reduced-motion: reduce` block now disables the `::before` animation instead of the button's.
+
+5. **Accessibility — heading order** (`src/components/site/main-tool-view.tsx` line 165). The "Play Anagram Blitz Free Game" promo card used `<h3>` directly after the page's `<h1>`, skipping `<h2>`. Lighthouse flagged "Heading elements are not in a sequentially-descending order".
+   - **Fix**: changed `<h3>` → `<h2>`. The heading sequence on the home page is now `h1 → h2 (Play Anagram Blitz) → h2 (Your Letters) → h2 (Scrabble Tile Values) → h2 (Results) → h2 (How to use & FAQ) → h2 (Save Vault) → h3 (Featured Guide) → h4 (guide titles)`. No skips.
+
+**Items NOT fixed (intentionally)**:
+- **Render-blocking CSS chunk (25 KiB / 190ms)** — Next.js emits a single global CSS chunk; splitting it would require Critical CSS extraction or per-route CSS modules, which is a much larger refactor and out of scope for this task.
+- **Legacy JavaScript polyfills (14 KiB in `0iec5q4ack_04.js`)** — `.browserslistrc` already targets Chrome 100+ / Firefox 100+ / Edge 100+ / Safari 15+ / iOS 15+ (Baseline/Widely Available features). The production deployment Lighthouse tested was built BEFORE the browserslist config was added; a fresh prod build should pick it up automatically (SWC reads `.browserslistrc` when no `compiler.swc.target` override is set in `next.config.ts`). Will verify after the next deploy.
+- **Third-party JS bytes (AdSense + GTM ≈ 405 KiB)** — these are 3rd-party scripts loaded unconditionally from `<head>`; can't shrink them. Preconnect (done above) is the realistic mitigation. Deferring AdSense/gtag to after FCP would help TBT but breaks GDPR "prior consent" semantics for EU visitors (the existing `<AnalyticsScripts />` component already consent-gates AdSense for EU; the unconditional `<head>` script is the global default for non-EU visitors).
+- **Long main-thread tasks (7 found, mostly 3rd-party)** — same root cause as above.
+- **Best Practices 92 (lost 8 points)** — the truncated Lighthouse output doesn't show the specific reason; likely a missing meta or a console error. Will diagnose after the next deploy with a fresh report.
+
+**Verification** (dev server, `.next/cache` cleared):
+- Home page HTML (`cookie=en` to avoid the §C2 redirect to `/fr/`) contains all 4 preconnect `<link>` tags and both font preload `<link>` tags.
+- Compiled CSS chunk (`/_next/static/css/app/layout.css`) shows: 4 `font-display: optional` rules (Geist Mono / Lora / Bree Serif / Roboto Slab) + 2 `font-display: swap` rules (Geist + Inter, the LCP-critical pair).
+- `.btn-amber-flow::before` block in the compiled CSS uses `transform: translateX(0 → -66.6667%)` keyframes (composited); the old `background-position` keyframes are gone.
+- Home page heading sequence verified: `h1 → h2 (×6) → h3 → h4`. No skips.
+- Dev log clean, no compile errors.
+
+**Remaining user action**: deploy to push live (the user did NOT say "don't push" for this task — only Task 45 was held back). After deploy, re-run PageSpeed Insights on the same URL; expected improvements: LCP should drop materially (preload + `font-display: optional` for non-critical fonts removes ~700-900ms of font-related LCP blocking on slow-4G; preconnect saves 100-300ms on each 3rd-party origin's first request). The non-composited-animations warning should disappear entirely (3 → 0). The heading-order a11y issue is resolved. Performance score should climb from 74 toward the green/yellow boundary; Accessibility should hit 99-100.

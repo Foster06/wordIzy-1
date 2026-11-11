@@ -429,10 +429,30 @@ input[type="number"] {
 @layer components {
   /* Amber-only animated gradient — a "light wave" sweeping across the button.
      All stops come from the brand amber family (#f5a623 / #e8960f / #d97706),
-     mirroring .text-gradient-brand. First and last stops repeat #f5a623 and
-     the background is 300% wide, so sliding background-position 0% -> 100%
-     loops seamlessly without a visible jump. */
+     mirroring .text-gradient-brand. First and last stops repeat #f5a623.
+
+     PERFORMANCE: the gradient is painted on a ::before pseudo-element 300%
+     wide and animated via `transform: translateX()` (GPU-composited) instead
+     of `background-position-x` (which the compositor can't composite —
+     Lighthouse flagged this as a "non-composited animation" on the Play Now,
+     Unscramble and Accept buttons). `isolation: isolate` creates a new
+     stacking context on the button so the pseudo-element's z-index stays
+     scoped to the button (doesn't leak behind adjacent elements). */
   .btn-amber-flow {
+    position: relative;
+    background-image: none;
+    background-color: #d97706; /* solid fallback matching the gradient mid-stop */
+    overflow: hidden;
+    isolation: isolate;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  }
+  .btn-amber-flow::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 300%;
     background-image: linear-gradient(
       90deg,
       #f5a623 0%,
@@ -441,16 +461,21 @@ input[type="number"] {
       #e8960f 70%,
       #f5a623 100%
     );
-    background-size: 300% 100%;
     animation: gradient-slide 6s linear infinite;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    z-index: -1;
+    will-change: transform;
   }
+  /* Translate the 300%-wide pseudo-element left by 200% of the button width
+     (= 66.6667% of the pseudo-element's own width) so the rightmost 100%
+     of the gradient ends up in the visible area — same visual effect as the
+     old `background-position: 0% → 100%` animation, but composited. */
   @keyframes gradient-slide {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-66.6667%); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .btn-amber-flow {
+    .btn-amber-flow::before {
       animation: none;
     }
   }
@@ -472,22 +497,31 @@ input[type="number"] {
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* Geist Mono (monospace) — variable font, weights 400-700, latin subset */
+/* Geist Mono (monospace) — variable font, weights 400-700, latin subset.
+   font-display: optional — mono text is never on the LCP path, so let the
+   browser skip the fetch on first view if it isn't cached yet (saves
+   ~24 KiB of LCP-blocking bandwidth under slow-4G). */
 @font-face {
   font-family: 'Geist Mono';
   font-style: normal;
   font-weight: 400 700;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/geist-mono-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* Lora (serif) — weights 600-700, latin subset */
+/* Lora (serif) — weights 600-700, latin subset.
+   font-display: optional — Lora is only referenced via var(--font-serif)
+   in .font-serif-style headings, none of which appear above the fold on
+   the home page. With `optional`, the browser skips the fetch on first
+   view (saving ~39 KiB of LCP-blocking bandwidth) and only loads Lora on
+   a subsequent navigation when the font can be used without delaying
+   paint. */
 @font-face {
   font-family: 'Lora';
   font-style: normal;
   font-weight: 600 700;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/lora-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -502,22 +536,32 @@ input[type="number"] {
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* Bree Serif — weight 400, latin subset */
+/* Bree Serif — weight 400, latin subset.
+   font-display: optional — Bree Serif drives .page-title (the big H1 on
+   tool pages) via var(--font-bree-serif), but the home-page LCP element is
+   <p class="page-subtitle"> which uses Inter, not Bree. So Bree Serif can
+   be deferred — saves ~12 KiB of LCP-blocking bandwidth on first view.
+   The page-title H1 still renders with the Georgia fallback on first
+   paint, then Bree Serif swaps in on the next navigation when cached. */
 @font-face {
   font-family: 'Bree Serif';
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/bree-serif-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* Roboto Slab — variable font, weights 600-800, latin subset */
+/* Roboto Slab — variable font, weights 600-800, latin subset.
+   font-display: optional — Roboto Slab is only used in site chrome (header
+   logo, footer logo, drawer headings, tips-section H2s). The text appears
+   fine in the system serif fallback on first view, and Roboto Slab loads
+   on subsequent navigations. Saves ~35 KiB of LCP-blocking bandwidth. */
 @font-face {
   font-family: 'Roboto Slab';
   font-style: normal;
   font-weight: 600 800;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/roboto-slab-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
