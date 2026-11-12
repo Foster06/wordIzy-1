@@ -13,15 +13,22 @@
 //                           ja/zh scrabble-words — no Scrabble dictionary)
 //
 // LANGUAGE PREFERENCE (first visit, no wordizy-lang cookie)
-//   1. Accept-Language header (the user's own browser setting — most reliable
-//      and privacy-friendly signal; wins when it matches an offered language)
-//   2. Edge geo header x-vercel-ip-country (country → primary offered language)
-//   3. otherwise English (e.g. Danish/Norwegian visitors — da/no not offered)
+//   Accept-Language header ONLY — the user's own browser preference. We do NOT
+//   use the Vercel edge geo header (x-vercel-ip-country) and we do NOT redirect
+//   based on the visitor's IP/location. Google explicitly warns against IP-based
+//   redirects because Googlebot crawls from US IPs and would be trapped on the
+//   English version; Accept-Language is the privacy-friendly, Google-approved
+//   alternative (every localized URL stays separately crawlable in sitemap.xml,
+//   and hreflang clusters connect them).
+//   - Accept-Language matches an offered language → 307 to /{lang}/…
+//   - Accept-Language is English (or absent, or an un-offered language like
+//     da/no/sv/pl/ru) → stay on the English canonical. Googlebot (US IP,
+//     Accept-Language: en) always lands here.
 //   An explicit earlier choice (wordizy-lang cookie, incl. "en") always wins.
 //   Applies to / and the 19 localized tool pages, as a temporary 307 redirect
-//   so it never poisons caches and crawlers (US + en) still see English URLs.
-//   The scrabble-words section ALSO honors a cookie in one of its 6 dictionary
-//   languages (a variant exists, so the user's chosen language wins there too).
+//   so it never poisons caches. The scrabble-words section ALSO honors a cookie
+//   in one of its 6 dictionary languages (a variant exists, so the user's
+//   chosen language wins there too).
 //
 // PRIVACY: detection happens per-request in edge memory only. Nothing is
 // logged or stored by us. See the "Language and Region Detection" section of
@@ -52,35 +59,16 @@ const SCRABBLE_WORD_RE = /^[a-z]{2,15}$/;
 const I18N_PREFIX = "/i18n";
 
 /**
- * Country (ISO 3166-1 alpha-2, provided by the Vercel edge geo header) →
- * preferred site language, ONLY for countries whose primary language is one
- * we offer. Countries whose language is not offered (da/dk, no/no, sv/se,
- * pl, ru, …) are deliberately absent → English.
+ * Negotiate the preferred language for a first-time visitor. null → English.
+ *
+ * Uses ONLY the Accept-Language header (the user's own browser setting). We
+ * deliberately do NOT consult x-vercel-ip-country or any other IP/geo signal —
+ * Google warns that IP-based redirects trap Googlebot (US IPs) on the English
+ * version. Accept-Language is the Google-approved signal because it reflects
+ * the user's explicit browser preference, not their location, and Googlebot
+ * sends Accept-Language: en so it always sees the English canonical.
  */
-const COUNTRY_LANG: Record<string, string> = {
-  // German
-  DE: "de", AT: "de", CH: "de", LI: "de",
-  // French
-  FR: "fr", MC: "fr", BL: "fr", MF: "fr",
-  // Spanish (primary-language markets)
-  ES: "es", MX: "es", AR: "es", CO: "es", CL: "es", PE: "es", EC: "es",
-  GT: "es", HN: "es", SV: "es", NI: "es", CR: "es", PA: "es", VE: "es",
-  BO: "es", PY: "es", UY: "es", DO: "es", CU: "es", PR: "es",
-  // Italian
-  IT: "it", SM: "it",
-  // Portuguese
-  BR: "pt", PT: "pt", AO: "pt", MZ: "pt", CV: "pt", GW: "pt", ST: "pt", TL: "pt",
-  // Dutch (Flanders majority makes BE Dutch-primary for our purposes)
-  NL: "nl", BE: "nl", SR: "nl",
-  // Japanese
-  JP: "ja",
-  // Simplified Chinese
-  CN: "zh",
-};
-
-/** Negotiate the preferred language for a first-time visitor. null → English. */
 function negotiateLanguage(req: NextRequest): string | null {
-  // 1. Accept-Language — the user's own browser preference.
   const accept = req.headers.get("accept-language") || "";
   for (const part of accept.split(",")) {
     const tag = part.split(";")[0]?.trim().toLowerCase() ?? "";
@@ -89,10 +77,8 @@ function negotiateLanguage(req: NextRequest): string | null {
     if (base === "en") return null; // user prefers English — respect it
     if ((I18N_LANGS as readonly string[]).includes(base)) return base;
   }
-  // 2. Edge geo country (in-memory only, never stored).
-  const country = req.headers.get("x-vercel-ip-country");
-  if (country && COUNTRY_LANG[country]) return COUNTRY_LANG[country];
-  // 3. English fallback.
+  // English fallback — covers Googlebot, un-offered languages (da/no/sv/pl/…),
+  // and visitors who send no Accept-Language at all.
   return null;
 }
 

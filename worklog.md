@@ -2101,3 +2101,30 @@ Post-deploy re-ping for the four content commits that went live since the last p
 - Housekeeping: removed an accidental local-only commit (UUID message, stray tool-results artifact) via `git reset HEAD~1` — file stays on disk untracked, never pushed.
 
 **Remaining user action**: finish verifying the new key in Bing Webmaster Tools (Configure IndexNow) so future pings can go through the site's own `/api/indexnow` route instead of the old-key fallback.
+
+## Task 52 (2026-11-13) — International SEO: per-language `<html lang>` + remove IP-geo redirect
+
+Audited the site against the 5 international-SEO requirements (separate URLs, hreflang, dynamic `<html lang>`, sitemap, no IP redirects). Result: 1, 2, 4 already done; 3 and 5 needed fixes.
+
+### Requirement #3 — dynamic `<html lang>` (was hardcoded `lang="en"` on every page)
+
+Root cause: a single shared root layout (`app/layout.tsx`) rendered `<html lang="en">` for all 2,803 pages including the 160 localized ones. Using `headers()` in the root layout to read the lang at request time would have forced ALL 2,800+ pages (incl. the ~1,500 scrabble-words/[word] ISR pages) into dynamic rendering — unacceptable. The Next.js-correct fix is two root layouts via route groups, so `params.lang` (known at build time from generateStaticParams) flows into `<html lang>` and every page stays statically prerendered.
+
+Restructure:
+- New `src/components/site/site-html.tsx` — shared server component rendering the full `<html lang={lang}>…<head>…</head><body>…</body></html>` shell (analytics loaders, JSON-LD with `inLanguage: lang`, providers, preconnects — all defined once). Both root layouts are thin wrappers around it.
+- `src/app/(main)/layout.tsx` — English-canonical root layout (`<SiteHtml lang="en">`); keeps the sitewide English metadata defaults (title template, OG locale en_US, icons, robots).
+- `src/app/i18n/[lang]/layout.tsx` — localized root layout (`<SiteHtml lang={params.lang}>`); structural metadata only (metadataBase, icons, robots, title template) — per-page title/description/hreflang/OG locale come from each page's generateMetadata as before.
+- Moved English HTML routes under the `(main)` route group (URLs unchanged): `[[...tool]]/{page,layout,loading}.tsx`, `scrabble-words/{page,[word]/page}.tsx`, `guides/[slug]/page.tsx`, `not-found.tsx`. `git mv` preserved history.
+- Deleted the old single `src/app/layout.tsx`. API routes, `sitemap.ts`, `ai-catalog.json/route.ts`, `actions/`, `globals.css` stay at top level (route handlers don't need a layout).
+
+Verification (fresh production build + standalone server):
+- `<html lang>` per route: `/` and `/wordle` → `en`; `/fr`, `/fr/wordle` → `fr`; `/de/quordle` → `de`; `/nl/wordfeud` → `nl`; `/ja/random` → `ja`; `/zh` → `zh`. ✓
+- hreflang cluster on `/fr/wordle` intact: all 10 entries (en, x-default, de, fr, es, it, pt, nl, ja, zh), reciprocal. ✓ (Next.js serializes the attribute as `hrefLang` — HTML case-insensitive, pre-existing, not a regression.)
+- Build: exit 0, 2,003 prerendered HTML files (no regression vs prior ~2,000). The 160 i18n pages + 6 localized scrabble-words indexes + 220 localized word pages all prerendered as SSG; English catch-all ~141 paths; scrabble-words/[word] ISR intact.
+- `verify-i18n-seo.py`: 0 issues across 160 entries.
+
+### Requirement #5 — remove IP-based redirect
+
+`src/middleware.ts` `negotiateLanguage()` previously fell back to the Vercel edge geo header (`x-vercel-ip-country`) when Accept-Language didn't match — exactly the IP redirect Google warns against (Googlebot crawls from US IPs). Removed the `COUNTRY_LANG` map and the geo fallback; negotiation now uses Accept-Language ONLY. Googlebot (Accept-Language: en) always lands on the English canonical; a French browser (Accept-Language: fr, no cookie) still gets a 307 to `/fr` — that's the user's own browser preference, not their location. Every localized URL remains separately crawlable in sitemap.xml and connected via hreflang, so search routing is handled by hreflang + clickable nav links as Google recommends.
+
+Verification: `curl -H "Accept-Language: en-US" /` → HTTP 200 (no redirect); `curl -H "Accept-Language: fr-FR" /` (no cookie) → HTTP 307 → `/fr`. ✓
