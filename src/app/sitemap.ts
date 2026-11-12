@@ -73,10 +73,9 @@ const GUIDES = [
 ];
 
 // 5. Fixed last-modified timestamp so crawlers can diff changes between deploys.
-//    Bumped to 2026-11-13 to reflect the language-aware internal linking rollout
-//    (all nav/footer/CTA links keep the /{lang} prefix on localized pages) and
-//    the localized Quordle SEO content package (en + de/fr/es/it/nl/pt: per-
-//    language meta, H1, intro, starter-word pairs and strategy tips).
+//    Bumped to 2026-11-13 to reflect the language-aware internal linking rollout,
+//    the localized Quordle SEO content package and the localized Random Word
+//    Generator package (game/classroom/writing use-cases + game-mode presets).
 const LAST_MODIFIED = new Date("2026-11-13T00:00:00Z");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

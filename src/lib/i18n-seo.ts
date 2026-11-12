@@ -137,9 +137,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Scrabble-Wortfinder. Gib Rack und Buchstaben ein und finde die punktestärksten Wörter. Platzhalter, 9 Sprachen, gratis.",
     },
     random: {
-      title: "Zufallswort-Generator mit Filtern",
+      title: "Zufallswort Generator — Montagsmaler & Spiele",
       description:
-        "Kostenloser Zufallswort-Generator. Erzeuge echte Scrabble-Wörter gefiltert nach Länge, Präfix und Suffix. Für Spiele.",
+        "Erstelle zufällige Wörter für Montagsmaler, Pantomime, Galgenmännchen und Schreibübungen. Filtere nach Wortlänge und Anfangsbuchstaben.",
     },
     wordfeud: {
       title: "Wordfeud Helfer — Wörter finden & Wörterbuch",
@@ -240,9 +240,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Trouveur de mots Scrabble. Entrez vos lettres et le plateau pour trouver les mots qui rapportent le plus. Jokers, 9 langues.",
     },
     random: {
-      title: "Générateur de mots aléatoires avec filtres",
+      title: "Générateur de Mots Aléatoires — Pictionary & Jeux",
       description:
-        "Générateur de mots aléatoires gratuit. Créez de vrais mots Scrabble filtrés par longueur, préfixe et suffixe.",
+        "Générez des mots aléatoires pour le Pictionary, les mimes, le Pendu ou l'écriture créative. Filtrez par longueur et lettre de départ (ODS9).",
     },
     wordfeud: {
       title: "Aide Wordfeud & Solveur de Mots — ODS9",
@@ -343,9 +343,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Buscador de palabras Scrabble. Introduce tus fichas y letras del tablero para hallar las palabras de mayor puntuación.",
     },
     random: {
-      title: "Generador de palabras aleatorias",
+      title: "Generador de Palabras Aleatorias para Juegos",
       description:
-        "Generador de palabras aleatorias gratis. Crea palabras reales de Scrabble filtradas por longitud, prefijo y sufijo.",
+        "Genera palabras aleatorias al instante para Pictionary, Charadas, El Ahorcado y escritura creativa. Filtra por longitud, letra inicial y 9 idiomas.",
     },
     wordfeud: {
       title: "Buscador de Palabras Wordfeud — FISE",
@@ -446,9 +446,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Cercaparole per lo Scarabeo. Inserisci le tue lettere e quelle in tavola per trovare le parole che valgono più punti.",
     },
     random: {
-      title: "Generatore di parole casuali",
+      title: "Generatore di Parole Casuali — Pictionary e Giochi",
       description:
-        "Generatore di parole casuali gratuito. Crea parole reali da Scarabeo filtrate per lunghezza, prefisso e suffisso.",
+        "Genera parole casuali per Pictionary, Mimo, L'Impiccato e scrittura creativa. Filtra per lunghezza, lettera iniziale e 9 lingue (Zingarelli).",
     },
     wordfeud: {
       title: "Aiutante Wordfeud & Trova Parole — Zingarelli",
@@ -549,9 +549,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Buscador de palavras de Scrabble. Digite suas letras e as do tabuleiro para achar as palavras de maior pontuação. Grátis.",
     },
     random: {
-      title: "Gerador de palavras aleatórias",
+      title: "Gerador de Palavras Aleatórias — Mímica e Forca",
       description:
-        "Gerador de palavras aleatórias grátis. Crie palavras reais de Scrabble filtradas por tamanho, prefixo e sufixo.",
+        "Gere palavras aleatórias na hora para Imagem & Ação, Mímica, Forca e escrita criativa. Filtre por tamanho da palavra e letra inicial em 9 idiomas.",
     },
     wordfeud: {
       title: "Ajudante Wordfeud & Formar Palavras",
@@ -652,9 +652,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Scrabble-woordzoeker. Voer je letters en bordletters in en vind de woorden met de hoogste score. Jokers, gratis.",
     },
     random: {
-      title: "Willekeurige woordgenerator met filters",
+      title: "Willekeurig Woord Generator — Pictionary & Galgje",
       description:
-        "Gratis willekeurige woordgenerator. Genereer echte Scrabble-woorden gefilterd op lengte, voor- en achtervoegsel.",
+        "Genereer direct willekeurige Nederlandse woorden voor Pictionary, Hints, Galgje en Lingo-oefeningen. Filter op woordlengte en beginletter (OpenTaal).",
     },
     wordfeud: {
       title: "Wordfeud Woorden Maker & Helper — OpenTaal",

@@ -50,8 +50,8 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["scrabble solver","scrabble helper","scrabble word finder","scrabble cheat","scrabble word maker","scrabble anagram solver","scrabble score calculator","words with friends solver","scrabble word generator","scrabble dictionary finder","scrabble rack solver","scrabble word checker","scrabble best word finder","scrabble cheat sheet","scrabble letter unscrambler","scrabble word builder","scrabble high score words","scrabble tile solver","scrabble board solver"]
   },
   "random": {
-    title: "Random Word Generator — Filter by Length & Letters",
-    description: "Free random word generator. Generate random real Scrabble words filtered by length, prefix, suffix & contains. For games & writing.",
+    title: "Random Word Generator for Games & Pictionary",
+    description: "Generate instant random words for Pictionary, Charades, Hangman, and creative writing prompts. Filter by word length, starting letter, and 9 languages.",
     keywords: ["random word generator","word generator","random words","word list generator","word picker","random word picker","random word","generate random word","random english word generator","word randomizer","random word tool","random vocabulary word generator","random noun generator","random word maker","random word list","random word selector","generate words","random scrabble word generator","random word generator for games"]
   },
   "wordfeud": {

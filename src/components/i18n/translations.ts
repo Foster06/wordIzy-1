@@ -40,7 +40,16 @@ export type Translation = {
   tips?: { title: string; items: string[] };
  };
  anagram: { title: string; subtitle: string; btn: string; hint: string };
- random: { title: string; subtitle: string; length: string; any: string; count: string; btn: string };
+ random: {
+  title: string; subtitle: string; length: string; any: string; count: string; btn: string;
+  // Optional localized SEO content (present for en + the 6 European languages with
+  // a dedicated Random Generator copy package). `hint` is the short empty-state
+  // line (falls back to subtitle); `useCases` is the game/classroom/writing guide;
+  // `presets` are the quick game-mode buttons above the generator.
+  hint?: string;
+  useCases?: { title: string; items: string[] };
+  presets?: { pictionary: string; wordle: string; hangman: string };
+ };
  wordfeud: { title: string; subtitle: string; btn: string; hint: string; tips: { title: string; items: string[] } };
  dictionary: { title: string; subtitle: string; btn: string; exists: string; notExists: string; definition: string; score: string; tiles: string };
  scrabble: { title: string; subtitle: string; rack: string; board: string; btn: string; hint: string };
@@ -277,8 +286,20 @@ const en: Translation = {
   btn: "Find anagrams", hint: "Wildcards (? *) fill the remaining letters.",
  },
  random: {
-  title: "Random Word Generator", subtitle: "Generate random real words with optional length, prefix, suffix and contains filters.",
+  title: "Random Word Generator for Games, Pictionary & Writing",
+  subtitle: "Need instant word ideas for game night, classroom drills, or creative writing? Our free Random Word Generator pulls from verified dictionaries across 9 languages. Filter results by exact word length, starting letter, or ending letter to customize words for Pictionary, Charades, Hangman, or Wordle practice—with zero sign-ups required.",
   length: "Length", any: "Any", count: "How many", btn: "Generate",
+  hint: "Generate random real words with optional length, prefix, suffix and contains filters.",
+  useCases: {
+   title: "Popular Ways to Use This Generator",
+   items: [
+    "Party & Family Game Nights: Lost your physical game cards? Use the generator on your phone to draw fair, random words for Pictionary, Charades, Catchphrase, or Taboo. Set the length between 4 and 8 letters for fast-paced drawing and acting rounds.",
+    "Hangman & Spelling Bees: Challenge friends or students by setting the word length to 7–10 letters, or filter for tricky starting letters like J, Q, X, and Z.",
+    "Wordle & Anagram Practice: Lock the word length to 5 letters to generate unlimited practice words without waiting for the daily puzzle reset.",
+    "Creative Writing & Songwriting Sprints: Generate 3 to 5 random words at once and challenge yourself to include every single word in one paragraph or freestyle verse to break writer's block.",
+   ],
+  },
+  presets: { pictionary: "Pictionary Mode", wordle: "5-Letter Wordle", hangman: "Hangman Hard" },
  },
  wordfeud: {
   title: "Wordfeud Helper", subtitle: "Find the best Wordfeud words from your rack. Wordfeud uses the same multilingual dictionaries — pick yours and solve.",
@@ -480,10 +501,9 @@ const en: Translation = {
    { q: "What are anagrams useful for?", a: "Anagrams are used in word games, puzzles, cryptography, and linguistics. In Scrabble, finding anagrams of your rack helps you spot bingos (using all 7 tiles for a 50-point bonus). They're also popular in crossword clues, trivia, and brain teasers." },
   ],
   random: [
-   { q: "What does the Random Word Generator do?", a: "It generates random real words from the selected dictionary, with optional filters. You can specify word length, starting letters, ending letters, or letters the word must contain. Use it for games, creative writing, naming, vocabulary practice, or generating passwords with real words." },
-   { q: "How do I filter the random words?", a: "Set 'Length' to a specific number (2-12) or leave it as 'Any'. 'Starts with' limits words to those beginning with given letters. 'Ends with' limits to words ending with given letters. 'Contains' requires the word to include certain letters anywhere. 'How many' controls the number of words generated (1-200)." },
-   { q: "Are the words valid Scrabble words?", a: "Yes. All generated words come from the official Scrabble dictionary for the selected language (NWL2023/CSW21 for English, ODS9 for French, etc.). Every word is playable in Scrabble and other word games." },
-   { q: "Can I use this for word games?", a: "Absolutely. Generate random words for Pictionary, charades, word association games, or vocabulary quizzes. For password generation, combine 3-4 random words of different lengths — this creates memorable yet secure passphrases." },
+   { q: "How does the Random Word Generator pick words?", a: "Our generator draws directly from official tournament and standard dictionaries—including NWL2023 and CSW21 for English—ensuring every generated word is a real, valid dictionary entry rather than gibberish or made-up slang." },
+   { q: "Can I filter random words by length or specific letters?", a: "Yes. Use the length selector and Advanced Filters (Starts with, Ends with, Must include) to narrow down your results. For example, you can generate random 5-letter words starting with S for Wordle training or 8-letter words ending in ING for Charades." },
+   { q: "How can I save generated words to study later?", a: "Click the star icon next to any generated word to add it to your personal Save Vault. Your saved list stays stored locally in your browser so you can review new vocabulary or copy the entire list into flashcards anytime." },
   ],
   wordfeud: [
    { q: "What is the Wordfeud Word Finder & Board Helper?", a: "Stuck on a tough rack in Wordfeud? Enter your 7 letters—plus any open board tiles—into the unscrambler above to instantly generate every valid playable word. Use ? or * for blank tiles, and apply our Advanced Filters (Starts with, Ends with, and Must include) to fit high-scoring plays onto tight board spaces." },
@@ -715,8 +735,20 @@ const fr: Translation = {
   btn: "Trouver les anagrammes", hint: "Les jokers (? *) complètent les lettres manquantes.",
  },
  random: {
-  title: "Générateur de Mots Aléatoires", subtitle: "Générez des mots réels aléatoires avec filtres de longueur, préfixe, suffixe et contenu.",
+  title: "Générateur de Mots Aléatoires pour Jeux et Écriture",
+  subtitle: "Besoin d'inspiration pour une soirée jeux, un exercice de vocabulaire ou un défi d'écriture ? Notre Générateur de Mots Aléatoires gratuit puise dans des dictionnaires officiels en 9 langues. Filtrez les résultats par nombre de lettres ou par initiale pour animer vos parties de Pictionary, de Mimes, du Pendu ou vous entraîner à SUTOM.",
   length: "Longueur", any: "Toutes", count: "Combien", btn: "Générer",
+  hint: "Générez des mots réels aléatoires avec filtres de longueur, préfixe, suffixe et contenu.",
+  useCases: {
+   title: "Comment Utiliser le Générateur au Quotidien ?",
+   items: [
+    "Soirées Jeux (Pictionary, Mimes et Petit Bac) : Plus besoin de cartes papier ! Utilisez votre téléphone pour tirer au sort des mots de 4 à 8 lettres lors de vos parties de Pictionary, de Mimes ou pour débloquer une manche de Petit Bac.",
+    "Jeu du Pendu : Sélectionnez des mots longs de 8 à 11 lettres ou imposez des lettres rares (K, W, X, Y, Z) pour corser la difficulté du Pendu.",
+    "Entraînement SUTOM et Le Mot : Réglez la longueur sur 5 ou 6 lettres pour vous exercer sans attendre la grille quotidienne.",
+    "Écriture Créative et Slam : Générez 3 à 5 mots au hasard et relevez le défi de tous les intégrer dans un paragraphe ou un couplet d'improvisation.",
+   ],
+  },
+  presets: { pictionary: "Mode Pictionary", wordle: "Wordle 5 lettres", hangman: "Pendu difficile" },
  },
  wordfeud: {
   title: "Aide Wordfeud", subtitle: "Bloqué sur une grille difficile ? Saisissez vos 7 lettres dans notre outil d'aide Wordfeud gratuit pour afficher instantanément tous les mots français valides, classés par longueur et par score. Utilisez ? ou * pour représenter vos jokers (tuiles blanches) et activez les Filtres Avancés (Commence par, Finit par, Contient) pour vous raccorder facilement aux lettres déjà posées sur le plateau.",
@@ -918,10 +950,9 @@ const fr: Translation = {
    { q: "À quoi servent les anagrammes ?", a: "Les anagrammes sont utilisées dans les jeux de lettres, puzzles, cryptographie et linguistique. Au Scrabble, trouver les anagrammes de son chevalet aide à repérer les bingos (jouer les 7 tuiles pour un bonus de 50 points). Elles sont aussi populaires dans les définitions de mots croisés, les trivia et les énigmes." },
   ],
   random: [
-   { q: "Que fait le Générateur de Mots Aléatoires ?", a: "Il génère des mots réels aléatoires tirés du dictionnaire choisi, avec filtres facultatifs. Vous pouvez préciser la longueur, les lettres de début, de fin, ou les lettres que le mot doit contenir. Utilisez-le pour des jeux, l'écriture créative, le nommage, l'entraînement du vocabulaire ou générer des mots de passe avec de vrais mots." },
-   { q: "Comment filtrer les mots aléatoires ?", a: "Réglez « Longueur » sur un nombre précis (2-12) ou laissez « Toutes ». « Commence par » limite aux mots commençant par les lettres indiquées. « Finit par » limite aux mots finissant par ces lettres. « Contient » exige que le mot contienne certaines lettres, n'importe où. « Combien » contrôle le nombre de mots générés (1-200)." },
-   { q: "Les mots sont-ils valides au Scrabble ?", a: "Oui. Tous les mots générés proviennent du dictionnaire Scrabble officiel de la langue choisie (NWL2023/CSW21 pour l'anglais, ODS9 pour le français, etc.). Chaque mot est jouable au Scrabble et dans les autres jeux de lettres." },
-   { q: "Puis-je l'utiliser pour des jeux de mots ?", a: "Absolument. Générez des mots aléatoires pour Pictionary, les charades, les jeux d'association de mots ou les quiz de vocabulaire. Pour les mots de passe, combinez 3-4 mots aléatoires de longueurs différentes — cela crée des phrases-mots de passe mémorables mais sûres." },
+   { q: "Quels dictionnaires sont utilisés par le générateur ?", a: "Pour le français, notre outil utilise le dictionnaire officiel ODS9, garantissant que chaque mot tiré au sort est parfaitement valide et orthographié selon les normes officielles." },
+   { q: "Peut-on filtrer les mots par longueur ou par lettre ?", a: "Oui. Choisissez le nombre de lettres souhaité et utilisez les Filtres Avancés (Commence par, Finit par, Contient) pour obtenir exactement le type de mot adapté à votre jeu." },
+   { q: "Comment conserver une liste de mots intéressants ?", a: "Cliquez sur l'étoile à côté d'un mot pour l'enregistrer dans votre Save Vault personnel. Vos mots restent sauvegardés localement dans votre navigateur sans création de compte." },
   ],
   wordfeud: [
    { q: "Quel dictionnaire utilise l'aide Wordfeud ?", a: "wordIzy s'appuie sur le dictionnaire officiel ODS9 utilisé dans les compétitions francophones. Chaque mot trouvé affiche immédiatement sa valeur en points selon le barème français (incluant le K, W, X, Y et Z à 10 points), vous permettant de repérer le coup le plus rentable en quelques secondes." },
@@ -1142,7 +1173,22 @@ const es: Translation = {
   },
  },
  anagram: { title: "Sol. de Anagramas", subtitle: "Encuentra todos los anagramas de tus letras — palabras que usan exactamente todas las letras.", btn: "Buscar anagramas", hint: "Los comodines (? *) rellenan letras." },
- random: { title: "Generador de Palabras Aleatorias", subtitle: "Genera palabras reales al azar con filtros de longitud, prefijo, sufijo y contenido.", length: "Longitud", any: "Cualquiera", count: "Cuántas", btn: "Generar" },
+ random: {
+  title: "Generador de Palabras Aleatorias para Juegos y Escritura",
+  subtitle: "¿Necesitas palabras al azar para una noche de juegos, clases de español o retos creativos? Nuestro Generador de Palabras Aleatorias gratuito extrae términos reales de diccionarios oficiales. Filtra por número de letras, letra inicial o final para jugar al Pictionary, Charadas, El Ahorcado o practicar vocabulario sin necesidad de registro.",
+  length: "Longitud", any: "Cualquiera", count: "Cuántas", btn: "Generar",
+  hint: "Genera palabras reales al azar con filtros de longitud, prefijo, sufijo y contenido.",
+  useCases: {
+   title: "Ideas para Usar el Generador de Palabras",
+   items: [
+    "Juegos de Fiesta (Pictionary y Mímica): Si no tienes tarjetas a mano, usa el generador en tu móvil para sacar palabras rápidas para Pictionary, Charadas (Mímica) o Tabú. Configura una longitud de 4 a 8 letras para rondas dinámicas.",
+    "El Ahorcado y Basta (Tutti Frutti): Ajusta el filtro a palabras largas de 7 a 10 letras para poner a prueba a tus amigos en El Ahorcado, o practica categorías con letras difíciles como la Ñ, Z, X o Q.",
+    "Entrenamiento para La Palabra del Día: Fija la longitud en 5 letras para practicar y mejorar tu estrategia en juegos diarios tipo Wordle.",
+    "Escritura Creativa y Freestyle: Genera 3 o 5 palabras aleatorias e intenta escribir una historia corta o improvisar una rima incluyéndolas todas.",
+   ],
+  },
+  presets: { pictionary: "Modo Pictionary", wordle: "Wordle de 5 letras", hangman: "Ahorcado difícil" },
+ },
  wordfeud: { title: "Buscador de Palabras Wordfeud", subtitle: "¿Te has quedado atascado con letras difíciles en tu partida? Introduce tus 7 fichas en nuestro buscador de palabras para Wordfeud y descubre al instante todas las palabras válidas en español, ordenadas por longitud y puntuación. Usa ? o * como comodín para las fichas en blanco y aplica los Filtros Avanzados (Empieza por, Termina en, Debe incluir) para encajar tus palabras en cualquier hueco del tablero.", btn: "Buscar palabras", hint: "Añade ? o * para fichas en blanco.",
   tips: {
    title: "Consejos",
@@ -1331,10 +1377,9 @@ const es: Translation = {
    { q: "¿Para qué sirven los anagramas?", a: "Los anagramas se usan en juegos de palabras, puzzles, criptografía y lingüística. En Scrabble, encontrar anagramas de tu atril ayuda a detectar bingos (usar las 7 fichas para un bonus de 50 puntos). También son populares en definiciones de crucigramas, trivia y acertijos." },
   ],
   random: [
-   { q: "¿Qué hace el Generador de Palabras Aleatorias?", a: "Genera palabras reales al azar del diccionario seleccionado, con filtros opcionales. Puedes especificar longitud, letras iniciales, letras finales o letras que la palabra debe contener. Úsalo para juegos, escritura creativa, naming, práctica de vocabulario o generar contraseñas con palabras reales." },
-   { q: "¿Cómo filtro las palabras aleatorias?", a: "Ajusta «Longitud» a un número concreto (2-12) o déjalo en «Cualquiera». «Empieza por» limita a palabras que comienzan con esas letras. «Termina en» limita a palabras que terminan con esas letras. «Contiene» exige que la palabra incluya ciertas letras en cualquier posición. «Cuántas» controla el número de palabras generadas (1-200)." },
-   { q: "¿Las palabras son válidas en Scrabble?", a: "Sí. Todas las palabras generadas provienen del diccionario oficial Scrabble del idioma elegido (NWL2023/CSW21 para inglés, ODS9 para francés, etc.). Cada palabra es jugable en Scrabble y otros juegos de palabras." },
-   { q: "¿Puedo usarlo para juegos de palabras?", a: "Por supuesto. Genera palabras aleatorias para Pictionary, charadas, juegos de asociación o quizzes de vocabulario. Para contraseñas, combina 3-4 palabras aleatorias de distintas longitudes — crea frases-contraseña memorables pero seguras." },
+   { q: "¿De dónde salen las palabras generadas?", a: "Todas las palabras provienen de léxicos oficiales validados, incluyendo el diccionario FISE en español. Esto garantiza que cada resultado sea una palabra real y reconocida." },
+   { q: "¿Puedo elegir la cantidad de letras o la letra inicial?", a: "Sí. Puedes seleccionar la longitud exacta de la palabra y activar los Filtros Avanzados (Empieza por, Termina en, Debe incluir) para adaptar los resultados a cualquier juego o ejercicio escolar." },
+   { q: "¿Puedo guardar las palabras que me gusten?", a: "Haz clic en el icono de estrella junto a cualquier palabra para guardarla en tu Bóveda (Save Vault). La lista se conserva de forma privada en tu navegador para que puedas repasarla o copiarla cuando quieras." },
   ],
   wordfeud: [
    { q: "¿Qué diccionario usa este buscador de palabras de Wordfeud?", a: "wordIzy filtra todos los resultados utilizando el léxico oficial FISE para juegos de palabras en español. Nuestro sistema calcula automáticamente la puntuación exacta de cada jugada, teniendo en cuenta letras de alto valor como la Z (10 puntos), X (8 puntos), Ñ (8 puntos) y Q (5 puntos)." },
@@ -1555,7 +1600,22 @@ const de: Translation = {
   },
  },
  anagram: { title: "Anagramm-Löser", subtitle: "Finde jedes Anagramm deiner Buchstaben — Wörter, die genau alle Buchstaben nutzen.", btn: "Anagramme finden", hint: "Platzhalter (? *) füllen auf." },
- random: { title: "Zufallswort-Generator", subtitle: "Zufällige echte Wörter mit Längen-, Präfix-, Suffix- und Inhaltsfiltern.", length: "Länge", any: "Beliebig", count: "Wie viele", btn: "Generieren" },
+ random: {
+  title: "Zufallswort Generator für Spiele, Montagsmaler & Kreatives",
+  subtitle: "Du suchst schnelle Wortideen für den Spieleabend, den Deutschunterricht oder kreative Schreibübungen? Unser kostenloser Zufallswort Generator greift auf geprüfte Wörterbücher in 9 Sprachen zu. Filtere Wörter nach exakter Buchstabenanzahl oder Anfangsbuchstaben – ideal für Montagsmaler, Pantomime, Galgenmännchen oder Wortspiele.",
+  length: "Länge", any: "Beliebig", count: "Wie viele", btn: "Generieren",
+  hint: "Zufällige echte Wörter mit Längen-, Präfix-, Suffix- und Inhaltsfiltern.",
+  useCases: {
+   title: "Beliebte Einsatzmöglichkeiten für Zufallswörter",
+   items: [
+    "Spieleabend (Montagsmaler & Pantomime): Keine Spielkarten zur Hand? Nutze den Generator auf dem Smartphone für Montagsmaler, Pantomime oder Tabu. Stelle die Wortlänge auf 4 bis 8 Buchstaben ein, um faire und unterhaltsame Begriffe zu erhalten.",
+    "Galgenmännchen & Stadt, Land, Fluss: Wähle lange Wörter mit 8 bis 12 Buchstaben oder seltene Buchstaben wie Q, X, Y und Ä/Ö/Ü, um deine Mitspieler bei Galgenmännchen herauszufordern.",
+    "Wordle-Training: Stelle die Länge fest auf 5 Buchstaben ein, um unbegrenzt viele Übungsrunden zu spielen.",
+    "Kreatives Schreiben & Freestyle-Rap: Generiere 3 bis 5 zufällige Wörter gleichzeitig und versuche, sie alle in einer kurzen Geschichte oder einem Reim unterzubringen.",
+   ],
+  },
+  presets: { pictionary: "Montagsmaler-Modus", wordle: "Wordle mit 5 Buchstaben", hangman: "Galgenmännchen (schwer)" },
+ },
  wordfeud: { title: "Wordfeud Helfer & Wörter Finder", subtitle: "Du kommst bei deiner aktuellen Partie Wordfeud nicht weiter? Gib deine 7 Buchstaben einfach in unseren kostenlosen Wordfeud Helfer ein und finde sofort alle gültigen deutschen Wörter – sortiert nach Wortlänge und exakter Punktzahl. Nutze ? oder * als Joker für Blankosteine und verwende die Erweiterten Filter (Beginnt mit, Endet mit, Enthält), um perfekt an bestehende Wörter auf dem Spielfeld anzulegen.", btn: "Wörter finden", hint: "? oder * für Blankos.",
   tips: {
    title: "Tipps",
@@ -1744,10 +1804,9 @@ const de: Translation = {
    { q: "Wofür sind Anagramme nützlich?", a: "Anagramme werden in Wortspielen, Puzzles, Kryptografie und Linguistik verwendet. Beim Scrabble hilft es, Anagramme des eigenen Gestells zu kennen, um Bingos zu erkennen (alle 7 Steine für 50 Punkte Bonus). Sie sind auch beliebt in Kreuzwort-Hinweisen, Trivia und Denksportaufgaben." },
   ],
   random: [
-   { q: "Was macht der Zufallswort-Generator?", a: "Er erzeugt zufällige echte Wörter aus dem gewählten Wörterbuch, mit optionalen Filtern. Du kannst Wortlänge, Anfangsbuchstaben, Endbuchstaben oder Buchstaben, die daswort enthalten muss, festlegen. Nutze ihn für Spiele, kreatives Schreiben, Namensfindung, Vokabel-Training oder um Passwörter aus echten Wörtern zu erzeugen." },
-   { q: "Wie filtere ich die Zufallswörter?", a: "Setze »Länge« auf eine konkrete Zahl (2-12) oder lass sie auf »Beliebig«. »Beginnt mit« beschränkt auf Wörter mit diesen Anfangsbuchstaben. »Endet mit« auf Wörter mit diesen Endbuchstaben. »Enthält« verlangt, dass daswort bestimmte Buchstaben irgendwo enthält. »Wie viele« steuert die Anzahl erzeugter Wörter (1-200)." },
-   { q: "Sind die Wörter gültige Scrabble-Wörter?", a: "Ja. Alle erzeugten Wörter stammen aus dem offiziellen Scrabble-Wörterbuch der gewählten Sprache (NWL2023/CSW21 für Englisch, ODS9 für Französisch usw.). Jedes Wort ist in Scrabble und anderen Wortspielen spielbar." },
-   { q: "Kann ich das für Wortspiele verwenden?", a: "Absolut. Erzeuge Zufallswörter für Pictionary, Scharade, Wortassoziation oder Vokabel-Quiz. Für Passwörter kombiniere 3-4 Zufallswörter unterschiedlicher Länge — das ergibt einprägsame, aber sichere Passphrasen." },
+   { q: "Woher stammen die generierten Wörter?", a: "Unser Generator nutzt offizielle und geprüfte Wortlisten. So ist sichergestellt, dass ausschließlich echte, gültige Wörter und keine erfundenen Buchstabenkombinationen angezeigt werden." },
+   { q: "Kann ich die Wortlänge und Anfangsbuchstaben festlegen?", a: "Ja. Über die Längeneinstellung und die Erweiterten Filter (Beginnt mit, Endet mit, Enthält) kannst du die Zufallsauswahl genau auf dein Spiel oder deine Unterrichtseinheit zuschneiden." },
+   { q: "Wie kann ich interessante Wörter merken?", a: "Klicke einfach auf das Stern-Symbol neben einem Wort, um es in deinem lokalen Save Vault zu speichern. Deine Merkliste bleibt ohne Anmeldung direkt in deinem Browser gespeichert." },
   ],
   wordfeud: [
    { q: "Welche Wortliste nutzt der Wordfeud Helfer?", a: "wordIzy prüft deine Buchstabenkombinationen gegen das offizielle deutsche Turnier-Wörterbuch und berechnet automatisch den Basiswert jedes Wortes nach den offiziellen Wordfeud-Regeln. Hohe Buchstaben wie Q (10 Punkte), Y (10 Punkte), X (8 Punkte) und Ä/Ö/Ü werden sofort erkannt, damit du keine wertvollen Züge übersiehst." },
@@ -1968,7 +2027,22 @@ const it: Translation = {
   },
  },
  anagram: { title: "Ris. Anagrammi", subtitle: "Trova ogni anagramma delle tue lettere — parole che usano esattamente tutte le lettere.", btn: "Trova anagrammi", hint: "I jolly (? *) completano." },
- random: { title: "Generatore di Parole Casuali", subtitle: "Genera parole reali casuali con filtri di lunghezza, prefisso, suffisso e contenuto.", length: "Lunghezza", any: "Qualsiasi", count: "Quante", btn: "Genera" },
+ random: {
+  title: "Generatore di Parole Casuali per Giochi, Mimo e Scrittura",
+  subtitle: "Cerchi idee veloci per una serata giochi, una lezione di lingua o un esercizio di scrittura creativa? Il nostro Generatore di Parole Casuali gratuito pesca direttamente dai dizionari ufficiali in 9 lingue. Filtra per lunghezza esatta o lettera iniziale per giocare a Pictionary, Mimo, L'Impiccato o allenarti con Wordle.",
+  length: "Lunghezza", any: "Qualsiasi", count: "Quante", btn: "Genera",
+  hint: "Genera parole reali casuali con filtri di lunghezza, prefisso, suffisso e contenuto.",
+  useCases: {
+   title: "Modi Creativi per Usare il Generatore",
+   items: [
+    "Serate Giochi (Pictionary e Mimo): Hai perso le carte del gioco? Usa il generatore dallo smartphone per estrarre parole da 4 a 8 lettere per sfide veloci di Pictionary, Mimo o Taboo.",
+    "L'Impiccato e Nomi, Cose, Città: Imposta la lunghezza su 8–11 lettere o scegli lettere difficili come Q, Z, H e V per rendere L'Impiccato molto più avvincente.",
+    "Allenamento per Wordle Italiano: Blocca la lunghezza a 5 lettere per generare parole infinite e migliorare la tua tecnica di gioco.",
+    "Scrittura Creativa e Freestyle: Estrai 3 o 5 parole casuali contemporaneamente e prova a scrivere un breve racconto o una strofa che le contenga tutte.",
+   ],
+  },
+  presets: { pictionary: "Modalità Pictionary", wordle: "Wordle di 5 lettere", hangman: "Impiccato difficile" },
+ },
  wordfeud: { title: "Aiutante Wordfeud & Trova Parole", subtitle: "Sei bloccato con lettere difficili durante una sfida a Wordfeud? Inserisci le tue 7 lettere nel nostro aiutante Wordfeud gratuito per visualizzare immediatamente tutte le parole italiane valide, raggruppate per lunghezza e ordinate per punteggio. Usa ? o * come jolly per le tessere bianche e sfrutta i Filtri Avanzati (Inizia con, Finisce con, Deve includere) per incastrare le parole sulla griglia di gioco.", btn: "Trova parole", hint: "Aggiungi ? o * per tessere vuote.",
   tips: {
    title: "Consigli",
@@ -2157,10 +2231,9 @@ const it: Translation = {
    { q: "A cosa servono gli anagrammi?", a: "Gli anagrammi si usano in giochi di parole, puzzle, crittografia e linguistica. A Scrabble, trovare anagrammi del proprio portatile aiuta a individuare bingo (usare tutte e 7 le tessere per un bonus di 50 punti). Sono anche popolari in definizioni di cruciverba, trivia e indovinelli." },
   ],
   random: [
-   { q: "Cosa fa il Generatore di Parole Casuali?", a: "Genera parole reali casuali dal dizionario selezionato, con filtri opzionali. Puoi specificare lunghezza, lettere iniziali, lettere finali o lettere che la parola deve contenere. Usalo per giochi, scrittura creativa, naming, pratica di vocabolario o per generare password con parole reali." },
-   { q: "Come filtro le parole casuali?", a: "Imposta «Lunghezza» su un numero specifico (2-12) o lascia «Qualsiasi». «Inizia con» limita alle parole che iniziano con certe lettere. «Finisce con» limita alle parole che finiscono con certe lettere. «Contiene» richiede che la parola includa certe lettere ovunque. «Quante» controlla il numero di parole generate (1-200)." },
-   { q: "Le parole sono valide per Scrabble?", a: "Sì. Tutte le parole generate provengono dal dizionario Scrabble ufficiale della lingua selezionata (NWL2023/CSW21 per l'inglese, ODS9 per il francese, ecc.). Ogni parola è giocabile in Scrabble e altri giochi di parole." },
-   { q: "Posso usarlo per giochi di parole?", a: "Assolutamente. Genera parole casuali per Pictionary, sciarade, giochi di associazione o quiz di vocabolario. Per le password, combina 3-4 parole casuali di lunghezze diverse — questo crea passphrase memorabili ma sicure." },
+   { q: "Quali dizionari utilizza il generatore?", a: "Per l'italiano, wordIzy si basa sul vocabolario ufficiale Zingarelli, assicurando che ogni parola estratta sia reale, corretta e riconosciuta." },
+   { q: "Posso filtrare le parole per numero di lettere o iniziale?", a: "Sì. Puoi impostare la lunghezza desiderata e usare i Filtri Avanzati (Inizia con, Finisce con, Deve includere) per ottenere parole su misura per il tuo gioco." },
+   { q: "Come posso salvare le parole per ripassarle?", a: "Clicca sull'icona della stella accanto a qualsiasi parola per salvarla nel tuo Save Vault personale. La lista rimane memorizzata localmente nel browser senza bisogno di registrazione." },
   ],
   wordfeud: [
    { q: "Quale dizionario usa l'aiutante Wordfeud?", a: "wordIzy verifica ogni combinazione sul vocabolario ufficiale Zingarelli, calcolando istantaneamente il punteggio esatto di ciascuna parola secondo i valori delle tessere italiane (incluse le lettere ad alto punteggio come Z e Q da 10 punti, o H e V da 4 punti)." },
@@ -2381,7 +2454,22 @@ const pt: Translation = {
   },
  },
  anagram: { title: "Sol. Anagramas", subtitle: "Encontre todos os anagramas das suas letras — palavras que usam exatamente todas as letras.", btn: "Encontrar anagramas", hint: "Curingas (? *) completam." },
- random: { title: "Gerador de Palavras Aleatórias", subtitle: "Gere palavras reais aleatórias com filtros de tamanho, prefixo, sufixo e conteúdo.", length: "Tamanho", any: "Qualquer", count: "Quantas", btn: "Gerar" },
+ random: {
+  title: "Gerador de Palavras Aleatórias para Jogos, Mímica e Escrita",
+  subtitle: "Precisa de ideias rápidas de palavras para uma noite de jogos, aulas de idiomas ou exercícios criativos? Nosso Gerador de Palavras Aleatórias gratuito busca termos reais em dicionários oficiais de 9 idiomas. Filtre por número de letras ou letra inicial para jogar Imagem & Ação, Mímica, Jogo da Forca ou treinar no Termo.",
+  length: "Tamanho", any: "Qualquer", count: "Quantas", btn: "Gerar",
+  hint: "Gere palavras reais aleatórias com filtros de tamanho, prefixo, sufixo e conteúdo.",
+  useCases: {
+   title: "Como Aproveitar o Gerador de Palavras",
+   items: [
+    "Noite de Jogos (Imagem & Ação e Mímica): Sem cartas físicas por perto? Use o gerador no celular para sortear palavras rápidas de 4 a 8 letras para Imagem & Ação, Pictionary ou Mímica.",
+    "Jogo da Forca e Stop (Adedonha): Aumente o desafio no Jogo da Forca selecionando palavras longas de 8 a 11 letras ou letras menos comuns como Q, Z, X e J.",
+    "Treino para Termo e Quarteto: Fixe o tamanho em 5 letras para praticar estratégias de dedução sem precisar esperar o desafio diário.",
+    "Escrita Criativa e Batalha de Rimas: Sorteie de 3 a 5 palavras aleatórias de uma vez e tente criar um parágrafo ou rima de freestyle usando todas elas.",
+   ],
+  },
+  presets: { pictionary: "Modo Imagem & Ação", wordle: "Termo de 5 letras", hangman: "Forca difícil" },
+ },
  wordfeud: { title: "Ajudante Wordfeud & Formar Palavras", subtitle: "Ficou sem opções na sua partida de Wordfeud? Digite as suas 7 letras no nosso ajudante de Wordfeud gratuito e descubra na hora todas as palavras válidas em português, organizadas por tamanho e pontuação. Use ? ou * como curinga para as peças em branco e utilize os Filtros Avançados (Começa com, Termina com, Deve incluir) para encaixar jogadas perfeitas no tabuleiro.", btn: "Encontrar palavras", hint: "Adicione ? ou * para fichas vazias.",
   tips: {
    title: "Dicas",
@@ -2570,10 +2658,9 @@ const pt: Translation = {
    { q: "Para que servem os anagramas?", a: "Anagramas usam-se em jogos de palavras, puzzles, criptografia e linguística. No Scrabble, encontrar anagramas do suporte ajuda a detetar bingos (usar as 7 peças para um bónus de 50 pontos). Também são populares em definições de palavras cruzadas, trivialidades e enigmas." },
   ],
   random: [
-   { q: "O que faz o Gerador de Palavras Aleatórias?", a: "Gera palavras reais aleatórias do dicionário selecionado, com filtros opcionais. Podes especificar comprimento, letras iniciais, letras finais ou letras que a palavra deve conter. Usa-o para jogos, escrita criativa, naming, prática de vocabulário ou gerar palavras-passe com palavras reais." },
-   { q: "Como filtro as palavras aleatórias?", a: "Define «Comprimento» num número específico (2-12) ou deixa em «Qualquer». «Começa por» limita a palavras que começam por essas letras. «Termina em» limita a palavras que terminam com essas letras. «Contém» exige que a palavra inclua certas letras em qualquer posição. «Quantas» controla o número de palavras geradas (1-200)." },
-   { q: "As palavras são válidas no Scrabble?", a: "Sim. Todas as palavras geradas vêm do dicionário oficial Scrabble do idioma selecionado (NWL2023/CSW21 para inglês, ODS9 para francês, etc.). Cada palavra é jogável em Scrabble e outros jogos de palavras." },
-   { q: "Posso usar isto para jogos de palavras?", a: "Com certeza. Gera palavras aleatórias para Pictionary, charadas, jogos de associação ou quizzes de vocabulário. Para palavras-passe, combina 3-4 palavras aleatórias de comprimentos diferentes — cria passphrases memoráveis mas seguras." },
+   { q: "De onde vêm as palavras geradas?", a: "Nosso gerador consulta léxicos oficiais da língua portuguesa e de outros 8 idiomas, garantindo que todos os resultados sejam palavras reais e válidas." },
+   { q: "Posso escolher o tamanho da palavra ou a letra inicial?", a: "Sim. Basta definir o número exato de letras e abrir os Filtros Avançados (Começa com, Termina com, Deve incluir) para personalizar o sorteio para qualquer brincadeira." },
+   { q: "Como salvo palavras interessantes para estudar depois?", a: "Clique no ícone de estrela ao lado de qualquer palavra para adicioná-la ao seu Save Vault. Suas palavras ficam salvas diretamente no seu navegador, com total privacidade e sem cadastro." },
   ],
   wordfeud: [
    { q: "Qual dicionário usa o ajudante de Wordfeud?", a: "O wordIzy analisa suas letras usando o léxico oficial da língua portuguesa e calcula automaticamente a pontuação base de cada palavra, destacando jogadas com letras de alto valor como Q (10 pontos), Z (10 pontos), X (8 pontos) e J (5 pontos)." },
@@ -2794,7 +2881,22 @@ const nl: Translation = {
   },
  },
  anagram: { title: "Anagram-oplosser", subtitle: "Vind elk anagram van je letters — woorden die exact alle letters gebruiken.", btn: "Anagrammen vinden", hint: "Jokers (? *) vullen aan." },
- random: { title: "Willekeurige Woordgenerator", subtitle: "Genereer willekeurige echte woorden met lengte-, voorvoegsel-, achtervoegsel- en bevat-filters.", length: "Lengte", any: "Elke", count: "Hoeveel", btn: "Genereren" },
+ random: {
+  title: "Willekeurig Woord Generator voor Spelletjes & Schrijven",
+  subtitle: "Op zoek naar snelle woordideeën voor een spelletjesavond, taalles of creatieve schrijfopdracht? Onze gratis Willekeurig Woord Generator haalt woorden uit officiële woordenboeken in 9 talen. Filter direct op woordlengte, beginletter of eindletter voor Pictionary, Hints, Galgje of Lingo.",
+  length: "Lengte", any: "Elke", count: "Hoeveel", btn: "Genereren",
+  hint: "Genereer willekeurige echte woorden met lengte-, voorvoegsel-, achtervoegsel- en bevat-filters.",
+  useCases: {
+   title: "Populaire Manieren om de Generator te Gebruiken",
+   items: [
+    "Spelletjesavond (Pictionary & Hints): Geen kaartjes bij de hand? Gebruik de generator op je telefoon voor een potje Pictionary, Hints of 30 Seconds. Kies een woordlengte van 4 tot 8 letters voor vlotte teken- en uitbeeldingsrondes.",
+    "Galgje Spelen: Maak Galgje extra uitdagend door te filteren op lange woorden van 8 tot 11 letters, of kies lastige beginletters zoals de Q, X, Y of IJ.",
+    "Lingo & Woordle Oefenen: Zet de woordlengte vast op 5 of 6 letters om onbeperkt te oefenen voor Lingo of Nederlandse Woordle.",
+    "Creatief Schrijven: Genereer 3 tot 5 willekeurige woorden tegelijk en daag jezelf uit om ze allemaal in één alinea of gedicht te verwerken.",
+   ],
+  },
+  presets: { pictionary: "Pictionary-modus", wordle: "Wordle van 5 letters", hangman: "Moeilijk Galgje" },
+ },
  wordfeud: { title: "Wordfeud Woorden Maker & Helper", subtitle: "Zit je vast tijdens een spannend potje Wordfeud? Voer je 7 letters in onze gratis Wordfeud woorden maker in en ontdek direct alle geldige Nederlandse woorden, overzichtelijk gesorteerd op woordlengte en puntentelling. Gebruik ? of * voor een blanco tegel en pas de Geavanceerde Filters (Begint met, Eindigt op, Bevat) toe om precies aan te leggen op een vol speelbord.", btn: "Woorden vinden", hint: "Voeg ? of * toe voor lege tegels.",
   tips: {
    title: "Tips",
@@ -2983,10 +3085,9 @@ const nl: Translation = {
    { q: "Waarvoor zijn anagrammen nuttig?", a: "Anagrammen worden gebruikt in woordspellen, puzzels, cryptografie en taalkunde. Bij Scrabble helpt het kennen van anagrammen van je rek om bingo's te spotten (alle 7 stenen gebruiken voor 50 punten bonus). Ze zijn ook populair in kruiswoord-aanwijzingen, trivia en breinbrekers." },
   ],
   random: [
-   { q: "Wat doet de Willekeurig Woord-generator?", a: "Hij genereert willekeurige echte woorden uit het gekozen woordenboek, met optionele filters. Je kunt woordlengte, beginletters, eindletters of letters die het woord moet bevatten opgeven. Gebruik hem voor spellen, creatief schrijven, naamgeving, woordenschat-oefening of om wachtwoorden met echte woorden te maken." },
-   { q: "Hoe filter ik de willekeurige woorden?", a: "Zet »Lengte« op een specifiek getal (2-12) of laat het op »Willekeurig«. »Begint met« beperkt tot woorden die met die letters beginnen. »Eindigt op« beperkt tot woorden die op die letters eindigen. »Bevat« vereist dat het woord bepaalde letters ergens bevat. »Hoeveel« bepaalt het aantal gegenereerde woorden (1-200)." },
-   { q: "Zijn de woorden geldige Scrabble-woorden?", a: "Ja. Alle gegenereerde woorden komen uit het officiële Scrabble-woordenboek van de gekozen taal (NWL2023/CSW21 voor Engels, ODS9 voor Frans, enz.). Elk woord is speelbaar in Scrabble en andere woordspellen." },
-   { q: "Kan ik dit voor woordspellen gebruiken?", a: "Zeker. Genereer willekeurige woorden voor Pictionary, charades, woordassociatie-spellen of woordenschat-quizzes. Voor wachtwoorden combineer 3-4 willekeurige woorden van verschillende lengtes — dat levert memorabele maar veilige wachtzinnen op." },
+   { q: "Welk woordenboek gebruikt de generator?", a: "Voor het Nederlands maakt wordIzy gebruik van de officiële OpenTaal woordenlijst. Hierdoor krijg je altijd correct gespelde, bestaande Nederlandse woorden." },
+   { q: "Kan ik filteren op aantal letters of een specifieke beginletter?", a: "Ja. Stel eenvoudig het gewenste aantal letters in en gebruik de Geavanceerde Filters (Begint met, Eindigt op, Bevat) om precies het juiste type woord te genereren." },
+   { q: "Hoe kan ik woorden bewaren om later te bekijken?", a: "Klik op het sterretje naast een woord om het op te slaan in je persoonlijke Save Vault. Je lijst wordt lokaal in je browser bewaard zonder dat je een account hoeft aan te maken." },
   ],
   wordfeud: [
    { q: "Welke woordenlijst gebruikt deze Wordfeud woorden maker?", a: "wordIzy filtert je letters direct tegen de officiële OpenTaal-woordenlijst die ook door Wordfeud zelf wordt gebruikt voor Nederlandse spellen. Zo weet je zeker dat elk gevonden woord direct geaccepteerd wordt in de app, inclusief de exacte Nederlandse tegelwaarden (zoals de Q van 10 punten en de X en Y van 8 punten)." },
@@ -3191,7 +3292,8 @@ const ja: Translation = {
  wordle: { title: "Wordle解決", subtitle: "今日のWordleを絞り込みます。緑・黄・グレーの文字を入力。", length: "長さ", placed: "配置済(緑)", valid: "有効(黄)", excluded: "除外(グレー)", btn: "解決", hint: "空欄は . または _ 例: A..LE" },
  quordle: { title: "Quordle解決", subtitle: "最大4つのWordleを同時に解きます。", board: "ボード", addBoard: "ボード追加", hint: "各ボードの情報を入力して解決。" },
  anagram: { title: "アナグラム解決", subtitle: "文字のすべてのアナグラムを見つけます。", btn: "アナグラムを見つける", hint: "ワイルドカード(? *)で補完。" },
- random: { title: "ランダム単語生成", subtitle: "長さ・接頭辞・接尾辞・含有の条件でランダムな実在単語を生成。", length: "長さ", any: "任意", count: "生成数", btn: "生成" },
+ random: { title: "ランダム単語生成", subtitle: "長さ・接頭辞・接尾辞・含有の条件でランダムな実在単語を生成。", length: "長さ", any: "任意", count: "生成数", btn: "生成",
+  presets: { pictionary: "ピクショナリーモード", wordle: "5文字Wordle", hangman: "ハングマン（難問）" } },
  wordfeud: { title: "Wordfeudヘルプ", subtitle: "ラックから最適なWordfeud単語を探します。", btn: "単語を見つける", hint: "? または * でブランク。",
   tips: {
    title: "コツ",
@@ -3589,7 +3691,8 @@ const zh: Translation = {
  wordle: { title: "Wordle求解", subtitle: "缩小今日Wordle范围：输入绿色（位置）、黄色（已知）、灰色（排除）字母。", length: "长度", placed: "已放置(绿)", valid: "有效(黄)", excluded: "已排除(灰)", btn: "求解", hint: "用 . 或 _ 表示空位，如 A..LE" },
  quordle: { title: "Quordle求解", subtitle: "同时求解最多四个Wordle。每个棋盘保留各自约束。", board: "棋盘", addBoard: "添加棋盘", hint: "填写已知信息后求解。" },
  anagram: { title: "易位词求解", subtitle: "找出字母的所有易位词——恰好用完所有字母的单词。", btn: "查找易位词", hint: "通配符(? *)补全。" },
- random: { title: "随机单词生成器", subtitle: "按长度、前缀、后缀、包含条件生成随机真实单词。", length: "长度", any: "任意", count: "数量", btn: "生成" },
+ random: { title: "随机单词生成器", subtitle: "按长度、前缀、后缀、包含条件生成随机真实单词。", length: "长度", any: "任意", count: "数量", btn: "生成",
+  presets: { pictionary: "你画我猜模式", wordle: "5字母Wordle", hangman: "猜单词（困难）" } },
  wordfeud: { title: "Wordfeud助手", subtitle: "从牌架找出最佳Wordfeud单词。选择词典后求解。", btn: "查找单词", hint: "? 或 * 作空白牌。",
   tips: {
    title: "小贴士",
