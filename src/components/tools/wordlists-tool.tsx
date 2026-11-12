@@ -38,7 +38,7 @@ export function WordlistsTool() {
                   "num-button h-14 w-14 rounded-md flex items-center justify-center transition-colors cursor-pointer",
                   "glass-soft text-foreground/80 hover:bg-brand hover:text-background"
                 )}
-                aria-label={`Browse ${n}-letter words`}
+                aria-label={t.hubPages.ariaBrowseLength.replace("{n}", String(n))}
               >
                 {n}
               </Link>
@@ -47,7 +47,7 @@ export function WordlistsTool() {
         </GlassCard>
 
         <TipsSection title={t.faq.title} items={t.faq.wordlists} />
-        <TipsSection title="Save Vault — How to use it" items={t.faq.vault} />
+        <TipsSection title={t.ui.saveVaultFaqTitle} items={t.faq.vault} />
         <AdSlot format="horizontal" />
         <p className="text-center text-xs text-muted-foreground">{t.hubPages.footerNote}</p>
 

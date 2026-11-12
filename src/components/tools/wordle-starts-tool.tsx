@@ -34,7 +34,7 @@ export function WordleStartsTool() {
                 key={letter}
                 href={`/wordle-words-starts-with-${letter}`}
                 className="alpha-button h-11 w-full flex items-center justify-center rounded-md glass-soft text-foreground/80 hover:bg-brand hover:text-background transition-colors cursor-pointer"
-                aria-label={`Browse Wordle words starting with ${ALPHABET_UPPER[i]}`}
+                aria-label={t.hubPages.ariaBrowseWordleStarts.replace("{letter}", ALPHABET_UPPER[i])}
               >
                 {ALPHABET_UPPER[i]}
               </Link>
@@ -43,7 +43,7 @@ export function WordleStartsTool() {
         </GlassCard>
 
         <TipsSection title={t.faq.title} items={t.faq.wordle} />
-        <TipsSection title="Save Vault — How to use it" items={t.faq.vault} />
+        <TipsSection title={t.ui.saveVaultFaqTitle} items={t.faq.vault} />
         <AdSlot format="horizontal" />
 
         <div className="flex justify-center pt-2">

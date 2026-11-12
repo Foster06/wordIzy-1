@@ -12,7 +12,6 @@ import { WordListArticle } from "@/components/site/word-list-article";
 import type { TopWord } from "@/components/site/word-list-article";
 import {
   parseWordListSlug,
-  buildWordListTitle,
   buildWordListSiblingLinks,
   WORD_LIST_LENGTHS,
   ALPHABET_LOWER,
@@ -92,17 +91,41 @@ export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: Progra
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const titleText = buildWordListTitle(config);
-  const siblings = buildWordListSiblingLinks(config);
+  // ── Localized page shell ──────────────────────────────────────────────
+  // These pages are English-canonical (one URL per list — the SSR HTML and
+  // meta stay English for crawlers), but the user's chosen language drives
+  // every human-visible string: H1, description, back links, sort/jump
+  // labels. The en templates reproduce the legacy buildWordListTitle()
+  // output exactly, so English pages are byte-identical to before.
+  const L = t.wordListPage;
+  const letterUpper = String(config.value).toUpperCase();
+  const tpl = (s: string) =>
+    s.replace(/\{letter\}/g, letterUpper).replace(/\{n\}/g, String(config.value));
+  const titleText =
+    config.type === "length"
+      ? tpl(L.titleLength)
+      : config.dict === "wordle"
+        ? tpl(config.type === "starts" ? L.titleWordleStarts : L.titleWordleEnds)
+        : tpl(config.type === "starts" ? L.titleStarts : L.titleEnds);
+  const descriptionText =
+    config.type === "length"
+      ? tpl(L.descLength)
+      : config.type === "starts"
+        ? tpl(L.descStarts)
+        : tpl(L.descEnds);
 
-  let descriptionText = "";
-  if (config.type === "length") {
-    descriptionText = `Browse all ${config.value}-letter words for Scrabble, Wordle, and anagram puzzles. Filtered by official Scrabble dictionaries, sorted by score.`;
-  } else if (config.type === "starts") {
-    descriptionText = `Explore verified Scrabble words that start with the letter "${String(config.value).toUpperCase()}". Filter by length and score.`;
-  } else {
-    descriptionText = `Discover verified Scrabble words that end with the letter "${String(config.value).toUpperCase()}". Filter by length and find hooks.`;
-  }
+  // Localized family name for the "Back to …" links and the middle nav
+  // label (the hrefs stay on the English-canonical hub URLs — the hub pages
+  // themselves switch to the chosen language after hydration).
+  const familyLabel =
+    config.type === "length"
+      ? t.nav.wordlists
+      : config.dict === "wordle"
+        ? config.type === "starts" ? t.nav.wordlestarts : t.nav.wordleends
+        : config.type === "starts" ? t.nav.wordstarts : t.nav.wordends;
+  const backLabel = L.backToFamily.replace("{family}", familyLabel);
+
+  const siblings = buildWordListSiblingLinks(config);
 
   const fetchWords = useCallback(async (reset: boolean) => {
     if (reset) {
@@ -174,7 +197,7 @@ export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: Progra
   if (loading) {
     return (
       <div className="space-y-6 max-w-5xl mx-auto">
-        <ReturnButton href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
+        <ReturnButton href={siblings.indexHref} label={backLabel} />
         <div role="status" aria-live="polite" className="text-center text-sm py-12 text-muted-foreground animate-pulse flex items-center justify-center gap-2">
           <Loader2 className="h-4 w-4 animate-spin" />
           {t.wordListPage.loading}
@@ -186,7 +209,7 @@ export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: Progra
   if (error) {
     return (
       <div className="space-y-6 max-w-5xl mx-auto">
-        <ReturnButton href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
+        <ReturnButton href={siblings.indexHref} label={backLabel} />
         <div role="alert" aria-live="assertive" className="text-center text-sm py-12 text-rose-300">{error}</div>
       </div>
     );
@@ -194,7 +217,7 @@ export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: Progra
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
-      <ReturnButton href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
+      <ReturnButton href={siblings.indexHref} label={backLabel} />
 
       <header className="border-b border-white/5 pb-4 space-y-2">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-brand">{titleText}</h1>
@@ -280,7 +303,7 @@ export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: Progra
       )}
 
       {/* Sort toggle: A→Z / Score */}
-      <div className="flex items-center gap-2" role="group" aria-label="Sort">
+      <div className="flex items-center gap-2" role="group" aria-label={t.wordListPage.sortLabel}>
         <button
           type="button"
           onClick={() => setSortMode("alpha")}
@@ -301,13 +324,13 @@ export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: Progra
             sortMode === "score" ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand"
           )}
         >
-          Score
+          {t.wordListPage.sortScore}
         </button>
       </div>
 
       {/* Alphabet jump bar (only on length pages) */}
       {config.type === "length" && (
-        <div className="flex flex-wrap gap-1" role="group" aria-label="Filter by starting letter">
+        <div className="flex flex-wrap gap-1" role="group" aria-label={t.wordListPage.filterByLetter}>
           <button
             type="button"
             onClick={() => setJumpLetter("all")}
@@ -317,7 +340,7 @@ export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: Progra
               jumpLetter === "all" ? "bg-brand text-background" : "glass-soft text-foreground/80 hover:text-brand"
             )}
           >
-            All
+            {t.wordListPage.allLengths}
           </button>
           {ALPHABET_LOWER.map((letter, i) => (
             <button
@@ -381,7 +404,7 @@ export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: Progra
           <span />
         )}
         <a href={siblings.indexHref} className="text-xs text-muted-foreground hover:text-brand transition-colors">
-          {siblings.familyLabel}
+          {familyLabel}
         </a>
         {siblings.next ? (
           <a href={siblings.next.href} className="inline-flex items-center gap-2 px-3 py-2 rounded-md glass-soft text-sm hover:text-brand transition-colors">
@@ -395,7 +418,7 @@ export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: Progra
 
       {/* Return button at bottom */}
       <div className="flex justify-center pt-2">
-        <ReturnButton variant="button" href={siblings.indexHref} label={`Back to ${siblings.familyLabel}`} />
+        <ReturnButton variant="button" href={siblings.indexHref} label={backLabel} />
       </div>
 
       {/* Educational SEO article — 300-400 words of unique per-letter strategy

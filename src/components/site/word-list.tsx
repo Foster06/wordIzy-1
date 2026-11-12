@@ -135,13 +135,13 @@ export function WordList({
                 }`}
                 aria-pressed={pageSize === words.length}
               >
-                All ({words.length.toLocaleString()})
+                {t.ui.showAllCount.replace("{count}", words.length.toLocaleString())}
               </button>
             )}
           </div>
         )}
         <div className="ml-auto flex items-center gap-1.5">
-          <button onClick={shareAll} className="text-muted-foreground hover:text-brand transition-colors cursor-pointer" title="Share" aria-label="Share results">
+          <button onClick={shareAll} className="text-muted-foreground hover:text-brand transition-colors cursor-pointer" title={t.ui.shareResults} aria-label={t.ui.shareResults}>
             <Share2 className="h-3.5 w-3.5" />
           </button>
           <button onClick={copyAll} className="text-muted-foreground hover:text-brand transition-colors cursor-pointer" title={t.common.copy} aria-label={t.common.copy}>
@@ -177,9 +177,9 @@ export function WordList({
                   <button
                     type="button"
                     onClick={() => toggleFavorite(cleanWord)}
-                    aria-label={isFav ? `Remove ${cleanWord} from vault` : `Save ${cleanWord} to vault`}
+                    aria-label={isFav ? t.ui.removeWordFromVault.replace("{word}", cleanWord) : t.ui.saveWordToVault.replace("{word}", cleanWord)}
                     aria-pressed={isFav}
-                    title={isFav ? "Saved" : "Save to vault"}
+                    title={isFav ? t.ui.savedToVault : t.ui.saveToVault}
                     className={`shrink-0 p-0 rounded transition-colors transition-transform cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 ${
                       isFav
                         ? "text-amber-500"
@@ -196,11 +196,11 @@ export function WordList({
       </div>
       {totalPages > 1 && (
         <div className="mt-4 flex items-center justify-center gap-2 pt-3 border-t border-white/5">
-          <Button onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={safePage === 0} variant="ghost" size="sm" className="gap-1 glass-soft rounded-md h-8 px-3" aria-label="Previous page">
+          <Button onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={safePage === 0} variant="ghost" size="sm" className="gap-1 glass-soft rounded-md h-8 px-3" aria-label={t.ui.previousPage}>
             <ChevronLeft className="h-3.5 w-3.5" />{t.common.showLess}
           </Button>
           <span className="text-xs text-muted-foreground tabular-nums min-w-[3rem] text-center">{safePage + 1} / {totalPages}</span>
-          <Button onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={safePage >= totalPages - 1} variant="ghost" size="sm" className="gap-1 glass-soft rounded-md h-8 px-3" aria-label="Next page">
+          <Button onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={safePage >= totalPages - 1} variant="ghost" size="sm" className="gap-1 glass-soft rounded-md h-8 px-3" aria-label={t.ui.nextPage}>
             {t.common.showMore}<ChevronRight className="h-3.5 w-3.5" />
           </Button>
         </div>

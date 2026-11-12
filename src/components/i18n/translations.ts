@@ -126,6 +126,9 @@ export type Translation = {
   searchPlaceholderWordleStarts: string;
   searchPlaceholderWordleEnds: string;
   browseBtn: string;
+  // Grid aria-labels for the Word Lab hub pages (templates: {letter}/{n})
+  ariaBrowseStarts: string; ariaBrowseEnds: string;
+  ariaBrowseWordleStarts: string; ariaBrowseWordleEnds: string; ariaBrowseLength: string;
  };
  wordListPage: {
   loading: string;
@@ -140,6 +143,12 @@ export type Translation = {
   noWords: string;
   wordsCount: string;
   error: string;
+  // Localized page shell for the English-canonical word-list URLs:
+  // H1/description/back-link templates that follow the user's chosen
+  // language ({letter}/{n}/{family} placeholders).
+  titleStarts: string; titleEnds: string; titleWordleStarts: string; titleWordleEnds: string;
+  titleLength: string; descStarts: string; descEnds: string; descLength: string;
+  backToFamily: string; sortLabel: string; sortScore: string; filterByLetter: string;
  };
  blitz: {
   loadingEngine: string;
@@ -214,6 +223,9 @@ export type Translation = {
   scrambleFeatureHint: string;
   wordList: string;
   copiedToClipboard: string;
+  shareResults: string; saveToVault: string; savedToVault: string;
+  saveWordToVault: string; removeWordFromVault: string;
+  previousPage: string; nextPage: string; showAllCount: string;
  };
 };
 
@@ -622,6 +634,14 @@ const en: Translation = {
   scrambleFeatureHint: "Use the Scramble a word feature below to create your own jumble puzzles.",
   wordList: "Word List",
   copiedToClipboard: "Copied to clipboard!",
+  shareResults: "Share results",
+  saveToVault: "Save to vault",
+  savedToVault: "Saved",
+  saveWordToVault: "Save {word} to vault",
+  removeWordFromVault: "Remove {word} from vault",
+  previousPage: "Previous page",
+  nextPage: "Next page",
+  showAllCount: "All ({count})",
  },
  hubPages: {
   startsSubtitle: "Browse every valid Scrabble word that starts with each letter of the alphabet, from 2 to 15 letters.",
@@ -651,6 +671,11 @@ const en: Translation = {
   searchPlaceholderWordleStarts: "Type a letter A-Z to browse Wordle words starting with it…",
   searchPlaceholderWordleEnds: "Type a letter A-Z to browse Wordle words ending with it…",
   browseBtn: "Browse",
+  ariaBrowseStarts: "Browse words starting with {letter}",
+  ariaBrowseEnds: "Browse words ending with {letter}",
+  ariaBrowseWordleStarts: "Browse Wordle words starting with {letter}",
+  ariaBrowseWordleEnds: "Browse Wordle words ending with {letter}",
+  ariaBrowseLength: "Browse {n}-letter words",
  },
  wordListPage: {
   loading: "Loading verified word lists…",
@@ -665,6 +690,18 @@ const en: Translation = {
   noWords: "No words found.",
   wordsCount: "words",
   error: "Failed to load words. Please refresh.",
+  titleStarts: "Words Starting With \"{letter}\"",
+  titleEnds: "Words Ending With \"{letter}\"",
+  titleWordleStarts: "Wordle Words Starting With \"{letter}\"",
+  titleWordleEnds: "Wordle Words Ending With \"{letter}\"",
+  titleLength: "{n}-Letter Words",
+  descStarts: "Explore verified Scrabble words that start with the letter \"{letter}\". Filter by length and score.",
+  descEnds: "Discover verified Scrabble words that end with the letter \"{letter}\". Filter by length and find hooks.",
+  descLength: "Browse all {n}-letter words for Scrabble, Wordle, and anagram puzzles. Filtered by official Scrabble dictionaries, sorted by score.",
+  backToFamily: "Back to {family}",
+  sortLabel: "Sort",
+  sortScore: "Score",
+  filterByLetter: "Filter by starting letter",
  },
 };
 
@@ -1070,6 +1107,14 @@ const fr: Translation = {
   scrambleFeatureHint: "Utilisez la fonction Mélanger un mot ci-dessous pour créer vos propres puzzles.",
   wordList: "Liste de mots",
   copiedToClipboard: "Copié dans le presse-papiens !",
+  shareResults: "Partager les résultats",
+  saveToVault: "Ajouter au coffre-fort",
+  savedToVault: "Enregistré",
+  saveWordToVault: "Enregistrer {word} dans le coffre-fort",
+  removeWordFromVault: "Retirer {word} du coffre-fort",
+  previousPage: "Page précédente",
+  nextPage: "Page suivante",
+  showAllCount: "Tous ({count})",
  },
  hubPages: {
   startsSubtitle: "Parcourez tous les mots Scrabble valides commençant par chaque lettre de l'alphabet, de 2 à 15 lettres.",
@@ -1099,6 +1144,11 @@ const fr: Translation = {
   searchPlaceholderWordleStarts: "Tapez une lettre A-Z pour parcourir les mots Wordle commençant par elle…",
   searchPlaceholderWordleEnds: "Tapez une lettre A-Z pour parcourir les mots Wordle se terminant par elle…",
   browseBtn: "Parcourir",
+  ariaBrowseStarts: "Parcourir les mots commençant par {letter}",
+  ariaBrowseEnds: "Parcourir les mots finissant par {letter}",
+  ariaBrowseWordleStarts: "Parcourir les mots Wordle commençant par {letter}",
+  ariaBrowseWordleEnds: "Parcourir les mots Wordle finissant par {letter}",
+  ariaBrowseLength: "Parcourir les mots de {n} lettres",
  },
  wordListPage: {
   loading: "Chargement des listes de mots vérifiées…",
@@ -1113,6 +1163,18 @@ const fr: Translation = {
   noWords: "Aucun mot trouvé.",
   wordsCount: "mots",
   error: "Échec du chargement des mots. Veuillez rafraîchir la page.",
+  titleStarts: "Mots commençant par « {letter} »",
+  titleEnds: "Mots finissant par « {letter} »",
+  titleWordleStarts: "Mots Wordle commençant par « {letter} »",
+  titleWordleEnds: "Mots Wordle finissant par « {letter} »",
+  titleLength: "Mots de {n} lettres",
+  descStarts: "Explorez les mots valides au Scrabble qui commencent par la lettre « {letter} ». Filtrez par longueur et score.",
+  descEnds: "Découvrez les mots valides au Scrabble qui finissent par la lettre « {letter} ». Filtrez par longueur et trouvez des rallonges.",
+  descLength: "Parcourez tous les mots de {n} lettres pour le Scrabble, le Wordle et les anagrammes. Filtrés par les dictionnaires Scrabble officiels, classés par score.",
+  backToFamily: "Retour à {family}",
+  sortLabel: "Trier",
+  sortScore: "Score",
+  filterByLetter: "Filtrer par lettre initiale",
  },
 };
 
@@ -1497,6 +1559,14 @@ const es: Translation = {
   scrambleFeatureHint: "Use la función Mezclar una palabra a continuación para crear sus propios puzzles.",
   wordList: "Lista de palabras",
   copiedToClipboard: "¡Copiado al portapapeles!",
+  shareResults: "Compartir resultados",
+  saveToVault: "Guardar en la bóveda",
+  savedToVault: "Guardado",
+  saveWordToVault: "Guardar {word} en la bóveda",
+  removeWordFromVault: "Quitar {word} de la bóveda",
+  previousPage: "Página anterior",
+  nextPage: "Página siguiente",
+  showAllCount: "Todas ({count})",
  },
  hubPages: {
   startsSubtitle: "Explore todas las palabras válidas de Scrabble que comienzan con cada letra del alfabeto, de 2 a 15 letras.",
@@ -1526,6 +1596,11 @@ const es: Translation = {
   searchPlaceholderWordleStarts: "Escriba una letra A-Z para explorar palabras de Wordle que comienzan con ella…",
   searchPlaceholderWordleEnds: "Escriba una letra A-Z para explorar palabras de Wordle que terminan con ella…",
   browseBtn: "Explorar",
+  ariaBrowseStarts: "Explorar palabras que empiezan por {letter}",
+  ariaBrowseEnds: "Explorar palabras que terminan en {letter}",
+  ariaBrowseWordleStarts: "Explorar palabras de Wordle que empiezan por {letter}",
+  ariaBrowseWordleEnds: "Explorar palabras de Wordle que terminan en {letter}",
+  ariaBrowseLength: "Explorar palabras de {n} letras",
  },
  wordListPage: {
   loading: "Cargando listas de palabras verificadas…",
@@ -1540,6 +1615,18 @@ const es: Translation = {
   noWords: "No se encontraron palabras.",
   wordsCount: "palabras",
   error: "Error al cargar las palabras. Por favor, refresque la página.",
+  titleStarts: "Palabras que empiezan por \"{letter}\"",
+  titleEnds: "Palabras que terminan en \"{letter}\"",
+  titleWordleStarts: "Palabras de Wordle que empiezan por \"{letter}\"",
+  titleWordleEnds: "Palabras de Wordle que terminan en \"{letter}\"",
+  titleLength: "Palabras de {n} letras",
+  descStarts: "Explora palabras verificadas de Scrabble que empiezan por la letra \"{letter}\". Filtra por longitud y puntuación.",
+  descEnds: "Descubre palabras verificadas de Scrabble que terminan en la letra \"{letter}\". Filtra por longitud y encuentra ganchos.",
+  descLength: "Explora todas las palabras de {n} letras para Scrabble, Wordle y anagramas. Filtradas por diccionarios oficiales de Scrabble, ordenadas por puntuación.",
+  backToFamily: "Volver a {family}",
+  sortLabel: "Ordenar",
+  sortScore: "Puntos",
+  filterByLetter: "Filtrar por letra inicial",
  },
 };
 
@@ -1924,6 +2011,14 @@ const de: Translation = {
   scrambleFeatureHint: "Verwenden Sie die Funktion Wort mischen unten, um eigene Rätsel zu erstellen.",
   wordList: "Wortliste",
   copiedToClipboard: "In die Zwischenablage kopiert!",
+  shareResults: "Ergebnisse teilen",
+  saveToVault: "In den Speichertresor",
+  savedToVault: "Gespeichert",
+  saveWordToVault: "{word} in den Speichertresor speichern",
+  removeWordFromVault: "{word} aus dem Speichertresor entfernen",
+  previousPage: "Vorherige Seite",
+  nextPage: "Nächste Seite",
+  showAllCount: "Alle ({count})",
  },
  hubPages: {
   startsSubtitle: "Durchsuchen Sie jedes gültige Scrabble-Wort, das mit jedem Buchstaben des Alphabets beginnt, von 2 bis 15 Buchstaben.",
@@ -1953,6 +2048,11 @@ const de: Translation = {
   searchPlaceholderWordleStarts: "Tippen Sie einen Buchstaben A-Z, um Wordle-Wörter, die damit beginnen, zu durchsuchen…",
   searchPlaceholderWordleEnds: "Tippen Sie einen Buchstaben A-Z, um Wordle-Wörter, die damit enden, zu durchsuchen…",
   browseBtn: "Durchsuchen",
+  ariaBrowseStarts: "Wörter anzeigen, die mit {letter} beginnen",
+  ariaBrowseEnds: "Wörter anzeigen, die auf {letter} enden",
+  ariaBrowseWordleStarts: "Wordle-Wörter anzeigen, die mit {letter} beginnen",
+  ariaBrowseWordleEnds: "Wordle-Wörter anzeigen, die auf {letter} enden",
+  ariaBrowseLength: "Wörter mit {n} Buchstaben anzeigen",
  },
  wordListPage: {
   loading: "Verifizierte Wortlisten werden geladen…",
@@ -1967,6 +2067,18 @@ const de: Translation = {
   noWords: "Keine Wörter gefunden.",
   wordsCount: "Wörter",
   error: "Wörter konnten nicht geladen werden. Bitte aktualisieren Sie die Seite.",
+  titleStarts: "Wörter, die mit „{letter}“ beginnen",
+  titleEnds: "Wörter, die auf „{letter}“ enden",
+  titleWordleStarts: "Wordle-Wörter, die mit „{letter}“ beginnen",
+  titleWordleEnds: "Wordle-Wörter, die auf „{letter}“ enden",
+  titleLength: "Wörter mit {n} Buchstaben",
+  descStarts: "Entdecke geprüfte Scrabble-Wörter, die mit dem Buchstaben „{letter}“ beginnen. Nach Länge und Punkten filtern.",
+  descEnds: "Entdecke geprüfte Scrabble-Wörter, die auf den Buchstaben „{letter}“ enden. Nach Länge filtern und Anfänge finden.",
+  descLength: "Alle {n}-Buchstaben-Wörter für Scrabble, Wordle und Anagramme. Gefiltert nach offiziellen Scrabble-Wörterbüchern, nach Punkten sortiert.",
+  backToFamily: "Zurück zu {family}",
+  sortLabel: "Sortieren",
+  sortScore: "Punkte",
+  filterByLetter: "Nach Anfangsbuchstabe filtern",
  },
 };
 
@@ -2351,6 +2463,14 @@ const it: Translation = {
   scrambleFeatureHint: "Usa la funzione Mescola una parola qui sotto per creare i tuoi puzzle.",
   wordList: "Lista parole",
   copiedToClipboard: "Copiato negli appunti!",
+  shareResults: "Condividi i risultati",
+  saveToVault: "Aggiungi al salvavault",
+  savedToVault: "Salvato",
+  saveWordToVault: "Salva {word} nel salvavault",
+  removeWordFromVault: "Rimuovi {word} dal salvavault",
+  previousPage: "Pagina precedente",
+  nextPage: "Pagina successiva",
+  showAllCount: "Tutte ({count})",
  },
  hubPages: {
   startsSubtitle: "Sfogli tutte le parole Scrabble valide che iniziano con ogni lettera dell'alfabeto, da 2 a 15 lettere.",
@@ -2380,6 +2500,11 @@ const it: Translation = {
   searchPlaceholderWordleStarts: "Digiti una lettera A-Z per sfogliare le parole Wordle che iniziano con essa…",
   searchPlaceholderWordleEnds: "Digiti una lettera A-Z per sfogliare le parole Wordle che terminano con essa…",
   browseBtn: "Sfoglia",
+  ariaBrowseStarts: "Sfoglia le parole che iniziano con {letter}",
+  ariaBrowseEnds: "Sfoglia le parole che finiscono con {letter}",
+  ariaBrowseWordleStarts: "Sfoglia le parole di Wordle che iniziano con {letter}",
+  ariaBrowseWordleEnds: "Sfoglia le parole di Wordle che finiscono con {letter}",
+  ariaBrowseLength: "Sfoglia le parole di {n} lettere",
  },
  wordListPage: {
   loading: "Caricamento delle liste di parole verificate…",
@@ -2394,6 +2519,18 @@ const it: Translation = {
   noWords: "Nessuna parola trovata.",
   wordsCount: "parole",
   error: "Caricamento delle parole non riuscito. Aggiorni la pagina.",
+  titleStarts: "Parole che iniziano con \"{letter}\"",
+  titleEnds: "Parole che finiscono con \"{letter}\"",
+  titleWordleStarts: "Parole di Wordle che iniziano con \"{letter}\"",
+  titleWordleEnds: "Parole di Wordle che finiscono con \"{letter}\"",
+  titleLength: "Parole di {n} lettere",
+  descStarts: "Esplora parole di Scrabble verificate che iniziano con la lettera \"{letter}\". Filtra per lunghezza e punteggio.",
+  descEnds: "Scopri parole di Scrabble verificate che finiscono con la lettera \"{letter}\". Filtra per lunghezza e trova agganci.",
+  descLength: "Sfoglia tutte le parole di {n} lettere per Scrabble, Wordle e anagrammi. Filtrate dai dizionari ufficiali di Scrabble, ordinate per punteggio.",
+  backToFamily: "Torna a {family}",
+  sortLabel: "Ordina",
+  sortScore: "Punti",
+  filterByLetter: "Filtra per lettera iniziale",
  },
 };
 
@@ -2778,6 +2915,14 @@ const pt: Translation = {
   scrambleFeatureHint: "Use a função Embaralhar uma palavra abaixo para criar seus próprios puzzles.",
   wordList: "Lista de palavras",
   copiedToClipboard: "Copiado para a área de transferência!",
+  shareResults: "Partilhar resultados",
+  saveToVault: "Salvar no cofre",
+  savedToVault: "Salvo",
+  saveWordToVault: "Salvar {word} no cofre",
+  removeWordFromVault: "Remover {word} do cofre",
+  previousPage: "Página anterior",
+  nextPage: "Página seguinte",
+  showAllCount: "Todas ({count})",
  },
  hubPages: {
   startsSubtitle: "Navegue por todas as palavras válidas de Scrabble que começam com cada letra do alfabeto, de 2 a 15 letras.",
@@ -2807,6 +2952,11 @@ const pt: Translation = {
   searchPlaceholderWordleStarts: "Digite uma letra A-Z para navegar pelas palavras de Wordle que começam com ela…",
   searchPlaceholderWordleEnds: "Digite uma letra A-Z para navegar pelas palavras de Wordle que terminam com ela…",
   browseBtn: "Navegar",
+  ariaBrowseStarts: "Ver palavras que começam por {letter}",
+  ariaBrowseEnds: "Ver palavras que terminam em {letter}",
+  ariaBrowseWordleStarts: "Ver palavras de Wordle que começam por {letter}",
+  ariaBrowseWordleEnds: "Ver palavras de Wordle que terminam em {letter}",
+  ariaBrowseLength: "Ver palavras de {n} letras",
  },
  wordListPage: {
   loading: "Carregando listas de palavras verificadas…",
@@ -2821,6 +2971,18 @@ const pt: Translation = {
   noWords: "Nenhuma palavra encontrada.",
   wordsCount: "palavras",
   error: "Falha ao carregar palavras. Atualize a página.",
+  titleStarts: "Palavras que começam por \"{letter}\"",
+  titleEnds: "Palavras que terminam em \"{letter}\"",
+  titleWordleStarts: "Palavras de Wordle que começam por \"{letter}\"",
+  titleWordleEnds: "Palavras de Wordle que terminam em \"{letter}\"",
+  titleLength: "Palavras de {n} letras",
+  descStarts: "Explore palavras verificadas de Scrabble que começam pela letra \"{letter}\". Filtre por tamanho e pontuação.",
+  descEnds: "Descubra palavras verificadas de Scrabble que terminam pela letra \"{letter}\". Filtre por tamanho e encontre ganchos.",
+  descLength: "Veja todas as palavras de {n} letras para Scrabble, Wordle e anagramas. Filtradas por dicionários oficiais de Scrabble, ordenadas por pontuação.",
+  backToFamily: "Voltar para {family}",
+  sortLabel: "Ordenar",
+  sortScore: "Pontos",
+  filterByLetter: "Filtrar por letra inicial",
  },
 };
 
@@ -3205,6 +3367,14 @@ const nl: Translation = {
   scrambleFeatureHint: "Gebruik de functie Woord mengen hieronder om uw eigen puzzels te maken.",
   wordList: "Woordenlijst",
   copiedToClipboard: "Naar klembord gekopieerd!",
+  shareResults: "Resultaten delen",
+  saveToVault: "Bewaren in de opslagkluis",
+  savedToVault: "Bewaard",
+  saveWordToVault: "{word} in de opslagkluis bewaren",
+  removeWordFromVault: "{word} uit de opslagkluis verwijderen",
+  previousPage: "Vorige pagina",
+  nextPage: "Volgende pagina",
+  showAllCount: "Alle ({count})",
  },
  hubPages: {
   startsSubtitle: "Doorzoek elk geldig Scrabble-woord dat begint met elke letter van het alfabet, van 2 tot 15 letters.",
@@ -3234,6 +3404,11 @@ const nl: Translation = {
   searchPlaceholderWordleStarts: "Typ een letter A-Z om Wordle-woorden die ermee beginnen te doorzoeken…",
   searchPlaceholderWordleEnds: "Typ een letter A-Z om Wordle-woorden die erop eindigen te doorzoeken…",
   browseBtn: "Doorzoeken",
+  ariaBrowseStarts: "Bekijk woorden die beginnen met {letter}",
+  ariaBrowseEnds: "Bekijk woorden die eindigen op {letter}",
+  ariaBrowseWordleStarts: "Bekijk Wordle-woorden die beginnen met {letter}",
+  ariaBrowseWordleEnds: "Bekijk Wordle-woorden die eindigen op {letter}",
+  ariaBrowseLength: "Bekijk woorden van {n} letters",
  },
  wordListPage: {
   loading: "Geverifieerde woordenlijsten worden geladen…",
@@ -3248,6 +3423,18 @@ const nl: Translation = {
   noWords: "Geen woorden gevonden.",
   wordsCount: "woorden",
   error: "Woorden laden mislukt. Vernieuw de pagina.",
+  titleStarts: "Woorden die beginnen met \"{letter}\"",
+  titleEnds: "Woorden die eindigen op \"{letter}\"",
+  titleWordleStarts: "Wordle-woorden die beginnen met \"{letter}\"",
+  titleWordleEnds: "Wordle-woorden die eindigen op \"{letter}\"",
+  titleLength: "Woorden van {n} letters",
+  descStarts: "Ontdek gecontroleerde Scrabble-woorden die met de letter \"{letter}\" beginnen. Filter op lengte en punten.",
+  descEnds: "Ontdek gecontroleerde Scrabble-woorden die op de letter \"{letter}\" eindigen. Filter op lengte en vind hooks.",
+  descLength: "Bekijk alle woorden van {n} letters voor Scrabble, Wordle en anagrammen. Gefilterd op officiële Scrabble-woordenboeken, gesorteerd op punten.",
+  backToFamily: "Terug naar {family}",
+  sortLabel: "Sorteren",
+  sortScore: "Punten",
+  filterByLetter: "Filteren op beginletter",
  },
 };
 
@@ -3604,6 +3791,14 @@ const ja: Translation = {
   scrambleFeatureHint: "下の単語をシャッフル機能を使って、オリジナルのパズルを作成できます。",
   wordList: "単語リスト",
   copiedToClipboard: "クリップボードにコピーしました！",
+  shareResults: "結果を共有",
+  saveToVault: "ボールトに保存",
+  savedToVault: "保存済み",
+  saveWordToVault: "{word} をボールトに保存",
+  removeWordFromVault: "{word} をボールトから削除",
+  previousPage: "前のページ",
+  nextPage: "次のページ",
+  showAllCount: "すべて ({count})",
  },
  hubPages: {
   startsSubtitle: "アルファベットの各文字で始まる、2〜15文字のすべての有効なScrabble単語を閲覧できます。",
@@ -3633,6 +3828,11 @@ const ja: Translation = {
   searchPlaceholderWordleStarts: "A-Zの文字を入力して、その文字で始まるWordle単語を閲覧…",
   searchPlaceholderWordleEnds: "A-Zの文字を入力して、その文字で終わるWordle単語を閲覧…",
   browseBtn: "閲覧",
+  ariaBrowseStarts: "{letter} で始まる単語を閲覧",
+  ariaBrowseEnds: "{letter} で終わる単語を閲覧",
+  ariaBrowseWordleStarts: "{letter} で始まる Wordle 単語を閲覧",
+  ariaBrowseWordleEnds: "{letter} で終わる Wordle 単語を閲覧",
+  ariaBrowseLength: "{n} 文字の単語を閲覧",
  },
  wordListPage: {
   loading: "確認済みの単語リストを読み込み中…",
@@ -3647,6 +3847,18 @@ const ja: Translation = {
   noWords: "単語が見つかりませんでした。",
   wordsCount: "単語",
   error: "単語の読み込みに失敗しました。更新してください。",
+  titleStarts: "「{letter}」で始まる単語",
+  titleEnds: "「{letter}」で終わる単語",
+  titleWordleStarts: "「{letter}」で始まる Wordle 単語",
+  titleWordleEnds: "「{letter}」で終わる Wordle 単語",
+  titleLength: "{n}文字の単語",
+  descStarts: "「{letter}」で始まるスクラブル有効単語を探索。長さとスコアで絞り込めます。",
+  descEnds: "「{letter}」で終わるスクラブル有効単語を発見。長さで絞り込み、フックを探せます。",
+  descLength: "スクラブル・Wordle・アナグラム用の{n}文字の単語をすべて閲覧。公式スクラブル辞典で絞り込み、スコア順に表示。",
+  backToFamily: "{family}に戻る",
+  sortLabel: "並べ替え",
+  sortScore: "スコア",
+  filterByLetter: "頭文字で絞り込む",
  },
 };
 
@@ -4003,6 +4215,14 @@ const zh: Translation = {
   scrambleFeatureHint: "使用下方的打乱单词功能创建您自己的谜题。",
   wordList: "单词列表",
   copiedToClipboard: "已复制到剪贴板！",
+  shareResults: "分享结果",
+  saveToVault: "存入保存库",
+  savedToVault: "已保存",
+  saveWordToVault: "将 {word} 存入保存库",
+  removeWordFromVault: "将 {word} 从保存库移除",
+  previousPage: "上一页",
+  nextPage: "下一页",
+  showAllCount: "全部（{count}）",
  },
  hubPages: {
   startsSubtitle: "浏览以字母表中每个字母开头的所有有效 Scrabble 单词，长度从 2 到 15 个字母。",
@@ -4032,6 +4252,11 @@ const zh: Translation = {
   searchPlaceholderWordleStarts: "输入 A-Z 中的字母以浏览以该字母开头的 Wordle 单词…",
   searchPlaceholderWordleEnds: "输入 A-Z 中的字母以浏览以该字母结尾的 Wordle 单词…",
   browseBtn: "浏览",
+  ariaBrowseStarts: "浏览以 {letter} 开头的单词",
+  ariaBrowseEnds: "浏览以 {letter} 结尾的单词",
+  ariaBrowseWordleStarts: "浏览以 {letter} 开头的 Wordle 单词",
+  ariaBrowseWordleEnds: "浏览以 {letter} 结尾的 Wordle 单词",
+  ariaBrowseLength: "浏览 {n} 个字母的单词",
  },
  wordListPage: {
   loading: "正在加载已验证的单词列表…",
@@ -4046,6 +4271,18 @@ const zh: Translation = {
   noWords: "未找到单词。",
   wordsCount: "个单词",
   error: "加载单词失败，请刷新。",
+  titleStarts: "以 {letter} 开头的单词",
+  titleEnds: "以 {letter} 结尾的单词",
+  titleWordleStarts: "以 {letter} 开头的 Wordle 单词",
+  titleWordleEnds: "以 {letter} 结尾的 Wordle 单词",
+  titleLength: "{n} 个字母的单词",
+  descStarts: "探索以字母 {letter} 开头的已验证 Scrabble 单词。可按长度和得分筛选。",
+  descEnds: "发现以字母 {letter} 结尾的已验证 Scrabble 单词。可按长度筛选并寻找构词机会。",
+  descLength: "浏览所有 {n} 个字母的单词，适用于 Scrabble、Wordle 和字谜游戏。经官方 Scrabble 词典筛选，按得分排序。",
+  backToFamily: "返回{family}",
+  sortLabel: "排序",
+  sortScore: "得分",
+  filterByLetter: "按首字母筛选",
  },
 };
 
