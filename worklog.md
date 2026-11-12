@@ -2058,3 +2058,36 @@ Also note: during verification a stale `bun .next/standalone/server.js` process 
 - /ja/wordfeud: Tips card "コツ" ✓, no English fallback strings, new FAQ incl. タイル配点 item, FAQPage JSON-LD inLanguage=ja with 5 mainEntity ✓.
 - /zh/wordfeud: "小贴士" ✓, no English fallback, new FAQ incl. 牌分值 item, FAQPage JSON-LD inLanguage=zh, 5 items ✓.
 - en + de/fr/es/it/pt/nl regression: unchanged (verified earlier — localized FAQ titles, own tips cards, no "Enter all 7 rack letters" outside the English page where it is the legitimate en copy).
+
+## Task 50 (2026-11-13) — Language-aware internal links site-wide + French wordfeud H1 & oversized hero text
+
+**User requests**: (1) the language prefix in links must work on EVERY page, not just wordfeud — fix + update sitemap.xml; (2) why did the French H1 become "Aide Wordfeud & Solveur de Mots", and the text is bigger in size — fix.
+
+### Part 1 — Language-aware internal links (closes known gap #1 from Task 48)
+
+New `src/components/site/use-localized-path.ts`: `langFromPathname()` (handles both /{lang}/… and the internal /i18n/{lang}/… prerender path), `localizePath()` (maps "/" → "/{lang}", "/{tool}" → "/{lang}/{tool}" for the 19 LOCALIZED_TOOL_SLUGS + "/scrabble-words" for the 6 dictionary languages; guides/word-list/admin paths unchanged) and the `useLocalizedPath()` hook. SSR and client derive the same lang from either path form → no hydration mismatch.
+
+Applied to every site-wide link surface:
+- `site-header.tsx` — desktop inline nav `href`, `go()` (logo, mobile drawer, Tools/Word Lab/Site hover dropdowns)
+- `site-footer.tsx` — all 20 tool links per column
+- `info-views.tsx` SitemapView — core tool cards
+- `cookie-consent.tsx` — Privacy Policy button
+- `back-button.tsx` — ReturnButton href
+- `main-tool-view.tsx` — homepage "Play Anagram Blitz" CTA
+- `language-selector.tsx` — refactored onto the shared `localizePath()` (drops its duplicated slug table) and now also navigates /scrabble-words → /{lang}/scrabble-words for the 6 dict languages
+
+Verification (dev + fresh production build served from .next/standalone with static assets copied in): /fr/wordfeud + /fr homepage expose 26 language-prefixed links incl. /fr/scrabble-words, zero unprefixed tool links; clicking "Woordenboek" on /nl/wordfeud navigates to /nl/dictionary and renders the Dutch tool; English pages have zero prefixed links (unchanged); ja/zh pages prefix to /ja,/zh.
+
+`src/app/sitemap.ts` — LAST_MODIFIED bumped to 2026-11-13 (all 2,803 URLs). Verified generated sitemap.xml: all 8 /{lang}/wordfeud URLs, 978 localized tool URLs, 6 localized scrabble-words indexes, single lastmod 2026-11-13. No URL set changes were needed — every localized page was already enumerated; the link change is crawl-path only.
+
+### Part 2 — French H1 + oversized hero text
+
+Root causes measured at 1280px: FR wordfeud H1 was 31 chars and the intro subtitle 394 chars rendered through `.page-subtitle` (clamp up to 1.375rem) = 22px / 198px tall (~9 lines) — visually enormous next to other tool pages (EN subtitle: 117 chars / 66px). All 6 European wordfeud pages had 368-409-char subtitles and 29-35-char H1s.
+
+Fixes:
+- `translations.ts` — FR `wordfeud.title` → "Aide Wordfeud" (the direct counterpart of "Wordfeud Helper"). The full keyword phrase stays in the meta title "Aide Wordfeud & Solveur de Mots — ODS9 | wordIzy" (unchanged in i18n-seo.ts), so nothing is lost for SEO.
+- `page-header.tsx` — long titles (>24 chars, the compound localized H1s like "Wordfeud Woorden Maker & Helper") get the new `page-title-sm` class; long subtitles (>160 chars, the localized SEO intro paragraphs) render at body size (`text-sm sm:text-base leading-relaxed`) instead of the hero-size `.page-subtitle`. Short titles/subtitles (English + ja/zh pages) are pixel-identical to before.
+
+Verified on the production build: FR h1 "Aide Wordfeud" @72px, subtitle 16px/104px (was 22px/198px); NL h1 @52px (smaller long-title clamp), subtitle 16px; EN /wordfeud h1 @72px unchanged; zero hydration errors (React #418 explicitly checked — the Task 47 failure mode).
+
+**Build**: `tsc --noEmit` clean; `next build` exit 0 (full page set). NOTE for local standalone verification: `next build` does NOT copy `.next/static` + `public` into `.next/standalone` — without them the CSS 404s and every h1 computes at Chromium's default 32px (false alarm during this task's verification); copy both dirs in before `bun .next/standalone/server.js`.

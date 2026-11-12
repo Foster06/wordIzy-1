@@ -5,6 +5,7 @@ import { Cookie, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/site/glass-card";
 import { useRouter } from "next/navigation";
+import { useLocalizedPath } from "./use-localized-path";
 
 const STORAGE_KEY = "wordizy-cookie-consent";
 const SHOW_DELAY_MS = 1500;
@@ -18,6 +19,7 @@ type StoredValue = "accepted" | "declined";
  */
 export function CookieConsent() {
   const router = useRouter();
+  const lp = useLocalizedPath();
   const [visible, setVisible] = useState(false);
   const acceptBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -92,7 +94,7 @@ export function CookieConsent() {
               <button
                 onClick={() => {
                   dismiss();
-                  router.push("/privacy");
+                  router.push(lp("/privacy"));
                 }}
                 className="text-brand hover:underline font-medium"
               >

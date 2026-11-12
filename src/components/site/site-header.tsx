@@ -18,6 +18,7 @@ import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
 import { FavoritesDrawer } from "./favorites-drawer";
 import { useWordVault } from "@/hooks/use-word-vault";
+import { useLocalizedPath } from "./use-localized-path";
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2,
@@ -40,25 +41,27 @@ export function SiteHeader() {
   const { favorites } = useWordVault();
   const [mobileOpen, setMobileOpen] = useState(false);
   const isActive = (r: RouteDef) => route.id === r.id;
+  const lp = useLocalizedPath();
 
   // Refs for mobile drawer focus trap.
   const hamburgerBtnRef = useRef<HTMLButtonElement>(null);
   const mobileDrawerRef = useRef<HTMLDivElement>(null);
 
-  const go = (hash: string) => { 
-    setMobileOpen(false); 
+  const go = (hash: string) => {
+    setMobileOpen(false);
     let cleanPath = hash.replace("/#", "").replace("#", "");
-    
+
     if (cleanPath === "" || cleanPath === "home" || cleanPath === "/") {
-      router.push("/");
+      router.push(lp("/"));
       return;
     }
-    
+
     if (!cleanPath.startsWith("/")) {
       cleanPath = `/${cleanPath}`;
     }
-    
-    router.push(cleanPath);
+
+    // Keep the /{lang} scope when a localized variant of the target exists.
+    router.push(lp(cleanPath));
   };
 
   const inlineRoutes = ROUTES.filter((r) => r.desktop === "inline" && !r.hidden);
@@ -157,7 +160,7 @@ export function SiteHeader() {
               {inlineRoutes.map((r) => (
                 <Link
                   key={r.id}
-                  href={r.hash}
+                  href={lp(r.hash)}
                   aria-current={isActive(r) ? "page" : undefined}
                   className={cn(
                     "nav-item !text-[14px] px-2 py-2 rounded-md transition-colors whitespace-nowrap cursor-pointer",

@@ -9,6 +9,7 @@ import { PageHeader } from "@/components/site/page-header";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { ROUTES, GROUP_ORDER, GROUP_LABELS, type RouteGroup } from "@/components/site/routes";
 import { WORD_LIST_LENGTHS, ALPHABET_LOWER, ALPHABET_UPPER } from "@/lib/word-list-urls";
+import { useLocalizedPath } from "@/components/site/use-localized-path";
 
 const SITEMAP_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Shuffle, RotateCw, Grid3x3, LayoutGrid, Repeat, Dices, Gamepad2,
@@ -284,6 +285,7 @@ export function TermsView() {
 
 export function SitemapView() {
   const { t } = useLanguage();
+  const lp = useLocalizedPath();
   return (
     <>
       <PageHeader badge={t.nav.sitemap} title={t.sitemap.title} subtitle={t.sitemap.body} icon={<Map className="h-6 w-6" />} />
@@ -304,7 +306,7 @@ export function SitemapView() {
                   return (
                     <Link
                       key={r.id}
-                      href={r.hash}
+                      href={lp(r.hash)}
                       className="group flex items-center gap-3 rounded-xl px-4 py-3 bg-white/[0.04] border border-white/[0.08] hover:bg-brand/10 hover:border-brand/30 transition-colors transition-transform text-left shadow-sm hover:shadow-md"
                     >
                       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand/10 border border-brand/20 group-hover:bg-brand/20 transition-colors">

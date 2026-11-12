@@ -73,9 +73,9 @@ const GUIDES = [
 ];
 
 // 5. Fixed last-modified timestamp so crawlers can diff changes between deploys.
-//    Bumped to 2026-11-12 to reflect the localized Wordfeud SEO overhaul (native
-//    meta titles/descriptions, H1s and strategy FAQ content for de/fr/es/it/pt/nl).
-const LAST_MODIFIED = new Date("2026-11-12T00:00:00Z");
+//    Bumped to 2026-11-13 to reflect the language-aware internal linking rollout
+//    (all nav/footer/CTA links keep the /{lang} prefix on localized pages).
+const LAST_MODIFIED = new Date("2026-11-13T00:00:00Z");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://wordizy.com";

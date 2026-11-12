@@ -1,6 +1,7 @@
 "use client";
 
 import { GlassCard } from "./glass-card";
+import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
 interface PageHeaderProps {
@@ -11,9 +12,14 @@ interface PageHeaderProps {
 }
 
 /** Hero header — centered, Bree Serif title with brand gradient on remaining words
- *  (matches the home "Word Unscrambler" style). */
+ *  (matches the home "Word Unscrambler" style).
+ *  Long titles (compound localized H1s like "Wordfeud Woorden Maker & Helper") and
+ *  long subtitles (localized SEO intro paragraphs) step down to a smaller size so
+ *  the hero never dominates the page or wraps across 3+ lines. */
 export function PageHeader({ badge, title, subtitle, icon }: PageHeaderProps) {
   const titleText = typeof title === "string" ? title : "";
+  const isLongTitle = titleText.length > 24;
+  const isLongSubtitle = typeof subtitle === "string" && subtitle.length > 160;
   const parts = titleText.split(" ");
   const firstWord = parts[0] || titleText;
   const restWords = parts.slice(1).join(" ");
@@ -38,11 +44,16 @@ export function PageHeader({ badge, title, subtitle, icon }: PageHeaderProps) {
             {badge}
           </span>
         )}
-        <h1 className="page-title tracking-tight">
+        <h1 className={cn("page-title tracking-tight", isLongTitle && "page-title-sm")}>
           {renderTitle}
         </h1>
         {subtitle && (
-          <p className="page-subtitle mt-3 text-muted-foreground max-w-3xl">
+          <p
+            className={cn(
+              "mt-3 text-muted-foreground max-w-3xl",
+              isLongSubtitle ? "text-sm sm:text-base leading-relaxed" : "page-subtitle",
+            )}
+          >
             {subtitle}
           </p>
         )}

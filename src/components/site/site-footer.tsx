@@ -5,6 +5,7 @@ import { ROUTES, GROUP_ORDER, GROUP_LABELS, type RouteGroup } from "./routes";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { AdSlot } from "./ad-slot";
 import { Logo } from "./logo";
+import { useLocalizedPath } from "./use-localized-path";
 
 /** Footer with SOLVERS / TOOLS / WORD LAB / SITE — 4-column grid (responsive:
  *  2 cols on mobile, 4 cols on desktop), always visible.
@@ -12,6 +13,7 @@ import { Logo } from "./logo";
  *  All text uses Bree Serif 15px. */
 export function SiteFooter() {
   const { t } = useLanguage();
+  const lp = useLocalizedPath();
 
   return (
     <footer className="mt-auto border-t border-white/5 bg-background/60 backdrop-blur-xl">
@@ -41,7 +43,7 @@ export function SiteFooter() {
                   {groupRoutes.map((r) => (
                     <li key={r.id}>
                       <Link
-                        href={r.hash}
+                        href={lp(r.hash)}
                         className="font-bree !text-[15px] text-muted-foreground hover:text-brand transition-colors text-left break-words block cursor-pointer"
                       >
                         {t.nav[r.labelKey]}

@@ -680,7 +680,7 @@ const fr: Translation = {
   length: "Longueur", any: "Toutes", count: "Combien", btn: "Générer",
  },
  wordfeud: {
-  title: "Aide Wordfeud & Solveur de Mots", subtitle: "Bloqué sur une grille difficile ? Saisissez vos 7 lettres dans notre outil d'aide Wordfeud gratuit pour afficher instantanément tous les mots français valides, classés par longueur et par score. Utilisez ? ou * pour représenter vos jokers (tuiles blanches) et activez les Filtres Avancés (Commence par, Finit par, Contient) pour vous raccorder facilement aux lettres déjà posées sur le plateau.",
+  title: "Aide Wordfeud", subtitle: "Bloqué sur une grille difficile ? Saisissez vos 7 lettres dans notre outil d'aide Wordfeud gratuit pour afficher instantanément tous les mots français valides, classés par longueur et par score. Utilisez ? ou * pour représenter vos jokers (tuiles blanches) et activez les Filtres Avancés (Commence par, Finit par, Contient) pour vous raccorder facilement aux lettres déjà posées sur le plateau.",
   btn: "Trouver des mots", hint: "Ajoutez ? ou * pour les tuiles vierges.",
   tips: {
    title: "Astuces",

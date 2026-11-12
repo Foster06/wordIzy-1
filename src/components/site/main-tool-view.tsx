@@ -81,6 +81,7 @@ const DashboardView = dynamic(
   () => import("@/components/tools/dashboard-view").then((m) => m.DashboardView),
 );
 import { ProgrammaticSEOView } from "@/components/site/programmatic-seo-view";
+import { useLocalizedPath } from "@/components/site/use-localized-path";
 const AnagramBlitz = dynamic(
   () => import("@/components/tools/anagram-blitz").then((m) => m.AnagramBlitz),
 );
@@ -117,6 +118,7 @@ export function MainToolView({ params, initialWordListData, topWordData }: MainT
   const toolSegments = resolvedParams.tool || [];
   const { route } = useHashRoute();
   const { t } = useLanguage();
+  const lp = useLocalizedPath();
 
   const renderView = () => {
     const primaryRoute = toolSegments[0] || "home";
@@ -179,7 +181,7 @@ export function MainToolView({ params, initialWordListData, topWordData }: MainT
                   </div>
                 </div>
                 <Link
-                  href="/blitz"
+                  href={lp("/blitz")}
                   onClick={() => trackUmamiEvent("play_blitz_cta_click", {
                     location: "homepage_featured_card",
                     destination: "/blitz",

@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { ArrowLeft, CornerUpLeft } from "lucide-react";
+import { useLocalizedPath } from "./use-localized-path";
 
 interface ReturnButtonProps {
   /** Where to navigate to. On programmatic pages, this should be the hub page
@@ -29,12 +30,13 @@ export function ReturnButton({
   useHistoryBack = false,
 }: ReturnButtonProps) {
   const router = useRouter();
+  const lp = useLocalizedPath();
 
   const handleClick = () => {
     if (useHistoryBack && typeof window !== "undefined" && window.history.length > 1) {
       router.back();
     } else {
-      router.push(href);
+      router.push(lp(href));
     }
   };
 
