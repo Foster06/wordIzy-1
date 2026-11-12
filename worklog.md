@@ -2040,3 +2040,21 @@ Also note: during verification a stale `bun .next/standalone/server.js` process 
 **Known pre-existing gaps (NOT changed, candidates for follow-up)**: (1) nav links on localized pages point at the English tool URLs (e.g. /nl's "Woordenboek" → /dictionary) — localized internal links would strengthen the hreflang cluster; (2) the localized homepage renders via the switch's default branch (home hero + unscrambler + English "featured guides" card in English); (3) ja/zh wordfeud still uses the old generic FAQ + English tips fallback (no native copy was provided).
 
 **Remaining user action**: deploy. After deploy, re-crawl /{lang}/wordfeud in GSC/Bing and request indexing for the six URLs.
+
+## Task 49 (2026-11-13) — Wordfeud page: how-to-use content not switching in other languages (ja/zh)
+
+**User report**: "How to use & FAQ in wordfeud page does not change in other languages."
+
+**Investigation** (production wordizy.com + local, curl + agent-browser):
+- The 6 European wordfeud pages (/de /fr /es /it /pt /nl) were verified end-to-end: localized FAQ title, 5 native FAQ items, localized Tips card, FAQPage JSON-LD in-language — correct on direct URL visits AND when switching languages via the navbar selector (en→es, fr→nl both re-render fully localized).
+- Root cause found on /ja/wordfeud and /zh/wordfeud: the how-to-use **Tips card** (rendered by LettersSolver above the FAQ) stayed in English — `wordfeud.tips` existed for only 7 of 9 languages, and wordfeud-tool.tsx fell back to a hardcoded English `{title:"Tips", items:[...]}` card. Additionally the ja/zh `faq.wordfeud` was the old thin generic 4-item Scrabble-clone FAQ instead of the Wordfeud-specific copy (known gap #3 from Task 48).
+
+**Fix**:
+- `src/components/i18n/translations.ts`: added native `wordfeud.tips` for ja ("コツ") and zh ("小贴士"); replaced the ja/zh `faq.wordfeud` with the same 5-item Wordfeud-specific structure used by the other 7 languages (helper overview + wildcards/filters, Wordfeud tile values & distribution, +40 bingo bonus vs Scrabble's +50, Random Board strategy, rack & blank entry) — feeds both the visible TipsSection and the FAQPage JSON-LD.
+- Interface: `wordfeud.tips` is now REQUIRED in the Translation type (was optional), so TypeScript enforces it for every future language.
+- `src/components/tools/wordfeud-tool.tsx`: removed the hardcoded English fallback — `tipsCard={t.wordfeud.tips}` directly.
+
+**Verification** (dev server, tsc clean):
+- /ja/wordfeud: Tips card "コツ" ✓, no English fallback strings, new FAQ incl. タイル配点 item, FAQPage JSON-LD inLanguage=ja with 5 mainEntity ✓.
+- /zh/wordfeud: "小贴士" ✓, no English fallback, new FAQ incl. 牌分值 item, FAQPage JSON-LD inLanguage=zh, 5 items ✓.
+- en + de/fr/es/it/pt/nl regression: unchanged (verified earlier — localized FAQ titles, own tips cards, no "Enter all 7 rack letters" outside the English page where it is the legitimate en copy).

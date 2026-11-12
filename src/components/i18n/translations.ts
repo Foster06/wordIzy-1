@@ -34,7 +34,7 @@ export type Translation = {
  quordle: { title: string; subtitle: string; board: string; addBoard: string; hint: string };
  anagram: { title: string; subtitle: string; btn: string; hint: string };
  random: { title: string; subtitle: string; length: string; any: string; count: string; btn: string };
- wordfeud: { title: string; subtitle: string; btn: string; hint: string; tips?: { title: string; items: string[] } };
+ wordfeud: { title: string; subtitle: string; btn: string; hint: string; tips: { title: string; items: string[] } };
  dictionary: { title: string; subtitle: string; btn: string; exists: string; notExists: string; definition: string; score: string; tiles: string };
  scrabble: { title: string; subtitle: string; rack: string; board: string; btn: string; hint: string };
  wordlists: {
@@ -3058,7 +3058,16 @@ const ja: Translation = {
  quordle: { title: "Quordle解決", subtitle: "最大4つのWordleを同時に解きます。", board: "ボード", addBoard: "ボード追加", hint: "各ボードの情報を入力して解決。" },
  anagram: { title: "アナグラム解決", subtitle: "文字のすべてのアナグラムを見つけます。", btn: "アナグラムを見つける", hint: "ワイルドカード(? *)で補完。" },
  random: { title: "ランダム単語生成", subtitle: "長さ・接頭辞・接尾辞・含有の条件でランダムな実在単語を生成。", length: "長さ", any: "任意", count: "生成数", btn: "生成" },
- wordfeud: { title: "Wordfeudヘルプ", subtitle: "ラックから最適なWordfeud単語を探します。", btn: "単語を見つける", hint: "? または * でブランク。" },
+ wordfeud: { title: "Wordfeudヘルプ", subtitle: "ラックから最適なWordfeud単語を探します。", btn: "単語を見つける", hint: "? または * でブランク。",
+  tips: {
+   title: "コツ",
+   items: [
+    "ラックの7文字をすべて入力しましょう。盤面の既存文字を加えると、さらに多くの候補が見つかります。",
+    "ブランクタイルには ? または * を使います — 任意の文字になれますが、得点は0点です。",
+    "Wordfeudにはボーナスマス（DL・TL・DW・TW）があり、文字得点や単語得点が倍増します。",
+   ],
+  },
+ },
  dictionary: { title: "辞書チェック", subtitle: "単語の存在確認、スクラブル得点、定義を表示。", btn: "確認", exists: "は有効な単語です", notExists: "は辞書に見つかりません", definition: "定義", score: "スクラブル得点", tiles: "文字タイル" },
  scrabble: { title: "スクラブル複製", subtitle: "全員同じラックの複製モード。7文字(+盤面文字)で最高得点の手を見つけます。", rack: "ラック", board: "盤面文字(任意)", btn: "最適な単語を見つける", hint: "ワイルドカード可。得点順。" },
  wordlists: { title: "単語リスト", subtitle: "2〜7文字のすべての単語を閲覧。A〜Zで探索。", allWords: "すべての単語", startsBy: "A〜Zで始まる", endsBy: "A〜Zで終わる", letter: "文字", selectLength: "長さ", selectLetter: "文字", browse: "閲覧" },
@@ -3244,10 +3253,11 @@ const ja: Translation = {
    { q: "言葉遊びに使えますか？", a: "もちろんです。Pictionary、シャレード、連想ゲーム、語彙クイズ用にランダム単語を生成できます。パスワード生成には、異なる長さのランダム単語を3〜4個組み合わせると、覚えやすく安全なパスフレーズになります。" },
   ],
   wordfeud: [
-   { q: "Wordfeudヘルプとは？", a: "Wordfeudはスクラブルに似た人気のモバイル言葉遊びです。このヘルプは、ラックからプレイ可能な最良の単語を見つけます。7文字（＋盤面の既存文字）を入力すると、WordIzyがプレイ可能なすべての単語をスクラブル得点順で返します。" },
-   { q: "ラックの入力方法は？", a: "「あなたの文字」ボックスに7つのタイル文字を入力します。ブランクタイルには ? または * を使います（任意の文字を表すが0点）。盤面に既にある文字から繋げたい場合はそれも加えます——WordIzyは合わせたプールから形成可能な単語を探します。" },
-   { q: "どの辞書を使うべき？", a: "Wordfeudは地域によって複数の辞書に対応しています。英語版Wordfeudはスクラブル類似のリストを使うため、英語（NWL2023/CSW21）が適しています。他言語は、言語セレクターから対応するもの（フランス語ODS9、スペイン語FISEなど）を選びます。" },
-   { q: "得点はどう計算されますか？", a: "得点は選択言語の公式スクラブル文字得点を使います。なお、Wordfeudの実際の得点計算は少し異なる場合があります（ボーナスマスや独自タイル配布があるため）。高得点の手を見つける目安として使ってください——ラックから最も点数の高い単語が通常、最善の手です。" },
+   { q: "Wordfeudヘルプとは？どんなツールですか？", a: "WordfeudはScrabbleに似た人気のモバイル単語ゲームです。ラックの7文字（＋盤面の既存文字）を入力すると、WordIzyがプレイ可能なすべての単語を即座に表示します。ブランクタイルには ? または * を使え、高度なフィルター（「〜で始まる」「〜で終わる」「〜を含む」）で盤面の空きマスに合う高得点プレイを絞り込めます。" },
+   { q: "Wordfeudのタイル配点と分布はどうなっていますか？", a: "WordfeudはScrabbleとは異なる独自の字母配点とタイル分布を使用します（例：英語版はAが10枚、Eが12枚、Hが3枚と母音が多め）。ヘルパーは選択言語の公式タイル配点で各単語の基礎得点を自動計算するので、最も得点の高いプレイがすぐ分かります。" },
+   { q: "+40ビンゴボーナスとは何ですか？", a: "1ターンでラックの7文字すべてを使い切ると、Wordfeudでは+40点のビンゴボーナスが加算されます（従来のScrabbleの+50点とは異なります）。タイル袋に母音（A・E・O・T）とHが多いため、7〜8文字のビンゴははるかによく起こります。結果リストの上位にある7文字の単語を狙いましょう。" },
+   { q: "ランダムボード（Random Board）モードで勝つコツは？", a: "Wordfeudの看板モードであるランダムボードでは、DL・TL・DW・TWのボーナスマスが15×15盤面にランダムに配置されます。TLの隣にTWがある配置を狙い、Q・Z・X・Jなどの高得点文字をTLに置きつつTWまで単語を伸ばすと、1ターンで100点超えも可能です。? や * のワイルドカードと併せて既存の盤面文字を入力すれば、離れた2つのボーナスマスを同時にまたぐ単語を見つけられます。空いているTWマスの隣に母音を開けたままにしないことも重要です。" },
+   { q: "ラックとブランクタイルの入力方法は？", a: "「あなたの文字」ボックスに7つのタイル文字を入力し、「単語を見つける」をクリックします。ブランクタイルは ? または * で表します — 任意の文字になれますが0点です。盤面にすでにある文字を加えて入力すると、そこに接続できる単語まで見つかります。" },
   ],
   dictionary: [
    { q: "辞書チェックは何をしますか？", a: "任意の単語を入力すると、選択言語の公式スクラブル辞書で有効かどうかを確認します。ツールは単語をスクラブルタイルとして表示し、有効/無効バッジ、スクラブル得点、単語の長さ、文字タイル、辞書の定義、（あれば）同義語を表示します。" },
@@ -3446,7 +3456,16 @@ const zh: Translation = {
  quordle: { title: "Quordle求解", subtitle: "同时求解最多四个Wordle。每个棋盘保留各自约束。", board: "棋盘", addBoard: "添加棋盘", hint: "填写已知信息后求解。" },
  anagram: { title: "易位词求解", subtitle: "找出字母的所有易位词——恰好用完所有字母的单词。", btn: "查找易位词", hint: "通配符(? *)补全。" },
  random: { title: "随机单词生成器", subtitle: "按长度、前缀、后缀、包含条件生成随机真实单词。", length: "长度", any: "任意", count: "数量", btn: "生成" },
- wordfeud: { title: "Wordfeud助手", subtitle: "从牌架找出最佳Wordfeud单词。选择词典后求解。", btn: "查找单词", hint: "? 或 * 作空白牌。" },
+ wordfeud: { title: "Wordfeud助手", subtitle: "从牌架找出最佳Wordfeud单词。选择词典后求解。", btn: "查找单词", hint: "? 或 * 作空白牌。",
+  tips: {
+   title: "小贴士",
+   items: [
+    "输入牌架上的全部7个字母。再加上棋盘上可接续的字母，能找到更多候选单词。",
+    "空白牌用 ? 或 * 表示 — 可代表任意字母，但得分为0。",
+    "Wordfeud有奖励格（DL、TL、DW、TW），可以让字母分或单词分翻倍。",
+   ],
+  },
+ },
  dictionary: { title: "查词典", subtitle: "验证单词是否存在，查看Scrabble得分和释义。", btn: "检查", exists: "是有效单词", notExists: "未在词典中找到", definition: "释义", score: "Scrabble得分", tiles: "字母牌" },
  scrabble: { title: "Scrabble复刻", subtitle: "复刻模式每人相同牌架。输入7个字母（加已放字母）找出最高分。", rack: "你的牌架", board: "盘面字母(可选)", btn: "找最佳单词", hint: "支持通配符。按得分排序。" },
  wordlists: { title: "单词表", subtitle: "浏览所有2到7字母单词。选择视图、长度和字母按A–Z探索。", allWords: "全部单词", startsBy: "开头A–Z", endsBy: "结尾A–Z", letter: "字母", selectLength: "长度", selectLetter: "字母", browse: "浏览" },
@@ -3632,10 +3651,11 @@ const zh: Translation = {
    { q: "可用于文字游戏吗？", a: "当然。可生成随机单词用于Pictionary、你画我猜、词语联想游戏或词汇问答。生成密码时，组合3-4个不同长度的随机单词——能创建既好记又安全的口令短语。" },
   ],
   wordfeud: [
-   { q: "什么是Wordfeud助手？", a: "Wordfeud是一款类似Scrabble的热门手机文字游戏。此助手帮你从牌架找出可玩的最佳单词。输入你的7个字母（加上已放置的棋盘字母），WordIzy返回所有可玩单词，按Scrabble得分排序。" },
-   { q: "如何输入我的牌架？", a: "在「你的字母」框中输入你的7个字母牌。空白牌用 ? 或 *（可代表任意字母但0分）。如果棋盘上已有字母你想接续，也加上它们——WordIzy会从合并字母池中找出可组成的单词。" },
-   { q: "应使用哪个词典？", a: "Wordfeud根据你的地区支持多个词典。英语Wordfeud使用类Scrabble词表，因此英语（NWL2023/CSW21）即可。其他语言请从语言选择器选择对应的（法语ODS9、西班牙语FISE等）。" },
-   { q: "得分如何计算？", a: "得分使用所选语言的官方Scrabble字母分值。注意Wordfeud的实际计分可能略有不同（有奖励格和自己的牌分布）。把得分作为识别高价值玩法的指南——牌架上得分最高的单词通常是你最好的选择。" },
+   { q: "什么是Wordfeud助手？", a: "Wordfeud是一款类似Scrabble的热门手机单词游戏。输入你牌架上的7个字母（以及棋盘上可接续的字母），WordIzy会立即列出所有可玩的单词。空白牌可用 ? 或 * 表示，再用高级筛选（“开头是”“结尾是”“必须包含”）找出能塞进棋盘空位的高分单词。" },
+   { q: "Wordfeud的牌分值和分布是怎样的？", a: "Wordfeud使用与桌面版Scrabble不同的专属字母分值和牌面分布（例如英文版有10个A、12个E、3个H，元音更多）。助手会按所选语言的官方牌分自动计算每个单词的基础得分，让你几秒内锁定最划算的玩法。" },
+   { q: "+40 Bingo奖励是怎么回事？", a: "在一回合内用完牌架上的全部7个字母，Wordfeud会在单词分之外额外奖励+40分（传统Scrabble为+50分）。由于牌袋里元音（A、E、O、T）和H更多，拼出7～8字母Bingo的机会也大得多。多看结果列表顶部的7字母单词，稳拿这项奖励。" },
+   { q: "随机棋盘（Random Board）模式怎么赢？", a: "Wordfeud标志性的随机棋盘模式会把DL、TL、DW、TW奖励格随机撒在15×15棋盘上。技巧：寻找相邻的TL和TW——把Q、Z、X、J等高分牌放在TL上、单词延伸到TW，一回合轻松破100分；用 ? 或 * 通配符连同盘面字母一起搜索，能找到同时跨过两个奖励格的单词；另外别在空闲TW格旁留下开放的元音。" },
+   { q: "如何输入牌架和空白牌？", a: "在“你的字母”框中输入7个字母牌，点击“查找单词”。空白牌用 ? 或 * 表示——可代表任意字母但计0分。把棋盘上已有的字母一并输入，还能找到能挂钩这些字母的更多单词。" },
   ],
   dictionary: [
    { q: "查词典是做什么的？", a: "输入任意单词可验证它在所选语言的官方Scrabble词典中是否有效。工具显示单词的Scrabble字母牌、有效/无效徽章、Scrabble得分、单词长度、字母牌、词典释义以及（如可用的）同义词。" },
