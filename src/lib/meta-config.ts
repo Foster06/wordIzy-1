@@ -55,9 +55,11 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["random word generator","word generator","random words","word list generator","word picker","random word picker","random word","generate random word","random english word generator","word randomizer","random word tool","random vocabulary word generator","random noun generator","random word maker","random word list","random word selector","generate words","random scrabble word generator","random word generator for games"]
   },
   "wordfeud": {
-    title: "Wordfeud Helper & Cheat — Best Words From Your Rack",
-    description: "Wordfeud helper, cheat & unscrambler. Enter your rack letters to find the best Wordfeud words instantly. 9 languages, free.",
-    keywords: ["wordfeud helper","wordfeud solver","wordfeud finder","wordfeud cheat","wordfeud word finder","wordfeud best words","wordfeud word generator","wordfeud tile solver","wordfeud rack solver","wordfeud cheat tool","wordfeud helper tool","wordfeud anagram solver","wordfeud word maker","wordfeud score calculator","wordfeud word builder","wordfeud dictionary finder","wordfeud word checker","wordfeud high score words","wordfeud letter solver"]
+    // Title ≤50 chars before the " | wordIzy" template suffix (Bing SERP truncation).
+    // Description ≤160 chars (Bing 25-160 rule; keep ≤150 for escaping safety).
+    title: "Wordfeud Helper & Word Finder — Official Tile Scores & Solver",
+    description: "Find the highest-scoring Wordfeud words fast. TWL06, SOWPODS, Dutch & European dictionaries, +40 bingo calculations, and Random Board wildcard filters.",
+    keywords: ["wordfeud helper","wordfeud solver","wordfeud finder","wordfeud cheat","wordfeud word finder","wordfeud best words","wordfeud word generator","wordfeud tile solver","wordfeud rack solver","wordfeud cheat tool","wordfeud helper tool","wordfeud anagram solver","wordfeud word maker","wordfeud score calculator","wordfeud word builder","wordfeud dictionary finder","wordfeud word checker","wordfeud high score words","wordfeud letter solver","wordfeud tile values","wordfeud tile distribution","wordfeud bingo bonus","wordfeud random board","sowpods word finder","twl06 word finder"]
   },
   "dictionary": {
     title: "Scrabble Dictionary Checker — Is It a Valid Word?",
