@@ -34,7 +34,7 @@ export type Translation = {
  quordle: { title: string; subtitle: string; board: string; addBoard: string; hint: string };
  anagram: { title: string; subtitle: string; btn: string; hint: string };
  random: { title: string; subtitle: string; length: string; any: string; count: string; btn: string };
- wordfeud: { title: string; subtitle: string; btn: string; hint: string };
+ wordfeud: { title: string; subtitle: string; btn: string; hint: string; tips?: { title: string; items: string[] } };
  dictionary: { title: string; subtitle: string; btn: string; exists: string; notExists: string; definition: string; score: string; tiles: string };
  scrabble: { title: string; subtitle: string; rack: string; board: string; btn: string; hint: string };
  wordlists: {
@@ -260,6 +260,14 @@ const en: Translation = {
  wordfeud: {
   title: "Wordfeud Helper", subtitle: "Find the best Wordfeud words from your rack. Wordfeud uses the same multilingual dictionaries — pick yours and solve.",
   btn: "Find words", hint: "Add ? or * for blank tiles.",
+  tips: {
+   title: "Tips",
+   items: [
+    "Enter all 7 rack letters. Add board letters you can build off for more options.",
+    "Use ? or * for blank tiles — they represent any letter but score 0.",
+    "Wordfeud has bonus squares (DL, TL, DW, TW) that multiply letter/word scores.",
+   ],
+  },
  },
  dictionary: {
   title: "Check Dictionary", subtitle: "Verify whether a word exists in the selected dictionary, see its Scrabble score and read a definition.",
@@ -672,8 +680,16 @@ const fr: Translation = {
   length: "Longueur", any: "Toutes", count: "Combien", btn: "Générer",
  },
  wordfeud: {
-  title: "Aide Wordfeud", subtitle: "Trouvez les meilleurs mots Wordfeud depuis votre chevalet. Wordfeud utilise les mêmes dictionnaires multilingues — choisissez le vôtre.",
+  title: "Aide Wordfeud & Solveur de Mots", subtitle: "Bloqué sur une grille difficile ? Saisissez vos 7 lettres dans notre outil d'aide Wordfeud gratuit pour afficher instantanément tous les mots français valides, classés par longueur et par score. Utilisez ? ou * pour représenter vos jokers (tuiles blanches) et activez les Filtres Avancés (Commence par, Finit par, Contient) pour vous raccorder facilement aux lettres déjà posées sur le plateau.",
   btn: "Trouver des mots", hint: "Ajoutez ? ou * pour les tuiles vierges.",
+  tips: {
+   title: "Astuces",
+   items: [
+    "Saisissez les 7 lettres de votre chevalet. Ajoutez les lettres du plateau pour plus d'options.",
+    "Utilisez ? ou * pour les tuiles blanches — n'importe quelle lettre, mais 0 point.",
+    "Wordfeud possède des cases bonus (DL, TL, DW, TW) qui multiplient lettres et mots.",
+   ],
+  },
  },
  dictionary: {
   title: "Vérifier le Dictionnaire", subtitle: "Vérifiez si un mot existe dans le dictionnaire choisi, voyez son score Scrabble et lisez une définition.",
@@ -869,10 +885,11 @@ const fr: Translation = {
    { q: "Puis-je l'utiliser pour des jeux de mots ?", a: "Absolument. Générez des mots aléatoires pour Pictionary, les charades, les jeux d'association de mots ou les quiz de vocabulaire. Pour les mots de passe, combinez 3-4 mots aléatoires de longueurs différentes — cela crée des phrases-mots de passe mémorables mais sûres." },
   ],
   wordfeud: [
-   { q: "Qu'est-ce que l'Aide Wordfeud ?", a: "Wordfeud est un jeu de lettres mobile populaire similaire au Scrabble. Cette aide trouve les meilleurs mots jouables depuis votre chevalet. Saisissez vos 7 lettres (plus les lettres déjà posées sur le plateau) et WordIzy renvoie tous les mots jouables, triés par score Scrabble." },
-   { q: "Comment saisir mon chevalet ?", a: "Tapez vos 7 lettres de tuiles dans la case « Vos lettres ». Utilisez ? ou * pour les tuiles vierges (elles représentent n'importe quelle lettre mais valent 0 point). S'il y a déjà des lettres sur le plateau dont vous voulez vous servir, ajoutez-les aussi — WordIzy trouvera les mots formables à partir du pool combiné." },
-   { q: "Quel dictionnaire utiliser ?", a: "Wordfeud prend en charge plusieurs dictionnaires selon votre région. Le Wordfeud anglais utilise une liste proche du Scrabble, donc l'anglais (NWL2023/CSW21) convient. Pour les autres langues, sélectionnez la correspondante (français ODS9, espagnol FISE, etc.) via le sélecteur de langue." },
-   { q: "Comment les scores sont-ils calculés ?", a: "Les scores utilisent les valeurs officielles Scrabble pour la langue choisie. À noter : le score réel de Wordfeud peut différer légèrement (cases bonus et distribution de tuiles propres). Utilisez les scores comme guide pour repérer les coups à forte valeur — le mot rapportant le plus de points depuis votre chevalet est généralement votre meilleur coup." },
+   { q: "Quel dictionnaire utilise l'aide Wordfeud ?", a: "wordIzy s'appuie sur le dictionnaire officiel ODS9 utilisé dans les compétitions francophones. Chaque mot trouvé affiche immédiatement sa valeur en points selon le barème français (incluant le K, W, X, Y et Z à 10 points), vous permettant de repérer le coup le plus rentable en quelques secondes." },
+   { q: "Comment fonctionne le bonus Bingo de +40 points ?", a: "Contrairement au Scrabble classique qui offre 50 points, Wordfeud attribue un bonus de +40 points chaque fois que vous posez les 7 lettres de votre chevalet en un seul coup. Consultez le haut de nos résultats pour repérer les mots de 7 ou 8 lettres et décrocher ce bonus décisif." },
+   { q: "Comment dominer le plateau aléatoire (Random Board) ?", a: "Le mode Random Board mélange aléatoirement les cases Mot Compte Triple (TW) et Lettre Compte Triple (TL). Utilisez nos jokers pour former des mots qui traversent plusieurs cases bonus simultanément, et évitez d'ouvrir des voyelles juste à côté d'une case TW libre." },
+   { q: "Comment utiliser les Filtres Avancés ?", a: "Ouvrez les Filtres Avancés sous le champ de saisie pour vous raccorder au plateau : Commence par affiche les mots débutant par les lettres posées (idéal pour s'appuyer sur une lettre déjà sur le plateau), Finit par filtre sur la fin du mot et Contient garantit qu'une lettre donnée apparaît dans chaque résultat. Combinez ces filtres avec les jokers (? ou *) pour débusquer les coups les plus rentables." },
+   { q: "Comment saisir mon chevalet et mes jokers ?", a: "Tapez vos 7 lettres dans le champ « Vos lettres » puis cliquez sur « Trouver des mots ». Utilisez ? ou * pour représenter vos tuiles blanches : elles peuvent prendre la lettre de votre choix mais valent 0 point. Si des lettres déjà posées sur le plateau peuvent servir de point d'appui, ajoutez-les à votre saisie pour multiplier les possibilités." },
   ],
   dictionary: [
    { q: "Que fait Vérifier le Dictionnaire ?", a: "Saisissez n'importe quel mot pour vérifier s'il est valide dans le dictionnaire Scrabble officiel de la langue choisie. L'outil affiche le mot en tuiles Scrabble, un badge valide/invalide, le score Scrabble, la longueur du mot, les tuiles de lettres, une définition et (si disponibles) des synonymes." },
@@ -1068,7 +1085,15 @@ const es: Translation = {
  quordle: { title: "Sol. Quordle", subtitle: "Resuelve hasta cuatro Wordle a la vez. Cada tablero guarda sus restricciones; las letras válidas/excluidas se comparten.", board: "Tablero", addBoard: "Añadir tablero", hint: "Rellena lo que sepas de cada tablero y resuelve." },
  anagram: { title: "Sol. de Anagramas", subtitle: "Encuentra todos los anagramas de tus letras — palabras que usan exactamente todas las letras.", btn: "Buscar anagramas", hint: "Los comodines (? *) rellenan letras." },
  random: { title: "Generador de Palabras Aleatorias", subtitle: "Genera palabras reales al azar con filtros de longitud, prefijo, sufijo y contenido.", length: "Longitud", any: "Cualquiera", count: "Cuántas", btn: "Generar" },
- wordfeud: { title: "Ayuda Wordfeud", subtitle: "Encuentra las mejores palabras de Wordfeud desde tu atril. Elige tu diccionario y resuelve.", btn: "Buscar palabras", hint: "Añade ? o * para fichas en blanco." },
+ wordfeud: { title: "Buscador de Palabras Wordfeud", subtitle: "¿Te has quedado atascado con letras difíciles en tu partida? Introduce tus 7 fichas en nuestro buscador de palabras para Wordfeud y descubre al instante todas las palabras válidas en español, ordenadas por longitud y puntuación. Usa ? o * como comodín para las fichas en blanco y aplica los Filtros Avanzados (Empieza por, Termina en, Debe incluir) para encajar tus palabras en cualquier hueco del tablero.", btn: "Buscar palabras", hint: "Añade ? o * para fichas en blanco.",
+  tips: {
+   title: "Consejos",
+   items: [
+    "Introduce las 7 fichas de tu atril. Añade letras del tablero para tener más opciones.",
+    "Usa ? o * como comodín — valen para cualquier letra, pero puntúan 0.",
+    "Wordfeud tiene casillas bonus (DL, TL, DW, TW) que multiplican letras y palabras.",
+   ],
+  } },
  dictionary: { title: "Ver Diccionario", subtitle: "Comprueba si una palabra existe en el diccionario, mira su puntuación Scrabble y lee una definición.", btn: "Comprobar", exists: "es una palabra válida", notExists: "no se encontró en el diccionario", definition: "Definición", score: "Puntuación Scrabble", tiles: "Fichas" },
  scrabble: { title: "Scrabble Duplicate", subtitle: "El Scrabble duplicate da el mismo atril a todos. Introduce tus 7 letras (y las del tablero) y encuentra las mejores jugadas.", rack: "Tu atril", board: "Letras del tablero (opcional)", btn: "Buscar mejores palabras", hint: "Comodines permitidos. Resultados por puntuación." },
  wordlists: { title: "Listas de Palabras", subtitle: "Explora todas las palabras de 2 a 7 letras. Elige vista, longitud y letra para navegar A–Z.", allWords: "Todas las palabras", startsBy: "Empieza por A–Z", endsBy: "Termina en A–Z", letter: "Letra", selectLength: "Longitud", selectLetter: "Letra", browse: "Explorar" },
@@ -1254,10 +1279,11 @@ const es: Translation = {
    { q: "¿Puedo usarlo para juegos de palabras?", a: "Por supuesto. Genera palabras aleatorias para Pictionary, charadas, juegos de asociación o quizzes de vocabulario. Para contraseñas, combina 3-4 palabras aleatorias de distintas longitudes — crea frases-contraseña memorables pero seguras." },
   ],
   wordfeud: [
-   { q: "¿Qué es la Ayuda Wordfeud?", a: "Wordfeud es un popular juego móvil de palabras similar a Scrabble. Esta ayuda encuentra las mejores palabras que puedes jugar desde tu atril. Introduce tus 7 letras (más las letras ya colocadas en el tablero) y WordIzy devuelve todas las palabras jugables, ordenadas por puntuación Scrabble." },
-   { q: "¿Cómo introduzco mi atril?", a: "Escribe tus 7 letras de fichas en la casilla «Tus letras». Usa ? o * para fichas en blanco (representan cualquier letra pero puntúan 0). Si hay letras en el tablero sobre las que quieras construir, añádelas también — WordIzy buscará palabras formables del pool combinado." },
-   { q: "¿Qué diccionario debo usar?", a: "Wordfeud admite varios diccionarios según tu región. El Wordfeud en inglés usa una lista tipo Scrabble, así que inglés (NWL2023/CSW21) funciona bien. Para otros idiomas, selecciona el correspondiente (francés ODS9, español FISE, etc.) en el selector de idioma." },
-   { q: "¿Cómo se calculan las puntuaciones?", a: "Las puntuaciones usan los valores oficiales Scrabble del idioma elegido. Ten en cuenta que la puntuación real de Wordfeud puede diferir ligeramente (tiene casillas bonus y su propia distribución de fichas). Usa las puntuaciones como guía para identificar jugadas de alto valor — la palabra con más puntos desde tu atril suele ser tu mejor jugada." },
+   { q: "¿Qué diccionario usa este buscador de palabras de Wordfeud?", a: "wordIzy filtra todos los resultados utilizando el léxico oficial FISE para juegos de palabras en español. Nuestro sistema calcula automáticamente la puntuación exacta de cada jugada, teniendo en cuenta letras de alto valor como la Z (10 puntos), X (8 puntos), Ñ (8 puntos) y Q (5 puntos)." },
+   { q: "¿Cómo funciona la bonificación de +40 puntos en Wordfeud?", a: "Si logras colocar las 7 fichas de tu atril en un solo turno, Wordfeud te recompensa con una bonificación extra de +40 puntos sobre el valor de la palabra. Revisa siempre la parte superior de nuestra lista de resultados para identificar palabras de 7 u 8 letras y asegurar esta ventaja." },
+   { q: "¿Consejos para el Tablero Aleatorio (Random Board)?", a: "En el modo Tablero Aleatorio (Random Board), las casillas de Triple Palabra (TW) y Triple Letra (TL) aparecen en posiciones impredecibles. Utiliza nuestros comodines para construir palabras que conecten dos multiplicadores a la vez y multiplica tu puntuación en un solo movimiento." },
+   { q: "¿Cómo uso los Filtros Avanzados?", a: "Abre los Filtros Avanzados bajo el buscador para encajar tus jugadas en cualquier hueco del tablero: Empieza por limita los resultados a palabras que comienzan por esas letras (ideal para engancharse a una ficha del tablero), Termina en filtra por el final de la palabra y Debe incluir garantiza que cierta letra aparezca en cada resultado. Combina los filtros con comodines (? o *) para encontrar las jugadas más rentables." },
+   { q: "¿Cómo introduzco mi atril y los comodines?", a: "Escribe tus 7 fichas en el campo «Tus letras» y pulsa «Buscar palabras». Usa ? o * como comodín para las fichas en blanco: representan cualquier letra pero puntúan 0. Si hay letras colocadas en el tablero sobre las que puedas construir, añádelas también para obtener todavía más palabras." },
   ],
   dictionary: [
    { q: "¿Qué hace Ver Diccionario?", a: "Introduce cualquier palabra para verificar si es válida en el diccionario oficial Scrabble del idioma elegido. La herramienta muestra la palabra como fichas Scrabble, un distintivo válido/no válido, la puntuación Scrabble, la longitud, las fichas, una definición y sinónimos (cuando estén disponibles)." },
@@ -1453,7 +1479,15 @@ const de: Translation = {
  quordle: { title: "Quordle-Löser", subtitle: "Bis zu vier Wordle gleichzeitig lösen. Jedes Brett behält eigene Bedingungen.", board: "Brett", addBoard: "Brett hinzufügen", hint: "Fülle aus, was du weißt, und löse." },
  anagram: { title: "Anagramm-Löser", subtitle: "Finde jedes Anagramm deiner Buchstaben — Wörter, die genau alle Buchstaben nutzen.", btn: "Anagramme finden", hint: "Platzhalter (? *) füllen auf." },
  random: { title: "Zufallswort-Generator", subtitle: "Zufällige echte Wörter mit Längen-, Präfix-, Suffix- und Inhaltsfiltern.", length: "Länge", any: "Beliebig", count: "Wie viele", btn: "Generieren" },
- wordfeud: { title: "Wordfeud-Hilfe", subtitle: "Finde die besten Wordfeud-Wörter aus deinem Gestell. Wähle dein Wörterbuch.", btn: "Wörter finden", hint: "? oder * für Blankos." },
+ wordfeud: { title: "Wordfeud Helfer & Wörter Finder", subtitle: "Du kommst bei deiner aktuellen Partie Wordfeud nicht weiter? Gib deine 7 Buchstaben einfach in unseren kostenlosen Wordfeud Helfer ein und finde sofort alle gültigen deutschen Wörter – sortiert nach Wortlänge und exakter Punktzahl. Nutze ? oder * als Joker für Blankosteine und verwende die Erweiterten Filter (Beginnt mit, Endet mit, Enthält), um perfekt an bestehende Wörter auf dem Spielfeld anzulegen.", btn: "Wörter finden", hint: "? oder * für Blankos.",
+  tips: {
+   title: "Tipps",
+   items: [
+    "Gib alle 7 Buchstaben deines Bänkchens ein. Ergänze Brettbuchstaben für mehr Optionen.",
+    "Nutze ? oder * als Joker — sie stehen für jeden Buchstaben, zählen aber 0 Punkte.",
+    "Wordfeud hat Bonusfelder (DL, TL, DW, TW), die Buchstaben- und Wortwerte vervielfachen.",
+   ],
+  } },
  dictionary: { title: "Wörterbuch prüfen", subtitle: "Prüfe, ob ein Wort existiert, sieh Scrabble-Punkte und eine Definition.", btn: "Prüfen", exists: "ist ein gültiges Wort", notExists: "nicht im Wörterbuch gefunden", definition: "Definition", score: "Scrabble-Punkte", tiles: "Buchstabensteine" },
  scrabble: { title: "Scrabble Duplicate", subtitle: "Duplicate gibt allen dasselbe Gestell. 7 Buchstaben (plus Brett-Buchstaben) eingeben und die besten Züge finden.", rack: "Dein Gestell", board: "Brett-Buchstaben (optional)", btn: "Beste Wörter finden", hint: "Platzhalter erlaubt. Nach Punkten sortiert." },
  wordlists: { title: "Wortlisten", subtitle: "Alle 2- bis 7-Buchstaben-Wörter durchsuchen. Ansicht, Länge und Buchstabe wählen, A–Z erkunden.", allWords: "Alle Wörter", startsBy: "Beginnt mit A–Z", endsBy: "Endet mit A–Z", letter: "Buchstabe", selectLength: "Länge", selectLetter: "Buchstabe", browse: "Durchsuchen" },
@@ -1639,10 +1673,11 @@ const de: Translation = {
    { q: "Kann ich das für Wortspiele verwenden?", a: "Absolut. Erzeuge Zufallswörter für Pictionary, Scharade, Wortassoziation oder Vokabel-Quiz. Für Passwörter kombiniere 3-4 Zufallswörter unterschiedlicher Länge — das ergibt einprägsame, aber sichere Passphrasen." },
   ],
   wordfeud: [
-   { q: "Was ist die Wordfeud-Hilfe?", a: "Wordfeud ist ein beliebtes mobiles Wortspiel ähnlich wie Scrabble. Diese Hilfe findet die besten Wörter, die du aus deinem Gestell spielen kannst. Gib deine 7 Buchstaben (plus eventuelle Brett-Buchstaben) ein und WordIzy liefert alle spielbaren Wörter, sortiert nach Scrabble-Punkten." },
-   { q: "Wie gebe ich mein Gestell ein?", a: "Tippe deine 7 Buchstaben ins Feld »Deine Buchstaben«. Nutze ? oder * für Blankos (sie vertreten jeden Buchstaben, zählen aber 0 Punkte). Wenn es schon Buchstaben auf dem Brett gibt, an die du anknüpfen willst, füge sie hinzu — WordIzy findet Wörter aus dem kombinierten Pool." },
-   { q: "Welches Wörterbuch soll ich verwenden?", a: "Wordfeud unterstützt je nach Region mehrere Wörterbücher. Das englische Wordfeud nutzt eine Scrabble-ähnliche Liste, daher passt Englisch (NWL2023/CSW21). Für andere Sprachen wähle das passende (Französisch ODS9, Spanisch FISE usw.) in der Sprachauswahl." },
-   { q: "Wie werden die Punkte berechnet?", a: "Die Punkte nutzen die offiziellen Scrabble-Buchstabenwerte der gewählten Sprache. Hinweis: Die tatsächliche Wordfeud-Wertung kann leicht abweichen (Bonusfelder und eigene Steine-Verteilung). Nutze die Punkte als Orientierung, um wertvolle Züge zu erkennen — das Wort mit den meisten Punkten aus deinem Gestell ist meist dein bester Zug." },
+   { q: "Welche Wortliste nutzt der Wordfeud Helfer?", a: "wordIzy prüft deine Buchstabenkombinationen gegen das offizielle deutsche Turnier-Wörterbuch und berechnet automatisch den Basiswert jedes Wortes nach den offiziellen Wordfeud-Regeln. Hohe Buchstaben wie Q (10 Punkte), Y (10 Punkte), X (8 Punkte) und Ä/Ö/Ü werden sofort erkannt, damit du keine wertvollen Züge übersiehst." },
+   { q: "Wie funktioniert der +40 Bingo-Bonus bei Wordfeud?", a: "Wenn du alle 7 Buchstaben deines Bänkchens in einem einzigen Zug ablegst, erhältst du bei Wordfeud einen Bingo-Bonus von +40 Punkten zusätzlich zum regulären Wortwert. Unsere Ergebnisliste zeigt die längsten Wörter ganz oben an, sodass du 7- und 8-buchstabige Treffer auf einen Blick erkennst." },
+   { q: "Tipps für das Wordfeud Zufallsbrett (Random Board)?", a: "Auf dem Zufallsbrett (Random Board) sind die Bonusfelder (DW, TW, DL, TL) völlig neu gemischt. Oft liegen dreifache Buchstaben- und dreifache Wortwerte direkt nebeneinander. Nutze unsere Filter und Joker, um Lücken zwischen diesen Bonusfeldern gezielt zu schließen und über 100 Punkte in einem Zug zu erzielen." },
+   { q: "Wie nutze ich die Erweiterten Filter?", a: "Öffne die Erweiterten Filter unter dem Suchfeld, um perfekt ans Spielfeld anzulegen: Beginnt mit liefert Wörter mit einem bestimmten Anfang (ideal, um an einen Buchstaben auf dem Brett anzuknüpfen), Endet mit filtert nach Endungen und Enthält stellt sicher, dass ein bestimmter Buchstabe in jedem Ergebnis vorkommt. Kombiniere die Filter mit Jokern (? oder *) für punkteträchtige Züge." },
+   { q: "Wie gebe ich mein Bänkchen und Blankosteine ein?", a: "Tippe deine 7 Buchstaben ins Feld »Deine Buchstaben« und klicke auf »Wörter finden«. Nutze ? oder * als Joker für Blankosteine — sie stehen für jeden Buchstaben, zählen aber 0 Punkte. Gibt es schon Buchstaben auf dem Brett, an die du anlegen willst, füge sie ebenfalls hinzu, um noch mehr Treffer zu finden." },
   ],
   dictionary: [
    { q: "Was macht Wörterbuch prüfen?", a: "Gib ein beliebiges Wort ein, um zu prüfen, ob es im offiziellen Scrabble-Wörterbuch der gewählten Sprache gültig ist. Das Werkzeug zeigt das Wort als Scrabble-Steine, ein gültig/ungültig-Badge, die Scrabble-Punkte, Wortlänge, Buchstaben-Steine, eine Wörterbuchdefinition und (falls verfügbar) Synonyme." },
@@ -1838,7 +1873,15 @@ const it: Translation = {
  quordle: { title: "Ris. Quordle", subtitle: "Risolvi fino a quattro Wordle insieme. Ogni tabellone ha i suoi vincoli.", board: "Tabellone", addBoard: "Aggiungi tabellone", hint: "Compila ciò che sai e risolvi." },
  anagram: { title: "Ris. Anagrammi", subtitle: "Trova ogni anagramma delle tue lettere — parole che usano esattamente tutte le lettere.", btn: "Trova anagrammi", hint: "I jolly (? *) completano." },
  random: { title: "Generatore di Parole Casuali", subtitle: "Genera parole reali casuali con filtri di lunghezza, prefisso, suffisso e contenuto.", length: "Lunghezza", any: "Qualsiasi", count: "Quante", btn: "Genera" },
- wordfeud: { title: "Aiuto Wordfeud", subtitle: "Trova le migliori parole Wordfeud dalla tua rastrelliera. Scegli il dizionario.", btn: "Trova parole", hint: "Aggiungi ? o * per tessere vuote." },
+ wordfeud: { title: "Aiutante Wordfeud & Trova Parole", subtitle: "Sei bloccato con lettere difficili durante una sfida a Wordfeud? Inserisci le tue 7 lettere nel nostro aiutante Wordfeud gratuito per visualizzare immediatamente tutte le parole italiane valide, raggruppate per lunghezza e ordinate per punteggio. Usa ? o * come jolly per le tessere bianche e sfrutta i Filtri Avanzati (Inizia con, Finisce con, Deve includere) per incastrare le parole sulla griglia di gioco.", btn: "Trova parole", hint: "Aggiungi ? o * per tessere vuote.",
+  tips: {
+   title: "Consigli",
+   items: [
+    "Inserisci tutte le 7 lettere del leggio. Aggiungi lettere del tabellone per più opzioni.",
+    "Usa ? o * come jolly — valgono per qualsiasi lettera, ma fanno 0 punti.",
+    "Wordfeud ha caselle bonus (DL, TL, DW, TW) che moltiplicano lettere e parole.",
+   ],
+  } },
  dictionary: { title: "Verifica Dizionario", subtitle: "Verifica se una parola esiste, vedi il punteggio Scrabble e una definizione.", btn: "Verifica", exists: "è una parola valida", notExists: "non trovata nel dizionario", definition: "Definizione", score: "Punteggio Scrabble", tiles: "Tessere" },
  scrabble: { title: "Scrabble Duplicate", subtitle: "Il duplicate dà a tutti la stessa rastrelliera. Inserisci 7 lettere (più quelle in tabellone) e trova le mosse migliori.", rack: "La tua rastrelliera", board: "Lettere tabellone (facoltative)", btn: "Trova le migliori", hint: "Jolly ammessi. Risultati per punteggio." },
  wordlists: { title: "Liste Parole", subtitle: "Sfoglia tutte le parole da 2 a 7 lettere. Scegli vista, lunghezza e lettera per esplorare A–Z.", allWords: "Tutte le parole", startsBy: "Inizia per A–Z", endsBy: "Finisce per A–Z", letter: "Lettera", selectLength: "Lunghezza", selectLetter: "Lettera", browse: "Sfoglia" },
@@ -2024,10 +2067,11 @@ const it: Translation = {
    { q: "Posso usarlo per giochi di parole?", a: "Assolutamente. Genera parole casuali per Pictionary, sciarade, giochi di associazione o quiz di vocabolario. Per le password, combina 3-4 parole casuali di lunghezze diverse — questo crea passphrase memorabili ma sicure." },
   ],
   wordfeud: [
-   { q: "Cos'è l'Aiuto Wordfeud?", a: "Wordfeud è un popolare gioco mobile di parole simile a Scrabble. Questo aiuto trova le migliori parole giocabili dal tuo portatile. Inserisci le tue 7 lettere (più eventuali lettere già in tabellone) e WordIzy restituisce tutte le parole giocabili, ordinate per punteggio Scrabble." },
-   { q: "Come inserisco il mio portatile?", a: "Digita le tue 7 lettere nella casella «Le tue lettere». Usa ? o * per le caselle bianche (rappresentano qualsiasi lettera ma valgono 0 punti). Se ci sono lettere già in tabellone su cui vuoi costruire, aggiungile — WordIzy troverà le parole componibili dal pool combinato." },
-   { q: "Quale dizionario usare?", a: "Wordfeud supporta più dizionari a seconda della regione. Il Wordfeud inglese usa una lista tipo Scrabble, quindi inglese (NWL2023/CSW21) funziona bene. Per altre lingue, seleziona quella corrispondente (francese ODS9, spagnolo FISE, ecc.) dal selettore di lingua." },
-   { q: "Come sono calcolati i punteggi?", a: "I punteggi usano i valori ufficiali Scrabble della lingua selezionata. Nota: il punteggio reale di Wordfeud può differire leggermente (ha caselle bonus e una propria distribuzione di tessere). Usa i punteggi come guida per individuare giocate di alto valore — la parola con più punti dal tuo portatile è di solito la tua mossa migliore." },
+   { q: "Quale dizionario usa l'aiutante Wordfeud?", a: "wordIzy verifica ogni combinazione sul vocabolario ufficiale Zingarelli, calcolando istantaneamente il punteggio esatto di ciascuna parola secondo i valori delle tessere italiane (incluse le lettere ad alto punteggio come Z e Q da 10 punti, o H e V da 4 punti)." },
+   { q: "Come funziona il bonus Bingo da +40 punti?", a: "Quando riesci a piazzare tutte e 7 le lettere del tuo leggio in un unico turno, Wordfeud ti assegna un bonus speciale di +40 punti oltre al valore normale della parola. Controlla la cima dei nostri risultati per individuare subito le parole da 7 o 8 lettere." },
+   { q: "Quali strategie per la modalità Random Board?", a: "Nella modalità Random Board (Tabellone Casuale), le caselle Tripla Parola (TW) e Tripla Lettera (TL) sono distribuite in modo casuale. Usa i filtri avanzati e i jolly per collegare più caselle bonus contemporaneamente e bloccare gli spazi aperti al tuo avversario." },
+   { q: "Come uso i Filtri Avanzati?", a: "Apri i Filtri Avanzati sotto il campo di ricerca per incastrare le parole sulla griglia: Inizia con mostra le parole che cominciano con certe lettere (perfetto per agganciarti a una tessera già sul tabellone), Finisce con filtra per le lettere finali e Deve includere garantisce che una lettera specifica compaia in ogni risultato. Combina i filtri con i jolly (? o *) per le giocate più redditizie." },
+   { q: "Come inserisco il leggio e i jolly?", a: "Digita le tue 7 lettere nel campo «Le tue lettere» e premi «Trova parole». Usa ? o * come jolly per le tessere bianche: rappresentano qualsiasi lettera ma valgono 0 punti. Se ci sono già lettere sul tabellone su cui costruire, aggiungile all'inserimento per ottenere ancora più parole." },
   ],
   dictionary: [
    { q: "Cosa fa Verifica Dizionario?", a: "Inserisci una parola qualsiasi per verificare se è valida nel dizionario Scrabble ufficiale della lingua selezionata. Lo strumento mostra la parola come tessere Scrabble, un badge valido/non valido, il punteggio Scrabble, la lunghezza, le tessere, una definizione e sinonimi (se disponibili)." },
@@ -2223,7 +2267,15 @@ const pt: Translation = {
  quordle: { title: "Sol. Quordle", subtitle: "Resolva até quatro Wordle ao mesmo tempo. Cada tabuleiro tem suas restrições.", board: "Tabuleiro", addBoard: "Adicionar tabuleiro", hint: "Preencha o que souber e resolva." },
  anagram: { title: "Sol. Anagramas", subtitle: "Encontre todos os anagramas das suas letras — palavras que usam exatamente todas as letras.", btn: "Encontrar anagramas", hint: "Curingas (? *) completam." },
  random: { title: "Gerador de Palavras Aleatórias", subtitle: "Gere palavras reais aleatórias com filtros de tamanho, prefixo, sufixo e conteúdo.", length: "Tamanho", any: "Qualquer", count: "Quantas", btn: "Gerar" },
- wordfeud: { title: "Ajuda Wordfeud", subtitle: "Encontre as melhores palavras Wordfeud do seu suporte. Escolha o dicionário.", btn: "Encontrar palavras", hint: "Adicione ? ou * para fichas vazias." },
+ wordfeud: { title: "Ajudante Wordfeud & Formar Palavras", subtitle: "Ficou sem opções na sua partida de Wordfeud? Digite as suas 7 letras no nosso ajudante de Wordfeud gratuito e descubra na hora todas as palavras válidas em português, organizadas por tamanho e pontuação. Use ? ou * como curinga para as peças em branco e utilize os Filtros Avançados (Começa com, Termina com, Deve incluir) para encaixar jogadas perfeitas no tabuleiro.", btn: "Encontrar palavras", hint: "Adicione ? ou * para fichas vazias.",
+  tips: {
+   title: "Dicas",
+   items: [
+    "Digite todas as 7 letras do suporte. Adicione letras do tabuleiro para mais opções.",
+    "Use ? ou * como curinga — valem para qualquer letra, mas pontuam 0.",
+    "O Wordfeud tem casas bônus (DL, TL, DW, TW) que multiplicam letras e palavras.",
+   ],
+  } },
  dictionary: { title: "Verificar Dicionário", subtitle: "Verifique se uma palavra existe, veja a pontuação Scrabble e uma definição.", btn: "Verificar", exists: "é uma palavra válida", notExists: "não encontrada no dicionário", definition: "Definição", score: "Pontuação Scrabble", tiles: "Fichas" },
  scrabble: { title: "Scrabble Duplicate", subtitle: "O duplicate dá o mesmo suporte a todos. Digite 7 letras (e as do tabuleiro) e encontre as melhores jogadas.", rack: "Seu suporte", board: "Letras do tabuleiro (opcional)", btn: "Encontrar melhores", hint: "Curingas permitidos. Por pontuação." },
  wordlists: { title: "Listas de Palavras", subtitle: "Navegue por todas as palavras de 2 a 7 letras. Escolha vista, tamanho e letra para explorar A–Z.", allWords: "Todas as palavras", startsBy: "Começa por A–Z", endsBy: "Termina em A–Z", letter: "Letra", selectLength: "Tamanho", selectLetter: "Letra", browse: "Navegar" },
@@ -2409,10 +2461,11 @@ const pt: Translation = {
    { q: "Posso usar isto para jogos de palavras?", a: "Com certeza. Gera palavras aleatórias para Pictionary, charadas, jogos de associação ou quizzes de vocabulário. Para palavras-passe, combina 3-4 palavras aleatórias de comprimentos diferentes — cria passphrases memoráveis mas seguras." },
   ],
   wordfeud: [
-   { q: "O que é a Ajuda Wordfeud?", a: "Wordfeud é um popular jogo móvel de palavras semelhante ao Scrabble. Esta ajuda encontra as melhores palavras que podes jogar do teu suporte. Introduz as tuas 7 letras (mais letras já no tabuleiro) e o WordIzy devolve todas as palavras jogáveis, ordenadas por pontuação Scrabble." },
-   { q: "Como introduzo o meu suporte?", a: "Escreve as tuas 7 letras de peças na caixa «As tuas letras». Usa ? ou * para peças em branco (representam qualquer letra mas valem 0 pontos). Se já há letras no tabuleiro sobre as quais queiras construir, adiciona-as também — o WordIzy encontra palavras formáveis do pool combinado." },
-   { q: "Que dicionário devo usar?", a: "Wordfeud suporta vários dicionários consoante a tua região. O Wordfeud em inglês usa uma lista tipo Scrabble, por isso inglês (NWL2023/CSW21) funciona bem. Para outros idiomas, seleciona o correspondente (francês ODS9, espanhol FISE, etc.) no seletor de idioma." },
-   { q: "Como são calculadas as pontuações?", a: "As pontuações usam os valores oficiais Scrabble do idioma selecionado. Nota: a pontuação real do Wordfeud pode diferir ligeiramente (tem casas bónus e a sua própria distribuição de peças). Usa as pontuações como guia para identificar jogadas de alto valor — a palavra com mais pontos do teu suporte é geralmente a tua melhor jogada." },
+   { q: "Qual dicionário usa o ajudante de Wordfeud?", a: "O wordIzy analisa suas letras usando o léxico oficial da língua portuguesa e calcula automaticamente a pontuação base de cada palavra, destacando jogadas com letras de alto valor como Q (10 pontos), Z (10 pontos), X (8 pontos) e J (5 pontos)." },
+   { q: "Como funciona o bônus de +40 pontos no Wordfeud?", a: "Se você conseguir usar todas as 7 letras do seu suporte em uma única jogada, o Wordfeud concede um bônus extra de +40 pontos somado aos pontos da palavra. Olhe sempre o topo da nossa lista de resultados para encontrar palavras de 7 ou 8 letras e garantir essa vantagem." },
+   { q: "Como vencer no Tabuleiro Aleatório (Random Board)?", a: "No modo Random Board, os multiplicadores de Tripla Palavra (TW) e Tripla Letra (TL) ficam espalhados aleatoriamente. Use nossos curingas para encontrar palavras que alcancem dois bônus na mesma jogada e evite deixar vogais expostas ao lado de casas TW livres." },
+   { q: "Como uso os Filtros Avançados?", a: "Abra os Filtros Avançados abaixo do campo de busca para encaixar jogadas perfeitas no tabuleiro: Começa com limita os resultados a palavras que começam por certas letras (ideal para se prender a uma peça do tabuleiro), Termina com filtra pelo final da palavra e Deve incluir garante que determinada letra apareça em cada resultado. Combine os filtros com curingas (? ou *) para as jogadas mais valiosas." },
+   { q: "Como digito meu suporte e os curingas?", a: "Escreva suas 7 letras no campo «Suas letras» e clique em «Encontrar palavras». Use ? ou * como curinga para as peças em branco: representam qualquer letra, mas valem 0 pontos. Se já existem letras no tabuleiro onde você possa construir, adicione-as também para encontrar ainda mais palavras." },
   ],
   dictionary: [
    { q: "O que faz Verificar Dicionário?", a: "Introduz qualquer palavra para verificar se é válida no dicionário oficial Scrabble do idioma selecionado. A ferramenta mostra a palavra como peças Scrabble, um selo válido/inválido, a pontuação Scrabble, o comprimento, as peças, uma definição e sinónimos (quando disponíveis)." },
@@ -2608,7 +2661,15 @@ const nl: Translation = {
  quordle: { title: "Quordle-oplosser", subtitle: "Los tot wel vier Wordles tegelijk op. Elk bord houdt eigen voorwaarden.", board: "Bord", addBoard: "Bord toevoegen", hint: "Vul in wat je weet en los op." },
  anagram: { title: "Anagram-oplosser", subtitle: "Vind elk anagram van je letters — woorden die exact alle letters gebruiken.", btn: "Anagrammen vinden", hint: "Jokers (? *) vullen aan." },
  random: { title: "Willekeurige Woordgenerator", subtitle: "Genereer willekeurige echte woorden met lengte-, voorvoegsel-, achtervoegsel- en bevat-filters.", length: "Lengte", any: "Elke", count: "Hoeveel", btn: "Genereren" },
- wordfeud: { title: "Wordfeud-hulp", subtitle: "Vind de beste Wordfeud-woorden vanuit je rek. Kies je woordenboek.", btn: "Woorden vinden", hint: "Voeg ? of * toe voor lege tegels." },
+ wordfeud: { title: "Wordfeud Woorden Maker & Helper", subtitle: "Zit je vast tijdens een spannend potje Wordfeud? Voer je 7 letters in onze gratis Wordfeud woorden maker in en ontdek direct alle geldige Nederlandse woorden, overzichtelijk gesorteerd op woordlengte en puntentelling. Gebruik ? of * voor een blanco tegel en pas de Geavanceerde Filters (Begint met, Eindigt op, Bevat) toe om precies aan te leggen op een vol speelbord.", btn: "Woorden vinden", hint: "Voeg ? of * toe voor lege tegels.",
+  tips: {
+   title: "Tips",
+   items: [
+    "Voer alle 7 letters van je plankje in. Voeg bordletters toe waaraan je kunt bouwen voor meer opties.",
+    "Gebruik ? of * voor blanco tegels — ze vertegenwoordigen elke letter maar scoren 0 punten.",
+    "Wordfeud heeft bonusvakjes (DL, TL, DW, TW) die letter- en woordwaarden vermenigvuldigen.",
+   ],
+  } },
  dictionary: { title: "Woordenboek controleren", subtitle: "Controleer of een woord bestaat, zie de Scrabble-score en een definitie.", btn: "Controleren", exists: "is een geldig woord", notExists: "niet in woordenboek gevonden", definition: "Definitie", score: "Scrabble-score", tiles: "Lettertegels" },
  scrabble: { title: "Scrabble Duplicate", subtitle: "Duplicate geeft iedereen hetzelfde rek. Voer 7 letters in (plus bordletters) en vind de beste zetten.", rack: "Jouw rek", board: "Bordletters (optioneel)", btn: "Beste woorden vinden", hint: "Jokers toegestaan. Op score gesorteerd." },
  wordlists: { title: "Woordlijsten", subtitle: "Doorzoek alle 2- tot 7-letterwoorden. Kies weergave, lengte en letter om A–Z te verkennen.", allWords: "Alle woorden", startsBy: "Begint met A–Z", endsBy: "Eindigt op A–Z", letter: "Letter", selectLength: "Lengte", selectLetter: "Letter", browse: "Bladeren" },
@@ -2794,10 +2855,11 @@ const nl: Translation = {
    { q: "Kan ik dit voor woordspellen gebruiken?", a: "Zeker. Genereer willekeurige woorden voor Pictionary, charades, woordassociatie-spellen of woordenschat-quizzes. Voor wachtwoorden combineer 3-4 willekeurige woorden van verschillende lengtes — dat levert memorabele maar veilige wachtzinnen op." },
   ],
   wordfeud: [
-   { q: "Wat is de Wordfeud-hulp?", a: "Wordfeud is een populair mobiel woordspel vergelijkbaar met Scrabble. Deze hulp vindt de beste woorden die je vanuit je rek kunt spelen. Voer je 7 letters in (plus eventuele bordletters) en WordIzy retourneert alle speelbare woorden, gesorteerd op Scrabble-score." },
-   { q: "Hoe voer ik mijn rek in?", a: "Typ je 7 steenletters in het veld »Jouw letters«. Gebruik ? of * voor blanco stenen (ze vertegenwoordigen elke letter maar scoren 0). Als er al bordletters zijn waarop je wilt bouwen, voeg die dan ook toe — WordIzy vindt woorden uit de gecombineerde verzameling." },
-   { q: "Welk woordenboek moet ik gebruiken?", a: "Wordfeud ondersteunt meerdere woordenboeken afhankelijk van je regio. Engels Wordfeud gebruikt een Scrabble-achtige lijst, dus Engels (NWL2023/CSW21) werkt goed. Voor andere talen selecteer je de juiste (Frans ODS9, Spaans FISE, enz.) in de taalselectie." },
-   { q: "Hoe worden scores berekend?", a: "Scores gebruiken de officiële Scrabble-letterwaarden van de gekozen taal. Let op: de werkelijke Wordfeud-score kan licht afwijken (het heeft bonusvakjes en een eigen steenverdeling). Gebruik de scores als richtlijn om waardevolle zetten te herkennen — het woord met de meeste punten uit je rek is meestal je beste zet." },
+   { q: "Welke woordenlijst gebruikt deze Wordfeud woorden maker?", a: "wordIzy filtert je letters direct tegen de officiële OpenTaal-woordenlijst die ook door Wordfeud zelf wordt gebruikt voor Nederlandse spellen. Zo weet je zeker dat elk gevonden woord direct geaccepteerd wordt in de app, inclusief de exacte Nederlandse tegelwaarden (zoals de Q van 10 punten en de X en Y van 8 punten)." },
+   { q: "Hoe werkt de +40 Bingo Bonus in Wordfeud?", a: "Lukt het je om alle 7 letters van je plankje in één enkele beurt aan te leggen? Dan beloont Wordfeud je met een +40 punten bingo bonus bovenop je normale woordwaarde. Kijk bovenaan onze resultatenlijst bij de 7- en 8-letterwoorden om snel een bingo te spotten en een enorme voorsprong te pakken." },
+   { q: "Hoe win je op het Wordfeud Random Bord?", a: "In de populaire Random Board modus liggen de vakjes voor Driedubbele Letterwaarde (3xL) en Driedubbele Woordwaarde (3xW) willekeurig verspreid over het bord. Gebruik onze jokers (? of *) om woorden te vinden die twee bonusvakjes tegelijk raken, en leg nooit onnodig klinkers open naast een vrij 3xW-vakje." },
+   { q: "Hoe gebruik je de Geavanceerde Filters?", a: "Open de Geavanceerde Filters onder het invoerveld om precies aan te leggen op het speelbord: met Begint met vind je woorden die aan een bestaande bordletter aansluiten, met Eindigt op filter je op de laatste letters en met Bevat dwing je af dat een bepaalde letter in elk resultaat voorkomt. Combineer de filters met jokers (? of *) voor de hoogst scorende zetten." },
+   { q: "Hoe voer ik mijn letters en blanco tegels in?", a: "Typ je 7 plankje-letters in het veld »Jouw letters« en klik op »Woorden vinden«. Gebruik ? of * voor een blanco tegel — die telt voor elke letter maar scoort 0 punten. Zijn er al letters op het bord waar je op wilt bouwen? Voeg die dan toe aan je invoer voor nog meer woordopties." },
   ],
   dictionary: [
    { q: "Wat doet Woordenboek?", a: "Voer een willekeurig woord in om te controleren of het geldig is in het officiële Scrabble-woordenboek van de gekozen taal. De tool toont het woord als Scrabble-stenen, een geldig/ongeldig-badge, de Scrabble-score, woordlengte, letterstenen, een woordenboekdefinitie en synoniemen (indien beschikbaar)." },

@@ -142,9 +142,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Kostenloser Zufallswort-Generator. Erzeuge echte Scrabble-Wörter gefiltert nach Länge, Präfix und Suffix. Für Spiele.",
     },
     wordfeud: {
-      title: "Wordfeud-Helfer — Beste Wörter aus dem Rack",
+      title: "Wordfeud Helfer — Wörter finden & Wörterbuch",
       description:
-        "Wordfeud-Helfer und Cheat. Gib deine Rack-Buchstaben ein und finde sofort die besten Wordfeud-Wörter. 9 Sprachen, gratis.",
+        "Finde die besten deutschen Wörter für Wordfeud mit unserem gratis Helfer. Joker-Suche, offizielle Punkteberechnung und +40 Bingo-Tipps.",
     },
     dictionary: {
       title: "Scrabble-Wörterbuch — Ist das ein Wort?",
@@ -245,9 +245,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Générateur de mots aléatoires gratuit. Créez de vrais mots Scrabble filtrés par longueur, préfixe et suffixe.",
     },
     wordfeud: {
-      title: "Aide Wordfeud — Les meilleurs mots",
+      title: "Aide Wordfeud & Solveur de Mots — ODS9",
       description:
-        "Aide et décodeur Wordfeud. Entrez vos lettres et trouvez instantanément les meilleurs mots Wordfeud. 9 langues, gratuit.",
+        "Trouvez les meilleurs mots au Wordfeud avec notre aide gratuite basée sur l’officiel ODS9. Calcul des points, jokers et bonus bingo +40 inclus.",
     },
     dictionary: {
       title: "Dictionnaire Scrabble — Mot valide ?",
@@ -348,9 +348,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Generador de palabras aleatorias gratis. Crea palabras reales de Scrabble filtradas por longitud, prefijo y sufijo.",
     },
     wordfeud: {
-      title: "Ayuda para Wordfeud — Mejores palabras",
+      title: "Buscador de Palabras Wordfeud — FISE",
       description:
-        "Ayuda y trampa para Wordfeud. Introduce tus letras y encuentra al instante las mejores palabras de Wordfeud. 9 idiomas, gratis.",
+        "Encuentra las mejores jugadas en Wordfeud con nuestro buscador gratuito en español. Diccionario oficial FISE, comodines y cálculo de puntos.",
     },
     dictionary: {
       title: "Diccionario Scrabble — ¿Palabra válida?",
@@ -451,9 +451,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Generatore di parole casuali gratuito. Crea parole reali da Scarabeo filtrate per lunghezza, prefisso e suffisso.",
     },
     wordfeud: {
-      title: "Aiuto Wordfeud — Le migliori parole",
+      title: "Aiutante Wordfeud & Trova Parole — Zingarelli",
       description:
-        "Aiuto e trucco per Wordfeud. Inserisci le tue lettere e trova subito le migliori parole per Wordfeud. 9 lingue, gratis.",
+        "Trova le parole migliori per Wordfeud con il nostro aiutante gratuito in italiano. Dizionario Zingarelli, calcolo punti e bonus +40.",
     },
     dictionary: {
       title: "Dizionario Scarabeo — Parola valida?",
@@ -554,9 +554,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Gerador de palavras aleatórias grátis. Crie palavras reais de Scrabble filtradas por tamanho, prefixo e sufixo.",
     },
     wordfeud: {
-      title: "Ajuda para Wordfeud — Melhores palavras",
+      title: "Ajudante Wordfeud & Formar Palavras",
       description:
-        "Ajuda e trapaça para Wordfeud. Digite suas letras e encontre na hora as melhores palavras de Wordfeud. 9 idiomas, grátis.",
+        "Encontre as melhores palavras para Wordfeud com nosso ajudante gratuito em português. Suporte a curingas, cálculo de pontos e dicas de bônus +40.",
     },
     dictionary: {
       title: "Dicionário de Scrabble — Palavra válida?",
@@ -657,9 +657,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Gratis willekeurige woordgenerator. Genereer echte Scrabble-woorden gefilterd op lengte, voor- en achtervoegsel.",
     },
     wordfeud: {
-      title: "Wordfeud-hulp — Beste woorden uit je letters",
+      title: "Wordfeud Woorden Maker & Helper — OpenTaal",
       description:
-        "Wordfeud-hulp en cheat. Voer je letters in en vind direct de beste Wordfeud-woorden. 9 talen, gratis.",
+        "Vind direct de beste Nederlandse Wordfeud woorden met onze gratis maker. Officiële OpenTaal-woordenlijst, +40 bingo en puntentelling.",
     },
     dictionary: {
       title: "Scrabble-woordenboek — Is het een woord?",

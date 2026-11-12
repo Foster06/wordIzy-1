@@ -148,7 +148,14 @@ export function MainToolView({ params, initialWordListData, topWordData }: MainT
       );
     }
 
-    switch (route.id) {
+    // Tool routing key. The server-provided params.tool segment is authoritative:
+    // on localized subpaths (/nl/wordfeud → internal /i18n/nl/wordfeud) the
+    // pathname's first segment is the language code ("nl") or "i18n", which
+    // matches no tool case — every localized tool page used to fall through to
+    // the default home/unscrambler view. Fall back to route.id (client pathname)
+    // when params.tool is empty (localized + English homepages).
+    const routeKey = toolSegments[0] || route.id;
+    switch (routeKey) {
       case "home":
         return (
           <>

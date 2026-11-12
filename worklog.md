@@ -1998,3 +1998,45 @@ In dev mode the duplication does NOT occur (only one preload link, at the JSX po
 - `agent-browser click @e231` (Dictionary nav link) → URL changed to `http://localhost:3000/dictionary`, title changed to "Scrabble Dictionary Checker — Is It a Valid Word? | wordIzy". ✓
 
 **Remaining user action**: deploy to push live. Edge HTML cache (`s-maxage=600` from Task 40) refreshes within ~10 minutes of deploy; visitors will get the fixed HTML on next page load. The hydration error will disappear site-wide and all `<Link>` clicks will work again. Recommend re-running the PageSpeed Insights URL from Task 46 after deploy — the LCP score will likely regress slightly (no font preload) but Performance should still be in the 70s, and the broken-links issue is vastly more important than a ~700ms LCP delta on slow-4G.
+
+## Task 48 — Localized Wordfeud SEO package (6 European languages) + CRITICAL fix: localized tool pages rendered the home view (2026-11-12)
+
+**Trigger**: User delivered a complete per-language SEO package for the Wordfeud page (native meta titles/descriptions, H1 headings, and strategy copy — local dictionary references, +40 bingo bonus, Random Board tips, wildcard/Advanced Filter usage) for Dutch, German, French, Spanish, Italian and Portuguese, targeting first-page rankings on Google/Bing/DuckDuckGo in each market.
+
+### Part 1 — Localized Wordfeud content (the SEO package)
+
+`src/lib/i18n-seo.ts` — new `wordfeud` meta for the 6 languages (titles trimmed to ≤50 chars pre-suffix, descriptions ≤150 chars after HTML-escaping, per the Bing-learned rules; the user's proposed titles ran 60-70 chars so they were condensed while keeping all target keywords):
+- de: "Wordfeud Helfer — Wörter finden & Wörterbuch" (covers wordfeud helfer / wordfeud wörter finden / wordfeud wörterbuch deutsch)
+- fr: "Aide Wordfeud & Solveur de Mots — ODS9" (triche wordfeud / aide wordfeud français / solveur anagramme wordfeud)
+- es: "Buscador de Palabras Wordfeud — FISE"
+- it: "Aiutante Wordfeud & Trova Parole — Zingarelli"
+- pt: "Ajudante Wordfeud & Formar Palavras"
+- nl: "Wordfeud Woorden Maker & Helper — OpenTaal"
+FR descriptions use typographic apostrophes (’) — straight ones HTML-escape +5 chars each and blew the 160 cap.
+
+`src/components/i18n/translations.ts`:
+- `wordfeud.title/subtitle` for the 6 languages replaced with the user's native H1s + full intro paragraphs (wildcards, Advanced Filter names in each language: Begint met/Eindigt op/Bevat, Beginnt mit/Endet mit/Enthält, Commence par/Finit par/Contient, Empieza por/Termina en/Debe incluir, Inizia con/Finisce con/Deve includere, Começa com/Termina com/Deve incluir).
+- `faq.wordfeud` for the 6 languages replaced (was a thin 4-item generic Scrabble-clone FAQ) with 5 rich native items each: (1) official dictionary reference with local tile values (OpenTaal Q=10/X=8/Y=8; ODS9 K/W/X/Y/Z=10; FISE Z=10/X=8/Ñ=8/Q=5; Zingarelli Z/Q=10, H/V=4; PT Q/Z=10/X=8/J=5; DE Q/Y=10, X=8, Ä/Ö/Ü), (2) +40 bingo bonus (vs Scrabble's +50 for FR), (3) Random Board strategy (TW/TL adjacency, wildcard bridging, blocking), (4) Advanced Filters walkthrough, (5) rack entry + blanks. These feed BOTH the visible TipsSection AND the FAQPage JSON-LD (verified: 5 mainEntity entries per language, inLanguage set).
+- New optional `wordfeud.tips` field (interface extended) with a localized 3-item tips card for en + the 6 languages; `wordfeud-tool.tsx` now renders `t.wordfeud.tips ?? <English fallback>` instead of the hardcoded English card (ja/zh keep the fallback).
+
+`src/app/sitemap.ts` — LAST_MODIFIED bumped to 2026-11-12. The 8 `/{lang}/wordfeud` URLs were already enumerated in the sitemap (verified in the built sitemap.xml), and each localized page emits a full reciprocal hreflang cluster (en + 8 langs + x-default → English canonical) via `buildAlternates` — the "unique crawlable URL per language" requirement from the user's technical SEO note was already satisfied; no dropdown-only language hiding exists (middleware rewrites /{lang}/… to static /i18n/{lang}/… routes).
+
+### Part 2 — CRITICAL pre-existing bug found & fixed: all 152 localized tool pages rendered the home/unscrambler view
+
+While verifying the new H1s I discovered `/nl/wordfeud` (live AND local, before my change) rendered the localized homepage hero + unscrambler instead of the Wordfeud tool — same for every `/{lang}/{tool}` page in all 8 languages (only the localized homepages and the separate `/scrabble-words` section were correct). Each page had the right `<title>`, description, canonical and hreflang, but the visible body was the wrong tool — invisible in metadata audits, fatal for the localized SEO strategy.
+
+Root cause: `MainToolView`'s tool switch keyed on `route.id` from `useHashRoute()` (first segment of `usePathname()`). On the i18n route that segment is the language code (client, `/nl/wordfeud`) or `i18n` (server prerender, `/i18n/nl/wordfeud`) — never a tool slug — so the switch always fell to the default case (HomeHero + UnscramblerTool).
+
+Fix (`src/components/site/main-tool-view.tsx`): route on the server-provided `params.tool[0]` (`toolSegments[0] || route.id`) — identical for English pages (no behavior change there), correct for all 152 localized tool pages. Verified no hydration issues (server and client derive the same key from `use(params)`).
+
+Also note: during verification a stale `bun .next/standalone/server.js` process (started 15:56, before the changes) was squatting port 3000, so `npm run start` silently failed with EADDRINUSE and curls hit the old build — killed it before final verification. (If prod verification ever looks stale, check for a zombie standalone server first.)
+
+**Verification** (production build, 2028 pages, clean `next start`):
+- All 6 `/{lang}/wordfeud` pages: localized H1 ("Wordfeud Woorden Maker & Helper", "Aide Wordfeud & Solveur de Mots", …), localized title/description/canonical, 5 visible FAQ items + 5-question FAQPage JSON-LD in-language, localized tips card, localized subtitle.
+- Regression sweep after the routing fix: /fr/wordle → "Solveur Wordle", /de/dictionary → "Wörterbuch prüfen", /es/anagram, /it/wordle, /pt/blitz, /nl/scramble, /de/wordlists, /ja/wordle, /zh/dictionary, /fr/scrabble-words all render their actual tools; localized homepages (/nl /fr /de) still render the home hero; English /, /wordle, /dictionary, /wordfeud, /blitz, /wordlists unchanged.
+- Browser (agent-browser) on /nl/wordfeud: zero page errors, solver functional (932 Dutch words for "kasta?b" incl. 7-letter bingo candidates BARKAST/KOTBAAS), SPA nav works (no hydration breakage). /fr/wordfeud: zero errors, correct title.
+- `scripts/verify-i18n-seo.py`: 160 entries, 0 issues. `tsc --noEmit`: clean. sitemap.xml: wordizy.com/{de,fr,es,it,pt,nl,ja,zh}/wordfeud + /wordfeud present with lastmod 2026-11-12.
+
+**Known pre-existing gaps (NOT changed, candidates for follow-up)**: (1) nav links on localized pages point at the English tool URLs (e.g. /nl's "Woordenboek" → /dictionary) — localized internal links would strengthen the hreflang cluster; (2) the localized homepage renders via the switch's default branch (home hero + unscrambler + English "featured guides" card in English); (3) ja/zh wordfeud still uses the old generic FAQ + English tips fallback (no native copy was provided).
+
+**Remaining user action**: deploy. After deploy, re-crawl /{lang}/wordfeud in GSC/Bing and request indexing for the six URLs.
