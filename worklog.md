@@ -2091,3 +2091,13 @@ Fixes:
 Verified on the production build: FR h1 "Aide Wordfeud" @72px, subtitle 16px/104px (was 22px/198px); NL h1 @52px (smaller long-title clamp), subtitle 16px; EN /wordfeud h1 @72px unchanged; zero hydration errors (React #418 explicitly checked — the Task 47 failure mode).
 
 **Build**: `tsc --noEmit` clean; `next build` exit 0 (full page set). NOTE for local standalone verification: `next build` does NOT copy `.next/static` + `public` into `.next/standalone` — without them the CSS 404s and every h1 computes at Chromium's default 32px (false alarm during this task's verification); copy both dirs in before `bun .next/standalone/server.js`.
+
+## Task 51 (2026-11-13) — IndexNow re-ping after Quordle / RWG / Word Lab deploys
+
+Post-deploy re-ping for the four content commits that went live since the last ping (938cab3 language-aware links + FR wordfeud H1, 1440531 Quordle 7-lang, a7acb0a Random Word Generator 7-lang, 0c84054 Word Lab shell i18n). Prod spot-check before pinging confirmed the new build is live: /random, /fr/random, /fr/quordle, /de/quordle all serve the new localized titles.
+
+- New key `6fc8ac9f…` probed with a single URL → still **HTTP 403 `UserForbiddedToAccessSite`**; key file itself is 200/correct on prod, but the Bing Webmaster Tools verification step is still pending on the user side (same status as Task 35/36).
+- Old key `4c390b55…` still verified in IndexNow's backend → `bunx tsx scripts/ping-indexnow-old-key.ts` (direct POST to api.indexnow.org) submitted **all 2,803 sitemap URLs in 1 batch, HTTP 200 OK**.
+- Housekeeping: removed an accidental local-only commit (UUID message, stray tool-results artifact) via `git reset HEAD~1` — file stays on disk untracked, never pushed.
+
+**Remaining user action**: finish verifying the new key in Bing Webmaster Tools (Configure IndexNow) so future pings can go through the site's own `/api/indexnow` route instead of the old-key fallback.
