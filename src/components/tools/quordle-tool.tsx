@@ -94,7 +94,7 @@ export function QuordleTool() {
       <div className="mt-6 space-y-6">
         <GlassCard strong className="p-5 sm:p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-brand">{t.quordle.title}</h2>
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-brand">{t.nav.quordle}</h2>
             <Button onClick={addBoard} disabled={boards.length >= 4} variant="ghost" size="sm" className="gap-1.5 glass-soft rounded-lg">
               <Plus className="h-4 w-4" /> {t.quordle.addBoard}
             </Button>
@@ -179,6 +179,45 @@ export function QuordleTool() {
           </GlassCard>
         )}
 
+        {t.quordle.starters && (
+          <GlassCard className="p-5 sm:p-6 result-card">
+            <h2 className="text-xl font-bold mb-2 text-foreground font-roboto-slab">{t.quordle.starters.title}</h2>
+            <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{t.quordle.starters.intro}</p>
+            <ul className="space-y-3">
+              {t.quordle.starters.pairs.map((p, i) => (
+                <li key={i} className="text-sm leading-relaxed">
+                  <span className="font-mono font-semibold text-brand tracking-wider">{p.words}</span>
+                  <span className="text-muted-foreground"> — {p.note}</span>
+                </li>
+              ))}
+            </ul>
+          </GlassCard>
+        )}
+        {t.quordle.tips && (
+          <GlassCard className="p-5 sm:p-6 result-card">
+            <h2 className="text-xl font-bold mb-3 text-foreground font-roboto-slab">{t.quordle.tips.title}</h2>
+            <ul className="space-y-3">
+              {t.quordle.tips.items.map((item, i) => {
+                const ci = item.indexOf(": ");
+                return (
+                  <li key={i} className="text-sm text-muted-foreground leading-relaxed flex gap-2">
+                    <span className="text-brand mt-0.5 shrink-0">•</span>
+                    <span>
+                      {ci === -1 ? (
+                        item
+                      ) : (
+                        <>
+                          <span className="font-semibold text-foreground">{item.slice(0, ci + 1)}</span>{" "}
+                          {item.slice(ci + 2)}
+                        </>
+                      )}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </GlassCard>
+        )}
         <TipsSection title={t.faq.title} items={t.faq.quordle} />
         <TipsSection title="Save Vault — How to use it" items={t.faq.vault} />
         <AdSlot format="horizontal" />

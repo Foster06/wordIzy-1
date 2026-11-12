@@ -40,8 +40,8 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["wordle solver","wordle cheat","wordle helper","wordle answer finder","wordle hint","daily wordle solver","wordle today","wordle word finder","wordle answer","wordle clue","wordle guesser","wordle solver tool","wordle pattern solver","wordle cheat sheet","wordle helper tool","wordle answer today","wordle letter solver","wordle word helper","wordle green yellow gray solver"]
   },
   "quordle": {
-    title: "Quordle Solver — Advanced 4-in-1 Word Game Helper",
-    description: "Solve all four Quordle puzzles at once. Enter green, yellow & gray clues per board. Free Quordle solver, cheat & answer finder.",
+    title: "Quordle Solver & 5-Letter Word Finder — Save Your Streak",
+    description: "Stuck on today's Quordle? Filter 5-letter words by exact green slots, yellow letters, and excluded gray letters. Includes optimal 2-word opening strategies.",
     keywords: ["quordle solver","quordle helper","quordle cheat","quordle answer","quordle word finder","quordle today","4 word puzzle solver","quordle answer today","quordle solver tool","quordle hint","quordle clue","daily quordle solver","quordle cheat sheet","quordle pattern solver","quordle helper tool","quordle answer finder","quordle multi board solver","quordle game solver","quordle daily answer"]
   },
   "scrabble": {

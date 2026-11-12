@@ -31,7 +31,14 @@ export type Translation = {
  };
  scramble: { title: string; subtitle: string; inputLabel: string; btn: string; solutionLabel: string; hint: string };
  wordle: { title: string; subtitle: string; length: string; placed: string; valid: string; excluded: string; btn: string; hint: string };
- quordle: { title: string; subtitle: string; board: string; addBoard: string; hint: string };
+ quordle: {
+  title: string; subtitle: string; board: string; addBoard: string; hint: string;
+  // Optional localized SEO content blocks (present for en + the 6 European
+  // languages with a dedicated Quordle copy package; ja/zh omit and the
+  // sections simply don't render — no regression vs. the prior FAQ-only page).
+  starters?: { title: string; intro: string; pairs: { words: string; note: string }[] };
+  tips?: { title: string; items: string[] };
+ };
  anagram: { title: string; subtitle: string; btn: string; hint: string };
  random: { title: string; subtitle: string; length: string; any: string; count: string; btn: string };
  wordfeud: { title: string; subtitle: string; btn: string; hint: string; tips: { title: string; items: string[] } };
@@ -246,8 +253,24 @@ const en: Translation = {
   length: "Word length", placed: "Placed letters (green)", valid: "Valid letters (yellow)", excluded: "Excluded letters (gray)", btn: "Solve", hint: "Use . or _ for empty slots, e.g. A..LE",
  },
  quordle: {
-  title: "Quordle Solver", subtitle: "Solve up to four Wordle puzzles at once. Each board keeps its own constraints; shared valid/excluded letters flow between them.",
+  title: "Quordle Solver & 5-Letter Word Finder",
+  subtitle: "Struggling to crack all four 5-letter grids in 9 guesses? Use our free Quordle Solver to filter valid 5-letter English words in milliseconds. Place your confirmed green letters using ? or * for unknown slots, and use Advanced Filters (Starts with, Ends with, Must include) to narrow down the exact answer.",
   board: "Board", addBoard: "Add board", hint: "Fill in what you know for each board, then solve.",
+  starters: {
+   title: "Best English Quordle Starter Pairs",
+   intro: "Because you have 9 guesses for 4 words, your first two turns should cover the 10 most common letters in English without repeats:",
+   pairs: [
+    { words: "STARE + CLOUD", note: "Maximum vowel & consonant coverage — tests S, T, A, R, E, C, L, O, U, D." },
+    { words: "CRANE + SLOTH", note: "High-frequency endings — great for catching -ER, -TH, and -CH endings early." },
+   ],
+  },
+  tips: {
+   title: "How to Beat the 4-Grid Trap",
+   items: [
+    "Solve the Narrowest Board First: Focus all your early guesses on whichever of the 4 grids reveals 2 or 3 green letters first. Locking in one board clears visual clutter and reveals common letters for the remaining three.",
+    "Watch Out for Y-Words: When all standard vowels (A, E, I, O, U) turn gray on one board, filter for 5-letter words containing Y (like TRYST, GLYPH, or CRYPT).",
+   ],
+  },
  },
  anagram: {
   title: "Anagram Solver", subtitle: "Find every anagram of your letters — words that use exactly all the letters you provide.",
@@ -668,8 +691,24 @@ const fr: Translation = {
   length: "Longueur du mot", placed: "Lettres placées (vert)", valid: "Lettres valides (jaune)", excluded: "Lettres exclues (gris)", btn: "Résoudre", hint: "Utilisez . ou _ pour les cases vides, ex. A..LE",
  },
  quordle: {
-  title: "Solveur Quordle", subtitle: "Résolvez jusqu'à quatre Wordle à la fois. Chaque plateau garde ses contraintes ; les lettres valides/exclues sont partagées.",
+  title: "Solveur Quordle, SUTOM & Mots de 5 Lettres",
+  subtitle: "Bloqué sur les quatre grilles de Quordle, ou sur votre partie quotidienne de SUTOM, Tusmo ou Le Mot ? Notre solveur gratuit interroge directement le dictionnaire officiel français ODS9 pour afficher tous les mots de 5 lettres compatibles. Utilisez ? ou * pour les lettres inconnues et activez les Filtres Avancés (Commence par, Finit par, Contient).",
   board: "Plateau", addBoard: "Ajouter un plateau", hint: "Remplissez ce que vous savez pour chaque plateau, puis résolvez.",
+  starters: {
+   title: "Les meilleurs mots de départ en français",
+   intro: "En français, les voyelles E, A, I, O, U et les consonnes S, R, T, N, L dominent la langue. Voici les meilleures ouvertures pour éliminer un maximum de lettres dès le début :",
+   pairs: [
+    { words: "AIMER + LOTUS", note: "Ouverture idéale — permet de tester les 5 voyelles principales A, E, I, O, U dès les deux premiers coups." },
+    { words: "TARIE / SALON", note: "Alternative haute fréquence pour couvrir les lettres les plus courantes du français." },
+   ],
+  },
+  tips: {
+   title: "Astuces pour gagner plus vite en français",
+   items: [
+    "Pensez aux terminaisons verbales : Contrairement à l'anglais, les verbes à l'infinitif ou conjugués sont très fréquents. Les fins en -ER, -IR, -ES et -AS résolvent souvent une grille bloquée.",
+    "Gérez les lettres rares (K, W, X, Y, Z) : Si toutes les voyelles classiques sont grises, utilisez notre filtre Contient avec la lettre Y (comme dans STYLE ou CYCLE).",
+   ],
+  },
  },
  anagram: {
   title: "Solveur d'Anagrammes", subtitle: "Trouvez toutes les anagrammes de vos lettres — les mots qui utilisent exactement toutes les lettres fournies.",
@@ -1082,7 +1121,26 @@ const es: Translation = {
  },
  scramble: { title: "Mezclador / Sol. de palabras", subtitle: "¿Atascado en un puzzle? Introduce las letras mezcladas y las resolveremos en palabras reales.", inputLabel: "Letras mezcladas", btn: "Resolver", solutionLabel: "Soluciones posibles", hint: "Usa ? o * para letras desconocidas." },
  wordle: { title: "Sol. Wordle", subtitle: "Acota el Wordle de hoy. Introduce letras verdes en su posición, letras amarillas conocidas y letras grises a excluir.", length: "Longitud", placed: "Letras colocadas (verde)", valid: "Letras válidas (amarillo)", excluded: "Letras excluidas (gris)", btn: "Resolver", hint: "Usa . o _ para huecos, ej. A..LE" },
- quordle: { title: "Sol. Quordle", subtitle: "Resuelve hasta cuatro Wordle a la vez. Cada tablero guarda sus restricciones; las letras válidas/excluidas se comparten.", board: "Tablero", addBoard: "Añadir tablero", hint: "Rellena lo que sepas de cada tablero y resuelve." },
+ quordle: {
+  title: "Solucionador de Quordle y Palabras de 5 Letras",
+  subtitle: "¿Te cuesta completar los cuatro tableros de Quordle o adivinar La Palabra del Día? Nuestro buscador gratuito utiliza el diccionario oficial en español FISE para mostrarte al instante todas las palabras de 5 letras posibles. Coloca tus letras verdes usando ? o * para los huecos libres y aplica los Filtros Avanzados (Empieza por, Termina en, Debe incluir).",
+  board: "Tablero", addBoard: "Añadir tablero", hint: "Rellena lo que sepas de cada tablero y resuelve.",
+  starters: {
+   title: "Las mejores palabras para empezar en español",
+   intro: "El español tiene una estructura muy rica en vocales (A, E, O, I, U). Usa estas combinaciones iniciales para descubrir rápidamente qué vocales están en cada tablero:",
+   pairs: [
+    { words: "AUDIO + RENTA", note: "Combinación perfecta — cubre las 5 vocales y las consonantes R, N, T, D en solo dos turnos." },
+    { words: "SERIO / CANTO", note: "Opción equilibrada para cubrir las consonantes más frecuentes del español." },
+   ],
+  },
+  tips: {
+   title: "Trucos clave para el español",
+   items: [
+    "Fíjate en la última letra: Más del 70 % de las palabras de 5 letras en español terminan en A, O, E, S, N o R. Si tienes dudas en la última casilla, prueba primero con una vocal para definir el género (masculino/femenino) o la forma verbal.",
+    "No olvides la Ñ: Nuestro diccionario incluye palabras con Ñ (como SUEÑO, NIÑEZ o CAÑÓN). Usa el filtro Debe incluir si sospechas que aparece en uno de los tableros.",
+   ],
+  },
+ },
  anagram: { title: "Sol. de Anagramas", subtitle: "Encuentra todos los anagramas de tus letras — palabras que usan exactamente todas las letras.", btn: "Buscar anagramas", hint: "Los comodines (? *) rellenan letras." },
  random: { title: "Generador de Palabras Aleatorias", subtitle: "Genera palabras reales al azar con filtros de longitud, prefijo, sufijo y contenido.", length: "Longitud", any: "Cualquiera", count: "Cuántas", btn: "Generar" },
  wordfeud: { title: "Buscador de Palabras Wordfeud", subtitle: "¿Te has quedado atascado con letras difíciles en tu partida? Introduce tus 7 fichas en nuestro buscador de palabras para Wordfeud y descubre al instante todas las palabras válidas en español, ordenadas por longitud y puntuación. Usa ? o * como comodín para las fichas en blanco y aplica los Filtros Avanzados (Empieza por, Termina en, Debe incluir) para encajar tus palabras en cualquier hueco del tablero.", btn: "Buscar palabras", hint: "Añade ? o * para fichas en blanco.",
@@ -1476,7 +1534,26 @@ const de: Translation = {
  },
  scramble: { title: "Wort-Mischer / -Löser", subtitle: "Bei einem Misch-Rätsel festgefahren? Buchstaben eingeben und in echte Wörter aufgelöst.", inputLabel: "Gemischte Buchstaben", btn: "Auflösen", solutionLabel: "Mögliche Lösungen", hint: "? oder * für unbekannte Buchstaben." },
  wordle: { title: "Wordle-Löser", subtitle: "Das heutige Wordle eingrenzen: grüne Buchstaben an Position, gelbe bekannte, graue ausschließen.", length: "Wortlänge", placed: "Platzierte (grün)", valid: "Gültige (gelb)", excluded: "Ausgeschlossene (grau)", btn: "Lösen", hint: ". oder _ für Leerstellen, z. B. A..LE" },
- quordle: { title: "Quordle-Löser", subtitle: "Bis zu vier Wordle gleichzeitig lösen. Jedes Brett behält eigene Bedingungen.", board: "Brett", addBoard: "Brett hinzufügen", hint: "Fülle aus, was du weißt, und löse." },
+ quordle: {
+  title: "Quordle & Deutscher Wordle Löser (5 Buchstaben)",
+  subtitle: "Du spielst Quordle, Wordle auf Deutsch oder 6mal5 und dir gehen die Versuche aus? Unser kostenloser Quordle Löser filtert tausende gültige deutsche 5-Buchstaben-Wörter in Sekundenbruchteilen. Gib deine bestätigten grünen Buchstaben mit ? oder * für unbekannte Positionen ein und nutze die Erweiterten Filter (Beginnt mit, Endet mit, Enthält).",
+  board: "Brett", addBoard: "Brett hinzufügen", hint: "Fülle aus, was du weißt, und löse.",
+  starters: {
+   title: "Die besten deutschen Startwörter",
+   intro: "Im Deutschen sind E, N, I, S, R, A, T die häufigsten Buchstaben. Mit diesen Startwörtern deckst du direkt im ersten Zug das halbe Alphabet ab:",
+   pairs: [
+    { words: "STEIN / ERNST / RATEN", note: "Top-Startwörter — decken die häufigsten deutschen Buchstaben E, N, I, S, R, A, T in einem Zug ab." },
+    { words: "STEIN + MORAL", note: "Zweiter Zug — kombiniert alle wichtigen Vokale (E, I, O, A) und Konsonanten sofort." },
+   ],
+  },
+  tips: {
+   title: "Strategien für deutsche 5-Buchstaben-Rätsel",
+   items: [
+    "Typische Endungen nutzen: Viele deutsche 5-Buchstaben-Wörter enden auf -EN, -ER oder -EL (z. B. LEBEN, VATER, APFEL). Wenn du ein E an vierter Stelle hast, teste zuerst ein N oder R am Ende.",
+    "Umlaute beachten: Prüfe bei deiner Spielvariante, ob Umlaute ausgeschrieben werden müssen (AE, OE, UE) oder als eigene Buchstaben (Ä, Ö, Ü) zählen – unsere Datenbank unterstützt beide Schreibweisen.",
+   ],
+  },
+ },
  anagram: { title: "Anagramm-Löser", subtitle: "Finde jedes Anagramm deiner Buchstaben — Wörter, die genau alle Buchstaben nutzen.", btn: "Anagramme finden", hint: "Platzhalter (? *) füllen auf." },
  random: { title: "Zufallswort-Generator", subtitle: "Zufällige echte Wörter mit Längen-, Präfix-, Suffix- und Inhaltsfiltern.", length: "Länge", any: "Beliebig", count: "Wie viele", btn: "Generieren" },
  wordfeud: { title: "Wordfeud Helfer & Wörter Finder", subtitle: "Du kommst bei deiner aktuellen Partie Wordfeud nicht weiter? Gib deine 7 Buchstaben einfach in unseren kostenlosen Wordfeud Helfer ein und finde sofort alle gültigen deutschen Wörter – sortiert nach Wortlänge und exakter Punktzahl. Nutze ? oder * als Joker für Blankosteine und verwende die Erweiterten Filter (Beginnt mit, Endet mit, Enthält), um perfekt an bestehende Wörter auf dem Spielfeld anzulegen.", btn: "Wörter finden", hint: "? oder * für Blankos.",
@@ -1870,7 +1947,26 @@ const it: Translation = {
  },
  scramble: { title: "Mischia / Risolvi parole", subtitle: "Bloccato in un puzzle? Inserisci le lettere mescolate e le risolveremo in parole reali.", inputLabel: "Lettere mescolate", btn: "Risolvi", solutionLabel: "Soluzioni possibili", hint: "Usa ? o * per lettere ignote." },
  wordle: { title: "Ris. Wordle", subtitle: "Restringi il Wordle di oggi: lettere verdi in posizione, gialle note, grigie da escludere.", length: "Lunghezza", placed: "Posizionate (verde)", valid: "Valide (giallo)", excluded: "Escluse (grigio)", btn: "Risolvi", hint: "Usa . o _ per spazi, es. A..LE" },
- quordle: { title: "Ris. Quordle", subtitle: "Risolvi fino a quattro Wordle insieme. Ogni tabellone ha i suoi vincoli.", board: "Tabellone", addBoard: "Aggiungi tabellone", hint: "Compila ciò che sai e risolvi." },
+ quordle: {
+  title: "Risolutore Quordle & Parole di 5 Lettere (Italiano)",
+  subtitle: "Hai difficoltà a risolvere le quattro griglie di Quordle o la sfida quotidiana di Wordle Italiano? Il nostro risolutore gratuito consulta il vocabolario ufficiale Zingarelli per filtrare istantaneamente tutte le parole italiane di 5 lettere. Inserisci le lettere verdi già confermate usando ? o * per gli spazi vuoti e sfrutta i Filtri Avanzati (Inizia con, Finisce con, Deve includere).",
+  board: "Tabellone", addBoard: "Aggiungi tabellone", hint: "Compila ciò che sai e risolvi.",
+  starters: {
+   title: "Le migliori parole iniziali in italiano",
+   intro: "L'italiano è una lingua dominata dalle vocali (E, A, I, O). Scegli parole di apertura che testino subito le vocali principali insieme alle consonanti R, T, L, S, N:",
+   pairs: [
+    { words: "SERIA + MOLTO", note: "Apertura consigliata — testa A, E, I, O e le consonanti più comuni nei primi due tentativi." },
+    { words: "CUORE / PIANO", note: "Alternativa rapida per coprire le vocali italiane più frequenti." },
+   ],
+  },
+  tips: {
+   title: "Strategie vincenti per l'italiano",
+   items: [
+    "La regola della vocale finale: Quasi tutte le parole italiane di 5 lettere terminano con A, E, I oppure O. Se l'ultima casella è vuota, non provare consonanti: testa subito una vocale.",
+    "Attenzione alle doppie: In italiano le consonanti doppie (LL, TT, SS, RR, CC) sono molto frequenti (es. NOTTE, BELLO, ROSSO). Se trovi una consonante verde al centro, considera la possibilità che sia raddoppiata.",
+   ],
+  },
+ },
  anagram: { title: "Ris. Anagrammi", subtitle: "Trova ogni anagramma delle tue lettere — parole che usano esattamente tutte le lettere.", btn: "Trova anagrammi", hint: "I jolly (? *) completano." },
  random: { title: "Generatore di Parole Casuali", subtitle: "Genera parole reali casuali con filtri di lunghezza, prefisso, suffisso e contenuto.", length: "Lunghezza", any: "Qualsiasi", count: "Quante", btn: "Genera" },
  wordfeud: { title: "Aiutante Wordfeud & Trova Parole", subtitle: "Sei bloccato con lettere difficili durante una sfida a Wordfeud? Inserisci le tue 7 lettere nel nostro aiutante Wordfeud gratuito per visualizzare immediatamente tutte le parole italiane valide, raggruppate per lunghezza e ordinate per punteggio. Usa ? o * come jolly per le tessere bianche e sfrutta i Filtri Avanzati (Inizia con, Finisce con, Deve includere) per incastrare le parole sulla griglia di gioco.", btn: "Trova parole", hint: "Aggiungi ? o * per tessere vuote.",
@@ -2264,7 +2360,26 @@ const pt: Translation = {
  },
  scramble: { title: "Misturador / Sol. de palavras", subtitle: "Travado num anagrama? Digite as letras misturadas e as resolveremos em palavras reais.", inputLabel: "Letras misturadas", btn: "Resolver", solutionLabel: "Soluções possíveis", hint: "Use ? ou * para letras desconhecidas." },
  wordle: { title: "Sol. Wordle", subtitle: "Reduza o Wordle de hoje: letras verdes na posição, amarelas conhecidas, cinzas a excluir.", length: "Tamanho", placed: "Posicionadas (verde)", valid: "Válidas (amarelo)", excluded: "Excluídas (cinza)", btn: "Resolver", hint: "Use . ou _ para espaços, ex. A..LE" },
- quordle: { title: "Sol. Quordle", subtitle: "Resolva até quatro Wordle ao mesmo tempo. Cada tabuleiro tem suas restrições.", board: "Tabuleiro", addBoard: "Adicionar tabuleiro", hint: "Preencha o que souber e resolva." },
+ quordle: {
+  title: "Resolvedor de Quordle, Quarteto & Palavras de 5 Letras",
+  subtitle: "Ficou sem tentativas no Quordle, no Termo ou nas quatro telas do Quarteto? Nosso resolvedor gratuito filtra milhares de palavras válidas de 5 letras em português em milissegundos. Digite suas letras verdes confirmadas usando ? ou * para as posições desconhecidas e use os Filtros Avançados (Começa com, Termina com, Deve incluir).",
+  board: "Tabuleiro", addBoard: "Adicionar tabuleiro", hint: "Preencha o que souber e resolva.",
+  starters: {
+   title: "Melhores palavras iniciais em português",
+   intro: "No português, as letras A, E, O, S, R, I, M aparecem na maioria das palavras de 5 letras. Use estas combinações para revelar pistas nos quatro quadros ao mesmo tempo:",
+   pairs: [
+    { words: "TERMO + SAUNA", note: "Dupla de abertura — testa todas as 5 vogais A, E, I, O, U logo nas duas primeiras jogadas." },
+    { words: "AUREO + CINTA", note: "Alternativa equilibrada — cobre vogais e as consoantes frequentes R, N, T, C." },
+   ],
+  },
+  tips: {
+   title: "Dicas essenciais para vencer no Quarteto e Quordle",
+   items: [
+    "Atenção às terminações verbais e nasais: Palavras terminadas em -AR, -ER, -IR, -OS e -AS são muito comuns. Se você já tem um R ou S amarelo, teste colocá-lo na última casa.",
+    "Vogais repetidas: Palavras com duas letras A ou E (como PARAR, CASAS ou BEBER) costumam enganar os jogadores nas últimas tentativas — use nosso filtro Deve incluir para checar todas as possibilidades.",
+   ],
+  },
+ },
  anagram: { title: "Sol. Anagramas", subtitle: "Encontre todos os anagramas das suas letras — palavras que usam exatamente todas as letras.", btn: "Encontrar anagramas", hint: "Curingas (? *) completam." },
  random: { title: "Gerador de Palavras Aleatórias", subtitle: "Gere palavras reais aleatórias com filtros de tamanho, prefixo, sufixo e conteúdo.", length: "Tamanho", any: "Qualquer", count: "Quantas", btn: "Gerar" },
  wordfeud: { title: "Ajudante Wordfeud & Formar Palavras", subtitle: "Ficou sem opções na sua partida de Wordfeud? Digite as suas 7 letras no nosso ajudante de Wordfeud gratuito e descubra na hora todas as palavras válidas em português, organizadas por tamanho e pontuação. Use ? ou * como curinga para as peças em branco e utilize os Filtros Avançados (Começa com, Termina com, Deve incluir) para encaixar jogadas perfeitas no tabuleiro.", btn: "Encontrar palavras", hint: "Adicione ? ou * para fichas vazias.",
@@ -2658,7 +2773,26 @@ const nl: Translation = {
  },
  scramble: { title: "Woordmenger / -oplosser", subtitle: "Vastgelopen op een anagram? Voer de letters in en we lossen ze op in echte woorden.", inputLabel: "Dooreengemengde letters", btn: "Oplossen", solutionLabel: "Mogelijke oplossingen", hint: "Gebruik ? of * voor onbekende letters." },
  wordle: { title: "Wordle-oplosser", subtitle: "Verklein de Wordle van vandaag: groene letters op positie, gele bekende, grijze uit te sluiten.", length: "Woordlengte", placed: "Geplaatst (groen)", valid: "Geldig (geel)", excluded: "Uitgesloten (grijs)", btn: "Oplossen", hint: "Gebruik . of _ voor lege plekken, bijv. A..LE" },
- quordle: { title: "Quordle-oplosser", subtitle: "Los tot wel vier Wordles tegelijk op. Elk bord houdt eigen voorwaarden.", board: "Bord", addBoard: "Bord toevoegen", hint: "Vul in wat je weet en los op." },
+ quordle: {
+  title: "Quordle & Nederlandse Woordle Oplosser",
+  subtitle: "Speel je Quordle of een Nederlandse 5-letter variant zoals Woordle of Lingo en kom je niet verder? Onze gratis Quordle Oplosser doorzoekt razendsnel de officiële Nederlandse OpenTaal woordenlijst. Vul je bekende groene letters in met een ? of * op de lege plekken en gebruik de Geavanceerde Filters (Begint met, Eindigt op, Bevat) om je reeks te redden.",
+  board: "Bord", addBoard: "Bord toevoegen", hint: "Vul in wat je weet en los op.",
+  starters: {
+   title: "Beste Nederlandse Openers (5-Letterwoorden)",
+   intro: "De Nederlandse taal gebruikt veel klinkers en de letters E, N, A, T, R, O, S. Gebruik deze twee woorden als startcombinatie om bijna alle veelvoorkomende letters direct te testen:",
+   pairs: [
+    { words: "TAREN + SLOPI", note: "Test direct de klinkers A, E, O, I en medeklinkers S, T, L, R, N." },
+    { words: "STOEL + KRAAN", note: "Alternatief — dekt dubbele klinkers (AA) en veelvoorkomende medeklinkers af." },
+   ],
+  },
+  tips: {
+   title: "Slimme Tips voor Nederlandse 5-Letter Puzzels",
+   items: [
+    "Let op dubbele klinkers: In tegenstelling tot het Engels komen dubbele klinkers zoals AA, EE, OO en UU enorm vaak voor in het Nederlands (bijv. DRAAD, SPEEL, GROOT).",
+    "Vergeet de IJ niet: In Nederlandse 5-letterspellen telt de IJ als twee aparte letters (I en J). Heb je een I en een J in het geel? Probeer ze dan direct naast elkaar te zetten op het einde of in het midden van het woord.",
+   ],
+  },
+ },
  anagram: { title: "Anagram-oplosser", subtitle: "Vind elk anagram van je letters — woorden die exact alle letters gebruiken.", btn: "Anagrammen vinden", hint: "Jokers (? *) vullen aan." },
  random: { title: "Willekeurige Woordgenerator", subtitle: "Genereer willekeurige echte woorden met lengte-, voorvoegsel-, achtervoegsel- en bevat-filters.", length: "Lengte", any: "Elke", count: "Hoeveel", btn: "Genereren" },
  wordfeud: { title: "Wordfeud Woorden Maker & Helper", subtitle: "Zit je vast tijdens een spannend potje Wordfeud? Voer je 7 letters in onze gratis Wordfeud woorden maker in en ontdek direct alle geldige Nederlandse woorden, overzichtelijk gesorteerd op woordlengte en puntentelling. Gebruik ? of * voor een blanco tegel en pas de Geavanceerde Filters (Begint met, Eindigt op, Bevat) toe om precies aan te leggen op een vol speelbord.", btn: "Woorden vinden", hint: "Voeg ? of * toe voor lege tegels.",

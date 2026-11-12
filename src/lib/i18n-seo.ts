@@ -127,9 +127,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Kostenloser Wordle-Löser. Filtere nach grünen, gelben und grauen Buchstaben und finde die Lösung schnell. 4-8 Buchstaben.",
     },
     quordle: {
-      title: "Quordle-Löser — 4 Rätsel gleichzeitig",
+      title: "Quordle & Wordle Löser — 5-Buchstaben Wörter",
       description:
-        "Löse alle vier Quordle-Rätsel auf einmal. Grüne, gelbe und graue Hinweise pro Brett eingeben. Kostenlos, ohne Anmeldung.",
+        "Kommst du beim Quordle oder deutschen Wordle nicht weiter? Finde sofort 5-Buchstaben-Wörter nach grünen und gelben Buchstaben mit unseren Filtern.",
     },
     scrabble: {
       title: "Scrabble-Wortfinder — Höchstpunktzahlen",
@@ -230,9 +230,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Solveur Wordle gratuit. Filtrez par lettres vertes, jaunes et grises pour trouver la réponse vite. Compatible 4 à 8 lettres.",
     },
     quordle: {
-      title: "Solveur Quordle — 4 grilles à la fois",
+      title: "Solveur Quordle — Mots de 5 Lettres (ODS9)",
       description:
-        "Résolvez les quatre grilles Quordle d'un coup. Saisissez les indices verts, jaunes et gris de chaque plateau. Gratuit.",
+        "Bloqué sur Quordle, SUTOM ou Le Mot ? Trouvez tous les mots français de 5 lettres grâce au dictionnaire officiel ODS9 et nos filtres par position.",
     },
     scrabble: {
       title: "Trouveur de mots Scrabble — Meilleurs coups",
@@ -333,9 +333,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Solucionador de Wordle gratis. Filtra por letras verdes, amarillas y grises para hallar la respuesta rápido. De 4 a 8 letras.",
     },
     quordle: {
-      title: "Solucionador de Quordle — 4 retos a la vez",
+      title: "Quordle y La Palabra del Día — 5 Letras (FISE)",
       description:
-        "Resuelve los cuatro retos de Quordle a la vez. Introduce las pistas verdes, amarillas y grises de cada tablero. Gratis.",
+        "¿Atascado en Quordle o La Palabra del Día? Filtra palabras en español de 5 letras según tus letras verdes y amarillas con el diccionario oficial FISE.",
     },
     scrabble: {
       title: "Buscador de palabras Scrabble",
@@ -436,9 +436,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Risolvitore Wordle gratuito. Filtra per lettere verdi, gialle e grigie e trova la soluzione in fretta. Da 4 a 8 lettere.",
     },
     quordle: {
-      title: "Risolvitore Quordle — 4 griglie insieme",
+      title: "Quordle & Parole di 5 Lettere (Zingarelli)",
       description:
-        "Risolvi tutte e quattro le griglie Quordle in una volta. Inserisci gli indizi verdi, gialli e grigi di ogni tavola. Gratis.",
+        "Bloccato su Quordle o Wordle Italiano? Trova subito tutte le parole italiane di 5 lettere dal vocabolario Zingarelli filtrando lettere verdi e gialle.",
     },
     scrabble: {
       title: "Cercaparole Scarabeo — Giocate migliori",
@@ -539,9 +539,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Resolvedor de Wordle grátis. Filtre por letras verdes, amarelas e cinza e encontre a resposta rápido. De 4 a 8 letras.",
     },
     quordle: {
-      title: "Resolvedor de Quordle — 4 jogos de uma vez",
+      title: "Quordle & Quarteto — Palavras de 5 Letras",
       description:
-        "Resolva os quatro jogos do Quordle de uma vez. Insira as dicas verdes, amarelas e cinza de cada tabuleiro. Grátis.",
+        "Travado no Quordle ou no Quarteto de hoje? Filtre palavras em português de 5 letras por letras verdes e amarelas com nosso buscador gratuito.",
     },
     scrabble: {
       title: "Buscador de palavras de Scrabble",
@@ -642,9 +642,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Gratis Wordle-oplosser. Filter op groene, gele en grijze letters en vind het antwoord snel. Voor 4-8 letters.",
     },
     quordle: {
-      title: "Quordle-oplosser — 4 borden tegelijk",
+      title: "Quordle & Woordle Oplosser — 5-Letter Woorden",
       description:
-        "Los alle vier de Quordle-borden tegelijk op. Voer groene, gele en grijze aanwijzingen per bord in. Gratis.",
+        "Vastgelopen bij Quordle of Nederlandse Woordle? Filter direct alle geldige 5-letterwoorden uit de OpenTaal woordenlijst met onze gratis oplosser.",
     },
     scrabble: {
       title: "Scrabble-woordzoeker — Beste woorden",
