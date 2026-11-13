@@ -16,6 +16,7 @@ import {
   WORD_LIST_LENGTHS,
   ALPHABET_LOWER,
   ALPHABET_UPPER,
+  type WordListConfig,
 } from "@/lib/word-list-urls";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import type { Translation } from "@/components/i18n/translations";
@@ -56,6 +57,27 @@ export function ProgrammaticSEOView({ slug, initialData, topWords = [] }: Progra
     );
   }
 
+  return (
+    <ProgrammaticSEOViewInner
+      slug={slug}
+      config={config}
+      initialData={initialData}
+      topWords={topWords}
+    />
+  );
+}
+
+function ProgrammaticSEOViewInner({
+  slug,
+  config,
+  initialData,
+  topWords = [],
+}: {
+  slug: string;
+  config: WordListConfig;
+  initialData?: InitialWordListPage | null;
+  topWords?: TopWord[];
+}) {
   const { t, lang } = useLanguage();
   const def = LANGUAGES[lang as LanguageCode];
   // SSR seed: if the server pre-rendered the first 50 words, use them as the
