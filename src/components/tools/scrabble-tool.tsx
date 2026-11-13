@@ -32,7 +32,7 @@ export function ScrabbleTool() {
     if (!pool.trim()) return;
     setLoading(true);
     try {
-      const r = await get<SolveResult>("/api/unscramble", { letters: pool });
+      const r = await get<SolveResult>("/api/unscramble", { letters: pool, lang });
       setResult(r);
     } catch {
       setResult({ groups: [], total: 0 });

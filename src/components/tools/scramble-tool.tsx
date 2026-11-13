@@ -37,7 +37,7 @@ export function ScrambleTool() {
     if (!scrambled.trim()) return;
     setLoading(true);
     try {
-      const r = await get<SolveResult>("/api/unscramble", { letters: scrambled });
+      const r = await get<SolveResult>("/api/unscramble", { letters: scrambled, lang });
       setResult(r);
     } catch {
       setResult({ groups: [], total: 0 });

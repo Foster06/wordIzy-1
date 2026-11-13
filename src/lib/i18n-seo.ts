@@ -112,14 +112,14 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Kostenloser Wort-Unscrambler. Entwirre Buchstaben in gültige Wörter für Scrabble und Wordle. Platzhalter, 9 Sprachen, sofort.",
     },
     scramble: {
-      title: "Wort-Scramble-Löser — Buchstabensalat lösen",
+      title: "Buchstabensalat Löser & Wortguru / Wordscapes Hilfe",
       description:
-        "Kostenloser Scramble-Löser. Entwirre verwürfelte Buchstaben schnell in gültige Wörter. Platzhalter möglich, sofort.",
+        "Buchstabensalat Löser & Wortguru/Wordscapes Hilfe. Gib gemischte Buchstaben ein für alle versteckten deutschen Wörter.",
     },
     anagram: {
-      title: "Anagramm-Löser — Finde alle Anagramme",
+      title: "Anagramm Löser & Generator Deutsch — Buchstaben Umstellen",
       description:
-        "Kostenloser Anagramm-Löser und -Generator. Gib Wort oder Buchstaben ein und finde sofort jedes gültige Anagramm.",
+        "Anagramm Löser & Generator Deutsch. Für Schüttelrätsel, Kreuzworträtsel und Bananagrams, sortiert nach Länge.",
     },
     wordle: {
       title: "Wordle-Löser — Helfer für das heutige Rätsel",
@@ -132,9 +132,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Kommst du beim Quordle oder deutschen Wordle nicht weiter? Finde sofort 5-Buchstaben-Wörter nach grünen und gelben Buchstaben mit unseren Filtern.",
     },
     scrabble: {
-      title: "Scrabble-Wortfinder — Höchstpunktzahlen",
+      title: "Duplicate Scrabble Löser & Turnier-Zugrechner",
       description:
-        "Scrabble-Wortfinder. Gib Rack und Buchstaben ein und finde die punktestärksten Wörter. Platzhalter, 9 Sprachen, gratis.",
+        "Duplicate Scrabble Löser & Turnier-Zugrechner. Gib deine 7 Buchstaben ein für den punktbesten Zug und +50 Bingo-Bonus.",
     },
     random: {
       title: "Zufallswort Generator — Montagsmaler & Spiele",
@@ -215,14 +215,14 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Décodeur de mots gratuit. Transformez vos lettres en mots valides pour le Scrabble et le Wordle. Jokers, 9 langues, résultat instantané.",
     },
     scramble: {
-      title: "Solveur de mots mélangés",
+      title: "Solveur Mots Mélangés & Aide Wordscapes Français",
       description:
-        "Solveur de mots mélangés gratuit. Retrouvez vite des mots valides à partir de lettres inversées. Jokers acceptés, résultat immédiat.",
+        "Solveur de mots mélangés & aide Wordscapes français. Tapez vos lettres pour retrouver tous les mots cachés.",
     },
     anagram: {
-      title: "Solveur d'anagrammes — Trouvez-les toutes",
+      title: "Anagrammeur Gratuit & Solveur d'Anagrammes (ODS9)",
       description:
-        "Solveur et générateur d'anagrammes gratuit. Entrez un mot ou des lettres et trouvez instantanément toutes les anagrammes valides.",
+        "Anagrammeur gratuit & solveur d'anagrammes ODS9. Pour mots fléchés, Des Chiffres et des Lettres et Bananagrams.",
     },
     wordle: {
       title: "Solveur Wordle — Le mot du jour",
@@ -235,9 +235,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Bloqué sur Quordle, SUTOM ou Le Mot ? Trouvez tous les mots français de 5 lettres grâce au dictionnaire officiel ODS9 et nos filtres par position.",
     },
     scrabble: {
-      title: "Trouveur de mots Scrabble — Meilleurs coups",
+      title: "Solveur Scrabble Duplicate & Recherche du Top (ODS9)",
       description:
-        "Trouveur de mots Scrabble. Entrez vos lettres et le plateau pour trouver les mots qui rapportent le plus. Jokers, 9 langues.",
+        "Solveur Scrabble Duplicate & recherche du Top selon ODS9. Entrez vos 7 lettres pour la jouée max et les scrabbles +50 points.",
     },
     random: {
       title: "Générateur de Mots Aléatoires — Pictionary & Jeux",
@@ -318,14 +318,14 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Descodificador de palabras gratis. Convierte letras en palabras válidas para Scrabble y Wordle. Comodines, 9 idiomas, al instante.",
     },
     scramble: {
-      title: "Solucionador de palabras desordenadas",
+      title: "Ordenar Letras Desordenadas — Ayuda Wordscapes y Palabras",
       description:
-        "Solucionador de palabras desordenadas gratis. Encuentra rápido palabras válidas con letras revueltas. Comodines, resultado inmediato.",
+        "Ordenar letras desordenadas & ayuda Wordscapes. Para Palabras Conectadas y pasatiempos de letras mezcladas.",
     },
     anagram: {
-      title: "Solucionador de anagramas",
+      title: "Anagramador Gratis & Solucionador de Anagramas",
       description:
-        "Solucionador y generador de anagramas gratis. Escribe una palabra o letras y encuentra al instante cada anagrama válido.",
+        "Anagramador gratis & solucionador de anagramas. Para autodefinidos, crucigramas y Bananagrams, ordenados por longitud.",
     },
     wordle: {
       title: "Solucionador de Wordle — Palabra de hoy",
@@ -338,9 +338,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "¿Atascado en Quordle o La Palabra del Día? Filtra palabras en español de 5 letras según tus letras verdes y amarillas con el diccionario oficial FISE.",
     },
     scrabble: {
-      title: "Buscador de palabras Scrabble",
+      title: "Solucionador Scrabble Duplicado y Jugada Máxima (FISE)",
       description:
-        "Buscador de palabras Scrabble. Introduce tus fichas y letras del tablero para hallar las palabras de mayor puntuación.",
+        "Solucionador Scrabble Duplicado y jugada máxima FISE. Introduce tu atril para la palabra de mayor puntuación y bingos +50.",
     },
     random: {
       title: "Generador de Palabras Aleatorias para Juegos",
@@ -421,14 +421,14 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Scompositore di parole gratuito. Trasforma le lettere in parole valide per Scarabeo e Wordle. Jolly, 9 lingue, risultati immediati.",
     },
     scramble: {
-      title: "Risolvi parole mescolate — Lettere invertite",
+      title: "Risolutore Parole Mescolate & Aiuto Wordscapes Italiano",
       description:
-        "Risolvitore di parole mescolate gratis. Trova in fretta parole valide da lettere invertite. Jolly, risultato immediato.",
+        "Risolutore parole mescolate & aiuto Wordscapes italiano. Per Parole Collegate e giochi di lettere.",
     },
     anagram: {
-      title: "Risolvitore di anagrammi",
+      title: "Anagrammatore Gratis & Risolutore Anagrammi (Zingarelli)",
       description:
-        "Risolvitore e generatore di anagrammi gratis. Inserisci una parola o lettere e trova subito ogni anagramma valido.",
+        "Anagrammatore gratis & risolutore anagrammi Zingarelli. Per Settimana Enigmistica, cruciverba e Bananagrams.",
     },
     wordle: {
       title: "Risolvitore Wordle — Parola di oggi",
@@ -441,9 +441,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Bloccato su Quordle o Wordle Italiano? Trova subito tutte le parole italiane di 5 lettere dal vocabolario Zingarelli filtrando lettere verdi e gialle.",
     },
     scrabble: {
-      title: "Cercaparole Scarabeo — Giocate migliori",
+      title: "Risolutore Scarabeo Duplicato & Trova Giocata Top (Zingarelli)",
       description:
-        "Cercaparole per lo Scarabeo. Inserisci le tue lettere e quelle in tavola per trovare le parole che valgono più punti.",
+        "Risolutore Scarabeo Duplicato & giocata top con Zingarelli. Inserisci le lettere per la mossa di punteggio più alto.",
     },
     random: {
       title: "Generatore di Parole Casuali — Pictionary e Giochi",
@@ -524,14 +524,14 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Descodificador de palavras grátis. Transforme letras em palavras válidas para Scrabble e Wordle. Curingas, 9 idiomas, na hora.",
     },
     scramble: {
-      title: "Resolvedor de palavras embaralhadas",
+      title: "Desembaralhar Palavras — Ajuda Wordscapes e Palavras Cruzadas",
       description:
-        "Resolvedor de palavras embaralhadas grátis. Encontre rápido palavras válidas com letras embaralhadas. Curingas, resultado imediato.",
+        "Desembaralhar palavras & ajuda Wordscapes. Para Palavras Conectadas e passatempos de letras embaralhadas.",
     },
     anagram: {
-      title: "Resolvedor de anagramas",
+      title: "Gerador e Resolvedor de Anagramas Grátis em Português",
       description:
-        "Resolvedor e gerador de anagramas grátis. Digite uma palavra ou letras e encontre na hora todos os anagramas válidos.",
+        "Gerador e resolvedor de anagramas grátis em português. Para palavras cruzadas, charadas e Bananagrams.",
     },
     wordle: {
       title: "Resolvedor de Wordle — Palavra de hoje",
@@ -544,9 +544,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Travado no Quordle ou no Quarteto de hoje? Filtre palavras em português de 5 letras por letras verdes e amarelas com nosso buscador gratuito.",
     },
     scrabble: {
-      title: "Buscador de palavras de Scrabble",
+      title: "Resolvedor de Scrabble Duplicado & Jogada Máxima",
       description:
-        "Buscador de palavras de Scrabble. Digite suas letras e as do tabuleiro para achar as palavras de maior pontuação. Grátis.",
+        "Resolvedor de Scrabble Duplicado & jogada máxima. Digite suas 7 letras para a palavra de maior pontuação.",
     },
     random: {
       title: "Gerador de Palavras Aleatórias — Mímica e Forca",
@@ -627,14 +627,14 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Gratis woordfinder. Maak van je letters geldige woorden voor Scrabble en Wordle. Jokers, 9 talen, direct resultaat.",
     },
     scramble: {
-      title: "Woordpuzzel-oplosser — Letters door elkaar",
+      title: "Woordhussel Oplosser & Wordscapes Hulp (Nederlands)",
       description:
-        "Gratis oplosser voor door elkaar gehaalde letters. Vind snel geldige woorden. Jokers mogelijk, direct resultaat.",
+        "Woordhussel oplosser & Wordscapes hulp (Nederlands). Typ gehusselde letters voor krant, school en Wordscapes.",
     },
     anagram: {
-      title: "Anagrammen-oplosser — Vind ze allemaal",
+      title: "Anagram Oplosser & Generator — Cryptogram & Puzzel Hulp",
       description:
-        "Gratis anagrammen-oplosser en generator. Voer een woord of letters in en vind direct elk geldig anagram.",
+        "Anagram oplosser & generator voor cryptogrammen en puzzels. Voer letters in voor alle woorden op lengte.",
     },
     wordle: {
       title: "Wordle-oplosser — Vind het woord van vandaag",
@@ -647,9 +647,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Vastgelopen bij Quordle of Nederlandse Woordle? Filter direct alle geldige 5-letterwoorden uit de OpenTaal woordenlijst met onze gratis oplosser.",
     },
     scrabble: {
-      title: "Scrabble-woordzoeker — Beste woorden",
+      title: "Duplicate Scrabble Oplosser & Topscore Zoeker (OpenTaal)",
       description:
-        "Scrabble-woordzoeker. Voer je letters en bordletters in en vind de woorden met de hoogste score. Jokers, gratis.",
+        "Duplicate Scrabble oplosser & topscore zoeker met OpenTaal. Voer je 7 letters in voor hoogste score en bingo's.",
     },
     random: {
       title: "Willekeurig Woord Generator — Pictionary & Galgje",

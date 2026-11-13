@@ -25,13 +25,13 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["word unscrambler","unscramble letters","word finder","unscramble words","scramble solver","letter unscrambler","word unscrambler free","words with friends cheat","jumble solver","word cheat","scrabble word finder","anagram finder","letter rearranger","word maker","unscramble letters into words","word solver","unscramble cheat","word generator from letters","word descrambler"]
   },
   "scramble": {
-    title: "Word Scrambler — Descramble & Unscramble Jumbled Words",
-    description: "Free word scramble solver & descrambler. Unscramble jumbled letters into valid words fast. Wildcards supported, instant results.",
+    title: "Word Scramble Solver & Daily Jumble Helper — Unscramble Fast",
+    description: "Word scramble solver & daily jumble helper. Unscramble jumbled letters fast for Wordscapes, school worksheets & newspaper puzzles.",
     keywords: ["word scramble solver","jumble solver","descramble letters","word scramble","scramble cheat","jumble word solver","unscramble jumbled words","scrambled word finder","word descrambler","jumble puzzle solver","scramble letters solver","word jumble cheat","descramble words","scramble word maker","jumble answer solver","word scramble cheat","unscramble scramble letters","daily jumble solver","word scramble helper"]
   },
   "anagram": {
-    title: "Anagram Solver — Find All Anagrams of Your Letters",
-    description: "Free anagram solver & maker. Enter any word or letters to find every valid anagram instantly. Perfect for Scrabble & word games.",
+    title: "Anagram Solver & Generator — Rearrange Letters & Wildcards",
+    description: "Anagram solver & generator. Rearrange letters with wildcards to find every valid anagram for crosswords, Bananagrams & escape room ciphers.",
     keywords: ["anagram solver","anagram maker","anagram finder","solve anagrams","anagram generator","word anagram solver","letter rearranger","anagram cheat","anagram creator","find anagrams","anagram word finder","multiple word anagram solver","anagram unscrambler","anagram puzzle solver","best anagram solver","free anagram solver","anagram solver online","anagram letters","sub anagram finder"]
   },
   "wordle": {
@@ -45,8 +45,8 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["quordle solver","quordle helper","quordle cheat","quordle answer","quordle word finder","quordle today","4 word puzzle solver","quordle answer today","quordle solver tool","quordle hint","quordle clue","daily quordle solver","quordle cheat sheet","quordle pattern solver","quordle helper tool","quordle answer finder","quordle multi board solver","quordle game solver","quordle daily answer"]
   },
   "scrabble": {
-    title: "Scrabble Word Finder — Find Highest-Scoring Plays",
-    description: "Scrabble word finder & solver. Enter your rack + board letters to find the highest-scoring words. Wildcards, 9 languages, free.",
+    title: "Duplicate Scrabble Solver & Top-Play Analyzer (NWL23 & CSW21)",
+    description: "Duplicate Scrabble solver & top-play analyzer. Enter your 7-tile rack to find the highest-scoring move per NWL23 & CSW21, with +50 bingo spots.",
     keywords: ["scrabble solver","scrabble helper","scrabble word finder","scrabble cheat","scrabble word maker","scrabble anagram solver","scrabble score calculator","words with friends solver","scrabble word generator","scrabble dictionary finder","scrabble rack solver","scrabble word checker","scrabble best word finder","scrabble cheat sheet","scrabble letter unscrambler","scrabble word builder","scrabble high score words","scrabble tile solver","scrabble board solver"]
   },
   "random": {

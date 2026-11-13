@@ -266,7 +266,7 @@ const en: Translation = {
   a4: "English, French, Spanish, Italian, Portuguese, German, Dutch, plus Japanese (romaji) and Mandarin (pinyin). Switch the dictionary from the language selector to unscramble in any of them.",
  },
  scramble: {
-  title: "Word Scramble / Descrambler", subtitle: "Stuck on a jumble puzzle? Enter the scrambled letters and we'll descramble them into real words.",
+  title: "Word Scramble Solver & Daily Jumble Helper", subtitle: "Stuck on a newspaper Daily Jumble, a school vocabulary worksheet, or a tough Wordscapes level? Type your jumbled letters into the solver above to unscramble every possible word instantly.",
   inputLabel: "Scrambled letters", btn: "Descramble", solutionLabel: "Possible solutions", hint: "Use ? or * for unknown letters.",
  },
  wordle: {
@@ -294,7 +294,7 @@ const en: Translation = {
   },
  },
  anagram: {
-  title: "Anagram Solver", subtitle: "Find every anagram of your letters — words that use exactly all the letters you provide.",
+  title: "Anagram Solver & Cryptic Crossword Helper", subtitle: "Cracking a cryptic crossword anagram clue, playing Bananagrams, or solving an escape room cipher? Enter your letters above to generate every valid single-word anagram grouped by length. Use ? or * for unknown letters to uncover hidden combinations fast.",
   btn: "Find anagrams", hint: "Wildcards (? *) fill the remaining letters.",
  },
  random: {
@@ -330,7 +330,7 @@ const en: Translation = {
   btn: "Check", exists: "is a valid word", notExists: "was not found in the dictionary", definition: "Definition", score: "Scrabble score", tiles: "Letter tiles",
  },
  scrabble: {
-  title: "Scrabble Duplicate", subtitle: "Duplicate Scrabble gives every player the same rack. Enter your 7 letters (plus any board letters already placed) and find the highest-scoring plays.",
+  title: "Duplicate Scrabble Solver & Tournament Rack Analyzer", subtitle: "In Duplicate Scrabble, every player draws the exact same 7 tiles and competes to find the single highest-scoring move on a shared board. Enter your rack above to uncover the highest baseline play, spot +50 bingo opportunities, and bookmark missed tournament words into your local Save Vault for Anki flashcard drilling.",
   rack: "Your rack", board: "Board letters (optional)", btn: "Find best words", hint: "Wildcards supported. Results are ranked by score.",
  },
  wordlists: {
@@ -740,7 +740,7 @@ const fr: Translation = {
   a4: "Anglais, français, espagnol, italien, portugais, allemand, néerlandais, plus japonais (romaji) et mandarin (pinyin). Changez le dictionnaire depuis le sélecteur de langue.",
  },
  scramble: {
-  title: "Mélangeur / Démêleur de mots", subtitle: "Bloqué sur une anagramme ? Saisissez les lettres mélangées et nous les démêlerons en vrais mots.",
+  title: "Solveur de Mots Mélangés & Aide Jeux de Lettres", subtitle: "Bloqué sur un niveau difficile de Wordscapes, une grille de mots mélangés ou un exercice de vocabulaire ? Tapez vos lettres en désordre ci-dessus pour retrouver immédiatement tous les mots cachés.",
   inputLabel: "Lettres mélangées", btn: "Démêler", solutionLabel: "Solutions possibles", hint: "Utilisez ? ou * pour les lettres inconnues.",
  },
  wordle: {
@@ -768,7 +768,7 @@ const fr: Translation = {
   },
  },
  anagram: {
-  title: "Solveur d'Anagrammes", subtitle: "Trouvez toutes les anagrammes de vos lettres — les mots qui utilisent exactement toutes les lettres fournies.",
+  title: "Anagrammeur & Solveur de Mots Fléchés", subtitle: "Bloqué sur une définition d'anagramme dans vos mots fléchés, un tirage de Des Chiffres et des Lettres ou une partie de Bananagrams ? Entrez vos lettres dans notre anagrammeur pour afficher toutes les combinaisons valides du dictionnaire ODS9.",
   btn: "Trouver les anagrammes", hint: "Les jokers (? *) complètent les lettres manquantes.",
  },
  random: {
@@ -804,7 +804,7 @@ const fr: Translation = {
   btn: "Vérifier", exists: "est un mot valide", notExists: "introuvable dans le dictionnaire", definition: "Définition", score: "Score Scrabble", tiles: "Tuiles de lettres",
  },
  scrabble: {
-  title: "Scrabble Duplicate", subtitle: "Le Scrabble duplicate donne le même chevalet à tous. Saisissez vos 7 lettres (plus les lettres déjà posées) et trouvez les coups les plus forts.",
+  title: "Solveur Scrabble Duplicate & Entraînement au Top (ODS9)", subtitle: "Préparez vos parties en club ou tournois FFSc de Scrabble Duplicate. Saisissez les 7 lettres du tirage (avec ? pour le joker) pour identifier instantanément le Top selon l'Officiel du Scrabble (ODS9). Repérez les scrabbles à +50 points en tête de liste et sauvegardez les tops manqués dans votre Save Vault pour vos révisions.",
   rack: "Votre chevalet", board: "Lettres du plateau (optionnel)", btn: "Trouver les meilleurs mots", hint: "Jokers autorisés. Résultats classés par score.",
  },
  wordlists: {
@@ -1212,7 +1212,7 @@ const es: Translation = {
   q4: "¿Qué idiomas están soportados?",
   a4: "Inglés, francés, español, italiano, portugués, alemán, neerlandés, además de japonés (romaji) y mandarín (pinyin). Cambia el dicionario desde el selector de idioma.",
  },
- scramble: { title: "Mezclador / Sol. de palabras", subtitle: "¿Atascado en un puzzle? Introduce las letras mezcladas y las resolveremos en palabras reales.", inputLabel: "Letras mezcladas", btn: "Resolver", solutionLabel: "Soluciones posibles", hint: "Usa ? o * para letras desconocidas." },
+ scramble: { title: "Buscador para Ordenar Letras Desordenadas", subtitle: "¿Te has quedado atascado en un nivel de Wordscapes, Palabras Conectadas o un pasatiempo de letras mezcladas? Escribe tus letras desordenadas arriba para ordenarlas al instante y descubrir todas las palabras ocultas.", inputLabel: "Letras mezcladas", btn: "Resolver", solutionLabel: "Soluciones posibles", hint: "Usa ? o * para letras desconocidas." },
  wordle: { title: "Sol. Wordle", subtitle: "Acota el Wordle de hoy. Introduce letras verdes en su posición, letras amarillas conocidas y letras grises a excluir.", length: "Longitud", placed: "Letras colocadas (verde)", valid: "Letras válidas (amarillo)", excluded: "Letras excluidas (gris)", btn: "Resolver", hint: "Usa . o _ para huecos, ej. A..LE" },
  quordle: {
   title: "Solucionador de Quordle y Palabras de 5 Letras",
@@ -1234,7 +1234,7 @@ const es: Translation = {
    ],
   },
  },
- anagram: { title: "Sol. de Anagramas", subtitle: "Encuentra todos los anagramas de tus letras — palabras que usan exactamente todas las letras.", btn: "Buscar anagramas", hint: "Los comodines (? *) rellenan letras." },
+ anagram: { title: "Anagramador y Generador de Palabras con Letras", subtitle: "¿Buscas resolver un anagrama en un autodefinido, un crucigrama o una partida de Bananagrams? Escribe tus letras desordenadas para obtener al instante todos los anagramas válidos en español ordenados por longitud.", btn: "Buscar anagramas", hint: "Los comodines (? *) rellenan letras." },
  random: {
   title: "Generador de Palabras Aleatorias para Juegos y Escritura",
   subtitle: "¿Necesitas palabras al azar para una noche de juegos, clases de español o retos creativos? Nuestro Generador de Palabras Aleatorias gratuito extrae términos reales de diccionarios oficiales. Filtra por número de letras, letra inicial o final para jugar al Pictionary, Charadas, El Ahorcado o practicar vocabulario sin necesidad de registro.",
@@ -1261,7 +1261,7 @@ const es: Translation = {
    ],
   } },
  dictionary: { title: "Ver Diccionario", subtitle: "Comprueba si una palabra existe en el diccionario, mira su puntuación Scrabble y lee una definición.", btn: "Comprobar", exists: "es una palabra válida", notExists: "no se encontró en el diccionario", definition: "Definición", score: "Puntuación Scrabble", tiles: "Fichas" },
- scrabble: { title: "Scrabble Duplicate", subtitle: "El Scrabble duplicate da el mismo atril a todos. Introduce tus 7 letras (y las del tablero) y encuentra las mejores jugadas.", rack: "Tu atril", board: "Letras del tablero (opcional)", btn: "Buscar mejores palabras", hint: "Comodines permitidos. Resultados por puntuación." },
+ scrabble: { title: "Analizador de Scrabble Duplicado y Jugada Top (FISE)", subtitle: "En el Scrabble Duplicado todos los jugadores compiten con las mismas 7 fichas buscando la jugada máxima sobre un tablero común. Introduce tu atril para calcular al instante la palabra con mayor puntuación según el léxico oficial FISE y detectar bingos de +50 puntos.", rack: "Tu atril", board: "Letras del tablero (opcional)", btn: "Buscar mejores palabras", hint: "Comodines permitidos. Resultados por puntuación." },
  wordlists: { title: "Listas de Palabras", subtitle: "Explora todas las palabras de 2 a 7 letras. Elige vista, longitud y letra para navegar A–Z.", allWords: "Todas las palabras", startsBy: "Empieza por A–Z", endsBy: "Termina en A–Z", letter: "Letra", selectLength: "Longitud", selectLetter: "Letra", browse: "Explorar" },
  about: {
   title: "Acerca de wordIzy",
@@ -1664,7 +1664,7 @@ const de: Translation = {
   q4: "Welche Sprachen werden unterstützt?",
   a4: "Englisch, Französisch, Spanisch, Italienisch, Portugiesisch, Deutsch, Niederländisch sowie Japanisch (Romaji) und Mandarin (Pinyin). Wechsle das Wörterbuch über die Sprachauswahl.",
  },
- scramble: { title: "Wort-Mischer / -Löser", subtitle: "Bei einem Misch-Rätsel festgefahren? Buchstaben eingeben und in echte Wörter aufgelöst.", inputLabel: "Gemischte Buchstaben", btn: "Auflösen", solutionLabel: "Mögliche Lösungen", hint: "? oder * für unbekannte Buchstaben." },
+ scramble: { title: "Buchstabensalat Löser & Wortguru Helfer", subtitle: "Du hängst bei einem Rätsel-Buchstabensalat, einer Schulaufgabe oder einem schwierigen Level in Wortguru bzw. Wordscapes fest? Gib deine gemischten Buchstaben oben ein, um sofort alle versteckten deutschen Wörter zu finden.", inputLabel: "Gemischte Buchstaben", btn: "Auflösen", solutionLabel: "Mögliche Lösungen", hint: "? oder * für unbekannte Buchstaben." },
  wordle: { title: "Wordle-Löser", subtitle: "Das heutige Wordle eingrenzen: grüne Buchstaben an Position, gelbe bekannte, graue ausschließen.", length: "Wortlänge", placed: "Platzierte (grün)", valid: "Gültige (gelb)", excluded: "Ausgeschlossene (grau)", btn: "Lösen", hint: ". oder _ für Leerstellen, z. B. A..LE" },
  quordle: {
   title: "Quordle & Deutscher Wordle Löser (5 Buchstaben)",
@@ -1686,7 +1686,7 @@ const de: Translation = {
    ],
   },
  },
- anagram: { title: "Anagramm-Löser", subtitle: "Finde jedes Anagramm deiner Buchstaben — Wörter, die genau alle Buchstaben nutzen.", btn: "Anagramme finden", hint: "Platzhalter (? *) füllen auf." },
+ anagram: { title: "Anagramm Löser für Kreuzworträtsel & Bananagrams", subtitle: "Du suchst die Lösung für ein Schüttelrätsel, ein Kreuzworträtsel oder Bananagrams? Gib deine Buchstaben ein, um sofort alle gültigen deutschen Anagramme nach Wortlänge sortiert anzuzeigen.", btn: "Anagramme finden", hint: "Platzhalter (? *) füllen auf." },
  random: {
   title: "Zufallswort Generator für Spiele, Montagsmaler & Kreatives",
   subtitle: "Du suchst schnelle Wortideen für den Spieleabend, den Deutschunterricht oder kreative Schreibübungen? Unser kostenloser Zufallswort Generator greift auf geprüfte Wörterbücher in 9 Sprachen zu. Filtere Wörter nach exakter Buchstabenanzahl oder Anfangsbuchstaben – ideal für Montagsmaler, Pantomime, Galgenmännchen oder Wortspiele.",
@@ -1713,7 +1713,7 @@ const de: Translation = {
    ],
   } },
  dictionary: { title: "Wörterbuch prüfen", subtitle: "Prüfe, ob ein Wort existiert, sieh Scrabble-Punkte und eine Definition.", btn: "Prüfen", exists: "ist ein gültiges Wort", notExists: "nicht im Wörterbuch gefunden", definition: "Definition", score: "Scrabble-Punkte", tiles: "Buchstabensteine" },
- scrabble: { title: "Scrabble Duplicate", subtitle: "Duplicate gibt allen dasselbe Gestell. 7 Buchstaben (plus Brett-Buchstaben) eingeben und die besten Züge finden.", rack: "Dein Gestell", board: "Brett-Buchstaben (optional)", btn: "Beste Wörter finden", hint: "Platzhalter erlaubt. Nach Punkten sortiert." },
+ scrabble: { title: "Duplicate Scrabble Löser & Top-Zug Analyse", subtitle: "Beim Duplicate Scrabble spielen alle Teilnehmer mit denselben 7 Buchstaben um den punktbesten Zug auf einem gemeinsamen Brett. Gib deine Buchstaben ein, um sofort das Wort mit der höchsten Basispunktzahl inklusive +50 Bingo-Bonus zu ermitteln.", rack: "Dein Gestell", board: "Brett-Buchstaben (optional)", btn: "Beste Wörter finden", hint: "Platzhalter erlaubt. Nach Punkten sortiert." },
  wordlists: { title: "Wortlisten", subtitle: "Alle 2- bis 7-Buchstaben-Wörter durchsuchen. Ansicht, Länge und Buchstabe wählen, A–Z erkunden.", allWords: "Alle Wörter", startsBy: "Beginnt mit A–Z", endsBy: "Endet mit A–Z", letter: "Buchstabe", selectLength: "Länge", selectLetter: "Buchstabe", browse: "Durchsuchen" },
  about: {
   title: "Über wordIzy",
@@ -2116,7 +2116,7 @@ const it: Translation = {
   q4: "Quali lingue sono supportate?",
   a4: "Inglese, francese, spagnolo, italiano, portoghese, tedesco, olandese, più giapponese (romaji) e mandarino (pinyin). Cambia dizionario dal selettore lingua.",
  },
- scramble: { title: "Mischia / Risolvi parole", subtitle: "Bloccato in un puzzle? Inserisci le lettere mescolate e le risolveremo in parole reali.", inputLabel: "Lettere mescolate", btn: "Risolvi", solutionLabel: "Soluzioni possibili", hint: "Usa ? o * per lettere ignote." },
+ scramble: { title: "Risolutore di Parole Mescolate e Giochi di Lettere", subtitle: "Sei bloccato su un livello difficile di Wordscapes, Parole Collegate o un gioco di lettere mescolate? Scrivi le tue lettere in disordine qui sopra per riordinarle all'istante.", inputLabel: "Lettere mescolate", btn: "Risolvi", solutionLabel: "Soluzioni possibili", hint: "Usa ? o * per lettere ignote." },
  wordle: { title: "Ris. Wordle", subtitle: "Restringi il Wordle di oggi: lettere verdi in posizione, gialle note, grigie da escludere.", length: "Lunghezza", placed: "Posizionate (verde)", valid: "Valide (giallo)", excluded: "Escluse (grigio)", btn: "Risolvi", hint: "Usa . o _ per spazi, es. A..LE" },
  quordle: {
   title: "Risolutore Quordle & Parole di 5 Lettere (Italiano)",
@@ -2138,7 +2138,7 @@ const it: Translation = {
    ],
   },
  },
- anagram: { title: "Ris. Anagrammi", subtitle: "Trova ogni anagramma delle tue lettere — parole che usano esattamente tutte le lettere.", btn: "Trova anagrammi", hint: "I jolly (? *) completano." },
+ anagram: { title: "Anagrammatore per Settimana Enigmistica e Cruciverba", subtitle: "Stai risolvendo un gioco enigmistico della Settimana Enigmistica, un cruciverba o una sfida a Bananagrams? Inserisci le lettere nel nostro anagrammatore gratuito per trovare subito tutti gli anagrammi italiani validi dal vocabolario Zingarelli.", btn: "Trova anagrammi", hint: "I jolly (? *) completano." },
  random: {
   title: "Generatore di Parole Casuali per Giochi, Mimo e Scrittura",
   subtitle: "Cerchi idee veloci per una serata giochi, una lezione di lingua o un esercizio di scrittura creativa? Il nostro Generatore di Parole Casuali gratuito pesca direttamente dai dizionari ufficiali in 9 lingue. Filtra per lunghezza esatta o lettera iniziale per giocare a Pictionary, Mimo, L'Impiccato o allenarti con Wordle.",
@@ -2165,7 +2165,7 @@ const it: Translation = {
    ],
   } },
  dictionary: { title: "Verifica Dizionario", subtitle: "Verifica se una parola esiste, vedi il punteggio Scrabble e una definizione.", btn: "Verifica", exists: "è una parola valida", notExists: "non trovata nel dizionario", definition: "Definizione", score: "Punteggio Scrabble", tiles: "Tessere" },
- scrabble: { title: "Scrabble Duplicate", subtitle: "Il duplicate dà a tutti la stessa rastrelliera. Inserisci 7 lettere (più quelle in tabellone) e trova le mosse migliori.", rack: "La tua rastrelliera", board: "Lettere tabellone (facoltative)", btn: "Trova le migliori", hint: "Jolly ammessi. Risultati per punteggio." },
+ scrabble: { title: "Risolutore Scarabeo e Scrabble Duplicato (Zingarelli)", subtitle: "Nelle sfide a Scarabeo o Scrabble Duplicato tutti i giocatori partono dalle stesse tessere per trovare la mossa dal punteggio più alto. Inserisci le tue lettere (fino a 8 tessere per il regolamento Scarabeo) per scoprire subito la giocata migliore dal vocabolario Zingarelli.", rack: "La tua rastrelliera", board: "Lettere tabellone (facoltative)", btn: "Trova le migliori", hint: "Jolly ammessi. Risultati per punteggio." },
  wordlists: { title: "Liste Parole", subtitle: "Sfoglia tutte le parole da 2 a 7 lettere. Scegli vista, lunghezza e lettera per esplorare A–Z.", allWords: "Tutte le parole", startsBy: "Inizia per A–Z", endsBy: "Finisce per A–Z", letter: "Lettera", selectLength: "Lunghezza", selectLetter: "Lettera", browse: "Sfoglia" },
  about: {
   title: "Informazioni su wordIzy",
@@ -2568,7 +2568,7 @@ const pt: Translation = {
   q4: "Quais idiomas são suportados?",
   a4: "Inglês, francês, espanhol, italiano, português, alemão, neerlandês, mais japonês (romaji) e mandarim (pinyin). Troque o dicionário no seletor de idioma.",
  },
- scramble: { title: "Misturador / Sol. de palavras", subtitle: "Travado num anagrama? Digite as letras misturadas e as resolveremos em palavras reais.", inputLabel: "Letras misturadas", btn: "Resolver", solutionLabel: "Soluções possíveis", hint: "Use ? ou * para letras desconhecidas." },
+ scramble: { title: "Desembaralhar Palavras & Letras Misturadas", subtitle: "Ficou travado em uma fase difícil de Wordscapes, Palavras Conectadas ou um passatempo de letras embaralhadas? Digite suas letras misturadas acima para desembaralhar todas as palavras possíveis em segundos.", inputLabel: "Letras misturadas", btn: "Resolver", solutionLabel: "Soluções possíveis", hint: "Use ? ou * para letras desconhecidas." },
  wordle: { title: "Sol. Wordle", subtitle: "Reduza o Wordle de hoje: letras verdes na posição, amarelas conhecidas, cinzas a excluir.", length: "Tamanho", placed: "Posicionadas (verde)", valid: "Válidas (amarelo)", excluded: "Excluídas (cinza)", btn: "Resolver", hint: "Use . ou _ para espaços, ex. A..LE" },
  quordle: {
   title: "Resolvedor de Quordle, Quarteto & Palavras de 5 Letras",
@@ -2590,7 +2590,7 @@ const pt: Translation = {
    ],
   },
  },
- anagram: { title: "Sol. Anagramas", subtitle: "Encontre todos os anagramas das suas letras — palavras que usam exatamente todas as letras.", btn: "Encontrar anagramas", hint: "Curingas (? *) completam." },
+ anagram: { title: "Resolvedor de Anagramas para Palavras Cruzadas", subtitle: "Tentando decifrar um anagrama em palavras cruzadas, charadas ou Bananagrams? Digite suas letras para visualizar na hora todos os anagramas válidos em português organizados por tamanho.", btn: "Encontrar anagramas", hint: "Curingas (? *) completam." },
  random: {
   title: "Gerador de Palavras Aleatórias para Jogos, Mímica e Escrita",
   subtitle: "Precisa de ideias rápidas de palavras para uma noite de jogos, aulas de idiomas ou exercícios criativos? Nosso Gerador de Palavras Aleatórias gratuito busca termos reais em dicionários oficiais de 9 idiomas. Filtre por número de letras ou letra inicial para jogar Imagem & Ação, Mímica, Jogo da Forca ou treinar no Termo.",
@@ -2617,7 +2617,7 @@ const pt: Translation = {
    ],
   } },
  dictionary: { title: "Verificar Dicionário", subtitle: "Verifique se uma palavra existe, veja a pontuação Scrabble e uma definição.", btn: "Verificar", exists: "é uma palavra válida", notExists: "não encontrada no dicionário", definition: "Definição", score: "Pontuação Scrabble", tiles: "Fichas" },
- scrabble: { title: "Scrabble Duplicate", subtitle: "O duplicate dá o mesmo suporte a todos. Digite 7 letras (e as do tabuleiro) e encontre as melhores jogadas.", rack: "Seu suporte", board: "Letras do tabuleiro (opcional)", btn: "Encontrar melhores", hint: "Curingas permitidos. Por pontuação." },
+ scrabble: { title: "Analisador de Scrabble Duplicado e Pontuação Máxima", subtitle: "No Scrabble Duplicado todos os participantes recebem as mesmas 7 pedras e disputam quem encontra a jogada de maior pontuação no tabuleiro. Digite suas letras para identificar na hora a palavra mais valiosa e salvar termos raros no seu Save Vault.", rack: "Seu suporte", board: "Letras do tabuleiro (opcional)", btn: "Encontrar melhores", hint: "Curingas permitidos. Por pontuação." },
  wordlists: { title: "Listas de Palavras", subtitle: "Navegue por todas as palavras de 2 a 7 letras. Escolha vista, tamanho e letra para explorar A–Z.", allWords: "Todas as palavras", startsBy: "Começa por A–Z", endsBy: "Termina em A–Z", letter: "Letra", selectLength: "Tamanho", selectLetter: "Letra", browse: "Navegar" },
  about: {
   title: "Sobre o wordIzy",
@@ -3020,7 +3020,7 @@ const nl: Translation = {
   q4: "Welke talen worden ondersteund?",
   a4: "Engels, Frans, Spaans, Italiaans, Portugees, Duits, Nederlands, plus Japans (romaji) en Mandarijn (pinyin). Wissel het woordenboek via de taalkiezer.",
  },
- scramble: { title: "Woordmenger / -oplosser", subtitle: "Vastgelopen op een anagram? Voer de letters in en we lossen ze op in echte woorden.", inputLabel: "Dooreengemengde letters", btn: "Oplossen", solutionLabel: "Mogelijke oplossingen", hint: "Gebruik ? of * voor onbekende letters." },
+ scramble: { title: "Woordhussel Oplosser & Letterpuzzel Hulp", subtitle: "Kom je niet uit een woordhussel in de krant, een schoolopdracht of een lastig level van Wordscapes? Typ je gehusselde letters hierboven in en ontwar direct alle mogelijke Nederlandse woorden.", inputLabel: "Dooreengemengde letters", btn: "Oplossen", solutionLabel: "Mogelijke oplossingen", hint: "Gebruik ? of * voor onbekende letters." },
  wordle: { title: "Wordle-oplosser", subtitle: "Verklein de Wordle van vandaag: groene letters op positie, gele bekende, grijze uit te sluiten.", length: "Woordlengte", placed: "Geplaatst (groen)", valid: "Geldig (geel)", excluded: "Uitgesloten (grijs)", btn: "Oplossen", hint: "Gebruik . of _ voor lege plekken, bijv. A..LE" },
  quordle: {
   title: "Quordle & Nederlandse Woordle Oplosser",
@@ -3042,7 +3042,7 @@ const nl: Translation = {
    ],
   },
  },
- anagram: { title: "Anagram-oplosser", subtitle: "Vind elk anagram van je letters — woorden die exact alle letters gebruiken.", btn: "Anagrammen vinden", hint: "Jokers (? *) vullen aan." },
+ anagram: { title: "Anagram Oplosser voor Cryptogrammen & Puzzels", subtitle: "Vastgelopen bij een cryptogram, kruiswoordpuzzel of potje Bananagrams? Voer je letters in en onze Nederlandse anagram oplosser toont direct alle mogelijke woorden gesorteerd op lengte.", btn: "Anagrammen vinden", hint: "Jokers (? *) vullen aan." },
  random: {
   title: "Willekeurig Woord Generator voor Spelletjes & Schrijven",
   subtitle: "Op zoek naar snelle woordideeën voor een spelletjesavond, taalles of creatieve schrijfopdracht? Onze gratis Willekeurig Woord Generator haalt woorden uit officiële woordenboeken in 9 talen. Filter direct op woordlengte, beginletter of eindletter voor Pictionary, Hints, Galgje of Lingo.",
@@ -3069,7 +3069,7 @@ const nl: Translation = {
    ],
   } },
  dictionary: { title: "Woordenboek controleren", subtitle: "Controleer of een woord bestaat, zie de Scrabble-score en een definitie.", btn: "Controleren", exists: "is een geldig woord", notExists: "niet in woordenboek gevonden", definition: "Definitie", score: "Scrabble-score", tiles: "Lettertegels" },
- scrabble: { title: "Scrabble Duplicate", subtitle: "Duplicate geeft iedereen hetzelfde rek. Voer 7 letters in (plus bordletters) en vind de beste zetten.", rack: "Jouw rek", board: "Bordletters (optioneel)", btn: "Beste woorden vinden", hint: "Jokers toegestaan. Op score gesorteerd." },
+ scrabble: { title: "Duplicate Scrabble Oplosser (OpenTaal Woordenlijst)", subtitle: "Bij Duplicate Scrabble krijgt iedere speler exact dezelfde 7 letters om de hoogst mogelijke score op hetzelfde bord te vinden. Voer je letters in om direct de hoogst scorende woorden en mogelijke bingo's uit de officiële OpenTaal woordenlijst te bekijken.", rack: "Jouw rek", board: "Bordletters (optioneel)", btn: "Beste woorden vinden", hint: "Jokers toegestaan. Op score gesorteerd." },
  wordlists: { title: "Woordlijsten", subtitle: "Doorzoek alle 2- tot 7-letterwoorden. Kies weergave, lengte en letter om A–Z te verkennen.", allWords: "Alle woorden", startsBy: "Begint met A–Z", endsBy: "Eindigt op A–Z", letter: "Letter", selectLength: "Lengte", selectLetter: "Letter", browse: "Bladeren" },
  about: {
   title: "Over wordIzy",

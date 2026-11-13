@@ -37,7 +37,7 @@ export function LettersSolver({ endpoint, buttonLabel, hint, tipsTitle, tips, ex
     if (!letters.trim()) return;
     setLoading(true);
     try {
-      const r = await get<SolveResult>(endpoint, { letters });
+      const r = await get<SolveResult>(endpoint, { letters, lang });
       setResult(r);
     } catch {
       setResult({ groups: [], total: 0 });
