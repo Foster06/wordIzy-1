@@ -5,6 +5,7 @@ import {
   getLangPrerenderWords,
   getSampleLangWords,
 } from "@/lib/scrabble-word-data";
+import { getAllWordListSlugs } from "@/lib/word-list-urls";
 
 // Localized tool pages: 8 languages × [home + 19 tools] = 160 URLs
 // (/de, /de/wordle, /fr/wordfeud, …). Must mirror src/lib/i18n-seo.ts.
@@ -76,7 +77,7 @@ const GUIDES = [
 //    Bumped to 2026-11-13 to reflect the language-aware internal linking rollout,
 //    the localized Quordle SEO content package and the localized Random Word
 //    Generator package (game/classroom/writing use-cases + game-mode presets).
-const LAST_MODIFIED = new Date("2026-11-13T00:00:00Z");
+const LAST_MODIFIED = new Date("2026-11-14T00:00:00Z");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://wordizy.com";
@@ -217,6 +218,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: LAST_MODIFIED,
         changeFrequency: "monthly",
         priority: 0.3,
+      });
+    }
+  }
+
+  // GENERATION MAP H: Localized word-list programmatic pages
+  // (/{lang}/unscramble-N-letter-words, /{lang}/words-starts-with-X, etc.)
+  // for all 8 non-English languages. Each language gets its own edition with
+  // that language's dictionary words + a native-language shell. 8 langs × 118
+  // slugs = 944 URLs. hreflang clusters are emitted per-page via
+  // alternates.languages in generateMetadata (en + 8 langs + x-default).
+  const wordListSlugs = getAllWordListSlugs();
+  for (const lang of I18N_LANGS) {
+    for (const slug of wordListSlugs) {
+      const isLength = slug.startsWith("unscramble-");
+      sitemapEntries.push({
+        url: `${baseUrl}/${lang}/${slug}`,
+        lastModified: LAST_MODIFIED,
+        changeFrequency: "monthly",
+        priority: isLength ? 0.6 : 0.5,
       });
     }
   }

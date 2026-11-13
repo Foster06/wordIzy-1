@@ -35,6 +35,7 @@
 // the privacy policy (all 9 languages).
 
 import { NextRequest, NextResponse } from "next/server";
+import { isWordListPage } from "@/lib/word-list-urls";
 
 /** Languages that have localized subpaths (must match src/lib/i18n-seo.ts). */
 const I18N_LANGS = ["de", "fr", "es", "it", "pt", "nl", "ja", "zh"] as const;
@@ -125,6 +126,13 @@ export function middleware(req: NextRequest) {
           new URL(`${I18N_PREFIX}/${lang}/scrabble-words/${segs[2]}${search}`, req.url)
         );
       }
+    }
+    // /{lang}/<word-list-slug> → localized word-list page (all 8 languages).
+    // Word-list programmatic pages (unscramble-N-letter-words, words-starts-with-X,
+    // wordle-words-starts/ends-with-X) now have per-language variants with
+    // native shell + that language's dictionary words.
+    if (segs.length === 2 && isWordListPage(segs[1])) {
+      return NextResponse.rewrite(new URL(`${I18N_PREFIX}/${lang}/${segs[1]}${search}`, req.url));
     }
     // Everything else under /{lang}/ has no localized variant → English canonical.
     const rest = segs.slice(1).join("/");

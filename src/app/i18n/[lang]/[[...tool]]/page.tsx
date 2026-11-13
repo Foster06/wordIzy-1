@@ -12,6 +12,13 @@ import {
   OG_LOCALES,
   type I18nLang,
 } from "@/lib/i18n-seo";
+import { isWordListPage, getAllWordListSlugs } from "@/lib/word-list-urls";
+import {
+  getInitialWordListPage,
+  getTopScoringWords,
+  type InitialWordListPage,
+} from "@/lib/word-list-data";
+import { buildWordListSeoLocalized } from "@/lib/word-list-seo-i18n";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Localized tool pages: /de, /fr/wordle, /nl/wordfeud, …
@@ -62,26 +69,36 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const params: { lang: string; tool: string[] }[] = [];
+  const wordListSlugs = getAllWordListSlugs();
   for (const lang of I18N_LANGS) {
     params.push({ lang, tool: [] });
     for (const slug of LOCALIZED_TOOL_SLUGS) {
+      params.push({ lang, tool: [slug] });
+    }
+    // Localized word-list programmatic pages (92 slugs × 8 langs = 736 pages):
+    // /fr/unscramble-5-letter-words, /de/words-starts-with-a, etc. Each renders
+    // with that language's dictionary words + a native-language shell.
+    for (const slug of wordListSlugs) {
       params.push({ lang, tool: [slug] });
     }
   }
   return params;
 }
 
-/** Resolve URL params → { lang, slug } where slug is "home" or a tool slug. */
-function resolve(params: { lang: string; tool?: string[] }): { lang: I18nLang; slug: string } | null {
+/** Resolve URL params → { lang, slug, isWordList }. slug is "home", a tool
+ *  slug, or a word-list programmatic slug (unscramble-N-letter-words, etc.). */
+function resolve(params: { lang: string; tool?: string[] }): { lang: I18nLang; slug: string; isWordList: boolean } | null {
   const { lang, tool } = params;
   if (!(I18N_LANGS as readonly string[]).includes(lang)) return null;
   const segments = tool || [];
-  if (segments.length === 0) return { lang: lang as I18nLang, slug: "home" };
-  if (
-    segments.length === 1 &&
-    (LOCALIZED_TOOL_SLUGS as readonly string[]).includes(segments[0])
-  ) {
-    return { lang: lang as I18nLang, slug: segments[0] };
+  if (segments.length === 0) return { lang: lang as I18nLang, slug: "home", isWordList: false };
+  if (segments.length === 1) {
+    if ((LOCALIZED_TOOL_SLUGS as readonly string[]).includes(segments[0])) {
+      return { lang: lang as I18nLang, slug: segments[0], isWordList: false };
+    }
+    if (isWordListPage(segments[0])) {
+      return { lang: lang as I18nLang, slug: segments[0], isWordList: true };
+    }
   }
   return null;
 }
@@ -116,7 +133,40 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { robots: { index: false, follow: false } };
   }
 
-  const { lang, slug } = resolved;
+  const { lang, slug, isWordList } = resolved;
+
+  // Word-list programmatic pages: localized title/description from the
+  // per-language wordListPage templates + real word counts from that
+  // language's dictionary. Full reciprocal hreflang cluster (en + 8 langs +
+  // x-default) so Bing/Google pair the localized editions with the English
+  // canonical and show native snippets in each market.
+  if (isWordList) {
+    const { title, description } = buildWordListSeoLocalized(slug, lang);
+    const barePath = `/${slug}`;
+    const canonical = `/${lang}${barePath}`;
+    return {
+      title,
+      description,
+      alternates: { canonical, languages: buildAlternates(barePath) },
+      openGraph: {
+        title,
+        description,
+        url: `${SITE_ORIGIN}${canonical}`,
+        siteName: "wordIzy",
+        type: "website",
+        locale: OG_LOCALES[lang],
+        images: [{ url: "/og-image.png", width: 1200, height: 630, alt: title }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: ["/og-image.png"],
+      },
+      robots: { index: true, follow: true },
+    };
+  }
+
   const meta = I18N_SEO[lang][slug] ?? I18N_SEO[lang].home;
   const publicPath = slug === "home" ? "" : `/${slug}`;
   const canonical = `/${lang}${publicPath}`;
@@ -151,17 +201,28 @@ export default async function LocalizedToolPage({ params }: PageProps) {
   const resolved = resolve(resolvedParams);
   if (!resolved) notFound();
 
-  const { lang, slug } = resolved;
+  const { lang, slug, isWordList } = resolved;
   const publicPath = slug === "home" ? "" : `/${slug}`;
 
-  const faqJsonLd = buildLocalizedFaqJsonLd(lang, slug);
+  // Word-list pages: load the first page of words + top-scoring words from
+  // the per-language dictionary, then pass to MainToolView (which renders the
+  // ProgrammaticSeoView when initialWordListData is present). No FAQ/breadcrumb
+  // JSON-LD for word-list pages (mirrors the English catch-all).
+  let initialWordListData: InitialWordListPage | null = null;
+  let topWordData: { word: string; score: number }[] | null = null;
+  if (isWordList) {
+    initialWordListData = getInitialWordListPage(slug, lang as LanguageCode, 50);
+    topWordData = getTopScoringWords(slug, lang as LanguageCode, 10);
+  }
+
+  const faqJsonLd = isWordList ? null : buildLocalizedFaqJsonLd(lang, slug);
 
   // Localized breadcrumb (homepage excluded, same as the English pages).
   const navKey = NAV_KEYS[slug];
   const navRecord = translations[lang].nav as unknown as Record<string, string>;
   const toolName = navKey ? navRecord[navKey] ?? slug : null;
   const breadcrumbJsonLd =
-    slug !== "home" && toolName
+    !isWordList && slug !== "home" && toolName
       ? {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
@@ -192,7 +253,11 @@ export default async function LocalizedToolPage({ params }: PageProps) {
         />
       )}
       <LanguageScope initial={lang as LanguageCode}>
-        <MainToolView params={params} />
+        <MainToolView
+          params={params}
+          initialWordListData={initialWordListData}
+          topWordData={topWordData}
+        />
       </LanguageScope>
     </>
   );

@@ -217,7 +217,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description,
       keywords,
-      alternates: { canonical },
+      alternates: { canonical, languages: buildAlternates(canonical) },
       openGraph: buildOpenGraph({ title, description, canonical: absoluteCanonical }),
       twitter: buildTwitter({ title, description }),
       robots: {
@@ -247,7 +247,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description,
       keywords,
-      alternates: { canonical },
+      alternates: { canonical, languages: buildAlternates(canonical) },
       openGraph: buildOpenGraph({ title, description, canonical: absoluteCanonical }),
       twitter: buildTwitter({ title, description }),
       robots: {

@@ -51,17 +51,23 @@ export function isWordListPage(segment: string): boolean {
   return parseWordListSlug(segment) !== null;
 }
 
-/** Build the canonical URL path for a config. Always uses the preferred pattern. */
-export function buildCanonicalWordListUrl(config: WordListConfig): string {
+/** Build the canonical URL path for a config. Always uses the preferred pattern.
+ *  When `lang` is provided (and not "en"), prefixes with /{lang}/ so localized
+ *  editions get their own crawlable URL (e.g. /fr/unscramble-5-letter-words). */
+export function buildCanonicalWordListUrl(config: WordListConfig, lang?: string): string {
   const dict = config.dict ?? "scrabble";
+  let path: string;
   if (dict === "wordle") {
-    if (config.type === "starts") return `/wordle-words-starts-with-${config.value}`;
-    return `/wordle-words-ends-with-${config.value}`;
+    if (config.type === "starts") path = `/wordle-words-starts-with-${config.value}`;
+    else path = `/wordle-words-ends-with-${config.value}`;
+  } else if (config.type === "length") {
+    path = `/unscramble-${config.value}-letter-words`;
+  } else if (config.type === "starts") {
+    path = `/words-starts-with-${config.value}`;
+  } else {
+    path = `/words-ends-with-${config.value}`;
   }
-  // Scrabble
-  if (config.type === "length") return `/unscramble-${config.value}-letter-words`;
-  if (config.type === "starts") return `/words-starts-with-${config.value}`;
-  return `/words-ends-with-${config.value}`;
+  return lang && lang !== "en" ? `/${lang}${path}` : path;
 }
 
 /** Build a human-readable title for a config. */
@@ -81,16 +87,23 @@ export interface WordListSiblings {
   indexHref: string;
 }
 
-/** Build prev/next sibling links within the same family. */
-export function buildWordListSiblingLinks(config: WordListConfig): WordListSiblings {
+/** Prefix a path with /{lang}/ when a localized variant exists. */
+function prefixLang(path: string, lang?: string): string {
+  return lang && lang !== "en" ? `/${lang}${path}` : path;
+}
+
+/** Build prev/next sibling links within the same family. When `lang` is
+ *  provided, sibling + index links are prefixed with /{lang}/ so navigation
+ *  stays within the localized edition. */
+export function buildWordListSiblingLinks(config: WordListConfig, lang?: string): WordListSiblings {
   const dict = config.dict ?? "scrabble";
 
   if (config.type === "length") {
     const n = config.value as number;
     const idx = WORD_LIST_LENGTHS.indexOf(n);
-    const prev = idx > 0 ? { href: `/unscramble-${WORD_LIST_LENGTHS[idx - 1]}-letter-words`, label: `${WORD_LIST_LENGTHS[idx - 1]}-Letter Words` } : null;
-    const next = idx >= 0 && idx < WORD_LIST_LENGTHS.length - 1 ? { href: `/unscramble-${WORD_LIST_LENGTHS[idx + 1]}-letter-words`, label: `${WORD_LIST_LENGTHS[idx + 1]}-Letter Words` } : null;
-    return { prev, next, familyLabel: "Unscramble by Length", indexHref: "/wordlists" };
+    const prev = idx > 0 ? { href: prefixLang(`/unscramble-${WORD_LIST_LENGTHS[idx - 1]}-letter-words`, lang), label: `${WORD_LIST_LENGTHS[idx - 1]}-Letter Words` } : null;
+    const next = idx >= 0 && idx < WORD_LIST_LENGTHS.length - 1 ? { href: prefixLang(`/unscramble-${WORD_LIST_LENGTHS[idx + 1]}-letter-words`, lang), label: `${WORD_LIST_LENGTHS[idx + 1]}-Letter Words` } : null;
+    return { prev, next, familyLabel: "Unscramble by Length", indexHref: prefixLang("/wordlists", lang) };
   }
 
   const letter = String(config.value).toLowerCase();
@@ -98,18 +111,32 @@ export function buildWordListSiblingLinks(config: WordListConfig): WordListSibli
 
   if (dict === "wordle") {
     const famLabel = config.type === "starts" ? "Wordle Words Starting With A-Z" : "Wordle Words Ending With A-Z";
-    const indexHref = config.type === "starts" ? "/wordle-starts" : "/wordle-ends";
-    const prefix = config.type === "starts" ? "/wordle-words-starts-with-" : "/wordle-words-ends-with-";
-    const prev = idx > 0 ? { href: `${prefix}${ALPHABET_LOWER[idx - 1]}`, label: ALPHABET_UPPER[idx - 1] } : null;
-    const next = idx >= 0 && idx < ALPHABET_LOWER.length - 1 ? { href: `${prefix}${ALPHABET_LOWER[idx + 1]}`, label: ALPHABET_UPPER[idx + 1] } : null;
+    const indexHref = prefixLang(config.type === "starts" ? "/wordle-starts" : "/wordle-ends", lang);
+    const p = config.type === "starts" ? "/wordle-words-starts-with-" : "/wordle-words-ends-with-";
+    const prev = idx > 0 ? { href: prefixLang(`${p}${ALPHABET_LOWER[idx - 1]}`, lang), label: ALPHABET_UPPER[idx - 1] } : null;
+    const next = idx >= 0 && idx < ALPHABET_LOWER.length - 1 ? { href: prefixLang(`${p}${ALPHABET_LOWER[idx + 1]}`, lang), label: ALPHABET_UPPER[idx + 1] } : null;
     return { prev, next, familyLabel: famLabel, indexHref };
   }
 
   // Scrabble
   const famLabel = config.type === "starts" ? "Words Starts With A-Z" : "Words Ends With A-Z";
-  const indexHref = config.type === "starts" ? "/wordstarts" : "/wordends";
-  const prefix = config.type === "starts" ? "/words-starts-with-" : "/words-ends-with-";
-  const prev = idx > 0 ? { href: `${prefix}${ALPHABET_LOWER[idx - 1]}`, label: ALPHABET_UPPER[idx - 1] } : null;
-  const next = idx >= 0 && idx < ALPHABET_LOWER.length - 1 ? { href: `${prefix}${ALPHABET_LOWER[idx + 1]}`, label: ALPHABET_UPPER[idx + 1] } : null;
+  const indexHref = prefixLang(config.type === "starts" ? "/wordstarts" : "/wordends", lang);
+  const p = config.type === "starts" ? "/words-starts-with-" : "/words-ends-with-";
+  const prev = idx > 0 ? { href: prefixLang(`${p}${ALPHABET_LOWER[idx - 1]}`, lang), label: ALPHABET_UPPER[idx - 1] } : null;
+  const next = idx >= 0 && idx < ALPHABET_LOWER.length - 1 ? { href: prefixLang(`${p}${ALPHABET_LOWER[idx + 1]}`, lang), label: ALPHABET_UPPER[idx + 1] } : null;
   return { prev, next, familyLabel: famLabel, indexHref };
+}
+
+/** Enumerate ALL canonical word-list slugs (the 118 programmatic pages that
+ *  appear in the English sitemap: 14 length + 26 starts + 26 ends + 26 wordle
+ *  starts + 26 wordle ends). Used by generateStaticParams + sitemap to
+ *  enumerate localized variants (118 × 8 langs = 944 localized URLs). */
+export function getAllWordListSlugs(): string[] {
+  const slugs: string[] = [];
+  for (const n of WORD_LIST_LENGTHS) slugs.push(`unscramble-${n}-letter-words`);
+  for (const l of ALPHABET_LOWER) slugs.push(`words-starts-with-${l}`);
+  for (const l of ALPHABET_LOWER) slugs.push(`words-ends-with-${l}`);
+  for (const l of ALPHABET_LOWER) slugs.push(`wordle-words-starts-with-${l}`);
+  for (const l of ALPHABET_LOWER) slugs.push(`wordle-words-ends-with-${l}`);
+  return slugs;
 }
