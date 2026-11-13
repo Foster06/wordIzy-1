@@ -274,6 +274,10 @@ export interface CheckResult {
   score: number;
   length: number;
   tiles: { letter: string; value: number }[];
+  /** Letters that form a valid word when prepended (e.g. S + CAT = SCAT). */
+  frontHooks: string[];
+  /** Letters that form a valid word when appended (e.g. CAT + S = CATS). */
+  backHooks: string[];
 }
 
 export function checkWord(word: string, lang: LanguageCode): CheckResult {
@@ -287,7 +291,21 @@ export function checkWord(word: string, lang: LanguageCode): CheckResult {
     .split("")
     .filter(Boolean)
     .map((letter) => ({ letter, value: scoreWord(letter, lang) }));
-  return { word, exists, score: scoreWord(word, lang), length: norm.length, tiles };
+
+  // Front/back hooks: letters that form a valid word when prepended/appended.
+  // Competitive players use hooks to spot extension plays and to verify
+  // whether an opponent's word can be challenged/extended. Only computed for
+  // valid words (an invalid word has no meaningful hooks). 52 O(1) lookups.
+  const frontHooks: string[] = [];
+  const backHooks: string[] = [];
+  if (exists) {
+    for (const letter of "abcdefghijklmnopqrstuvwxyz") {
+      if (dict.normSet.has(normalizeWord(letter + word))) frontHooks.push(letter);
+      if (dict.normSet.has(normalizeWord(word + letter))) backHooks.push(letter);
+    }
+  }
+
+  return { word, exists, score: scoreWord(word, lang), length: norm.length, tiles, frontHooks, backHooks };
 }
 
 /** Best playable words from a Scrabble rack (optionally adding board letters). */

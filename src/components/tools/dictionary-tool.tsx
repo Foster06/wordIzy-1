@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, BookOpen, Check, X, Sparkles, Repeat2 } from "lucide-react";
+import { Loader2, BookOpen, Check, X, Sparkles, Repeat2, Star } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GlassCard } from "@/components/site/glass-card";
@@ -11,12 +11,15 @@ import { ActionButtons } from "@/components/site/action-buttons";
 import { TipsSection } from "@/components/site/tips-section";
 import { PageHeader } from "@/components/site/page-header";
 import { useApi } from "@/components/site/use-api";
+import { useWordVault } from "@/hooks/use-word-vault";
 import { useLanguage } from "@/components/i18n/language-provider";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 
 interface CheckResult {
   word: string; exists: boolean; score: number; length: number;
   tiles: { letter: string; value: number }[];
+  frontHooks?: string[];
+  backHooks?: string[];
 }
 interface DefResult {
   definition: string; partOfSpeech?: string; phonetic?: string; source: string;
@@ -29,6 +32,7 @@ export function DictionaryTool() {
   const { t, lang } = useLanguage();
   const { get } = useApi();
   const def = LANGUAGES[lang as LanguageCode];
+  const { favorites, toggleFavorite } = useWordVault();
 
   const [word, setWord] = useState("");
   const [result, setResult] = useState<CheckResult | null>(null);
@@ -128,9 +132,21 @@ export function DictionaryTool() {
                     ))}
                   </div>
                 </div>
-                <div className={`flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold ${result.exists ? "bg-gradient-to-r from-brand to-brand-soft border border-brand/40 text-background" : "bg-red-500/15 border border-red-500/40 text-red-300"}`}>
-                  {result.exists ? <Check className="h-4 w-4" /> : <X className="h-4 w-4" />}
-                  {result.exists ? t.dictionary.exists : t.dictionary.notExists}
+                <div className="flex items-center gap-2">
+                  <div className={`flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold ${result.exists ? "bg-gradient-to-r from-brand to-brand-soft border border-brand/40 text-background" : "bg-red-500/15 border border-red-500/40 text-red-300"}`}>
+                    {result.exists ? <Check className="h-4 w-4" /> : <X className="h-4 w-4" />}
+                    {result.exists ? t.dictionary.exists : t.dictionary.notExists}
+                  </div>
+                  {result.exists && (
+                    <button
+                      onClick={() => toggleFavorite(result.word)}
+                      className="p-2 rounded-full glass-soft hover:bg-white/10 transition-colors"
+                      title={favorites.includes(result.word.toUpperCase()) ? "Remove from Save Vault" : "Save to Vault"}
+                      aria-label="Save word to vault"
+                    >
+                      <Star className={`h-5 w-5 ${favorites.includes(result.word.toUpperCase()) ? "fill-brand text-brand" : "text-muted-foreground"}`} />
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-2 text-center">
@@ -138,6 +154,30 @@ export function DictionaryTool() {
                 <Stat label={t.common.length} value={result.length} />
                 <Stat label={t.common.points} value={`${result.score}`} />
               </div>
+              {result.exists && (result.frontHooks?.length || result.backHooks?.length) ? (
+                <div className="mt-4 pt-4 border-t border-white/10 space-y-2">
+                  {result.frontHooks && result.frontHooks.length > 0 && (
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-xs text-muted-foreground uppercase tracking-wider">Front hooks</span>
+                      <div className="flex gap-1">
+                        {result.frontHooks.map((l) => (
+                          <span key={l} className="w-6 h-6 rounded bg-brand/15 border border-brand/30 text-brand text-xs font-bold flex items-center justify-center uppercase">{l}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {result.backHooks && result.backHooks.length > 0 && (
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-xs text-muted-foreground uppercase tracking-wider">Back hooks</span>
+                      <div className="flex gap-1">
+                        {result.backHooks.map((l) => (
+                          <span key={l} className="w-6 h-6 rounded bg-brand/15 border border-brand/30 text-brand text-xs font-bold flex items-center justify-center uppercase">{l}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : null}
             </GlassCard>
 
             {result.exists && (
