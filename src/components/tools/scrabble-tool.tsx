@@ -13,6 +13,7 @@ import { AdSlot } from "@/components/site/ad-slot";
 import { TipsSection } from "@/components/site/tips-section";
 import { useApi } from "@/components/site/use-api";
 import { useLanguage } from "@/components/i18n/language-provider";
+import { RelatedToolsBar } from "@/components/site/related-tools-bar";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import type { SolveResult } from "@/lib/unscramble";
 
@@ -137,6 +138,7 @@ export function ScrabbleTool() {
         <TipsSection title="Save Vault — How to use it" items={t.faq.vault} />
         <AdSlot format="horizontal" />
       </div>
+      <RelatedToolsBar exclude="scrabble" />
     </>
   );
 }

@@ -4,6 +4,7 @@ import { LettersSolver } from "./letters-solver";
 import { PageHeader } from "@/components/site/page-header";
 import { Repeat } from "lucide-react";
 import { useLanguage } from "@/components/i18n/language-provider";
+import { RelatedToolsBar } from "@/components/site/related-tools-bar";
 
 export function AnagramTool() {
   const { t } = useLanguage();
@@ -32,6 +33,7 @@ export function AnagramTool() {
           }}
         />
       </div>
+      <RelatedToolsBar exclude="anagram" />
     </>
   );
 }

@@ -14,6 +14,7 @@ import { TileRack } from "@/components/site/tile";
 import { TipsSection } from "@/components/site/tips-section";
 import { useApi } from "@/components/site/use-api";
 import { useLanguage } from "@/components/i18n/language-provider";
+import { RelatedToolsBar } from "@/components/site/related-tools-bar";
 import { LANGUAGES, type LanguageCode } from "@/lib/languages";
 import { PageHeader } from "@/components/site/page-header";
 import type { SolveResult } from "@/lib/unscramble";
@@ -143,6 +144,7 @@ export function ScrambleTool() {
         <TipsSection title={t.ui.saveVaultFaqTitle} items={t.faq.vault} />
         <AdSlot format="horizontal" />
       </div>
+      <RelatedToolsBar exclude="scramble" />
     </>
   );
 }
