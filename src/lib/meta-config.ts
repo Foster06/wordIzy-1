@@ -62,8 +62,8 @@ export const TOOL_METADATA_REGISTRY: Record<string, ToolMeta> = {
     keywords: ["wordfeud helper","wordfeud solver","wordfeud finder","wordfeud cheat","wordfeud word finder","wordfeud best words","wordfeud word generator","wordfeud tile solver","wordfeud rack solver","wordfeud cheat tool","wordfeud helper tool","wordfeud anagram solver","wordfeud word maker","wordfeud score calculator","wordfeud word builder","wordfeud dictionary finder","wordfeud word checker","wordfeud high score words","wordfeud letter solver","wordfeud tile values","wordfeud tile distribution","wordfeud bingo bonus","wordfeud random board","sowpods word finder","twl06 word finder"]
   },
   "dictionary": {
-    title: "Scrabble Dictionary Checker — Is It a Valid Word?",
-    description: "Check if a word is valid in the official Scrabble dictionary (TWL & CSW). See the score, definition & synonyms instantly.",
+    title: "Scrabble Dictionary & Official Word Checker (NWL2023 & CSW21)",
+    description: "Scrabble dictionary & official word checker. Verify if a word is valid per NWL2023 & CSW21, with tile values, hooks & synonyms.",
     keywords: ["scrabble dictionary","check scrabble word","word lookup","scrabble word checker","is it a word","scrabble valid word","word validator","dictionary check","scrabble dictionary online","official scrabble dictionary","scrabble word list","scrabble word search","scrabble accepted words","scrabble word verification","scrabble word score checker","scrabble twl dictionary","scrabble csw dictionary","word definition scrabble","scrabble word database"]
   },
   "wordlists": {

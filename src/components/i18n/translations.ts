@@ -326,7 +326,7 @@ const en: Translation = {
   },
  },
  dictionary: {
-  title: "Check Dictionary", subtitle: "Verify whether a word exists in the selected dictionary, see its Scrabble score and read a definition.",
+  title: "Official Scrabble Dictionary & Word Validity Checker", subtitle: "Check If Any Word Is Valid in Official Scrabble. Challenging a questionable play? Type any word into our Scrabble Dictionary above to verify whether it is legal in tournament and casual play. wordIzy cross-checks your query against both NWL2023 (North American Scrabble Word List used in the US and Canada) and CSW21 (Collins Scrabble Words used in the UK, Australia, and international tournaments), displaying exact tile values and valid front/back letter hooks.",
   btn: "Check", exists: "is a valid word", notExists: "was not found in the dictionary", definition: "Definition", score: "Scrabble score", tiles: "Letter tiles",
  },
  scrabble: {
@@ -800,7 +800,7 @@ const fr: Translation = {
   },
  },
  dictionary: {
-  title: "Vérifier le Dictionnaire", subtitle: "Vérifiez si un mot existe dans le dictionnaire choisi, voyez son score Scrabble et lisez une définition.",
+  title: "Dictionnaire Scrabble Officiel & Vérificateur ODS9", subtitle: "Vérifiez la Validité d'un Mot dans l'Officiel du Scrabble (ODS9). Un doute sur un mot posé par votre adversaire ? Saisissez n'importe quel mot dans notre Dictionnaire Scrabble pour vérifier instantanément s'il est accepté par l'Officiel du Scrabble (ODS9), la référence absolue de la Fédération Française de Scrabble (FFSc) et des tournois francophones. Découvrez également sa valeur exacte en points et ses prolongements possibles.",
   btn: "Vérifier", exists: "est un mot valide", notExists: "introuvable dans le dictionnaire", definition: "Définition", score: "Score Scrabble", tiles: "Tuiles de lettres",
  },
  scrabble: {
@@ -1260,7 +1260,7 @@ const es: Translation = {
     "Wordfeud tiene casillas bonus (DL, TL, DW, TW) que multiplican letras y palabras.",
    ],
   } },
- dictionary: { title: "Ver Diccionario", subtitle: "Comprueba si una palabra existe en el diccionario, mira su puntuación Scrabble y lee una definición.", btn: "Comprobar", exists: "es una palabra válida", notExists: "no se encontró en el diccionario", definition: "Definición", score: "Puntuación Scrabble", tiles: "Fichas" },
+ dictionary: { title: "Diccionario Oficial de Scrabble y Verificador (FISE)", subtitle: "Comprueba si una Palabra es Válida en el Diccionario FISE. ¿Quieres impugnar una jugada dudosa en tu partida? Escribe cualquier palabra en nuestro Diccionario de Scrabble para confirmar al instante si figura en el léxico oficial FISE (Federación Internacional de Scrabble en Español). Consulta su puntuación exacta y verifica plurales, conjugaciones verbales y palabras sin acentos gráficos.", btn: "Comprobar", exists: "es una palabra válida", notExists: "no se encontró en el diccionario", definition: "Definición", score: "Puntuación Scrabble", tiles: "Fichas" },
  scrabble: { title: "Analizador de Scrabble Duplicado y Jugada Top (FISE)", subtitle: "En el Scrabble Duplicado todos los jugadores compiten con las mismas 7 fichas buscando la jugada máxima sobre un tablero común. Introduce tu atril para calcular al instante la palabra con mayor puntuación según el léxico oficial FISE y detectar bingos de +50 puntos.", rack: "Tu atril", board: "Letras del tablero (opcional)", btn: "Buscar mejores palabras", hint: "Comodines permitidos. Resultados por puntuación." },
  wordlists: { title: "Listas de Palabras", subtitle: "Explora todas las palabras de 2 a 7 letras. Elige vista, longitud y letra para navegar A–Z.", allWords: "Todas las palabras", startsBy: "Empieza por A–Z", endsBy: "Termina en A–Z", letter: "Letra", selectLength: "Longitud", selectLetter: "Letra", browse: "Explorar" },
  about: {
@@ -1712,7 +1712,7 @@ const de: Translation = {
     "Wordfeud hat Bonusfelder (DL, TL, DW, TW), die Buchstaben- und Wortwerte vervielfachen.",
    ],
   } },
- dictionary: { title: "Wörterbuch prüfen", subtitle: "Prüfe, ob ein Wort existiert, sieh Scrabble-Punkte und eine Definition.", btn: "Prüfen", exists: "ist ein gültiges Wort", notExists: "nicht im Wörterbuch gefunden", definition: "Definition", score: "Scrabble-Punkte", tiles: "Buchstabensteine" },
+ dictionary: { title: "Offizielles Scrabble Wörterbuch & Wortprüfer", subtitle: "Prüfe Gültige Wörter im Deutschen Scrabble Wörterbuch. Bist du unsicher, ob ein gelegtes Wort deines Gegners erlaubt ist? Gib das Wort in unseren Scrabble Wortprüfer ein, um sofort zu checken, ob es nach offiziellen deutschen Turnierregeln gültig ist. Inklusive exakter Punkteberechnung für Umlaute (Ä, Ö, Ü) und seltene Buchstaben wie Q, X und Y.", btn: "Prüfen", exists: "ist ein gültiges Wort", notExists: "nicht im Wörterbuch gefunden", definition: "Definition", score: "Scrabble-Punkte", tiles: "Buchstabensteine" },
  scrabble: { title: "Duplicate Scrabble Löser & Top-Zug Analyse", subtitle: "Beim Duplicate Scrabble spielen alle Teilnehmer mit denselben 7 Buchstaben um den punktbesten Zug auf einem gemeinsamen Brett. Gib deine Buchstaben ein, um sofort das Wort mit der höchsten Basispunktzahl inklusive +50 Bingo-Bonus zu ermitteln.", rack: "Dein Gestell", board: "Brett-Buchstaben (optional)", btn: "Beste Wörter finden", hint: "Platzhalter erlaubt. Nach Punkten sortiert." },
  wordlists: { title: "Wortlisten", subtitle: "Alle 2- bis 7-Buchstaben-Wörter durchsuchen. Ansicht, Länge und Buchstabe wählen, A–Z erkunden.", allWords: "Alle Wörter", startsBy: "Beginnt mit A–Z", endsBy: "Endet mit A–Z", letter: "Buchstabe", selectLength: "Länge", selectLetter: "Buchstabe", browse: "Durchsuchen" },
  about: {
@@ -2164,7 +2164,7 @@ const it: Translation = {
     "Wordfeud ha caselle bonus (DL, TL, DW, TW) che moltiplicano lettere e parole.",
    ],
   } },
- dictionary: { title: "Verifica Dizionario", subtitle: "Verifica se una parola esiste, vedi il punteggio Scrabble e una definizione.", btn: "Verifica", exists: "è una parola valida", notExists: "non trovata nel dizionario", definition: "Definizione", score: "Punteggio Scrabble", tiles: "Tessere" },
+ dictionary: { title: "Dizionario Scarabeo e Scrabble — Verifica Parole (Zingarelli)", subtitle: "Verifica Parole Valide nel Dizionario Scarabeo (Zingarelli). Vuoi contestare una parola dubbia durante una sfida a Scarabeo o Scrabble? Digita qualsiasi termine nel nostro Dizionario Scarabeo per verificare subito se è ammesso dal vocabolario ufficiale Zingarelli, il punto di riferimento per i tornei italiani, visualizzando anche il punteggio base delle tessere.", btn: "Verifica", exists: "è una parola valida", notExists: "non trovata nel dizionario", definition: "Definizione", score: "Punteggio Scrabble", tiles: "Tessere" },
  scrabble: { title: "Risolutore Scarabeo e Scrabble Duplicato (Zingarelli)", subtitle: "Nelle sfide a Scarabeo o Scrabble Duplicato tutti i giocatori partono dalle stesse tessere per trovare la mossa dal punteggio più alto. Inserisci le tue lettere (fino a 8 tessere per il regolamento Scarabeo) per scoprire subito la giocata migliore dal vocabolario Zingarelli.", rack: "La tua rastrelliera", board: "Lettere tabellone (facoltative)", btn: "Trova le migliori", hint: "Jolly ammessi. Risultati per punteggio." },
  wordlists: { title: "Liste Parole", subtitle: "Sfoglia tutte le parole da 2 a 7 lettere. Scegli vista, lunghezza e lettera per esplorare A–Z.", allWords: "Tutte le parole", startsBy: "Inizia per A–Z", endsBy: "Finisce per A–Z", letter: "Lettera", selectLength: "Lunghezza", selectLetter: "Lettera", browse: "Sfoglia" },
  about: {
@@ -2616,7 +2616,7 @@ const pt: Translation = {
     "O Wordfeud tem casas bônus (DL, TL, DW, TW) que multiplicam letras e palavras.",
    ],
   } },
- dictionary: { title: "Verificar Dicionário", subtitle: "Verifique se uma palavra existe, veja a pontuação Scrabble e uma definição.", btn: "Verificar", exists: "é uma palavra válida", notExists: "não encontrada no dicionário", definition: "Definição", score: "Pontuação Scrabble", tiles: "Fichas" },
+ dictionary: { title: "Dicionário Scrabble Oficial & Verificador de Palavras", subtitle: "Verifique se uma Palavra é Válida no Dicionário Scrabble. Em dúvida se a jogada do seu oponente realmente existe? Digite qualquer palavra no nosso Dicionário Scrabble para conferir na hora se ela é aceita no léxico oficial da língua portuguesa, além de visualizar a pontuação exata das peças e possíveis extensões.", btn: "Verificar", exists: "é uma palavra válida", notExists: "não encontrada no dicionário", definition: "Definição", score: "Pontuação Scrabble", tiles: "Fichas" },
  scrabble: { title: "Analisador de Scrabble Duplicado e Pontuação Máxima", subtitle: "No Scrabble Duplicado todos os participantes recebem as mesmas 7 pedras e disputam quem encontra a jogada de maior pontuação no tabuleiro. Digite suas letras para identificar na hora a palavra mais valiosa e salvar termos raros no seu Save Vault.", rack: "Seu suporte", board: "Letras do tabuleiro (opcional)", btn: "Encontrar melhores", hint: "Curingas permitidos. Por pontuação." },
  wordlists: { title: "Listas de Palavras", subtitle: "Navegue por todas as palavras de 2 a 7 letras. Escolha vista, tamanho e letra para explorar A–Z.", allWords: "Todas as palavras", startsBy: "Começa por A–Z", endsBy: "Termina em A–Z", letter: "Letra", selectLength: "Tamanho", selectLetter: "Letra", browse: "Navegar" },
  about: {
@@ -3068,7 +3068,7 @@ const nl: Translation = {
     "Wordfeud heeft bonusvakjes (DL, TL, DW, TW) die letter- en woordwaarden vermenigvuldigen.",
    ],
   } },
- dictionary: { title: "Woordenboek controleren", subtitle: "Controleer of een woord bestaat, zie de Scrabble-score en een definitie.", btn: "Controleren", exists: "is een geldig woord", notExists: "niet in woordenboek gevonden", definition: "Definitie", score: "Scrabble-score", tiles: "Lettertegels" },
+ dictionary: { title: "Scrabble Woordenboek & Officiële OpenTaal Controle", subtitle: "Controleer Geldige Scrabble Woorden (OpenTaal Woordenlijst). Twijfel je of een woord op het bord officieel is toegestaan? Typ het woord in ons Scrabble Woordenboek om direct te controleren of het voorkomt in de officiële OpenTaal woordenlijst. Ideaal om tijdens een potje Scrabble of Wordfeud snel discussies op te lossen en direct de exacte woordwaarde te zien.", btn: "Controleren", exists: "is een geldig woord", notExists: "niet in woordenboek gevonden", definition: "Definitie", score: "Scrabble-score", tiles: "Lettertegels" },
  scrabble: { title: "Duplicate Scrabble Oplosser (OpenTaal Woordenlijst)", subtitle: "Bij Duplicate Scrabble krijgt iedere speler exact dezelfde 7 letters om de hoogst mogelijke score op hetzelfde bord te vinden. Voer je letters in om direct de hoogst scorende woorden en mogelijke bingo's uit de officiële OpenTaal woordenlijst te bekijken.", rack: "Jouw rek", board: "Bordletters (optioneel)", btn: "Beste woorden vinden", hint: "Jokers toegestaan. Op score gesorteerd." },
  wordlists: { title: "Woordlijsten", subtitle: "Doorzoek alle 2- tot 7-letterwoorden. Kies weergave, lengte en letter om A–Z te verkennen.", allWords: "Alle woorden", startsBy: "Begint met A–Z", endsBy: "Eindigt op A–Z", letter: "Letter", selectLength: "Lengte", selectLetter: "Letter", browse: "Bladeren" },
  about: {

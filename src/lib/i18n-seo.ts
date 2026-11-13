@@ -147,9 +147,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Finde die besten deutschen Wörter für Wordfeud mit unserem gratis Helfer. Joker-Suche, offizielle Punkteberechnung und +40 Bingo-Tipps.",
     },
     dictionary: {
-      title: "Scrabble-Wörterbuch — Ist das ein Wort?",
+      title: "Scrabble Wörterbuch & Wortprüfer — Gültige Wörter Checken",
       description:
-        "Prüfe, ob ein Wort im offiziellen Scrabble-Wörterbuch gültig ist. Punkte, Definition und Synonyme sofort ansehen.",
+        "Scrabble Wörterbuch & Wortprüfer. Checke gültige Wörter nach Turnierregeln, mit Punkteberechnung für Umlaute und seltene Buchstaben.",
     },
     wordlists: {
       title: "Wörter nach Länge — 2 bis 15 Buchstaben",
@@ -250,9 +250,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Trouvez les meilleurs mots au Wordfeud avec notre aide gratuite basée sur l’officiel ODS9. Calcul des points, jokers et bonus bingo +40 inclus.",
     },
     dictionary: {
-      title: "Dictionnaire Scrabble — Mot valide ?",
+      title: "Dictionnaire Scrabble & Vérificateur de Mots (ODS9 2024)",
       description:
-        "Vérifiez si un mot est valide au dictionnaire Scrabble officiel. Score, définition et synonymes affichés aussitôt.",
+        "Dictionnaire Scrabble & vérificateur de mots ODS9. Vérifiez si un mot est valide selon l'Officiel du Scrabble (FFSc), avec points et hooks.",
     },
     wordlists: {
       title: "Mots par longueur — 2 à 15 lettres",
@@ -353,9 +353,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Encuentra las mejores jugadas en Wordfeud con nuestro buscador gratuito en español. Diccionario oficial FISE, comodines y cálculo de puntos.",
     },
     dictionary: {
-      title: "Diccionario Scrabble — ¿Palabra válida?",
+      title: "Diccionario Scrabble & Comprobador de Palabras (FISE)",
       description:
-        "Comprueba si una palabra es válida en el diccionario oficial de Scrabble. Consulta puntos, definición y sinónimos al instante.",
+        "Diccionario Scrabble & comprobador de palabras FISE. Verifica si una palabra es válida, con puntuación, plurales y conjugaciones.",
     },
     wordlists: {
       title: "Palabras por longitud — 2 a 15 letras",
@@ -456,9 +456,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Trova le parole migliori per Wordfeud con il nostro aiutante gratuito in italiano. Dizionario Zingarelli, calcolo punti e bonus +40.",
     },
     dictionary: {
-      title: "Dizionario Scarabeo — Parola valida?",
+      title: "Dizionario Scarabeo & Controllo Parole Valide (Zingarelli)",
       description:
-        "Verifica se una parola è valida nel dizionario ufficiale dello Scarabeo. Punteggio, definizione e sinonimi subito.",
+        "Dizionario Scarabeo & controllo parole valide (Zingarelli). Verifica se un termine è ammesso nei tornei italiani, con punteggio tessere.",
     },
     wordlists: {
       title: "Parole per lunghezza — 2 a 15 lettere",
@@ -559,9 +559,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Encontre as melhores palavras para Wordfeud com nosso ajudante gratuito em português. Suporte a curingas, cálculo de pontos e dicas de bônus +40.",
     },
     dictionary: {
-      title: "Dicionário de Scrabble — Palavra válida?",
+      title: "Dicionário Scrabble & Verificador de Palavras Válidas",
       description:
-        "Verifique se uma palavra é válida no dicionário oficial de Scrabble. Veja pontuação, definição e sinônimos na hora.",
+        "Dicionário Scrabble & verificador de palavras válidas. Confira se uma palavra é aceita no léxico oficial, com pontuação e extensões.",
     },
     wordlists: {
       title: "Palavras por tamanho — 2 a 15 letras",
@@ -662,9 +662,9 @@ export const I18N_SEO: Record<I18nLang, Record<string, I18nToolMeta>> = {
         "Vind direct de beste Nederlandse Wordfeud woorden met onze gratis maker. Officiële OpenTaal-woordenlijst, +40 bingo en puntentelling.",
     },
     dictionary: {
-      title: "Scrabble-woordenboek — Is het een woord?",
+      title: "Scrabble Woordenboek & Woord Controle (OpenTaal)",
       description:
-        "Controleer of een woord geldig is in het officiële Scrabble-woordenboek. Bekijk punten, betekenis en synoniemen direct.",
+        "Scrabble woordenboek & woord controle (OpenTaal). Controleer of een woord geldig is, met exacte woordwaarde voor Scrabble en Wordfeud.",
     },
     wordlists: {
       title: "Woorden per lengte — 2 tot 15 letters",
