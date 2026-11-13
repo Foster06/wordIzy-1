@@ -14,6 +14,7 @@
 // All shared <html>/<head>/<body> markup (analytics, JSON-LD, providers,
 // preconnects) lives in <SiteHtml />; this layout only contributes the lang.
 
+import "../../globals.css";
 import type { Metadata, Viewport } from "next";
 import SiteHtml from "@/components/site/site-html";
 

@@ -14,6 +14,7 @@
 // component so the analytics loaders, JSON-LD, providers and preconnects are
 // defined in exactly one place.
 
+import "../globals.css";
 import type { Metadata, Viewport } from "next";
 import SiteHtml from "@/components/site/site-html";
 
